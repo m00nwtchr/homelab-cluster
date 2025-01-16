@@ -4,7 +4,7 @@ metadata:
   name: argo-cd
   namespace: argocd
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
@@ -12,16 +12,16 @@ spec:
     chart: argo-cd
     targetRevision: 7.7.16
     helm:
-      values: |
-          dex:
-            enabled: false
-          notifications:
-            enabled: false
-          applicationSet:
-            enabled: false
-          server:
-            extraArgs:
-              - --insecure
+      valuesObject:
+        dex:
+          enabled: false
+        notifications:
+          enabled: false
+        applicationSet:
+          enabled: false
+        server:
+          extraArgs:
+            - --insecure
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
