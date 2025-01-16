@@ -7,9 +7,21 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://git.m00nlit.dev/m00n/homelab-cluster.git
-    path: charts/argo-cd
-    targetRevision: HEAD
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-cd
+    targetRevision: 7.7.16
+    helm:
+      values: |
+        argo-cd:
+          dex:
+            enabled: false
+          notifications:
+            enabled: false
+          applicationSet:
+            enabled: false
+          server:
+            extraArgs:
+              - --insecure
   destination:
     server: https://kubernetes.default.svc
     namespace: default
