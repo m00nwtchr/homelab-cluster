@@ -14,7 +14,7 @@ spec:
     helm:
       fileParameters:
         - name: config.cfg
-          path: config/acme-dns.cfg
+          path: /config/acme-dns.cfg
       valuesObject:
         image:
           tag: latest
