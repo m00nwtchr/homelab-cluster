@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: acme-dns
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/obsessionsys/acme-dns-helm-chart.git
+    path: chart
+    targetRevision: HEAD
+    helm:
+      valuesObject:
+        image:
+          tag: latest
+        appConfiguration:
+          domain: acme.m00nlit.dev
+          nsname: acme.m00nlit.dev
+          nsadmin: admin.example.org
+          public_ip: 130.162.51.228
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
