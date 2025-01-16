@@ -12,14 +12,14 @@ spec:
     path: chart
     targetRevision: HEAD
     helm:
+      fileParameters:
+        - name: config.cfg
+          path: config/acme-dns.cfg
       valuesObject:
         image:
           tag: latest
-        appConfiguration:
-          domain: acme.m00nlit.dev
-          nsname: acme.m00nlit.dev
-          nsadmin: admin.example.org
-          public_ip: 130.162.51.228
+        configFile:
+          - config.cfg
   destination:
     namespace: default
     server: https://kubernetes.default.svc
