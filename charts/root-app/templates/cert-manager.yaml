@@ -4,7 +4,7 @@ metadata:
   name: cert-manager
   namespace: argocd
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
@@ -12,7 +12,7 @@ spec:
     chart: cert-manager
     targetRevision: 1.16.2
     helm:
-      values: |
+      valuesObject:
         crds:
           enabled: true
   destination:
