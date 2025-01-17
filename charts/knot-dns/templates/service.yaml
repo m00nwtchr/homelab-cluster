@@ -4,6 +4,7 @@ metadata:
   name: {{ .Release.Name }}-service
   labels:
     app: {{ .Chart.Name }}
+    svccontroller.k3s.cattle.io/lbpool: core
 spec:
   selector:
     app: {{ .Chart.Name }}

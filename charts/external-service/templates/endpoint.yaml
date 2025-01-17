@@ -1,12 +1,8 @@
 apiVersion: discovery.k8s.io/v1
 kind: EndpointSlice
 metadata:
-  name:
-    http-service-1 # by convention, use the name of the Service
-    # as a prefix for the name of the EndpointSlice
+  name: http-service-1
   labels:
-    # You should set the "kubernetes.io/service-name" label.
-    # Set its value to match the name of the Service
     kubernetes.io/service-name: http-service
 addressType: IPv4
 ports:
