@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-config
 data:
-  knot.conf: {{ .Values.dnsConfig.config | nindent 2 }}
+  knot.conf: {{ .Values.dnsConfig.config | nindent 3 }}
 ---
 apiVersion: v1
 kind: ConfigMap
