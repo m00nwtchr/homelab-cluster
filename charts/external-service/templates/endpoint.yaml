@@ -10,26 +10,18 @@ metadata:
     kubernetes.io/service-name: http-service
 addressType: IPv4
 ports:
-  - name: http # should match with the name of the service port defined above
+  - name: http
     appProtocol: http
     protocol: TCP
     port: 80
-  - name: https # should match with the name of the service port defined above
+  - name: https
     appProtocol: https
     protocol: TCP
     port: 443
-  - name: http3 # should match with the name of the service port defined above
+  - name: http3
     appProtocol: https
     protocol: UDP
     port: 443
-  - name: dns-udp # should match with the name of the service port defined above
-    appProtocol: dns
-    protocol: UDP
-    port: 53
-  - name: dns-tcp # should match with the name of the service port defined above
-    appProtocol: dns
-    protocol: TCP
-    port: 53
 endpoints:
   - addresses:
       - "100.116.45.53"

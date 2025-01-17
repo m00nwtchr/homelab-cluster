@@ -1,0 +1,37 @@
+replicaCount: 1
+
+image:
+  repository: cznic/knot
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 53
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+readinessProbe:
+  enabled: true
+livenessProbe:
+  enabled: true
+
+dnsConfig:
+  zones:
+    example.com: |
+      example.com. IN SOA ns.example.com. admin.example.com. 1 3600 600 86400 3600
+      example.com. IN NS ns.example.com.
+      ns.example.com. IN A 192.168.1.1
+  config: |
+    server:
+      rundir: "/var/run/knot"
+      listen: [ "0.0.0.0@53" ]
+    log:
+      - target: syslog
+        any: error

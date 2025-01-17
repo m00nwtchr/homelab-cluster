@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-knot
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - name: knot
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 53
+          protocol: UDP
+        - containerPort: 53
+          protocol: TCP
+        volumeMounts:
+        - name: zone-storage
+          mountPath: /zones
+        - name: config
+          mountPath: /etc/knot/knot.conf
+          subPath: knot.conf
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+      volumes:
+      - name: zone-storage
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-zones
+      - name: config
+        configMap:
+          name: {{ .Release.Name }}-config
