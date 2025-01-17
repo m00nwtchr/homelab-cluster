@@ -15,3 +15,5 @@ spec:
       protocol: TCP
       port: {{ .Values.service.port }}
   type: ClusterIP
+  ipFamilies:
+    - IPv6

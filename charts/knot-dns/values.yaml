@@ -27,10 +27,9 @@ dnsConfig:
     acme.m00nlit.dev: |
       acme.m00nlit.dev. IN SOA acme.m00nlit.dev. admin.example.com. 1 3600 600 86400 3600
       acme.m00nlit.dev. IN NS acme.m00nlit.dev.
-      acme.m00nlit.dev. IN A 130.162.51.228
+      acme.m00nlit.dev. IN AAAA 2a02:a313:43e4:7080::13bb
   config: |
     server:
-      listen: 0.0.0.0@53
       listen: ::@53
 
     zone:
