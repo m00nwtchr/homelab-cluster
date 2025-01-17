@@ -23,17 +23,17 @@ spec:
         - containerPort: 53
           protocol: TCP
         volumeMounts:
-        - name: zone-storage
-          mountPath: /zones
         - name: config
           mountPath: /etc/knot/knot.conf
           subPath: knot.conf
+        - name: zones
+          mountPath: /var/lib/knot/zones/
         resources:
 {{ toYaml .Values.resources | indent 10 }}
       volumes:
-      - name: zone-storage
-        persistentVolumeClaim:
-          claimName: {{ .Release.Name }}-zones
       - name: config
         configMap:
           name: {{ .Release.Name }}-config
+      - name: zones
+        configMap:
+          name: {{ .Release.Name }}-zones

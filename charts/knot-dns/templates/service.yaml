@@ -10,7 +10,7 @@ spec:
   ports:
     - name: dns-udp
       protocol: UDP
-      port: {{ .Values.servce.port }}
+      port: {{ .Values.service.port }}
     - name: dns-tcp
       protocol: TCP
       port: {{ .Values.service.port }}

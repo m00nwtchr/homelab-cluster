@@ -4,4 +4,13 @@ metadata:
   name: {{ .Release.Name }}-config
 data:
   knot.conf: {{ .Values.dnsConfig.config | nindent 2 }}
-  example.zone: {{ .Values.dnsConfig.zones.example.com | nindent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-zones
+data:
+  {{- range $key, $value := .Values.dnsConfig.zones }}
+  {{ $key }}.zone: |
+{{ $value | indent 4 }}
+  {{- end }}
