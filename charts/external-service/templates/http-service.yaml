@@ -3,10 +3,7 @@ kind: Service
 metadata:
   name: http-service
 spec:
-  type: ClusterIP
-  externalIPs:
-    - 10.0.0.87
-    - 150.230.150.181
+  type: LoadBalancer
   ports:
     - name: http
       protocol: TCP
