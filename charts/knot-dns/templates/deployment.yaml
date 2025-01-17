@@ -25,7 +25,7 @@ spec:
           protocol: TCP
         volumeMounts:
         - name: config
-          mountPath: /etc/knot/knot.conf
+          mountPath: /config/knot.conf
           subPath: knot.conf
         - name: zones
           mountPath: /var/lib/knot/zones/
