@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: http-service
+spec:
+  type: ClusterIP
+  externalIPs:
+    - 10.0.0.87
+    - 150.230.150.181
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+    - name: https
+      protocol: TCP
+      port: 443
+    - name: http3
+      protocol: UDP
+      port: 443
+    - name: dns # should match with the name of the service port defined above
+      protocol: UDP
+      port: 53
+    - name: dnst # should match with the name of the service port defined above
+      protocol: TCP
+      port: 53

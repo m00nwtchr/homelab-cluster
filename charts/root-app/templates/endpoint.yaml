@@ -1,0 +1,34 @@
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: http-service-1 # by convention, use the name of the Service
+                     # as a prefix for the name of the EndpointSlice
+  labels:
+    # You should set the "kubernetes.io/service-name" label.
+    # Set its value to match the name of the Service
+    kubernetes.io/service-name: http-service
+addressType: IPv4
+ports:
+  - name: http # should match with the name of the service port defined above
+    appProtocol: http
+    protocol: TCP
+    port: 80
+  - name: https # should match with the name of the service port defined above
+    appProtocol: https
+    protocol: TCP
+    port: 443
+  - name: http3 # should match with the name of the service port defined above
+    appProtocol: https
+    protocol: UDP
+    port: 443
+  - name: dns # should match with the name of the service port defined above
+    appProtocol: dns
+    protocol: UDP
+    port: 53
+  - name: dnst # should match with the name of the service port defined above
+    appProtocol: dns
+    protocol: TCP
+    port: 53
+endpoints:
+  - addresses:
+      - "100.116.45.53"
