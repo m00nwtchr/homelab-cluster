@@ -17,9 +17,3 @@ spec:
     - name: http3
       protocol: UDP
       port: 443
-    - name: dns-udp # should match with the name of the service port defined above
-      protocol: UDP
-      port: 53
-    - name: dns-tcp # should match with the name of the service port defined above
-      protocol: TCP
-      port: 53
