@@ -2,6 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: http-service
+  annotations:
+    svccontroller.k3s.cattle.io/tolerations: |
+      - effect: NoExecute
+        key: untrusted
+        operator: Exists
 spec:
   type: LoadBalancer
   ports:
