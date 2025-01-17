@@ -39,5 +39,5 @@ dnsConfig:
         file: acme.m00nlit.dev.zone
 
     log:
-      - target: syslog
+      - target: stdout
         any: info
