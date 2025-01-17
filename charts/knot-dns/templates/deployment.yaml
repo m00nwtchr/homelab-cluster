@@ -17,6 +17,7 @@ spec:
       containers:
       - name: knot
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        command: ["knotd"]
         ports:
         - containerPort: 53
           protocol: UDP
