@@ -14,6 +14,12 @@ spec:
       labels:
         app: {{ .Chart.Name }}
     spec:
+      nodeSelector:
+        untrusted: "true"
+      tolerations:
+        - key: "untrusted"
+          operator: "Exists"
+          effect: "NoExecute"
       containers:
       - name: knot
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
