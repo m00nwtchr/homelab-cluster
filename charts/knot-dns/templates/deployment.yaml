@@ -17,9 +17,9 @@ spec:
       nodeSelector:
         untrusted: "true"
       tolerations:
-        - key: "untrusted"
-          operator: "Exists"
-          effect: "NoExecute"
+      - key: "untrusted"
+        operator: "Exists"
+        effect: "NoExecute"
       containers:
       - name: knot
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
