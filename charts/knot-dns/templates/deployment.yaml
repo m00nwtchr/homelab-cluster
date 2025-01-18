@@ -14,8 +14,15 @@ spec:
       labels:
         app: {{ .Chart.Name }}
     spec:
-      nodeSelector:
-        untrusted: "true"
+      affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchFields:
+                    - key: metadata.name
+                      operator: In
+                      values:
+                        - bastion
       tolerations:
       - key: "untrusted"
         operator: "Exists"
