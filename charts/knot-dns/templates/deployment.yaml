@@ -14,19 +14,6 @@ spec:
       labels:
         app: {{ .Chart.Name }}
     spec:
-      affinity:
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-                - matchFields:
-                    - key: metadata.name
-                      operator: In
-                      values:
-                        - bastion
-      tolerations:
-      - key: "untrusted"
-        operator: "Exists"
-        effect: "NoExecute"
       containers:
       - name: knot
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
