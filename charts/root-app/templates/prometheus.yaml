@@ -12,6 +12,16 @@ spec:
     chart: kube-prometheus-stack
     targetRevision: 68.2.1
     helm:
+      valuesObject:
+        server:
+          extraScrapeConfigs: |
+            - job_name: 'kubernetes-pods'
+              kubernetes_sd_configs:
+                - role: pod
+              relabel_configs:
+                - source_labels: [__meta_kubernetes_pod_label_app]
+                  action: keep
+                  regex: .+
   destination:
     namespace: monitoring
     server: https://kubernetes.default.svc
