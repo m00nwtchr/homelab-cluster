@@ -13,8 +13,6 @@ spec:
     targetRevision: 1.16.5
     helm:
       valuesObject:
-        bgpControlPlane:
-          enabled: false
         cluster:
           name: default
         devices:
@@ -32,15 +30,15 @@ spec:
         ipam:
           mode: kubernetes
           operator:
-            clusterPoolIPv4PodCIDRList: 10.42.0.0/16
             clusterPoolIPv6MaskSize: 72
             clusterPoolIPv6PodCIDRList:
               - 2001:cafe:42::/56
-        ipv4NativeRoutingCIDR: 10.42.0.0/16
+        ipv4:
+          enabled: false
         ipv6:
           enabled: true
         ipv6NativeRoutingCIDR: 2001:cafe:42::/56
-        k8sServiceHost: 127.0.0.1
+        k8sServiceHost: ::1
         k8sServicePort: 6444
         kubeProxyReplacement: true
         operator:
