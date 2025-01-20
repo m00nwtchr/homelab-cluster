@@ -12,43 +12,7 @@ spec:
     chart: cilium
     targetRevision: 1.16.5
     helm:
-      valuesObject:
-        cluster:
-          name: default
-        devices:
-          - tailscale0
-          - enp0s6
-          - enp4s0
-        enableIPv6Masquerade: false
-        hostFirewall:
-          enabled: true
-        hubble:
-          relay:
-            enabled: true
-          ui:
-            enabled: true
-        ipam:
-          mode: kubernetes
-          operator:
-            clusterPoolIPv6MaskSize: 72
-            clusterPoolIPv6PodCIDRList:
-              - 2001:cafe:42::/56
-        ipv4:
-          enabled: false
-        ipv6:
-          enabled: true
-        ipv6NativeRoutingCIDR: 2001:cafe:42::/56
-        k8sServiceHost: ::1
-        k8sServicePort: 6444
-        kubeProxyReplacement: true
-        operator:
-          replicas: 1
-        policyAuditMode: false
-        policyEnforcementMode: default
-        prometheus:
-          enabled: true
-        routingMode: native
-
+      values: | {{ .Values.cilium | toYaml | nindent 8 }}
   destination:
     namespace: kube-system
     server: https://kubernetes.default.svc
