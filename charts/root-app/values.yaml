@@ -1,0 +1,45 @@
+cilium:
+  cluster:
+    name: default
+  devices:
+    - tailscale0
+    - enp0s6
+    - enp4s0
+  hostFirewall:
+    enabled: true
+  hubble:
+    relay:
+      enabled: true
+    ui:
+      enabled: true
+  ipam:
+    mode: kubernetes
+    operator:
+      clusterPoolIPv6MaskSize: 72
+      clusterPoolIPv6PodCIDRList:
+        - 2001:cafe:42::/56
+  ipv4:
+    enabled: false
+  # ipv4NativeRoutingCIDR:
+  ipv6:
+    enabled: true
+  ipv6NativeRoutingCIDR: 2001:cafe:42::/56
+  enableIPv6Masquerade: true
+  k8sServiceHost: ::1
+  k8sServicePort: 6444
+  kubeProxyReplacement: true
+  operator:
+    replicas: 1
+  policyAuditMode: false
+  policyEnforcementMode: default
+  prometheus:
+    enabled: true
+  routingMode: native
+  bandwidthManager:
+    enabled: true
+    bbr: true
+  bpf:
+    masquerade: true
+  k8s:
+    requireIPv6PodCIDR: true
+  autodirectnoderoutes: true
