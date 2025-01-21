@@ -62,6 +62,7 @@ vault:
     enabled: true
     # serviceType: "LoadBalancer"
     # externalPort: 8200
-
   injector:
-    enabled: "false"
+    enabled: false
+  csi:
+    enabled: true
