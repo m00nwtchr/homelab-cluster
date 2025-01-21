@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: dns-issuer
+  name: acme
   namespace: cert-manager
 spec:
   # ACME issuer configuration:
@@ -12,11 +12,11 @@ spec:
     email: prior-cameo-jazz@duck.com
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsencrypt-wcard-private
+      name: acme
     solvers:
       - dns01:
           acmeDNS:
-            host: http://acme-dns.default
+            host: http://acme-dns.default.svc
             accountSecretRef:
               name: acme-dns
               key: acmedns.json
