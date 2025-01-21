@@ -3,13 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-config
 data:
-  knot.conf: | {{ .Values.dnsConfig.config | nindent 4 }}
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Release.Name }}-zones
-data:
   config.cfg: |
     [general]
     listen = "[::]:53"
