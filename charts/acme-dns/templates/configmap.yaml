@@ -31,7 +31,7 @@ data:
     # connection = "postgres://user:password@localhost/acmedns_db"
 
     [api]
-    ip = "::"
+    ip = "[::]"
     port = "443"
     # disable registration endpoint
     disable_registration = false
