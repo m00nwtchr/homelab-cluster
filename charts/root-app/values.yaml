@@ -47,8 +47,8 @@ cilium:
 
 vault:
   server:
-    # dev:
-    #   enabled: true
+    dev:
+      enabled: true
     #   devRootToken: "root"
     logLevel: debug
     # service:
