@@ -14,6 +14,7 @@ spec:
     chart: traefik-crds
     targetRevision: 1.2.0
   destination:
+    namespace: default
     server: https://kubernetes.default.svc
   syncPolicy:
     automated:
@@ -49,6 +50,7 @@ spec:
               enabled: true
         globalArguments: []
   destination:
+    namespace: default
     server: https://kubernetes.default.svc
   syncPolicy:
     automated:
