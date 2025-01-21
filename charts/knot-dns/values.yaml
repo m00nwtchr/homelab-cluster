@@ -27,13 +27,21 @@ dnsConfig:
     acme.m00nlit.dev: |
       acme.m00nlit.dev. IN SOA acme.m00nlit.dev. admin.example.com. 1 3600 600 86400 3600
       acme.m00nlit.dev. IN NS acme.m00nlit.dev.
-      acme.m00nlit.dev. IN AAAA 2a02:a313:43e4:7080::13bb
+      acme.m00nlit.dev. IN AAAA 2a02:a313:43e4:7080::7dc5
   config: |
     server:
       listen: ::@53
 
+    include: /var/run/secrets/knotdns/*
+
+    acl:
+      - id: update_acl
+        key: acme_dns_update
+        action: update
+
     zone:
       - domain: acme.m00nlit.dev
+        acl: update_acl
         storage: /var/lib/knot/zones/
         file: acme.m00nlit.dev.zone
 
