@@ -12,14 +12,10 @@ spec:
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-wcard-private
-    # List of challenge solvers that will be used to solve ACME challenges for the matching domains.
     solvers:
-      # Use the DigitalOcean DNS API to manage DNS01 challenge records.
       - dns01:
-          rfc2136:
-            nameserver: "kube-dns.default:53"
-            tsigKeyName: acme-m00nlit-dev-secret
-            tsigAlgorithm: HMACSHA256
-            tsigSecretSecretRef:
-              name: acme-update-key
-              key: secret
+          acmeDNS:
+            host: http://acme-dns.default
+            accountSecretRef:
+              name: acme-dns
+              key: acmedns.json
