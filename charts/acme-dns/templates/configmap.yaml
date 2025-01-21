@@ -15,7 +15,7 @@ data:
     # predefined records served in addition to the TXT
     records = [
         # domain pointing to the public IP of your acme-dns server 
-        "auth.example.org. AAAA {{ .Values.dnsConfig.publicIP }}",
+        "{{ .Values.dnsConfig.domain }}. AAAA {{ .Values.dnsConfig.publicIP }}",
         # specify that auth.example.org will resolve any *.auth.example.org records
         "{{ .Values.dnsConfig.domain }}. NS {{ .Values.dnsConfig.domain }}.",
     ]
