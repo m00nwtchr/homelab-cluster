@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+data:
+  knot.conf: | {{ .Values.dnsConfig.config | nindent 4 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-zones
+data:
+  config.cfg: |
+    [general]
+    listen = "[::]:53"
+    protocol = "both"
+    domain = "{{ .Values.dnsConfig.domain }}"
+    # zone name server
+    nsname = "{{ .Values.dnsConfig.domain }}"
+    # admin email address, where @ is substituted with .
+    nsadmin = "{{ .Values.dnsConfig.admin }}"
+    # predefined records served in addition to the TXT
+    records = [
+        # domain pointing to the public IP of your acme-dns server 
+        "auth.example.org. AAAA {{ .Values.dnsConfig.publicIP }}",
+        # specify that auth.example.org will resolve any *.auth.example.org records
+        "{{ .Values.dnsConfig.domain }}. NS {{ .Values.dnsConfig.domain }}.",
+    ]
+    # debug messages from CORS etc
+    debug = false
+
+    [database]
+    # Database engine to use, sqlite3 or postgres
+    engine = "sqlite3"
+    # Connection string, filename for sqlite3 and postgres://$username:$password@$host/$db_name for postgres
+    # Please note that the default Docker image uses path /var/lib/acme-dns/acme-dns.db for sqlite3
+    connection = "/var/lib/acme-dns/acme-dns.db"
+    # connection = "postgres://user:password@localhost/acmedns_db"
+
+    [api]
+    ip = "::"
+    port = "443"
+    # disable registration endpoint
+    disable_registration = false
+    tls = "none"
+    corsorigins = ["*"]
+    # use HTTP header to get the client ip
+    use_header = false
+    # header name to pull the ip address / list of ip addresses from
+    header_name = "X-Forwarded-For"
+
+    [logconfig]
+    # logging level: "error", "warning", "info" or "debug"
+    loglevel = "debug"
+    # possible values: stdout, TODO file & integrations
+    logtype = "stdout"
+    # file path for logfile TODO
+    # logfile = "./acme-dns.log"
+    # format, either "json" or "text"
+    logformat = "text"

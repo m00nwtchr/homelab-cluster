@@ -9,6 +9,9 @@ spec:
   selector:
     app: {{ .Chart.Name }}
   ports:
+    - name: http
+      protocol: TCP
+      port: 80
     - name: dns-udp
       protocol: UDP
       port: {{ .Values.service.port }}
