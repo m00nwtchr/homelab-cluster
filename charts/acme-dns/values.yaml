@@ -19,7 +19,7 @@ resources:
 
 persistence:
   size: 512M
-  storageClass: "default"
+  storageClass: ""
 
 readinessProbe:
   enabled: true
