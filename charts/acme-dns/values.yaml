@@ -1,0 +1,32 @@
+replicaCount: 1
+
+image:
+  repository: joohoi/acme-dns
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 53
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+persistence:
+  size: 512M
+  storageClass: "default"
+
+readinessProbe:
+  enabled: true
+livenessProbe:
+  enabled: true
+
+dnsConfig:
+  domain: "acme.m00nlit.dev"
+  admin: "admin.example.org"
+  publicIP: "2a02:a313:43e4:7080::7dc5"

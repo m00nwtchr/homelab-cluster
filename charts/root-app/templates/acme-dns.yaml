@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: knot-dns
+  name: acme-dns
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://git.m00nlit.dev/m00n/homelab-cluster.git
-    path: charts/knot-dns
+    path: charts/acme-dns
     targetRevision: HEAD
   destination:
     namespace: default
