@@ -1,3 +1,5 @@
+domain: m00nlit.dev
+
 cilium:
   cluster:
     name: default
