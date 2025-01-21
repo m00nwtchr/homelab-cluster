@@ -29,6 +29,9 @@ spec:
           subPath: knot.conf
         - name: zones
           mountPath: /var/lib/knot/zones/
+        - name: keys
+          readOnly: true
+          mountPath: "/var/run/secrets/knotdns/"
         resources:
 {{ toYaml .Values.resources | indent 10 }}
       volumes:
@@ -38,3 +41,6 @@ spec:
       - name: zones
         configMap:
           name: {{ .Release.Name }}-zones
+      - name: keys
+        secret:
+          secretName: {{ .Release.Name }}-keys
