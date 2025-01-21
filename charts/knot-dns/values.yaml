@@ -36,7 +36,7 @@ dnsConfig:
 
     acl:
       - id: update_acl
-        key: acme_dns_update
+        key: acme_update_key
         action: update
 
     zone:
