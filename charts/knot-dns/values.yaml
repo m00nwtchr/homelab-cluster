@@ -36,7 +36,7 @@ dnsConfig:
 
     acl:
       - id: update_acl
-        key: acme_update_key
+        key: acme-m00nlit-dev-secret
         action: update
 
     zone:
