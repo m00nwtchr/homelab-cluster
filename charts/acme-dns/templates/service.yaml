@@ -1,7 +1,28 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-service
+  name: {{ .Release.Name }}-external
+  labels:
+    app: {{ .Chart.Name }}
+    svccontroller.k3s.cattle.io/lbpool: core
+spec:
+  selector:
+    app: {{ .Chart.Name }}
+  ports:
+    - name: dns-udp
+      protocol: UDP
+      port: {{ .Values.service.port }}
+    - name: dns-tcp
+      protocol: TCP
+      port: {{ .Values.service.port }}
+  type: LoadBalancer
+  ipFamilies:
+    - IPv6
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}
   labels:
     app: {{ .Chart.Name }}
     svccontroller.k3s.cattle.io/lbpool: core
@@ -12,12 +33,4 @@ spec:
     - name: http
       protocol: TCP
       port: 80
-    - name: dns-udp
-      protocol: UDP
-      port: {{ .Values.service.port }}
-    - name: dns-tcp
-      protocol: TCP
-      port: {{ .Values.service.port }}
-  type: LoadBalancer
-  ipFamilies:
-    - IPv6
+  type: ClusterIP
