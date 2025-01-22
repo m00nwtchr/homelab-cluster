@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://git.m00nlit.dev/m00n/homelab-cluster.git
+    repoURL: http://gitea.default.svc/m00n/homelab-cluster.git
     path: charts/acme-dns
     targetRevision: HEAD
   destination:
