@@ -6,6 +6,7 @@ spec:
   acme:
     email: {{ .Values.email }}
     server: https://acme-v02.api.letsencrypt.org/directory
+    preferredChain: "ISRG Root X2"
     privateKeySecretRef:
       name: acme-key
     solvers:
