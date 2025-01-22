@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: atm10-server
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://itzg.github.io/minecraft-server-charts/
+    chart: minecraft
+    targetRevision: 4.23.7
+    helm:
+      valuesObject:
+        minecraftServer:
+          eula: true
+          memory: 8G
+          serviceType: LoadBalancer
+          type: "AUTO_CURSEFORGE"
+          autoCurseForge:
+            apiKey:
+              existingSecret: "curseforge"
+            pageUrl: "https://www.curseforge.com/minecraft/modpacks/all-the-mods-10"
+          jvmXXOpts: |
+            -XX:+UseG1GC
+            -XX:+ParallelRefProcEnabled
+            -XX:MaxGCPauseMillis=200
+            -XX:+UnlockExperimentalVMOptions
+            -XX:+DisableExplicitGC
+            -XX:+AlwaysPreTouch
+            -XX:G1NewSizePercent=30
+            -XX:G1MaxNewSizePercent=40
+            -XX:G1HeapRegionSize=8M
+            -XX:G1ReservePercent=20
+            -XX:G1HeapWastePercent=5
+            -XX:G1MixedGCCountTarget=4
+            -XX:InitiatingHeapOccupancyPercent=15
+            -XX:G1MixedGCLiveThresholdPercent=90
+            -XX:G1RSetUpdatingPauseTimePercent=5
+            -XX:SurvivorRatio=32
+            -XX:+PerfDisableSharedMem
+            -XX:MaxTenuringThreshold=1
+        workloadAsStatefulSet: true
+        strategyType: RollingUpdate
+  destination:
+    namespace: minecraft
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
