@@ -14,9 +14,8 @@ spec:
     helm:
       valuesObject:
         minecraftServer:
-          eula: true
-          memory: 8G
           serviceType: LoadBalancer
+          eula: true
           type: "AUTO_CURSEFORGE"
           autoCurseForge:
             apiKey:
@@ -41,10 +40,28 @@ spec:
             -XX:SurvivorRatio=32
             -XX:+PerfDisableSharedMem
             -XX:MaxTenuringThreshold=1
+          memory: 8G
+
+        extraEnv:
+          ENABLE_ROLLING_LOGS: true
+
+        persistence:
+          annotations: { }
+          dataDir:
+            enabled: true
+            Size: 1Gi
+
+        resources:
+          requests:
+            memory: 8Gi
+            cpu: 6
+          limits:
+            memory: 10Gi
+            cpu: 8
+
         workloadAsStatefulSet: true
         strategyType: RollingUpdate
-        persistence:
-          enabled: true
+
   destination:
     namespace: minecraft
     server: https://kubernetes.default.svc
