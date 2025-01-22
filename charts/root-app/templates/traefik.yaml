@@ -57,8 +57,10 @@ spec:
               enabled: true
         tlsStore:
           default:
-            defaultCertificate:
-              secretName: "wildcard-{{ include "domainDashed" . }}-tls"
+            certificates:
+              - secretName: "wildcard-{{ include "domainDashed" . }}-tls"
+            # defaultCertificate:
+            #   secretName: "wildcard-{{ include "domainDashed" . }}-tls"
         tlsOptions:
           default:
             labels: {}
