@@ -4,14 +4,14 @@ metadata:
   name: root-app
   namespace: argocd
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://git.m00nlit.dev/m00n/homelab-cluster.git
+    repoURL: http://gitea.default.svc/m00n/homelab-cluster.git
     path: charts/root-app/
     targetRevision: HEAD
-  destination:    
+  destination:
     namespace: argocd
     server: https://kubernetes.default.svc
   syncPolicy:
