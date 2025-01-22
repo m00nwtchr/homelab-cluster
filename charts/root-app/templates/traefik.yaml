@@ -55,6 +55,10 @@ spec:
             asDefault: true
             http3:
               enabled: true
+        tlsStore:
+          default:
+            defaultCertificate:
+              secretName: "wildcard-{{ include "domainDashed" . }}-tls"
         globalArguments: []
   destination:
     namespace: traefik
