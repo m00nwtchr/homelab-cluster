@@ -43,6 +43,8 @@ spec:
             -XX:MaxTenuringThreshold=1
         workloadAsStatefulSet: true
         strategyType: RollingUpdate
+        persistence:
+          enabled: true
   destination:
     namespace: minecraft
     server: https://kubernetes.default.svc
