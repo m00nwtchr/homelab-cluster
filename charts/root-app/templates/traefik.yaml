@@ -110,7 +110,7 @@ spec:
                     severity: warning
                   annotations:
                     summary: "Traefik Down"
-                    description: "\{{ $labels.pod }} on \{{ $labels.nodename }} is down"
+                    description: "{{`{{ $labels.pod }} on {{ $labels.nodename }} is down`}}"
   destination:
     namespace: traefik
     server: https://kubernetes.default.svc
