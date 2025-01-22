@@ -16,28 +16,28 @@ spec:
         app: {{ .Chart.Name }}
     spec:
       containers:
-      - name: acme-dns
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        ports:
-        - containerPort: 80
-          protocol: TCP
-        - containerPort: 53
-          protocol: UDP
-        - containerPort: 53
-          protocol: TCP
-        volumeMounts:
-        - name: config
-          mountPath: /etc/acme-dns/config.cfg
-          subPath: config.cfg
-          readOnly: true
-        - name: acme-dns-data
-          mountPath: /var/lib/acme-dns
-        resources:
+        - name: acme-dns
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 80
+              protocol: TCP
+            - containerPort: 53
+              protocol: UDP
+            - containerPort: 53
+              protocol: TCP
+          volumeMounts:
+            - name: config
+              mountPath: /etc/acme-dns/config.cfg
+              subPath: config.cfg
+              readOnly: true
+            - name: acme-dns-data
+              mountPath: /var/lib/acme-dns
+          resources:
 {{ toYaml .Values.resources | indent 10 }}
       volumes:
-      - name: config
-        configMap:
-          name: {{ .Release.Name }}-config
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}-config
   volumeClaimTemplates:
     - metadata:
         name: acme-dns-data

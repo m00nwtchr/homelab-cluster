@@ -21,4 +21,4 @@ ports:
 endpoints:
   - addresses:
       - "100.116.45.53"
-    conditions: {}
+    conditions: { }

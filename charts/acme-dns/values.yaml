@@ -23,6 +23,7 @@ persistence:
 
 readinessProbe:
   enabled: true
+
 livenessProbe:
   enabled: true
 
