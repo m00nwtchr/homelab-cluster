@@ -64,6 +64,7 @@ spec:
               - compress
             http3:
               enabled: true
+              advertisedPort: 443
             transport:
               respondingTimeouts:
                 readTimeout: 600
