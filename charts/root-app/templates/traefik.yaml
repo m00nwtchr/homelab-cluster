@@ -54,8 +54,8 @@ spec:
         ports:
           web:
             redirections:
-              to: "websecure"
-              scheme: "https"
+              to: websecure
+              scheme: https
               priority: 10
           websecure:
             asDefault: true
@@ -66,9 +66,10 @@ spec:
               enabled: true
             transport:
               respondingTimeouts:
-                readTimeout: "600s"
-                idleTimeout: "600s"
-                writeTimeout: "600s"
+                readTimeout: 600
+                idleTimeout: 600
+                writeTimeout: 600
+
         tlsStore:
           default:
             certificates:
@@ -76,11 +77,11 @@ spec:
 
         tlsOptions:
           default:
-            labels: {}
+            labels: { }
             sniStrict: true
             minVersion: "VersionTLS13"
           intermediate:
-            labels: {}
+            labels: { }
             sniStrict: true
             minVersion: "VersionTLS12"
             cipherSuites:
@@ -92,7 +93,7 @@ spec:
               - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
 
         extraObjects:
-         - apiVersion: traefik.io/v1alpha1
+          - apiVersion: traefik.io/v1alpha1
             kind: Middleware
             metadata:
               name: ssl-opts
@@ -110,15 +111,15 @@ spec:
 
                 customResponseHeaders:
                   X-Robots-Tag: "noindex,nofollow,nosnippet,noarchive,notranslate,noimageindex"
-          
-         - apiVersion: traefik.io/v1alpha1
+
+          - apiVersion: traefik.io/v1alpha1
             kind: Middleware
             metadata:
               name: compress
             spec:
               compress:
 
-         - apiVersion: traefik.io/v1alpha1
+          - apiVersion: traefik.io/v1alpha1
             kind: Middleware
             metadata:
               name: redirect-to-www
@@ -128,7 +129,7 @@ spec:
                 regex: "^https?://(?:www\\.)?(.+)"
                 replacement: "https://www.${1}"
 
-        globalArguments: []
+        globalArguments: [ ]
         metrics:
           prometheus:
             service:
@@ -137,13 +138,13 @@ spec:
             serviceMonitor:
               enabled: true
               metricRelabelings:
-                - sourceLabels: [__name__]
+                - sourceLabels: [ __name__ ]
                   separator: ;
                   regex: ^fluentd_output_status_buffer_(oldest|newest)_.+
                   replacement: $1
                   action: drop
               relabelings:
-                - sourceLabels: [__meta_kubernetes_pod_node_name]
+                - sourceLabels: [ __meta_kubernetes_pod_node_name ]
                   separator: ;
                   regex: ^(.*)$
                   targetLabel: nodename

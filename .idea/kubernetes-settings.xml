@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="KubernetesApiSettings">
+    <option name="configPaths">
+      <list>
+        <option value="file://$USER_HOME$/.config/kube/config" />
+      </list>
+    </option>
+  </component>
+</project>
