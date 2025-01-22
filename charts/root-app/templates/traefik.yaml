@@ -99,12 +99,12 @@ spec:
               name: ssl-opts
             spec:
               headers:
-                STSSeconds: "63072000"
-                STSIncludeSubdomains: true
-                STSPreload: true
-                forceSTSHeader: true
+{{/*                stsSeconds: "63072000"*/}}
+{{/*                stsIncludeSubdomains: true*/}}
+{{/*                stsPreload: true*/}}
+{{/*                forceSTSHeader: true*/}}
                 contentTypeNosniff: true
-                browserXSSFilter: true
+                browserXssFilter: true
                 customFrameOptionsValue: 'SAMEORIGIN'
                 contentSecurityPolicy: "upgrade-insecure-requests; frame-src 'self'; frame-ancestors 'self';"
                 referrerPolicy: "same-origin"
