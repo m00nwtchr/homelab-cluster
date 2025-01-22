@@ -19,12 +19,12 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "wildcard-{{ include "domainDashed" }}"
+  name: "wildcard-{{ include "domainDashed" . }}"
   namespace: traefik
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
-  secretName: "wildcard-{{ include "domainDashed" }}-tls"
+  secretName: "wildcard-{{ include "domainDashed" . }}-tls"
   dnsNames:
     - "{{ .Values.domain }}"
     - "*.{{ .Values.domain }}"
