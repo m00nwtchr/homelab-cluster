@@ -25,6 +25,9 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   secretName: "wildcard-{{ include "domainDashed" . }}-tls"
+  privateKey:
+    algorithm: ECDSA
+    size: 256
   dnsNames:
     - "{{ .Values.domain }}"
     - "*.{{ .Values.domain }}"
