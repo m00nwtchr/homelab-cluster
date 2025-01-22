@@ -50,17 +50,30 @@ spec:
           dashboard:
             enabled: true
             matchRule: Host(`traefik.{{ .Values.domain }}`)
+
         ports:
+          web:
+            redirections:
+              to: "websecure"
+              scheme: "https"
+              priority: 10
           websecure:
             asDefault: true
+            middlewares:
+              - ssl-opts
+              - compress
             http3:
               enabled: true
+            transport:
+              respondingTimeouts:
+                readTimeout: "600s"
+                idleTimeout: "600s"
+                writeTimeout: "600s"
         tlsStore:
           default:
             certificates:
               - secretName: "wildcard-{{ include "domainDashed" . }}-tls"
-            # defaultCertificate:
-            #   secretName: "wildcard-{{ include "domainDashed" . }}-tls"
+
         tlsOptions:
           default:
             labels: {}
@@ -77,6 +90,44 @@ spec:
               - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
               - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
               - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+
+        extraObjects:
+         - apiVersion: traefik.io/v1alpha1
+            kind: Middleware
+            metadata:
+              name: ssl-opts
+            spec:
+              headers:
+                STSSeconds: "63072000"
+                STSIncludeSubdomains: true
+                STSPreload: true
+                forceSTSHeader: true
+                contentTypeNosniff: true
+                browserXSSFilter: true
+                customFrameOptionsValue: 'SAMEORIGIN'
+                contentSecurityPolicy: "upgrade-insecure-requests; frame-src 'self'; frame-ancestors 'self';"
+                referrerPolicy: "same-origin"
+
+                customResponseHeaders:
+                  X-Robots-Tag: "noindex,nofollow,nosnippet,noarchive,notranslate,noimageindex"
+          
+         - apiVersion: traefik.io/v1alpha1
+            kind: Middleware
+            metadata:
+              name: compress
+            spec:
+              compress:
+
+         - apiVersion: traefik.io/v1alpha1
+            kind: Middleware
+            metadata:
+              name: redirect-to-www
+            spec:
+              redirectRegex:
+                permanent: true
+                regex: "^https?://(?:www\\.)?(.+)"
+                replacement: "https://www.${1}"
+
         globalArguments: []
         metrics:
           prometheus:
