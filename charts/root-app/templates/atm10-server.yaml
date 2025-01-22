@@ -45,6 +45,13 @@ spec:
         extraEnv:
           ENABLE_ROLLING_LOGS: true
 
+        startupProbe:
+          enabled: true
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 43200  # Allows up to 43200 * 5 = 216,000 seconds (60 hours) of retries
+
         persistence:
           annotations: { }
           dataDir:
