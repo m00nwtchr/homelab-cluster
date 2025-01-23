@@ -14,13 +14,13 @@ spec:
     helm:
       valuesObject:
         minecraftServer:
-          serviceType: LoadBalancer
+          serviceType: ClusterIP
 {{/*          nodePort: 30100*/}}
           externalTrafficPolicy: Local
           ipFamilyPolicy: PreferDualStack
-{{/*          externalIPs:*/}}
-{{/*            - 100.116.45.53*/}}
-{{/*            - fd7a:115c:a1e0::f201:2d35*/}}
+          externalIPs:
+            - 100.116.45.53
+            - fd7a:115c:a1e0::f201:2d35
 
           eula: true
           type: "AUTO_CURSEFORGE"
