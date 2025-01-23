@@ -21,6 +21,8 @@ cilium:
       clusterPoolIPv6MaskSize: 64
       clusterPoolIPv6PodCIDRList:
         - 2001:cafe:42::/56
+      clusterPoolIPv4PodCIDRList:
+        - 10.42.0.0/16
   ipv4:
     enabled: true
   ipv4NativeRoutingCIDR: 10.42.0.0/16
