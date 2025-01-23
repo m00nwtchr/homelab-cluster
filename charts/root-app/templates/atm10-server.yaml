@@ -50,6 +50,7 @@ spec:
           memory: 8G
 
         extraEnv:
+          ALLOW_FLIGHT: true
           ENABLE_ROLLING_LOGS: true
           JAVA_TOOL_OPTIONS: |
             -Djava.net.preferIPv4Stack=false
