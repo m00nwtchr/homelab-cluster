@@ -14,8 +14,10 @@ spec:
     helm:
       valuesObject:
         minecraftServer:
-          serviceType: NodePort
-          nodePort: 30100
+          serviceType: ClusterIP
+          nodePort: 25565
+          externalIPs:
+            - fd7a:115c:a1e0::f201:2d35
 
           eula: true
           type: "AUTO_CURSEFORGE"
