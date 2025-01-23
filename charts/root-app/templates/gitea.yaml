@@ -9,28 +9,18 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 3214
-  clusterIP: 2001:cafe:43::a847
-  clusterIPs:
-    - 2001:cafe:43::a847
-  type: ClusterIP
-  sessionAffinity: None
-  ipFamilies:
-    - IPv6
-  ipFamilyPolicy: SingleStack
-  internalTrafficPolicy: Cluster
 ---
-addressType: IPv6
 apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+addressType: IPv6
+metadata:
+  name: gitea-1
+  namespace: default
+  labels:
+    kubernetes.io/service-name: gitea
 endpoints:
   - addresses:
       - fd7a:115c:a1e0::f201:2d35
-    conditions: { }
-kind: EndpointSlice
-metadata:
-  labels:
-    kubernetes.io/service-name: gitea
-  name: gitea-1
-  namespace: default
 ports:
   - appProtocol: http
     name: http
