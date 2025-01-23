@@ -18,7 +18,7 @@ cilium:
   ipam:
     # mode: kubernetes
     operator:
-      clusterPoolIPv6MaskSize: 72
+      clusterPoolIPv6MaskSize: 64
       clusterPoolIPv6PodCIDRList:
         - 2001:cafe:42::/56
   ipv4:
