@@ -17,6 +17,9 @@ spec:
           serviceType: ClusterIP
           externalTrafficPolicy: Local
           ipFamilyPolicy: PreferDualStack
+          externalIPs:
+            - 100.116.45.53
+            - fd7a:115c:a1e0::f201:2d35
 
           eula: true
           type: "AUTO_CURSEFORGE"
