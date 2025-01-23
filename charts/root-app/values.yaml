@@ -32,7 +32,7 @@ cilium:
   k8sServicePort: 6444
   kubeProxyReplacement: true
   loadBalancer:
-    mode: dsr
+    mode: snat
   operator:
     replicas: 1
   policyAuditMode: false
