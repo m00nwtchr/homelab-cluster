@@ -15,7 +15,7 @@ spec:
       valuesObject:
         minecraftServer:
           serviceType: NodePort
-          nodePort: 25565
+          nodePort: 30100
 
           eula: true
           type: "AUTO_CURSEFORGE"
