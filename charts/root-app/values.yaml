@@ -31,6 +31,8 @@ cilium:
   k8sServiceHost: ::1
   k8sServicePort: 6444
   kubeProxyReplacement: true
+  loadBalancer:
+    mode: dsr
   operator:
     replicas: 1
   policyAuditMode: false
