@@ -22,6 +22,10 @@ spec:
               existingSecret: "curseforge"
             pageUrl: "https://www.curseforge.com/minecraft/modpacks/all-the-mods-10"
 
+          jvmOpts: |
+            -Djava.net.preferIPv4Stack=false
+            -Djava.net.preferIPv6Addresses=true
+
           jvmXXOpts: |
             -XX:+UseG1GC
             -XX:+ParallelRefProcEnabled
