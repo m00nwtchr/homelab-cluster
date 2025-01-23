@@ -85,7 +85,7 @@ spec:
 
         extraPodSpec:
           hostAliases: |
-            {{ "- ip: \"2600:9000:2012::\"\n  hostnames:\n    - account.mojang.com\n    - authserver.mojang.com\n    - api.mojang.com\n    - sessionserver.mojang.com\n    - skins.minecraft.net\n    - textures.minecraft.net" | nindent 8 }}
+            {{"{{ \"- ip: \\\"2600:9000:2012::\\\"\\n  hostnames:\\n    - account.mojang.com\\n    - authserver.mojang.com\\n    - api.mojang.com\\n    - sessionserver.mojang.com\\n    - skins.minecraft.net\\n    - textures.minecraft.net\\\" | nindent 8 }}"}}
 
   destination:
     namespace: minecraft
