@@ -14,11 +14,9 @@ spec:
     helm:
       valuesObject:
         minecraftServer:
-          serviceType: ClusterIP
-          externalIPs:
-            - fd7a:115c:a1e0::f201:2d35
-            - 2a02:a313:43e4:7080::7dc5
+          serviceType: LoadBalancer
           externalTrafficPolicy: Local
+          ipFamilyPolicy: PreferDualStack
 
           eula: true
           type: "AUTO_CURSEFORGE"
