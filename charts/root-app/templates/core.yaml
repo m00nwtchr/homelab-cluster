@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: core
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: http://gitea.default.svc/m00n/homelab-cluster.git
+    path: charts/core/
+    targetRevision: HEAD
+    helm:
+      valuesObject:
+        domain: "{{ .Values.domain }}"
+        email: "{{ .Values.email }}"
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
