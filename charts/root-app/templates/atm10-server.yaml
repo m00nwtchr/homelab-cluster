@@ -84,7 +84,7 @@ spec:
         strategyType: RollingUpdate
 
         extraPodSpec:
-          hostAliases:
+          hostAliases: |
             - ip: "2600:9000:2012::"
               hostnames:
                 - account.mojang.com
