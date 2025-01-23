@@ -14,7 +14,8 @@ spec:
     helm:
       valuesObject:
         minecraftServer:
-          serviceType: ClusterIP
+          serviceType: NodePort
+          nodePort: 30100
           externalTrafficPolicy: Local
           ipFamilyPolicy: PreferDualStack
           externalIPs:
@@ -69,6 +70,7 @@ spec:
         resources:
           requests:
             memory: 8Gi
+            cpu: 4
           limits:
             memory: 10Gi
 
