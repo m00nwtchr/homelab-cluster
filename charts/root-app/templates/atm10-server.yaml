@@ -15,7 +15,6 @@ spec:
       valuesObject:
         minecraftServer:
           serviceType: ClusterIP
-          nodePort: 25565
           externalIPs:
             - fd7a:115c:a1e0::f201:2d35
 
