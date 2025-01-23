@@ -14,7 +14,9 @@ spec:
     helm:
       valuesObject:
         minecraftServer:
-          serviceType: LoadBalancer
+          serviceType: NodePort
+          nodePort: 25565
+
           eula: true
           type: "AUTO_CURSEFORGE"
           autoCurseForge:
