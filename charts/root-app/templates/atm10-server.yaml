@@ -83,6 +83,17 @@ spec:
         workloadAsStatefulSet: true
         strategyType: RollingUpdate
 
+        extraPodSpec:
+          hostAliases:
+            - ip: "2600:9000:2012::"
+              hostnames:
+                - account.mojang.com
+                - authserver.mojang.com
+                - api.mojang.com
+                - sessionserver.mojang.com
+                - skins.minecraft.net
+                - textures.minecraft.net
+
   destination:
     namespace: minecraft
     server: https://kubernetes.default.svc
