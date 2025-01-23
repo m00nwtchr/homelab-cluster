@@ -54,6 +54,11 @@ spec:
           ALLOW_FLIGHT: true
           ENABLE_ROLLING_LOGS: true
 
+        livenessProbe:
+          enabled: false
+        readinessProbe:
+          enabled: false
+
         startupProbe:
           enabled: true
           initialDelaySeconds: 0
