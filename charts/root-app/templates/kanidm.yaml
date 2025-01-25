@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitea
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/m00nwtchr/kanidm-helm-chart.git
+    targetRevision: HEAD
+    helm:
+      valuesObject:
+        kanidm:
+          domain: "idm.{{ .Values.domain }}"
+          tls:
+            issuer:
+              name: acme
+              type: ClusterIssuer
+          storage:
+            volumeClaimTemplate:
+              metadata:
+                name: kanidm-data
+              spec:
+                accessModes: [ "ReadWriteOnce" ]
+                resources:
+                  requests:
+                    storage: 10Gi
+  destination:
+    namespace: kanidm
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -4,17 +4,7 @@ email: prior-cameo-jazz@duck.com
 cilium:
   cluster:
     name: default
-  # devices:
-  #   - tailscale0
-  #   - enp0s6
-  #   - enp4s0
-  hostFirewall:
-    enabled: false
-  hubble:
-    relay:
-      enabled: false
-    ui:
-      enabled: false
+
   ipam:
     # mode: kubernetes
     operator:
@@ -23,34 +13,37 @@ cilium:
         - 2001:cafe:42::/56
       clusterPoolIPv4PodCIDRList:
         - 10.42.0.0/16
+
   ipv4:
     enabled: true
-  ipv4NativeRoutingCIDR: 10.42.0.0/16
   ipv6:
     enabled: true
+  ipv4NativeRoutingCIDR: 10.42.0.0/16
   ipv6NativeRoutingCIDR: 2001:cafe:42::/56
-  enableIPv6Masquerade: true
-  k8sServiceHost: ::1
-  k8sServicePort: 6444
-  kubeProxyReplacement: true
-  loadBalancer:
-    mode: snat
-  operator:
-    replicas: 1
-  policyAuditMode: false
-  policyEnforcementMode: default
-  prometheus:
-    enabled: true
   routingMode: native
-  bandwidthManager:
-    enabled: true
-    bbr: true
+  enableIPv6Masquerade: true
+
   bpf:
     masquerade: true
   k8s:
     requireIPv6PodCIDR: true
     requireIPv4PodCIDR: false
-  # autodirectnoderoutes: true
+
+  k8sServiceHost: ::1
+  k8sServicePort: 6444
+  kubeProxyReplacement: true
+
+  bandwidthManager:
+    enabled: true
+    bbr: true
+  hostFirewall:
+    enabled: false
+  policyAuditMode: false
+  policyEnforcementMode: default
+
+  prometheus:
+    enabled: true
+#  hubble:
 
 vault:
   server:
