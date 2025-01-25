@@ -22,6 +22,9 @@ spec:
             hosts:
               - "idm.{{ .Values.domain }}"
 
+        ingress:
+          enabled: false
+
         statefulset:
           storage:
             volumeClaimTemplate:
@@ -41,3 +44,20 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: kanidm-web
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: HostSNI(`idm.{{ .Values.domain }}`)
+      services:
+        - name: kanidm-https
+          port: 8443
+  tls:
+    passthrough: true
