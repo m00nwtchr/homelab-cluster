@@ -61,7 +61,7 @@ spec:
             asDefault: true
             middlewares:
               - ssl-opts@kubernetescrd
-{{/*              - compress@kubernetescrd*/}}
+              - compress@kubernetescrd
             http3:
               enabled: true
               advertisedPort: 443
@@ -70,6 +70,10 @@ spec:
                 readTimeout: 600
                 idleTimeout: 600
                 writeTimeout: 600
+
+        providers:
+          kubernetesCRD:
+            allowCrossNamespace: true
 
         tlsStore:
           default:
