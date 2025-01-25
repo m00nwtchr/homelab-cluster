@@ -21,6 +21,8 @@ spec:
               kind: ClusterIssuer
             hosts:
               - "idm.{{ .Values.domain }}"
+
+        statefulset:
           storage:
             volumeClaimTemplate:
               metadata:
