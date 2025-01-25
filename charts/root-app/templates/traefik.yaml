@@ -61,7 +61,7 @@ spec:
             asDefault: true
             middlewares:
               - ssl-opts@kubernetescrd
-              - compress@kubernetescrd
+{{/*              - compress@kubernetescrd*/}}
             http3:
               enabled: true
               advertisedPort: 443
@@ -118,7 +118,7 @@ spec:
             metadata:
               name: compress
             spec:
-              compress:
+              compress: { }
 
           - apiVersion: traefik.io/v1alpha1
             kind: Middleware
