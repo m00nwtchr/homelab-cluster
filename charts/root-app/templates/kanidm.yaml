@@ -19,6 +19,8 @@ spec:
             issuer:
               name: acme
               type: ClusterIssuer
+            hosts:
+              - "idm.{{ .Values.domain }}"
           storage:
             volumeClaimTemplate:
               metadata:
