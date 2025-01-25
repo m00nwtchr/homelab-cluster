@@ -9,6 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/m00nwtchr/kanidm-helm-chart.git
+    path: .
     targetRevision: HEAD
     helm:
       valuesObject:
