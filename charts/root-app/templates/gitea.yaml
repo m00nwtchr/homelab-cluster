@@ -31,6 +31,11 @@ spec:
               existingSecret: "gitea-oidc"
               autoDiscoverUrl: "https://idm.{{ .Values.domain }}/.well-known/openid-configuration"
           config:
+            database:
+              DB_TYPE: postgres
+            indexer:
+              ISSUE_INDEXER_TYPE: bleve
+              REPO_INDEXER_ENABLED: true
             openid:
               ENABLE_OPENID_SIGNIN: false
               ENABLE_OPENID_SIGNUP: true
@@ -42,16 +47,15 @@ spec:
 
         redis-cluster:
           enabled: false
-
         redis:
           enabled: true
-
         postgresql-ha:
           enabled: false
-
         postgresql:
           enabled: true
 
+        persistence:
+          enabled: true
 
   destination:
     namespace: gitea
