@@ -1,28 +1,51 @@
-apiVersion: v1
-kind: Service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
   name: gitea
-  namespace: default
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
-  ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 3214
----
-apiVersion: discovery.k8s.io/v1
-kind: EndpointSlice
-addressType: IPv6
-metadata:
-  name: gitea-1
-  namespace: default
-  labels:
-    kubernetes.io/service-name: gitea
-endpoints:
-  - addresses:
-      - fd7a:115c:a1e0::f201:2d35
-ports:
-  - appProtocol: http
-    name: http
-    port: 3214
-    protocol: TCP
+  project: default
+  source:
+    repoURL: https://dl.gitea.com/charts/
+    chart: gitea
+    targetRevision: 10.6.0
+    helm:
+      valuesObject:
+        ingress:
+          enabled: true
+          hosts:
+            - host: git.{{ .Values.domain }}
+              paths:
+                - path: /
+                  pathType: Prefix
+        gitea:
+          admin:
+{{/*            existingSecret: gitea-admin-secret*/}}
+            email: {{ .Values.email }}
+          oauth:
+            - name: kanidm
+              provider: openidConnect
+              key: gitea
+              existingSecret: "gitea-oidc"
+              autoDiscoverUrl: "https://idm.{{ .Values.domain }}/.well-known/openid-configuration"
+          config:
+            openid:
+              ENABLE_OPENID_SIGNIN: false
+              ENABLE_OPENID_SIGNUP: true
+              WHITELISTED_URIS: "idm.{{ .Values.domain }}"
+            service:
+              DISABLE_REGISTRATION: false
+              ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+              SHOW_REGISTRATION_BUTTON: false
+
+  destination:
+    namespace: gitea
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
