@@ -36,6 +36,6 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
-{{/*  instances: 2*/}}
-{{/*  storage:*/}}
-{{/*    size: 10Gi*/}}
+  instances: 1
+  storage:
+    size: 10Gi
