@@ -73,6 +73,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: gitea
+  namespace: gitea
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
