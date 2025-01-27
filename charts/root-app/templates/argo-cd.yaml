@@ -26,6 +26,9 @@ spec:
         global:
           domain: "argocd.{{ .Values.domain }}"
 
+        ingress:
+          enable: true
+
         configs:
           cm:
             oidc.config: |
