@@ -73,4 +73,3 @@ metadata:
   namespace: kanidm
 spec:
   serverName: "idm.{{ .Values.domain }}"
-{{/*  insecureSkipVerify: true*/}}
