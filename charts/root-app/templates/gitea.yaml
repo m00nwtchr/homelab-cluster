@@ -50,7 +50,7 @@ spec:
           enabled: false
 
         postgresql:
-          enabled: false
+          enabled: true
 
 
   destination:
