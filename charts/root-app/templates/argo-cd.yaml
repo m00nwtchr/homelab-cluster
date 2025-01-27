@@ -22,6 +22,22 @@ spec:
         server:
           extraArgs:
             - --insecure
+
+        global:
+          domain: "argocd.{{ .Values.domain }}"
+
+        configs:
+          cm:
+            oidc.config: |
+              name: Kanidm
+              issuer: https://idm.{{.Values.domain}}
+              clientID: argocd
+              clientSecret: $argocd-oidc:oidc.kanidm.clientSecret
+
+              requestedIDTokenClaims:
+                groups:
+                  essential: true
+
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
