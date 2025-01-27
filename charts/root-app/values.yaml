@@ -37,7 +37,7 @@ cilium:
     enabled: true
     bbr: true
   hostFirewall:
-    enabled: false
+    enabled: true
   policyAuditMode: false
   policyEnforcementMode: default
 
