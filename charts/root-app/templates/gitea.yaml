@@ -5,6 +5,8 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
   source:
@@ -52,7 +54,7 @@ spec:
         postgresql-ha:
           enabled: false
         postgresql:
-          enabled: true
+          enabled: false
 
         persistence:
           enabled: true
@@ -66,3 +68,15 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: gitea
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  name: gitea
+  owner: gitea
+  cluster:
+    name: postgres-cluster
