@@ -24,8 +24,6 @@ spec:
             enabled: true
             tls: true
 
-          insecure: true
-
         global:
           domain: "argocd.{{ .Values.domain }}"
 
@@ -40,6 +38,8 @@ spec:
               requestedIDTokenClaims:
                 groups:
                   essential: true
+          params:
+            server.insecure: true
 
   destination:
     namespace: argocd
