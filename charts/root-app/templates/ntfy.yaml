@@ -32,6 +32,9 @@ spec:
           enabled: true
           data:
             base-url: "https://{{ .Values.domain }}"
+
+        persistence:
+          enabled: true
   destination:
     name: in-cluster
     namespace: default
