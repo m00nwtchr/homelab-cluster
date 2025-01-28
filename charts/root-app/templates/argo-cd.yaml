@@ -33,7 +33,7 @@ spec:
               name: Kanidm
               issuer: https://idm.{{ .Values.domain }}/oauth2/openid/argocd
               clientID: argocd
-              clientSecret: $argocd-oidc:oidc.kanidm.clientSecret
+              enablePKCEAuthentication: true
 
               requestedIDTokenClaims:
                 groups:
