@@ -24,9 +24,9 @@ spec:
           enabled: true
           tls: true
 
-    resources:
-      limits:
-        memory: "4Gi"
+        resources:
+          limits:
+            memory: "4Gi"
 
 
   destination:
