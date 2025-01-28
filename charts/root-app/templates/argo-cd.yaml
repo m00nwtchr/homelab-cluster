@@ -45,8 +45,8 @@ spec:
               g, admins@idm.{{ .Values.domain }}, role:admin
 
   destination:
+    name: in-cluster
     namespace: argocd
-    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       selfHeal: true

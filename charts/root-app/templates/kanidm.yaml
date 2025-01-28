@@ -36,8 +36,8 @@ spec:
                   requests:
                     storage: 10Gi
   destination:
+    name: in-cluster
     namespace: kanidm
-    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       prune: true

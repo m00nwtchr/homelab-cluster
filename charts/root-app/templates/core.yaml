@@ -16,8 +16,8 @@ spec:
         domain: "{{ .Values.domain }}"
         email: "{{ .Values.email }}"
   destination:
+    name: in-cluster
     namespace: default
-    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       selfHeal: true

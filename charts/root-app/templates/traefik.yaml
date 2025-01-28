@@ -171,8 +171,8 @@ spec:
                     summary: "Traefik Down"
                     description: "{{`{{ $labels.pod }} on {{ $labels.nodename }} is down`}}"
   destination:
+    name: in-cluster
     namespace: traefik
-    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       prune: true
