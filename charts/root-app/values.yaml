@@ -8,6 +8,10 @@ cilium:
   cni:
     binPath: "/usr/lib/cni/"
 
+  devices:
+    - tailscale0
+    - enp+
+
   ipam:
     # mode: kubernetes
     operator:
