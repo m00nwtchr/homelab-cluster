@@ -27,7 +27,7 @@ spec:
           domain: "argocd.{{ .Values.domain }}"
 
         ingress:
-          enable: true
+          enabled: true
 
         configs:
           cm:
