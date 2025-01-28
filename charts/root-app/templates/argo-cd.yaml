@@ -34,10 +34,8 @@ spec:
               issuer: https://idm.{{ .Values.domain }}/oauth2/openid/argocd
               clientID: argocd
               enablePKCEAuthentication: true
+              requestedScopes: ["openid", "profile", "email", "groups"]
 
-              requestedIDTokenClaims:
-                groups:
-                  essential: true
           params:
             server.insecure: true
 
