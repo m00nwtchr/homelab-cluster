@@ -1,7 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: immich
+  labels:
+    name: immich
+---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: immich-postgres
+  namespace: immich
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
