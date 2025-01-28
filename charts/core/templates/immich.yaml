@@ -21,18 +21,11 @@ spec:
     shared_preload_libraries:
       - "vectors.so"
 
-  managed:
-    roles:
-      - name: immich
-        superuser: true
-        login: true
-
   bootstrap:
     initdb:
       database: immich
-      owner: immich
-      secret:
-        name: immich-postgres-user
+{{/*      secret:*/}}
+{{/*        name: immich-postgres-user*/}}
       postInitSQL:
         - ALTER SYSTEM SET search_path TO "$user", public, vectors;
         - CREATE EXTENSION IF NOT EXISTS "vectors";
