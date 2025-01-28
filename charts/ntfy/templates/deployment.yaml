@@ -39,7 +39,7 @@ spec:
               name: data
               subPath: data
             - mountPath: /var/cache/ntfy
-{{- if .Values.persistence.enabled and not .Values.persistence.cache }}
+{{- if and (.Values.persistence.enabled) (not .Values.persistence.cache) }}
               name: cache
 {{- else }}
               name: data
@@ -81,7 +81,7 @@ spec:
 {{- else }}
           emptyDir: { }
 {{- end -}}
-{{- if .Values.persistence.enabled and not .Values.persistence.cache }}
+{{- if and (.Values.persistence.enabled) (not .Values.persistence.cache) }}
         - name: cache
           emptyDir: { }
 {{- end }}
