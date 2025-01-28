@@ -5,6 +5,9 @@ cilium:
   cluster:
     name: default
 
+  cni:
+    binPath: "/usr/lib/cni/"
+
   ipam:
     # mode: kubernetes
     operator:
