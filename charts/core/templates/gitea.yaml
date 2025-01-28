@@ -69,15 +69,15 @@ spec:
     syncOptions:
       - CreateNamespace=true
 ---
-apiVersion: postgresql.cnpg.io/v1
-kind: Database
-metadata:
-  name: gitea
-  namespace: gitea
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
-spec:
-  name: gitea
-  owner: gitea
-  cluster:
-    name: postgres-cluster
+{{/*apiVersion: postgresql.cnpg.io/v1*/}}
+{{/*kind: Database*/}}
+{{/*metadata:*/}}
+{{/*  name: gitea*/}}
+{{/*  namespace: gitea*/}}
+{{/*  annotations:*/}}
+{{/*    argocd.argoproj.io/sync-wave: "1"*/}}
+{{/*spec:*/}}
+{{/*  name: gitea*/}}
+{{/*  owner: gitea*/}}
+{{/*  cluster:*/}}
+{{/*    name: postgres-cluster*/}}
