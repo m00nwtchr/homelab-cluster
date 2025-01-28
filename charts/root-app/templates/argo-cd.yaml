@@ -20,14 +20,13 @@ spec:
         applicationSet:
           enabled: false
         server:
+          ingress:
+            enabled: true
           extraArgs:
             - --insecure
 
         global:
           domain: "argocd.{{ .Values.domain }}"
-
-        ingress:
-          enabled: true
 
         configs:
           cm:
