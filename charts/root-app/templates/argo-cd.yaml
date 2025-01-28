@@ -39,6 +39,10 @@ spec:
           params:
             server.insecure: true
 
+          rbac:
+            policy.csv: |
+              g, admins@idm.{{ .Values.domain }}, role:admin
+
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
