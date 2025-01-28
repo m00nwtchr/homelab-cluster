@@ -29,6 +29,7 @@ spec:
 
         configs:
           cm:
+            admin.enabled: false
             oidc.config: |
               name: Kanidm
               issuer: https://idm.{{ .Values.domain }}/oauth2/openid/argocd
