@@ -23,8 +23,8 @@ spec:
                   action: keep
                   regex: .+
   destination:
+    name: in-cluster
     namespace: monitoring
-    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       prune: true

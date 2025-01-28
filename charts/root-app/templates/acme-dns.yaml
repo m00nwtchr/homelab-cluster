@@ -12,8 +12,8 @@ spec:
     path: charts/acme-dns
     targetRevision: HEAD
   destination:
+    name: in-cluster
     namespace: default
-    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       prune: true

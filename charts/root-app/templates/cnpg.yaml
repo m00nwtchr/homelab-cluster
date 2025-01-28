@@ -18,8 +18,8 @@ spec:
           grafanaDashboard:
             create: true
   destination:
+    name: in-cluster
     namespace: cnpg-system
-    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       prune: true

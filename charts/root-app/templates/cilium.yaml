@@ -14,8 +14,8 @@ spec:
     helm:
       values: | {{ .Values.cilium | toYaml | nindent 8 }}
   destination:
+    name: in-cluster
     namespace: kube-system
-    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       prune: true

@@ -83,8 +83,8 @@ spec:
         strategyType: RollingUpdate
 
   destination:
+    name: in-cluster
     namespace: minecraft
-    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       prune: true

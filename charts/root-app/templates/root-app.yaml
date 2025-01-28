@@ -12,8 +12,8 @@ spec:
     path: charts/root-app/
     targetRevision: HEAD
   destination:
+    name: in-cluster
     namespace: argocd
-    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       selfHeal: true
