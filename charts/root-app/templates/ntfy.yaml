@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: conduit
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: http://gitea.default.svc/m00n/homelab-cluster.git
+    path: charts/ntfy/
+    targetRevision: HEAD
+    helm:
+      valuesObject:
+        image:
+          tag: "latest"
+          pullPolicy: Always
+
+        ingress:
+          enabled: true
+          hosts:
+            - host: "ntfy.{{ .Values.domain }}"
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - hosts:
+                - "ntfy.{{ .Values.domain }}"
+
+        config:
+          enabled: true
+          data:
+            base-url: "https://{{ .Values.domain }}"
+  destination:
+    name: in-cluster
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

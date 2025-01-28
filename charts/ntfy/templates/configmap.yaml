@@ -1,0 +1,12 @@
+{{- if .Values.config.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "ntfy.name" . }}
+data:
+  server.yml: |
+    {{- range $key, $value := .Values.config.data }}
+      {{ $key }}: {{ $value }}
+    {{- end }}
+
+{{- end }}
