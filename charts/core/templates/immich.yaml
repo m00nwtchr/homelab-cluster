@@ -14,7 +14,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   # At the time of writing, immich is only compatible with pgvecto.rs <0.4. Latest postgres image with that version is 16.5.
-  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:14.11-v0.2.0@sha256:5fa56b8459e6d1cc8a4aeda22850eb05ac1d5cf410219eab3ceac0b1e010fba5
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.5-v0.3.0@sha256:be3f025d79aa1b747817f478e07e71be43236e14d00d8a9eb3914146245035ba
   instances: 1
 
   postgresql:
