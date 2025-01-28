@@ -60,8 +60,8 @@ spec:
           websecure:
             asDefault: true
             middlewares:
-{{/*              - ssl-opts@kubernetescrd*/}}
-{{/*              - compress@kubernetescrd*/}}
+              - ssl-opts@traefik
+              - compress@traefik
             http3:
               enabled: true
               advertisedPort: 443
@@ -73,7 +73,7 @@ spec:
 
         providers:
           kubernetesCRD:
-            allowCrossNamespace: false
+            allowCrossNamespace: true
 
         tlsStore:
           default:
