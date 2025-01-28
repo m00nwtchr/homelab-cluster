@@ -59,9 +59,9 @@ spec:
               priority: 10
           websecure:
             asDefault: true
-            middlewares:
-              - ssl-opts@traefik
-              - compress@traefik
+{{/*            middlewares:*/}}
+{{/*              - ssl-opts@traefik*/}}
+{{/*              - compress@traefik*/}}
             http3:
               enabled: true
               advertisedPort: 443
