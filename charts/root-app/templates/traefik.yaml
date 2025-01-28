@@ -49,7 +49,9 @@ spec:
         ingressRoute:
           dashboard:
             enabled: true
-{{/*            matchRule: Host(`traefik.{{ .Values.domain }}`)*/}}
+            matchRule: Host(`traefik.{{ .Values.domain }}`)
+            entryPoints:
+              - websecure
 
         ports:
           web:
