@@ -22,8 +22,9 @@ spec:
         server:
           ingress:
             enabled: true
-          extraArgs:
-            - --insecure
+            tls: true
+
+          insecure: true
 
         global:
           domain: "argocd.{{ .Values.domain }}"
