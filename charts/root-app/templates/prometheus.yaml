@@ -13,15 +13,15 @@ spec:
     targetRevision: 68.2.1
     helm:
       valuesObject:
-        server:
-          extraScrapeConfigs: |
-            - job_name: 'kubernetes-pods'
-              kubernetes_sd_configs:
-                - role: pod
-              relabel_configs:
-                - source_labels: [__meta_kubernetes_pod_label_app]
-                  action: keep
-                  regex: .+
+{{/*        server:*/}}
+{{/*          extraScrapeConfigs: |*/}}
+{{/*            - job_name: 'kubernetes-pods'*/}}
+{{/*              kubernetes_sd_configs:*/}}
+{{/*                - role: pod*/}}
+{{/*              relabel_configs:*/}}
+{{/*                - source_labels: [__meta_kubernetes_pod_label_app]*/}}
+{{/*                  action: keep*/}}
+{{/*                  regex: .+*/}}
   destination:
     name: in-cluster
     namespace: monitoring
