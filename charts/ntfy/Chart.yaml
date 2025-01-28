@@ -1,0 +1,20 @@
+apiVersion: v2
+name: ntfy
+description: A self-hosted HTTP based pub sub notification service.
+icon: https://raw.githubusercontent.com/binwiederhier/ntfy/main/docs/static/img/ntfy.png
+type: application
+
+home: https://github.com/sarab97/helm-chart
+sources:
+  - https://github.com/binwiederhier/ntfy
+
+maintainers:
+  - name: Sarab Singh
+
+keywords:
+  - pubsub
+  - notification
+
+version: 0.1.7
+
+appVersion: "v2.6.2"
