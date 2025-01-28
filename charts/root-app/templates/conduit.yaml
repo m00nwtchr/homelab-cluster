@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kanidm
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/m00nwtchr/conduwuit-helm-chart.git
+    path: .
+    targetRevision: HEAD
+    helm:
+      valuesObject:
+        image:
+          tag: "latest"
+          pullPolicy: Always
+
+        config:
+          server_name: {{ .Values.domain }}
+
+        ingress:
+          enabled: true
+          tls: true
+
+  destination:
+    name: in-cluster
+    namespace: matrix
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
