@@ -33,13 +33,21 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          args: ["serve"]
+          args: [ "serve" ]
           volumeMounts:
+            - mountPath: /var/lib/ntfy
+              name: data
+              subPath: data
             - mountPath: /var/cache/ntfy
-              name: {{ template "ntfy.name" . }}
+{{- if .Values.persistence.enabled and not .Values.persistence.cache }}
+              name: cache
+{{- else }}
+              name: data
+{{- end }}
+              subPath: cache
             {{- if .Values.config.enabled }}
             - mountPath: /etc/ntfy/server.yml
-              name: {{ template "ntfy.name" . }}-conf
+              name: config
               subPath: server.yml
               readOnly: true
             {{- end }}
@@ -62,17 +70,21 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
         {{- if .Values.config.enabled }}
-        - name: {{ template "ntfy.name" . }}-conf
+        - name: config
           configMap:
             name: {{ template "ntfy.name" . }}
         {{- end }}
-        - name: {{ template "ntfy.name" . }}
+        - name: data
 {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: {{ template "ntfy.fullname" . }}
 {{- else }}
-          emptyDir: {}
+          emptyDir: { }
 {{- end -}}
+{{- if .Values.persistence.enabled and not .Values.persistence.cache }}
+        - name: cache
+          emptyDir: { }
+{{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
