@@ -26,6 +26,7 @@ data:
   password: {{ $secret.data.token }}
   {{- else -}}
   password: {{ randAlphaNum 72 | b64enc }}
+  {{- end -}}
 ---
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: User
