@@ -12,3 +12,5 @@ spec:
     size: 10Gi
   service:
     type: ClusterIP
+  tls:
+    enabled: false
