@@ -15,6 +15,18 @@ spec:
     name: mariadb
     namespace: mariadb
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: wordpress-db-user
+  namespace: wordpress
+data:
+  {{- $secret := lookup "v1" "Secret" .Release.Namespace "wordpress-db-user" -}}
+  {{- if $secret -}}
+  password: {{ $secret.data.token }}
+  {{- else -}}
+  password: {{ randAlphaNum 72 | b64enc }}
+---
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: User
 metadata:
