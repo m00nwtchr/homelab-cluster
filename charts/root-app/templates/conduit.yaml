@@ -22,6 +22,8 @@ spec:
 
         ingress:
           enabled: true
+          annotations:
+            traefik.ingress.kubernetes.io/router.tls.options: traefik-intermediate@kubernetescrd
           tls: true
 
         resources:
