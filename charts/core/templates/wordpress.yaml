@@ -43,18 +43,6 @@ spec:
       - CreateNamespace=true
 ---
 apiVersion: k8s.mariadb.com/v1alpha1
-kind: Database
-metadata:
-  name: wordpress
-  namespace: wordpress
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
-spec:
-  mariaDbRef:
-    name: mariadb
-    namespace: mariadb
----
-apiVersion: k8s.mariadb.com/v1alpha1
 kind: User
 metadata:
   name: wordpress
