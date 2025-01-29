@@ -13,7 +13,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: oci://registry-1.docker.io/bitnamicharts
+    repoURL: registry-1.docker.io/bitnamicharts
     chart: wordpress
     targetRevision: 24.1.9
     helm:
