@@ -19,6 +19,7 @@ spec:
     helm:
       valuesObject:
         wordpressSkipInstall: true
+        overrideDatabaseSettings: true
 
         mariadb:
           enabled: false
