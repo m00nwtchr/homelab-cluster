@@ -106,10 +106,10 @@ spec:
               name: ssl-opts
             spec:
               headers:
-{{/*                stsSeconds: "63072000"*/}}
-{{/*                stsIncludeSubdomains: true*/}}
-{{/*                stsPreload: true*/}}
-{{/*                forceSTSHeader: true*/}}
+                stsSeconds: "63072000"
+                stsIncludeSubdomains: true
+                stsPreload: true
+                forceSTSHeader: true
                 contentTypeNosniff: true
                 browserXssFilter: true
                 customFrameOptionsValue: 'SAMEORIGIN'
