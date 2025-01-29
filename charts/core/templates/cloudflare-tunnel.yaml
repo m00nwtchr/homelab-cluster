@@ -13,13 +13,14 @@ spec:
     targetRevision: 0.3.2
     helm:
       valuesObject:
-        tunnelName: "HS-01"
-        tunnelId: "ba44dc3a-fd4d-409a-8afa-dda802c14e39"
-        secretName: "tunnel-credentials"
+        cloudflare:
+          tunnelName: "HS-01"
+          tunnelId: "ba44dc3a-fd4d-409a-8afa-dda802c14e39"
+          secretName: "tunnel-credentials"
 
-        ingress:
-          - hostname: voltkonekt.pl
-            service: "http://wordpress.wordpress.svc:80"
+          ingress:
+            - hostname: voltkonekt.pl
+              service: "http://wordpress.wordpress.svc:80"
 
         replicaCount: 1
   destination:
