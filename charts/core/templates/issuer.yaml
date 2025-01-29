@@ -28,7 +28,7 @@ spec:
   secretName: "wildcard-{{ include "domainDashed" . }}-tls"
   privateKey:
     algorithm: ECDSA
-    size: 384
+    size: 256
   dnsNames:
     - "{{ .Values.domain }}"
     - "*.{{ .Values.domain }}"
