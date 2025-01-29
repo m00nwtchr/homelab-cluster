@@ -19,6 +19,9 @@ spec:
             issuer:
               name: acme
               kind: ClusterIssuer
+            privateKey:
+              algorithm: ECDSA
+              size: 384
             hosts:
               - "idm.{{ .Values.domain }}"
 
