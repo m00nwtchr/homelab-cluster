@@ -21,7 +21,7 @@ metadata:
   name: wordpress-db-user
   namespace: wordpress
 data:
-  {{- $secret := lookup "v1" "Secret" .Release.Namespace "wordpress-db-user" -}}
+  {{- $secret := lookup "v1" "Secret" "wordpress" "wordpress-db-user" -}}
   {{- if $secret -}}
   password: {{ $secret.data.token }}
   {{- else -}}
