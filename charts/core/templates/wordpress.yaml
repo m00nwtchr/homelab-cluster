@@ -21,12 +21,12 @@ metadata:
   name: wordpress-db-user
   namespace: wordpress
 data:
-  {{- $secret := lookup "v1" "Secret" "wordpress" "wordpress-db-user" -}}
-  {{- if $secret -}}
+  {{- $secret := lookup "v1" "Secret" "wordpress" "wordpress-db-user" }}
+  {{- if $secret }}
   password: {{ $secret.data.password }}
-  {{- else -}}
+  {{- else }}
   password: {{ randAlphaNum 72 | b64enc }}
-  {{- end -}}
+  {{- end }}
 ---
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: User
