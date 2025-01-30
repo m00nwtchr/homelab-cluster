@@ -1,0 +1,52 @@
+replicaCount: 1
+
+image:
+  repository: dock.mau.dev/mautrix
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+#  limits:
+#    cpu: 500m
+#    memory: 512Mi
+#  requests:
+#    cpu: 250m
+#    memory: 256Mi
+
+persistence:
+  size: 1Gi
+  storageClass: ""
+
+readinessProbe:
+  enabled: true
+
+livenessProbe:
+  enabled: true
+
+matrix:
+  url: "http://yourserver.namespace.svc"
+  serverName: "example.com"
+
+bridge:
+  type: meta
+#  admin: "@username:example.com"
+
+#  # Defaults to {{ .Release.Name }}.{{ .Values.matrix.serverName }}, a public domain on which the bridge can be reached. Used for some features of some bridges.
+#  publicDomain:
+#
+#  # Set automatically based on bridge type.
+#  appserviceId:
+#  username:
+#  displayName:
+#  avatar:
+#
+#  puppetting:
+#    asToken:
+#
+meta:
+  mode: messenger
+#  displayname_template: '{{or .DisplayName .Username "Unknown user"}}'
