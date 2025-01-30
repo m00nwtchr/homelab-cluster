@@ -31,7 +31,7 @@ spec:
         config:
           enabled: true
           data:
-            base-url: "https://{{ .Values.domain }}"
+            base-url: "https://ntfy.{{ .Values.domain }}"
 
         persistence:
           enabled: true
