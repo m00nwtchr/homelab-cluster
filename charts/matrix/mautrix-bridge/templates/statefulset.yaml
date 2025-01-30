@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: mautrix-{{ .Values.bridge.type }}
+spec:
+  serviceName: "{{ .Release.Name }}"
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: mautrix-{{ .Values.bridge.type }}
+  template:
+    metadata:
+      labels:
+        app: mautrix-{{ .Values.bridge.type }}
+    spec:
+      containers:
+        - name: mautrix-{{ .Values.bridge.type }}
+          image: "{{ .Values.image.repository }}/{{ .Values.bridge.type }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - name: config
+              mountPath: /data/config.yaml
+              subPath: config.yaml
+              readOnly: true
+            - name: config
+              mountPath: /data/registration.yaml
+              subPath: registration.yaml
+              readOnly: true
+            - name: mautrix-{{ .Values.bridge.type }}-data
+              mountPath: /data/
+          resources: {{ toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}-config
+  volumeClaimTemplates:
+    - metadata:
+        name: mautrix-{{ .Values.bridge.type }}-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: {{ .Values.persistence.size }}
+        storageClassName: {{ .Values.persistence.storageClass }}

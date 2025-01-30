@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: mautrix-{{ .Values.bridge.type }}
+spec:
+  selector:
+    app: mautrix-{{ .Values.bridge.type }}
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+  type: ClusterIP
