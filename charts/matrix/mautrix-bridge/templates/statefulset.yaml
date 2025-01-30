@@ -19,7 +19,8 @@ spec:
         - name: mautrix-{{ .Values.bridge.type }}
           image: "{{ .Values.image.repository }}/{{ .Values.bridge.type }}:{{ .Values.image.tag }}"
           ports:
-            - containerPort: 8000
+            - name: http
+              containerPort: 8000
               protocol: TCP
           volumeMounts:
             - name: config
