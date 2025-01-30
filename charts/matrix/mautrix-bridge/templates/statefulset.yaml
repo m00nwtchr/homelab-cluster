@@ -35,8 +35,8 @@ spec:
           resources: {{ toYaml .Values.resources | nindent 12 }}
       volumes:
         - name: config
-          configMap:
-            name: {{ .Release.Name }}-config
+          secret:
+            secretName: {{ .Release.Name }}-config
   volumeClaimTemplates:
     - metadata:
         name: mautrix-{{ .Values.bridge.type }}-data
