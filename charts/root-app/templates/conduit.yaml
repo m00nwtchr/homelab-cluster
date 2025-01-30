@@ -14,7 +14,8 @@ spec:
     helm:
       valuesObject:
         image:
-          tag: "latest"
+          repository: "ghcr.io/girlbossceo/conduwuit"
+          tag: "main"
           pullPolicy: Always
 
         config:
