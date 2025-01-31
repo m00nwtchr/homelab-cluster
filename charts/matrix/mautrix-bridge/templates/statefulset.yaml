@@ -19,14 +19,14 @@ spec:
         - name: mautrix-{{ .Values.bridge.type }}
           image: "{{ .Values.image.repository }}/{{ .Values.bridge.type }}:{{ .Values.image.tag }}"
           command: [ "/usr/bin/mautrix-{{ .Values.bridge.type }}" ]
-          args: [ "--no-update" ]
+          args: [ "-c /etc/config.yaml" "--no-update" ]
           ports:
             - name: http
               containerPort: 8000
               protocol: TCP
           volumeMounts:
             - name: config
-              mountPath: /data/config.yaml
+              mountPath: /etc/config.yaml
               subPath: config.yaml
               readOnly: true
             - name: mautrix-{{ .Values.bridge.type }}-data
