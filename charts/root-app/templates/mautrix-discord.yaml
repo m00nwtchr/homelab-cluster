@@ -33,3 +33,24 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mautrix-discord
+  namespace: matrix
+spec:
+  rules:
+    - host: mautrix-discord.{{ .Values.domain }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: mautrix-discord
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - mautrix-discord.{{ .Values.domain }}
