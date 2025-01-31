@@ -20,8 +20,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           args:
             - -c /data/config.yaml
-            - --listen-address [::]
-            - {{ .Values.matrix.url }}
+            - -l [::]
           ports:
             - name: http
               containerPort: 9898
