@@ -18,13 +18,15 @@ spec:
       containers:
         - name: heisenbridge
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          args:
+            - --config /etc/config.yaml
           ports:
             - name: http
               containerPort: 9898
               protocol: TCP
           volumeMounts:
             - name: config
-              mountPath: /data/config.yaml
+              mountPath: /etc/config.yaml
               subPath: registration.yaml
               readOnly: true
           resources: {{ toYaml .Values.resources | nindent 12 }}
