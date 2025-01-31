@@ -29,10 +29,6 @@ spec:
               mountPath: /data/config.yaml
               subPath: config.yaml
               readOnly: true
-            - name: config
-              mountPath: /data/registration.yaml
-              subPath: registration.yaml
-              readOnly: true
             - name: mautrix-{{ .Values.bridge.type }}-data
               mountPath: /data/
           resources: {{ toYaml .Values.resources | nindent 12 }}
