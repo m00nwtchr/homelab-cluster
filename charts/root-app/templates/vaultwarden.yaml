@@ -15,6 +15,9 @@ spec:
       valuesObject:
         domain: "https://vaultwarden.{{ .Values.domain }}"
 
+        rocket:
+          address: "[::]"
+
         ingress:
           enabled: true
           class: ""
