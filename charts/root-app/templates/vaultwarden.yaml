@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://guerzon.github.io/vaultwarden
-    path: vaultwarden
+    chart: vaultwarden
     targetRevision: 0.31.2
     helm:
       valuesObject:
