@@ -18,6 +18,8 @@ spec:
       containers:
         - name: mautrix-{{ .Values.bridge.type }}
           image: "{{ .Values.image.repository }}/{{ .Values.bridge.type }}:{{ .Values.image.tag }}"
+          command: [ "/usr/bin/mautrix-{{ .Values.bridge.type }}" ]
+          args: [ "--no-update" ]
           ports:
             - name: http
               containerPort: 8000
