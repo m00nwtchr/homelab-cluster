@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}
   labels:
-    app: mautrix-{{ .Values.bridge.type }}
+    app: {{ .Chart.Name }}
 spec:
   selector:
-    app: mautrix-{{ .Values.bridge.type }}
+    app: {{ .Chart.Name }}
   ports:
     - name: http
       targetPort: http
