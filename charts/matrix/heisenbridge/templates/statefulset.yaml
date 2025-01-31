@@ -19,7 +19,7 @@ spec:
         - name: heisenbridge
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           args:
-            - -c /data/config.yaml
+            - -c /etc/config.yaml
             - -l [::]
           ports:
             - name: http
