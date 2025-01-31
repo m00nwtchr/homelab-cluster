@@ -19,7 +19,7 @@ spec:
         - name: heisenbridge
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           args:
-            - -c /etc/config.yaml
+            - -c /config.yaml
             - -l [::]
           ports:
             - name: http
@@ -27,7 +27,7 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: config
-              mountPath: /etc/config.yaml
+              mountPath: /config.yaml
               subPath: registration.yaml
               readOnly: true
           resources: {{ toYaml .Values.resources | nindent 12 }}
