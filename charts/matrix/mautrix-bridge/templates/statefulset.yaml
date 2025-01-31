@@ -41,6 +41,8 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: mautrix-{{ .Values.bridge.type }}-data
+        annotations:
+          argocd.argoproj.io/sync-options: Delete=false
       spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
