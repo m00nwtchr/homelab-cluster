@@ -1,0 +1,10 @@
+apiVersion: tor.k8s.torproject.org/v1alpha2
+kind: Tor
+metadata:
+  name: tor-instance
+  namespace: default
+spec:
+  config: |
+    SocksPort 9050
+    SocksPolicy accept 2001:cafe:42::/56
+    SocksPolicy accept 10.42.0.0/16
