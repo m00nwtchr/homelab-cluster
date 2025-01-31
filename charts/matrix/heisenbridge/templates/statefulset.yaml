@@ -19,7 +19,9 @@ spec:
         - name: heisenbridge
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           args:
-            - --config /etc/config.yaml
+            - -c /data/config.yaml
+            - --listen-address [::]
+            - {{ .Values.matrix.url }}
           ports:
             - name: http
               containerPort: 9898
