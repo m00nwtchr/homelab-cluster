@@ -16,7 +16,7 @@ spec:
         domain: "https://vaultwarden.{{ .Values.domain }}"
 
         rocket:
-          address: "[::]"
+          address: "s::"
 
         ingress:
           enabled: true
