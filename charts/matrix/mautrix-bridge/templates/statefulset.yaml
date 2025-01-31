@@ -19,7 +19,7 @@ spec:
         - name: mautrix-{{ .Values.bridge.type }}
           image: "{{ .Values.image.repository }}/{{ .Values.bridge.type }}:{{ .Values.image.tag }}"
           command: [ "/bin/sh" ]
-          args: [ "-c", "while :; do :; done" ]
+          args: [ "-c", "while :; do yes; done" ]
 {{/*          command: [ "/usr/bin/mautrix-{{ .Values.bridge.type }}" ]*/}}
 {{/*          args: [ "-c /config/config.yaml", "--no-update" ]*/}}
           ports:
