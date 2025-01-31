@@ -1,9 +1,15 @@
 apiVersion: tor.k8s.torproject.org/v1alpha2
 kind: Tor
 metadata:
-  name: tor-instance
+  name: tor-proxy
   namespace: default
 spec:
-  config: |
-    SocksPolicy accept 2001:cafe:42::/56
-    SocksPolicy accept 10.42.0.0/16
+  client:
+    socks:
+      enable: true
+      policy:
+        - "accept 2001:cafe:42::/56"
+        - "accept 10.42.0.0/16"
+      flags:
+        - IsolateClientAddr
+        - IsolateSOCKSAuth
