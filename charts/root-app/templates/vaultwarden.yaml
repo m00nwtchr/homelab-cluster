@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vaultwarden
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://guerzon.github.io/vaultwarden
+    path: vaultwarden
+    targetRevision: 0.31.2
+    helm:
+      valuesObject:
+        domain: "https://vaultwarden.{{ .Values.domain }}"
+
+        ingress:
+          enabled: true
+          class: ""
+          nginxIngressAnnotations: false
+          hostname: "vaultwarden.{{ .Values.domain }}"
+
+        storage:
+          data:
+            name: "vaultwarden-data"
+            size: "15Gi"
+            class: ""
+            path: "/data"
+            keepPvc: false
+            accessMode: "ReadWriteOnce"
+
+  destination:
+    name: in-cluster
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+{{/*    syncOptions:*/}}
+{{/*      - CreateNamespace=true*/}}
