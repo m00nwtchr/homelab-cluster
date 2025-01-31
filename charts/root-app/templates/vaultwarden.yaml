@@ -30,7 +30,7 @@ spec:
             size: "15Gi"
             class: ""
             path: "/data"
-            keepPvc: false
+            keepPvc: true
             accessMode: "ReadWriteOnce"
 
   destination:
