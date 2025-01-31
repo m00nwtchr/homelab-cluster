@@ -13,6 +13,9 @@ spec:
       flags:
         - IsolateClientAddr
         - IsolateSOCKSAuth
+  config: |
+    MapAddress palladium.libera.chat libera75jm6of4wxpxt4aynol3xjmbtxgfyjpu34ss4d7r7q2v5zrpyd.onion
+    MapAddress irc.oftc.net oftcnet6xg6roj6d7id4y4cu6dchysacqj2ldgea73qzdagufflqxrid.onion
 ---
 apiVersion: v1
 kind: Service
