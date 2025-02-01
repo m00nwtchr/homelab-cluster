@@ -6,6 +6,8 @@ metadata:
     type: "local"
 spec:
   storageClassName: "manual"
+  capacity:
+    size: "12Ti"
   accessModes:
     - ReadWriteMany
   hostPath:
