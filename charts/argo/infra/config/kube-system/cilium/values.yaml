@@ -31,6 +31,9 @@ k8sServiceHost: ::1
 k8sServicePort: 6444
 kubeProxyReplacement: true
 
+operator:
+  replicas: 1
+
 bandwidthManager:
   enabled: true
   bbr: true
