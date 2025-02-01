@@ -22,3 +22,6 @@ spec:
   storageClassName: "manual"
   accessModes:
     - ReadWriteMany
+  resources:
+    requests:
+      storage: "12Ti"
