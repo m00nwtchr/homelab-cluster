@@ -11,8 +11,6 @@ spec:
     repoURL: https://bugfest.github.io/tor-controller
     chart: tor-controller
     targetRevision: 0.1.17
-    helm:
-      valuesObject:
   destination:
     name: in-cluster
     namespace: tor-controller
