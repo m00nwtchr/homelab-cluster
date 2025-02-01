@@ -19,8 +19,6 @@ app-template:
           paths:
             - path: /
               pathType: Prefix
-              service:
-                port: 8989
       tls:
         - hosts:
             - sonarr.k8s.m00nlit.dev
