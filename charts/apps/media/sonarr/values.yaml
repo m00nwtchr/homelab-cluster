@@ -22,6 +22,7 @@ sonarr:
     media:
       enabled: true
       type: pvc
+      mountPath: /media
       existingClaim: media
 
   resources:
