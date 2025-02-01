@@ -30,8 +30,9 @@ spec:
         path: '{{ `{{path}}` }}'
         targetRevision: HEAD
         ref: repo
-        valueFiles:
-          - $repo/charts/root/values.yaml
+        helm:
+          valueFiles:
+            - $repo/charts/root/values.yaml
 
       syncPolicy:
         automated:
