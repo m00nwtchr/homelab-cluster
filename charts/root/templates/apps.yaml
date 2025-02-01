@@ -48,10 +48,10 @@ spec:
           - ServerSideApply=true
           - RespectIgnoreDifferences=true
 
-        ignoreDifferences:
-          - group: argoproj.io
-            kind: "Application"
-            jsonPointers:
-              - /spec/syncPolicy
-              - /metadata/annotations/argocd.argoproj.io~1refresh
-              - /operation
+      ignoreDifferences:
+        - group: argoproj.io
+          kind: "Application"
+          jsonPointers:
+            - /spec/syncPolicy
+            - /metadata/annotations/argocd.argoproj.io~1refresh
+            - /operation
