@@ -1,0 +1,56 @@
+app-template:
+  image:
+    repository: ghcr.io/onedr0p/sonarr
+    tag: 4.0.12.2823
+    pullPolicy: IfNotPresent
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8989
+
+  ingress:
+    main:
+      enabled: true
+      hosts:
+        - host: sonarr.k8s.m00nlit.dev
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                port: 8989
+      tls:
+        - hosts:
+            - sonarr.k8s.m00nlit.dev
+
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "Always"
+
+  persistence:
+    config:
+      enabled: true
+      size: 5Gi
+    media:
+      enabled: true
+      type: pvc
+      existingClaim: media
+  #    share:
+  #      enabled: true
+  #      type: pvc
+  #      existingClaim: qbittorrent-share
+  #    backups:
+  #      enabled: true
+  #      storageClass: ceph-filesystem-hdd
+  #      accessMode: ReadWriteMany
+  #      size: 10Gi
+  #      retain: true
+
+  resources:
+    limits: { }
+    requests:
+      cpu: 100m
+      memory: 700Mi
