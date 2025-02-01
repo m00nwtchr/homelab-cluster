@@ -27,6 +27,14 @@ spec:
           env:
             - name: COLLECTIONS
               value: "crowdsecurity/traefik"
+
+        lapi:
+          env:
+            - name: BOUNCER_KEY_traefik
+              valueFrom:
+                secretKeyRef:
+                  name: traefik-bouncer-key
+                  key: secret
   destination:
     name: in-cluster
     namespace: crowdsec
