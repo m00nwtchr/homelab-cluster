@@ -10,6 +10,8 @@ spec:
         revision: HEAD
         directories:
           - path: charts/apps/media/*
+          - path: charts/apps/default/*
+          - path: charts/apps/matrix/*
 
   syncPolicy:
     preserveResourcesOnDeletion: true
