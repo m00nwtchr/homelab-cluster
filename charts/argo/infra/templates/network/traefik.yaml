@@ -57,6 +57,7 @@ spec:
           websecure:
             asDefault: true
             middlewares:
+              - bouncer@kubernetescrd
               - traefik-ssl-opts@kubernetescrd
               - traefik-compress@kubernetescrd
             http3:
