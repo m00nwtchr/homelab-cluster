@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: conduit
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: kubernetes
+  source:
+    repoURL: https://github.com/m00nwtchr/conduwuit-helm-chart.git
+    path: .
+    targetRevision: HEAD
+    helm:
+      valuesObject:
+        image:
+          repository: "ghcr.io/girlbossceo/conduwuit"
+          tag: "main"
+          pullPolicy: Always
+
+        config:
+          server_name: {{ .Values.domain }}
+
+        ingress:
+          enabled: true
+          annotations:
+            traefik.ingress.kubernetes.io/router.tls.options: traefik-intermediate@kubernetescrd
+          tls: true
+
+        resources:
+          limits:
+            memory: "4Gi"
+
+
+  destination:
+    name: in-cluster
+    namespace: matrix
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

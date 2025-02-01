@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: csi
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: kubernetes
+  sources:
+    - repoURL: https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
+      chart: secrets-store-csi-driver
+      targetRevision: 1.4.7
+      helm:
+        valuesObject:
+          syncSecret:
+            enabled: true
+  destination:
+    name: in-cluster
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

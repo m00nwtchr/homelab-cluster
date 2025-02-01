@@ -1,0 +1,15 @@
+kind: MariaDB
+metadata:
+  name: mariadb
+  namespace: mariadb
+spec:
+  rootPasswordSecretKeyRef:
+    name: mariadb
+    key: password
+    generate: true
+  storage:
+    size: 10Gi
+  service:
+    type: ClusterIP
+  tls:
+    enabled: false

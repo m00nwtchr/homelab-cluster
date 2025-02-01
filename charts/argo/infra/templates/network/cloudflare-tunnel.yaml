@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudflare-tunnel
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: kubernetes
+  source:
+    repoURL: https://cloudflare.github.io/helm-charts
+    chart: cloudflare-tunnel
+    targetRevision: 0.3.2
+    helm:
+      valuesObject:
+        cloudflare:
+          tunnelName: "HS-01"
+          tunnelId: "b0f734a7-8ed0-48aa-9dca-90afe93c5750"
+          secretName: "tunnel-credentials"
+
+          ingress:
+            - hostname: voltkonekt.pl
+              service: "http://wordpress.wordpress.svc:80"
+
+        replicaCount: 1
+  destination:
+    name: in-cluster
+    namespace: cloudflare
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
