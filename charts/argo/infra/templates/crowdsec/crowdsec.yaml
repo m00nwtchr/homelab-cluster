@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crowdsec
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: kubernetes
+  source:
+    repoURL: https://cloudnative-pg.github.io/charts
+    chart: cloudnative-pg
+    targetRevision: "0.23"
+    helm:
+      valuesObject:
+        # for raw logs format: json or cri (docker|containerd)
+        container_runtime: containerd
+        agent:
+          # Specify each pod whose logs you want to process
+          acquisition:
+            # The namespace where the pod is located
+            - namespace: traefik
+              # The pod name
+              podName: traefik-*
+              # as in crowdsec configuration, we need to specify the program name to find a matching parser
+              program: traefik
+          env:
+            - name: COLLECTIONS
+              value: "crowdsecurity/traefik"
+  destination:
+    name: in-cluster
+    namespace: crowdsec
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true
