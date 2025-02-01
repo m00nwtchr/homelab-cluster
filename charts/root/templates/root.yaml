@@ -12,7 +12,7 @@ spec:
 
   source:
     repoURL: http://gitea.default.svc/m00n/homelab-cluster.git
-    path: charts/bootstrap/root/
+    path: charts/root/
     targetRevision: HEAD
 
   destination:
