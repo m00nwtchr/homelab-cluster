@@ -2,3 +2,9 @@ repoUrl: http://gitea.default.svc/m00n/homelab-cluster.git
 
 domain: m00nlit.dev
 email: prior-cameo-jazz@duck.com
+
+
+global:
+  traefik:
+    fixedMiddlewares: [ ]
+    allowCorsMiddlewares: [ ]
