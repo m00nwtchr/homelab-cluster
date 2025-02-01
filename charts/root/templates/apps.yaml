@@ -57,6 +57,7 @@ spec:
             - /metadata/annotations/argocd.argoproj.io~1refresh
             - /operation
   syncPolicy:
+    preserveResourcesOnDeletion: true
     ignoreApplicationDifferences:
       - jsonPointers:
           - /spec/syncPolicy
