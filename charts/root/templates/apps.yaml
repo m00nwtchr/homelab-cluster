@@ -56,3 +56,7 @@ spec:
             - /spec/syncPolicy
             - /metadata/annotations/argocd.argoproj.io~1refresh
             - /operation
+  syncPolicy:
+    ignoreApplicationDifferences:
+      - jsonPointers:
+          - /spec/syncPolicy
