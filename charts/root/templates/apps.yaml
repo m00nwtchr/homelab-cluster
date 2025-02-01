@@ -10,6 +10,13 @@ spec:
         revision: HEAD
         directories:
           - path: charts/argo/*
+
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  ignoreApplicationDifferences:
+    - jsonPointers:
+        - /spec/syncPolicy
+
   template:
     metadata:
       name: '{{ `{{path.basename}}` }}'
@@ -49,15 +56,10 @@ spec:
           - ServerSideApply=true
           - RespectIgnoreDifferences=true
 
-    ignoreDifferences:
-      - group: argoproj.io
-        kind: "Application"
-        jsonPointers:
-          - /spec/syncPolicy
-          - /metadata/annotations/argocd.argoproj.io~1refresh
-          - /operation
-  syncPolicy:
-    preserveResourcesOnDeletion: true
-    ignoreApplicationDifferences:
-      - jsonPointers:
-          - /spec/syncPolicy
+      ignoreDifferences:
+        - group: argoproj.io
+          kind: "Application"
+          jsonPointers:
+            - /spec/syncPolicy
+            - /metadata/annotations/argocd.argoproj.io~1refresh
+            - /operation
