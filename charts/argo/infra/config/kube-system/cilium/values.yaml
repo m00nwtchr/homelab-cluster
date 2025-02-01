@@ -1,0 +1,48 @@
+cluster:
+  name: default
+
+cni:
+  binPath: "/usr/lib/cni/"
+
+devices:
+  - tailscale0
+  - enp+
+
+ipam:
+  # mode: kubernetes
+  operator:
+    clusterPoolIPv6MaskSize: 64
+    clusterPoolIPv6PodCIDRList:
+      - 2001:cafe:42::/56
+    clusterPoolIPv4PodCIDRList:
+      - 10.42.0.0/16
+
+ipv4:
+  enabled: true
+ipv6:
+  enabled: true
+ipv4NativeRoutingCIDR: 10.42.0.0/16
+ipv6NativeRoutingCIDR: 2001:cafe:42::/56
+routingMode: native
+enableIPv6Masquerade: true
+
+bpf:
+  masquerade: true
+k8s:
+  requireIPv6PodCIDR: true
+  requireIPv4PodCIDR: false
+
+k8sServiceHost: ::1
+k8sServicePort: 6444
+kubeProxyReplacement: true
+
+bandwidthManager:
+  enabled: true
+  bbr: true
+hostFirewall:
+  enabled: true
+policyAuditMode: false
+policyEnforcementMode: default
+
+prometheus:
+  enabled: true

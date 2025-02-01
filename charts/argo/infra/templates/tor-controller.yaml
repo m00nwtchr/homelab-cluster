@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tor-controller
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: kubernetes
+  source:
+    repoURL: https://bugfest.github.io/tor-controller
+    chart: tor-controller
+    targetRevision: 0.1.17
+    helm:
+      valuesObject:
+  destination:
+    name: in-cluster
+    namespace: tor-controller
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

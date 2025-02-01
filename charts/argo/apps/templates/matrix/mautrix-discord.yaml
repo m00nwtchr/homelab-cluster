@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mautrix-discord
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: kubernetes
+  source:
+    repoURL: http://gitea.default.svc/m00n/homelab-cluster.git
+    path: charts/apps/mautrix-bridge
+    targetRevision: HEAD
+    helm:
+      valuesObject:
+        image:
+          tag: "latest"
+          pullPolicy: Always
+
+        matrix:
+          url: http://conduit.matrix.svc
+          serverName: {{ .Values.domain }}
+
+        bridge:
+          type: discord
+
+  destination:
+    name: in-cluster
+    namespace: matrix
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mautrix-discord
+  namespace: matrix
+spec:
+  rules:
+    - host: mautrix-discord.{{ .Values.domain }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: mautrix-discord
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - mautrix-discord.{{ .Values.domain }}

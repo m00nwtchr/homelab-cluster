@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+spec:
+  project: default
+
+  source:
+    repoURL: http://gitea.default.svc/m00n/homelab-cluster.git
+    path: charts/bootstrap/root/
+    targetRevision: HEAD
+
+  destination:
+    name: in-cluster
+    namespace: argocd
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - RespectIgnoreDifferences=true
+
+  ignoreDifferences:
+    - group: argoproj.io
+      kind: "Application"
+      jsonPointers:
+        - /spec/syncPolicy
+        - /metadata/annotations/argocd.argoproj.io~1refresh
+        - /operation
