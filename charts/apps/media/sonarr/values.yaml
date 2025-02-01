@@ -2,7 +2,7 @@ sonarr:
   service:
     main:
       ports:
-        http:
+        main:
           port: 80
           targetPort: 8989
 
