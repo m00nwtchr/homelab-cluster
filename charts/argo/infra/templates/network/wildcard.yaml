@@ -17,3 +17,21 @@ spec:
   issuerRef:
     name: acme
     kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "wildcard-svc-{{ include "domainDashed" . }}"
+  namespace: traefik
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  secretName: "wildcard-svc-{{ include "domainDashed" . }}-tls"
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  dnsNames:
+    - "*.svc.{{ .Values.domain }}"
+  issuerRef:
+    name: acme
+    kind: ClusterIssuer
