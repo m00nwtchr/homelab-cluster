@@ -76,6 +76,7 @@ spec:
           default:
             certificates:
               - secretName: "wildcard-{{ include "domainDashed" . }}-tls"
+              - secretName: "wildcard-svc-{{ include "domainDashed" . }}-tls"
 
         tlsOptions:
           default:
