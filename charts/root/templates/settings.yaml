@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root
+  name: projects
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -12,7 +12,7 @@ spec:
 
   source:
     repoURL: {{ .Values.repoUrl }}
-    path: charts/root/
+    path: charts/settings/
     targetRevision: HEAD
 
   destination:
