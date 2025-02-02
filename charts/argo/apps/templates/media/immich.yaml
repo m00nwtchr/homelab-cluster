@@ -24,6 +24,7 @@ spec:
               secretKeyRef:
                 name: postgres-immich-superuser
                 key: password
+            REDIS_HOSTNAME: "immich-redis-master.media.svc"
 
           immich:
             persistence:
