@@ -22,7 +22,9 @@ spec:
         server:
           ingress:
             enabled: true
-            tls: true
+          annotations:
+            traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd
+          tls: true
 
         global:
           domain: "argocd.{{ .Values.domain }}"
