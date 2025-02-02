@@ -78,6 +78,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: immich-db
   namespace: media
+  annotations:
+    argocd.argoproj.io/sync-options: Delete=false
 spec:
   accessModes:
     - ReadWriteOnce
