@@ -39,10 +39,9 @@ spec:
                   - host: photos.m00nlit.dev
                     paths:
                       - path: /
-                        pathType: Prefix
-              tls:
-                - hosts:
-                    - photos.m00nlit.dev
+                tls:
+                  - hosts:
+                      - photos.m00nlit.dev
 
           redis:
             enabled: true
