@@ -35,6 +35,12 @@ spec:
                 secretKeyRef:
                   name: traefik-bouncer-key
                   key: secret
+
+        tls:
+          enabled: true
+          agent:
+            tlsClientAuth: true
+
   destination:
     name: in-cluster
     namespace: crowdsec
