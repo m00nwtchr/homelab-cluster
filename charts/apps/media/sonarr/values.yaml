@@ -6,6 +6,14 @@ sonarr:
           port: 8989
   #          targetPort: 8989
 
+  workload:
+    main:
+      podSpec:
+        containers:
+          main:
+            env:
+              SONARR__AUTH__METHOD: "External"
+  
   ingress:
     main:
       enabled: true
