@@ -5,6 +5,8 @@ metadata:
   name: {{ include "ntfy.fullname" . }}
   labels:
     {{- include "ntfy.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-options: Delete=false
 spec:
   accessModes:
     - ReadWriteOnce
