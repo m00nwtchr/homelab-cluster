@@ -38,8 +38,10 @@ spec:
 
         tls:
           enabled: true
-          agent:
-            tlsClientAuth: true
+          certManager:
+            secretTemplate:
+              annotations:
+                test.io/test: test
 
   destination:
     name: in-cluster
