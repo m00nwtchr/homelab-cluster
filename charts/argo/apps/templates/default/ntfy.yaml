@@ -8,8 +8,8 @@ metadata:
 spec:
   project: kubernetes
   source:
-    repoURL: http://gitea.default.svc/m00n/homelab-cluster.git
-    path: charts/ntfy/
+    repoURL: {{ .Values.repoUrl }}
+    path: charts/apps/ntfy/
     targetRevision: HEAD
     helm:
       valuesObject:
