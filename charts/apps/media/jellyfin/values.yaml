@@ -1,10 +1,18 @@
 jellyfin:
 
+  workload:
+    main:
+      podSpec:
+        containers:
+          main:
+            env:
+              JELLYFIN_PublishedServerUrl: https://jellyfin.m00nlit.dev
+  
   ingress:
     main:
       enabled: true
-      annotations:
-        traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd
+      #      annotations:
+      #        traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd
       hosts:
         - host: jellyfin.m00nlit.dev
           paths:
