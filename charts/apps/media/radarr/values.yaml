@@ -1,11 +1,4 @@
 radarr:
-  service:
-    main:
-      ports:
-        main:
-          port: 7879
-  #          targetPort: 7879
-
   workload:
     main:
       podSpec:
