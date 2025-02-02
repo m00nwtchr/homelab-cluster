@@ -21,6 +21,8 @@ sonarr:
             - sonarr.svc.m00nlit.dev
 
   persistence:
+    config:
+      size: 1Gi
     media:
       enabled: true
       type: pvc
