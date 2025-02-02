@@ -6,7 +6,7 @@ metadata:
   labels:
     argocd.argoproj.io/secret-type: repository
 stringData:
-  enableOCI: true
+  enableOCI: "true"
   name: truecharts
   type: helm
   url: tccr.io/truecharts
