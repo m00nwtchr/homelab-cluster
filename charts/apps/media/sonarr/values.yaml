@@ -1,9 +1,9 @@
 sonarr:
-  service:
-    main:
-      ports:
-        main:
-          port: 8989
+  #  service:
+  #    main:
+  #      ports:
+  #        main:
+  #          port: 8989
   #          targetPort: 8989
 
   workload:
