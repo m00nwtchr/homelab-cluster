@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://crowdsecurity.github.io/helm-charts
     chart: crowdsec
-    targetRevision: "0.23"
+    targetRevision: "0.17"
     helm:
       valuesObject:
         # for raw logs format: json or cri (docker|containerd)
