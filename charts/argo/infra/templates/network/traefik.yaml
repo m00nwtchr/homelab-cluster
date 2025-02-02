@@ -96,6 +96,13 @@ spec:
               - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
               - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
 
+        experimental:
+          plugins:
+            enabled: true
+            bouncer:
+              moduleName: "github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
+              version: "v1.4.0"
+
         extraObjects:
           - apiVersion: traefik.io/v1alpha1
             kind: Middleware
