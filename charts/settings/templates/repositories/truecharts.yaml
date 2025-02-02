@@ -7,7 +7,7 @@ metadata:
     argocd.argoproj.io/secret-type: repository
 stringData:
   enableOCI: "true"
-  name: truecharts
-  type: helm
-  url: tccr.io/truecharts
+  name: "truecharts"
+  type: "helm"
+  url: "tccr.io/truecharts"
 type: Opaque
