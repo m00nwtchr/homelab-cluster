@@ -1,0 +1,32 @@
+prowlarr:
+  workload:
+    main:
+      podSpec:
+        containers:
+          main:
+            env:
+              PROWLARR__AUTH__METHOD: "External"
+  
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd
+      hosts:
+        - host: prowlarr.svc.m00nlit.dev
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - prowlarr.svc.m00nlit.dev
+
+  persistence:
+    config:
+      size: 1Gi
+
+  resources:
+    limits: { }
+    requests:
+      cpu: 100m
+      memory: 700Mi

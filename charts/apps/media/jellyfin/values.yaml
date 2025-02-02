@@ -1,0 +1,28 @@
+jellyfin:
+
+  ingress:
+    main:
+      enabled: true
+      hosts:
+        - host: jellyfin.m00nlit.dev
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - jellyfin.m00nlit.dev
+
+  persistence:
+    config:
+      size: 1Gi
+    media:
+      enabled: true
+      type: pvc
+      mountPath: /media
+      existingClaim: media
+
+  resources:
+    limits: { }
+    requests:
+      cpu: 100m
+      memory: 700Mi
