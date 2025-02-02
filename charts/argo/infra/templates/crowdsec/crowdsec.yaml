@@ -8,8 +8,8 @@ metadata:
 spec:
   project: kubernetes
   source:
-    repoURL: https://cloudnative-pg.github.io/charts
-    chart: cloudnative-pg
+    repoURL: https://crowdsecurity.github.io/helm-charts
+    chart: crowdsec
     targetRevision: "0.23"
     helm:
       valuesObject:
