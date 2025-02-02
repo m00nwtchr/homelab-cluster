@@ -48,7 +48,7 @@ spec:
             entryPoints:
               - websecure
             middlewares:
-              - traefik-vpn-only@kubernetescrd
+              - "traefik-vpn-only@kubernetescrd"
 
         ports:
           web:
