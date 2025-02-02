@@ -17,7 +17,7 @@ spec:
       helm:
         valuesObject:
           env:
-            DB_HOSTNAME: "immich-db.media.svc"
+            DB_HOSTNAME: "immich-pgdb-service.media.svc"
             DB_DATABASE_NAME: "immich"
             DB_USERNAME: "immich"
             DB_PASSWORD:
