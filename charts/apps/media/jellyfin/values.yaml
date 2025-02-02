@@ -3,6 +3,8 @@ jellyfin:
   ingress:
     main:
       enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd
       hosts:
         - host: jellyfin.m00nlit.dev
           paths:
