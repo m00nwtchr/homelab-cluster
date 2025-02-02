@@ -25,3 +25,31 @@ spec:
   resources:
     requests:
       storage: "12Ti"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "photos"
+  labels:
+    type: "local"
+spec:
+  storageClassName: "manual"
+  capacity:
+    storage: "12Ti"
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/media/photos"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "photos"
+  namespace: "media"
+spec:
+  storageClassName: "manual"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: "12Ti"
