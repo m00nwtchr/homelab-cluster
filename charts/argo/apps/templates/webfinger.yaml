@@ -76,6 +76,7 @@ spec:
       kind: Rule
       services:
         - name: webfinger
+          port: http
   tls:
     options:
       name: intermediate
