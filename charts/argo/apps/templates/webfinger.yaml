@@ -57,9 +57,10 @@ spec:
   selector:
     app: go-finger
   ports:
-    - protocol: TCP
+    - name: http
       appProtocol: http
       port: 80
+      protocol: TCP
       targetPort: http
 ---
 apiVersion: traefik.io/v1alpha1
