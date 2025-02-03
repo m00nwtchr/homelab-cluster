@@ -71,7 +71,7 @@ metadata:
     app: go-finger
 spec:
   entryPoints:
-    - web-secure
+    - websecure
   routes:
     - match: "Host(`{{ .Values.domain }}`) && PathPrefix(`/.well-known/webfinger`)"
       kind: Rule
