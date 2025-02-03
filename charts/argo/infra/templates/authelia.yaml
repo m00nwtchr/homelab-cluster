@@ -18,14 +18,14 @@ spec:
         runAsUser: 1000
       volumeMounts:
         - mountPath: /config/configuration.yml
-          name: var-container-authelia-config-configuration.yml-host-0
+          name: config
           readOnly: true
   hostUsers: false
   volumes:
     - hostPath:
         path: /var/container/authelia/config/configuration.yml
         type: File
-      name: var-container-authelia-config-configuration.yml-host-0
+      name: config
 ---
 apiVersion: v1
 kind: Service
