@@ -1,0 +1,59 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: authelia-pod
+  name: authelia-pod
+spec:
+  containers:
+    - image: docker.io/authelia/authelia:latest
+      name: authelia
+      ports:
+        - containerPort: 9091
+          protocol: TCP
+          name: http
+      securityContext:
+        runAsGroup: 1000
+        runAsUser: 1000
+      volumeMounts:
+        - mountPath: /config/configuration.yml
+          name: var-container-authelia-config-configuration.yml-host-0
+          readOnly: true
+  hostUsers: false
+  volumes:
+    - hostPath:
+        path: /var/container/authelia/config/configuration.yml
+        type: File
+      name: var-container-authelia-config-configuration.yml-host-0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authelia-service
+  labels:
+    app: authelia
+spec:
+  selector:
+    app: authelia-pod
+  ports:
+    - protocol: TCP
+      port: 9091
+      targetPort: http
+  type: ClusterIP
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: authelia-ingressroute
+  labels:
+    app: authelia
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`auth.{{ .Values.domain }}`)
+      kind: Rule
+      services:
+        - name: authelia-service
+          port: 9091
