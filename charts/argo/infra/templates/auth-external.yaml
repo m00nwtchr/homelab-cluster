@@ -4,28 +4,13 @@ metadata:
   name: authelia
   namespace: default
 spec:
+  type: ExternalName
+  externalName: fd7a:115c:a1e0::f201:2d35
   ports:
     - name: http
       protocol: TCP
       port: 80
       targetPort: 9091
----
-apiVersion: discovery.k8s.io/v1
-kind: EndpointSlice
-addressType: IPv6
-metadata:
-  name: authelia-1
-  namespace: default
-  labels:
-    kubernetes.io/service-name: authelia
-endpoints:
-  - addresses:
-      - fd7a:115c:a1e0::f201:2d35
-ports:
-  - appProtocol: http
-    name: http
-    port: 9091
-    protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
