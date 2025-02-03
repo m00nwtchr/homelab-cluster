@@ -5,6 +5,7 @@ metadata:
   labels:
     app: authelia-pod
   name: authelia-pod
+  namespace: default
 spec:
   containers:
     - image: docker.io/authelia/authelia:latest
@@ -33,6 +34,7 @@ metadata:
   name: authelia-service
   labels:
     app: authelia
+  namespace: default
 spec:
   selector:
     app: authelia-pod
@@ -48,6 +50,7 @@ metadata:
   name: authelia-ingressroute
   labels:
     app: authelia
+  namespace: default
 spec:
   entryPoints:
     - websecure
