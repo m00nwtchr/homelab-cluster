@@ -81,4 +81,4 @@ spec:
   tls:
     options:
       name: intermediate
-      namespace: file
+      namespace: traefik
