@@ -51,6 +51,11 @@ spec:
               - name: vpn-only
                 namespace: traefik
 
+        service:
+          annotations:
+            svccontroller.k3s.cattle.io/tolerations: |
+              - operator: Exists
+                effect: NoSchedule
         ports:
           web:
             redirections:
