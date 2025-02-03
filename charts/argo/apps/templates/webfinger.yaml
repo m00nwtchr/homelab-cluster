@@ -8,7 +8,7 @@ metadata:
 data:
   fingers.yml: |
     m00n@{{ .Values.domain }}:
-      openid: "https://idm.m00nlit.dev/oauth2/openid/tailscale/.well-known/openid-configuration"
+      openid: "https://idm.m00nlit.dev/oauth2/openid/tailscale"
 ---
 apiVersion: apps/v1
 kind: Deployment
