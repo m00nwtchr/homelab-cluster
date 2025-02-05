@@ -41,6 +41,15 @@ spec:
                   name: traefik-bouncer-key
                   key: secret
 
+        config:
+          config.yaml.local: |
+            api:
+              server:
+                bouncers_allowed_ou:
+                  - bouncer-ou
+                agents_allowed_ou:s
+                  - agent-ou
+
         tls:
           enabled: true
           certManager:
