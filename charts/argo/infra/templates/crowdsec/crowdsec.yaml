@@ -28,6 +28,11 @@ spec:
             - name: COLLECTIONS
               value: "crowdsecurity/traefik"
 
+          tolerations:
+            - key: untrusted
+              operator: Exists
+              effect: NoSchedule
+
         lapi:
           env:
             - name: BOUNCER_KEY_traefik
