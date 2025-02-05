@@ -45,10 +45,11 @@ spec:
           config.yaml.local: |
             api:
               server:
-                bouncers_allowed_ou:
-                  - bouncer-ou
-                agents_allowed_ou:
-                  - agent-ou
+                tls:
+                  bouncers_allowed_ou:
+                    - bouncer-ou
+                  agents_allowed_ou:
+                    - agent-ou
 
         tls:
           enabled: true
