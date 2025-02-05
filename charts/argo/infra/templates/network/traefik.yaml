@@ -157,10 +157,11 @@ spec:
                   - 100.64.0.0/10
                   - fd7a:115c:a1e0::/48
 
-        volumes:
-          - name: crowdsec-bouncer-tls
-            mountPath: "/run/crowdsec/"
-            type: secret
+
+{{/*        volumes:*/}}
+{{/*          - name: crowdsec-bouncer-tls*/}}
+{{/*            mountPath: "/run/crowdsec/"*/}}
+{{/*            type: secret*/}}
 
         globalArguments: [ ]
         metrics:
