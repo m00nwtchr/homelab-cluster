@@ -47,7 +47,7 @@ spec:
               server:
                 bouncers_allowed_ou:
                   - bouncer-ou
-                agents_allowed_ou:s
+                agents_allowed_ou:
                   - agent-ou
 
         tls:
