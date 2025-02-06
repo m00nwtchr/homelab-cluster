@@ -110,58 +110,84 @@ spec:
             filters:
               statuscodes: "400-599"
 
-        experimental:
-          plugins:
-            bouncer:
-              moduleName: "github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
-              version: "v1.4.0"
+        deployment:
 
-        extraObjects:
-          - apiVersion: traefik.io/v1alpha1
-            kind: Middleware
-            metadata:
-              name: ssl-opts
-            spec:
-              headers:
-                stsSeconds: 63072000
-                stsIncludeSubdomains: true
-                stsPreload: true
-                forceSTSHeader: true
-                contentTypeNosniff: true
-                browserXssFilter: true
-                customFrameOptionsValue: 'SAMEORIGIN'
-                contentSecurityPolicy: "upgrade-insecure-requests; frame-src 'self'; frame-ancestors 'self';"
-                referrerPolicy: "same-origin"
+          additionalVolumes:
+            - name: traefik-logs
+              emptyDir: { }
 
-                customResponseHeaders:
-                  X-Robots-Tag: "noindex,nofollow,nosnippet,noarchive,notranslate,noimageindex"
+          additionalContainers:
+            - name: accesslog-sidecar
+              image: busybox
+              command: [ "/bin/sh", "-c", "tail -F /var/log/traefik/access.log" ]
+              volumeMounts:
+                - name: traefik-logs
+                  mountPath: /var/log/traefik
 
-          - apiVersion: traefik.io/v1alpha1
-            kind: Middleware
-            metadata:
-              name: compress
-            spec:
-              compress: { }
+          initContainers:
+            - name: init-accesslog
+              image: busybox
+              command: [ "/bin/sh", "-c", "mkfifo /var/log/traefik/access.log" ]
+              volumeMounts:
+                - name: traefik-logs
+                  mountPath: /var/log/traefik
 
-          - apiVersion: traefik.io/v1alpha1
-            kind: Middleware
-            metadata:
-              name: redirect-to-www
-            spec:
-              redirectRegex:
-                permanent: true
-                regex: "^https?://(?:www\\.)?(.+)"
-                replacement: "https://www.${1}"
+  additionalVolumeMounts:
+    - name: traefik-logs
+      mountPath: /var/log/traefik
 
-          - apiVersion: traefik.io/v1alpha1
-            kind: Middleware
-            metadata:
-              name: vpn-only
-            spec:
-              ipAllowList:
-                sourceRange:
-                  - 100.64.0.0/10
-                  - fd7a:115c:a1e0::/48
+  experimental:
+    plugins:
+      bouncer:
+        moduleName: "github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
+        version: "v1.4.0"
+
+  extraObjects:
+    - apiVersion: traefik.io/v1alpha1
+      kind: Middleware
+      metadata:
+        name: ssl-opts
+      spec:
+        headers:
+          stsSeconds: 63072000
+          stsIncludeSubdomains: true
+          stsPreload: true
+          forceSTSHeader: true
+          contentTypeNosniff: true
+          browserXssFilter: true
+          customFrameOptionsValue: 'SAMEORIGIN'
+          contentSecurityPolicy: "upgrade-insecure-requests; frame-src 'self'; frame-ancestors 'self';"
+          referrerPolicy: "same-origin"
+
+          customResponseHeaders:
+            X-Robots-Tag: "noindex,nofollow,nosnippet,noarchive,notranslate,noimageindex"
+
+    - apiVersion: traefik.io/v1alpha1
+      kind: Middleware
+      metadata:
+        name: compress
+      spec:
+        compress: { }
+
+    - apiVersion: traefik.io/v1alpha1
+      kind: Middleware
+      metadata:
+        name: redirect-to-www
+      spec:
+        redirectRegex:
+          permanent: true
+          regex: "^https?://(?:www\\.)?(.+)"
+          replacement: "https://www.${1}"
+
+    - apiVersion: traefik.io/v1alpha1
+      kind: Middleware
+      metadata:
+        name: vpn-only
+      spec:
+        ipAllowList:
+          sourceRange:
+            - 100.64.0.0/10
+            - fd7a:115c:a1e0::/48
 
 
 {{/*        volumes:*/}}
@@ -169,42 +195,42 @@ spec:
 {{/*            mountPath: "/run/crowdsec/"*/}}
 {{/*            type: secret*/}}
 
-        globalArguments: [ ]
-        metrics:
-          prometheus:
-            service:
-              enabled: true
-            disableAPICheck: false
-            serviceMonitor:
-              enabled: true
-              metricRelabelings:
-                - sourceLabels: [ __name__ ]
-                  separator: ;
-                  regex: ^fluentd_output_status_buffer_(oldest|newest)_.+
-                  replacement: $1
-                  action: drop
-              relabelings:
-                - sourceLabels: [ __meta_kubernetes_pod_node_name ]
-                  separator: ;
-                  regex: ^(.*)$
-                  targetLabel: nodename
-                  replacement: $1
-                  action: replace
-              jobLabel: traefik
-              interval: 30s
-              honorLabels: true
-            prometheusRule:
-              enabled: true
-              rules:
-                - alert: TraefikDown
-                  expr: up{job="traefik"} == 0
-                  for: 5m
-                  labels:
-                    context: traefik
-                    severity: warning
-                  annotations:
-                    summary: "Traefik Down"
-                    description: "{{`{{ $labels.pod }} on {{ $labels.nodename }} is down`}}"
+  globalArguments: [ ]
+  metrics:
+    prometheus:
+      service:
+        enabled: true
+      disableAPICheck: false
+      serviceMonitor:
+        enabled: true
+        metricRelabelings:
+          - sourceLabels: [ __name__ ]
+            separator: ;
+            regex: ^fluentd_output_status_buffer_(oldest|newest)_.+
+            replacement: $1
+            action: drop
+        relabelings:
+          - sourceLabels: [ __meta_kubernetes_pod_node_name ]
+            separator: ;
+            regex: ^(.*)$
+            targetLabel: nodename
+            replacement: $1
+            action: replace
+        jobLabel: traefik
+        interval: 30s
+        honorLabels: true
+      prometheusRule:
+        enabled: true
+        rules:
+          - alert: TraefikDown
+            expr: up{job="traefik"} == 0
+            for: 5m
+            labels:
+              context: traefik
+              severity: warning
+            annotations:
+              summary: "Traefik Down"
+              description: "{{`{{ $labels.pod }} on {{ $labels.nodename }} is down`}}"
   destination:
     name: in-cluster
     namespace: traefik
