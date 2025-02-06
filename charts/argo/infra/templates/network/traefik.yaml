@@ -107,6 +107,7 @@ spec:
         logs:
           access:
             enabled: true
+            filePath: "/var/log/traefik/access.log"
             filters:
               statuscodes: "400-599"
 
@@ -116,7 +117,7 @@ spec:
               emptyDir: { }
 
           additionalContainers:
-            - name: accesslog-sidecar
+            - name: accesslog
               image: busybox
               command: [ "/bin/sh", "-c", "tail -F /var/log/traefik/access.log" ]
               volumeMounts:
