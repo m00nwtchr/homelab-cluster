@@ -13,16 +13,11 @@ spec:
     targetRevision: "0.17"
     helm:
       valuesObject:
-        # for raw logs format: json or cri (docker|containerd)
         container_runtime: containerd
         agent:
-          # Specify each pod whose logs you want to process
           acquisition:
-            # The namespace where the pod is located
             - namespace: traefik
-              # The pod name
               podName: traefik-*
-              # as in crowdsec configuration, we need to specify the program name to find a matching parser
               program: traefik
           env:
             - name: DISABLE_PARSERS
