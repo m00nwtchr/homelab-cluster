@@ -45,12 +45,6 @@ spec:
           config.yaml.local: |
             api:
               server:
-                auto_registration: # Activate if not using TLS for authentication
-                  enabled: false
-                  token: "${REGISTRATION_TOKEN}" # /!\ Do not modify this variable (auto-generated and handled by the chart)
-                  allowed_ranges: # /!\ Make sure to adapt to the pod IP ranges used by your cluster
-                    - "{{ .Values.ipv6ClusterCIDR }}
-                    - "{{ .Values.ipv4ClusterCIDR }}"
                 tls:
                   bouncers_allowed_ou:
                     - bouncer-ou
