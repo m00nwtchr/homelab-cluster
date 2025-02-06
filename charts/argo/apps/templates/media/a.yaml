@@ -16,7 +16,7 @@ spec:
 
   bootstrap:
     initdb:
-      user: immich
+      owner: immich
       database: immich
       secret:
         name: immich-postgres-user
