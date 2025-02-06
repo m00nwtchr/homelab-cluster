@@ -131,9 +131,9 @@ spec:
                 - name: traefik-logs
                   mountPath: /var/log/traefik
 
-          additionalVolumeMounts:
-            - name: traefik-logs
-              mountPath: /var/log/traefik
+        additionalVolumeMounts:
+          - name: traefik-logs
+            mountPath: /var/log/traefik
 
         experimental:
           plugins:
