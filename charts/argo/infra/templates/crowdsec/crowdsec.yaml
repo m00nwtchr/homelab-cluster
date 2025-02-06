@@ -35,6 +35,8 @@ spec:
 
         lapi:
           env:
+            - name: DISABLE_ONLINE_API
+              value: "true
             - name: BOUNCER_KEY_traefik
               valueFrom:
                 secretKeyRef:
