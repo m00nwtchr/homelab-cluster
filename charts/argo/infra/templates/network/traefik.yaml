@@ -110,31 +110,30 @@ spec:
             filters:
               statuscodes: "400-599"
 
-      deployment:
+        deployment:
+          additionalVolumes:
+            - name: traefik-logs
+              emptyDir: { }
 
-        additionalVolumes:
-          - name: traefik-logs
-            emptyDir: { }
+          additionalContainers:
+            - name: accesslog-sidecar
+              image: busybox
+              command: [ "/bin/sh", "-c", "tail -F /var/log/traefik/access.log" ]
+              volumeMounts:
+                - name: traefik-logs
+                  mountPath: /var/log/traefik
 
-        additionalContainers:
-          - name: accesslog-sidecar
-            image: busybox
-            command: [ "/bin/sh", "-c", "tail -F /var/log/traefik/access.log" ]
-            volumeMounts:
-              - name: traefik-logs
-                mountPath: /var/log/traefik
+          initContainers:
+            - name: init-accesslog
+              image: busybox
+              command: [ "/bin/sh", "-c", "mkfifo /var/log/traefik/access.log" ]
+              volumeMounts:
+                - name: traefik-logs
+                  mountPath: /var/log/traefik
 
-        initContainers:
-          - name: init-accesslog
-            image: busybox
-            command: [ "/bin/sh", "-c", "mkfifo /var/log/traefik/access.log" ]
-            volumeMounts:
-              - name: traefik-logs
-                mountPath: /var/log/traefik
-
-        additionalVolumeMounts:
-          - name: traefik-logs
-            mountPath: /var/log/traefik
+          additionalVolumeMounts:
+            - name: traefik-logs
+              mountPath: /var/log/traefik
 
         experimental:
           plugins:
@@ -190,10 +189,10 @@ spec:
                   - fd7a:115c:a1e0::/48
 
 
-{{/*        volumes:*/}}
-{{/*          - name: crowdsec-bouncer-tls*/}}
-{{/*            mountPath: "/run/crowdsec/"*/}}
-{{/*            type: secret*/}}
+  {{/*        volumes:*/}}
+  {{/*          - name: crowdsec-bouncer-tls*/}}
+  {{/*            mountPath: "/run/crowdsec/"*/}}
+  {{/*            type: secret*/}}
 
         globalArguments: [ ]
         metrics:
