@@ -25,6 +25,10 @@ spec:
               # as in crowdsec configuration, we need to specify the program name to find a matching parser
               program: traefik
           env:
+            - name: DISABLE_PARSERS
+              value: "crowdsecurity/whitelists"
+            - name: PARSERS
+              value: "crowdsecurity/cri-logs"
             - name: COLLECTIONS
               value: "crowdsecurity/traefik"
 
