@@ -11,8 +11,10 @@ devices:
 routingMode: native
 
 ipam:
+  mode: cluster-pool
   operator:
     clusterPoolIPv6MaskSize: 64
+    clusterPoolIPv4MaskSize: 24
 
 enableIPv6Masquerade: true
 
