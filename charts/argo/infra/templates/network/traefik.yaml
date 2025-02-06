@@ -119,7 +119,7 @@ spec:
           additionalContainers:
             - name: accesslog
               image: busybox
-              command: [ "/bin/sh", "-c", "stdbuf -o0 cat /var/log/traefik/access.log" ]
+              command: [ "/bin/sh", "-c", "cat /var/log/traefik/access.log | awk '{ print; fflush(); }'" ]
               volumeMounts:
                 - name: traefik-logs
                   mountPath: /var/log/traefik
