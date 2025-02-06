@@ -22,10 +22,11 @@ spec:
           - $repo/charts/argo/infra/config/kube-system/cilium/values.yaml
         valuesObject:
           ipam:
-            clusterPoolIPv6PodCIDRList:
-              - {{ .Values.ipv6ClusterCIDR }}
-            clusterPoolIPv4PodCIDRList:
-              - {{ .Values.ipv4ClusterCIDR }}
+            operator:
+              clusterPoolIPv6PodCIDRList:
+                - {{ .Values.ipv6ClusterCIDR }}
+              clusterPoolIPv4PodCIDRList:
+                - {{ .Values.ipv4ClusterCIDR }}
           ipv6NativeRoutingCIDR: {{ .Values.ipv6ClusterCIDR }}
           ipv4NativeRoutingCIDR: {{ .Values.ipv4ClusterCIDR }}
   destination:
