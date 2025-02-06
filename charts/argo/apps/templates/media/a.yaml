@@ -1,48 +1,46 @@
-{{/*apiVersion: postgresql.cnpg.io/v1*/}}
-{{/*kind: Cluster*/}}
-{{/*metadata:*/}}
-{{/*  name: immich-postgres*/}}
-{{/*  namespace: media*/}}
-{{/*  annotations:*/}}
-{{/*    argocd.argoproj.io/sync-wave: "1"*/}}
-{{/*spec:*/}}
-{{/*  # At the time of writing, immich is only compatible with pgvecto.rs <0.4. Latest postgres image with that version is 16.5.*/}}
-{{/*  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.5-v0.3.0@sha256:be3f025d79aa1b747817f478e07e71be43236e14d00d8a9eb3914146245035ba*/}}
-{{/*  instances: 1*/}}
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: immich-postgres
+  namespace: media
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  # At the time of writing, immich is only compatible with pgvecto.rs <0.4. Latest postgres image with that version is 16.5.
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.5-v0.3.0@sha256:be3f025d79aa1b747817f478e07e71be43236e14d00d8a9eb3914146245035ba
+  instances: 1
 
-{{/*  postgresql:*/}}
-{{/*    shared_preload_libraries:*/}}
-{{/*      - "vectors.so"*/}}
+  postgresql:
+    shared_preload_libraries:
+      - "vectors.so"
 
+  bootstrap:
+    initdb:
+      user: immich
+      database: immich
+      secret:
+        name: immich-postgres-user
+      import:
+        type: microservice
+        databases:
+          - immich
+        source:
+          externalCluster: cluster-immich
+      postInitSQL:
+        - ALTER SYSTEM SET search_path TO "$user", public, vectors;
+        - CREATE EXTENSION IF NOT EXISTS "vectors";
+        - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
+        - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
 
+  externalClusters:
+    - name: cluster-immich
+      connectionParameters:
+        host: immich-pgdb-service.media.svc
+        user: postgres
+        dbname: immich
+      password:
+        name: cluster-immich-superuser
+        key: password
 
-{{/*  bootstrap:*/}}
-{{/*    initdb:*/}}
-{{/*      user: immich*/}}
-{{/*      database: immich*/}}
-{{/*      secret:*/}}
-{{/*        name: immich-postgres-user*/}}
-{{/*      import:*/}}
-{{/*        type: microservice*/}}
-{{/*        databases:*/}}
-{{/*          - immich*/}}
-{{/*        source:*/}}
-{{/*          externalCluster: cluster-immich*/}}
-{{/*      postInitSQL:*/}}
-{{/*        - ALTER SYSTEM SET search_path TO "$user", public, vectors;*/}}
-{{/*        - CREATE EXTENSION IF NOT EXISTS "vectors";*/}}
-{{/*        - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;*/}}
-{{/*        - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;*/}}
-
-{{/*  externalClusters:*/}}
-{{/*    - name: cluster-immich*/}}
-{{/*      connectionParameters:*/}}
-{{/*        host: 2a02:a313:43e4:7080::7dc5*/}}
-{{/*        user: postgres*/}}
-{{/*        dbname: immich*/}}
-{{/*      password:*/}}
-{{/*        name: cluster-immich-superuser*/}}
-{{/*        key: password*/}}
-
-{{/*  storage:*/}}
-{{/*    size: 4Gi*/}}
+  storage:
+    size: 4Gi
