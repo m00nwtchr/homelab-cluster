@@ -104,6 +104,13 @@ spec:
               - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
               - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
 
+        logs:
+          access:
+            enabled: true
+            filters:
+              statusCodes:
+                - "400-599"
+
         experimental:
           plugins:
             bouncer:
