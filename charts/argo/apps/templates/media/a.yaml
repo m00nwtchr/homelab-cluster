@@ -39,7 +39,7 @@ spec:
         user: postgres
         dbname: immich
       password:
-        name: cluster-immich-superuser
+        name: postgres-immich-superuser
         key: password
 
   storage:
