@@ -1,28 +1,28 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: chromadb
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: kubernetes
-  sources:
-    - repoURL: https://amikos-tech.github.io/chromadb-chart/
-      chart: chromadb
-      targetRevision: "0.1.23"
-      helm:
-        valuesObject:
-          chromadb:
-            serverHost: "[::]"
+{{/*apiVersion: argoproj.io/v1alpha1*/}}
+{{/*kind: Application*/}}
+{{/*metadata:*/}}
+{{/*  name: chromadb*/}}
+{{/*  namespace: argocd*/}}
+{{/*  finalizers:*/}}
+{{/*    - resources-finalizer.argocd.argoproj.io*/}}
+{{/*spec:*/}}
+{{/*  project: kubernetes*/}}
+{{/*  sources:*/}}
+{{/*    - repoURL: https://amikos-tech.github.io/chromadb-chart/*/}}
+{{/*      chart: chromadb*/}}
+{{/*      targetRevision: "0.1.23"*/}}
+{{/*      helm:*/}}
+{{/*        valuesObject:*/}}
+{{/*          chromadb:*/}}
+{{/*            serverHost: "[::]"*/}}
 
-  destination:
-    name: in-cluster
-    namespace: ai
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - ServerSideApply=true
-      - CreateNamespace=true
+{{/*  destination:*/}}
+{{/*    name: in-cluster*/}}
+{{/*    namespace: ai*/}}
+{{/*  syncPolicy:*/}}
+{{/*    automated:*/}}
+{{/*      prune: true*/}}
+{{/*      selfHeal: true*/}}
+{{/*    syncOptions:*/}}
+{{/*      - ServerSideApply=true*/}}
+{{/*      - CreateNamespace=true*/}}
