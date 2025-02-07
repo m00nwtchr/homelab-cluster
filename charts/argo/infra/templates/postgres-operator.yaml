@@ -11,6 +11,8 @@ spec:
     - repoURL: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
       chart: postgres-operator
       targetRevision: "1.14.0"
+      helm:
+        releaseName: postgres-operator
     - repoURL: https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui
       chart: postgres-operator-ui
       targetRevision: "1.14.0"
