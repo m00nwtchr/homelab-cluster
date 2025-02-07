@@ -11,9 +11,10 @@ spec:
     - repoURL: https://amikos-tech.github.io/chromadb-chart/
       chart: chromadb
       targetRevision: "0.1.23"
-{{/*      helm:*/}}
-{{/*        valuesObject:*/}}
-
+      helm:
+        valuesObject:
+          chromadb:
+            serverHost: "[::]"
 
   destination:
     name: in-cluster
