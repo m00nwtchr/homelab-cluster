@@ -21,6 +21,8 @@ spec:
 {{/*            tls: true*/}}
 
           extraEnvVars:
+            - name: HOST
+              value: "[::]"
             - name: WEBUI_URL
               value: "https://owui.svc.{{ .Values.domain }}"
             - name: ENABLE_LOGIN_FORM
