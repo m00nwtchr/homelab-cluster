@@ -23,8 +23,6 @@ spec:
           extraEnvVars:
             - name: WEBUI_URL
               value: "https://owui.svc.{{ .Values.domain }}"
-            - name: WEBUI_URL
-              value: "https://owui.svc.{{ .Values.domain }}"
             - name: ENABLE_LOGIN_FORM
               value: "false"
 
