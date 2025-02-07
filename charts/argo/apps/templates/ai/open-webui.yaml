@@ -33,7 +33,7 @@ spec:
             - name: OAUTH_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  secretName: open-webui-oidc
+                  name: open-webui-oidc
                   key: secret
             - name: OPENID_PROVIDER_URL
               value: "https://idm.{{.Values.domain}}/oauth2/openid/open-webui/.well-known/openid-configuration"
