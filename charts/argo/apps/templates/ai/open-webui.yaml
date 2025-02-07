@@ -20,9 +20,9 @@ spec:
             host: sonarr.svc.m00nlit.dev
 {{/*            tls: true*/}}
 
-          extraEnvVars:
-            - name: CHROMA_HTTP_HOST
-              value:
+{{/*          extraEnvVars:*/}}
+{{/*            - name: CHROMA_HTTP_HOST*/}}
+{{/*              value:*/}}
 
 
   destination:
