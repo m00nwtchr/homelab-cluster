@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: open-webui
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: kubernetes
+  sources:
+    - repoURL: https://helm.openwebui.com/
+      chart: open-webui
+      targetRevision: "5.10.0"
+      helm:
+        valuesObject:
+          ingress:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd
+            host: sonarr.svc.m00nlit.dev
+{{/*            tls: true*/}}
+
+          extraEnvVars:
+            - name: CHROMA_HTTP_HOST
+              value:
+
+
+  destination:
+    name: in-cluster
+    namespace: ai
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true
