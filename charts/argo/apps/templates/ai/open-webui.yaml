@@ -20,10 +20,31 @@ spec:
             host: sonarr.svc.m00nlit.dev
 {{/*            tls: true*/}}
 
-{{/*          extraEnvVars:*/}}
-{{/*            - name: CHROMA_HTTP_HOST*/}}
-{{/*              value:*/}}
+          extraEnvVars:
+            - name: WEBUI_URL
+              value: "https://owui.svc.{{ .Values.domain }}"
+            - name: WEBUI_URL
+              value: "https://owui.svc.{{ .Values.domain }}"
+            - name: ENABLE_LOGIN_FORM
+              value: "false"
 
+            - name: OAUTH_CLIENT_ID
+              value: open-webui
+            - name: OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretName: open-webui-oidc
+                key: secret
+            - name: OPENID_PROVIDER_URL
+              value: "https://idm.{{.Values.domain}}/oauth2/openid/open-webui/.well-known/openid-configuration"
+
+            - name: ENABLE_OAUTH_SIGNUP
+              value: "true"
+            - name: ENABLE_OAUTH_ROLE_MANAGEMENT
+              value: "true"
+            - name: ENABLE_OAUTH_GROUP_MANAGEMENT
+              value: "false"
+            - name: OAUTH_SCOPES
+              value: "openid email profile"
 
   destination:
     name: in-cluster
