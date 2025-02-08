@@ -1,32 +1,80 @@
-prowlarr:
-  workload:
-    main:
-      podSpec:
-        containers:
-          main:
-            env:
-              PROWLARR__AUTH__METHOD: "External"
-  
-  ingress:
-    main:
-      enabled: true
+app-template:
+  controllers:
+    prowlarr:
       annotations:
-        traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd
+        reloader.stakater.com/auto: "true"
+
+      pod:
+        securityContext:
+          runAsUser: 2000
+          runAsGroup: 2000
+          runAsNonRoot: true
+          fsGroup: 2000
+          fsGroupChangePolicy: OnRootMismatch
+
+      containers:
+        app:
+          image:
+            repository: ghcr.io/onedr0p/prowlarr-develop
+            tag: 1.30.2.4939@sha256:cf9e51aaabc9c6b745b34af7c5b5280ac62eb07f62b397b6b1834ba4c9862616
+          env:
+            PROWLARR__APP__INSTANCENAME: Prowlarr
+            PROWLARR__AUTH__APIKEY:
+              valueFrom:
+                secretKeyRef:
+                  name: prowlarr-secret
+                  key: api_key
+            PROWLARR__AUTH__METHOD: External
+            PROWLARR__LOG__DBENABLED: "False"
+            PROWLARR__LOG__LEVEL: info
+            PROWLARR__SERVER__PORT: &port 9696
+            PROWLARR__UPDATE__BRANCH: develop
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: *port
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
+            readiness: *probes
+          resources:
+            requests:
+              cpu: 18m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+
+  service:
+    app:
+      controller: prowlarr
+      ports:
+        http:
+          port: *port
+
+  ingress:
+    app:
       hosts:
         - host: prowlarr.svc.m00nlit.dev
           paths:
             - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - prowlarr.svc.m00nlit.dev
+              service:
+                identifier: app
+                port: http
 
   persistence:
     config:
       size: 1Gi
-
-  resources:
-    limits: { }
-    requests:
-      cpu: 100m
-      memory: 700Mi
+      accessMode: ReadWriteOnce
+      annotations:
+        argocd.argoproj.io/sync-options: Delete=false
