@@ -109,6 +109,9 @@ app-template:
         - path: /etc/searxng/settings.yml
           subPath: settings.yaml
           readOnly: true
+        - path: /etc/searxng/favicons.toml
+          subPath: favicons.toml
+          readOnly: true
         - path: /etc/searxng/limiter.toml
           subPath: limiter.toml
           readOnly: true
