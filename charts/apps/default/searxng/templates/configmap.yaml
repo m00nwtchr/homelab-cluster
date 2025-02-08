@@ -12,10 +12,6 @@ data:
       method: GET # https://github.com/searxng/searxng/pull/3619
       public_instance: false
 
-    preferences:
-      lock:
-        - method
-
     search:
       autocomplete: duckduckgo
       favicon_resolver: duckduckgo
@@ -24,7 +20,7 @@ data:
         - en
         - en-US
         - de
-        - nl-NL
+        - pl-PL
 
     general:
       instance_name: m00nlit.dev Search
@@ -37,6 +33,17 @@ data:
       static_use_hash: true
       theme_args:
         simple_style: auto
+
+    preferences:
+      lock:
+        - method
+
+    outgoing:
+      proxies:
+        all://:
+          - socks5h://tor-proxy.tor.cluster.svc:9050
+      using_tor_proxy: true
+      extra_proxy_timeout: 10
 
     categories_as_tabs:
       general:
@@ -53,7 +60,6 @@ data:
       - Ahmia blacklist
       - Hostnames plugin
       - Open Access DOI rewrite
-      - Tor check plugin
 
     hostnames:
       high_priority:
