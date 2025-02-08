@@ -43,7 +43,7 @@ data:
         all://:
           - socks5h://tor-proxy.default.svc:9050
       #  using_tor_proxy: true
-      request_timeout: 5000
+      request_timeout: 13
     #  extra_proxy_timeout: 5000
 
     categories_as_tabs:
