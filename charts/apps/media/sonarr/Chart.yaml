@@ -4,6 +4,6 @@ type: application
 version: 1.0.0
 appVersion: "1.0.0"
 dependencies:
-  - name: sonarr
-    version: 23.6.2
-    repository: oci://tccr.io/truecharts
+  - name: app-template
+    version: 3.7.0
+    repository: https://bjw-s.github.io/helm-charts

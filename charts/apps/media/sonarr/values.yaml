@@ -1,44 +1,86 @@
 sonarr:
-  #  service:
-  #    main:
-  #      ports:
-  #        main:
-  #          port: 8989
-  #          targetPort: 8989
+  controllers:
+    sonarr:
 
-  workload:
-    main:
-      podSpec:
-        containers:
-          main:
-            env:
-              SONARR__AUTH__METHOD: "External"
-  
+      pod:
+        securityContext:
+          runAsUser: 2000
+          runAsGroup: 2000
+          runAsNonRoot: true
+          fsGroup: 2000
+          fsGroupChangePolicy: "OnRootMismatch"
+          supplementalGroups:
+            - 65542 # gladius:external-services
+
+      containers:
+        app:
+          image:
+            repository: ghcr.io/onedr0p/sonarr
+            tag: 4.0.12.2823@sha256:55c6878a5367fc2398d15c9a16a70653f5e5f42c9fe9b708a038f2781fb0360f
+          env:
+            SONARR__APP__INSTANCENAME: Sonarr
+            SONARR__AUTH__APIKEY:
+              valueFrom:
+                secretKeyRef:
+                  name: sonarr-secret
+                  key: api_key
+            SONARR__AUTH__METHOD: External
+            SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+            SONARR__LOG__DBENABLED: "False"
+            SONARR__LOG__LEVEL: info
+            SONARR__SERVER__PORT: &port 8989
+            # SONARR__UPDATE__BRANCH: develop
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: *port
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
+            readiness: *probes
+          resources:
+            requests:
+              cpu: 20m
+              memory: 384Mi
+            # limits:
+            #  memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+
+  service:
+    app:
+      controller: sonarr
+      ports:
+        http:
+          port: *port
+
   ingress:
-    main:
-      enabled: true
-      annotations:
-        traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd
+    app:
       hosts:
         - host: sonarr.svc.m00nlit.dev
           paths:
             - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - sonarr.svc.m00nlit.dev
+              service:
+                identifier: app
+                port: http
 
   persistence:
     config:
-      size: 1Gi
+      existingClaim: sonarr-config
+    add-ons:
+      type: emptyDir
+    tmp:
+      type: emptyDir
     media:
-      enabled: true
       type: pvc
       mountPath: /media
       existingClaim: media
-
-  resources:
-    limits: { }
-    requests:
-      cpu: 100m
-      memory: 700Mi
