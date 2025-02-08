@@ -31,7 +31,7 @@ app-template:
             RADARR__UPDATE__BRANCH: develop
           probes:
             liveness: &probes
-              enabled: true
+              enabled: false
               custom: true
               spec:
                 httpGet:
