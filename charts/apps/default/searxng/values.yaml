@@ -22,13 +22,12 @@ app-template:
                 name: searxng-secret
           probes:
             liveness: &probes
-              enabled: true
+              enabled: false
               custom: true
               spec:
                 httpGet:
                   path: /stats
                   port: 8080
-                  host: searxng.default.svc.cluster.local
                 initialDelaySeconds: 0
                 periodSeconds: 10
                 timeoutSeconds: 1
