@@ -75,13 +75,11 @@ app-template:
 
   persistence:
     config:
-      existingClaim: sonarr-config
+      annotations:
+        argocd.argoproj.io/sync-options: Delete=false
     add-ons:
       type: emptyDir
     tmp:
       type: emptyDir
     media:
-      type: persistentVolumeClaim
       existingClaim: media
-      globalMounts:
-        - path: /media
