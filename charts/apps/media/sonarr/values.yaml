@@ -15,8 +15,8 @@ app-template:
       containers:
         app:
           image:
-            repository: ghcr.io/onedr0p/sonarr
-            tag: 4.0.12.2823@sha256:55c6878a5367fc2398d15c9a16a70653f5e5f42c9fe9b708a038f2781fb0360f
+            repository: ghcr.io/onedr0p/sonarr-develop
+            tag: 4.0.12.2900@sha256:e4de8879c00d0d5ac2d616e325259cf0afef0b3715fcdcf081292c25c5072760
           env:
             SONARR__APP__INSTANCENAME: Sonarr
             SONARR__AUTH__APIKEY:
@@ -29,7 +29,7 @@ app-template:
             SONARR__LOG__DBENABLED: "False"
             SONARR__LOG__LEVEL: trace
             SONARR__SERVER__PORT: &port 8989
-            # SONARR__UPDATE__BRANCH: develop
+            SONARR__UPDATE__BRANCH: develop
           probes:
             liveness: &probes
               enabled: true
