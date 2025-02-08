@@ -106,8 +106,8 @@ app-template:
       type: configMap
       name: searxng
       globalMounts:
-        - path: /etc/searxng/settings.yml
-          subPath: settings.yml
+        - path: /etc/searxng/settings.yaml
+          subPath: settings.yaml
           readOnly: true
         - path: /etc/searxng/limiter.toml
           subPath: limiter.toml
