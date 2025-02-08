@@ -7,7 +7,7 @@ data:
     use_default_settings: true
 
     server:
-      bind_address: "::"
+      bind_address: "[::]"
       limiter: true
       image_proxy: true
       method: GET # https://github.com/searxng/searxng/pull/3619
