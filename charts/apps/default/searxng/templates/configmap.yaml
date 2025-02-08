@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: game-demo
+  name: searxng
 data:
   settings.yaml: |
     use_default_settings: true
