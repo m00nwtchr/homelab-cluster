@@ -47,11 +47,13 @@ data:
     enabled_plugins:
       - Basic Calculator
       - Hash plugin
-      - Hostnames plugin
-      - Open Access DOI rewrite
-      - Self Informations
+      - Self Information
       - Tracker URL remover
       - Unit converter plugin
+      - Ahmia blacklist
+      - Hostnames plugin
+      - Open Access DOI rewrite
+      - Tor check plugin
 
     hostnames:
       high_priority:
