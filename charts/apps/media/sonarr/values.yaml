@@ -1,7 +1,6 @@
 app-template:
   controllers:
     sonarr:
-
       pod:
         securityContext:
           runAsUser: 2000
@@ -16,7 +15,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/onedr0p/sonarr-develop
-            tag: 4.0.10.2656@sha256:4eb7790aeed145b5495951bd5e68a67c2f04693bfd3c9916ffd4667d4c8b8400
+            tag: 4.0.12.2900@sha256:e4de8879c00d0d5ac2d616e325259cf0afef0b3715fcdcf081292c25c5072760
           env:
             SONARR__APP__INSTANCENAME: Sonarr
             SONARR__AUTH__APIKEY:
@@ -27,12 +26,12 @@ app-template:
             SONARR__AUTH__METHOD: External
             SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
             SONARR__LOG__DBENABLED: "False"
-            SONARR__LOG__LEVEL: trace
+            SONARR__LOG__LEVEL: info
             SONARR__SERVER__PORT: &port 8989
             SONARR__UPDATE__BRANCH: develop
           probes:
             liveness: &probes
-              enabled: false
+              enabled: true
               custom: true
               spec:
                 httpGet:
@@ -42,13 +41,13 @@ app-template:
                 periodSeconds: 10
                 timeoutSeconds: 1
                 failureThreshold: 3
-          #            readiness: *probes
+            readiness: *probes
           resources:
             requests:
               cpu: 20m
               memory: 384Mi
-            # limits:
-            #  memory: 2Gi
+          #            limits:
+          #              memory: 2Gi
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -56,33 +55,33 @@ app-template:
               drop:
                 - ALL
 
-  service:
-    app:
-      controller: sonarr
-      ports:
-        http:
-          port: *port
+    service:
+      app:
+        controller: sonarr
+        ports:
+          http:
+            port: *port
 
-  ingress:
-    app:
-      hosts:
-        - host: sonarr.svc.m00nlit.dev
-          paths:
-            - path: /
-              service:
-                identifier: app
-                port: http
+    ingress:
+      app:
+        hosts:
+          - host: sonarr.svc.m00nlit.dev
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
 
-  persistence:
-    config:
-      size: 1Gi
-      accessMode: ReadWriteOnce
-      annotations:
-        argocd.argoproj.io/sync-options: Delete=false
-    add-ons:
-      type: emptyDir
-    tmp:
-      type: emptyDir
+    persistence:
+      config:
+        size: 1Gi
+        accessMode: ReadWriteOnce
+        annotations:
+          argocd.argoproj.io/sync-options: Delete=false
+      add-ons:
+        type: emptyDir
+      tmp:
+        type: emptyDir
     media:
       existingClaim: media
       globalMounts:
