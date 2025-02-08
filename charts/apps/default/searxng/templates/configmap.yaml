@@ -41,7 +41,7 @@ data:
     outgoing:
       proxies:
         all://:
-          - socks5h://tor-proxy.tor.cluster.svc:9050
+          - socks5h://tor-proxy.default.cluster.svc:9050
       using_tor_proxy: true
       extra_proxy_timeout: 10
 
