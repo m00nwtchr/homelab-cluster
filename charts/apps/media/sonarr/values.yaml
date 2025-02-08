@@ -27,7 +27,7 @@ app-template:
             SONARR__AUTH__METHOD: External
             SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
             #            SONARR__LOG__DBENABLED: "False"
-            SONARR__LOG__LEVEL: info
+            SONARR__LOG__LEVEL: debug
             SONARR__SERVER__PORT: &port 8989
             # SONARR__UPDATE__BRANCH: develop
           probes:
