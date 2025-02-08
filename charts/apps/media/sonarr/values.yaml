@@ -85,3 +85,5 @@ app-template:
       type: emptyDir
     media:
       existingClaim: media
+      globalMounts:
+        - path: /mnt/media
