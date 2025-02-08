@@ -1,0 +1,119 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.2.0/charts/other/app-template/values.schema.json
+
+app-template:
+  controllers:
+    searxng:
+      strategy: RollingUpdate
+      containers:
+        main:
+          image:
+            repository: docker.io/searxng/searxng
+            tag: latest
+
+          env:
+            SEARXNG_BASE_URL: https://search.m00nlit.dev
+            SEARXNG_URL: https://search.m00nlit.dev
+            SEARXNG_PORT: &httpPort 8080
+            SEARXNG_REDIS_URL: redis://searxng-redis.default.svc.cluster.local:6379/0
+          envFrom:
+            - secretRef:
+                name: searxng-secret
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /stats
+                  port: 8080
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
+            readiness: *probes
+          resources:
+            requests:
+              cpu: 10m
+              memory: 256Mi
+            limits:
+              memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - CHOWN
+                - SETGID
+                - SETUID
+                - DAC_OVERRIDE
+
+    redis:
+      pod:
+        securityContext:
+          runAsUser: 65534
+          runAsGroup: 65534
+      strategy: RollingUpdate
+      containers:
+        redis:
+          image:
+            repository: docker.io/valkey/valkey
+            tag: 8-alpine
+          args:
+            - --save
+            - ""
+            - --appendonly
+            - "no"
+          resources:
+            requests:
+              cpu: 5m
+              memory: 32Mi
+            limits:
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+
+  service:
+    app:
+      controller: searxng
+      ports:
+        http:
+          port: *httpPort
+    redis:
+      controller: redis
+      ports:
+        http:
+          port: 6379
+
+  ingress:
+    app:
+      hosts:
+        - host: search.m00nlit.dev
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+
+  persistence:
+    config:
+      type: configMap
+      name: searxng
+      globalMounts:
+        - path: /etc/searxng/settings.yml
+          subPath: settings.yml
+          readOnly: true
+        - path: /etc/searxng/limiter.toml
+          subPath: limiter.toml
+          readOnly: true
+    tmpfs:
+      enabled: true
+      type: emptyDir
+      globalMounts:
+        - path: /etc/searxng
