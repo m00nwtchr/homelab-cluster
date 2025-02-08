@@ -42,7 +42,7 @@ app-template:
                 periodSeconds: 10
                 timeoutSeconds: 1
                 failureThreshold: 3
-            readiness: *probes
+          #            readiness: *probes
           resources:
             requests:
               cpu: 20m
