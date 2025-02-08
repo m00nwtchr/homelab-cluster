@@ -117,3 +117,8 @@ app-template:
       type: emptyDir
       globalMounts:
         - path: /etc/searxng
+    tmpfs2:
+      enabled: true
+      type: emptyDir
+      globalMounts:
+        - path: /tmp
