@@ -15,6 +15,7 @@ app-template:
             SEARXNG_BASE_URL: https://search.m00nlit.dev
             SEARXNG_URL: https://search.m00nlit.dev
             SEARXNG_PORT: &httpPort 8080
+            SEARXNG_BIND_ADDRESS: "::"
             SEARXNG_REDIS_URL: redis://searxng-redis.default.svc.cluster.local:6379/0
           envFrom:
             - secretRef:
