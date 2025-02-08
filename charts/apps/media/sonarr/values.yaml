@@ -82,5 +82,6 @@ app-template:
       type: emptyDir
     media:
       type: persistentVolumeClaim
-      mountPath: /media
       existingClaim: media
+      globalMounts:
+        - path: /media
