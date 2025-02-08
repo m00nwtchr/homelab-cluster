@@ -28,7 +28,7 @@ app-template:
                 httpGet:
                   path: /stats
                   port: 8080
-                  host: http://searxng.default.svc.cluster.local
+                  host: searxng.default.svc.cluster.local
                 initialDelaySeconds: 0
                 periodSeconds: 10
                 timeoutSeconds: 1
