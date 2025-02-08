@@ -1,4 +1,4 @@
-sonarr:
+app-template:
   controllers:
     sonarr:
 
