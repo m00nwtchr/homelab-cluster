@@ -82,8 +82,8 @@ app-template:
       type: emptyDir
     tmp:
       type: emptyDir
-  media:
-    existingClaim: media
-    globalMounts:
-      - path: /mnt/media
-      - path: /media
+    media:
+      existingClaim: media
+      globalMounts:
+        - path: /mnt/media
+        - path: /media
