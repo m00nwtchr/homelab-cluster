@@ -75,6 +75,7 @@ app-template:
 
   persistence:
     config:
+      size: 1Gi
       annotations:
         argocd.argoproj.io/sync-options: Delete=false
     add-ons:
