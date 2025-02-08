@@ -12,6 +12,10 @@ data:
       method: GET # https://github.com/searxng/searxng/pull/3619
       public_instance: false
 
+    preferences:
+      lock:
+        - method
+
     search:
       autocomplete: duckduckgo
       favicon_resolver: duckduckgo
