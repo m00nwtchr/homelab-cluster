@@ -14,7 +14,7 @@ app-template:
             - 65542 # gladius:external-services
         terminationGracePeriodSeconds: 120
 
-      initContainers:
+      #initContainers:
       #dnsdist:
       #  image:
       #    repository: docker.io/powerdns/dnsdist-19
