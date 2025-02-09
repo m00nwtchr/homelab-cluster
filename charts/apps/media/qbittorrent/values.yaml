@@ -130,7 +130,8 @@ app-template:
       controller: qbittorrent
       ports:
         http:
-          port: *port
+          targetPort: *port
+          port: 80
 
   ingress:
     app:
