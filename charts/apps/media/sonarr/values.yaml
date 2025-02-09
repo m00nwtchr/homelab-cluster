@@ -67,7 +67,6 @@ app-template:
 
   ingress:
     app:
-      className: "internal-nginx"
       hosts:
         - host: sonarr.svc.m00nlit.dev
           paths:
