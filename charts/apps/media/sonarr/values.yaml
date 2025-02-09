@@ -67,6 +67,7 @@ app-template:
             - /bin/sysctl
           image:
             repository: docker.io/busybox
+            tag: latest
             pullPolicy: IfNotPresent
           securityContext:
             privileged: true
