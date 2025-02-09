@@ -74,8 +74,8 @@ app-template:
 
   service:
     app:
-      ipFamilyPolicy: PreferDualStack
-      #      ipFamilies: [ IPv4 ]
+      ipFamilyPolicy: SingleStack
+      ipFamilies: [ IPv4 ]
       controller: sonarr
       ports:
         http:
