@@ -79,7 +79,7 @@ app-template:
       controller: sonarr
       ports:
         http:
-          targetPort: *port
+          port: *port
   #          port: 80
 
   ingress:
