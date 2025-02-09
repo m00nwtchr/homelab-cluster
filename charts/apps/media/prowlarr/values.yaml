@@ -60,7 +60,8 @@ app-template:
       controller: prowlarr
       ports:
         http:
-          port: *port
+          targetPort: *port
+          port: 80
 
   ingress:
     app:
