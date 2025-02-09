@@ -72,8 +72,8 @@ app-template:
   service:
     app:
       controller: prowlarr
-      ipFamilyPolicy: SingleStack
-      ipFamilies: [ IPv4 ]
+      #      ipFamilyPolicy: SingleStack
+      #      ipFamilies: [ IPv4 ]
       ports:
         http:
           port: *port
