@@ -6,10 +6,10 @@ app-template:
 
       pod:
         securityContext:
-          #          runAsUser: 2000
-          #          runAsGroup: 2000
-          #          runAsNonRoot: true
-          #          fsGroup: 2000
+          runAsUser: 2000
+          runAsGroup: 2000
+          runAsNonRoot: true
+          fsGroup: 2000
           fsGroupChangePolicy: "OnRootMismatch"
           supplementalGroups:
             - 65542 # gladius:external-services
@@ -31,13 +31,11 @@ app-template:
       containers:
         app:
           image:
-            repository: ghcr.io/hotio/sonarr
-            tag: nightly-4.0.12.2900
-          #            repository: ghcr.io/onedr0p/sonarr-develop
-          #            tag: 4.0.12.2900@sha256:e4de8879c00d0d5ac2d616e325259cf0afef0b3715fcdcf081292c25c5072760
+            #            repository: ghcr.io/hotio/sonarr
+            #            tag: nightly-4.0.12.2900
+            repository: ghcr.io/onedr0p/sonarr-develop
+            tag: 4.0.12.2900@sha256:e4de8879c00d0d5ac2d616e325259cf0afef0b3715fcdcf081292c25c5072760
           env:
-            PGID: 2000
-            PUID: 2000
             SONARR__APP__INSTANCENAME: Sonarr
             SONARR__AUTH__APIKEY:
               valueFrom:
@@ -71,7 +69,7 @@ app-template:
           #              memory: 2Gi
           securityContext:
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
