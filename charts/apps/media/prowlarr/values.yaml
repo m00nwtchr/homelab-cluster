@@ -12,19 +12,19 @@ app-template:
           fsGroup: 2000
           fsGroupChangePolicy: OnRootMismatch
 
-      initContainers:
-        disable-ipv6:
-          args:
-            - -w
-            - net.ipv6.conf.all.disable_ipv6=1
-          command:
-            - /bin/sysctl
-          image:
-            repository: docker.io/busybox
-            tag: latest
-            pullPolicy: IfNotPresent
-          securityContext:
-            privileged: true
+      #      initContainers:
+      #        disable-ipv6:
+      #          args:
+      #            - -w
+      #            - net.ipv6.conf.all.disable_ipv6=1
+      #          command:
+      #            - /bin/sysctl
+      #          image:
+      #            repository: docker.io/busybox
+      #            tag: latest
+      #            pullPolicy: IfNotPresent
+      #          securityContext:
+      #            privileged: true
       
       containers:
         app:
