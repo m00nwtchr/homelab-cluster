@@ -72,7 +72,7 @@ app-template:
   service:
     app:
       controller: prowlarr
-      #      ipFamilyPolicy: SingleStack
+      ipFamilyPolicy: PreferDualStack
       #      ipFamilies: [ IPv4 ]
       ports:
         http:
