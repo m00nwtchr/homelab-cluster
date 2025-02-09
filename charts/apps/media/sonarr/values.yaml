@@ -14,7 +14,7 @@ app-template:
           supplementalGroups:
             - 65542 # gladius:external-services
 
-      initContainers:
+      #      initContainers:
       #        disable-ipv6:
       #          args:
       #            - -w
