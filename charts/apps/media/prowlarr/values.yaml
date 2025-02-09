@@ -64,6 +64,8 @@ app-template:
 
   ingress:
     app:
+      annotations:
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd
       hosts:
         - host: prowlarr.svc.m00nlit.dev
           paths:
