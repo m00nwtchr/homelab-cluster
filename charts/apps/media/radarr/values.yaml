@@ -57,6 +57,8 @@ app-template:
 
   service:
     app:
+      #      ipFamilyPolicy: PreferDualStack
+      #      ipFamilies: [ IPv4 ]
       controller: radarr
       ports:
         http:
