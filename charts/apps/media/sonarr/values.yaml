@@ -58,20 +58,6 @@ app-template:
               drop:
                 - ALL
 
-      initContainers:
-        disable-ipv4:
-          args:
-            - -w
-            - net.ipv4.conf.all.disable_ipv4=1
-          command:
-            - /bin/sysctl
-          image:
-            repository: docker.io/busybox
-            tag: latest
-            pullPolicy: IfNotPresent
-          securityContext:
-            privileged: true
-
   service:
     app:
       controller: sonarr
