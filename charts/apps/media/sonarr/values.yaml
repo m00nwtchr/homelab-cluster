@@ -80,7 +80,7 @@ app-template:
       ports:
         http:
           targetPort: *port
-          port: 80
+  #          port: 80
 
   ingress:
     app:
