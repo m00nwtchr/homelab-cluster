@@ -58,6 +58,7 @@ app-template:
   service:
     app:
       controller: prowlarr
+      ipFamilyPolicy: PreferDualStack
       ports:
         http:
           targetPort: *port
