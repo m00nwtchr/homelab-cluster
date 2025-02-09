@@ -65,8 +65,9 @@ app-template:
             - net.ipv4.conf.all.disable_ipv4=1
           command:
             - /bin/sysctl
-          image: docker.io/busybox
-          imagePullPolicy: IfNotPresent
+          image:
+            repository: docker.io/busybox
+            pullPolicy: IfNotPresent
           securityContext:
             privileged: true
 
