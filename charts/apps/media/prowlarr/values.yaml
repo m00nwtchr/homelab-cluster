@@ -76,7 +76,7 @@ app-template:
       ipFamilies: [ IPv4 ]
       ports:
         http:
-          targetPort: *port
+          port: *port
   #          port: 80
 
   ingress:
