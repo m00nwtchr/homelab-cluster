@@ -8,8 +8,8 @@ app-template:
           runAsNonRoot: true
           fsGroup: 2000
           fsGroupChangePolicy: "OnRootMismatch"
-          supplementalGroups:
-            - 65542 # gladius:external-services
+      #          supplementalGroups:
+      #            - 65542 # gladius:external-services
 
       containers:
         app:
@@ -57,8 +57,8 @@ app-template:
 
   service:
     app:
-      ipFamilyPolicy: PreferDualStack
       controller: radarr
+      ipFamilyPolicy: PreferDualStack
       ports:
         http:
           targetPort: *port
