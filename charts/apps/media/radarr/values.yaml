@@ -26,12 +26,12 @@ app-template:
             RADARR__AUTH__METHOD: External
             RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
             RADARR__LOG__DBENABLED: "False"
-            RADARR__LOG__LEVEL: trace
+            RADARR__LOG__LEVEL: info
             RADARR__SERVER__PORT: &port 7878
             RADARR__UPDATE__BRANCH: develop
           probes:
             liveness: &probes
-              enabled: false
+              enabled: true
               custom: true
               spec:
                 httpGet:
@@ -46,8 +46,8 @@ app-template:
             requests:
               cpu: 20m
               memory: 384Mi
-          #            limits:
-          #              memory: 2Gi
+            limits:
+              memory: 2Gi
           securityContext:
             allowPrivilegeEscalation: true
             readOnlyRootFilesystem: true

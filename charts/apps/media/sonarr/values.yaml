@@ -45,12 +45,12 @@ app-template:
             SONARR__AUTH__METHOD: External
             SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
             SONARR__LOG__DBENABLED: "False"
-            SONARR__LOG__LEVEL: trace
+            SONARR__LOG__LEVEL: info
             SONARR__SERVER__PORT: &port 8989
             SONARR__UPDATE__BRANCH: develop
           probes:
             liveness: &probes
-              enabled: false
+              enabled: true
               custom: true
               spec:
                 httpGet:
@@ -65,8 +65,8 @@ app-template:
             requests:
               cpu: 20m
               memory: 384Mi
-          #            limits:
-          #              memory: 2Gi
+            limits:
+              memory: 2Gi
           securityContext:
             allowPrivilegeEscalation: true
             readOnlyRootFilesystem: true

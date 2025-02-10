@@ -45,7 +45,7 @@ app-template:
             PROWLARR__UPDATE__BRANCH: develop
           probes:
             liveness: &probes
-              enabled: false
+              enabled: true
               custom: true
               spec:
                 httpGet:
