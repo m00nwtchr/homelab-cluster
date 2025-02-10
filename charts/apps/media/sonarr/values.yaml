@@ -76,13 +76,12 @@ app-template:
 
   service:
     app:
-      #      ipFamilyPolicy: SingleStack
-      #      ipFamilies: [ IPv4 ]
+      ipFamilyPolicy: PreferDualStack
       controller: sonarr
       ports:
         http:
-          port: *port
-  #          port: 80
+          targetPort: *port
+          port: 80
 
   ingress:
     app:

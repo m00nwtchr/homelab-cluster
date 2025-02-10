@@ -73,11 +73,10 @@ app-template:
     app:
       controller: prowlarr
       ipFamilyPolicy: PreferDualStack
-      #      ipFamilies: [ IPv4 ]
       ports:
         http:
-          port: *port
-  #          port: 80
+          targetPort: *port
+          port: 80
 
   ingress:
     app:
