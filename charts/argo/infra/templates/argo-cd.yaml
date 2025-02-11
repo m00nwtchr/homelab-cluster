@@ -27,7 +27,7 @@ spec:
           tls: true
 
         global:
-          domain: "argocd.{{ .Values.domain }}"
+          domain: "argocd.svc.{{ .Values.domain }}"
 
         configs:
           cm:
