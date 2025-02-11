@@ -34,10 +34,10 @@ app-template:
       globalMounts:
         - path: /var/www/baikal/config/baikal.yaml
           subPath: baikal.yaml
-    data:
-      size: 1Gi
-      accessMode: ReadWriteOnce
-      annotations:
-        argocd.argoproj.io/sync-options: Delete=false
-      globalMounts:
-        - path: /var/www/baikal/Specific
+#    data:
+#      size: 1Gi
+#      accessMode: ReadWriteOnce
+#      annotations:
+#        argocd.argoproj.io/sync-options: Delete=false
+#      globalMounts:
+#        - path: /var/www/baikal/Specific
