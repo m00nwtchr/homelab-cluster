@@ -10,13 +10,22 @@ app-template:
           fsGroupChangePolicy: OnRootMismatch
 
       containers:
-        app:
+        nginx:
           image:
             repository: ckulka/baikal
             tag: 0.10.1-nginx
-          env:
-            - name: BAIKAL_SKIP_CHOWN
-              value: "true"
+        php:
+          image:
+            repository: ckulka/baikal
+            tag: 0.10.1-nginx
+          command: [ "/bin/sh", "-c", 'find /etc/init.d -type f -name "php*-fpm" -exec "{}" "start" \;' ]
+          securityContext:
+            runAsUser: 33
+            runAsGroup: 33
+            runAsNonRoot: true
+            fsGroup: 33
+            fsGroupChangePolicy: OnRootMismatch
+
   service:
     app:
       controller: baikal
@@ -55,12 +64,12 @@ app-template:
     cache:
       type: emptyDir
       globalMounts:
-        - path: /var/cache/nginx/
-          subPath: nginx
         - path: /var/run/
           subPath: var/run
-        - path: /run/php
-          subPath: php
+      advancedMounts:
+        nginx:
+          - path: /var/cache/nginx/
+            subPath: nginx
 #    data:
 #      size: 1Gi
 #      accessMode: ReadWriteOnce
