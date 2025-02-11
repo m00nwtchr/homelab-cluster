@@ -3,8 +3,8 @@ app-template:
     baikal:
       pod:
         securityContext:
-          fsUser: 101
           fsGroup: 101
+          fsGroupChangePolicy: OnRootMismatch
 
       containers:
         app:
