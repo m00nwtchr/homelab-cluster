@@ -45,6 +45,12 @@ app-template:
       globalMounts:
         - path: /var/www/baikal/config/baikal.yaml
           subPath: baikal.yaml
+    nginx-config:
+      type: configMap
+      name: baikal-nginx-config
+      globalMounts:
+        - path: /etc/nginx/conf.d/default.conf
+          subPath: nginx.conf
     cache:
       type: emptyDir
       globalMounts:
