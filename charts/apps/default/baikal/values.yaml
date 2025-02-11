@@ -14,6 +14,9 @@ app-template:
           image:
             repository: ckulka/baikal
             tag: 0.10.1-nginx
+          env:
+            - name: BAIKAL_SKIP_CHOWN
+              value: "true"
         php:
           image:
             repository: ckulka/baikal
