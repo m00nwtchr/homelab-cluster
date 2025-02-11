@@ -70,7 +70,7 @@ app-template:
         baikal:
           nginx:
             - path: /var/cache/nginx/
-              subPath: nginx
+              subPath: nginx/
 #    data:
 #      size: 1Gi
 #      accessMode: ReadWriteOnce
