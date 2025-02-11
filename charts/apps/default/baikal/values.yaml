@@ -6,7 +6,6 @@ app-template:
           runAsUser: 101
           runAsGroup: 101
           runAsNonRoot: true
-          fsUser: 101
           fsGroup: 101
           fsGroupChangePolicy: OnRootMismatch
 
