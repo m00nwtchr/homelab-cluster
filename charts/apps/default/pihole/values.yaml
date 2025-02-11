@@ -1,0 +1,83 @@
+app-template:
+  controllers:
+    pihole:
+      annotations:
+        reloader.stakater.com/auto: "true"
+
+      pod:
+        securityContext:
+          runAsUser: 2999
+          runAsGroup: 2999
+          runAsNonRoot: true
+          fsGroup: 2999
+          fsGroupChangePolicy: "OnRootMismatch"
+
+      containers:
+        app:
+          image:
+            repository: docker.io/pihole/pihole
+            tag: latest
+          env:
+            TZ: "Europe/Warsaw"
+            DNSSEC: "true"
+            WEB_PORT: &port 8080
+            DNSMASQ_LISTENING: all
+            PIHOLE_DNS_: "9.9.9.9"
+            WEBPASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: pihole-secret
+                  key: password
+          probes:
+            liveness: &probes
+              enabled: false
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: *port
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
+            readiness: *probes
+          resources:
+            requests:
+              cpu: 20m
+              memory: 512Mi
+            limits:
+              memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: true
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+
+  service:
+    app:
+      controller: pihole
+      ipFamilyPolicy: PreferDualStack
+      ports:
+        http:
+          targetPort: *port
+          port: 80
+
+  ingress:
+    app:
+      annotations:
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd
+      hosts:
+        - host: pihole.svc.m00nlit.dev
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+
+  persistence:
+    config:
+      size: 1Gi
+      accessMode: ReadWriteOnce
+      annotations:
+        argocd.argoproj.io/sync-options: Delete=false
