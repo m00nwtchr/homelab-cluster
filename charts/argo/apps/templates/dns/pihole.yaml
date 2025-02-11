@@ -110,7 +110,7 @@ spec:
 
   destination:
     name: in-cluster
-    namespace: ai
+    namespace: dns
   syncPolicy:
     automated:
       prune: true
