@@ -61,7 +61,9 @@ app-template:
       type: emptyDir
       globalMounts:
         - path: /var/run/
-          subPath: var/run
+          subPath: run
+        - path: /var/log/
+          subPath: log
       advancedMounts:
         baikal:
           nginx:
