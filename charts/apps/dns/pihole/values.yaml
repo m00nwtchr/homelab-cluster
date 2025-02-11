@@ -5,12 +5,12 @@ app-template:
         reloader.stakater.com/auto: "true"
 
       pod:
-        securityContext:
-          runAsUser: 2999
-          runAsGroup: 2999
-          runAsNonRoot: true
-          fsGroup: 2999
-          fsGroupChangePolicy: "OnRootMismatch"
+        # securityContext:
+          # runAsUser: 2999
+          # runAsGroup: 2999
+          # runAsNonRoot: true
+          # fsGroup: 2999
+          # fsGroupChangePolicy: "OnRootMismatch"
 
       containers:
         app:
@@ -22,7 +22,7 @@ app-template:
             DNSSEC: "true"
             WEB_PORT: &port 8080
             DNSMASQ_LISTENING: all
-            PIHOLE_DNS_: "9.9.9.9"
+            PIHOLE_DNS_: "dot-coredns.dns.svc"
             WEBPASSWORD:
               valueFrom:
                 secretKeyRef:
