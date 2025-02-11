@@ -6,6 +6,9 @@ app-template:
           image:
             repository: ckulka/baikal
             tag: 0.10.1-nginx
+          env:
+            - key: BAIKAL_SKIP_CHOWN
+              value: "true"
   service:
     app:
       controller: baikal
