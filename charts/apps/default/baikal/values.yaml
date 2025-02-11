@@ -23,6 +23,7 @@ app-template:
       ports:
         http:
           port: 80
+          targetPort: 8080
   ingress:
     app:
       hosts:
