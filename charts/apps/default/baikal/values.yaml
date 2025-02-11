@@ -23,8 +23,6 @@ app-template:
             runAsUser: 33
             runAsGroup: 33
             runAsNonRoot: true
-            fsGroup: 33
-            fsGroupChangePolicy: OnRootMismatch
 
   service:
     app:
