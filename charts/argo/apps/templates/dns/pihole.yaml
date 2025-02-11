@@ -29,7 +29,7 @@ spec:
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt
             hosts:
-              - pihole.svc.${SERVICE_DOMAIN}
+              - pihole.svc.{{ .Values.domain }}
           resources:
             requests:
               cpu: 10m
