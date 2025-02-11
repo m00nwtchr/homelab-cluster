@@ -56,7 +56,11 @@ app-template:
       type: emptyDir
       globalMounts:
         - path: /var/cache/nginx/
+          subPath: nginx
         - path: /var/run/
+          subPath: var/run
+        - path: /run/php
+          subPath: php
 #    data:
 #      size: 1Gi
 #      accessMode: ReadWriteOnce
