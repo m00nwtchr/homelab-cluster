@@ -31,7 +31,6 @@ app-template:
     config:
       type: secret
       name: baikal-config
-      readOnly: true
       globalMounts:
         - path: /var/www/baikal/config/baikal.yaml
           subPath: baikal.yaml
