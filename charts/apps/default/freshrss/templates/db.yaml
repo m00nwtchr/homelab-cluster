@@ -1,0 +1,40 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
+metadata:
+  name: freshrsss
+{{/*  annotations:*/}}
+{{/*    argocd.argoproj.io/sync-wave: "2"*/}}
+spec:
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb
+  passwordSecretKeyRef:
+    name: freshrss-db-user
+    key: mariadb-password
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: freshrss
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb
+  privileges:
+    - "ALL PRIVILEGES"
+  database: "freshrss"
+  table: "*"
+  username: freshrss
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Database
+metadata:
+  name: freshrss
+spec:
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb
+  characterSet: utf8mb4
+  collate: utf8mb4_unicode_520_ci
