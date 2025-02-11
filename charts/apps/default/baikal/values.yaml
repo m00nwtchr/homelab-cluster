@@ -19,10 +19,8 @@ app-template:
             repository: ckulka/baikal
             tag: 0.10.1-nginx
           command: [ "/bin/sh", "-c", 'find /usr/sbin/ -type f -name "php-fpm*" -exec "{}" "-F" \;' ]
-          securityContext:
-            runAsUser: 33
-            runAsGroup: 33
-            runAsNonRoot: true
+          # securityContext:
+
 
   service:
     app:
