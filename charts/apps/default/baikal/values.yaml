@@ -3,6 +3,9 @@ app-template:
     baikal:
       pod:
         securityContext:
+          runAsUser: 101
+          runAsGroup: 101
+          runAsNonRoot: true
           fsGroup: 101
           fsGroupChangePolicy: OnRootMismatch
 
