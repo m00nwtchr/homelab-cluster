@@ -106,12 +106,6 @@ spec:
           #   - ${SMTP_HOST}
           #   - jnn-pa.googleapis.com
           #   - idealo.de
-          podDnsConfig:
-            enabled: true
-            policy: None
-            nameservers:
-              - dot-coredns.dns.svc
-
 
 
   destination:
