@@ -4,7 +4,7 @@ app-template:
       annotations:
         reloader.stakater.com/auto: "true"
 
-      pod:
+      # pod:
         # securityContext:
           # runAsUser: 2999
           # runAsGroup: 2999
