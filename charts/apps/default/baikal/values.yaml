@@ -45,6 +45,10 @@ app-template:
       globalMounts:
         - path: /var/www/baikal/config/baikal.yaml
           subPath: baikal.yaml
+    cache:
+      type: emptyDir
+      globalMounts:
+        - path: /var/cache/nginx/
 #    data:
 #      size: 1Gi
 #      accessMode: ReadWriteOnce
