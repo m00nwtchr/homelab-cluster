@@ -72,6 +72,12 @@ app-template:
               service:
                 identifier: app
                 port: http
+        - host: jellyfin.svc.m00nlit.dev
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
 
   persistence:
     config:
