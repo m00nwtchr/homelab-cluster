@@ -1,0 +1,52 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.2.0/charts/other/app-template/values.schema.json
+
+app-template:
+    controllers:
+      freshrss:
+        containers:
+          app:
+            image:
+              repository: freshrss/freshrss
+              tag: 1.25.0@sha256:e7897e90c1e0ab4a68cb643ff509dec4e3b85bbe42e2688ed9f95eb190bcb2b1
+            env:
+              TZ: "Europe/Warsaw"
+              CRON_MIN: 18,48
+              DOMAIN: "https://freshrss.svc.m00nlit.dev"
+              OIDC_ENABLED: 1
+              OIDC_PROVIDER_METADATA_URL: https://idm.m00nlit.dev/oauth2/openid/freshrss/.well-known/openid-configuration
+              OIDC_CLIENT_ID: freshrss
+              OIDC_REMOTE_USER_CLAIM: preferred_username
+              OIDC_SCOPES: openid groups email profile
+              OIDC_X_FORWARDED_HEADERS: X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto
+            envFrom:
+              - secretRef:
+                  name: freshrss-secret
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 80
+    ingress:
+      app:
+        enabled: true
+        hosts:
+          - host: "freshrss.svc.m00nlit.dev"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    persistence:
+      config:
+        size: 1Gi
+        accessMode: ReadWriteOnce
+        annotations:
+          argocd.argoproj.io/sync-options: Delete=false
+        globalMounts:
+          - path: /var/www/FreshRSS/data
