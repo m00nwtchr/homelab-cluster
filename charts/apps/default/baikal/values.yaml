@@ -1,6 +1,11 @@
 app-template:
   controllers:
     baikal:
+      pod:
+        securityContext:
+          fsUser: 101
+          fsGroup: 101
+
       containers:
         app:
           image:
