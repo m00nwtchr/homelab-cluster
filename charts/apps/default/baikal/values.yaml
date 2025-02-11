@@ -65,17 +65,18 @@ app-template:
       globalMounts:
         - path: /var/run/
           subPath: run/
-        - path: /run/php/
-          subPath: run/php/
         - path: /var/log/
           subPath: log/
-        - path: /var/log/nginx/
-          subPath: log/nginx/
       advancedMounts:
         baikal:
           nginx:
             - path: /var/cache/nginx/
               subPath: nginx/
+            - path: /var/log/nginx/
+              subPath: log/nginx/
+          php:
+            - path: /run/php/
+              subPath: run/php/
 #    data:
 #      size: 1Gi
 #      accessMode: ReadWriteOnce
