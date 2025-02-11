@@ -67,9 +67,10 @@ app-template:
         - path: /var/run/
           subPath: var/run
       advancedMounts:
-        nginx:
-          - path: /var/cache/nginx/
-            subPath: nginx
+        baikal:
+          nginx:
+            - path: /var/cache/nginx/
+              subPath: nginx
 #    data:
 #      size: 1Gi
 #      accessMode: ReadWriteOnce
