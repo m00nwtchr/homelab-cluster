@@ -9,7 +9,7 @@ spec:
     name: mariadb
     namespace: mariadb
   characterSet: utf8mb4
-  collate: utf8mb4_unicode_520_cis
+  collate: utf8mb4_unicode_520_ci
 ---
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: User
