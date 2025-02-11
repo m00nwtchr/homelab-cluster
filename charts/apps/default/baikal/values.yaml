@@ -11,7 +11,10 @@ app-template:
 
       initContainers:
         copy-config:
-          image: busybox
+          image:
+            repository: docker.io/busybox
+            tag: latest
+            pullPolicy: IfNotPresent
           command: [ "/bin/sh", "-c", "cp /config/baikal.yaml /mnt/ && chown 101:101 /mnt/baikal.yaml" ]
 
       containers:
