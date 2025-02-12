@@ -13,6 +13,7 @@ spec:
     targetRevision: 4.5.6
     helm:
       valuesObject:
+        clusterSize: 1
         autoSetup:
           enabled: true
         couchdbConfig:
