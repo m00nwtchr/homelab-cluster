@@ -10,10 +10,13 @@ data:
         api_key: !env_var SONARR_API_KEY
 
         media_naming:
-          folder: default
-          movie:
+          series: default
+          season: default
+          episodes:
             rename: true
             standard: default
+            daily: default
+            anime: default
 
         delete_old_custom_formats: true
         replace_existing_custom_formats: true
