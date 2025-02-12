@@ -13,22 +13,47 @@ spec:
     targetRevision: 4.5.6
     helm:
       valuesObject:
-        clusterSize: 1
-        couchdbConfig:
-          couchdb:
-            uuid: c1175576-d0b6-4ae3-9a5e-10c1e2da8025
-
         autoSetup:
           enabled: true
-          defaultDatabases:
-            - _global_changes
-            - _users
+        couchdbConfig:
+          couchdb:
+            max_document_size: 50000000
+            uuid: ffc6b0f4-a06a-4f93-85b0-68ab3dac98ce
+          chttpd:
+            bind_address: any
+            require_valid_user: true
+            max_http_request_size: 4294967296
+          chttpd_auth:
+            require_valid_user: true
+            max_http_request_size: /e=_/_utils/session.html
+          httpd:
+            WWW-Authenticate: "Basic realm=\"couchdb\""
+            enable_cors: true
+          cors:
+            origins: "app://obsidian.md,capacitor://localhost,http://localhost"
+            credentials: true
+            headers: "accept, authorization, content-type, origin, referer"
+            methods: "GET, PUT, POST, HEAD, DELETE"
+            max_age: 3600
+  persistentVolume:
+    enabled: true
+    storageClass: fast-ceph-block
+  image:
+    repository: docker.io/library/couchdb
+    tag: 3.3.2
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - obsidian-livesync.scr1.rabbito.tech
+    path: /
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    tls:
+      - secretName: obsidian-int-livesync-tls
+        hosts:
+          - obsidian-livesync.scr1.rabbito.tech
 
-        ingress:
-          enabled: true
-          hosts:
-            - couchdb.m00nlit.dev
-            - couchdb.svc.m00nlit.dev
 
   destination:
     name: in-cluster
