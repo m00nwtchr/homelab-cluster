@@ -21,7 +21,7 @@ spec:
             max_document_size: 50000000
             uuid: ffc6b0f4-a06a-4f93-85b0-68ab3dac98ce
           chttpd:
-            bind_address: any
+            bind_address: ::
             require_valid_user: true
             max_http_request_size: 4294967296
           chttpd_auth:
