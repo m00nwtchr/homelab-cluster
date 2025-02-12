@@ -35,14 +35,14 @@ spec:
             headers: "accept, authorization, content-type, origin, referer"
             methods: "GET, PUT, POST, HEAD, DELETE"
             max_age: 3600
-  persistentVolume:
-    enabled: true
-  ingress:
-    enabled: true
-    hosts:
-      - obsidian-livesync.m00nlit.dev
-      - obsidian-livesync.svc.m00nlit.dev
-    path: /
+        persistentVolume:
+          enabled: true
+        ingress:
+          enabled: true
+          hosts:
+            - obsidian-livesync.m00nlit.dev
+            - obsidian-livesync.svc.m00nlit.dev
+          path: /
 
   destination:
     name: in-cluster
