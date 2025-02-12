@@ -15,6 +15,9 @@ spec:
       valuesObject:
         clusterSize: 1
 
+        couchdbConfig:
+          uuid: c1175576-d0b6-4ae3-9a5e-10c1e2da8025
+
         autoSetup:
           enabled: true
 
