@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: couchdb
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: kubernetes
+  source:
+    repoURL: https://apache.github.io/couchdb-helm
+    chart: couchdb
+    targetRevision: 4.5.6
+    helm:
+      valuesObject:
+        clusterSize: 1
+
+        autoSetup:
+          enabled: true
+
+        ingress:
+          enabled: true
+          hosts:
+            - couchdb.m00nlit.dev
+            - couchdb.svc.m00nlit.dev
+
+  destination:
+    name: in-cluster
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+{{/*    syncOptions:*/}}
+{{/*      - CreateNamespace=true*/}}
