@@ -14,13 +14,15 @@ spec:
     helm:
       valuesObject:
         clusterSize: 1
-
         couchdbConfig:
           couchdb:
             uuid: c1175576-d0b6-4ae3-9a5e-10c1e2da8025
 
         autoSetup:
           enabled: true
+          defaultDatabases:
+            - _global_changes
+            - _users
 
         ingress:
           enabled: true
