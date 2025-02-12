@@ -9,6 +9,12 @@ data:
         base_url: http://sonarr.media.svc.cluster.local
         api_key: !env_var SONARR_API_KEY
 
+        media_naming:
+          folder: default
+          movie:
+            rename: true
+            standard: default
+
         delete_old_custom_formats: true
         replace_existing_custom_formats: true
 
@@ -70,6 +76,12 @@ data:
       radarr_main:
         base_url: http://radarr.media.svc.cluster.local
         api_key: !env_var RADARR_API_KEY
+
+        media_naming:
+          folder: default
+          movie:
+            rename: true
+            standard: default
 
         delete_old_custom_formats: true
         replace_existing_custom_formats: true
