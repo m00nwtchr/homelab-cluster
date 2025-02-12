@@ -37,23 +37,12 @@ spec:
             max_age: 3600
   persistentVolume:
     enabled: true
-    storageClass: fast-ceph-block
-  image:
-    repository: docker.io/library/couchdb
-    tag: 3.3.2
   ingress:
     enabled: true
-    className: nginx
     hosts:
-      - obsidian-livesync.scr1.rabbito.tech
+      - obsidian-livesync.m00nlit.dev
+      - obsidian-livesync.svc.m00nlit.dev
     path: /
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-production
-    tls:
-      - secretName: obsidian-int-livesync-tls
-        hosts:
-          - obsidian-livesync.scr1.rabbito.tech
-
 
   destination:
     name: in-cluster
