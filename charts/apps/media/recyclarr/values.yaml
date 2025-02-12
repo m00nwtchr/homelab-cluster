@@ -43,7 +43,7 @@ app-template:
             limits:
               memory: 128M
           securityContext:
-            allowPrivilegeEscalation: false
+            allowPrivilegeEscalation: true
             readOnlyRootFilesystem: true
             capabilities:
               drop:
