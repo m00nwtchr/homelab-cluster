@@ -9,55 +9,59 @@ metadata:
     argocd.argoproj.io/sync-wave: "2"
 spec:
   project: kubernetes
-  source:
-    repoURL: https://dl.gitea.com/charts/
-    chart: gitea
-    targetRevision: 10.6.0
-    helm:
-      valuesObject:
-        ingress:
-          enabled: true
-          hosts:
-            - host: git.{{ .Values.domain }}
-              paths:
-                - path: /
-                  pathType: Prefix
-        gitea:
-          admin:
-{{/*            existingSecret: gitea-admin-secret*/}}
-            email: {{ .Values.email }}
-          oauth:
-            - name: kanidm
-              provider: openidConnect
-              key: gitea
-              existingSecret: "gitea-oidc"
-              autoDiscoverUrl: "https://idm.{{ .Values.domain }}/.well-known/openid-configuration"
-          config:
-            database:
-              DB_TYPE: postgres
-            indexer:
-              ISSUE_INDEXER_TYPE: bleve
-              REPO_INDEXER_ENABLED: true
-            openid:
-              ENABLE_OPENID_SIGNIN: false
-              ENABLE_OPENID_SIGNUP: true
-              WHITELISTED_URIS: "idm.{{ .Values.domain }}"
-            service:
-              DISABLE_REGISTRATION: false
-              ALLOW_ONLY_EXTERNAL_REGISTRATION: true
-              SHOW_REGISTRATION_BUTTON: false
+  sources:
+    - repoURL: {{ .Values.repoUrl }}
+      path: charts/argo/infra/config/gitea
+      targetRevision: HEAD
+      ref: repo
+    - repoURL: https://dl.gitea.com/charts/
+      chart: gitea
+      targetRevision: 10.6.0
+      helm:
+        valuesObject:
+          ingress:
+            enabled: true
+            hosts:
+              - host: git.{{ .Values.domain }}
+                paths:
+                  - path: /
+                    pathType: Prefix
+          gitea:
+            admin:
+  {{/*            existingSecret: gitea-admin-secret*/}}
+              email: {{ .Values.email }}
+            oauth:
+              - name: kanidm
+                provider: openidConnect
+                key: gitea
+                existingSecret: "gitea-oidc"
+                autoDiscoverUrl: "https://idm.{{ .Values.domain }}/.well-known/openid-configuration"
+            config:
+              database:
+                DB_TYPE: postgres
+              indexer:
+                ISSUE_INDEXER_TYPE: bleve
+                REPO_INDEXER_ENABLED: true
+              openid:
+                ENABLE_OPENID_SIGNIN: false
+                ENABLE_OPENID_SIGNUP: true
+                WHITELISTED_URIS: "idm.{{ .Values.domain }}"
+              service:
+                DISABLE_REGISTRATION: false
+                ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+                SHOW_REGISTRATION_BUTTON: false
 
-        redis-cluster:
-          enabled: false
-        redis:
-          enabled: true
-        postgresql-ha:
-          enabled: false
-        postgresql:
-          enabled: false
+          redis-cluster:
+            enabled: false
+          redis:
+            enabled: true
+          postgresql-ha:
+            enabled: false
+          postgresql:
+            enabled: false
 
-        persistence:
-          enabled: true
+          persistence:
+            enabled: true
 
   destination:
     name: in-cluster
@@ -68,16 +72,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
----
-{{/*apiVersion: postgresql.cnpg.io/v1*/}}
-{{/*kind: Database*/}}
-{{/*metadata:*/}}
-{{/*  name: gitea*/}}
-{{/*  namespace: gitea*/}}
-{{/*  annotations:*/}}
-{{/*    argocd.argoproj.io/sync-wave: "1"*/}}
-{{/*spec:*/}}
-{{/*  name: gitea*/}}
-{{/*  owner: gitea*/}}
-{{/*  cluster:*/}}
-{{/*    name: postgres-cluster*/}}
