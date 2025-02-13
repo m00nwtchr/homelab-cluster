@@ -26,6 +26,12 @@ spec:
                 paths:
                   - path: /
                     pathType: Prefix
+
+          image:
+            repository: gitea/gitea
+            tag: 1.23.1
+            digest: sha256:c3be67d5c31694f8c27e5f3ab87630cceadf05abb795ab0ed70ba14b5edfc29c
+
           gitea:
             admin:
   {{/*            existingSecret: gitea-admin-secret*/}}
@@ -61,7 +67,7 @@ spec:
                     name: gitea-db-user
                     key: mariadb-password
 
-          
+
           redis-cluster:
             enabled: false
           redis:
