@@ -40,6 +40,8 @@ spec:
               database:
                 DB_TYPE: mysql
                 HOST: mariadb.mariadb.svc:3306
+              server:
+                ROOT_URL: https://git.{{ .Values.domain }}
               indexer:
                 ISSUE_INDEXER_TYPE: bleve
                 REPO_INDEXER_ENABLED: true
