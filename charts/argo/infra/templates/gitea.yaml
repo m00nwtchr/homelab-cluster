@@ -50,7 +50,7 @@ spec:
               server:
                 APP_DATA_PATH: /data/gitea
                 ROOT_URL: https://git.{{ .Values.domain }}
-{{/*                START_SSH_SERVER: false*/}}
+                START_SSH_SERVER: false
               lfs:
                 PATH: /data/git/lfs
               repository:

@@ -1,0 +1,29 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: gitea
+  name: gitea-exec-role
+rules:
+  - apiGroups: [ "apps" ]
+    resources: [ "deployments" ]
+    verbs: [ "get" ]
+  - apiGroups: [ "" ]
+    resources: [ "pods/exec" ]
+    verbs: [ "create" ]
+  - apiGroups: [ "" ]
+    resources: [ "pods" ]
+    verbs: [ "list" ]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: gitea
+  name: gitea-exec-binding
+subjects:
+  - kind: User
+    name: git  # Change this to the actual username
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: gitea-exec-role
+  apiGroup: rbac.authorization.k8s.io
