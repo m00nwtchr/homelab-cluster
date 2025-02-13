@@ -38,7 +38,7 @@ spec:
                 autoDiscoverUrl: "https://idm.{{ .Values.domain }}/.well-known/openid-configuration"
             config:
               database:
-                DB_TYPE: mariadb
+                DB_TYPE: mysql
                 HOST: mariadb.mariadb.svc:3306
               indexer:
                 ISSUE_INDEXER_TYPE: bleve
