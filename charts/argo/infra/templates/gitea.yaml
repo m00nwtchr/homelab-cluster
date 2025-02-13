@@ -48,6 +48,7 @@ spec:
                 HOST: mariadb.mariadb.svc:3306
               server:
                 ROOT_URL: https://git.{{ .Values.domain }}
+                START_SSH_SERVER: false
               indexer:
                 ISSUE_INDEXER_TYPE: bleve
                 REPO_INDEXER_ENABLED: true
