@@ -85,6 +85,15 @@ spec:
           persistence:
             enabled: true
 
+          extraVolumes:
+            - name: git
+              persistentVolumeClaim:
+                claimName: git
+          extraContainerVolumeMounts:
+            - name: git
+              mountPath: "/data/git/"
+
+
   destination:
     name: in-cluster
     namespace: gitea
