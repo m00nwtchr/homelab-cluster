@@ -1,72 +1,79 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
-  labels:
-    app: immich-pgdb-pod
-  name: immich-pgdb-pod
+  name: immich-pgdb
   namespace: media
 spec:
-  containers:
-    - args:
-        - postgres
-        - -c
-        - shared_preload_libraries=vectors.so
-        - -c
-        - search_path="$user", public, vectors
-        - -c
-        - logging_collector=on
-        - -c
-        - max_wal_size=2GB
-        - -c
-        - shared_buffers=512MB
-        - -c
-        - wal_compression=on
-      env:
-        - name: DB_HOSTNAME
-          value: immich-pgdb
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postgres-immich-superuser
-              key: password
-        - name: POSTGRES_USER
-          value: immich
-        - name: DB_USERNAME
-          value: immich
-        - name: POSTGRES_DB
-          value: immich
-        - name: POSTGRES_INITDB_ARGS
-          value: --data-checksums
-        - name: DB_DATABASE_NAME
-          value: immich
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postgres-immich-superuser
-              key: password
-      image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
-      name: immich-pgdb
-      ports:
-        - containerPort: 5432
-      volumeMounts:
-        - mountPath: /var/lib/postgresql/data
-          name: immich-db-pvc
-  hostUsers: false
-  volumes:
-    - name: immich-db-pvc
-      persistentVolumeClaim:
-        claimName: immich-db
+  serviceName: immich-pgdb-service
+  replicas: 1
+  selector:
+    matchLabels:
+      app: immich-pgdb
+  template:
+    metadata:
+      labels:
+        app: immich-pgdb
+    spec:
+      containers:
+        - name: immich-pgdb
+          image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
+          args:
+            - postgres
+            - -c
+            - shared_preload_libraries=vectors.so
+            - -c
+            - search_path="$user", public, vectors
+            - -c
+            - logging_collector=on
+            - -c
+            - max_wal_size=2GB
+            - -c
+            - shared_buffers=512MB
+            - -c
+            - wal_compression=on
+          env:
+            - name: DB_HOSTNAME
+              value: immich-pgdb
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-immich-superuser
+                  key: password
+            - name: POSTGRES_USER
+              value: immich
+            - name: DB_USERNAME
+              value: immich
+            - name: POSTGRES_DB
+              value: immich
+            - name: POSTGRES_INITDB_ARGS
+              value: --data-checksums
+            - name: DB_DATABASE_NAME
+              value: immich
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-immich-superuser
+                  key: password
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: immich-db
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: immich-pgdb-service
   labels:
-    app: immich-pgdb-pod
+    app: immich-pgdb
   namespace: media
 spec:
   selector:
-    app: immich-pgdb-pod
+    app: immich-pgdb
   ports:
     - protocol: TCP
       port: 5432
