@@ -75,7 +75,7 @@ spec:
 
           service:
             ssh:
-              clusterIP:
+              clusterIP: 2001:cafe:43::ef37
 
 
           redis-cluster:
