@@ -35,7 +35,7 @@ spec:
                 provider: openidConnect
                 key: gitea
                 existingSecret: "gitea-oidc"
-                autoDiscoverUrl: "https://idm.{{ .Values.domain }}/.well-known/openid-configuration"
+                autoDiscoverUrl: "https://idm.{{ .Values.domain }}/oauth2/openid/gitea/.well-known/openid-configuration"
             config:
               database:
                 DB_TYPE: mysql
