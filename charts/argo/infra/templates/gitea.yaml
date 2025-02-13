@@ -73,7 +73,9 @@ spec:
                     name: gitea-db-user
                     key: mariadb-password
 
-          
+          service:
+            ssh:
+              clusterIP:
 
 
           redis-cluster:
