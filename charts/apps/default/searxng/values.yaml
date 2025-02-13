@@ -13,8 +13,8 @@ app-template:
             pullPolicy: IfNotPresent
 
           env:
-            SEARXNG_BASE_URL: https://search.m00nlit.dev
-            SEARXNG_URL: https://search.m00nlit.dev
+            SEARXNG_BASE_URL: https://search.svc.m00nlit.dev
+            SEARXNG_URL: https://search.svc.m00nlit.dev
             SEARXNG_PORT: &httpPort 8080
             SEARXNG_BIND_ADDRESS: "::"
             SEARXNG_REDIS_URL: redis://searxng-redis.default.svc.cluster.local:6379/0
@@ -97,7 +97,7 @@ app-template:
   ingress:
     app:
       hosts:
-        - host: search.m00nlit.dev
+        - host: search.svc.m00nlit.dev
           paths:
             - path: /
               service:
