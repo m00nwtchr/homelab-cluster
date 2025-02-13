@@ -48,6 +48,7 @@ spec:
                 DB_TYPE: mysql
                 HOST: mariadb.mariadb.svc:3306
               server:
+                APP_DATA_PATH: /data/gitea
                 ROOT_URL: https://git.{{ .Values.domain }}
 {{/*                START_SSH_SERVER: false*/}}
               lfs:
