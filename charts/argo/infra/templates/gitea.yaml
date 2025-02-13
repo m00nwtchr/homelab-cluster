@@ -49,6 +49,10 @@ spec:
               server:
                 ROOT_URL: https://git.{{ .Values.domain }}
                 START_SSH_SERVER: false
+              lfs:
+                PATH: /data/git/lfs
+              repository:
+                ROOT: /data/git/repositories
               indexer:
                 ISSUE_INDEXER_TYPE: bleve
                 REPO_INDEXER_ENABLED: true
