@@ -1,0 +1,26 @@
+app-template:
+  controllers:
+    rssflow:
+      containers:
+        app:
+          image:
+            repository: localhost/m00nwtchr/rssflow
+            tag: latest
+          env:
+            RUST_LOG: "info"
+          resources:
+            requests:
+              cpu: 50m
+              memory: 256Mi
+  service:
+    app:
+      controller: rssflow
+      ports:
+        http:
+          port: 80
+  persistence:
+    data:
+      size: 1Gi
+      accessMode: ReadWriteOnce
+      annotations:
+        argocd.argoproj.io/sync-options: Delete=false
