@@ -21,7 +21,7 @@ spec:
               - grafana.svc.m00nlit.dev
           grafana.ini:
             auth:
-              generic_oauth:
+              generic_oauth: |
                 enabled: true
                 name: Kanidm
                 client_id: grafana
