@@ -20,6 +20,8 @@ spec:
             hosts:
               - grafana.svc.m00nlit.dev
           grafana.ini:
+            server:
+              root_url: https://grafana.svc.{{.Values.domain}}/
             auth.generic_oauth:
               enabled: true
               name: Kanidm
