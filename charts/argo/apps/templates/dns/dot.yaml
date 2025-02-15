@@ -41,10 +41,10 @@ spec:
               - name: cache
                 parameters: "30"
               - name: reload
-destination:
-  name: in-cluster
-  namespace: dns
-syncPolicy:
-  automated:
-    prune: true
-    selfHeal: true
+  destination:
+    name: in-cluster
+    namespace: dns
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
