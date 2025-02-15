@@ -20,8 +20,9 @@ spec:
             mixedService: true
             type: LoadBalancer
             externalTrafficPolicy: Cluster
-            annotations:
-              metallb.io/allow-shared-ip: default
+            externalIPs:
+              - fd7a:115c:a1e0::f201:2d35
+              - 100.116.45.53
           serviceDhcp:
             enabled: false
           ingress:

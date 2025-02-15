@@ -15,9 +15,6 @@ spec:
       valuesObject:
         isClusterService: false
         service:
-          externalIPs:
-            - fd7a:115c:a1e0::f201:2d35
-            - 100.116.45.53
 
         servers:
           - zones:
