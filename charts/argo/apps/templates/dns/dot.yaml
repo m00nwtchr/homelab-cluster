@@ -15,6 +15,7 @@ spec:
       valuesObject:
         isClusterService: false
         service:
+          name: dot
 
         servers:
           - zones:
