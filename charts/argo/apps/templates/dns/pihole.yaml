@@ -34,7 +34,7 @@ spec:
               cpu: 10m
               memory: 100Mi
           admin:
-            enabled: false
+            enabled: true
           DNS1: dot.dns.svc
           adlists:
             # everything but the kitchen sink
