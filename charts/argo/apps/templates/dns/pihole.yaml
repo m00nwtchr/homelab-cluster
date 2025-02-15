@@ -35,7 +35,7 @@ spec:
               memory: 100Mi
           admin:
             enabled: false
-          DNS1: dot-coredns.dns.svc
+          DNS1: dot.dns.svc
           adlists:
             # everything but the kitchen sink
             - https://big.oisd.nl
