@@ -18,7 +18,7 @@ spec:
             enabled: true
           serviceDns:
             mixedService: true
-            type: LoadBalancer
+            type: ClusterIP
             externalTrafficPolicy: Cluster
             externalIPs:
               - fd7a:115c:a1e0::f201:2d35
