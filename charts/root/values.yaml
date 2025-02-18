@@ -1,4 +1,4 @@
-repoUrl: http://gitea-http.gitea.svc/m00n/homelab-cluster.git
+repoUrl: http://gitea-http.gitea.svc:3000/m00n/homelab-cluster.git
 
 domain: m00nlit.dev
 email: prior-cameo-jazz@duck.com
