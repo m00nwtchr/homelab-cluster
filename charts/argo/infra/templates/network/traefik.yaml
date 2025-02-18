@@ -207,6 +207,9 @@ spec:
                   middlewares:
                     - name: redirect-to-www
                       namespace: traefik
+                  services:
+                    - name: noop@internal
+
               tls:
                 options:
                   name: intermediate
