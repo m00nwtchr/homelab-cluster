@@ -10,9 +10,9 @@ spec:
   destinations:
     - namespace: '*'
       server: '*'
-{{/*  signatureKeys:*/}}
-{{/*    - keyID: E03F19EC15C88CAC*/}}
-{{/*    - keyID: 53179821BD7DDF04*/}}
+  signatureKeys:
+    - keyID: E03F19EC15C88CAC
+    - keyID: 53179821BD7DDF04
   sourceRepos:
     - '*'
 ---
