@@ -11,7 +11,7 @@ spec:
     - namespace: '*'
       server: '*'
   signatureKeys:
-    - keyID: "800214724BE3A82F"
+    - keyID: E03F19EC15C88CAC
   sourceRepos:
     - '*'
 ---
