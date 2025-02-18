@@ -195,6 +195,23 @@ spec:
                   - 100.64.0.0/10
                   - fd7a:115c:a1e0::/48
 
+          - apiVersion: traefik.io/v1alpha1
+            kind: IngressRoute
+            metadata:
+              name: root
+              namespace: default
+            spec:
+              routes:
+                - match: Host(`m00nlit.dev`)
+                  kind: Rule
+                  middlewares:
+                    - name: redirect-to-www
+                      namespace: traefik
+              tls:
+                options:
+                  name: intermediate
+                  namespace: traefik
+
 
   {{/*        volumes:*/}}
   {{/*          - name: crowdsec-bouncer-tls*/}}
