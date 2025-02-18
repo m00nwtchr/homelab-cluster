@@ -1,3 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: default
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - namespace: '*'
+      server: '*'
+  signatureKeys:
+    - keyID: "800214724BE3A82F"
+  sourceRepos:
+    - '*'
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
@@ -16,7 +32,5 @@ spec:
   namespaceResourceWhitelist:
     - group: '*'
       kind: '*'
-  signatureKeys:
-    - keyID: "800214724BE3A82F"
   sourceRepos:
     - "*"
