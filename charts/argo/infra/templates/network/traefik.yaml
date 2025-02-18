@@ -202,7 +202,7 @@ spec:
               namespace: default
             spec:
               routes:
-                - match: Host(`m00nlit.dev`)
+                - match: Host(`{{ .Values.domain }}`)
                   kind: Rule
                   middlewares:
                     - name: redirect-to-www
