@@ -7,12 +7,16 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: '0'
 spec:
-  destinations:
-    - name: "*"
-      namespace: "*"
-      server: "*"
-  sourceRepos:
-    - "*"
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
+  destinations:
+    - namespace: "*"
+      server: "*"
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  signatureKeys:
+    - keyID: "800214724BE3A82F"
+  sourceRepos:
+    - "*"
