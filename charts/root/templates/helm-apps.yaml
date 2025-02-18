@@ -29,7 +29,7 @@ spec:
       annotations:
         argocd.argoproj.io/sync-wave: '0'
     spec:
-      project: default
+      project: kubernetes
 
       destination:
         name: in-cluster
