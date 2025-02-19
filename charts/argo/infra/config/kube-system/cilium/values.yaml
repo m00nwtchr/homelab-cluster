@@ -25,6 +25,7 @@ ipv4:
 
 bpf:
   masquerade: true
+  datapathMode: netkit
 k8s:
   requireIPv6PodCIDR: true
   requireIPv4PodCIDR: false
