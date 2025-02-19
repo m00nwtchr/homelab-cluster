@@ -18,16 +18,15 @@ spec:
             enabled: true
           serviceDns:
             mixedService: true
-            type: LoadBalancer
+            type: ClusterIP
             externalTrafficPolicy: Cluster
-            annotations:
-              metallb.io/allow-shared-ip: default
+            externalIPs:
+              - fd7a:115c:a1e0::f201:2d35
+              - 100.116.45.53
           serviceDhcp:
             enabled: false
           ingress:
             enabled: true
-            annotations:
-              cert-manager.io/cluster-issuer: letsencrypt
             hosts:
               - pihole.svc.{{ .Values.domain }}
           resources:
@@ -35,8 +34,8 @@ spec:
               cpu: 10m
               memory: 100Mi
           admin:
-            enabled: false
-          DNS1: dot-coredns.dns.svc
+            enabled: true
+          DNS1: dot.dns.svc
           adlists:
             # everything but the kitchen sink
             - https://big.oisd.nl
@@ -65,7 +64,7 @@ spec:
             - https://v.firebog.net/hosts/Prigent-Ads.txt
             - https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt
             # dangerous stuff
-            - https://bitbucket.org/ethanr/dns-blacklists/raw/8575c9f96e5b4a1308f2f12394abd86d0927a4a0/bad_lists/Mandiant_APT1_Report_Appendix_D.txt
+            - https://bitbucket.org/ethanr/dns-blacklists/raw/master/bad_lists/Mandiant_APT1_Report_Appendix_D.txt
             - https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt
             - https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt
             - https://phishing.army/download/phishing_army_blocklist_extended.txt

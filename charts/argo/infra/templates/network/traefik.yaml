@@ -52,6 +52,12 @@ spec:
                 namespace: traefik
 
         service:
+          type: ClusterIP
+          externalIPs:
+            - 2a02:a313:43e4:7080::7dc5
+            - fd7a:115c:a1e0::f201:2d35
+            - 100.116.45.53
+            - 10.0.0.87
           annotations:
             svccontroller.k3s.cattle.io/tolerations: |
               - operator: Exists
@@ -188,6 +194,27 @@ spec:
                 sourceRange:
                   - 100.64.0.0/10
                   - fd7a:115c:a1e0::/48
+
+          - apiVersion: traefik.io/v1alpha1
+            kind: IngressRoute
+            metadata:
+              name: root
+              namespace: default
+            spec:
+              routes:
+                - match: Host(`{{ .Values.domain }}`)
+                  kind: Rule
+                  middlewares:
+                    - name: redirect-to-www
+                      namespace: traefik
+                  services:
+                    - name: noop@internal
+                      kind: TraefikService
+
+              tls:
+                options:
+                  name: intermediate
+                  namespace: traefik
 
 
   {{/*        volumes:*/}}
