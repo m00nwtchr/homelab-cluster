@@ -1,3 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: default
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - namespace: '*'
+      server: '*'
+  signatureKeys:
+    - keyID: E03F19EC15C88CAC
+    - keyID: 53179821BD7DDF04
+  sourceRepos:
+    - '*'
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
@@ -7,12 +24,14 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: '0'
 spec:
-  destinations:
-    - name: "*"
-      namespace: "*"
-      server: "*"
-  sourceRepos:
-    - "*"
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
+  destinations:
+    - namespace: "*"
+      server: "*"
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  sourceRepos:
+    - "*"

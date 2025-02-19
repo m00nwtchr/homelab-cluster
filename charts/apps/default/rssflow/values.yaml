@@ -1,0 +1,26 @@
+app-template:
+  controllers:
+    rssflow:
+      containers:
+        app:
+          image:
+            repository: ghcr.io/m00nwtchr/rssflow
+            tag: master@sha256:a0caab6e3f2ca3d07d49ade33e7ae99da885ea660d30d72cbc818e6d5168047d
+          env:
+            RUST_LOG: "info"
+          resources:
+            requests:
+              cpu: 50m
+              memory: 256Mi
+  service:
+    app:
+      controller: rssflow
+      ports:
+        http:
+          port: 80
+  persistence:
+    data:
+      size: 1Gi
+      accessMode: ReadWriteOnce
+      annotations:
+        argocd.argoproj.io/sync-options: Delete=false

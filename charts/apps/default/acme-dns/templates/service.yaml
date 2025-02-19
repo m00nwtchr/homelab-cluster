@@ -15,7 +15,9 @@ spec:
     - name: dns-tcp
       protocol: TCP
       port: {{ .Values.service.port }}
-  type: LoadBalancer
+  type: ClusterIP
+  externalIPs:
+    - 2a02:a313:43e4:7080::7dc5
   ipFamilies:
     - IPv6
 ---

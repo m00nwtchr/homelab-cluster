@@ -53,3 +53,31 @@ spec:
   resources:
     requests:
       storage: "12Ti"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "git"
+  labels:
+    type: "local"
+spec:
+  storageClassName: "manual"
+  capacity:
+    storage: "12Ti"
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/hdd/git"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "git"
+  namespace: "gitea"
+spec:
+  storageClassName: "manual"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: "12Ti"

@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dot
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: kubernetes
+  source:
+    repoURL: https://coredns.github.io/helm
+    chart: coredns
+    targetRevision: 1.39.0
+    helm:
+      valuesObject:
+        isClusterService: false
+        service:
+          name: dot
+
+        servers:
+          - zones:
+              - zone: .
+            port: 53
+            plugins:
+              - name: errors
+              - name: health
+                configBlock: |
+                  lameluck 5s
+              - name: errors
+              - name: ready
+              - name: prometheus
+                parameters: "[::]:9153"
+              - name: hosts
+                configBlock: |
+                  fd7a:115c:a1e0::f201:2d35 m00nlit.dev
+                  100.116.45.53 m00nlit.dev
+                  fallthrough
+              - name: forward
+                parameters: ". tls://9.9.9.9 tls://149.112.112.112"
+                configBlock: |
+                  tls_servername dns.quad9.net
+              - name: cache
+                parameters: "30"
+              - name: reload
+  destination:
+    name: in-cluster
+    namespace: dns
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
