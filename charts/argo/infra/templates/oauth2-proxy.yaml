@@ -16,13 +16,14 @@ spec:
         config:
           existingSecret: oauth2-proxy-secret
           configFile: |
+            email_domains = [ "*" ]
+            whitelist_domains = ".{{ .Values.domain }}"
+            upstreams = [ "static://202" ]
+
             provider = "oidc"
             oidc_issuer_url = "https://idm.{{ .Values.domain }}/oauth2/openid/oauth2-proxy"
             redirect_url = "https://auth.{{ .Values.domain }}/oauth2/callback"
             code_challenge_method = "S256"
-            email_domains = [ "*" ]
-            upstreams = [ "static://202" ]
-            whitelist_domains = ".{{ .Values.domain }}"
             
             session_store_type = "cookie"
             cookie_name = "_oauth2_proxy"
@@ -46,6 +47,9 @@ spec:
             auth_logging = true
             request_logging = true
             standard_logging = true
+
+            reverse_proxy: true
+            real_client_ip_header: X-Forwarded-For
 
         ingress:
           enabled: true
