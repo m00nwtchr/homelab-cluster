@@ -64,17 +64,17 @@ app-template:
           targetPort: *port
           port: 80
 
-  ingress:
-    app:
-      annotations:
-        traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd,traefik-auth@kubernetescrd
-      hosts:
-        - host: radarr.svc.m00nlit.dev
-          paths:
-            - path: /
-              service:
-                identifier: app
-                port: http
+  # ingress:
+  #   app:
+  #     annotations:
+  #       traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd,traefik-auth@kubernetescrd
+  #     hosts:
+  #       - host: radarr.svc.m00nlit.dev
+  #         paths:
+  #           - path: /
+  #             service:
+  #               identifier: app
+  #               port: http
 
   persistence:
     config:
