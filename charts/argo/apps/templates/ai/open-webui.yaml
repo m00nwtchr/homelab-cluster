@@ -16,10 +16,8 @@ spec:
           ingress:
             enabled: true
             annotations:
-              traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd
+              traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd,traefik-auth@kubernetescrd
             host: owui.svc.m00nlit.dev
-{{/*            tls: true*/}}
-
           extraEnvVars:
             - name: HOST
               value: "::"
