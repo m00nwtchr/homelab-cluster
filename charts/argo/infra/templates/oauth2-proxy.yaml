@@ -18,6 +18,7 @@ spec:
           configFile: |
             provider = "oidc"
             oidc_issuer_url = "https://idm.{{ .Values.domain }}/oauth2/openid/oauth2-proxy"
+            code_challenge_method = "S256"
             email_domains = [ "*" ]
             upstreams = [ "static://202" ]
             whitelist_domains = ".{{ .Values.domain }}"
