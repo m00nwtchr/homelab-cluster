@@ -14,6 +14,7 @@ spec:
           namespace: traefik
       services:
         - name: radarr
+          port: http
     - match: 'Host(`radarr.svc.m00nlit.dev`) && PathPrefix(`/api`)'
       kind: Rule
       middlewares:
@@ -21,3 +22,4 @@ spec:
           namespace: traefik
       services:
         - name: radarr
+          port: http
