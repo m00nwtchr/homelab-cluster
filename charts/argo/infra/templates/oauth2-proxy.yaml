@@ -1,0 +1,68 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: oauth2-proxy
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: kubernetes
+  source:
+    repoURL: https://oauth2-proxy.github.io/manifests
+    chart: oauth2-proxy
+    targetRevision: 7.11.1
+    helm:
+      valuesObject:
+        config:
+          existingSecret: oauth2-proxy-secret
+          configFile: |
+            provider = "oidc"
+            oidc_issuer_url = "https://idm.{{ .Values.domain }}/oauth2/openid/oauth2-proxy"
+            email_domains = [ "*" ]
+            upstreams = [ "static://202" ]
+            whitelist_domains = ".{{ .Values.domain }}"
+            
+            session_store_type = "cookie"
+            cookie_name = "_oauth2_proxy"
+            cookie_domains = ".{{ .Values.domain }}"
+            cookie_httponly = true
+            cookie_refresh = "1h"
+            cookie_samesite = "lax"
+            cookie_secure = true
+
+            pass_access_token = true
+            pass_authorization_header = true
+            pass_basic_auth = false
+            set_authorization_header = true
+            set_xauthrequest = true
+            skip_jwt_bearer_tokens = true
+
+            ssl_insecure_skip_verify = false
+
+            silence_ping_logging = true
+            skip_provider_button = true
+            auth_logging = true
+            request_logging = true
+            standard_logging = true
+
+        ingress:
+          enabled: true
+          hosts:
+            - auth.{{ .Values.domain }}
+
+        redis:
+          enabled: false
+
+        metrics:
+          serviceMonitor:
+            enabled: true
+
+  destination:
+    name: in-cluster
+    namespace: traefik
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
