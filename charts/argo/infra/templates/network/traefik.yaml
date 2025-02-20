@@ -50,6 +50,8 @@ spec:
             middlewares:
               - name: vpn-only
                 namespace: traefik
+              - name: auth
+                namespace: traefik
 
         service:
           type: ClusterIP
