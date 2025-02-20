@@ -181,7 +181,7 @@ spec:
               name: auth
             spec:
               forwardAuth:
-                address: https://auth.m00nlit.dev/oauth2/
+                address: http://oauth2-proxy.traefik.svc
                 trustForwardHeader: true
                 authResponseHeaders:
                   - X-Auth-Request-Access-Token

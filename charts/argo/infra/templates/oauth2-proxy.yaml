@@ -22,6 +22,7 @@ spec:
 
             provider = "oidc"
             oidc_issuer_url = "https://idm.{{ .Values.domain }}/oauth2/openid/oauth2-proxy"
+            redirect_url = "https://auth.{{ .Values.domain }}/oauth2/callback"
             code_challenge_method = "S256"
             
             session_store_type = "cookie"
