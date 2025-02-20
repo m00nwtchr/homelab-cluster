@@ -11,8 +11,8 @@ app-template:
             runAsNonRoot: true
             fsGroup: 2000
             fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 65542 # gladius:external-services
+            # supplementalGroups:
+            #   - 65542 # gladius:external-services
 
         containers:
           app:
@@ -53,7 +53,7 @@ app-template:
               limits:
                 memory: 512Mi
             securityContext:
-              allowPrivilegeEscalation: false
+              allowPrivilegeEscalation: true
               readOnlyRootFilesystem: true
               capabilities:
                 drop:
@@ -99,3 +99,4 @@ app-template:
       existingClaim: media
       globalMounts:
         - path: /mnt/media
+        - path: /media
