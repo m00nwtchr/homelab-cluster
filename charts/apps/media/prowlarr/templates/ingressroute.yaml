@@ -1,0 +1,25 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prowlarr
+  namespace: media
+spec:
+  routes:
+    - match: 'Host(`prowlarr.svc.m00nlit.dev`)'
+      kind: Rule
+      middlewares:
+        - name: vpn-only
+          namespace: traefik
+        - name: auth
+          namespace: traefik
+      services:
+        - name: prowlarr
+          port: http
+    - match: 'Host(`prowlarr.svc.m00nlit.dev`) && PathPrefix(`/api`)'
+      kind: Rule
+      middlewares:
+        - name: vpn-only
+          namespace: traefik
+      services:
+        - name: prowlarr
+          port: http
