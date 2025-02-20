@@ -48,7 +48,7 @@ spec:
             standard_logging = true
 
             reverse_proxy = true
-            real_client_ip_header = X-Forwarded-For
+            real_client_ip_header = "X-Forwarded-For"
 
         ingress:
           enabled: true
