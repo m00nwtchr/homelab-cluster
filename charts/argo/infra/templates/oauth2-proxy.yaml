@@ -47,6 +47,7 @@ spec:
 
         ingress:
           enabled: true
+          pathType: Prefix
           hosts:
             - auth.{{ .Values.domain }}
 
