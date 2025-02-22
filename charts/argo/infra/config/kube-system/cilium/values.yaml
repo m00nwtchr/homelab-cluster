@@ -9,6 +9,8 @@ devices:
   - enp+
 
 routingMode: native
+loadBalancer:
+  mode: hybrid
 
 ipam:
   mode: cluster-pool
