@@ -114,8 +114,15 @@ spec:
           access:
             enabled: true
             filePath: "/var/log/traefik/access.log"
+            format: json
+            bufferingSize: 0
             filters:
               statuscodes: "400-599"
+            fields:
+              headers:
+                defaultMode: drop # drop all headers per default
+                names:
+                  User-Agent: keep # log user agent strings
 
         deployment:
           additionalVolumes:
