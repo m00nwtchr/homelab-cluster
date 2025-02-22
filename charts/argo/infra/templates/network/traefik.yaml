@@ -50,6 +50,8 @@ spec:
             middlewares:
               - name: vpn-only
                 namespace: traefik
+              - name: auth
+                namespace: traefik
 
         service:
           type: ClusterIP
@@ -181,6 +183,18 @@ spec:
               name: compress
             spec:
               compress: { }
+
+          - apiVersion: traefik.io/v1alpha1
+            kind: Middleware
+            metadata:
+              name: auth
+            spec:
+              forwardAuth:
+                address: http://oauth2-proxy.traefik.svc
+                trustForwardHeader: true
+                authResponseHeaders:
+                  - X-Auth-Request-Access-Token
+                  - Authorization
 
           - apiVersion: traefik.io/v1alpha1
             kind: Middleware
