@@ -9,6 +9,6 @@ stringData:
   enableOCI: "true"
   name: "forgejo"
   type: "helm"
-  url: "code.forgejo.org/forgejo-helm/forgejo"
+  url: "code.forgejo.org/forgejo-helm"
 type: Opaque
 

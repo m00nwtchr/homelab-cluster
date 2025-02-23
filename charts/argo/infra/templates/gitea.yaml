@@ -14,7 +14,7 @@ spec:
       path: charts/argo/infra/config/gitea
       targetRevision: HEAD
       ref: repo
-    - repoURL: code.forgejo.org/forgejo-helm/forgejo
+    - repoURL: code.forgejo.org/forgejo-helm
       chart: forgejo
       targetRevision: 7.1.9
       helm:
