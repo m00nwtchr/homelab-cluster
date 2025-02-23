@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gitea
+  name: forgejo
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,7 +11,7 @@ spec:
   project: kubernetes
   sources:
     - repoURL: {{ .Values.repoUrl }}
-      path: charts/argo/infra/config/gitea
+      path: charts/argo/infra/config/forgejo
       targetRevision: HEAD
       ref: repo
     - repoURL: code.forgejo.org/forgejo-helm
