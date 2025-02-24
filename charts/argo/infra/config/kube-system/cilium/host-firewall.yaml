@@ -16,23 +16,6 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
 metadata:
-  name: external-control-plane
-spec:
-  nodeSelector:
-    matchLabels:
-      node-role.kubernetes.io/control-plane: "true"
-  ingress:
-    - fromCIDR:
-        - fd7a:115c:a1e0::/48
-        - 100.64.0.0/10
-      toPorts:
-        - ports:
-            - port: "6443" # kube-apiserver
-              protocol: TCP
----
-apiVersion: cilium.io/v2
-kind: CiliumClusterwideNetworkPolicy
-metadata:
   name: control-plane
 spec:
   nodeSelector:
@@ -42,6 +25,15 @@ spec:
     # Operators
     - fromEntities:
         - cluster
+      toPorts:
+        - ports:
+            - port: "6443" # kube-apiserver
+              protocol: TCP
+
+    # External Access
+    - fromCIDR:
+        - fd7a:115c:a1e0::/48
+        - 100.64.0.0/10
       toPorts:
         - ports:
             - port: "6443" # kube-apiserver
