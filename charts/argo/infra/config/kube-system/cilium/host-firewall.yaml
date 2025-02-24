@@ -73,14 +73,14 @@ spec:
         - ports:
             - port: '10250'
               protocol: TCP
-#  egress:
-#    # kubelet -> load balancer
-#    - toCIDR:
-#        - $LB_IP/32
-#      toPorts:
-#        - ports:
-#            - port: '6443'
-#              protocol: TCP
+  egress:
+    # kubelet -> load balancer
+    - toEntities:
+        - kube-apiserver
+      toPorts:
+        - ports:
+            - port: '6443'
+              protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
@@ -112,15 +112,15 @@ specs:
           - ports:
               - port: '4240'
                 protocol: TCP
-#    egress:
-#      # cilium agent -> cilium agent
-#      - toEntities:
-#          - health
-#          - remote-node
-#        toPorts:
-#          - ports:
-#              - port: '4240'
-#                protocol: TCP
+    egress:
+      # cilium agent -> cilium agent
+      - toEntities:
+          - health
+          - remote-node
+        toPorts:
+          - ports:
+              - port: '4240'
+                protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
