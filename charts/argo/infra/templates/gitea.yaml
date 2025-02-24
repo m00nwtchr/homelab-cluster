@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gitea
+  name: forgejo
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,12 +11,12 @@ spec:
   project: kubernetes
   sources:
     - repoURL: {{ .Values.repoUrl }}
-      path: charts/argo/infra/config/gitea
+      path: charts/argo/infra/config/forgejo
       targetRevision: HEAD
       ref: repo
-    - repoURL: https://dl.gitea.com/charts/
-      chart: gitea
-      targetRevision: 10.6.0
+    - repoURL: code.forgejo.org/forgejo-helm
+      chart: forgejo
+      targetRevision: 7.1.9
       helm:
         valuesObject:
           ingress:
@@ -29,9 +29,10 @@ spec:
 
           image:
             rootless: true
-            repository: gitea/gitea
-            tag: 1.23.3-rootless
-            digest: sha256:96899d07bfcc84a42bfbab2ff2cb711f0e5f25bae06dd187a3fb080c8f8233a2
+            registry: code.forgejo.org
+            repository: forgejo/forgejo
+            tag: 10.0.1-rootless
+            digest: sha256:20a12bd39d49554964e059c501d88a021a0ac04c1d3128c24921045013bd16f7
 
           gitea:
             admin:
@@ -63,9 +64,9 @@ spec:
                 ENABLE_OPENID_SIGNUP: true
                 WHITELISTED_URIS: "idm.{{ .Values.domain }}"
               service:
-                DISABLE_REGISTRATION: false
                 ALLOW_ONLY_EXTERNAL_REGISTRATION: true
                 SHOW_REGISTRATION_BUTTON: false
+                ENABLE_PASSWORD_SIGNIN_FORM: false
 
             additionalConfigFromEnvs:
               - name: GITEA__DATABASE__PASSWD
