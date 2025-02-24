@@ -47,15 +47,15 @@ spec:
         - ports:
             - port: '2380'
               protocol: TCP
-  egress:
-    # etcd peer -> etcd peer
-    - toNodes:
-        - matchLabels:
-            node-role.kubernetes.io/control-plane: "true"
-      toPorts:
-        - ports:
-            - port: '2380'
-              protocol: TCP
+#  egress:
+#    # etcd peer -> etcd peer
+#    - toNodes:
+#        - matchLabels:
+#            node-role.kubernetes.io/control-plane: "true"
+#      toPorts:
+#        - ports:
+#            - port: '2380'
+#              protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
@@ -73,14 +73,14 @@ spec:
         - ports:
             - port: '10250'
               protocol: TCP
-  egress:
-    # kubelet -> load balancer
-    - toEntities:
-        - kube-apiserver
-      toPorts:
-        - ports:
-            - port: '6443'
-              protocol: TCP
+#  egress:
+#    # kubelet -> load balancer
+#    - toEntities:
+#        - kube-apiserver
+#      toPorts:
+#        - ports:
+#            - port: '6443'
+#              protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
@@ -112,15 +112,15 @@ specs:
           - ports:
               - port: '4240'
                 protocol: TCP
-    egress:
-      # cilium agent -> cilium agent
-      - toEntities:
-          - health
-          - remote-node
-        toPorts:
-          - ports:
-              - port: '4240'
-                protocol: TCP
+#    egress:
+#      # cilium agent -> cilium agent
+#      - toEntities:
+#          - health
+#          - remote-node
+#        toPorts:
+#          - ports:
+#              - port: '4240'
+#                protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
