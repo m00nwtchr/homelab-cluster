@@ -67,8 +67,9 @@ spec:
     matchLabels: { }
   ingress:
     # api server -> kubelet
-    #    - fromEntities:
-    #        - kube-apiserver
+    - fromEntities:
+        # - kube-apiserver
+        - cluster
     - toPorts:
         - ports:
             - port: '10250'
