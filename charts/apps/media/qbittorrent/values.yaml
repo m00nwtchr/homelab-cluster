@@ -133,6 +133,12 @@ app-template:
         http:
           targetPort: *port
           port: 80
+    torrent:
+      controller: qbittorrent
+      type: NodePort
+      ports:
+        http:
+          port: 39495
 
   ingress:
     app:
