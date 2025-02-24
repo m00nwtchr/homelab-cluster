@@ -30,7 +30,7 @@ spec:
             - port: "6443" # kube-apiserver
               protocol: TCP
 
-    # External Access
+    # API Access from Tailscale
     - fromCIDR:
         - fd7a:115c:a1e0::/48
         - 100.64.0.0/10
@@ -40,8 +40,9 @@ spec:
               protocol: TCP
 
     # etcd peer -> etcd peer
-    - fromEntities:
-        - remote-node
+    - fromNodes:
+        - matchLabels:
+            node-role.kubernetes.io/control-plane: "true"
       toPorts:
         - ports:
             - port: '2380'
@@ -137,12 +138,3 @@ spec:
         - ports:
             - port: '9100'
               protocol: TCP
-#    egress:
-#      # cilium agent -> cilium agent
-#      - toEntities:
-#          - health
-#          - remote-node
-#        toPorts:
-#          - ports:
-#              - port: '4240'
-#                protocol: TCP
