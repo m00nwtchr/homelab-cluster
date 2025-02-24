@@ -37,7 +37,7 @@ spec:
   ingress:
     # Operators
     - fromEntities:
-        - host
+        - cluster
       toPorts:
         - ports:
             - port: "6443" # kube-apiserver
