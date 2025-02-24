@@ -22,11 +22,6 @@ spec:
     matchLabels:
       node-role.kubernetes.io/control-plane: ""
   ingress:
-    # External Access
-    - fromCIDR:
-        - fd7a:115c:a1e0::/48
-        - 100.64.0.0/10
-
     # Operators
     - fromEntities:
         - host
