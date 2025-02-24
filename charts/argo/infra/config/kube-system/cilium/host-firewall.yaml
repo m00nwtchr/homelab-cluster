@@ -115,30 +115,3 @@ specs:
 #          - ports:
 #              - port: '4240'
 #                protocol: TCP
----
-apiVersion: cilium.io/v2
-kind: CiliumClusterwideNetworkPolicy
-metadata:
-  name: ingress
-spec:
-  nodeSelector:
-    matchLabels: { }
-  ingress:
-    - toPorts:
-        - ports:
-            - port: "80" # HTTP
-              protocol: TCP
-            - port: "443" # HTTPS
-              protocol: TCP
-            - port: "443" # HTTP3
-              protocol: UDP
-
-            - port: "53" # DNS
-              protocol: TCP
-            - port: "53" # DNS
-              protocol: UDP
-
-            - port: "50413" # qBit
-              protocol: TCP
-            - port: "50413" # qBit
-              protocol: UDP
