@@ -119,3 +119,30 @@ specs:
 #          - ports:
 #              - port: '4240'
 #                protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: prometheus-metrics
+spec:
+  nodeSelector:
+    # apply to all nodes
+    matchLabels: { }
+    ingress:
+      # prometheus -> node exporter
+      - fromEndpoints:
+          - matchLabels:
+              prometheus: prometheus-kube-prometheus-prometheus
+        toPorts:
+          - ports:
+              - port: '9100'
+                protocol: TCP
+#    egress:
+#      # cilium agent -> cilium agent
+#      - toEntities:
+#          - health
+#          - remote-node
+#        toPorts:
+#          - ports:
+#              - port: '4240'
+#                protocol: TCP
