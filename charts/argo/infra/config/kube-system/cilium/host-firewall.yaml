@@ -12,8 +12,6 @@ spec:
               protocol: TCP
             - port: "41641" # Tailscale
               protocol: UDP
-            - port: "50413" # qBit
-              protocol: UDP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
