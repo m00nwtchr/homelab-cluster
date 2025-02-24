@@ -40,13 +40,13 @@ spec:
               protocol: TCP
 
     # etcd peer -> etcd peer
-    - fromNodes:
-        - matchLabels:
-            node-role.kubernetes.io/control-plane: "true"
-      toPorts:
-        - ports:
-            - port: '2380'
-              protocol: TCP
+#    - fromNodes:
+#        - matchLabels:
+#            node-role.kubernetes.io/control-plane: "true"
+#      toPorts:
+#        - ports:
+#            - port: '2380'
+#              protocol: TCP
 #  egress:
 #    # etcd peer -> etcd peer
 #    - toNodes:
