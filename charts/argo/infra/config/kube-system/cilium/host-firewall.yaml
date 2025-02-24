@@ -47,14 +47,15 @@ spec:
         - ports:
             - port: '2380'
               protocol: TCP
-#  egress:
-#    # etcd peer -> etcd peer
-#    - toEntities:
-#        - remote-node
-#      toPorts:
-#        - ports:
-#            - port: '2380'
-#              protocol: TCP
+  egress:
+    # etcd peer -> etcd peer
+    - toNodes:
+        - matchLabels:
+            node-role.kubernetes.io/control-plane: "true"
+      toPorts:
+        - ports:
+            - port: '2380'
+              protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
