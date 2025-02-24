@@ -25,6 +25,10 @@ spec:
     - fromCIDR:
         - fd7a:115c:a1e0::/48
         - 100.64.0.0/10
+      toPorts:
+        - ports:
+            - port: "6443" # kube-apiserver
+              protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
