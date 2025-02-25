@@ -1,6 +1,9 @@
 app-template:
   controllers:
     renovate:
+      type: cronjob
+      cronjob:
+        schedule: "@hourly"
       containers:
         app:
           image:
@@ -43,16 +46,16 @@ app-template:
       type: emptyDir
       globalMounts:
         - path: /tmp/renovate
-  ingress:
-    renovate:
-      enabled: true
-      hosts:
-        - host: "renovate.svc.m00nlit.dev"
-          paths:
-            - path: /
-              service:
-                identifier: renovate
-                port: http
+  #  ingress:
+  #    renovate:
+  #      enabled: true
+  #      hosts:
+  #        - host: "renovate.svc.m00nlit.dev"
+  #          paths:
+  #            - path: /
+  #              service:
+  #                identifier: renovate
+  #                port: http
   configMaps:
     config:
       enabled: true
