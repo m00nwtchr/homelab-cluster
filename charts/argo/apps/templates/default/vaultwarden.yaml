@@ -13,6 +13,7 @@ spec:
     targetRevision: 0.31.6
     helm:
       valuesObject:
+        # TODO: Convert to app-template
         domain: "https://vaultwarden.{{ .Values.domain }}"
 
         rocket:
