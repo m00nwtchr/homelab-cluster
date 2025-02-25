@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://guerzon.github.io/vaultwarden
     chart: vaultwarden
-    targetRevision: 0.31.2
+    targetRevision: 0.31.6
     helm:
       valuesObject:
         domain: "https://vaultwarden.{{ .Values.domain }}"
