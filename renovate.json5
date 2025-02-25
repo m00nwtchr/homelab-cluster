@@ -18,8 +18,22 @@
 	],
 	"argocd": {
 		"fileMatch": [
-			"charts/root/templates/.+\\.yaml$",
-			"charts/argo/templates/.+\\.yaml$"
+			"(^|/)charts/.+\\.ya?ml$"
+		]
+	},
+	"helmv3": {
+		"fileMatch": [
+			"(^|/)charts/.+\\.ya?ml$"
+		]
+	},
+	"helm-values": {
+		"fileMatch": [
+			"(^|/)charts/.+\\.ya?ml$"
+		]
+	},
+	"kubernetes": {
+		"fileMatch": [
+			"(^|/)charts/.+\\.ya?ml$"
 		]
 	},
 	"customManagers": [
