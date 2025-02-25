@@ -1,3 +1,18 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json"
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"customManagers": [
+		{
+			"customType": "regex",
+			"description": "Apply an explicit forgejo digest field match",
+			"fileMatch": [
+				"forgejo\\.ya?ml"
+			],
+			"matchStrings": [
+				"(?<depName>forgejo\\/forgejo)\\n(?<indentation>\\s+)tag: (?<currentValue>[^@].*?)\\n\\s+digest: (?<currentDigest>sha256:[a-f0-9]+)"
+			],
+			"datasourceTemplate": "docker",
+			"packageNameTemplate": "code.forgejo.org/{{depName}}",
+			"autoReplaceStringTemplate": "{{depName}}\n{{indentation}}tag: {{newValue}}\n{{indentation}}digest: {{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}"
+		}
+	]
 }
