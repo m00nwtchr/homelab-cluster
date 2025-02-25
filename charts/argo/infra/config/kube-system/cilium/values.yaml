@@ -51,6 +51,3 @@ nodeSelectorLabels: false
 
 prometheus:
   enabled: true
-
-global:
-  kubeProxyReplacement: strict
