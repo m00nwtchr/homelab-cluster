@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: dock.mau.dev/mautrix
+  repository: dock.mau.dev/mautrix/meta
   tag: latest
   pullPolicy: IfNotPresent
 

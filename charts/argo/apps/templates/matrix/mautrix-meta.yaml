@@ -14,8 +14,8 @@ spec:
     helm:
       valuesObject:
         image:
-          tag: "latest"
-          pullPolicy: Always
+          repository: dock.mau.dev/mautrix/meta
+          tag: latest@sha256:1a91729ef44fa76381c929dbdf6805a8825efa73bd2bc923b04192a5667c8445
 
         matrix:
           url: http://conduit.matrix.svc
