@@ -20,8 +20,8 @@ app-template:
       containers:
         app:
           image:
-            repository: docker.io/jellyfin/jellyfin
-            tag: "10.10.5"
+            repository: ghcr.io/jellyfin/jellyfin
+            tag: 10.10.5@sha256:54340f53459858156896d5758a6eaa2cea9c95ff95c3c966f2fff1307e31660c
           env:
             DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
             JELLYFIN_PublishedServerUrl:
