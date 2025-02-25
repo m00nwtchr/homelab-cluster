@@ -34,7 +34,7 @@ k8s:
 
 k8sServiceHost: ::1
 k8sServicePort: 6444
-kubeProxyReplacement: true
+kubeProxyReplacement: strict
 
 operator:
   replicas: 1
