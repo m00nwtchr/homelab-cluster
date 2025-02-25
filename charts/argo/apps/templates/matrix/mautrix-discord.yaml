@@ -14,8 +14,8 @@ spec:
     helm:
       valuesObject:
         image:
-          tag: "latest"
-          pullPolicy: Always
+          repository: dock.mau.dev/mautrix/discord
+          tag: latest@sha256:9a15f8aef7be67efa30562461fb4eb11684eefc537e86d2294f1d2095d5bb8e2
 
         matrix:
           url: http://conduit.matrix.svc

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: mautrix-{{ .Values.bridge.type }}
-          image: "{{ .Values.image.repository }}/{{ .Values.bridge.type }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           command: [ "/usr/bin/mautrix-{{ .Values.bridge.type }}" ]
           args: [ "-c", "/config/config.yaml", "--no-update" ]
           ports:
