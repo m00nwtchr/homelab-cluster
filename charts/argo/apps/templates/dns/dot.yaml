@@ -34,7 +34,7 @@ spec:
               - name: errors
               - name: health
                 configBlock: |-
-                  lameluck 5s
+                  lameduck 5s
               - name: errors
               - name: ready
               - name: prometheus
