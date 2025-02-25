@@ -126,7 +126,7 @@ app-template:
         #        - ALL
 
   service:
-    app:
+    qbittorrent:
       controller: qbittorrent
       ipFamilyPolicy: PreferDualStack
       ports:
