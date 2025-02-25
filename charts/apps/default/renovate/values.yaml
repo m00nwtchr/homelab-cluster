@@ -27,12 +27,12 @@ app-template:
             limits:
               cpu: '2'
               memory: 4Gi
-  service:
-    renovate:
-      controller: renovate
-      ports:
-        http:
-          port: 8080
+  #  service:
+  #    renovate:
+  #      controller: renovate
+  #      ports:
+  #        http:
+  #          port: 8080
   persistence:
     config:
       enabled: true
