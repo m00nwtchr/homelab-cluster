@@ -18,11 +18,9 @@ spec:
             enabled: true
           serviceDns:
             mixedService: true
-            type: ClusterIP
-            externalTrafficPolicy: Cluster
-            externalIPs:
-              - fd7a:115c:a1e0::f201:2d35
-              - 100.116.45.53
+            type: LoadBalancer
+            externalTrafficPolicy: Local
+            loadBalancerIPv6: fd7a:115c:a1e0::f201:2d35
           serviceDhcp:
             enabled: false
           ingress:
