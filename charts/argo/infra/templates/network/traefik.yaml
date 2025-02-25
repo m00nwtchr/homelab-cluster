@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://traefik.github.io/charts
     chart: traefik-crds
-    targetRevision: 1.2.0
+    targetRevision: 1.4.0
   destination:
     name: in-cluster
     namespace: traefik
