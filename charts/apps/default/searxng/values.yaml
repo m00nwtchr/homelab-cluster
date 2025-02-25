@@ -9,7 +9,7 @@ app-template:
         main:
           image:
             repository: docker.io/searxng/searxng
-            tag: latest
+            tag: latest@sha256:0da476ff64bf801e3b36fd3c79c50f30f7041ab78b27cbc8c189c4c6f8c696d6
             pullPolicy: IfNotPresent
 
           env:
