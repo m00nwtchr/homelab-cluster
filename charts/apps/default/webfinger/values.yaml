@@ -31,17 +31,17 @@ app-template:
           targetPort: 8080
           port: 80
 
-    ingress:
-      app:
-        annotations:
-          traefik.ingress.kubernetes.io/tls.options: traefik-intermediate@kubernetescrd
-        hosts:
-          - host: m00nlit.dev
-            paths:
-              - path: /.well-known/webfinger
-                service:
-                  identifier: app
-                  port: http
+  ingress:
+    app:
+      annotations:
+        traefik.ingress.kubernetes.io/tls.options: traefik-intermediate@kubernetescrd
+      hosts:
+        - host: m00nlit.dev
+          paths:
+            - path: /.well-known/webfinger
+              service:
+                identifier: app
+                port: http
 
   persistence:
     config:
