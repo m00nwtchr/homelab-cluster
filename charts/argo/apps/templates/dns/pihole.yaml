@@ -15,7 +15,7 @@ spec:
         valuesObject:
           # TODO set cache size to 0 to avoid double-caching
           dualStack:
-            enabled: true
+            enabled: false
           serviceDns:
             mixedService: true
             type: LoadBalancer
