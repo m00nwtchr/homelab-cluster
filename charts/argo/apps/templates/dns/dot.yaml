@@ -18,9 +18,9 @@ spec:
           name: dot
 
         servers:
-          - zones:
+          - port: 53
+            zones:
               - zone: .
-            port: 53
             plugins:
               - name: errors
               - name: health
@@ -36,7 +36,7 @@ spec:
                   100.116.45.53 m00nlit.dev
                   fallthrough
               - name: forward
-                parameters: ". tls://9.9.9.9 tls://149.112.112.112"
+                parameters: ". tls://2620:fe::fe tls://2620:fe::9 tls://9.9.9.9 tls://149.112.112.112"
                 configBlock: |
                   tls_servername dns.quad9.net
               - name: cache
