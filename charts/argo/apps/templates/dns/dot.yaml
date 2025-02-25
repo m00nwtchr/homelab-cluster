@@ -17,6 +17,10 @@ spec:
         service:
           name: dot
 
+        prometheus:
+          monitor:
+            enabled: true
+
         servers:
           - port: 53
             zones:
