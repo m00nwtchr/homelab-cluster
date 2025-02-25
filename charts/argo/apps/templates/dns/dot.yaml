@@ -18,6 +18,8 @@ spec:
           name: dot
 
         prometheus:
+          service:
+            enabled: true
           monitor:
             enabled: true
 
