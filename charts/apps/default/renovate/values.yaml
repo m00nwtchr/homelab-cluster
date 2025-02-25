@@ -62,4 +62,7 @@ app-template:
       data:
         config.json: |-
           {
+            onboardingConfig: {
+              extends: ['config:recommended'],
+            }
           }
