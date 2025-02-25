@@ -117,7 +117,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: pihole-dns
+  name: pihole-dns-2
   namespace: dns
 spec:
   externalTrafficPolicy: Local
