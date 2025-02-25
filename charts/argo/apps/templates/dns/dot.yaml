@@ -35,7 +35,6 @@ spec:
               - name: health
                 configBlock: |-
                   lameduck 5s
-              - name: errors
               - name: ready
               - name: prometheus
                 parameters: 0.0.0.0:9153
