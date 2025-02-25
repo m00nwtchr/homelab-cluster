@@ -1,9 +1,9 @@
 app-template:
   controllers:
     renovate:
-      type: cronjob
-      cronjob:
-        schedule: "@hourly"
+      #      type: cronjob
+      #      cronjob:
+      #        schedule: "@hourly"
       containers:
         app:
           image:
