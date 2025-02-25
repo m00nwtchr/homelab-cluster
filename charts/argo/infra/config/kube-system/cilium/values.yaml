@@ -34,7 +34,7 @@ k8s:
 
 k8sServiceHost: ::1
 k8sServicePort: 6444
-kubeProxyReplacement: strict
+kubeProxyReplacement: true
 
 operator:
   replicas: 1
@@ -51,3 +51,6 @@ nodeSelectorLabels: false
 
 prometheus:
   enabled: true
+
+global:
+  kubeProxyReplacement: strict
