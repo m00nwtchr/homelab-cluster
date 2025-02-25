@@ -47,7 +47,7 @@ hostFirewall:
 policyAuditMode: false
 policyEnforcementMode: default
 
-nodeSelectorLabels: false
+nodeSelectorLabels: true
 
 prometheus:
   enabled: true
