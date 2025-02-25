@@ -15,7 +15,7 @@ spec:
       valuesObject:
         image:
           repository: dock.mau.dev/mautrix/discord
-          tag: latest@sha256:9a15f8aef7be67efa30562461fb4eb11684eefc537e86d2294f1d2095d5bb8e2
+          tag: v0.7.2@sha256:90a03f8fc87b5f1207cb75c0214e568e1f9b125e155bf1581e0e10d27b0afa80
 
         matrix:
           url: http://conduit.matrix.svc
