@@ -33,8 +33,7 @@ spec:
             plugins:
               - name: errors
               - name: health
-                configBlock: |
-                  lameluck 5s
+                configBlock: lameluck 5s
               - name: errors
               - name: ready
               - name: prometheus
