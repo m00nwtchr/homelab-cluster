@@ -25,6 +25,9 @@ spec:
           - port: 53
             zones:
               - zone: .
+                scheme: dns://
+                use_tcp: true
+                use_udp: true
             plugins:
               - name: errors
               - name: health
