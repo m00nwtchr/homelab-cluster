@@ -16,6 +16,12 @@
 		// "github>onedr0p/home-ops//.renovate/packageRules.json5",
 		// "github>onedr0p/home-ops//.renovate/semanticCommits.json5"
 	],
+	"argocd": {
+		"fileMatch": [
+			"charts/root/templates/.+\\.yaml$",
+			"charts/argo/templates/.+\\.yaml$"
+		]
+	},
 	"customManagers": [
 		{
 			"customType": "regex",
