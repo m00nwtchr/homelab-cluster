@@ -149,7 +149,7 @@ app-template:
           paths:
             - path: /
               service:
-                identifier: app
+                identifier: qbittorrent
                 port: http
 
   persistence:
