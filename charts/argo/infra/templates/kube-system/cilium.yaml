@@ -16,7 +16,7 @@ spec:
       ref: repo
     - repoURL: https://helm.cilium.io/
       chart: cilium
-      targetRevision: 1.17.0-rc.1
+      targetRevision: 1.17.1
       helm:
         valueFiles:
           - $repo/charts/argo/infra/config/kube-system/cilium/values.yaml
