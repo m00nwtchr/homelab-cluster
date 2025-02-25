@@ -44,7 +44,6 @@ app-template:
   ingress:
     renovate:
       enabled: true
-      className: nginx
       hosts:
         - host: "renovate.svc.m00nlit.dev"
           paths:
