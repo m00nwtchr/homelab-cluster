@@ -20,7 +20,7 @@ spec:
             mixedService: true
             type: LoadBalancer
             externalTrafficPolicy: Local
-            loadBalancerIPv6: fd7a:115c:a1e0::f201:2d35
+{{/*            loadBalancer: fd7a:115c:a1e0::f201:2d35*/}}
           serviceDhcp:
             enabled: false
           ingress:
