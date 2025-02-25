@@ -19,9 +19,9 @@ spec:
 
         prometheus:
           service:
-            enabled: true
+            enabled: false
           monitor:
-            enabled: true
+            enabled: false
 
         servers:
           - port: 53
@@ -36,8 +36,8 @@ spec:
                 configBlock: |-
                   lameduck 5s
               - name: ready
-              - name: prometheus
-                parameters: 0.0.0.0:9153
+{{/*              - name: prometheus*/}}
+{{/*                parameters: 0.0.0.0:9153*/}}
               - name: hosts
                 configBlock: |-
                   fd7a:115c:a1e0::f201:2d35 m00nlit.dev
