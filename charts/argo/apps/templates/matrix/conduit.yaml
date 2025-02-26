@@ -14,9 +14,9 @@ spec:
     helm:
       valuesObject:
         image:
-          repository: "ghcr.io/girlbossceo/conduwuit"
-          tag: "main"
-          pullPolicy: Always
+          repository: ghcr.io/girlbossceo/conduwuit
+          tag: main@sha256:02ad4a626ce04f4e605fc5ae422a2a68f635dc6375438422c0111aa6fe622b31
+          pullPolicy: IfNotPresent
 
         config:
           server_name: {{ .Values.domain }}
