@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: joohoi/acme-dns
-  tag: latest
+  tag: v1.0@sha256:08435bf0c6cfe7c29816ff48beabcc333743b5bb060cae3867777d9b0d956517
   pullPolicy: IfNotPresent
 
 service:
