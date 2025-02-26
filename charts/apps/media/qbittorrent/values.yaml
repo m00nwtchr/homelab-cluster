@@ -135,9 +135,16 @@ app-template:
     torrent:
       controller: qbittorrent
       type: NodePort
+      primary: false
       ports:
-        torrent:
+        torrent-tcp:
           port: 39495
+          nodePort: 39495
+          protocol: TCP
+        torrent-udp:
+          port: 39495
+          nodePort: 39495
+          protocol: UDP
 
   ingress:
     app:
