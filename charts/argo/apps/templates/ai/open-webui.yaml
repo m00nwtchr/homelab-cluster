@@ -10,7 +10,7 @@ spec:
   sources:
     - repoURL: https://helm.openwebui.com/
       chart: open-webui
-      targetRevision: "5.19.0"
+      targetRevision: "5.20.0"
       helm:
         valuesObject:
           ingress:
