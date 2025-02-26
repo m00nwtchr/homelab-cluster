@@ -129,6 +129,7 @@ app-template:
     qbittorrent:
       controller: qbittorrent
       ipFamilyPolicy: PreferDualStack
+      primary: true
       ports:
         http:
           port: *port
