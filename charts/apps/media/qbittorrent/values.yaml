@@ -131,8 +131,7 @@ app-template:
       ipFamilyPolicy: PreferDualStack
       ports:
         http:
-          targetPort: *port
-          port: 80
+          port: *port
     torrent:
       controller: qbittorrent
       type: NodePort
