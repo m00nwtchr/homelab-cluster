@@ -128,7 +128,7 @@ app-template:
   service:
     app:
       controller: qbittorrent
-      name: qbittorrent
+      nameOverride: ""
       ipFamilyPolicy: PreferDualStack
       primary: true
       ports:
