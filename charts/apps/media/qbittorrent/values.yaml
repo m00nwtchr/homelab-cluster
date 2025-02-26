@@ -133,7 +133,8 @@ app-template:
       primary: true
       ports:
         http:
-          port: *port
+          targetPort: *port
+          port: 80
     torrent:
       controller: qbittorrent
       type: NodePort
