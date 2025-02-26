@@ -126,8 +126,9 @@ app-template:
         #        - ALL
 
   service:
-    qbittorrent:
+    app:
       controller: qbittorrent
+      name: qbittorrent
       ipFamilyPolicy: PreferDualStack
       primary: true
       ports:
@@ -156,7 +157,7 @@ app-template:
           paths:
             - path: /
               service:
-                identifier: qbittorrent
+                identifier: app
                 port: http
 
   persistence:
