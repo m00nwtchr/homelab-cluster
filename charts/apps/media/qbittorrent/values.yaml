@@ -138,12 +138,12 @@ app-template:
       primary: false
       ports:
         torrent-tcp:
-          port: 39495
-          nodePort: 39495
+          port: 31495
+          nodePort: 31495
           protocol: TCP
         torrent-udp:
-          port: 39495
-          nodePort: 39495
+          port: 31495
+          nodePort: 31495
           protocol: UDP
 
   ingress:
