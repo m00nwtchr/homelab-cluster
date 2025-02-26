@@ -13,7 +13,7 @@ app-template:
         copy-config:
           image:
             repository: docker.io/busybox
-            tag: latest
+            tag: latest@sha256:498a000f370d8c37927118ed80afe8adc38d1edcbfc071627d17b25c88efcab0
             pullPolicy: IfNotPresent
           command: [ "/bin/sh", "-c", "cp /config/baikal.yaml /mnt/ && chown 101:101 /mnt/baikal.yaml" ]
 
