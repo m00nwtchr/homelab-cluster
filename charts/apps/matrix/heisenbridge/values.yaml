@@ -1,25 +1,32 @@
-replicaCount: 1
+app-template:
+  controllers:
+    app:
+      containers:
+        app:
+          image:
+            repository: docker.io/hif1/heisenbridge
+            tag: 1.15.0@sha256:63f08f4d82fc6b79bd00899488d580520bfb72c625ebceb83861aa30b41e2170
+            pullPolicy: IfNotPresent
+          args: [ "-c=/etc/config.yaml", "-l=::", "-p=9898", "http://conduit.matrix.svc" ]
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              memory: 512Mi
 
-image:
-  repository: docker.io/hif1/heisenbridge
-  tag: latest
-  pullPolicy: Always
+  service:
+    app:
+      controller: app
+      ports:
+        http:
+          port: 80
+          targetPort: 9898
 
-service:
-  type: ClusterIP
-  port: 80
-
-resources:
-#  limits:
-#    cpu: 500m
-#    memory: 512Mi
-#  requests:
-#    cpu: 250m
-#    memory: 256Mi
-
-livenessProbe:
-  enabled: true
-
-matrix:
-  url: "http://conduit.matrix.svc"
-  serverName: "m00nlit.dev"
+  persistence:
+    config:
+      type: secret
+      name: heisenbridge-config
+      globalMounts:
+        - path: /etc/config.yaml
+          subPath: registration.yaml
