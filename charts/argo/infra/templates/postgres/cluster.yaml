@@ -19,15 +19,23 @@ spec:
         ensure: present
         login: true
         superuser: false
+        passwordSecret:
+          name: postgres-sonarr
       - name: radarr
         ensure: present
         login: true
         superuser: false
+        passwordSecret:
+          name: postgres-radarr
       - name: prowlarr
         ensure: present
         login: true
         superuser: false
+        passwordSecret:
+          name: postgres-prowlarr
       - name: bazarr
         ensure: present
         login: true
         superuser: false
+        passwordSecret:
+          name: postgres-bazarr
