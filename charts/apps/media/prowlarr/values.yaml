@@ -96,3 +96,9 @@ app-template:
       accessMode: ReadWriteOnce
       annotations:
         argocd.argoproj.io/sync-options: Delete=false
+    config-logs:
+      type: emptyDir
+      globalMounts:
+        - path: /config/logs
+    tmp:
+      type: emptyDir

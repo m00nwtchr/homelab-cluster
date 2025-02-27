@@ -84,6 +84,10 @@ app-template:
         argocd.argoproj.io/sync-options: Delete=false
     add-ons:
       type: emptyDir
+    config-logs:
+      type: emptyDir
+      globalMounts:
+        - path: /config/logs
     tmp:
       type: emptyDir
     media:
