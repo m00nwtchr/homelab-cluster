@@ -12,3 +12,22 @@ spec:
   instances: 1
   storage:
     size: 8Gi
+
+  managed:
+    roles:
+      - name: sonarr
+        ensure: present
+        login: true
+        superuser: false
+      - name: radarr
+        ensure: present
+        login: true
+        superuser: false
+      - name: prowlarr
+        ensure: present
+        login: true
+        superuser: false
+      - name: bazarr
+        ensure: present
+        login: true
+        superuser: false
