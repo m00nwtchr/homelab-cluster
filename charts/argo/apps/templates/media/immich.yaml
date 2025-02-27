@@ -17,8 +17,8 @@ spec:
       helm:
         valuesObject:
           image:
-            tag: {}
-        
+            tag: "v1.127.0"
+
           env:
             DB_HOSTNAME: "immich-pgdb-service.media.svc"
             DB_DATABASE_NAME: "immich"
