@@ -16,10 +16,10 @@ spec:
       targetRevision: 0.9.0
       helm:
         valuesObject:
-          image: {}
+          image: { }
 
           env:
-            DB_HOSTNAME: "immich-pgdb-service.media.svc"
+            DB_HOSTNAME: "immich-pgdb-16-service.media.svc"
             DB_DATABASE_NAME: "immich"
             DB_USERNAME: "immich"
             DB_PASSWORD:
@@ -36,7 +36,7 @@ spec:
           server:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.127.0@sha256:6606ce7740f7a06f7a53b49083100c6c05f75c84c85a87e9e4e7309ac0c5d454 
+              tag: v1.127.0@sha256:6606ce7740f7a06f7a53b49083100c6c05f75c84c85a87e9e4e7309ac0c5d454
             ingress:
               main:
                 enabled: true
