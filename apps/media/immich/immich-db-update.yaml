@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: immich-pgdb-16
-          image: docker.io/tensorchord/pgvecto-rs:pg16-v0.2.1@sha256:36218719c673b38adc1d4034b3666bae780bfffb17a250973b6108a9f11cd5d4
+          image: ghcr.io/tensorchord/pgvecto-rs:pg16-v0.3.0@sha256:b89f8ddbb28400d428d3c5e3e860f578cde85ad8e78544a8b687b97937cfc50b
           args:
             - postgres
             - -c
