@@ -48,7 +48,7 @@ spec:
                   - hosts:
                       - photos.m00nlit.dev
 
-          machine-learning
+          machine-learning:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
               tag: v1.127.0@sha256:d38705cdebe2389b46e11d46b7874ffb81d7e7bbf68eaa02df6f26b97d550901
