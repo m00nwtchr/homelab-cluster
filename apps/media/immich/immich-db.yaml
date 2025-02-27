@@ -4,19 +4,19 @@ metadata:
   name: immich-pgdb
   namespace: media
 spec:
-  serviceName: immich-pgdb-service
+  serviceName: immich-pgdb
   replicas: 1
   selector:
     matchLabels:
-      app: immich-pgdb
+      app: immich-pgdb-16
   template:
     metadata:
       labels:
-        app: immich-pgdb
+        app: immich-pgdb-16
     spec:
       containers:
-        - name: immich-pgdb
-          image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:739cdd626151ff1f796dc95a6591b55a714f341c737e27f045019ceabf8e8c52
+        - name: postgres
+          image: ghcr.io/tensorchord/pgvecto-rs:pg16-v0.3.0@sha256:b89f8ddbb28400d428d3c5e3e860f578cde85ad8e78544a8b687b97937cfc50b
           args:
             - postgres
             - -c
@@ -62,18 +62,18 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: immich-db
+            claimName: immich-pgdb-16
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: immich-pgdb-service
+  name: immich-pgdb
   labels:
-    app: immich-pgdb
+    app: immich-pgdb-16
   namespace: media
 spec:
   selector:
-    app: immich-pgdb
+    app: immich-pgdb-16
   ports:
     - protocol: TCP
       port: 5432
@@ -83,7 +83,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: immich-db
+  name: immich-pgdb-16
   namespace: media
   annotations:
     argocd.argoproj.io/sync-options: Delete=false
