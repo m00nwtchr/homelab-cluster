@@ -50,6 +50,19 @@
 			"datasourceTemplate": "docker",
 			"packageNameTemplate": "code.forgejo.org/{{depName}}",
 			"autoReplaceStringTemplate": "{{depName}}\n{{indentation}}tag: {{newValue}}\n{{indentation}}digest: {{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}"
+		},
+		{
+			"customType": "regex",
+			"description": "Match and update imageName with tag and digest",
+			"fileMatch": [
+				".*\\.ya?ml"
+			],
+			"matchStrings": [
+				"imageName: (?<depName>[^:\\s]+):(?<currentValue>[^@\\s]+)@sha256:(?<currentDigest>[a-f0-9]+)"
+			],
+			"datasourceTemplate": "docker",
+			"packageNameTemplate": "{{depName}}",
+			"autoReplaceStringTemplate": "imageName: {{depName}}:{{newValue}}@sha256:{{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}"
 		}
 	]
 }
