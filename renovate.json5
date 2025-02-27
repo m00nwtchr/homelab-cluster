@@ -33,7 +33,8 @@
 	},
 	"kubernetes": {
 		"fileMatch": [
-			"(^|/)charts/.+\\.ya?ml$"
+			"(^|/)charts/.+\\.ya?ml$",
+			"(^|/)apps/.+\\.ya?ml$"
 		]
 	},
 	"customManagers": [
