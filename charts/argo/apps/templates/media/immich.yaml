@@ -24,7 +24,7 @@ spec:
             DB_USERNAME: "immich"
             DB_PASSWORD:
               secretKeyRef:
-                name: postgres-immich-superuser
+                name: immich-postgres-user
                 key: password
             REDIS_HOSTNAME: "immich-redis-master.media.svc"
 
