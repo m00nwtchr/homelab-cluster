@@ -15,7 +15,7 @@ metadata:
   name: postgres-{{ .Release.Name }}-log
   namespace: postgres
 spec:
-  name: {{ .Release.Name }}-log
+  name: {{ .Release.Name }}_log
   owner: {{ .Release.Name }}
   cluster:
     name: postgres
