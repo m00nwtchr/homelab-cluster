@@ -21,13 +21,3 @@ spec:
     syncOptions:
       - ServerSideApply=true
       - CreateNamespace=true
----
-apiVersion: postgresql.cnpg.io/v1
-kind: Cluster
-metadata:
-  name: postgres
-  namespace: cnpg-system
-spec:
-  instances: 1
-  storage:
-    size: 8Gi

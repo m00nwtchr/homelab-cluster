@@ -2,7 +2,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: postgres-{{ .Release.Name }}
-  namespace: cnpg-system
+  namespace: postgres
 spec:
   name: {{ .Release.Name }}
   owner: {{ .Release.Name }}
@@ -13,7 +13,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: postgres-{{ .Release.Name }}-log
-  namespace: cnpg-system
+  namespace: postgres
 spec:
   name: {{ .Release.Name }}-log
   owner: {{ .Release.Name }}
