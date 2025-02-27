@@ -8,3 +8,14 @@ spec:
   owner: sonarr
   cluster:
     name: postgres
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: postgres-sonarr-log
+  namespace: cnpg-system
+spec:
+  name: sonarr-log
+  owner: sonarr
+  cluster:
+    name: postgres
