@@ -1,10 +1,10 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: postgres-{{ .Release.Name }}-main
+  name: postgres-{{ .Release.Name }}
   namespace: postgres
 spec:
-  name: {{ .Release.Name }}-main
+  name: {{ .Release.Name }}
   owner: {{ .Release.Name }}
   cluster:
     name: postgres
