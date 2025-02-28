@@ -23,6 +23,18 @@ app-template:
           port: 80
           targetPort: 9898
 
+  ingress:
+    media:
+      annotations:
+        traefik.ingress.kubernetes.io/router.tls.options: traefik-intermediate@kubernetescrd
+      hosts:
+        - host: "matrix.m00nlit.dev"
+          paths:
+            - path: /_heisenbridge/media/
+              service:
+                identifier: app
+                port: http
+
   persistence:
     config:
       type: secret
