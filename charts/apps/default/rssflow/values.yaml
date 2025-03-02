@@ -5,7 +5,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/m00nwtchr/rssflow
-            tag: master@sha256:787b7bb08a48e4005fef9bb077aadfa39c1e097ec1dff170b2fc31d01c1f7681
+            tag: master@sha256:1186cfc26a08bcf76e99b7c5a4d79ba91051c1a225dfeb8a10d6e049be5c23aa
           env:
             RUST_LOG: "info"
           resources:
