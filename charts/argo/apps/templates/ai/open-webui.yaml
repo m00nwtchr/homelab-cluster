@@ -29,6 +29,14 @@ spec:
             - name: ENABLE_LOGIN_FORM
               value: "false"
 
+            - name: DATABASE_URL
+              value: "postgresql://open-webui:${DATABASE_PASSWORD}@postgres-rw.postgres.svc/open-webui"
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-open-webui
+                  key: password
+
             - name: OAUTH_CLIENT_ID
               value: open-webui
             - name: OAUTH_CLIENT_SECRET
