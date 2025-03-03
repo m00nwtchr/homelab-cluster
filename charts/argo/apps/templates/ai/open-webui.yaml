@@ -32,6 +32,12 @@ spec:
             - name: ENABLE_LOGIN_FORM
               value: "false"
 
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: open-webui-secret
+                  key: DATABASE_URL
+
             - name: OAUTH_CLIENT_ID
               value: open-webui
             - name: OAUTH_CLIENT_SECRET
