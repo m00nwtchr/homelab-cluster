@@ -32,6 +32,9 @@ spec:
             - name: ENABLE_LOGIN_FORM
               value: "false"
 
+            - name: GLOBAL_LOG_LEVEL
+              value: "DEBUG"
+
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
