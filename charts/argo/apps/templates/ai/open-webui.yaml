@@ -8,6 +8,9 @@ metadata:
 spec:
   project: kubernetes
   sources:
+    - repoURL: {{ .Values.repoUrl }}
+      path: apps/ai/open-webui
+      targetRevision: HEAD
     - repoURL: https://helm.openwebui.com/
       chart: open-webui
       targetRevision: "5.20.0"

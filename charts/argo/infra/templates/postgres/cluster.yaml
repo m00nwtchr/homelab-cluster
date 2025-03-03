@@ -39,3 +39,9 @@ spec:
         superuser: false
         passwordSecret:
           name: postgres-bazarr
+      - name: open-webui
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-open-webui
