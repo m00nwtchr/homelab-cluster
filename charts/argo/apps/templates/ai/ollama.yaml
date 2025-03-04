@@ -28,7 +28,7 @@ spec:
                 app:
                   image:
                     repository: ollama/ollama
-                    tag: 0.5.13
+                    tag: 0.5.13@sha256:a79fc15cecf33ed3b05c09a28415db7291c85c4c9d5945f4597317ca02456532
                   env:
                     TZ: "${TIMEZONE}"
                   securityContext:
