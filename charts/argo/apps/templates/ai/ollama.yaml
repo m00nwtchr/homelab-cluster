@@ -1,0 +1,80 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: open-webui
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: kubernetes
+  sources:
+    repoURL: https://bjw-s.github.io/helm-charts
+    chart: app-template
+    targetRevision: "3.7.1"
+    helm:
+      valuesObject:
+          fullnameOverride: *name
+          defaultPodOptions:
+            securityContext:
+              runAsUser: 2999
+              runAsGroup: 2999
+              fsGroup: 2999
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
+          controllers:
+            ollama:
+              containers:
+                app:
+                  image:
+                    repository: ollama/ollama
+                    tag: 0.5.13
+                  env:
+                    TZ: "${TIMEZONE}"
+                  securityContext:
+                    allowPrivilegeEscalation: false
+                    readOnlyRootFilesystem: true
+                    capabilities: { drop: ["ALL"] }
+                  resources:
+                    requests:
+                      cpu: 200m
+                      memory: 2Gi
+          service:
+            app:
+              controller: ollama
+              ports:
+                http:
+                  port: 80
+                  targetPort: 11434
+          ingress:
+            app:
+              enabled: true
+              annotations:
+                traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd
+              hosts:
+                - host: &host "ollama.svc.{{ .Values.domain }}"
+                  paths:
+                    - path: /
+                      service:
+                        identifier: app
+                        port: http
+              tls:
+                - hosts:
+                    - *host
+          persistence:
+            config:
+              globalMounts:
+                - path: /root/.ollama
+
+  destination:
+    name: in-cluster
+    namespace: ai
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true
+
