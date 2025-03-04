@@ -13,7 +13,6 @@ spec:
     targetRevision: "3.7.1"
     helm:
       valuesObject:
-          fullnameOverride: *name
           defaultPodOptions:
             securityContext:
               runAsUser: 2999
