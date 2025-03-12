@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://cloudnative-pg.github.io/charts
     chart: cloudnative-pg
-    targetRevision: 0.23.0
+    targetRevision: 0.23.2
   destination:
     name: in-cluster
     namespace: cnpg-system
