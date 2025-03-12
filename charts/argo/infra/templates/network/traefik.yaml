@@ -37,7 +37,7 @@ spec:
   source:
     repoURL: https://traefik.github.io/charts
     chart: traefik
-    targetRevision: 34.4.0
+    targetRevision: 34.4.1
     helm:
       skipCrds: true
       valuesObject:
