@@ -7,7 +7,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/onedr0p/home-assistant
-            tag: 2025.2.5@sha256:595ced22062da128b78d249c84594f82649c097bb765a3c833afb3fce7e3a66d
+            tag: 2025.3.2@sha256:bc6ac31069eae42f4ff41d2dd0d600aaf8f02b109664cd6aff46709d13eff779
           env:
             TZ: Europe/Warsaw
             HOME_ASSISTANT__HACS_INSTALL: "true"
