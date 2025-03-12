@@ -60,6 +60,7 @@ spec:
             - fd7a:115c:a1e0::f201:2d35
             - 100.116.45.53
             - 10.0.0.87
+            - 150.230.150.181
           annotations:
             svccontroller.k3s.cattle.io/tolerations: |
               - operator: Exists
