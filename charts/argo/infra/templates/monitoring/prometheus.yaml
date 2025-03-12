@@ -70,7 +70,7 @@ spec:
   source:
     repoURL: https://prometheus-community.github.io/helm-charts
     chart: prometheus-adapter
-    targetRevision: 4.11.0
+    targetRevision: 4.13.0
     helm:
       valuesObject:
         prometheus:
