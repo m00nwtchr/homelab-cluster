@@ -39,6 +39,8 @@ spec:
         - ports:
             - port: "6443" # kube-apiserver
               protocol: TCP
+            - port: "9090" # Cockpit
+              protocol: TCP
 
     # etcd peer -> etcd peer
     - fromNodes:
@@ -152,8 +154,6 @@ spec:
   ingress:
     - toPorts:
         - ports:
-            - port: "9090" # Cockpit
-              protocol: TCP
             - port: "443" # HTTPS
               protocol: TCP
             - port: "443" # HTTP3
