@@ -12,6 +12,8 @@ spec:
   sources:
     - repoURL: https://github.com/dragonflydb/dragonfly-operator.git
       path: manifests
+      directory:
+        include: dragonfly-operator.yaml
       targetRevision: HEAD
   destination:
     name: in-cluster
