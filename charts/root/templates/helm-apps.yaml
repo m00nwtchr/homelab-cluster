@@ -13,6 +13,7 @@ spec:
           - path: charts/apps/default/*
           - path: charts/apps/matrix/*
           - path: charts/apps/dns/*
+          - path: charts/apps/database/*
 
   syncPolicy:
     preserveResourcesOnDeletion: true
