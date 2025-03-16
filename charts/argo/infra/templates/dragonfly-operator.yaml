@@ -9,38 +9,10 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: kubernetes
-  source:
-    repoURL: ghcr.io/dragonflydb
-    chart: dragonfly/helm/dragonfly
-    targetRevision: v1.27.2
-    helm:
-      valuesObject:
-        podSecurityContext:
-          fsGroup: 2000
-
-        securityContext:
-          capabilities:
-            drop:
-              - ALL
-          readOnlyRootFilesystem: true
-          runAsNonRoot: true
-          runAsUser: 1000
-
-        serviceMonitor:
-          enabled: true
-
-        prometheusRule:
-          enabled: true
-          spec:
-            - alert: DragonflyMissing
-              expr: absent(dragonfly_uptime_in_seconds) == 1
-              for: 0m
-              labels:
-                severity: critical
-              annotations:
-                summary: Dragonfly is missing
-                description: "Dragonfly is missing"
-
+  sources:
+    - repoURL: https://github.com/dragonflydb/dragonfly-operator.git
+      path: manifests/dragonfly-operator.yaml
+      targetRevision: HEAD
   destination:
     name: in-cluster
     namespace: dragonfly-operator-system
