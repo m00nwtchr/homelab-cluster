@@ -64,7 +64,7 @@ spec:
                 effect: NoSchedule
         ports:
           web:
-            nodePort: 3080
+            nodePort: 30080
             redirections:
               to: websecure
               scheme: https
