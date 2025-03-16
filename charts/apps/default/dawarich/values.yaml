@@ -46,7 +46,8 @@ app-template:
       controller: dawarich
       ports:
         http:
-          port: 3000
+          port: 80
+          targetPort: 3000
   ingress:
     app:
       annotations:
