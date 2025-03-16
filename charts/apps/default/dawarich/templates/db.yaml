@@ -1,10 +1,22 @@
 apiVersion: postgresql.cnpg.io/v1
-kind: Database
+kind: Cluster
 metadata:
-  name: postgres-dawarich
+  name: dawarich-db
   namespace: postgres
 spec:
-  name: dawarich
-  owner: dawarich
-  cluster:
-    name: postgres
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgis:17-3.5@sha256:b9b2a002b5ba730c9d3d12e23187afe26d9c46af50b63b9d03d0b626a50143e6
+  bootstrap:
+    initdb:
+      owner: dawarich
+      database: dawarich
+      secret:
+        name: postgres-dawarich
+      postInitTemplateSQL:
+        - CREATE EXTENSION postgis;
+        - CREATE EXTENSION postgis_topology;
+        - CREATE EXTENSION fuzzystrmatch;
+        - CREATE EXTENSION postgis_tiger_geocoder;
+
+  storage:
+    size: 4Gi
