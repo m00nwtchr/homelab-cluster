@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: ghcr.io/dragonflydb
     chart: dragonfly/helm/dragonfly
-    targetRevision: 1.27.2
+    targetRevision: v1.27.2
     helm:
       valuesObject:
         podSecurityContext:
