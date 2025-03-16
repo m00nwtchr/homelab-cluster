@@ -1,0 +1,66 @@
+app-template:
+  controllers:
+    dawarich:
+      containers:
+        app: &bapp
+          image:
+            repository: freikin/dawarich
+            tag: 0.25.0@sha256:0932ae69616a2e5f90d2a29bc4a8e2f45279455461291bb9f59d2d0e0e3b8db3
+          env:
+            TIME_ZONE: "Europe/Warsaw"
+            REDIS_URL: redis://dragonfly.database.svc.cluster.local
+            APPLICATION_HOSTS: "dawarich.m00nlit.dev"
+          envFrom:
+            - secretRef:
+                name: dawarich-db-secret
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "250m"
+            limits:
+              memory: "3Gi"
+              cpu: "2000m"
+          command:
+            - "web-entrypoint.sh"
+          args:
+            - "bin/rails server -p 3000 -b 0.0.0.0"
+        sidekick:
+          <<: *bapp
+          command:
+            - "sidekiq-entrypoint.sh"
+          args:
+            - "bundle exec sidekiq"
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "250m"
+            limits:
+              memory: "3Gi"
+              cpu: "1500m"
+  service:
+    app:
+      controller: dawarich
+      ports:
+        http:
+          port: 3000
+  ingress:
+    app:
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Home
+        gethomepage.dev/name: Dawarich
+        gethomepage.dev/icon: google-maps.png
+      #        external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+      hosts:
+        - host: "{{ .Release.Name }}.svc.m00nlit.dev"
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+  # persistence:
+  #   config:
+  #     enabled: true
+  #     existingClaim: *app
+  #     globalMounts:
+  #       - path: /config
