@@ -11,7 +11,7 @@ spec:
   project: kubernetes
   sources:
     - repoURL: https://github.com/dragonflydb/dragonfly-operator.git
-      path: manifests/dragonfly-operator.yaml
+      path: manifests
       targetRevision: HEAD
   destination:
     name: in-cluster
