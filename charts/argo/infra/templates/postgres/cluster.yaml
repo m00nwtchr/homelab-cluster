@@ -45,3 +45,9 @@ spec:
         superuser: false
         passwordSecret:
           name: postgres-open-webui
+      - name: dawarich
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-dawarich
