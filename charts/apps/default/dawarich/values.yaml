@@ -7,9 +7,10 @@ app-template:
             repository: freikin/dawarich
             tag: 0.25.0@sha256:0932ae69616a2e5f90d2a29bc4a8e2f45279455461291bb9f59d2d0e0e3b8db3
           env:
-            #            RAILS_ENV: production
+            # RAILS_ENV: production
             TIME_ZONE: "Europe/Warsaw"
-            REDIS_URL: redis://dragonfly.database.svc.cluster.local
+            #            REDIS_URL: redis://dragonfly.database.svc.cluster.local
+            REDIS_URL: redis://localhost:6379
             APPLICATION_HOSTS: "dawarich.m00nlit.dev"
           envFrom:
             - secretRef:
@@ -20,7 +21,6 @@ app-template:
               cpu: "250m"
             limits:
               memory: "3Gi"
-              cpu: "2000m"
           command:
             - "web-entrypoint.sh"
           args:
@@ -37,7 +37,10 @@ app-template:
               cpu: "250m"
             limits:
               memory: "3Gi"
-              cpu: "1500m"
+        valkey:
+          image:
+            repository: docker.io/valkey/valkey
+            tag: 8.0.2-alpine@sha256:0fae58181c223280867e8b6d9d5fa29fca507770aeb6819f36d059cab73fa2fd
   service:
     app:
       controller: dawarich
@@ -51,7 +54,7 @@ app-template:
         gethomepage.dev/group: Home
         gethomepage.dev/name: Dawarich
         gethomepage.dev/icon: google-maps.png
-      #        external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+        # external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
       hosts:
         - host: "{{ .Release.Name }}.svc.m00nlit.dev"
           paths:
