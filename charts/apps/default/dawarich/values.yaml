@@ -24,7 +24,7 @@ app-template:
           command:
             - "web-entrypoint.sh"
           args:
-            - "bin/rails server -p 3000 -b 0.0.0.0"
+            - "bin/rails server -p 3000 -b ::"
         sidekick:
           <<: *bapp
           command:
