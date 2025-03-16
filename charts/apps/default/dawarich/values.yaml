@@ -7,6 +7,7 @@ app-template:
             repository: freikin/dawarich
             tag: 0.25.0@sha256:0932ae69616a2e5f90d2a29bc4a8e2f45279455461291bb9f59d2d0e0e3b8db3
           env:
+            RAILS_ENV: production
             TIME_ZONE: "Europe/Warsaw"
             REDIS_URL: redis://dragonfly.database.svc.cluster.local
             APPLICATION_HOSTS: "dawarich.m00nlit.dev"
