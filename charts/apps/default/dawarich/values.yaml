@@ -11,7 +11,7 @@ app-template:
             TIME_ZONE: "Europe/Warsaw"
             #            REDIS_URL: redis://dragonfly.database.svc.cluster.local
             REDIS_URL: redis://localhost:6379
-            APPLICATION_HOSTS: "dawarich.m00nlit.dev"
+            APPLICATION_HOSTS: "dawarich.svc.m00nlit.dev"
           envFrom:
             - secretRef:
                 name: dawarich-db-secret
