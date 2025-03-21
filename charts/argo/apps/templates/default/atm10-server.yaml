@@ -67,7 +67,8 @@ spec:
           failureThreshold: 43200  # Allows up to 43200 * 5 = 216,000 seconds (60 hours) of retries
 
         persistence:
-          annotations: { }
+          annotations:
+            - argocd.argoproj.io/sync-options: Delete=false
           dataDir:
             enabled: true
             Size: 1Gi
