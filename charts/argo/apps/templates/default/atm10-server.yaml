@@ -68,7 +68,7 @@ spec:
 
         persistence:
           annotations:
-            - argocd.argoproj.io/sync-options: Delete=false
+            argocd.argoproj.io/sync-options: Delete=false
           dataDir:
             enabled: true
             Size: 1Gi
