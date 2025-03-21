@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://guerzon.github.io/vaultwarden
     chart: vaultwarden
-    targetRevision: 0.31.6
+    targetRevision: 0.31.8
     helm:
       valuesObject:
         # TODO: Convert to app-template
