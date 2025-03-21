@@ -31,10 +31,9 @@ app-template:
       containers:
         app:
           image:
-            #            repository: ghcr.io/hotio/sonarr
-            #            tag: nightly-4.0.12.2900
-            repository: ghcr.io/onedr0p/sonarr-develop
-            tag: 4.0.13.2934@sha256:d871b5816748ecca49e322b905b399d5aaf2ef36fa3ec45179f785f2c5861a41
+            repository:
+              ghcr.io/home-operations/sonarr
+            tag: 4.0.14.29384.0.13.2934@sha256:0169c421055790ef8bd9b5c2807663bb487f56daf1f602a20612a0257c491462
           env:
             SONARR__APP__INSTANCENAME: Sonarr
             SONARR__AUTH__APIKEY:

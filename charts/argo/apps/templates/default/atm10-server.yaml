@@ -8,9 +8,9 @@ metadata:
 spec:
   project: kubernetes
   source:
-    repoURL: https://itzg.github.io/minecraft-server-charts/
-    chart: minecraft
-    targetRevision: 4.24.0
+    repoURL: ghcr.io/itzg
+    chart: minecraft-server-charts/minecraft
+    targetRevision: 4.26.0
     helm:
       valuesObject:
         minecraftServer:
