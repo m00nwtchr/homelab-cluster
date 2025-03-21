@@ -14,8 +14,8 @@ app-template:
       containers:
         app:
           image:
-            repository: ghcr.io/onedr0p/radarr-develop
-            tag: 5.20.0.9752@sha256:b19e4d4dca881fe36718d1f4139b3376bf8ddfc4eb31b96857f4378a86bc16c1
+            repository: ghcr.io/home-operations/radarr
+            tag: 5.20.2.9777@sha256:e23ae79f0c88aa988aacaf9df34cf626632bed0205c51e7ba34bcc508d2f38a6
           env:
             RADARR__APP__INSTANCENAME: Radarr
             RADARR__AUTH__APIKEY:
