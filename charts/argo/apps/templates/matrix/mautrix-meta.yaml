@@ -15,7 +15,7 @@ spec:
       valuesObject:
         image:
           repository: dock.mau.dev/mautrix/meta
-          tag: v0.4.4@sha256:fb3dd43eadede0a36a85908c4be518c5fa32b984abb6fac9a51275fd8da80f7b
+          tag: v0.4.5@sha256:74c005ec68911bc12b00faedc96dfc8267420d7aef0ea5f07be462e61c1e4e25
 
         matrix:
           url: http://conduit.matrix.svc

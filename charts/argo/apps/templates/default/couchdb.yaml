@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://apache.github.io/couchdb-helm
     chart: couchdb
-    targetRevision: 4.5.6
+    targetRevision: 4.6.0
     helm:
       valuesObject:
         clusterSize: 1
