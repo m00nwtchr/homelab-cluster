@@ -43,7 +43,7 @@ bandwidthManager:
   enabled: true
   bbr: true
 hostFirewall:
-  enabled: true
+  enabled: false
 policyAuditMode: false
 policyEnforcementMode: default
 
