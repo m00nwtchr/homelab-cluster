@@ -94,7 +94,7 @@ spec:
         # if LiveKit should run only on specific nodes
         # this can be used to isolate designated nodes
         nodeSelector:
-          {}
+          provider: "oracle"
           # node.kubernetes.io/instance-type: c5.2xlarge
 
         resources:
