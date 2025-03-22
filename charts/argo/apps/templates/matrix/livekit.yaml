@@ -38,7 +38,7 @@ spec:
           # one or more API key/secret pairs
           # see https://docs.livekit.io/guides/getting-started/#generate-api-key-and-secret
           keys:
-            myapikey: "myapisecret"
+            myapikey: "rohng8bi8aepaeQu4saibohsied0uu4cahzuaJe7aiThoong0hae8shoceishuew8yauweit"
           turn:
             enabled: true
             # must match domain of your TLS cert
