@@ -13,15 +13,15 @@ spec:
     targetRevision: "3.7.3"
     helm:
       valuesObject:
-          defaultPodOptions:
-            securityContext:
-              runAsUser: 2999
-              runAsGroup: 2999
-              fsGroup: 2999
-              fsGroupChangePolicy: "OnRootMismatch"
-              runAsNonRoot: true
-              seccompProfile:
-                type: RuntimeDefault
+          # defaultPodOptions:
+          #   securityContext:
+          #     runAsUser: 2999
+          #     runAsGroup: 2999
+          #     fsGroup: 2999
+          #     fsGroupChangePolicy: "OnRootMismatch"
+          #     runAsNonRoot: true
+          #     seccompProfile:
+          #       type: RuntimeDefault
           controllers:
             ollama:
               containers:
@@ -30,7 +30,11 @@ spec:
                     repository: ollama/ollama
                     tag: 0.6.2@sha256:74a0929e1e082a09e4fdeef8594b8f4537f661366a04080e600c90ea9f712721
                   env:
-                    TZ: "${TIMEZONE}"
+                    TZ: "Europe/Warsaw"
+                    OLLAMA_HOST: "::"
+                    # OLLAMA_ORIGINS: ""
+                    # OLLAMA_KEEP_ALIVE: "24h"
+                    # OLLAMA_LOAD_TIMEOUT: "600"
                   securityContext:
                     allowPrivilegeEscalation: false
                     readOnlyRootFilesystem: false
