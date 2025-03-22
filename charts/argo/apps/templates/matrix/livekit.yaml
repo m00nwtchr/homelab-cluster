@@ -107,7 +107,7 @@ spec:
           # requests:
           #   cpu: 4000m
           #   memory: 1024Mi
- destination:
+  destination:
     name: in-cluster
     namespace: matrix
   syncPolicy:
