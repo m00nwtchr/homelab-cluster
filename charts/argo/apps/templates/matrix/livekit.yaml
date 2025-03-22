@@ -121,7 +121,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: "turn-{{ include "domainDashed" . }}"
-  namespace: traefik
+  namespace: matrix
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
