@@ -31,8 +31,8 @@ spec:
             rootless: true
             registry: code.forgejo.org
             repository: forgejo/forgejo
-            tag: 10.0.2-rootless
-            digest: sha256:dd46097d6076bb0ef04dc5db2c1d6716fa8cfaaad10951b67d7ab9428e424d68
+            tag: 10.0.3-rootless
+            digest: sha256:5658d26e908b9acb533f86616000dd3d9619085e6979aa394d89142ed69f19b2
 
           gitea:
             admin:
