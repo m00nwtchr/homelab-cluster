@@ -94,4 +94,3 @@ app-template:
       existingClaim: media
       globalMounts:
         - path: /mnt/media
-        - path: /media

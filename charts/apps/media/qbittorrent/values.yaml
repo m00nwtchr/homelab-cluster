@@ -177,7 +177,6 @@ app-template:
         qbittorrent:
           app:
             - path: /mnt/media
-            - path: /media
     #empty-config:
     #  type: emptyDir
     #  advancedMounts:
