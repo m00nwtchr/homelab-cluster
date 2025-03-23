@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://crowdsecurity.github.io/helm-charts
     chart: crowdsec
-    targetRevision: "0.18"
+    targetRevision: "0.19"
     helm:
       valuesObject:
         container_runtime: containerd
