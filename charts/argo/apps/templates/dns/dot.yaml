@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://coredns.github.io/helm
     chart: coredns
-    targetRevision: 1.39.1
+    targetRevision: 1.39.2
     helm:
       valuesObject:
         isClusterService: false
