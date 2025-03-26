@@ -102,3 +102,5 @@ app-template:
               subPath: cache
             - path: /transcode
               subPath: transcode
+            - path: /media
+              subPath: screaming
