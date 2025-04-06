@@ -15,7 +15,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/home-operations/radarr
-            tag: 5.20.2.9777@sha256:e23ae79f0c88aa988aacaf9df34cf626632bed0205c51e7ba34bcc508d2f38a6
+            tag: 5.22.1.9832@sha256:e697db98905b4b03a8112fa581bb313e6c36531cc5da96005c5d63a463ea3f2c
           env:
             RADARR__APP__INSTANCENAME: Radarr
             RADARR__AUTH__APIKEY:
