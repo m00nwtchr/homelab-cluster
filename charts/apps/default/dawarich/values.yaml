@@ -40,7 +40,7 @@ app-template:
         valkey:
           image:
             repository: docker.io/valkey/valkey
-            tag: 8.0.2-alpine@sha256:0fae58181c223280867e8b6d9d5fa29fca507770aeb6819f36d059cab73fa2fd
+            tag: 8.1.0-alpine@sha256:7c1426974c5f80e5aa510eb6dc6d699f103a302e095afcf3babe9fe6b7076ee6
   service:
     app:
       controller: dawarich
