@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://helm.mariadb.com/mariadb-operator
     chart: mariadb-operator-crds
-    targetRevision: 0.37.1
+    targetRevision: 0.38.0
   destination:
     namespace: default
     server: https://kubernetes.default.svc
