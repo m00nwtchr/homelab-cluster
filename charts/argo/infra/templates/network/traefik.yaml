@@ -54,14 +54,7 @@ spec:
                 namespace: traefik
 
         service:
-          type: LoadBalancer
-          externalIPs:
-             - fd7a:115c:a1e0::f201:2d35
-             - 100.116.45.53
-          annotations:
-            svccontroller.k3s.cattle.io/tolerations: |
-              - operator: Exists
-                effect: NoSchedule
+          type: NodePort
         ports:
           web:
             nodePort: 30080
