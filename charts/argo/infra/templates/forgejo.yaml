@@ -16,7 +16,7 @@ spec:
       ref: repo
     - repoURL: code.forgejo.org/forgejo-helm
       chart: forgejo
-      targetRevision: 11.0.3
+      targetRevision: 11.0.5
       helm:
         valuesObject:
           ingress:
