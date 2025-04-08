@@ -15,7 +15,7 @@ spec:
       valuesObject:
         image:
           repository: ghcr.io/girlbossceo/conduwuit
-          tag: main@sha256:3fe97246da5890fd397f71527fc36dee10aa367d95ae499e458c670b3351a0bb
+          tag: main@sha256:324ee8be0da668034db3a1248166ecbef39a9892bb3117a6e260aa3cb5bcb279
           pullPolicy: IfNotPresent
 
         config:
