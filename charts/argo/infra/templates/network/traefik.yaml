@@ -54,7 +54,7 @@ spec:
                 namespace: traefik
 
         service:
-          type: NodePort
+          type: LoadBalancer
         ports:
           web:
             nodePort: 30080
