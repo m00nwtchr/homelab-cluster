@@ -4,7 +4,9 @@ cluster:
 cni:
   binPath: "/usr/lib/cni/"
 
-devices: enp+
+devices:
+  - enp+
+  - tailscale0
 
 routingMode: native
 loadBalancer:
