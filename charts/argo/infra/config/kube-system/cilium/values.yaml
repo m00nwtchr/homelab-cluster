@@ -4,13 +4,14 @@ cluster:
 cni:
   binPath: "/usr/lib/cni/"
 
-devices:
-  - tailscale0
-  - enp+
+devices: enp+
 
 routingMode: native
 loadBalancer:
   mode: hybrid
+
+nodePort:
+  directRoutingDevice: tailscale0
 
 ipam:
   mode: cluster-pool
