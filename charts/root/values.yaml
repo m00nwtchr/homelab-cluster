@@ -1,4 +1,4 @@
-repoUrl: https://git.m00nlit.dev/m00n/homelab-cluster.git
+repoUrl: http://forgejo-http.gitea.svc.cluster.local/m00n/homelab-cluster.git
 
 domain: m00nlit.dev
 email: prior-cameo-jazz@duck.com
