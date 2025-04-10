@@ -8,10 +8,19 @@ app-template:
             tag: 0.25.4@sha256:bee3ddd092008d4e035ab0f8be0f1eff7ad7496767066e8e2738d59df301a692
           env:
             # RAILS_ENV: production
+            RAILS_ENV: development
             TIME_ZONE: "Europe/Warsaw"
             #            REDIS_URL: redis://dragonfly.database.svc.cluster.local
             REDIS_URL: redis://localhost:6379
             APPLICATION_HOSTS: "dawarich.svc.m00nlit.dev"
+            APPLICATION_PROTOCOL: http
+            MIN_MINUTES_SPENT_IN_CITY: 60
+            DISTANCE_UNIT: km
+            ROMETHEUS_EXPORTER_ENABLED: false
+            PROMETHEUS_EXPORTER_HOST: 0.0.0.0
+            PROMETHEUS_EXPORTER_PORT: 9394
+            ENABLE_TELEMETRY: false # More on telemetry: https://dawarich.app/docs/tutorials/telemetry
+            SELF_HOSTED: "true"
           envFrom:
             - secretRef:
                 name: dawarich-db-secret
