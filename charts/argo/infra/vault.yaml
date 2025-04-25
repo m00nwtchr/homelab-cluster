@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://helm.releases.hashicorp.com
     chart: vault
-    targetRevision: 0.29.1
+    targetRevision: 0.30.0
     helm:
       values: | {{ .Values.vault | toYaml | nindent 8 }}
   destination:
