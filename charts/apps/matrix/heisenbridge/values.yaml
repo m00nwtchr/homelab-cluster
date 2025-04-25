@@ -5,7 +5,7 @@ app-template:
         app:
           image:
             repository: docker.io/hif1/heisenbridge
-            tag: 1.15.2@sha256:2b8be67c6cb6a42b91fcbf20a80012b2639713bc0c21401cb07e3a13097dc19d
+            tag: 1.15.3@sha256:53dce310a09cebaa684fd1f1ebeb3c78874f98679622e166ea41e7cde774f611
             pullPolicy: IfNotPresent
           args: [ "-c=/etc/config.yaml", "-l=::", "-p=9898", "http://conduit.matrix.svc" ]
           resources:
