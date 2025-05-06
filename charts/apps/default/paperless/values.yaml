@@ -103,6 +103,8 @@ app-template:
       globalMounts:
         - path: /usr/src/paperless/data
     media:
-      existingClaim: paperless
+      size: 1Gi
+      accessMode: ReadWriteOnce
+      hostPath: /mnt/hdd/paperless
       globalMounts:
         - path: /usr/src/paperless/media
