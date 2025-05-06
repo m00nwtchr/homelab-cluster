@@ -12,6 +12,12 @@ app-template:
         app:
           env:
             PAPERLESS_REDIS: redis://localhost:6379
+            PAPERLESS_DBHOST: postgres-rw.postgres.svc.cluster.local
+            PAPERLESS_DBPASS:
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-paperless
+                  key: password
             PAPERLESS_URL: https://paperless.svc.m00nlit.dev
             PAPERLESS_ENABLE_HTTP_REMOTE_USER: 'true'
 
