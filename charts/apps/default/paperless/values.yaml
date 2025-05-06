@@ -22,6 +22,7 @@ app-template:
             PAPERLESS_ENABLE_HTTP_REMOTE_USER: 'true'
 
             PAPERLESS_OCR_LANGUAGE: pol
+            PAPERLESS_OCR_LANGUAGES: pol
 
             PAPERLESS_TIKA_ENABLED: 1
             PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
