@@ -12,3 +12,16 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/mnt/hdd/paperless"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "paperless-media"
+  namespace: "default"
+spec:
+  storageClassName: "manual"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: "12Ti"
