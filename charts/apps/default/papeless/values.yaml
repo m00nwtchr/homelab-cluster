@@ -1,0 +1,109 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.2.0/charts/other/app-template/values.schema.json
+
+app-template:
+  controllers:
+    paperless-ngx:
+      type: statefulset
+      statefulset:
+        podManagementPolicy: Parallel
+
+      containers:
+        app:
+          env:
+            PAPERLESS_ENABLE_HTTP_REMOTE_USER: 'true'
+            PAPERLESS_OCR_PAGES: 2
+            PAPERLESS_REDIS: redis://localhost:6379
+            PAPERLESS_THREADS_PER_WORKER: 1
+            PAPERLESS_TIKA_ENABLED: 1
+            PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
+            PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
+            PAPERLESS_URL: https://paperless.m00nlit.dev
+            PAPERLESS_WEBSERVER_WORKERS: 1
+          image:
+            repository: ghcr.io/paperless-ngx/paperless-ngx
+            tag: 2.15.3@sha256:39b337e73c978238f0b529baf42f1b59b65d17eed35cd61bc1ccbbf779b5d58b
+          probes:
+            liveness:
+              enabled: true
+              type: HTTP
+            readiness:
+              enabled: true
+              type: HTTP
+            startup:
+              enabled: true
+              spec:
+                failureThreshold: 30
+                periodSeconds: 5
+              type: HTTP
+          resources:
+            limits:
+              memory: 1.2Gi
+            requests:
+              cpu: 40m
+              memory: 1.2Gi
+
+        gotenberg:
+          env:
+            DISABLE_GOOGLE_CHROME: '1'
+          image:
+            repository: docker.io/gotenberg/gotenberg
+            tag: 8.20.1@sha256:cda4386c7ed38f18bc6897828be01ba7361c99929a5c84ec5e293d7916e29bac
+          resources:
+            limits:
+              memory: 30Mi
+            requests:
+              cpu: 10m
+              memory: 30Mi
+
+        redis:
+          image:
+            repository: docker.io/valkey/valkey
+            tag: 8.1.1-alpine@sha256:f43639a6811342b5db26475f3463d4d1950d07bf05542d9483159a44be1fe62f
+          resources:
+            limits:
+              memory: 50Mi
+            requests:
+              cpu: 10m
+              memory: 18Mi
+
+        tika:
+          image:
+            repository: ghcr.io/paperless-ngx/tika
+            tag: 2.9.1-minimal@sha256:20db3df89eaeb1b271dd840888fe909b88b12f4b86ef641ec07a1d45d4c5168f
+          resources:
+            limits:
+              memory: 220Mi
+            requests:
+              cpu: 10m
+              memory: 220Mi
+
+  service:
+    app:
+      controller: paperless-ngx
+      ports:
+        http:
+          port: 80
+          targetPort: 8000
+
+  ingress:
+    app:
+      hosts:
+        - host: paperless.svc.m00nlit.dev
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+
+  persistence:
+    data:
+      size: 1Gi
+      accessMode: ReadWriteOnce
+      globalMounts:
+        - path: /usr/src/paperless/data
+    media:
+      size: 1Gi
+      accessMode: ReadWriteOnce
+      globalMounts:
+        - path: /usr/src/paperless/media
