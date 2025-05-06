@@ -11,15 +11,15 @@ app-template:
       containers:
         app:
           env:
-            PAPERLESS_ENABLE_HTTP_REMOTE_USER: 'true'
-            PAPERLESS_URL: https://paperless.svc.m00nlit.dev
-            PAPERLESS_OCR_PAGES: 2
             PAPERLESS_REDIS: redis://localhost:6379
-            PAPERLESS_THREADS_PER_WORKER: 1
+            PAPERLESS_URL: https://paperless.svc.m00nlit.dev
+            PAPERLESS_ENABLE_HTTP_REMOTE_USER: 'true'
+
+            PAPERLESS_OCR_LANGUAGE: pol
+
             PAPERLESS_TIKA_ENABLED: 1
             PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
             PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
-            PAPERLESS_WEBSERVER_WORKERS: 1
           image:
             repository: ghcr.io/paperless-ngx/paperless-ngx
             tag: 2.15.3@sha256:39b337e73c978238f0b529baf42f1b59b65d17eed35cd61bc1ccbbf779b5d58b
