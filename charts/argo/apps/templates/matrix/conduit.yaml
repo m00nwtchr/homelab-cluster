@@ -14,8 +14,8 @@ spec:
     helm:
       valuesObject:
         image:
-          repository: ghcr.io/girlbossceo/conduwuit
-          tag: main@sha256:324ee8be0da668034db3a1248166ecbef39a9892bb3117a6e260aa3cb5bcb279
+          repository: forgejo.ellis.link/continuwuation/continuwuity
+          tag: main@sha256:eb956eb5956b9d78fdf0835d7d0c19dc012a7478c87419fa9b36a1e39e20dae1
           pullPolicy: IfNotPresent
 
         config:
