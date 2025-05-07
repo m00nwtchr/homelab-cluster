@@ -10,7 +10,7 @@ spec:
   sources:
     - repoURL: https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
       chart: secrets-store-csi-driver
-      targetRevision: 1.4.8
+      targetRevision: 1.5.0
       helm:
         valuesObject:
           syncSecret:
