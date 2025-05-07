@@ -7,7 +7,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/home-operations/home-assistant
-            tag: 2025.4.1@sha256:9495fb2aff6e56e13bf8ccc8f57b6e931b37c44ea1ffef69f6ee3fc5a951633a
+            tag: 2025.5.0@sha256:2ff8c411175e243674c33a14d37e6b4145eea77c1bc3873086cdd396e2afabb9
           env:
             TZ: Europe/Warsaw
             HOME_ASSISTANT__HACS_INSTALL: "true"
