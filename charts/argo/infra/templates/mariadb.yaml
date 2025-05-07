@@ -35,7 +35,7 @@ spec:
   source:
     repoURL: https://helm.mariadb.com/mariadb-operator
     chart: mariadb-operator
-    targetRevision: 0.38.0
+    targetRevision: 0.38.1
     helm:
       valuesObject:
         metrics:
