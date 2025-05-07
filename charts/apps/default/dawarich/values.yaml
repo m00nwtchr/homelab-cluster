@@ -5,7 +5,7 @@ app-template:
         app: &bapp
           image:
             repository: freikin/dawarich
-            tag: 0.25.4@sha256:bee3ddd092008d4e035ab0f8be0f1eff7ad7496767066e8e2738d59df301a692
+            tag: 0.25.9@sha256:487dfe589330ed4688c1c94b95f29a0e00272954d902c520ecf8a05a3cad7cc2
           env:
             # RAILS_ENV: production
             RAILS_ENV: development
