@@ -1,7 +1,6 @@
 app-template:
   controllers:
     rssflow:
-      name: rssflow
       containers:
         app:
           image:
