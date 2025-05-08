@@ -5,7 +5,7 @@ metadata:
   namespace: postgres
 spec:
   instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgis:17-3.5@sha256:22cc3fd36c05f3b2398194a96d40d5cf7c8fc36b73f02841a63dbab24866da4e
+  imageName: ghcr.io/cloudnative-pg/postgis:17-3.5@sha256:f63f072ccc7c5afdab09dc5928e127b1aee35117e9f8345b088d655eab557d36
   bootstrap:
     initdb:
       owner: dawarich
