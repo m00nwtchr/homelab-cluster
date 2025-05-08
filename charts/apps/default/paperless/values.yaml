@@ -29,6 +29,8 @@ app-template:
             PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
 
             PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
+            PAPERLESS_DISABLE_REGULAR_LOGIN: 1
+            PAPERLESS_REDIRECT_LOGIN_TO_SSO: 1
           envFrom:
             - secretRef:
                 name: paperless-env
