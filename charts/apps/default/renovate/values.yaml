@@ -8,7 +8,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/renovatebot/renovate
-            tag: 40.8.1@sha256:a988a7ec5afb5c421a8b65beda007ee044d3e7f66d43d6a4888cdac979935147
+            tag: 40.10.3@sha256:0de769379c09a505f29d01e9d2a2f709f3f871f98dd01e2a8658c42faaa50561
             pullPolicy: IfNotPresent
           envFrom:
             - secretRef:
