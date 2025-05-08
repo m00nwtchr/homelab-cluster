@@ -15,7 +15,7 @@ spec:
       valuesObject:
         image:
           repository: forgejo.ellis.link/continuwuation/continuwuity
-          tag: main@sha256:eb956eb5956b9d78fdf0835d7d0c19dc012a7478c87419fa9b36a1e39e20dae1
+          tag: main@sha256:83af28d374986ae3174db64b2e753cf398c64a4a1259ca398c48dc5ae0ada425
           pullPolicy: IfNotPresent
 
         config:
