@@ -21,9 +21,22 @@ app-template:
             PROMETHEUS_EXPORTER_PORT: 9394
             ENABLE_TELEMETRY: false # More on telemetry: https://dawarich.app/docs/tutorials/telemetry
             SELF_HOSTED: "true"
-          envFrom:
-            - secretRef:
-                name: dawarich-db-secret
+
+            DATABASE_HOST: dawarich-db-rw.postgres.svc.cluster.local
+            DATABASE_NAME: dawarich
+            DATABASE_USERNAME:
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-dawarich
+                  key: username
+            DATABASE_PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-dawarich
+                  key: password
+          #          envFrom:
+          #            - secretRef:
+          #                name: dawarich-db-secret
           resources:
             requests:
               memory: "1Gi"
