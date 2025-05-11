@@ -47,6 +47,7 @@ app-template:
 
   service:
     main:
+      controller: main
       ports:
         http:
           port: 80
@@ -54,12 +55,10 @@ app-template:
 
   ingress:
     main:
-      enabled: true
       hosts:
         - host: splitpro.m00nlit.dev
           paths:
             - path: /
-              pathType: Prefix
               service:
-                name: main
+                identifier: main
                 port: http
