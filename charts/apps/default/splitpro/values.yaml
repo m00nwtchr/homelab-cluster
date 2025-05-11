@@ -12,7 +12,7 @@ app-template:
             tag: v1.3.4@sha256:71cecf83d3b2f7a0c7bf641c153db279317cd42b4bc5cdc5065590c728faeebb
           env:
             PORT: 3000
-            NEXTAUTH_URL: "https://splitpro.svc.m00nlit.dev"
+            NEXTAUTH_URL: "https://splitpro.m00nlit.dev"
 
             ENABLE_SENDING_INVITES: false
 
@@ -52,7 +52,7 @@ app-template:
   ingress:
     main:
       hosts:
-        - host: splitpro.svc.m00nlit.dev
+        - host: splitpro.m00nlit.dev
           paths:
             - path: /
               service:
