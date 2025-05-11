@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://bjw-s-labs.github.io/helm-charts/charts/app-template/values.schema.json
+
+app-template:
+  controllers:
+    main:
+      type: statefulset
+      containers:
+        main:
+          image:
+            repository: ossapps/splitpro
+            tag: v1.3.4@sha256:71cecf83d3b2f7a0c7bf641c153db279317cd42b4bc5cdc5065590c728faeebb
+          env:
+            PORT: 3000
+            NEXTAUTH_URL: "https://splitpro.m00nlit.dev"
+
+            ENABLE_SENDING_INVITES: false
+
+            # FROM_EMAIL: "{{ .Values.env.FROM_EMAIL }}"
+            # EMAIL_SERVER_HOST: "{{ .Values.env.EMAIL_SERVER_HOST }}"
+            # EMAIL_SERVER_PORT: "{{ .Values.env.EMAIL_SERVER_PORT }}"
+            # EMAIL_SERVER_USER: "{{ .Values.env.EMAIL_SERVER_USER }}"
+            # EMAIL_SERVER_PASSWORD: "{{ .Values.env.EMAIL_SERVER_PASSWORD }}"
+
+            AUTHENTIK_ID: "splitpro"
+            AUTHENTIK_SECRET: ""
+            AUTHENTIK_ISSUER: "https://idm.m00nlit.dev"
+
+            R2_ACCESS_KEY: ""
+            R2_SECRET_KEY: ""
+            R2_BUCKET: ""
+            R2_URL: ""
+            R2_PUBLIC_URL: ""
+
+            WEB_PUSH_PRIVATE_KEY: ""
+            WEB_PUSH_PUBLIC_KEY: ""
+            WEB_PUSH_EMAIL: ""
+
+            # FEEDBACK_EMAIL: "{{ .Values.env.FEEDBACK_EMAIL }}"
+            # DISCORD_WEBHOOK_URL: "{{ .Values.env.DISCORD_WEBHOOK_URL }}"
+      envFrom:
+        - secretRef:
+            name: splitpro-env
+      ports:
+        - containerPort: 3000
+          name: http
+
+  service:
+    main:
+      ports:
+        http:
+          port: 80
+          targetPort: 3000
+
+  ingress:
+    main:
+      enabled: true
+      hosts:
+        - host: splitpro.m00nlit.dev
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                name: main
+                port: http

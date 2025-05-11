@@ -51,3 +51,9 @@ spec:
         superuser: false
         passwordSecret:
           name: postgres-paperless
+      - name: splitpro
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-splitpro
