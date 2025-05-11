@@ -38,12 +38,9 @@ app-template:
 
             # FEEDBACK_EMAIL: "{{ .Values.env.FEEDBACK_EMAIL }}"
             # DISCORD_WEBHOOK_URL: "{{ .Values.env.DISCORD_WEBHOOK_URL }}"
-      envFrom:
-        - secretRef:
-            name: splitpro-env
-      ports:
-        - containerPort: 3000
-          name: http
+          envFrom:
+            - secretRef:
+                name: splitpro-env
 
   service:
     main:
