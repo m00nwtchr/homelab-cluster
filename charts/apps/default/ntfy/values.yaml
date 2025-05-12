@@ -40,6 +40,7 @@ app-template:
 
   service:
     app:
+      name: ntfy
       controller: ntfy
       type: LoadBalancer
       ports:
