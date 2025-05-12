@@ -62,6 +62,7 @@ app-template:
 
   persistence:
     config:
+      name: ntfy-config
       type: configMap
       globalMounts:
         - path: /etc/ntfy
