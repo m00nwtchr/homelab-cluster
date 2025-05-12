@@ -9,7 +9,7 @@ spec:
   project: kubernetes
   source:
     repoURL: {{ .Values.repoUrl }}
-    path: charts/apps/ntfy/
+    path: charts/ntfy/
     targetRevision: HEAD
     helm:
       valuesObject:

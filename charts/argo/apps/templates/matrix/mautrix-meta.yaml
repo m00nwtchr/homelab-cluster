@@ -9,7 +9,7 @@ spec:
   project: kubernetes
   source:
     repoURL: {{.Values.repoUrl}}
-    path: charts/apps/mautrix-bridge
+    path: charts/mautrix-bridge
     targetRevision: HEAD
     helm:
       valuesObject:
