@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "ntfy.name" . }}
+  name: ntfy-config
 data:
   server.yml: |
     {{- range $key, $value := .Values.config.data }}
