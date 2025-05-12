@@ -40,17 +40,12 @@ app-template:
 
   service:
     app:
-      name: ntfy
       controller: ntfy
-      type: LoadBalancer
       ports:
         http:
           port: 80
           targetPort: 8080
-    metrics:
-      controller: ntfy
-      ports:
-        http:
+        metrics:
           port: 9090
 
   ingress:
