@@ -9,11 +9,7 @@ spec:
         repoURL: {{ .Values.repoUrl }}
         revision: HEAD
         directories:
-          - path: charts/apps/media/*
-          - path: charts/apps/default/*
-          - path: charts/apps/matrix/*
-          - path: charts/apps/dns/*
-          - path: charts/apps/database/*
+          - path: charts/apps/*/*
 
   syncPolicy:
     preserveResourcesOnDeletion: true
