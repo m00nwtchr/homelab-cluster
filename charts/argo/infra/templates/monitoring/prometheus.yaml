@@ -16,6 +16,7 @@ spec:
         prometheus:
           prometheusSpec:
             serviceMonitorSelector: {}
+            serviceMonitorSelectorNilUsesHelmValues: false
 
         grafana:
           ingress:
