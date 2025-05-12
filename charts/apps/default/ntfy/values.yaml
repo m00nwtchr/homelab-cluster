@@ -11,6 +11,8 @@ app-template:
             tag: v2.11.0@sha256:4a7d0f0adc6d5d9fc36e64ab55ef676e76e124a2bdd50ce115b6d9c1c7430294
           #            repository: ghcr.io/vaskozl/ntfy
           #            tag: 2.11.0@sha256:27b3ee3d5bd5a70d5c339033da4b8f102e91095124a41f1443b1c2a71aeead61
+          args:
+            - serve
           resources:
             requests:
               cpu: 10m
