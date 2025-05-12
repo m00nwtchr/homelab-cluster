@@ -5,7 +5,7 @@ metadata:
 spec:
   endpoints:
     - path: /
-      port: metrics
+      port: http
       scheme: http
       interval: 60s
   jobLabel: ntfy
