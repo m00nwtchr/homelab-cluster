@@ -48,8 +48,9 @@ app-template:
           targetPort: 8080
     metrics:
       controller: ntfy
-      metrics:
-        port: 9090
+      ports:
+        http:
+          port: 9090
 
   ingress:
     app:
