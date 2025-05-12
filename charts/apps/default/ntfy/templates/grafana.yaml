@@ -89,7 +89,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -135,7 +135,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "code",
               "expr": "ntfy_messages_published_success{job=\"$job\"}",
@@ -150,7 +150,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -196,7 +196,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_messages_cached_total{job=\"$job\"}",
@@ -211,7 +211,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -257,7 +257,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_visitors_total{job=\"$job\"}",
@@ -272,7 +272,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "description": "",
           "fieldConfig": {
@@ -323,7 +323,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_users_total{job=\"$job\"}",
@@ -338,7 +338,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "description": "",
           "fieldConfig": {
@@ -385,7 +385,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_topics_total{job=\"$job\"}",
@@ -400,7 +400,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "description": "",
           "fieldConfig": {
@@ -447,7 +447,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_subscribers_total",
@@ -473,7 +473,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "description": "Number of successfully published messages, and messages that could not be published (due to rate limiting, bad formatting, etc.)",
           "fieldConfig": {
@@ -567,7 +567,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "code",
               "expr": "rate(ntfy_messages_published_success{job=\"$job\"}[$rate])",
@@ -578,7 +578,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "code",
               "expr": "rate(ntfy_messages_published_failure{job=\"$job\"}[$rate])",
@@ -594,7 +594,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "description": "Number of messages published since last ntfy server restart",
           "fieldConfig": {
@@ -688,7 +688,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_messages_published_success{job=\"$job\"}",
@@ -699,7 +699,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_messages_published_failure{job=\"$job\"}",
@@ -715,7 +715,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "description": "Number of messages currently stored in message cache",
           "fieldConfig": {
@@ -793,7 +793,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_messages_cached_total{job=\"$job\"}",
@@ -808,7 +808,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -885,7 +885,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_visitors_total{job=\"$job\"}",
@@ -896,7 +896,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_topics_total{job=\"$job\"}",
@@ -908,7 +908,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_subscribers_total{job=\"$job\"}",
@@ -920,7 +920,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_users_total{job=\"$job\"}",
@@ -936,7 +936,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -1013,7 +1013,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "code",
               "expr": "sum by(job) (rate(ntfy_http_requests_total{job=\"$job\"}[$rate]))",
@@ -1028,7 +1028,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -1109,7 +1109,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "code",
               "expr": "sum by(http_code) (rate(ntfy_http_requests_total{job=\"$job\", http_code!=\"200\", http_code!=\"429\", http_code!=\"507\"}[$rate]))",
@@ -1124,7 +1124,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -1205,7 +1205,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "code",
               "expr": "sum by(ntfy_code) (rate(ntfy_http_requests_total{http_code!=\"200\", job=\"$job\"}[$rate]))",
@@ -1220,7 +1220,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -1298,7 +1298,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_attachments_total_size{job=\"$job\"}",
@@ -1314,7 +1314,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -1407,7 +1407,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "code",
               "expr": "rate(ntfy_firebase_published_success{job=\"$job\"}[$rate])",
@@ -1418,7 +1418,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "code",
               "expr": "rate(ntfy_firebase_published_failure{job=\"$job\"}[$rate])",
@@ -1434,7 +1434,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -1523,7 +1523,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "code",
               "expr": "rate(ntfy_unifiedpush_published_success{job=\"$job\"}[$rate])",
@@ -1534,7 +1534,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "code",
               "expr": "rate(ntfy_http_requests_total{job=\"$job\",http_code=\"507\"}[$rate])",
@@ -1550,7 +1550,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -1643,7 +1643,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "code",
               "expr": "rate(ntfy_matrix_published_success{job=\"$job\"}[$rate])",
@@ -1654,7 +1654,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "code",
               "expr": "rate(ntfy_matrix_published_failure{job=\"$job\"}[$rate])",
@@ -1670,7 +1670,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -1763,7 +1763,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_emails_sent_success{job=\"$job\"}",
@@ -1774,7 +1774,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_emails_sent_failure{job=\"$job\"}",
@@ -1790,7 +1790,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -1883,7 +1883,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_emails_received_success{job=\"$job\"}",
@@ -1894,7 +1894,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_emails_received_failure{job=\"$job\"}",
@@ -1910,7 +1910,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -1988,7 +1988,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "ntfy_message_publish_duration_ms{job=\"$job\"}",
@@ -2016,7 +2016,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -2093,7 +2093,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "go_goroutines{job=\"$job\"}",
@@ -2108,7 +2108,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -2187,7 +2187,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "process_open_fds{job=\"$job\"}",
@@ -2198,7 +2198,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "process_max_fds{job=\"$job\"}",
@@ -2214,7 +2214,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -2292,7 +2292,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "process_resident_memory_bytes{job=\"$job\"}",
@@ -2303,7 +2303,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$datasource"
               },
               "editorMode": "builder",
               "expr": "process_virtual_memory_bytes{job=\"$job\"}",
@@ -2328,7 +2328,7 @@ data:
             "current": { },
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "$datasource"
             },
             "definition": "label_values(ntfy_visitors_total, job)",
             "hide": 0,
