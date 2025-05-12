@@ -1113,7 +1113,7 @@ data:
               },
               "editorMode": "code",
               "expr": "sum by(http_code) (rate(ntfy_http_requests_total{job=\"$job\", http_code!=\"200\", http_code!=\"429\", http_code!=\"507\"}[$rate]))",
-              "legendFormat": "{{http_code}}",
+              "legendFormat": "{{ `{{http_code}}` }}",
               "range": true,
               "refId": "A"
             }
@@ -1209,7 +1209,7 @@ data:
               },
               "editorMode": "code",
               "expr": "sum by(ntfy_code) (rate(ntfy_http_requests_total{http_code!=\"200\", job=\"$job\"}[$rate]))",
-              "legendFormat": "{{http_method}} {{http_code}} {{ntfy_code}}",
+              "legendFormat": "{{ `{{http_method}} {{http_code}} {{ntfy_code}}` }}",
               "range": true,
               "refId": "A"
             }
