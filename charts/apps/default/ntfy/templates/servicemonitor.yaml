@@ -14,6 +14,6 @@ spec:
       - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app.kubernetes.io/service: ntfy
+      app.kubernetes.io/service: ntfy-metrics
       app.kubernetes.io/instance: ntfy
       app.kubernetes.io/name: ntfy
