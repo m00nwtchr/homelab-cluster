@@ -1,0 +1,92 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.2.0/charts/other/app-template/values.schema.json
+
+controllers:
+  controllers:
+    ntfy:
+      containers:
+        app:
+          image:
+            repository: binwiederhier/ntfy
+            tag: v2.11.0@sha256:4a7d0f0adc6d5d9fc36e64ab55ef676e76e124a2bdd50ce115b6d9c1c7430294
+          #            repository: ghcr.io/vaskozl/ntfy
+          #            tag: 2.11.0@sha256:27b3ee3d5bd5a70d5c339033da4b8f102e91095124a41f1443b1c2a71aeead61
+          resources:
+            requests:
+              cpu: 10m
+              memory: 25Mi
+            limits:
+              memory: 25Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+      statefulset:
+        podManagementPolicy: Parallel
+      type: statefulset
+
+  defaultPodOptions:
+    securityContext:
+      fsGroup: 568
+      runAsGroup: 568
+      runAsNonRoot: true
+      runAsUser: 568
+      seccompProfile:
+        type: RuntimeDefault
+
+  service:
+    app:
+      controller: ntfy
+      type: LoadBalancer
+      ports:
+        smtp:
+          port: 25
+          targetPort: 2525
+        http:
+          port: 80
+          targetPort: 8080
+        metrics:
+          port: 9090
+
+  ingress:
+    app:
+      hosts:
+        - host: "ntfy.m00nlit.dev"
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+
+  persistence:
+    config:
+      type: configMap
+      globalMounts:
+        - path: /etc/ntfy
+
+    data:
+      size: 200Mi
+      accessMode: ReadWriteOnce
+      annotations:
+        argocd.argoproj.io/sync-options: Delete=false
+      globalMounts:
+        - path: /var/lib/ntfy
+
+    cache:
+      type: emptyDir
+      globalMounts:
+        - path: /var/cache/ntfy
+
+config:
+  enabled: true
+  data:
+    listen-http: ":8080"
+    enable-metrics: true
+    base-url: "https://ntfy.m00nlit.dev"
+    auth-file: "/var/lib/ntfy/user.db"
+    auth-default-access: "deny-all"
+    cache-file: "/var/cache/ntfy/cache.db"
+    attachment-cache-dir: "/var/cache/ntfy/attachments"
+    behind-proxy: true
