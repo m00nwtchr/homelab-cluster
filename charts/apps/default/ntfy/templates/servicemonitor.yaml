@@ -10,7 +10,7 @@ spec:
   jobLabel: {{ .Release.Name }}
   selector:
     matchLabels:
-      app.kubernetes.io/service: {{ .Release.Name }}
+      app.kubernetes.io/component: metrics
       app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/name: {{ .Release.Name }}
   namespaceSelector:

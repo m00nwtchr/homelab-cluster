@@ -40,11 +40,18 @@ app-template:
 
   service:
     app:
+      name: ntfy
       controller: ntfy
       ports:
         http:
           port: 80
           targetPort: 8080
+
+    metrics:
+      controller: ntfy
+#      labels:
+#        app.kubernetes.io/component: metrics
+      ports:
         metrics:
           port: 9090
 
