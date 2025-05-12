@@ -13,12 +13,17 @@ spec:
     targetRevision: 72.1.1
     helm:
       valuesObject:
+        prometheus:
+          prometheusSpec:
+            serviceMonitorSelector: {}
+
         grafana:
           ingress:
             enabled: true
             path: /
             hosts:
               - grafana.svc.m00nlit.dev
+
           grafana.ini:
             server:
               root_url: https://grafana.svc.{{.Values.domain}}/

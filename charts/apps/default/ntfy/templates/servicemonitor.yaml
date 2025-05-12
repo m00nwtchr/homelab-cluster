@@ -2,18 +2,19 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: ntfy
+  labels:
+    app.kubernetes.io/name: ntfy
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/instance: ntfy
 spec:
-  endpoints:
-    - path: /
-      port: metrics
-      scheme: http
-      interval: 60s
   jobLabel: ntfy
-  namespaceSelector:
-    matchNames:
-      - {{ .Release.Namespace }}
   selector:
     matchLabels:
       app.kubernetes.io/service: ntfy
       app.kubernetes.io/instance: ntfy
       app.kubernetes.io/name: ntfy
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  endpoints:
+    - port: metrics
