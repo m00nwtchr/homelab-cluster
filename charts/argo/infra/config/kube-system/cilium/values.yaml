@@ -11,6 +11,11 @@ devices:
 routingMode: native
 loadBalancer:
   mode: hybrid
+#l2announcements:
+#    enabled: true
+#k8sClientRateLimit:
+#  qps: {QPS}
+#  burst: {BURST}
 
 nodePort:
   directRoutingDevice: tailscale0
@@ -22,6 +27,9 @@ ipam:
     clusterPoolIPv4MaskSize: 24
 
 enableIPv6Masquerade: true
+
+externalIPs:
+  enabled: true
 
 ipv6:
   enabled: true
