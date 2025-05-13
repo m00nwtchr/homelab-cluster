@@ -16,6 +16,7 @@ spec:
         isClusterService: false
         service:
           name: dot
+        serviceType: NodePort
 
         prometheus:
           service:
