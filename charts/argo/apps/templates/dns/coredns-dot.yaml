@@ -34,6 +34,13 @@ spec:
               - name: errors
               - name: log
 
+              - name: health
+                configBlock: |-
+                  lameduck 5s
+              - name: ready
+              - name: prometheus
+                parameters: 0.0.0.0:9153
+
               - name: template
                 parameters: "IN A"
                 configBlock: |-
@@ -44,6 +51,7 @@ spec:
                 configBlock: |-
                   match .*\.?m00nlit\.dev\.
                   answer "{{`{{ .Name }}`}} 60 IN AAAA fe80::9e6b:ff:fe08:bb03"
+
               - name: forward
                 parameters: ". tls://2620:fe::fe tls://2620:fe::9 tls://9.9.9.9 tls://149.112.112.112"
                 configBlock: |-
