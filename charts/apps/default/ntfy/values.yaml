@@ -49,8 +49,8 @@ app-template:
 
     metrics:
       controller: ntfy
-#      labels:
-#        app.kubernetes.io/component: metrics
+      labels:
+        app.kubernetes.io/component: metrics
       ports:
         metrics:
           port: 9090
