@@ -16,7 +16,7 @@ spec:
         isClusterService: false
         service:
           name: dot
-        serviceType: NodePort
+        serviceType: LoadBalancer
 
         prometheus:
           service:
