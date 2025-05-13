@@ -20,15 +20,14 @@ spec:
 
         prometheus:
           service:
-            enabled: false
+            enabled: true
           monitor:
-            enabled: false
+            enabled: true
 
         servers:
           - port: 53
             zones:
               - zone: m00nlit.dev
-                scheme: dns://
                 use_tcp: true
                 use_udp: true
             plugins:
@@ -58,6 +57,7 @@ spec:
                 configBlock: |-
                   tls_servername dns.quad9.net
                   health_check 5s
+                  max_concurrent 1000
               - name: cache
                 parameters: "30"
 
@@ -65,7 +65,6 @@ spec:
           - port: 53
             zones:
               - zone: .
-                scheme: dns://
                 use_tcp: true
                 use_udp: true
             plugins:
@@ -83,6 +82,7 @@ spec:
                 configBlock: |-
                   tls_servername dns.quad9.net
                   health_check 5s
+                  max_concurrent 1000
               - name: cache
                 parameters: "30"
 
