@@ -160,3 +160,7 @@ spec:
               protocol: UDP
             - port: "80" # HTTP
               protocol: TCP
+            - port: "53" # DNS
+              protocol: TCP
+            - port: "53" # DNS
+              protocol: UDP
