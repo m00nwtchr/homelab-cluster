@@ -11,8 +11,8 @@ devices:
 routingMode: native
 loadBalancer:
   mode: hybrid
-#l2announcements:
-#    enabled: true
+l2announcements:
+    enabled: true
 #k8sClientRateLimit:
 #  qps: {QPS}
 #  burst: {BURST}
