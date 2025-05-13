@@ -90,6 +90,7 @@ config:
   data:
     listen-http: ":8080"
     enable-metrics: true
+    metrics-listen-http: ":9090"
     base-url: "https://ntfy.m00nlit.dev"
     auth-file: "/var/lib/ntfy/user.db"
     auth-default-access: "deny-all"
