@@ -35,14 +35,15 @@ spec:
               - name: log
 
               - name: template
+                parameters: "IN A"
                 configBlock: |-
                   match .*\.?m00nlit\.dev\.
                   answer "{{`{{ .Name }}`}} 60 IN A 192.168.0.10"
               - name: template
+                parameters: "IN AAAA"
                 configBlock: |-
                   match .*\.?m00nlit\.dev\.
                   answer "{{`{{ .Name }}`}} 60 IN AAAA fe80::9e6b:ff:fe08:bb03"
-
               - name: forward
                 parameters: ". tls://2620:fe::fe tls://2620:fe::9 tls://9.9.9.9 tls://149.112.112.112"
                 configBlock: |-
