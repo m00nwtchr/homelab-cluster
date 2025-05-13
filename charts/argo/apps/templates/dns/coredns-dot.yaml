@@ -18,7 +18,6 @@ spec:
           name: dot
           externalIPs:
             - 192.168.0.10
-            - fe80::9e6b:ff:fe08:bb03
             - 2a02:a313:43e4:7080::7dc5
             - 100.116.45.53
             - fd7a:115c:a1e0::f201:2d35
