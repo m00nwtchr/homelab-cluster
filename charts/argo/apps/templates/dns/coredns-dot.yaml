@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: dot
+  name: coredns-dot
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -26,29 +26,56 @@ spec:
         servers:
           - port: 53
             zones:
+              - zone: m00nlit.dev
+                scheme: dns://
+                use_tcp: true
+                use_udp: true
+            plugins:
+              - name: errors
+              - name: log
+
+              - name: template
+                configBlock: |-
+                  match .*\.?m00nlit\.dev\.
+                  answer "{{`{{ .Name }}`}} 60 IN A 192.168.0.10"
+              - name: template
+                configBlock: |-
+                  match .*\.?m00nlit\.dev\.
+                  answer "{{`{{ .Name }}`}} 60 IN AAAA fe80::9e6b:ff:fe08:bb03"
+
+              - name: forward
+                parameters: ". tls://2620:fe::fe tls://2620:fe::9 tls://9.9.9.9 tls://149.112.112.112"
+                configBlock: |-
+                  tls_servername dns.quad9.net
+                  health_check 5s
+              - name: cache
+                parameters: "30"
+
+              - name: reload
+          - port: 53
+            zones:
               - zone: .
                 scheme: dns://
                 use_tcp: true
                 use_udp: true
             plugins:
               - name: errors
+
               - name: health
                 configBlock: |-
                   lameduck 5s
               - name: ready
-{{/*              - name: prometheus*/}}
-{{/*                parameters: 0.0.0.0:9153*/}}
-              - name: hosts
-                configBlock: |-
-                  fd7a:115c:a1e0::f201:2d35 m00nlit.dev
-                  100.116.45.53 m00nlit.dev
-                  fallthrough
+              - name: prometheus
+                parameters: 0.0.0.0:9153
+
               - name: forward
                 parameters: ". tls://2620:fe::fe tls://2620:fe::9 tls://9.9.9.9 tls://149.112.112.112"
                 configBlock: |-
                   tls_servername dns.quad9.net
+                  health_check 5s
               - name: cache
                 parameters: "30"
+
               - name: reload
   destination:
     name: in-cluster
