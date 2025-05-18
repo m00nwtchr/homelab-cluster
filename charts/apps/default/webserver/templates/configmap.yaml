@@ -15,6 +15,7 @@ data:
 
       server {
         listen       8080;
+        listen  [::]:8080;
         server_name  _;
 
         # Any file under /var/www/html/openpgp is served directly
