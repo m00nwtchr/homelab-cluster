@@ -4,7 +4,7 @@ app-template:
     securityContext:
       runAsUser: 568
       runAsGroup: 568
-      runAsNonRoot: trues
+      runAsNonRoot: true
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
 #      supplementalGroups: [160, 140, 241, 0, 10, 121]
