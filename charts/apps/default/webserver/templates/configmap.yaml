@@ -19,9 +19,9 @@ data:
         server_name  _;
 
         # Any file under /var/www/html/openpgp is served directly
-        location /.well-known/openpgpkey/hu {
-          root /var/www/html/openpgpkey;
-          try_files $uri $uri/ =404;
+        location ^~ /.well-known/openpgpkey/hu/ {
+          alias /var/www/html/openpgpkey/hu/;
+          try_files $uri =404;
         }
 
         # Hard-coded empty policy file
