@@ -12,7 +12,6 @@ data:
 
     http {
       include       mime.types;
-      default_type  application/octet-stream;
 
       server {
         listen       8080;
@@ -20,6 +19,7 @@ data:
 
         # Any file under /var/www/html/openpgp is served directly
         location ^~ /.well-known/openpgpkey/hu/ {
+          default_type  application/octet-stream;
           alias /var/www/html/openpgpkey/hu/;
           try_files $uri =404;
         }
