@@ -30,6 +30,8 @@ app-template:
 
   ingress:
     main:
+      annotations:
+        traefik.ingress.kubernetes.io/router.tls.options: traefik-intermediate@kubernetescrd
       hosts:
         - host: m00nlit.dev
           paths:
