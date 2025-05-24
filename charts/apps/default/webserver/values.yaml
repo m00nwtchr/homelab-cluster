@@ -28,17 +28,17 @@ app-template:
           port: 80
           targetPort: 8080
 
-  ingress:
-    main:
-      annotations:
-        traefik.ingress.kubernetes.io/router.tls.options: traefik-intermediate@kubernetescrd
-      hosts:
-        - host: m00nlit.dev
-          paths:
-            - path: /.well-known/openpgpkey/
-              service:
-                identifier: app
-                port: http
+#  ingress:
+#    main:
+#      annotations:
+#        traefik.ingress.kubernetes.io/router.tls.options: traefik-intermediate@kubernetescrd
+#      hosts:
+#        - host: m00nlit.dev
+#          paths:
+#            - path: /.well-known/openpgpkey/
+#              service:
+#                identifier: app
+#                port: http
 
   persistence:
     config:
