@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-openpgpkey
+  name: wks-keys
 binaryData:
-  xonqhq7wrzegc193apm59zowyik4q8if: |
+  m00n.gpg: |
     mDMEaBY6nBYJKwYBBAHaRw8BAQdAZTXrjUFVnvK8nhMiuvlpjaBfuqYjzZ6fbolkWzg/c420Hm0w
     MG53dGNociA8bTAwbnd0Y2hyQGR1Y2suY29tPokCcgQTFgoCGgIbAQUJAeEzgAQLCQgHBBUKCQgF
     FgIDAQACHgUCF4ACGQEWIQT4Rsk79L6rmdmNKbLfPOxr8BXUHQUCaBav3DMUgAAAAAAQABpwcm9v
