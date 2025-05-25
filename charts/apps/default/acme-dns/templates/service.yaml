@@ -6,6 +6,7 @@ metadata:
     app: {{ .Chart.Name }}
     svccontroller.k3s.cattle.io/lbpool: core
 spec:
+  type: NodePort
   selector:
     app: {{ .Chart.Name }}
   ports:
@@ -15,7 +16,6 @@ spec:
     - name: dns-tcp
       protocol: TCP
       port: {{ .Values.service.port }}
-  type: ClusterIP
   externalIPs:
     - 2a02:a313:43e4:7080::7dc5
   ipFamilies:
