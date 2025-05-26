@@ -9,7 +9,7 @@ app-template:
         main:
           image:
             repository: ossapps/splitpro
-            tag: v1.3.4@sha256:71cecf83d3b2f7a0c7bf641c153db279317cd42b4bc5cdc5065590c728faeebb
+            tag: v1.3.6@sha256:ddb5aff6db38561ec5d645e0c6adddbcfa1f40d48df06a4d99170475572c3a8a
           env:
             PORT: 3000
             NEXTAUTH_URL: "https://splitpro.m00nlit.dev"
