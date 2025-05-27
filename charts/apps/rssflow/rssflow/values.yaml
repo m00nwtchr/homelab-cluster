@@ -1,5 +1,12 @@
 app-template:
   controllers:
+    valkey:
+      containers:
+        app:
+          image:
+            repository: docker.io/valkey/valkey
+            tag: 8.1.1-alpine@sha256:f43639a6811342b5db26475f3463d4d1950d07bf05542d9483159a44be1fe62f
+
     rssflow:
       containers:
         app:
@@ -8,7 +15,7 @@ app-template:
             tag: master@sha256:962e29b8f38e655fb980e28af1b74d8f3f24a35b461e63480fb9d61e284a558e
           env:
             RUST_LOG: "info"
-            REDIS_URL: redis://dragonfly.database.svc.cluster.local
+            REDIS_URL: redis://valkey
             POSTGRES_URL: postgresql://rssflow:rssflow@[::1]:5432/rssflow
           resources:
             requests:
@@ -23,7 +30,7 @@ app-template:
             tag: master@sha256:5a14c1053454b407a355608951389238f2741349b2bf56a750bddc80ccb3e5ae
           env:
             RUST_LOG: "info"
-            REDIS_URL: redis://dragonfly.database.svc.cluster.local
+            REDIS_URL: redis://valkey
           envFrom:
             - secretRef:
                 name: rssflow-env
@@ -75,6 +82,12 @@ app-template:
 
 
   service:
+    valkey:
+      controller: valkey
+      ports:
+        main:
+          port: 6379
+
     rssflow:
       controller: rssflow
       ports:
