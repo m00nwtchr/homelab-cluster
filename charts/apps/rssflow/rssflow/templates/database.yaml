@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: postgres-{{ .Release.Name }}-websub
+  namespace: postgres
+spec:
+  name: {{ .Release.Name }}-websub
+  owner: {{ .Release.Name }}
+  cluster:
+    name: postgres
