@@ -15,8 +15,10 @@ app-template:
             tag: master@sha256:962e29b8f38e655fb980e28af1b74d8f3f24a35b461e63480fb9d61e284a558e
           env:
             RUST_LOG: "info"
-            REDIS_URL: redis://valkey
-            POSTGRES_URL: postgresql://rssflow:rssflow@[::1]:5432/rssflow
+            REDIS_URL: redis://rssflow-valkey
+          envFrom:
+            - secretRef:
+                name: rssflow-env
           resources:
             requests:
               cpu: 50m
@@ -30,7 +32,7 @@ app-template:
             tag: master@sha256:5a14c1053454b407a355608951389238f2741349b2bf56a750bddc80ccb3e5ae
           env:
             RUST_LOG: "info"
-            REDIS_URL: redis://valkey
+            REDIS_URL: redis://rssflow-valkey
           envFrom:
             - secretRef:
                 name: rssflow-env
