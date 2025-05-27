@@ -9,6 +9,7 @@ app-template:
           env:
             RUST_LOG: "info"
             REDIS_URL: redis://dragonfly.database.svc.cluster.local
+            POSTGRES_URL: postgresql://rssflow:rssflow@[::1]:5432/rssflow
           resources:
             requests:
               cpu: 50m
@@ -16,13 +17,16 @@ app-template:
 
     websub:
       containers:
-        app:
+        app: &controller
           image:
             repository: ghcr.io/m00nwtchr/rssflow-websub
             tag: master@sha256:5a14c1053454b407a355608951389238f2741349b2bf56a750bddc80ccb3e5ae
           env:
             RUST_LOG: "info"
             REDIS_URL: redis://dragonfly.database.svc.cluster.local
+          envFrom:
+            - secretRef:
+                name: rssflow-env
           resources:
             requests:
               cpu: 50m
@@ -31,72 +35,44 @@ app-template:
     fetch:
       containers:
         app:
+          <<: *controller
           image:
             repository: ghcr.io/m00nwtchr/rssflow-fetch
             tag: master@sha256:5d4c984dcab2b6cae9596be847b505d76398b56f25c8bf68ff269d9e09d6a6da
-          env:
-            RUST_LOG: "info"
-            REDIS_URL: redis://dragonfly.database.svc.cluster.local
-          resources:
-            requests:
-              cpu: 50m
-              memory: 256Mi
 
     filter:
       containers:
         app:
+          <<: *controller
           image:
             repository: ghcr.io/m00nwtchr/rssflow-filter
             tag: master@sha256:4503deaf4b36a98c8b9ea7114f8798db7173156b6fb365dc5117b285d5b85e23
-          env:
-            RUST_LOG: "info"
-            REDIS_URL: redis://dragonfly.database.svc.cluster.local
-          resources:
-            requests:
-              cpu: 50m
-              memory: 256Mi
 
     replace:
       containers:
         app:
+          <<: *controller
           image:
             repository: ghcr.io/m00nwtchr/rssflow-replace
             tag: master@sha256:cae486608f47ef4d844420f980771850b94b5ef6463706a6809cb1e1350be775
-          env:
-            RUST_LOG: "info"
-            REDIS_URL: redis://dragonfly.database.svc.cluster.local
-          resources:
-            requests:
-              cpu: 50m
-              memory: 256Mi
+
 
     retrieve:
       containers:
         app:
+          <<: *controller
           image:
             repository: ghcr.io/m00nwtchr/rssflow-retrieve
             tag: master@sha256:25e6a4ffd2abccd7347ca9a6fb75a13d19ff04cc201a438a105d6c6551ddc85b
-          env:
-            RUST_LOG: "info"
-            REDIS_URL: redis://dragonfly.database.svc.cluster.local
-          resources:
-            requests:
-              cpu: 50m
-              memory: 256Mi
 
     sanitize:
       containers:
         app:
+          <<: *controller
           image:
             repository: ghcr.io/m00nwtchr/rssflow-sanitize
             tag: master@sha256:9ba08a073d101568883aa0aa193925f26f7fc3e18634e5b31c2f0efbc9a6ac4d
-          env:
-            RUST_LOG: "info"
-            REDIS_URL: redis://dragonfly.database.svc.cluster.local
-          resources:
-            requests:
-              cpu: 50m
-              memory: 256Mi
+
 
   service:
     rssflow:
