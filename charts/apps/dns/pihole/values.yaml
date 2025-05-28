@@ -85,7 +85,7 @@ app-template:
         exporter:
           image:
             repository: ekofr/pihole-exporter
-            tag: v1.0.1
+            tag: v1.0.1@sha256:c33eec2a8308fa510608b93d4921bb62f75f6132f8792b24e63972835f624496
           env:
             PIHOLE_HOSTNAME: localhost
             PIHOLE_PORT: *pihole-port
