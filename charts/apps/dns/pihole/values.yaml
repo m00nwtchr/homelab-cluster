@@ -51,7 +51,7 @@ app-template:
             FTLCONF_dns_upstreams: 9.9.9.9
             FTLCONF_webserver_interface_boxed: false
             FTLCONF_webserver_interface_theme: default-auto
-            FTLCONF_webserver_port: [::]:8080
+            FTLCONF_webserver_port: "[::]:8080"
             FTLCONF_webserver_api_password: &pihole-password
               valueFrom:
                 secretKeyRef:
