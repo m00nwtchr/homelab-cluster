@@ -46,10 +46,10 @@ app-template:
           env:
             FTLCONF_dns_listeningMode: all
             FTLCONF_dns_dnssec: 'true'
-            FTLCONF_dns_upstreams: 192.168.20.7;192.168.20.7
+            FTLCONF_dns_upstreams: 9.9.9.9
             FTLCONF_webserver_interface_boxed: false
             FTLCONF_webserver_interface_theme: default-auto
-            FTLCONF_webserver_port: &pihole-port 80
+            FTLCONF_webserver_port: &pihole-port 8080
             FTLCONF_webserver_api_password: &pihole-password
               valueFrom:
                 secretKeyRef:
@@ -74,17 +74,14 @@ app-template:
               # looking at the query log can spike the memory usage very high
               memory: 512Mi
           securityContext:
-            allowPrivilegeEscalation: false
+            allowPrivilegeEscalation: true
 
         exporter:
           image:
             repository: ekofr/pihole-exporter
             tag: v1.0.1
           env:
-            PIHOLE_HOSTNAME:
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
+            PIHOLE_HOSTNAME: localhost
             PIHOLE_PORT: *pihole-port
             PIHOLE_PASSWORD: *pihole-password
           resources:
@@ -133,7 +130,8 @@ app-template:
       ports:
         http:
           primary: true
-          port: *pihole-port
+          port: 80
+          targetPort: *pihole-port
           protocol: HTTP
         prometheus:
           port: *exporter-port
