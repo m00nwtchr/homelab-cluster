@@ -35,7 +35,7 @@ app-template:
 
       pod:
         securityContext:
-          fsGroupChangePolicy: OnRootMismatch
+          allowPrivilegeEscalation: false
 
       containers:
         pihole:
@@ -66,8 +66,6 @@ app-template:
                     - '127.0.0.1'
             startup: *pihole-probes
             readiness: *pihole-probes
-          securityContext:
-            allowPrivilegeEscalation: false
           resources:
             requests:
               cpu: 100m
@@ -106,13 +104,13 @@ app-template:
             readiness: *exporter-probes
           securityContext:
             allowPrivilegeEscalation: false
-            readOnlyRootFileSystem: true
+            readOnlyRootFilesystem: true
             capabilities: { drop: ['ALL'] }
             runAsNonRoot: true
-#            runAsUser: 1000
-#            runAsGroup: 1000
-#            fsGroup: 1000
-#            fsGroupChangePolicy: OnRootMismatch
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
 
 
   service:
