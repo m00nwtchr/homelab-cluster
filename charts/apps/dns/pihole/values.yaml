@@ -45,6 +45,7 @@ app-template:
             tag: 2025.04.0@sha256:c2215c570976ebc23ab6688f556a80133d4236dae0bffee678129da4396fbd61
           env:
             FTLCONF_dns_listeningMode: all
+            FTLCONF_dns_port: &dns-port 5354
             FTLCONF_dns_dnssec: 'true'
             FTLCONF_dns_upstreams: 9.9.9.9
             FTLCONF_webserver_interface_boxed: false
@@ -121,9 +122,11 @@ app-template:
       ports:
         dns-udp:
           port: 53
+          targetPort: *dns-port
           protocol: UDP
         dns-tcp:
           port: 53
+          targetPort: *dns-port
           protocol: TCP
     http:
       controller: pihole
