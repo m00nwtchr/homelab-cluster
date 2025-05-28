@@ -33,10 +33,6 @@ app-template:
         unavailable: 1
         surge: 1
 
-      pod:
-        securityContext:
-          allowPrivilegeEscalation: false
-
       containers:
         pihole:
           image:
@@ -72,6 +68,8 @@ app-template:
             limits:
               # looking at the query log can spike the memory usage very high
               memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
 
         exporter:
           image:
