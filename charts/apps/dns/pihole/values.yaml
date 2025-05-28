@@ -6,17 +6,6 @@ app-template:
     annotations:
       kubectl.kubernetes.io/default-container: pihole
     affinity:
-      podAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/name
-                    operator: In
-                    values:
-                      - dnscrypt-proxy
-              topologyKey: kubernetes.io/hostname
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
@@ -35,6 +24,7 @@ app-template:
       options:
         - name: ndots
           value: '1'
+
   controllers:
     pihole:
       type: statefulset
@@ -79,6 +69,7 @@ app-template:
             limits:
               # looking at the query log can spike the memory usage very high
               memory: 512Mi
+
         exporter:
           image:
             repository: ekofr/pihole-exporter
@@ -116,7 +107,7 @@ app-template:
             runAsUser: 1000
             runAsGroup: 1000
             fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
+#            fsGroupChangePolicy: OnRootMismatch
 
   service:
     dns:
