@@ -65,7 +65,7 @@ app-template:
                 exec:
                   command:
                     - /usr/bin/nslookup
-                    - pihole
+                    - example.com
                     - '::1'
             startup: *pihole-probes
             readiness: *pihole-probes
