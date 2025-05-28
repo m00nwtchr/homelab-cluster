@@ -1,0 +1,189 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.2.0/charts/other/app-template/values.schema.json
+
+app-template:
+  defaultPodOptions:
+    annotations:
+      kubectl.kubernetes.io/default-container: pihole
+    affinity:
+      podAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - dnscrypt-proxy
+              topologyKey: kubernetes.io/hostname
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - pihole
+              topologyKey: kubernetes.io/hostname
+    dnsPolicy: None
+    dnsConfig:
+      nameservers:
+        - 192.168.20.7
+      options:
+        - name: ndots
+          value: '1'
+  controllers:
+    pihole:
+      type: statefulset
+      strategy: RollingUpdate
+      rollingUpdate:
+        unavailable: 1
+        surge: 1
+      containers:
+        pihole:
+          image:
+            repository: ghcr.io/pi-hole/pihole
+            tag: 2025.04.0@sha256:c2215c570976ebc23ab6688f556a80133d4236dae0bffee678129da4396fbd61
+          env:
+            FTLCONF_dns_listeningMode: all
+            FTLCONF_dns_dnssec: 'true'
+            FTLCONF_dns_upstreams: 192.168.20.7;192.168.20.7
+            FTLCONF_webserver_interface_boxed: false
+            FTLCONF_webserver_interface_theme: default-auto
+            FTLCONF_webserver_port: &pihole-port 80
+            FTLCONF_webserver_api_password: &pihole-password
+              valueFrom:
+                secretKeyRef:
+                  name: pihole-secret
+                  key: password
+          probes:
+            liveness: &pihole-probes
+              enabled: true
+              custom: true
+              spec:
+                exec:
+                  command:
+                    - /usr/bin/nslookup
+                    - pihole
+                    - '127.0.0.1'
+            startup: *pihole-probes
+            readiness: *pihole-probes
+          securityContext:
+            allowPrivilegeEscalation: false
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              # looking at the query log can spike the memory usage very high
+              memory: 512Mi
+        exporter:
+          image:
+            repository: ekofr/pihole-exporter
+            tag: v1.0.1
+          env:
+            PIHOLE_HOSTNAME:
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            PIHOLE_PORT: *pihole-port
+            PIHOLE_PASSWORD: *pihole-password
+          resources:
+            requests:
+              cpu: 10m
+            limits:
+              memory: 32Mi
+          probes:
+            liveness: &exporter-probes
+              enabled: true
+              custom: true
+              spec:
+                failureThreshold: 3
+                initialDelaySeconds: 10
+                periodSeconds: 20
+                successThreshold: 1
+                tcpSocket:
+                  port: &exporter-port 9617
+                timeoutSeconds: 1
+            readiness: *exporter-probes
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFileSystem: true
+            capabilities: { drop: ['ALL'] }
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+
+  service:
+    dns:
+      controller: pihole
+      type: LoadBalancer
+      annotations:
+        lbipam.cilium.io/ips: 'fd42:78a5:2c09::53'
+      ports:
+        dns-udp:
+          port: 53
+          protocol: UDP
+        dns-tcp:
+          port: 53
+          protocol: TCP
+    http:
+      controller: pihole
+      ports:
+        http:
+          primary: true
+          port: *pihole-port
+          protocol: HTTP
+        prometheus:
+          port: *exporter-port
+          protocol: HTTP
+
+#  route:
+#    app:
+#      hostnames:
+#        - '{{ .Release.Name }}.${SECRET_DOMAIN}'
+#      parentRefs:
+#        - name: internal
+#          namespace: network
+#          sectionName: https
+#      rules:
+#        - backendRefs:
+#            - name: *app
+#              port: *pihole-port
+#          sessionPersistence:
+#            sessionName: *app
+#            type: Cookie
+#            absoluteTimeout: 35m
+#      annotations:
+#        gethomepage.dev/enabled: 'true'
+#        gethomepage.dev/group: Infrastructure
+#        gethomepage.dev/name: Pi-Hole
+#        gethomepage.dev/icon: pi-hole.svg
+
+  serviceMonitor:
+    app:
+      serviceName: http
+      endpoints:
+        - port: prometheus
+          scheme: http
+          path: /metrics
+          interval: 1m
+          scrapeTimeout: 10s
+
+#  persistence:
+#    config-map:
+#      type: configMap
+#      name: pihole-configmap
+#      advancedMounts:
+#        pihole:
+#          pihole:
+#            - path: /etc/dnsmasq.d/02-custom.conf
+#              subPath: 02-custom.conf
+#              readOnly: true
+#            - path: /etc/dnsmasq.d/03-hosts.conf
+#              subPath: 03-hosts.conf
+#              readOnly: truea
