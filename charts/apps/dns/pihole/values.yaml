@@ -33,6 +33,11 @@ app-template:
         unavailable: 1
         surge: 1
 
+      pod:
+        securityContext:
+          fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
+
       containers:
         pihole:
           image:
@@ -107,8 +112,7 @@ app-template:
             runAsNonRoot: true
             runAsUser: 1000
             runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
+
 
 
   service:
