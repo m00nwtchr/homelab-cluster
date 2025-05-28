@@ -145,6 +145,16 @@ app-template:
           port: *exporter-port
           protocol: HTTP
 
+  ingress:
+    app:
+      hosts:
+        - host: "pihole.svc.m00nlit.dev"
+          paths:
+            - path: /
+              service:
+                identifier: http
+                port: http
+
 #  route:
 #    app:
 #      hostnames:
