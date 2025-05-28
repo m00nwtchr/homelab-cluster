@@ -121,9 +121,13 @@ app-template:
   service:
     dns:
       controller: pihole
-      type: LoadBalancer
-      annotations:
-        lbipam.cilium.io/ips: 'fd42:78a5:2c09::53'
+      type: NodePort
+#      annotations:
+#        lbipam.cilium.io/ips: 'fd42:78a5:2c09::53'
+      externalIps:
+        - 192.168.0.53
+        - 100.116.45.53
+        - fd42:78a5:2c09::53
       ports:
         dns-udp:
           port: 53
