@@ -32,6 +32,10 @@ app-template:
       rollingUpdate:
         unavailable: 1
         surge: 1
+      pod:
+        securityContext:
+          readOnlyRootFileSystem: true
+          fsGroupChangePolicy: OnRootMismatch
       containers:
         pihole:
           image:
@@ -101,13 +105,14 @@ app-template:
             readiness: *exporter-probes
           securityContext:
             allowPrivilegeEscalation: false
-            readOnlyRootFileSystem: true
+#            readOnlyRootFileSystem: true
             capabilities: { drop: ['ALL'] }
             runAsNonRoot: true
             runAsUser: 1000
             runAsGroup: 1000
             fsGroup: 1000
 #            fsGroupChangePolicy: OnRootMismatch
+
 
   service:
     dns:
