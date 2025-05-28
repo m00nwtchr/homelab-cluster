@@ -51,7 +51,7 @@ app-template:
             FTLCONF_dns_upstreams: 9.9.9.9
             FTLCONF_webserver_interface_boxed: false
             FTLCONF_webserver_interface_theme: default-auto
-            FTLCONF_webserver_port: &pihole-port 8080
+            FTLCONF_webserver_port: [::]:8080
             FTLCONF_webserver_api_password: &pihole-password
               valueFrom:
                 secretKeyRef:
@@ -88,7 +88,7 @@ app-template:
             tag: v1.0.1@sha256:c33eec2a8308fa510608b93d4921bb62f75f6132f8792b24e63972835f624496
           env:
             PIHOLE_HOSTNAME: localhost
-            PIHOLE_PORT: *pihole-port
+            PIHOLE_PORT: &pihole-port 8080
             PIHOLE_PASSWORD: *pihole-password
           resources:
             requests:
