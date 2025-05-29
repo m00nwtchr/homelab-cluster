@@ -47,7 +47,7 @@ app-template:
           <<: *controller
           image:
             repository: ghcr.io/m00nwtchr/rssflow-fetch
-            tag: master@sha256:5d4c984dcab2b6cae9596be847b505d76398b56f25c8bf68ff269d9e09d6a6da
+            tag: master@sha256:4b928487fc70e2f79c185d8bb0b78f3a7e03510bd81f6d4d8924144025593929
 
     filter:
       containers:
