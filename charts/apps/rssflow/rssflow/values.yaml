@@ -35,7 +35,7 @@ app-template:
             REDIS_URL: redis://rssflow-valkey
           envFrom:
             - secretRef:
-                name: rssflow-env
+                name: rssflow-websub-env
           resources:
             requests:
               cpu: 50m
