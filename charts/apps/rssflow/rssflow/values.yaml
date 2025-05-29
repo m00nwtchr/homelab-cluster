@@ -72,7 +72,7 @@ app-template:
           <<: *controller
           image:
             repository: ghcr.io/m00nwtchr/rssflow-retrieve
-            tag: master@sha256:25e6a4ffd2abccd7347ca9a6fb75a13d19ff04cc201a438a105d6c6551ddc85b
+            tag: master@sha256:6aa1349412dd415c52eb59be11967654cd106f9a459105320f962cdb7f88b083
 
     sanitize:
       containers:
