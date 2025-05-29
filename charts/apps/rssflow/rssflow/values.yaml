@@ -63,7 +63,7 @@ app-template:
           <<: *controller
           image:
             repository: ghcr.io/m00nwtchr/rssflow-replace
-            tag: master@sha256:cae486608f47ef4d844420f980771850b94b5ef6463706a6809cb1e1350be775
+            tag: master@sha256:a406e7c39ce90aeaf5a3f09cdc8035baaaf06ff51225ebb1b4d9060d15e5ebe5
 
 
     retrieve:
