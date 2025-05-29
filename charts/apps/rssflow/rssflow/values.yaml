@@ -55,7 +55,7 @@ app-template:
           <<: *controller
           image:
             repository: ghcr.io/m00nwtchr/rssflow-filter
-            tag: master@sha256:4503deaf4b36a98c8b9ea7114f8798db7173156b6fb365dc5117b285d5b85e23
+            tag: master@sha256:e38f516865140c2f5f0f02b558c6b0426bdea6682786bcef05c95d483fc05e31
 
     replace:
       containers:
