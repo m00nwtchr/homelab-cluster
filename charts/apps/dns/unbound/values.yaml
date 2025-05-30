@@ -60,3 +60,10 @@ app-template:
       name: unbound-config
       globalMounts:
         - path: /opt/unbound/etc/unbound/
+    tmp:
+      type: emptyDir
+      globalMounts:
+        - path: /opt/unbound/etc/unbound/dev
+          subPath: dev
+        - path: /opt/unbound/etc/unbound/var
+          subPath: var
