@@ -41,7 +41,7 @@ app-template:
 
   service:
     app:
-      controller: *app
+      controller: unbound
       ports:
         dns-tcp:
           enabled: true
