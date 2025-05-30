@@ -44,7 +44,7 @@ app-template:
   service:
     app:
       controller: unbound
-      clusterIp:
+      clusterIps:
         - 2001:cafe:43::f497
       ports:
         dns-tcp:
