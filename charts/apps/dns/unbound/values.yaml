@@ -1,0 +1,61 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.2.0/charts/other/app-template/values.schema.json
+
+app-template:
+  controllers:
+    unbound:
+      strategy: RollingUpdate
+      rollingUpdate:
+        maxUnavailable: 0
+        maxSurge: 25%
+      pod:
+        dnsConfig:
+          options:
+            - { name: ndots, value: "1" }
+        # securityContext:
+        #   runAsNonRoot: true
+        #   runAsUser: 65534
+        #   runAsGroup: 65534
+        #   fsGroup: 65534
+        #   fsGroupChangePolicy: OnRootMismatch
+        #   seccompProfile: { type: RuntimeDefault }
+      containers:
+        app:
+          image:
+            repository: mvance/unbound
+            tag: 1.22.0@sha256:76906da36d1806f3387338f15dcf8b357c51ce6897fb6450d6ce010460927e90
+          env:
+            TZ: Europe/Warsaw
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: false
+              type: TCP
+            readiness: *probes
+          resources:
+            requests:
+              cpu: 10m
+              memory: 256M
+            limits:
+              memory: 512M
+
+  service:
+    app:
+      controller: *app
+      ports:
+        dns-tcp:
+          enabled: true
+          port: 53
+          protocol: TCP
+          targetPort: 53
+        dns-udp:
+          enabled: true
+          port: 53
+          protocol: UDP
+          targetPort: 53
+
+#  persistence:
+#    config:
+#      type: ConfigMap
+#      globalMounts:
+#        - path: /opt/unbound/etc/unbound/
