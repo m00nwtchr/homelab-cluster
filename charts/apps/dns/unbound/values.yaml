@@ -12,13 +12,13 @@ app-template:
         dnsConfig:
           options:
             - { name: ndots, value: "1" }
-        # securityContext:
-        #   runAsNonRoot: true
-        #   runAsUser: 65534
-        #   runAsGroup: 65534
-        #   fsGroup: 65534
-        #   fsGroupChangePolicy: OnRootMismatch
-        #   seccompProfile: { type: RuntimeDefault }
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65534
+          runAsGroup: 65534
+          fsGroup: 65534
+          fsGroupChangePolicy: OnRootMismatch
+          seccompProfile: { type: RuntimeDefault }
       containers:
         app:
           image:
