@@ -27,7 +27,6 @@ app-template:
           command: "/opt/unbound/sbin/unbound"
           args:
             - -d
-            - -c /opt/unbound/etc/unbound/unbound.conf
           env:
             TZ: Europe/Warsaw
           probes:
@@ -63,11 +62,4 @@ app-template:
       type: configMap
       name: unbound-config
       globalMounts:
-        - path: /opt/unbound/etc/unbound/
-    tmp:
-      type: emptyDir
-      globalMounts:
-        - path: /opt/unbound/etc/unbound/dev
-          subPath: dev
-        - path: /opt/unbound/etc/unbound/var
-          subPath: var
+        - path: /etc/unbound/
