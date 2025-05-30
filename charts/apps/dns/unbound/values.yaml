@@ -63,3 +63,9 @@ app-template:
       name: unbound-config
       globalMounts:
         - path: /etc/unbound/
+        - path: /unbound.sh
+          subPath: unbound.sh
+    tmp:
+      type: emptyDir
+      globalMounts:
+        - path: /var/lib/unbound/
