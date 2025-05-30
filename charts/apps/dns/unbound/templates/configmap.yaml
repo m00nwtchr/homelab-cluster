@@ -128,6 +128,7 @@ data:
         # logfile: /opt/unbound/etc/unbound/unbound.log
         # Set log location (using /dev/null further limits logging)
         logfile: /dev/null
+        pidfile: "/etc/unbound/unbound.pid"
 
         # Set logging level
         # Level 0: No verbosity, only errors.
