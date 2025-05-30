@@ -385,15 +385,7 @@ data:
         so-reuseport: yes
 
         ###########################################################################
-        # LOCAL ZONE
-        ###########################################################################
-
-        # Include file for local-data and local-data-ptr
-        #include: /config/a-records.conf
-        #include: /config/srv-records.conf
-
-        ###########################################################################
-        # FORWARD ZONE
+        # WILDCARD INCLUDE
         ###########################################################################
 
         include: /config/*.conf
