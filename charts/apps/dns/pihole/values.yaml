@@ -48,8 +48,8 @@ app-template:
             FTLCONF_dns_listeningMode: all
             FTLCONF_dns_port: &dns-port 53
             FTLCONF_dns_dnssec: 'true'
-#            FTLCONF_dns_upstreams: unbound.dns.svc.cluster.local
-            FTLCONF_dns_upstreams: 2620:fe::fe;2620:fe::9
+            FTLCONF_dns_upstreams: 2001:cafe:43::f497
+#            FTLCONF_dns_upstreams: 2620:fe::fe;2620:fe::9
             FTLCONF_webserver_interface_boxed: false
             FTLCONF_webserver_interface_theme: default-auto
             FTLCONF_webserver_port: "[::]:8080"
