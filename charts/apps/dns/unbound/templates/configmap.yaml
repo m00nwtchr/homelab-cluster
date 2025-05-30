@@ -32,7 +32,7 @@ data:
       cache-min-ttl: 300
 
       # Set the working directory for the program.
-      directory: "/opt/unbound/etc/unbound"
+      directory: "/opt/unbound/"
 
       # Enable or disable whether IPv4 queries are answered or issued.
       # Default: yes
@@ -382,20 +382,20 @@ data:
       # FORWARD ZONE
       ###########################################################################
 
-      # include: /opt/unbound/etc/unbound/forward-records.conf
+      # include: /etc/unbound/forward-records.conf
 
       ###########################################################################
       # LOCAL ZONE
       ###########################################################################
 
       # Include file for local-data and local-data-ptr
-      # include: /opt/unbound/etc/unbound/a-records.conf
-      # include: /opt/unbound/etc/unbound/srv-records.conf
+      # include: /etc/unbound/a-records.conf
+      # include: /etc/unbound/srv-records.conf
 
       ###########################################################################
       # WILDCARD INCLUDE
       ###########################################################################
-      include: "/opt/unbound/etc/unbound/*.conf"
+      include: "/etc/unbound/*.conf"
 
     remote-control:
       control-enable: no
