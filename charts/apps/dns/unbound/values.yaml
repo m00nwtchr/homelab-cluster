@@ -56,7 +56,7 @@ app-template:
 
   persistence:
     config:
-      type: ConfigMap
+      type: configMap
       name: unbound-config
       globalMounts:
         - path: /opt/unbound/etc/unbound/forward-records.conf
