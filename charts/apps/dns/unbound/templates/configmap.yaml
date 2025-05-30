@@ -127,7 +127,8 @@ data:
         # If you want to log to a file, use:
         # logfile: /opt/unbound/etc/unbound/unbound.log
         # Set log location (using /dev/null further limits logging)
-        logfile: /dev/null
+        #logfile: "/dev/null"
+        logfile: ""
         pidfile: "/etc/unbound/unbound.pid"
 
         # Set logging level
