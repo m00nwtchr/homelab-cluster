@@ -137,7 +137,7 @@ data:
         # Level 3: Gives query level information, output per query.
         # Level 4:  Gives algorithm level information.
         # Level 5: Logs client identification for cache misses.
-        verbosity: 0
+        verbosity: 3
 
         ###########################################################################
         # PRIVACY SETTINGS
