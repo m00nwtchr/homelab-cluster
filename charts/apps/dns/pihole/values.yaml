@@ -123,6 +123,7 @@ app-template:
     dns:
       controller: pihole
       type: ClusterIP
+      ipFamilyPolicy: PreferDualStack
 #      annotations:
 #        lbipam.cilium.io/ips: 'fd42:78a5:2c09::53'
       externalIPs:
