@@ -185,7 +185,7 @@ data:
 
         # File with trust anchor for  one  zone, which is tracked with RFC5011
         # probes.
-        auto-trust-anchor-file: "var/root.key"
+        auto-trust-anchor-file: "/var/lib/unbound/root.key"
 
         # Enable chroot (i.e, change apparent root directory for the current
         # running process and its children)
