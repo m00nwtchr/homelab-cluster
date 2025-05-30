@@ -106,7 +106,7 @@ data:
         rrset-roundrobin: yes
 
         # Drop user  privileges after  binding the port.
-        username: "_unbound"
+        username: ""
 
         ###########################################################################
         # LOGGING
