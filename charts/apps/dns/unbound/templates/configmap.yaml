@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: unbound-config
+data:
+  forward-records.conf: |
+    forward-zone:
+      # Forward all queries (except those in cache and local zone) to
+      # upstream recursive servers
+      name: "."
+      # Queries to this forward zone use TLS
+      forward-tls-upstream: yes
