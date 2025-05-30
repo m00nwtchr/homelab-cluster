@@ -396,7 +396,7 @@ data:
         # FORWARD ZONE
         ###########################################################################
 
-        include: /config/forward-records.conf
+        include: /config/*.conf
 
 
     remote-control:
