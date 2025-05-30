@@ -5,8 +5,9 @@ metadata:
 data:
   forward-records.conf: |
     forward-zone:
-      # Forward all queries (except those in cache and local zone) to
-      # upstream recursive servers
       name: "."
-      # Queries to this forward zone use TLS
       forward-tls-upstream: yes
+      forward-first: no
+
+      forward-addr: 2620:fe::fe#dns.quad9.net
+      forward-addr: 2620:fe::9#dns.quad9.net
