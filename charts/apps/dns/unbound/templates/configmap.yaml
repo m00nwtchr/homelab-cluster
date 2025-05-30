@@ -389,14 +389,14 @@ data:
         ###########################################################################
 
         # Include file for local-data and local-data-ptr
-        include: /etc/unbound/a-records.conf
-        include: /etc/unbound/srv-records.conf
+        include: /config/a-records.conf
+        include: /config/srv-records.conf
 
         ###########################################################################
         # FORWARD ZONE
         ###########################################################################
 
-        include: /etc/unbound/forward-records.conf
+        include: /config/forward-records.conf
 
 
     remote-control:
