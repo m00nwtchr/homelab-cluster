@@ -131,6 +131,7 @@ app-template:
         - fd42:78a5:2c09::53
         # Tailscale
         - 100.116.45.53
+        - fd7a:115c:a1e0::f201:2d35
       ports:
         dns-udp:
           port: 53
