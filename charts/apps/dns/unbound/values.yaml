@@ -54,8 +54,8 @@ app-template:
           protocol: UDP
           targetPort: 53
 
-#  persistence:
-#    config:
-#      type: ConfigMap
-#      globalMounts:
-#        - path: /opt/unbound/etc/unbound/
+  persistence:
+    config:
+      type: ConfigMap
+      globalMounts:
+        - path: /opt/unbound/etc/unbound/
