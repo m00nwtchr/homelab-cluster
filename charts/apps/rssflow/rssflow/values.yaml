@@ -91,7 +91,7 @@ app-template:
           <<: *controller
           image:
             repository: ghcr.io/m00nwtchr/rssflow-sanitize
-            tag: master@sha256:76af9bbe4304f2fed847fdf9056460531f2d5323682d21903efd2a8ff6e77d3f
+            tag: master@sha256:76a122856aa6d95ca274f8e9c027318ec4b217322803a6c2e6f72dec93e6bce0
           env:
             <<: *svc-env
             SERVICE_URL: http://rssflow-sanitize:50051/
