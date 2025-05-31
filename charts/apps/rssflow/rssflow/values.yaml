@@ -29,7 +29,7 @@ app-template:
         app: &controller
           image:
             repository: ghcr.io/m00nwtchr/rssflow-websub
-            tag: master@sha256:5a14c1053454b407a355608951389238f2741349b2bf56a750bddc80ccb3e5ae
+            tag: master@sha256:7196280a1e036f2276e8dcfa467955e0719e42acbc5c9492a7fe7176411c63e4
           env:
             RUST_LOG: "info"
             REDIS_URL: redis://rssflow-valkey
