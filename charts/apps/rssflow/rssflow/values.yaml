@@ -80,7 +80,7 @@ app-template:
           <<: *controller
           image:
             repository: ghcr.io/m00nwtchr/rssflow-sanitize
-            tag: master@sha256:9ba08a073d101568883aa0aa193925f26f7fc3e18634e5b31c2f0efbc9a6ac4d
+            tag: master@sha256:76af9bbe4304f2fed847fdf9056460531f2d5323682d21903efd2a8ff6e77d3f
 
 
   service:
