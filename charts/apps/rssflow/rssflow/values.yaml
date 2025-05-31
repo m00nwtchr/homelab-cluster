@@ -146,7 +146,7 @@ app-template:
           port: 50051
 
     sanitize:
-      controller: retrieve
+      controller: sanitize
       ports:
         grpc:
           port: 50051
