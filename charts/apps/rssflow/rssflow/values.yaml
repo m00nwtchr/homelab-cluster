@@ -145,6 +145,12 @@ app-template:
         grpc:
           port: 50051
 
+    sanitize:
+      controller: retrieve
+      ports:
+        grpc:
+          port: 50051
+
   ingress:
     websub:
       enabled: true
