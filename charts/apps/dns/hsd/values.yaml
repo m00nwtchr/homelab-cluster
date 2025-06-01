@@ -28,7 +28,7 @@ app-template:
             - --no-wallet
             - --spv
           env:
-            HSD_RS_HOST: ::
+            HSD_RS_HOST: "::"
             HSD_RS_PORT: &dns-port 5350
           ports:
             - containerPort: *dns-port
