@@ -60,7 +60,13 @@ app-template:
           protocol: UDP
           targetPort: *dns-port
 
-#  persistence:
+  persistence:
+    data:
+      size: 1Gi
+      accessMode: ReadWriteOnce
+      globalMounts:
+        - path: /.hsd
+
 #    config:
 #      type: configMap
 #      name: unbound-config
