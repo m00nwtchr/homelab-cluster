@@ -48,6 +48,7 @@ app-template:
   service:
     app:
       controller: hsd
+      clusterIP: 2001:cafe:43::3aaf
       ports:
         dns-tcp:
           enabled: true
@@ -66,19 +67,3 @@ app-template:
       accessMode: ReadWriteOnce
       globalMounts:
         - path: /.hsd
-
-#    config:
-#      type: configMap
-#      name: unbound-config
-#      defaultMode: 0755
-#      globalMounts:
-#        - path: /config
-#        - path: /unbound.sh
-#          subPath: unbound.sh
-#    tmp:
-#      type: emptyDir
-#      globalMounts:
-#        - path: /var/lib/unbound/
-#          subPath: var
-#        - path: /etc/unbound
-#          subPath: etc
