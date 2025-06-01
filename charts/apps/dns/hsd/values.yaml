@@ -3,7 +3,7 @@
 
 app-template:
   controllers:
-    unbound:
+    hsd:
       strategy: RollingUpdate
       rollingUpdate:
         maxUnavailable: 0
@@ -47,8 +47,7 @@ app-template:
 
   service:
     app:
-      controller: unbound
-      clusterIP: 2001:cafe:43::f497
+      controller: hsd
       ports:
         dns-tcp:
           enabled: true
