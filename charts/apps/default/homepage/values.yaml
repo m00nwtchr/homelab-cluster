@@ -84,7 +84,9 @@ app-template:
 
   serviceAccount:
     # allow scraping of k8s resources for the widget
-    homepage: {}
+    homepage:
+      enable: true
+
   service:
     app:
       controller: *app
