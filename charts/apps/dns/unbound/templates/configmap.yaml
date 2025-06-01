@@ -11,11 +11,6 @@ data:
 
       forward-addr: 2620:fe::fe#dns.quad9.net
       forward-addr: 2620:fe::9#dns.quad9.net
-
-    forward-zone:
-      name: "tx."
-      forward-addr: 2001:cafe:43::3aaf
-
   unbound.sh: |
     #!/bin/bash
 
