@@ -127,6 +127,8 @@ spec:
             mountPath: /var/log/traefik
 
         experimental:
+          kubernetesGateway:
+            enable: true
           plugins:
             bouncer:
               moduleName: "github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
