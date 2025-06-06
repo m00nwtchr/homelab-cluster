@@ -15,8 +15,6 @@ spec:
       valuesObject:
         isClusterService: true
 
-        k8sAppLabelOverride: "kube-dns"
-
         service:
           clusterIP: "2001:cafe:43::a"
 
