@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: coredns
+  name: kube-dns
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
