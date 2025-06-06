@@ -52,7 +52,7 @@ spec:
               - name: prometheus
                 parameters: :9153
               - name: forward
-                parameters: . /etc/resolv.conf
+                parameters: . 2001:cafe:43::f497
               - name: cache
                 parameters: 30
               - name: loop
