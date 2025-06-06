@@ -79,7 +79,7 @@ data:
         # When the val-log-level: option is also set to 2, responses with Extended
         # DNS Errors concerning DNSSEC failures that are not served from cache, will
         # also contain a descriptive text message about the reason for the failure.
-        ede: no
+        ede: yes
 
         # If enabled, Unbound will attach an Extended DNS Error (RFC 8914)
         # Code 3 - Stale Answer as EDNS0 option to the expired response.
