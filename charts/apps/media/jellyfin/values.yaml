@@ -1,8 +1,8 @@
 app-template:
   controllers:
     jellyfin:
-      #      annotations:
-      #        reloader.stakater.com/auto: "true"
+      annotations:
+        reloader.stakater.com/auto: "true"
 
       pod:
         #        nodeSelector:

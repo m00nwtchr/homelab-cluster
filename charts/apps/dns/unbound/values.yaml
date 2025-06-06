@@ -8,6 +8,10 @@ app-template:
       rollingUpdate:
         maxUnavailable: 0
         maxSurge: 25%
+
+      annotations:
+        reloader.stakater.com/auto: "true"
+
       pod:
         dnsConfig:
           options:
