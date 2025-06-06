@@ -15,6 +15,9 @@ spec:
       valuesObject:
         isClusterService: true
 
+        service:
+          clusterIP: "2001:cafe:43::a"
+
         prometheus:
           service:
             enabled: true
