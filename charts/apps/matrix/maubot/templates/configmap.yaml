@@ -51,7 +51,7 @@ data:
       postgres_opts: {}
     server:
       # The IP and port to listen to.
-      hostname: ::
+      hostname: "::"
       port: 29316
       # Public base URL where the server is visible.
       public_url: https://matrix.m00nlit.dev
