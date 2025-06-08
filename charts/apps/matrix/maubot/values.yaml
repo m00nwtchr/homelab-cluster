@@ -24,10 +24,11 @@ app-template:
 
   service:
     app:
-      controller: freshrss
+      controller: main
       ports:
         http:
           port: 80
+          targetPort: 29316
 
   persistence:
     data:
