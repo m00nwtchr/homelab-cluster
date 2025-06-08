@@ -126,4 +126,4 @@ data:
           level: INFO
       root:
         level: INFO
-        handlers: [file, console]
+        handlers: [console]
