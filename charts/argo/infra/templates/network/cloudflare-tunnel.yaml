@@ -34,3 +34,12 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: tunnel-credentials
+  namespace: cloudflare
+spec:
+  encryptedData:
+    credentials.json: AgBgl2M1X2/yUtE06GF2oZxQXrjCSxgUk+k7BqSestYemQx4VOvtKwt9ARfueLequa09SVGbJLA/nUwown9vfTzbqxDYt0ThOFWCfqF6QpYA4du7xYCKu6T5sMSD6ujqTscmFGti2mNjMcrBkZyKy2SkRpOojQuJA1/L7294e3cHpibolelp2QzBIC6fcbnQhOkME6/1LZ5wpHOG6s3hiutJmIy/Po9dfUtLkk+UTwI4VvJSYYy9iYasjIWCTJECUTaKr6Lb1/A36BV7NoWrXH6bTE2rtWpntZ6fPnuYpu/uOZfE5JDddpNh7vsWzfpz3TEFJQWR9l8cMjfmCUI8RjVIIW6H71eO/C4brwLymOO1kbTnO08/s3rVQj07OjoWtFdvAAHecK8mQ9A6DG4P2KITsFTgmYcuR6xfL37KiqVRexY1j3nuTZ9H50Xbf7tdXFg1+bi7LlvaOd6eLu5kYV2jgwxKTHzp/Hpkkq71eP1QU0FrltODJkdL8KvhEhBrxoY9X8VlebKM8jLfo/bLZ7qWrtJQetrteDyHMPcMWRpyLhqao7kIN9JwXKWdxeegIGzQEx3uWmIrdw1lXtrb2MImITdfN9tY9tyuaudh9UEU30Ly+7nH+8PjM6Ysb/i2grfNNCYmx+6nAuX91D9jSCsSavYcDozf7nV9MJ5mdJda9t6+EM5/Yr2VuYZpa/KU019yBwecPZEucgiA3aR8HhYizeTj7pmGuvYnpUPRc1wHt/EYz67poCkZPhsF5rOOLRP2RTMMLasouxTXGZdTJ25BwfmxbcEwIJxeH4gmUgUp2xDqW3d5fm4y1S1zni1uv8tzDBi7QbXzrB21+5Nvc84/BsKNPSeeRnP3fOr1oZj/f/ocu4DkmSbXSn+iyF4TmFe2BH+rYrfM9aRkHIHktXf3qg==
