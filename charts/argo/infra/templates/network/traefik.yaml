@@ -108,9 +108,7 @@ spec:
 
           additionalContainers:
             - name: accesslog
-              image:
-                repository: busybox
-                tag: 1.37.0-musl@sha256:597bf7e5e8faf26b8efc4cb558eea5dc14d9cc97d5b4c8cdbe6404a7432d5a67
+              image: busybox:1.37.0-musl@sha256:597bf7e5e8faf26b8efc4cb558eea5dc14d9cc97d5b4c8cdbe6404a7432d5a67
               command: [ "/bin/sh", "-c", "cat -u /var/log/traefik/access.log" ]
               volumeMounts:
                 - name: traefik-logs
@@ -118,9 +116,7 @@ spec:
 
           initContainers:
             - name: init-accesslog
-              image:
-                repository: busybox
-                tag: 1.37.0-musl@sha256:597bf7e5e8faf26b8efc4cb558eea5dc14d9cc97d5b4c8cdbe6404a7432d5a67
+              image: busybox:1.37.0-musl@sha256:597bf7e5e8faf26b8efc4cb558eea5dc14d9cc97d5b4c8cdbe6404a7432d5a67
               command: [ "/bin/sh", "-c", "mkfifo /var/log/traefik/access.log" ]
               volumeMounts:
                 - name: traefik-logs
