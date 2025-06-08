@@ -21,8 +21,8 @@ spec:
           ingress:
             - hostname: voltkonekt.pl
               service: "http://wordpress.wordpress.svc:80"
-            - hostname: matrix6.m00nlit.dev
-              service: "http://conduit.matrix.svc:80"
+{{/*            - hostname: matrix6.m00nlit.dev*/}}
+{{/*              service: "http://conduit.matrix.svc:80"*/}}
 
         replicaCount: 1
   destination:
