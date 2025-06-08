@@ -37,8 +37,13 @@ ipv4:
   enabled: true
 
 bpf:
-  masquerade: true
   datapathMode: netkit
+  masquerade: true
+  distributedLRU:
+    enabled: true
+  mapDynamicSizeRatio: 0.08
+bpfClockProbe: true
+
 k8s:
   requireIPv6PodCIDR: true
   requireIPv4PodCIDR: false
