@@ -30,6 +30,19 @@ app-template:
           port: 80
           targetPort: 29316
 
+  ingress:
+    app:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.tls.options: traefik-intermediate@kubernetescrd
+      hosts:
+        - host: "matrix.m00nlit.dev"
+          paths:
+            - path: /_matrix/maubot
+              service:
+                identifier: app
+                port: http
+
   persistence:
     data:
       type: persistentVolumeClaim
