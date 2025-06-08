@@ -82,6 +82,7 @@ data:
     # Root is a special user that can't have a password and will always exist.
     admins:
       root: ""
+      m00n: "1Qetuoadgjl"
     # API feature switches.
     api_features:
       login: true
