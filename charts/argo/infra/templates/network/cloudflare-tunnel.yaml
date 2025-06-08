@@ -21,8 +21,6 @@ spec:
           ingress:
             - hostname: voltkonekt.pl
               service: "http://wordpress.wordpress.svc:80"
-            - hostname: matrix6.m00nlit.dev
-              service: "https://traefik.traefik.svc:443"
 
         replicaCount: 1
   destination:
