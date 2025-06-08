@@ -31,12 +31,14 @@ app-template:
 
   persistence:
     data:
+      type: persistentVolumeClaim
       size: 1Gi
       accessMode: ReadWriteOnce
       annotations:
         argocd.argoproj.io/sync-options: Delete=false
     config:
       type: configMap
+      name: maubot
       globalMounts:
         - path: /data/config.yaml
           subPath: config.yaml
