@@ -40,7 +40,7 @@ app-template:
 
   service:
     app:
-      suffix: ""
+      forceRename: "ntfy"
       controller: ntfy
       ports:
         http:
