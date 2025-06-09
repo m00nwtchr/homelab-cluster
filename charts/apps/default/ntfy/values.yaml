@@ -40,7 +40,7 @@ app-template:
 
   service:
     app:
-#      nameOverride: "ntfy"
+      name: "ntfy"
       controller: ntfy
       ports:
         http:
