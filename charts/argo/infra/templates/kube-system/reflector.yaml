@@ -9,7 +9,7 @@ spec:
   project: kubernetes
   source:
     repoURL: oci://ghcr.io/emberstack/helm-charts/reflector
-    chart: reflector
+{{/*    chart: reflector*/}}
     targetRevision: 9.1.11
   destination:
     name: in-cluster
