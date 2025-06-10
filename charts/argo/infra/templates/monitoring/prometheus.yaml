@@ -21,6 +21,11 @@ spec:
         grafana:
           ingress:
             enabled: true
+            annotations:
+              gethomepage.dev/enabled: "true"
+              gethomepage.dev/group: Server
+              gethomepage.dev/name: Grafana
+              gethomepage.dev/icon: grafana.svg
             path: /
             hosts:
               - grafana.svc.m00nlit.dev
