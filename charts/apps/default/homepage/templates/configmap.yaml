@@ -5,6 +5,9 @@ metadata:
 data:
   kubernetes.yaml: |
     mode: cluster
+    ingress: true # default, enable ingress
+    traefik: true # enable traefik ingressRoute
+    gateway: true # enable gateway-api
   settings.yaml: ""
   #settings.yaml: |
   #  providers:
