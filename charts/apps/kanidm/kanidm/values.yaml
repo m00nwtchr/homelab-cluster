@@ -93,3 +93,7 @@ app-template:
     certs:
       type: secret
       name: kanidm-tls
+    empty:
+      type: emptyDir
+      globalMounts:
+        - path: /var/run
