@@ -19,7 +19,8 @@ app-template:
           image:
             repository: docker.io/kanidm/server
             tag: 1.6.3@sha256:8141f14aa62a271204bf3a0e2207d9a7c565e63a1bcd295aff4444e35967f1b8
-#          env:
+          env:
+            KANIDM_ADMIN_BIND_PATH: "/var/run/kanidmd.sock"
           probes:
             liveness: &probe
               enabled: true
