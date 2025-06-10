@@ -102,6 +102,11 @@ app-template:
 
   ingress:
     app:
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Home
+        gethomepage.dev/name: Paperless
+        gethomepage.dev/icon: paperless.svg
       hosts:
         - host: paperless.svc.m00nlit.dev
           paths:
