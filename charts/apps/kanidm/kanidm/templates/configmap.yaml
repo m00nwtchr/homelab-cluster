@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kanidm
+  namespace: kanidm
+data:
+  server.toml: |
+	bindaddress = "[::]:8443"
+	ldapbindaddress = "[::]:3636"
+	trust_x_forward_for = true
+	tls_chain = "/certs/tls.crt"
+	tls_key = "/certs/tls.key"
+	db_path = "/data/kanidm.db"
+	domain = "idm.m00nlit.dev"
+	origin = "https://idm.m00nlit.dev"
+
+	[online_backup]
+	path = "/data/backups"
+	schedule = "00 00 * * *"
