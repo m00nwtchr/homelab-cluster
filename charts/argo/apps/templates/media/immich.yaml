@@ -42,7 +42,7 @@ spec:
                 enabled: true
                 annotations:
                   gethomepage.dev/enabled: "true"
-                  gethomepage.dev/group: Home
+                  gethomepage.dev/group: Media
                   gethomepage.dev/name: Immich
                   gethomepage.dev/icon: immich.svg
                 hosts:
