@@ -29,6 +29,11 @@ app-template:
                 secretKeyRef:
                   name: radarr-secret
                   key: api_key
+            HOMEPAGE_VAR_SONARR_API_KEY:
+              valueFrom:
+                secretKeyRef:
+                  name: sonarr-secret
+                  key: api_key
           envFrom:
             - secretRef:
                 name: &app homepage
