@@ -160,6 +160,13 @@ app-template:
 
   ingress:
     app:
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Home
+        gethomepage.dev/name: PiHole
+        gethomepage.dev/icon: pihole.png
+        gethomepage.dev/widget.type: pihole
+        gethomepage.dev/widget.provider: pihole
       hosts:
         - host: "pihole.svc.m00nlit.dev"
           paths:
