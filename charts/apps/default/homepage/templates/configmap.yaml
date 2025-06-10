@@ -11,10 +11,7 @@ data:
     gateway: true # enable gateway-api
   settings.yaml: |
     providers:
-      pihole:
-        url: http://pihole.dns.svc
-        version: 6
-        key: {{ "{{HOMEPAGE_VAR_PIHOLE_KEY}}" }}
+      pihole: {{ "{{HOMEPAGE_VAR_PIHOLE_KEY}}" }}
   custom.css: ""
   custom.js: ""
   bookmarks.yaml: |
