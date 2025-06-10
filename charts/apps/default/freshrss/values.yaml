@@ -35,6 +35,11 @@ app-template:
   ingress:
     app:
       enabled: true
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Home
+        gethomepage.dev/name: FreshRSS
+        gethomepage.dev/icon: freshrss.png
       hosts:
         - host: "freshrss.svc.m00nlit.dev"
           paths:
