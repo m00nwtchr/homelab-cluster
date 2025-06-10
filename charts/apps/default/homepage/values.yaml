@@ -111,3 +111,7 @@ app-template:
       name: *app
       globalMounts:
         - path: /app/config/
+    logs:
+      type: emptyDir
+      globalMounts:
+        - path: /app/config/logs/
