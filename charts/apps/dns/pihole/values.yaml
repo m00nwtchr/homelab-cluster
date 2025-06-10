@@ -148,7 +148,7 @@ app-template:
           protocol: TCP
     http:
       controller: pihole
-      name: pihole
+      nameOverride: pihole
       ports:
         http:
           primary: true
