@@ -9,12 +9,7 @@ metadata:
     gethomepage.dev/widget.type: pihole
     gethomepage.dev/widget.url: http://pihole.dns.svc
     gethomepage.dev/widget.version: '6'
-    gethomepage.dev/widget.key: {{ "{{HOMEPAGE_VAR_PIHOLE_KEY}}" }}
-{{/*  labels:*/}}
-{{/*    app.kubernetes.io/instance: pihole*/}}
-{{/*    app.kubernetes.io/managed-by: Helm*/}}
-{{/*    app.kubernetes.io/name: pihole*/}}
-{{/*    helm.sh/chart: app-template-3.7.3*/}}
+    gethomepage.dev/widget.key: "{{ "{{HOMEPAGE_VAR_PIHOLE_KEY}}" }}"
   name: pihole
   namespace: dns
 spec:
