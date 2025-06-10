@@ -39,7 +39,7 @@ app-template:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Home
         gethomepage.dev/name: FreshRSS
-        gethomepage.dev/icon: freshrss.png
+        gethomepage.dev/icon: freshrss.svg
       hosts:
         - host: "freshrss.svc.m00nlit.dev"
           paths:
