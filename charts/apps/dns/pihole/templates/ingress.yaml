@@ -26,5 +26,5 @@ spec:
                 name: pihole
                 port:
                   number: 80
-            path: /
+            path: /admin
             pathType: Prefix
