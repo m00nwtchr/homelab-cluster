@@ -35,7 +35,7 @@ app-template:
             allowPrivilegeEscalation: false
             capabilities: { drop: ["ALL"] }
       serviceAccount:
-        identifier: *app
+        identifier: &app homepage
 
   rbac:
     roles:
