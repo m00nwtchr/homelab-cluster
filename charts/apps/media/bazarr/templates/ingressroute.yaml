@@ -3,6 +3,15 @@ kind: IngressRoute
 metadata:
   name: bazarr
   namespace: media
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Media
+    gethomepage.dev/name: Bazarr
+    gethomepage.dev/href: "https://bazarr.svc.m00nlit.dev"
+    gethomepage.dev/icon: bazarr.svg
+    gethomepage.dev/widget.type: bazarr
+    gethomepage.dev/widget.url: "http://bazarr.media.svc"
+    gethomepage.dev/widget.key: "{{ "{{HOMEPAGE_VAR_BAZARR_API_KEY}}" }}
 spec:
   routes:
     - match: 'Host(`bazarr.svc.m00nlit.dev`)'
