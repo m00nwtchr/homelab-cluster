@@ -24,6 +24,11 @@ app-template:
             HOSTNAME: "::"
             LOG_TARGETS: stdout
             HOMEPAGE_ALLOWED_HOSTS: "homepage.m00nlit.dev"
+            HOMEPAGE_VAR_RADARR_API_KEY:
+              valueFrom:
+                secretKeyRef:
+                  name: radarr-secret
+                  key: api_key
           envFrom:
             - secretRef:
                 name: &app homepage
