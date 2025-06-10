@@ -2,17 +2,19 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: homepage
+  namespace: default
 data:
   kubernetes.yaml: |
     mode: cluster
     ingress: true # default, enable ingress
     traefik: true # enable traefik ingressRoute
     gateway: true # enable gateway-api
-  settings.yaml: ""
-  #settings.yaml: |
-  #  providers:
-  #    longhorn:
-  #      url: https://longhorn.my.network
+  settings.yaml: |
+    providers:
+      pihole:
+        url: http://pihole.dns.svc
+        version: 6
+        key: {{ "{{HOMEPAGE_VAR_PIHOLE_KEY}}" }}
   custom.css: ""
   custom.js: ""
   bookmarks.yaml: |
