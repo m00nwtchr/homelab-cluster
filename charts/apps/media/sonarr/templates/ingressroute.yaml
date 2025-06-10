@@ -3,6 +3,16 @@ kind: IngressRoute
 metadata:
   name: sonarr
   namespace: media
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Media
+    gethomepage.dev/name: Sonarr
+    gethomepage.dev/href: "https://sonarr.svc.m00nlit.dev"
+    gethomepage.dev/icon: sonarr.svg
+    gethomepage.dev/widget.type: sonarr
+    gethomepage.dev/widget.enableQueue: "true"
+    gethomepage.dev/widget.url: "http://sonarr.media.svc"
+    gethomepage.dev/widget.key: "{{ "{{HOMEPAGE_VAR_SONARR_API_KEY}}" }}"
 spec:
   routes:
     - match: 'Host(`sonarr.svc.m00nlit.dev`)'
