@@ -24,9 +24,9 @@ app-template:
             HOSTNAME: "::"
             LOG_TARGETS: stdout
             HOMEPAGE_ALLOWED_HOSTS: "homepage.m00nlit.dev"
-#          envFrom:
-#            - secretRef:
-#                name: &app homepage
+          envFrom:
+            - secretRef:
+                name: &app homepage
           resources:
             requests:
               cpu: 25m
@@ -37,7 +37,7 @@ app-template:
             allowPrivilegeEscalation: false
             capabilities: { drop: ["ALL"] }
       serviceAccount:
-        identifier: &app homepage
+        identifier: *app
 
   rbac:
     roles:
