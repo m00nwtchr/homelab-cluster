@@ -40,6 +40,11 @@ spec:
             ingress:
               main:
                 enabled: true
+                annotations:
+                  gethomepage.dev/enabled: "true"
+                  gethomepage.dev/group: Home
+                  gethomepage.dev/name: Immich
+                  gethomepage.dev/icon: immich.svg
                 hosts:
                   - host: photos.m00nlit.dev
                     paths:
