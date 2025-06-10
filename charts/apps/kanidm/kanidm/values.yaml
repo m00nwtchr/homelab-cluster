@@ -22,15 +22,17 @@ app-template:
 #          env:
           probes:
             liveness: &probe
-              failureThreshold: 3
-              httpGet:
-                path: /status
-                port: https
-                scheme: HTTPS
-              initialDelaySeconds: 10
-              periodSeconds: 10
-              successThreshold: 1
-              timeoutSeconds: 1
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /status
+                  port: https
+                  scheme: HTTPS
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
             readiness: *probe
           resources:
             limits:
@@ -55,8 +57,8 @@ app-template:
     app:
       controller: main
       ports:
-        http:
-          port: 80
+        https:
+          port: 443
           targetPort: 8443
         ldaps:
           port: 636
