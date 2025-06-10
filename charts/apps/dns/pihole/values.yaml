@@ -177,6 +177,10 @@ app-template:
               service:
                 identifier: http
                 port: http
+            - path: /api
+              service:
+                identifier: http
+                port: http
 
 #  route:
 #    app:
