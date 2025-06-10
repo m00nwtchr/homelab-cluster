@@ -3,7 +3,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: kanidm
-  namespace: kanidm
+  namespace: {{ .Release.Namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 spec:
@@ -16,14 +16,14 @@ spec:
         - name: kanidm
           namespace: kanidm
           port: https
-          serversTransport: kanidm-transport
+          serversTransport: kanidm
   tls:
     secretName: kanidm-tls
 ---
 apiVersion: traefik.io/v1alpha1
 kind: ServersTransport
 metadata:
-  name: kanidm-transport
-  namespace: kanidm
+  name: kanidm
+  namespace: {{ .Release.Namespace }}
 spec:
   serverName: "idm.{{ .Values.domain }}"
