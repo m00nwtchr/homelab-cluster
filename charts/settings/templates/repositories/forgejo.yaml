@@ -1,13 +1,12 @@
+---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: forgejo-helm-oci
+  name: forgejo-oci
   namespace: argocd
   labels:
     argocd.argoproj.io/secret-type: repository
 stringData:
-  enableOCI: "true"
-  name: "forgejo"
+  url: "code.forgejo.org"
   type: "helm"
-  url: "code.forgejo.org/forgejo-helm"
-type: Opaque
+  enableOCI: "true"
