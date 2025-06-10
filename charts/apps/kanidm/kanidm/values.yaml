@@ -29,7 +29,6 @@ app-template:
                 httpGet:
                   path: /status
                   port: https
-                  scheme: HTTPS
                 initialDelaySeconds: 0
                 periodSeconds: 10
                 timeoutSeconds: 1
