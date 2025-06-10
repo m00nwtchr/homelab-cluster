@@ -14,6 +14,15 @@ app-template:
       type: statefulset
       annotations:
         reloader.stakater.com/auto: "true"
+
+      pod:
+        securityContext:
+          runAsUser: 589
+          runAsGroup: 589
+          runAsNonRoot: true
+          fsGroup: 589
+          fsGroupChangePolicy: "OnRootMismatch"
+
       containers:
         app:
           image:
