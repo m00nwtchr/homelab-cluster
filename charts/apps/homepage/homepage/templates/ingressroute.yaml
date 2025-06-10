@@ -8,7 +8,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`homepage.m00nlit.dev`)
+      match: Host(`homepage.svc.m00nlit.dev`)
       services:
         - kind: Service
           name: homepage
