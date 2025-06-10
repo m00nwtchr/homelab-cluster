@@ -10,7 +10,7 @@ metadata:
 spec:
   project: kubernetes
   source:
-    repoURL: oci://code.forgejo.org/forgejo-helm/forgejo
+    repoURL: oci://code.forgejo.org/forgejo-helm
     chart: forgejo
     targetRevision: 12.3.1
     helm:
