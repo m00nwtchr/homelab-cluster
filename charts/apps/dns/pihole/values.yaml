@@ -173,7 +173,7 @@ app-template:
       hosts:
         - host: "pihole.svc.m00nlit.dev"
           paths:
-            - path: /
+            - path: /admin
               service:
                 identifier: http
                 port: http
