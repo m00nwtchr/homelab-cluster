@@ -3,6 +3,15 @@ kind: IngressRoute
 metadata:
   name: radarr
   namespace: media
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Media
+    gethomepage.dev/name: Radarr
+    gethomepage.dev/icon: radarr.svg
+    gethomepage.dev/widget.type: radarr
+    gethomepage.dev/widget.enableQueue: "true"
+    gethomepage.dev/widget.url: "http://radarr.media.svc"
+    gethomepage.dev/widget.key: "{{ "{{HOMEPAGE_VAR_RADARR_API_KEY}}" }}"
 spec:
   routes:
     - match: 'Host(`radarr.svc.m00nlit.dev`)'
