@@ -116,7 +116,7 @@ app-template:
       name: *app
       globalMounts:
         - path: /app/config/
-    logs:
+    cache:
       type: emptyDir
       globalMounts:
-        - path: /app/config/logs/
+        - path: /app/.next/
