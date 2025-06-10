@@ -56,8 +56,12 @@ app-template:
           - apiGroups:
               - extensions
               - networking.k8s.io
+              - gateway.networking.k8s.io # GatewayAPI
+              - traefik.io # Traefik
             resources:
               - ingresses
+              - httproutes # GatewayAPI HttpRoute
+              - ingressroutes # Traefik IngressRoute
             verbs:
               - get
               - list
