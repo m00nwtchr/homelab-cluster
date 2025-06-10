@@ -165,7 +165,7 @@ app-template:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Home
         gethomepage.dev/name: PiHole
-        gethomepage.dev/icon: pihole.png
+        gethomepage.dev/icon: pi-hole.svg
         gethomepage.dev/widget.type: pihole
         gethomepage.dev/widget.version: "6"
         gethomepage.dev/widget.url: "http://pihole.dns.svc"
