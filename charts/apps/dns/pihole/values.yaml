@@ -169,7 +169,7 @@ app-template:
         gethomepage.dev/widget.type: pihole
         gethomepage.dev/widget.version: "6"
         gethomepage.dev/widget.url: "http://pihole.dns.svc"
-        gethomepage.dev/widget.provider: pihole
+        gethomepage.dev/widget.key: {{ "{{HOMEPAGE_VAR_PIHOLE_KEY}}" }}
       hosts:
         - host: "pihole.svc.m00nlit.dev"
           paths:
