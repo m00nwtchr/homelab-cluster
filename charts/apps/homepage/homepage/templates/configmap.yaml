@@ -18,6 +18,9 @@ data:
         - Github:
             - abbr: GH
               href: https://github.com/
+        - Tailscale:
+            - icon: tailscale.svg
+              href: https://login.tailscale.com/login
   services.yaml: |
 {{/*    - My First Group:*/}}
 {{/*        - My First Service:*/}}
