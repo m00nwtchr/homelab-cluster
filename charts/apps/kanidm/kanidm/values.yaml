@@ -28,7 +28,8 @@ app-template:
               spec:
                 httpGet:
                   path: /status
-                  port: https
+                  port: &port 8443
+                  scheme: HTTPS
                 initialDelaySeconds: 0
                 periodSeconds: 10
                 timeoutSeconds: 1
@@ -59,7 +60,7 @@ app-template:
       ports:
         https:
           port: 443
-          targetPort: 8443
+          targetPort: *port
         ldaps:
           port: 636
           targetPort: 3636
