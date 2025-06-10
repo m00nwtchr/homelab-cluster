@@ -8,7 +8,7 @@ metadata:
 spec:
   project: kubernetes
   source:
-    repoURL: oci://ghcr.io/emberstack/helm-charts
+    repoURL: oci://ghcr.io/emberstack/helm-charts/reflector
     chart: reflector
     targetRevision: 9.1.11
   destination:
