@@ -44,13 +44,6 @@ app-template:
               memory: 50Mi
           securityContext:
             capabilities:
-              add:
-                - NET_BIND_SERVICE
-                - CHOWN
-                - SETUID
-                - SETGID
-                - FOWNER
-                - DAC_OVERRIDE
               drop:
                 - ALL
 
