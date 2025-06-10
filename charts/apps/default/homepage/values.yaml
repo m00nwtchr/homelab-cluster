@@ -22,6 +22,7 @@ app-template:
             TZ: "Europe/Warsaw"
 #            LOG_LEVEL: debug
             HOSTNAME: "::"
+            LOG_TARGETS: stdout
             HOMEPAGE_ALLOWED_HOSTS: "homepage.m00nlit.dev"
 #          envFrom:
 #            - secretRef:
