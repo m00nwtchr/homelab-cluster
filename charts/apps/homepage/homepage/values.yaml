@@ -34,6 +34,11 @@ app-template:
                 secretKeyRef:
                   name: sonarr-secret
                   key: api_key
+            HOMEPAGE_VAR_PROWLARR_API_KEY:
+              valueFrom:
+                secretKeyRef:
+                  name: prowlarr-secret
+                  key: api_key
           envFrom:
             - secretRef:
                 name: &app homepage
