@@ -153,6 +153,14 @@ app-template:
     app:
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd,traefik-auth@kubernetescrd
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Media
+        gethomepage.dev/name: qBittorrent
+        gethomepage.dev/icon: qbittorrent.svg
+        gethomepage.dev/widget.type: qbittorrent
+        gethomepage.dev/widget.url: "http://qbittorrent.media.svc"
+        gethomepage.dev/widget.username: "{{ \"{{HOMEPAGE_VAR_QBIT_USERNAME}}\" }}"
+        gethomepage.dev/widget.password: "{{ \"{{HOMEPAGE_VAR_QBIT_PASSWORD}}\" }}"
       hosts:
         - host: qbit.svc.m00nlit.dev
           paths:
