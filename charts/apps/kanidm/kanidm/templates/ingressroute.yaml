@@ -13,9 +13,9 @@ spec:
     - kind: Rule
       match: Host(`idm.{{ .Values.domain }}`)
       services:
-        - name: kanidm-https
+        - name: kanidm
           namespace: kanidm
-          port: 8443
+          port: https
           serversTransport: kanidm-transport
   tls:
     secretName: kanidm-tls
