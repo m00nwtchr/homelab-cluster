@@ -164,7 +164,7 @@ app-template:
       annotations:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Home
-        gethomepage.dev/name: PiHole
+        gethomepage.dev/name: Pi-Hole
         gethomepage.dev/icon: pi-hole.svg
         gethomepage.dev/widget.type: pihole
         gethomepage.dev/widget.version: "6"
