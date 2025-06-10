@@ -22,9 +22,9 @@ app-template:
             TZ: "Europe/Warsaw"
 #            LOG_LEVEL: debug
             HOMEPAGE_ALLOWED_HOSTS: "homepage.m00nlit.dev"
-          envFrom:
-            - secretRef:
-                name: &app homepage
+#          envFrom:
+#            - secretRef:
+#                name: &app homepage
           resources:
             requests:
               cpu: 25m
