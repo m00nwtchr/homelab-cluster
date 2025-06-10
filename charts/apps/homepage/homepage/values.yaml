@@ -23,7 +23,7 @@ app-template:
 #            LOG_LEVEL: debug
             HOSTNAME: "::"
             LOG_TARGETS: stdout
-            HOMEPAGE_ALLOWED_HOSTS: "homepage.m00nlit.dev"
+            HOMEPAGE_ALLOWED_HOSTS: "homepage.svc.m00nlit.dev"
             HOMEPAGE_VAR_RADARR_API_KEY:
               valueFrom:
                 secretKeyRef:
