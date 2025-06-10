@@ -1,0 +1,20 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: homepage
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`homepage.m00nlit.dev`)
+      services:
+        - kind: Service
+          name: homepage
+          port: http
+          sticky:
+            cookie:
+              httpOnly: true
+              secure: true
+              sameSite: none
