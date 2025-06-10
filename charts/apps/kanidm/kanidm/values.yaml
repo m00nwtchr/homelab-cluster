@@ -20,17 +20,18 @@ app-template:
             repository: docker.io/kanidm/server
             tag: 1.6.3@sha256:8141f14aa62a271204bf3a0e2207d9a7c565e63a1bcd295aff4444e35967f1b8
 #          env:
-          readinessProbe: &probe
-            failureThreshold: 3
-            httpGet:
-              path: /status
-              port: https
-              scheme: HTTPS
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 1
-          livenessProbe: *probe
+          probes:
+            liveness: &probe
+              failureThreshold: 3
+              httpGet:
+                path: /status
+                port: https
+                scheme: HTTPS
+              initialDelaySeconds: 10
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readiness: *probe
           resources:
             limits:
               cpu: 50M
