@@ -16,7 +16,7 @@ data:
   bookmarks.yaml: |
     - Developer:
         - Github:
-            - abbr: GH
+            - icon: github.svg
               href: https://github.com/
         - Tailscale:
             - icon: tailscale.svg
