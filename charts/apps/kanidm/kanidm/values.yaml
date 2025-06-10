@@ -11,7 +11,7 @@ app-template:
 
   controllers:
     main:
-      strategy: Recreate
+      type: statefulset
       annotations:
         reloader.stakater.com/auto: "true"
       containers:
