@@ -21,6 +21,7 @@ app-template:
           env:
             TZ: "Europe/Warsaw"
 #            LOG_LEVEL: debug
+            HOSTNAME: "::"
             HOMEPAGE_ALLOWED_HOSTS: "homepage.m00nlit.dev"
 #          envFrom:
 #            - secretRef:
