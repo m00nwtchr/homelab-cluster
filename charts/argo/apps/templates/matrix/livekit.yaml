@@ -16,57 +16,32 @@ spec:
         replicaCount: 1
 
         # Suggested value for gracefully terminate the pod: 5 hours
-        terminationGracePeriodSeconds: 18000
+        # terminationGracePeriodSeconds: 18000
 
         livekit:
-          # port: 7880
-          # Uncomment to enable prometheus metrics
-          # prometheus_port: 6789
+          port: 7880
+          prometheus_port: 6789
           log_level: info
+
           rtc:
-            use_external_ip: false
-            # default ports used
+            tcp_port: 7881
             port_range_start: 50000
             port_range_end: 60000
-            tcp_port: 7881
-
+            use_external_ip: false
+            enable_loopback_candidate: false
           redis:
             address: dragonfly.database.svc:6379
-
           turn:
             enabled: true
-            # must match domain of your TLS cert
-            domain: livekit.{{ .Values.domain }}
-            # TURN/TLS port over TCP. It must be 443 if TURN load balancer is disabled
-            tls_port: 3478
-            # TURN/UDP port, must be exposed on the firewall
+            domain: turn.{{ .Values.domain }}
+            tls_port: 5349
             udp_port: 3478
-            # uncomment if you will manage TLS termination for TURN, secretName is not used
-            # when external_tls is set
             external_tls: true
 
           # one or more API key/secret pairs
           # see https://docs.livekit.io/guides/getting-started/#generate-api-key-and-secret
           keys:
             myapikey: "rohng8bi8aepaeQu4saibohsied0uu4cahzuaJe7aiThoong0hae8shoceishuew8yauweit"
-
-        # autoscaling requires resources to be defined
-        autoscaling:
-          # set to true to enable autoscaling. when set, ignores replicaCount
-          enabled: false
-          minReplicas: 1
-          maxReplicas: 5
-          targetCPUUtilizationPercentage: 60
-
-{{/*        tolerations:*/}}
-{{/*          - key: untrusted*/}}
-{{/*            operator: "Exists"*/}}
-
-{{/*        # if LiveKit should run only on specific nodes*/}}
-{{/*        # this can be used to isolate designated nodes*/}}
-{{/*        nodeSelector: {}*/}}
-{{/*          # provider: "oracle"*/}}
-{{/*          # node.kubernetes.io/instance-type: c5.2xlarge*/}}
 
         resources:
           {}
