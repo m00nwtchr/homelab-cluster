@@ -13,11 +13,10 @@ data:
 
     bindaddress = "[::]:8443"
     ldapbindaddress = "[::]:3636"
-    trust_x_forward_for = true
 
+    db_path = "/data/kanidm.db"
     tls_chain = "/certs/tls.crt"
     tls_key = "/certs/tls.key"
-    db_path = "/data/kanidm.db"
 
     [http_client_address_info]
     x-forward-for = ["2001:cafe:42::/64"]
