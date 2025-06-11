@@ -63,6 +63,16 @@ spec:
               ALLOW_ONLY_EXTERNAL_REGISTRATION: true
               SHOW_REGISTRATION_BUTTON: false
               ENABLE_PASSWORD_SIGNIN_FORM: false
+            queue:
+              TYPE: redis
+              CONN_STR: redis://dragonfly.database.svc:6379/0?pool_size=100&idle_timeout=180s
+            session:
+              PROVIDER: redis
+              PROVIDER_CONFIG: redis://dragonfly.database.svc:6379/0?pool_size=100&idle_timeout=180s
+            cache:
+              ENABLED: true
+              ADAPTER: redis
+              HOST: redis://dragonfly.database.svc:6379/0?pool_size=100&idle_timeout=180s
 
           additionalConfigFromEnvs:
             - name: GITEA__DATABASE__PASSWD
@@ -78,11 +88,7 @@ spec:
 
         redis-cluster:
           enabled: false
-        redis:
-          enabled: true
         postgresql-ha:
-          enabled: false
-        postgresql:
           enabled: false
 
         persistence:
