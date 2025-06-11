@@ -17,7 +17,7 @@ app-template:
             SEARXNG_URL: https://search.svc.m00nlit.dev
             SEARXNG_PORT: &httpPort 8080
             SEARXNG_BIND_ADDRESS: "::"
-            SEARXNG_REDIS_URL: redis://searxng-redis.default.svc.cluster.local:6379/0
+            SEARXNG_REDIS_URL: redis://dragonfly.database.svc:6379/0
           envFrom:
             - secretRef:
                 name: searxng-secret
@@ -52,34 +52,34 @@ app-template:
                 - SETUID
                 - DAC_OVERRIDE
 
-    redis:
-      pod:
-        securityContext:
-          runAsUser: 65534
-          runAsGroup: 65534
-      strategy: RollingUpdate
-      containers:
-        redis:
-          image:
-            repository: docker.io/valkey/valkey
-            tag: 8.1.1-alpine@sha256:f43639a6811342b5db26475f3463d4d1950d07bf05542d9483159a44be1fe62f
-          args:
-            - --save
-            - ""
-            - --appendonly
-            - "no"
-          resources:
-            requests:
-              cpu: 5m
-              memory: 32Mi
-            limits:
-              memory: 128Mi
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop:
-                - ALL
+#    redis:
+#      pod:
+#        securityContext:
+#          runAsUser: 65534
+#          runAsGroup: 65534
+#      strategy: RollingUpdate
+#      containers:
+#        redis:
+#          image:
+#            repository: docker.io/valkey/valkey
+#            tag: 8.1.1-alpine@sha256:f43639a6811342b5db26475f3463d4d1950d07bf05542d9483159a44be1fe62f
+#          args:
+#            - --save
+#            - ""
+#            - --appendonly
+#            - "no"
+#          resources:
+#            requests:
+#              cpu: 5m
+#              memory: 32Mi
+#            limits:
+#              memory: 128Mi
+#          securityContext:
+#            allowPrivilegeEscalation: false
+#            readOnlyRootFilesystem: true
+#            capabilities:
+#              drop:
+#                - ALL
 
   service:
     app:
@@ -88,11 +88,6 @@ app-template:
       ports:
         http:
           port: *httpPort
-    redis:
-      controller: redis
-      ports:
-        http:
-          port: 6379
 
   ingress:
     app:
