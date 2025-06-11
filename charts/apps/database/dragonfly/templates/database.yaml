@@ -15,6 +15,7 @@ spec:
           resource: limits.memory
           divisor: 1Mi
   args:
+    - "--bind ::"
     - --maxmemory=$(MAX_MEMORY)Mi
     - --proactor_threads=2
     - --cluster_mode=emulated
