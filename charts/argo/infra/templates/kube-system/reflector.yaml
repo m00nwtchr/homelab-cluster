@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: ghcr.io/emberstack/helm-charts
     chart: reflector
-    targetRevision: 9.1.11
+    targetRevision: 9.1.12
   destination:
     name: in-cluster
     namespace: kube-system
