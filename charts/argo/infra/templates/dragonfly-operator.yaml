@@ -10,11 +10,9 @@ metadata:
 spec:
   project: kubernetes
   sources:
-    - repoURL: https://github.com/dragonflydb/dragonfly-operator.git
-      path: manifests
-      directory:
-        include: dragonfly-operator.yaml
-      targetRevision: HEAD
+    - repoURL: ghcr.io/dragonflydb
+      chart: dragonfly-operator/helm/dragonfly-operator
+      targetRevision: v1.1.11
   destination:
     name: in-cluster
     namespace: dragonfly-operator-system
