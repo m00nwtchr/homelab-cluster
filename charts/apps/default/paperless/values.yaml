@@ -11,7 +11,7 @@ app-template:
       containers:
         app:
           env:
-            PAPERLESS_REDIS: redis://localhost:6379
+            PAPERLESS_REDIS: redis://dragonfly.database.svc:6379
             PAPERLESS_DBHOST: postgres-rw.postgres.svc.cluster.local
             PAPERLESS_DBPASS:
               valueFrom:
@@ -69,17 +69,6 @@ app-template:
             requests:
               cpu: 10m
               memory: 30Mi
-
-        redis:
-          image:
-            repository: docker.io/valkey/valkey
-            tag: 8.1.1-alpine@sha256:f43639a6811342b5db26475f3463d4d1950d07bf05542d9483159a44be1fe62f
-          resources:
-            limits:
-              memory: 50Mi
-            requests:
-              cpu: 10m
-              memory: 18Mi
 
         tika:
           image:

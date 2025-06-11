@@ -10,8 +10,7 @@ app-template:
             # RAILS_ENV: production
             RAILS_ENV: development
             TIME_ZONE: "Europe/Warsaw"
-            #            REDIS_URL: redis://dragonfly.database.svc.cluster.local
-            REDIS_URL: redis://localhost:6379
+            REDIS_URL: redis://dragonfly.database.svc
             APPLICATION_HOSTS: "dawarich.svc.m00nlit.dev"
             APPLICATION_PROTOCOL: http
             MIN_MINUTES_SPENT_IN_CITY: 60
@@ -59,10 +58,7 @@ app-template:
               cpu: "250m"
             limits:
               memory: "3Gi"
-        valkey:
-          image:
-            repository: docker.io/valkey/valkey
-            tag: 8.1.1-alpine@sha256:f43639a6811342b5db26475f3463d4d1950d07bf05542d9483159a44be1fe62f
+
   service:
     app:
       controller: dawarich
