@@ -6,7 +6,7 @@ metadata:
   name: dragonfly
   namespace: database
 spec:
-  image: ghcr.io/dragonflydb/dragonfly:v1.29.0@sha256:714c979a384513febdb751749db33125894ba834a0d7847d88d1abea501e669d
+  image: ghcr.io/dragonflydb/dragonfly:v1.30.3@sha256:29d44a25a9e6937672f1c12e28c9f481f3d3c0441001ee56ed274a72f50593b7
   replicas: 1
   env:
     - name: MAX_MEMORY
