@@ -85,7 +85,7 @@ spec:
     kind: ClusterIssuer
 ---
 # TURN: full TLS passthrough, routed by SNI
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
 metadata:
   name: livekit-turn
@@ -100,7 +100,7 @@ spec:
           port: 5349
 ---
 # LiveKit HTTP/1.1 console & API
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: livekit-api
@@ -113,4 +113,4 @@ spec:
       kind: Rule
       services:
         - name: livekit-livekit-server
-          port: 7880
+          port: http
