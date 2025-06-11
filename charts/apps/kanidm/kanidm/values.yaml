@@ -17,10 +17,10 @@ app-template:
 
       pod:
         securityContext:
-          runAsUser: 589
-          runAsGroup: 589
+          runAsUser: 999
+          runAsGroup: 999
           runAsNonRoot: true
-          fsGroup: 589
+          fsGroup: 999
           fsGroupChangePolicy: "OnRootMismatch"
 
       containers:
