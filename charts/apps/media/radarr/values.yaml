@@ -18,6 +18,8 @@ app-template:
             tag: 5.26.1.10080@sha256:1c85411af158a269592b9ce2c90ec10a59528f3585844b832e38f710e0c89557
           env:
             RADARR__APP__INSTANCENAME: Radarr
+            RADARR__LOG__LEVEL: info
+
             RADARR__AUTH__APIKEY:
               valueFrom:
                 secretKeyRef:
@@ -25,8 +27,20 @@ app-template:
                   key: api_key
             RADARR__AUTH__METHOD: External
             RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+            RADARR__LOG__ANALYTICSENABLED: "False"
             RADARR__LOG__DBENABLED: "False"
-            RADARR__LOG__LEVEL: info
+            RADARR__POSTGRES__HOST: postgres-rw.postgres.svc
+            RADARR__POSTGRES__USER:
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-radarr
+                  key: username
+            RADARR__POSTGRES__PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-radarr
+                  key: password
+            RADARR__POSTGRES__MAINDB: radarr
             RADARR__SERVER__PORT: &port 7878
             RADARR__UPDATE__BRANCH: develop
           probes:

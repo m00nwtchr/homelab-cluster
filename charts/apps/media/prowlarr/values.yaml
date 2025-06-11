@@ -33,14 +33,29 @@ app-template:
             tag: 1.37.0.5076@sha256:aab0bfd4e96bdca19cca280a2bbf8ac60b9251dcae13459856b724a2dd3ae020
           env:
             PROWLARR__APP__INSTANCENAME: Prowlarr
+            PROWLARR__LOG__LEVEL: info
+
             PROWLARR__AUTH__APIKEY:
               valueFrom:
                 secretKeyRef:
                   name: prowlarr-secret
                   key: api_key
             PROWLARR__AUTH__METHOD: External
+            PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+            PROWLARR__LOG__ANALYTICSENABLED: "False"
             PROWLARR__LOG__DBENABLED: "False"
-            PROWLARR__LOG__LEVEL: info
+            PROWLARR__POSTGRES__HOST: postgres-rw.postgres.svc
+            PROWLARR__POSTGRES__USER:
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-prowlarr
+                  key: username
+            PROWLARR__POSTGRES__PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-prowlarr
+                  key: password
+            PROWLARR__POSTGRES__MAINDB: prowlarr
             PROWLARR__SERVER__PORT: &port 9696
             PROWLARR__UPDATE__BRANCH: develop
           probes:
