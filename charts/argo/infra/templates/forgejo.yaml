@@ -38,7 +38,7 @@ spec:
             - name: kanidm
               provider: openidConnect
               key: gitea
-              existingSecret: "gitea-oidc"
+              existingSecret: forgejo-oidc
               autoDiscoverUrl: "https://idm.{{ .Values.domain }}/oauth2/openid/gitea/.well-known/openid-configuration"
           config:
             database:
