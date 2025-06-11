@@ -18,7 +18,6 @@ spec:
     - "--bind=::"
     - --maxmemory=$(MAX_MEMORY)Mi
     - --proactor_threads=2
-    - --cluster_mode=emulated
   resources:
     requests:
       cpu: 100m
