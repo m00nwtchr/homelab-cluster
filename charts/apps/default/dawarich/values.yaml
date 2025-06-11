@@ -61,7 +61,7 @@ app-template:
         valkey:
           image:
             repository: docker.io/valkey/valkey
-            tag: 8.1.1-alpine@sha256:f43639a6811342b5db26475f3463d4d1950d07bf05542d9483159a44be1fe62f
+            tag: 8.1.1-alpine@sha256:6a57d58c0a37cf7acc3045ac0fd6dd91be339774106ab4d9ca088013a096a99f
 
   service:
     app:
