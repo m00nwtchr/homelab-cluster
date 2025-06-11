@@ -93,6 +93,7 @@ app-template:
     certs:
       type: secret
       name: kanidm-tls
+      defaultMode: 0400
     empty:
       type: emptyDir
       globalMounts:
