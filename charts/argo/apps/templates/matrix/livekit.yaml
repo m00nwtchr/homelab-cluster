@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://helm.livekit.io
     chart: livekit-server
-    targetRevision: 1.8.3
+    targetRevision: 1.9.0
     helm:
       valuesObject:
         replicaCount: 1
