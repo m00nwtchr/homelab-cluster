@@ -43,6 +43,9 @@ spec:
           keys:
             myapikey: "rohng8bi8aepaeQu4saibohsied0uu4cahzuaJe7aiThoong0hae8shoceishuew8yauweit"
 
+        turnLoadBalancer:
+          enable: false
+
         resources:
           {}
           # Due to port restrictions, you can run only one instance of LiveKit per physical
@@ -80,3 +83,34 @@ spec:
   issuerRef:
     name: acme
     kind: ClusterIssuer
+---
+# TURN: full TLS passthrough, routed by SNI
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: livekit-turn
+  namespace: livekit
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: HostSNI(`turn.m00nlit.dev`)
+      services:
+        - name: livekit-livekit-turn
+          port: 5349
+---
+# LiveKit HTTP/1.1 console & API
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: livekit-api
+  namespace: livekit
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`livekit.m00nlit.dev`)
+      kind: Rule
+      services:
+        - name: livekit-livekit-server
+          port: 7880
