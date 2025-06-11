@@ -38,7 +38,7 @@ spec:
             # must match domain of your TLS cert
             domain: livekit.{{ .Values.domain }}
             # TURN/TLS port over TCP. It must be 443 if TURN load balancer is disabled
-            tls_port: 443
+            tls_port: 3478
             # TURN/UDP port, must be exposed on the firewall
             udp_port: 3478
             # uncomment if you will manage TLS termination for TURN, secretName is not used
