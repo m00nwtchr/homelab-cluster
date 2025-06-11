@@ -30,7 +30,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/home-operations/prowlarr
-            tag: 1.35.1.5034@sha256:f9c4e4c7dedcbc9ec9c9616cbaacc5ca908a063b86d4f052db0e83f27c48bf3f
+            tag: 1.37.0.5076@sha256:aab0bfd4e96bdca19cca280a2bbf8ac60b9251dcae13459856b724a2dd3ae020
           env:
             PROWLARR__APP__INSTANCENAME: Prowlarr
             PROWLARR__AUTH__APIKEY:
