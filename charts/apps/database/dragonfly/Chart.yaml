@@ -1,5 +1,0 @@
-apiVersion: v2
-name: dragonfly
-type: application
-version: 1.0.0
-appVersion: "1.0.0"
