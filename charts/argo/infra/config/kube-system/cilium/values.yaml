@@ -20,6 +20,16 @@ l2announcements:
 nodePort:
   directRoutingDevice: tailscale0
 
+gatewayAPI:
+  enabled: true
+
+authentication:
+  mutual:
+    spire:
+      enabled: true
+      install:
+        enabled: true
+
 ipam:
   mode: cluster-pool
   operator:

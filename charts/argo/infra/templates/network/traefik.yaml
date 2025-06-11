@@ -130,8 +130,8 @@ spec:
 
         experimental:
           kubernetesGateway:
-            enable: true
-            experimentalChannel: true
+            enable: false
+            experimentalChannel: false
           plugins:
             bouncer:
               moduleName: "github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
