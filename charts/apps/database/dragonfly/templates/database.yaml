@@ -7,7 +7,7 @@ metadata:
   namespace: database
 spec:
   image: ghcr.io/dragonflydb/dragonfly:v1.30.3@sha256:29d44a25a9e6937672f1c12e28c9f481f3d3c0441001ee56ed274a72f50593b7
-  replicas: 1
+  replicas: 3
   env:
     - name: MAX_MEMORY
       valueFrom:
@@ -19,13 +19,13 @@ spec:
     - --proactor_threads=2
     - --cluster_mode=emulated
     - --lock_on_hashtags
-  topologySpreadConstraints:
-    - maxSkew: 1
-      topologyKey: kubernetes.io/hostname
-      whenUnsatisfiable: DoNotSchedule
-      labelSelector:
-        matchLabels:
-          app.kubernetes.io/part-of: dragonfly
+{{/*  topologySpreadConstraints:*/}}
+{{/*    - maxSkew: 1*/}}
+{{/*      topologyKey: kubernetes.io/hostname*/}}
+{{/*      whenUnsatisfiable: DoNotSchedule*/}}
+{{/*      labelSelector:*/}}
+{{/*        matchLabels:*/}}
+{{/*          app.kubernetes.io/part-of: dragonfly*/}}
   resources:
     requests:
       cpu: 100m
