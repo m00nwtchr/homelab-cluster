@@ -96,7 +96,7 @@ spec:
   routes:
     - match: HostSNI(`turn.m00nlit.dev`)
       services:
-        - name: livekit-livekit-turn
+        - name: livekit-livekit-server-turn
           port: 5349
 ---
 # LiveKit HTTP/1.1 console & API
