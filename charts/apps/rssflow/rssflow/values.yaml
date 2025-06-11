@@ -91,12 +91,6 @@ app-template:
             SERVICE_URL: http://rssflow-sanitize:50051/
 
   service:
-    valkey:
-      controller: valkey
-      ports:
-        main:
-          port: 6379
-
     rssflow:
       controller: rssflow
       ports:
