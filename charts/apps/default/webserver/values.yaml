@@ -48,12 +48,12 @@ app-template:
         - path: /etc/nginx/nginx.conf
           subPath: nginx.conf  # Ensure this matches the key name in the ConfigMap
           readOnly: true
-    openpgpkey:
-      type: configMap
-      name: nginx-openpgpkey
-      globalMounts:
-        - path: /var/www/html/openpgpkey/
-          readOnly: true
+#    openpgpkey:
+#      type: configMap
+#      name: nginx-openpgpkey
+#      globalMounts:
+#        - path: /var/www/html/openpgpkey/
+#          readOnly: true
     var:
       type: emptyDir
       globalMounts:
