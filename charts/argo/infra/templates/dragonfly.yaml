@@ -17,6 +17,23 @@ spec:
         valuesObject:
           extraArgs:
             - '--bind=::'
+            - --maxmemory=$(MAX_MEMORY)Mi
+            - --proactor_threads=2
+            - --cluster_mode=emulated
+            - --lock_on_hashtags
+
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              memory: 512Mi
+
+          env:
+            - name: MAX_MEMORY
+              valueFrom:
+                resourceFieldRef:
+                  resource: limits.memory
+                  divisor: 1Mi
   destination:
     name: in-cluster
     namespace: database
