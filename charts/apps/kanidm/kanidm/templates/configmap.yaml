@@ -6,6 +6,8 @@ metadata:
   namespace: kanidm
 data:
   server.toml: |
+    version = "2"
+
     domain = "idm.m00nlit.dev"
     origin = "https://idm.m00nlit.dev"
 
