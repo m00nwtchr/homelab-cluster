@@ -16,7 +16,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/m00nwtchr/runemail-wks
-            tag: master@sha256:6c4fad97d5a59bf5d965486dbc34b3dc3618dfd67f9aa5368386a072eb903798
+            tag: master@sha256:92db3664363f50cc228de444856e7e1e3dd4867cfcba52a89fe97527b7940260
           ports:
             - containerPort: 3434
 
