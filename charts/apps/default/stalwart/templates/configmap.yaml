@@ -89,6 +89,12 @@ data:
     enable = false
     allow-invalid-certs = true
 
+    [directory.kanidm.bind.auth]
+    method = "default"
+
+    [directory.kanidm.attributes]
+    secret = "userPassword"
+
     [directory.oidc]
     type = "oidc"
     timeout = "1s"
