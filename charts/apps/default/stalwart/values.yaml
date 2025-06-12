@@ -41,12 +41,14 @@ app-template:
   service:
     app:
       controller: main
+      type: NodePort
       ports:
         http:
           port: 80
           targetPort: 8080
         smtp:
           port: 25
+          nodePort: 30025
 #          targetPort: 25
         submission:
           port: 587
