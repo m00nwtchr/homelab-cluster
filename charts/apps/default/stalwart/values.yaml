@@ -71,6 +71,12 @@ app-template:
                 port: http
 
   persistence:
+    config:
+      type: configMap
+      name: stalwart
+      globalMounts:
+        - path: /opt/stalwart/etc/config.toml
+          subPath: config.toml
     data:
       size: 1Gi
       accessMode: ReadWriteOnce
