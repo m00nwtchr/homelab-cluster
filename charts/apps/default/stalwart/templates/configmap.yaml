@@ -93,6 +93,8 @@ data:
     method = "default"
 
     [directory.kanidm.attributes]
+    name = "name"
+    class = "class"
     secret = "userPassword"
 
     [directory.kanidm.filter]
