@@ -84,10 +84,8 @@ app-template:
       size: 1Gi
       accessMode: ReadWriteOnce
       globalMounts:
-        - path: /opt/stalwart/data
-        - path: /opt/stalwart/etc
-          subPath: etc
-    tmp:
-      type: emptyDir
-      globalMounts:
         - path: /opt/stalwart/
+#    tmp:
+#      type: emptyDir
+#      globalMounts:
+#        - path: /opt/stalwart/
