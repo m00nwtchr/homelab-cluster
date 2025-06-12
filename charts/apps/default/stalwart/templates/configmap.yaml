@@ -76,4 +76,4 @@ data:
 
     [authentication.fallback-admin]
     user = "admin"
-    secret = "$6$TSpsqMLGUd7V0hYt$eMo5VPMbBMzKjPly7dPjXfz7Olfa2dOgMpuIU4yhOjA0KHFjv6FRUTSxtTBH574SnON/UdEKhLFPKaqV2oKb31"
+    secret = "$6$rEc81Pi.jwdp3FkW$OZUeGFHwd4Tj.dFnRlbWfSdSX1M.gm9JsTQ/4ywMPJaDKzr8kqp5ecpK1uMS8xEu5xgUTauJE7gEFfivuSbit1"
