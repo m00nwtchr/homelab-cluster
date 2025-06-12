@@ -96,8 +96,8 @@ data:
     secret = "userPassword"
 
     [directory."ldap".filter]
-    name = "(&(|(class=account)(class=group))(name=?))"
-    email = "(&(|(class=account)(class=group))(|(mail=?)(mailAlias=?)))"
+    name = "(&(class=account)(name=?))"
+    email = "(&(class=account)(mail=?))"
 
     [directory.oidc]
     type = "oidc"
