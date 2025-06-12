@@ -82,6 +82,7 @@ data:
     [directory.kanidm]
     type = "ldap"
     url = "ldaps://kanidm-ldaps.kanidm.svc:3636"
+    base-dn = "dc=idm,dc=m00nlit,dc=dev"
     timeout = "30s"
 
     [directory.oidc]
