@@ -74,6 +74,12 @@ app-template:
               service:
                 identifier: app
                 port: http
+        - host: stalwart.m00nlit.dev
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
 
   persistence:
     config:
