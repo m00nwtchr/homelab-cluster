@@ -19,7 +19,7 @@ app-template:
               spec:
                 httpGet:
                   path: /healthz/live
-                  port: &port 6767
+                  port: 8080
                 initialDelaySeconds: 30
                 periodSeconds: 10
             readiness:
