@@ -57,7 +57,7 @@ data:
     fts = "postgresql"
     blob = "filesystem"
     lookup = "redis"
-    directory = "kanidm"
+    directory = "memory"
 
     [store.postgresql]
     type = "postgresql"
@@ -109,6 +109,16 @@ data:
     fields.email = "email"
     fields.username = "preferred_username"
     fields.full-name = "name"
+
+    [directory."memory"]
+    type = "memory"
+
+    [[directory."memory".principals]]
+    name = "admin"
+    class = "admin"
+    description = "Superuser"
+    secret = "changeme"
+    email = ["postmaster@example.org"]
 
     [tracer.log]
     type = "log"
