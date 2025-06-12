@@ -95,7 +95,7 @@ data:
     [directory.kanidm.attributes]
     secret = "userPassword"
 
-    [directory."ldap".filter]
+    [directory.kanidm.filter]
     name = "(&(class=account)(name=?))"
     email = "(&(class=account)(mail=?))"
 
