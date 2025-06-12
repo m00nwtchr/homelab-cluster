@@ -80,6 +80,11 @@ data:
     timeout = "10s"
 
     [directory.kanidm]
+    type = "ldap"
+    url = "ldaps://kanidm-ldaps.kanidm.svc:3636"
+    timeout = "30s"
+
+    [directory.oidc]
     type = "oidc"
     timeout = "1s"
     endpoint.url = "https://idm.m00nlit.dev/oauth2/openid/stalwart/userinfo"
