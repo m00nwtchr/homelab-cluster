@@ -63,3 +63,9 @@ spec:
         superuser: false
         passwordSecret:
           name: postgres-rssflow
+      - name: stalwart
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-stalwart

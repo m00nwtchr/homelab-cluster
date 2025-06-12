@@ -5,6 +5,9 @@ metadata:
   name: stalwart
 data:
   config.toml: |
+    [server]
+    hostname = "mail.m00nlit.dev"
+
     [server.listener.smtp]
     bind = "[::]:25"
     protocol = "smtp"
@@ -50,20 +53,40 @@ data:
     bind = "[::]:8080"
 
     [storage]
-    data = "rocksdb"
-    fts = "rocksdb"
-    blob = "rocksdb"
-    lookup = "rocksdb"
-    directory = "internal"
+    data = "postgresql"
+    fts = "postgresql"
+    blob = "filesystem"
+    lookup = "redis"
+    directory = "kanidm"
 
-    [store.rocksdb]
-    type = "rocksdb"
-    path = "/opt/stalwart/data"
-    compression = "lz4"
+    [store.postgresql]
+    type = "postgresql"
+    host = "postgres-rw.postgres.svc"
+    port = 5432
+    database = "stalwart"
+    user = "{{ "{{ .username }}" }}"
+    password = "{{ "{{ .password }}" }}"
+    timeout = "15s"
 
-    [directory.internal]
-    type = "internal"
-    store = "rocksdb"
+    [store.filesystem]
+    type = "fs"
+    path = "/var/lib/data/blobs"
+    depth = 2
+
+    [store.redis]
+    type = "redis"
+    redis-type = "single"
+    urls = "redis://dragonfly.database.svc"
+    timeout = "10s"
+
+    [directory.kanidm]
+    type = "oidc"
+    timeout = "1s"
+    endpoint.url = "https://idm.m00nlit.dev/oauth2/openid/stalwart/userinfo"
+    endpoint.method = "userinfo"
+    fields.email = "email"
+    fields.username = "preferred_username"
+    fields.full-name = "name"
 
     [tracer.log]
     type = "log"
@@ -72,8 +95,8 @@ data:
     prefix = "stalwart.log"
     rotate = "daily"
     ansi = false
-    enable = true
+    enable = false
 
     [authentication.fallback-admin]
     user = "admin"
-    secret = "$6$rEc81Pi.jwdp3FkW$OZUeGFHwd4Tj.dFnRlbWfSdSX1M.gm9JsTQ/4ywMPJaDKzr8kqp5ecpK1uMS8xEu5xgUTauJE7gEFfivuSbit1"
+    secret = "$6$gnbeH9hBUvBv3kcI$X6jjGI3KrWvw0aMMnbVt0j71jawwn6h1.qUW3pYmW5JuaT/KNK9HHrSmmOlfPVtMsKSP3pCfwpLQdtb.aJt5X/"
