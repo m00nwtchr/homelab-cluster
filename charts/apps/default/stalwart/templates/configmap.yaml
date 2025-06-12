@@ -57,7 +57,7 @@ data:
     fts = "postgresql"
     blob = "filesystem"
     lookup = "redis"
-    directory = "memory"
+    directory = "kanidm"
 
     [store.postgresql]
     type = "postgresql"
@@ -95,7 +95,10 @@ data:
     [directory.kanidm.attributes]
     name = "name"
     class = "class"
+    description = "description"
     secret = "userPassword"
+    groups = "memberOf"
+    email = "mail"
 
     [directory.kanidm.filter]
     name = "(&(|(class=account)(class=group))(name=?))"
