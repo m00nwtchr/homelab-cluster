@@ -85,6 +85,10 @@ data:
     base-dn = "dc=idm,dc=m00nlit,dc=dev"
     timeout = "30s"
 
+    [directory.kanidm.tls]
+    enable = false
+    allow-invalid-certs = true
+
     [directory.oidc]
     type = "oidc"
     timeout = "1s"
