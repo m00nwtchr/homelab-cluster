@@ -102,6 +102,39 @@ app-template:
             <<: *svc-env
             SERVICE_URL: http://rssflow-sanitize:50051/
 
+  rbac:
+    roles:
+      rssflow:
+        type: ClusterRole
+        rules:
+          - apiGroups:
+              - ""
+            resources:
+              - services
+            verbs:
+              - get
+              - list
+              - watch
+          - apiGroups:
+              - discovery.k8s.io
+            resources:
+              - endpointslices
+            verbs:
+              - get
+              - list
+              - watch
+
+    bindings:
+      rssflow:
+        type: ClusterRoleBinding
+        roleRef:
+          identifier: rssflow
+        subjects:
+          - identifier: rssflow
+
+  serviceAccount:
+    rssflow: { }
+
   service:
     rssflow:
       controller: rssflow
