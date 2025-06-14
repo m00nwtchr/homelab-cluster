@@ -51,8 +51,6 @@ app-template:
           securityContext:
             allowPrivilegeEscalation: false
             capabilities: { drop: ["ALL"] }
-      serviceAccount:
-        identifier: *app
 
   rbac:
     roles:
