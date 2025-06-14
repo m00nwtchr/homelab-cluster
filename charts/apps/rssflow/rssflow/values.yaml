@@ -194,10 +194,3 @@ app-template:
               service:
                 identifier: websub
                 port: http
-
-  persistence:
-    data:
-      size: 1Gi
-      accessMode: ReadWriteOnce
-      annotations:
-        argocd.argoproj.io/sync-options: Delete=false
