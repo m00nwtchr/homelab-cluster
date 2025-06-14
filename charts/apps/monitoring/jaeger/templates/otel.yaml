@@ -28,9 +28,9 @@ spec:
       otlp:
         protocols:
           grpc:
-            endpoint: [::]:4317
+            endpoint: "[::]:4317"
           http:
-            endpoint: [::]:4318
+            endpoint: "[::]:4318"
     exporters:
       jaeger_storage_exporter:
         trace_storage: memstore
