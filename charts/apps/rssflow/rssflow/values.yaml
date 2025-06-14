@@ -28,6 +28,8 @@ app-template:
             requests:
               cpu: 50m
               memory: 256Mi
+      serviceAccount:
+        identifier: rssflow
 
     websub:
       containers:
