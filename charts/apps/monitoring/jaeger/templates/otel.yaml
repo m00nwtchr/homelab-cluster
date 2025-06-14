@@ -5,10 +5,6 @@ metadata:
   name: jaeger
 spec:
   image: jaegertracing/jaeger:2.7.0@sha256:8d8d36f079c7e2b3ea26132244238768a69abecb45aab0ed0218e2b8c40908cf
-  ingress:
-    type: ingress
-    hostname: jaeger.svc.m00nlit.dev
-
   ports:
     - name: jaeger
       port: 16686
