@@ -30,6 +30,17 @@ app-template:
           envFrom:
             - secretRef:
                 name: rssflow-websub-env
+          probes:
+            liveness: &probe
+              enabled: true
+              custom: true
+              spec:
+                grpc:
+                  port: &port 50051
+                  service: ""
+                initialDelaySeconds: 5
+                periodSeconds: 10
+            readiness: *probe
           resources:
             requests:
               cpu: 50m
@@ -98,7 +109,7 @@ app-template:
           port: 80
           targetPort: 3434
         grpc:
-          port: 50051
+          port: *port
 
     websub:
       controller: websub
@@ -107,37 +118,37 @@ app-template:
           port: 80
           targetPort: 3435
         grpc:
-          port: 50051
+          port: *port
 
     fetch:
       controller: fetch
       ports:
         grpc:
-          port: 50051
+          port: *port
 
     filter:
       controller: filter
       ports:
         grpc:
-          port: 50051
+          port: *port
 
     replace:
       controller: replace
       ports:
         grpc:
-          port: 50051
+          port: *port
 
     retrieve:
       controller: retrieve
       ports:
         grpc:
-          port: 50051
+          port: *port
 
     sanitize:
       controller: sanitize
       ports:
         grpc:
-          port: 50051
+          port: *port
 
   ingress:
     websub:
