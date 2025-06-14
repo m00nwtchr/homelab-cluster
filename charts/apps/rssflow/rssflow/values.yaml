@@ -13,6 +13,17 @@ app-template:
           envFrom:
             - secretRef:
                 name: rssflow-env
+          probes: &probes
+            liveness: &probe
+              enabled: true
+              custom: true
+              spec:
+                grpc:
+                  port: &port 50051
+                #                  service: ""
+                initialDelaySeconds: 5
+                periodSeconds: 10
+            readiness: *probe
           resources:
             requests:
               cpu: 50m
@@ -30,17 +41,7 @@ app-template:
           envFrom:
             - secretRef:
                 name: rssflow-websub-env
-          probes:
-            liveness: &probe
-              enabled: true
-              custom: true
-              spec:
-                grpc:
-                  port: &port 50051
-                  service: ""
-                initialDelaySeconds: 5
-                periodSeconds: 10
-            readiness: *probe
+          probes: *probes
           resources:
             requests:
               cpu: 50m
