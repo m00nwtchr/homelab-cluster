@@ -117,7 +117,7 @@ app-template:
       hostnames:
         - *host
       parentRefs:
-        - name: internal
+        - name: envoy-gateway
           namespace: network
           sectionName: https
       rules:
