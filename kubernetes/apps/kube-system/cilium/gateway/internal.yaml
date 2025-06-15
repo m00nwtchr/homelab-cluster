@@ -33,5 +33,3 @@ spec:
         certificateRefs:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
-          - kind: Secret
-            name: wildcard-svc-${SECRET_DOMAIN/./-}-tls
