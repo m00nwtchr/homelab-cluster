@@ -100,13 +100,13 @@ spec:
             cpu: 100m
           limits:
             memory: 2000Mi
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: ceph-block
-              resources:
-                requests:
-                  storage: 50Gi
+#        storageSpec:
+#          volumeClaimTemplate:
+#            spec:
+#              storageClassName: ceph-block
+#              resources:
+#                requests:
+#                  storage: 50Gi
 
     prometheus-node-exporter:
       fullnameOverride: node-exporter
