@@ -141,6 +141,7 @@ spec:
     #      forceDeployDashboards: true
 
     grafana:
+      fullnameOverride: grafana
       route:
         main:
           enabled: true
