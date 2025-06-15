@@ -123,7 +123,7 @@ app-template:
       rules:
         - backendRefs:
             - name: homepage
-              port: http
+              port: 80
           sessionPersistence:
             sessionName: homepage-session
             type: Cookie
