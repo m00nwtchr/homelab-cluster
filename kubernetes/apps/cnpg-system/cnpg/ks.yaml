@@ -52,6 +52,10 @@ spec:
       kind: HelmRelease
       name: *app
       namespace: *namespace
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      name: postgres
+      namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/cnpg-system/cnpg/cluster
   postBuild:
