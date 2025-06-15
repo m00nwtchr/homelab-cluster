@@ -6,4 +6,4 @@ namespace: database
 components:
   - ../../components/common
 resources:
-  - ./dargonfly/ks.yaml
+  - ./dragonfly/ks.yaml
