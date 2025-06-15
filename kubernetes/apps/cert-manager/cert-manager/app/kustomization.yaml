@@ -5,8 +5,7 @@ kind: Kustomization
 resources:
   - ./clusterissuer.yaml
   - ./helmrelease.yaml
-#  - ./secret.sops.yaml
-  - ./acme-dns.yaml
+  - ./secret.sops.yaml
 configMapGenerator:
   - name: cert-manager-values
     files:

@@ -14,21 +14,5 @@ spec:
     - "${SECRET_DOMAIN}"
     - "*.${SECRET_DOMAIN}"
   issuerRef:
-    name: acme
-    kind: ClusterIssuer
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cert-manager.io/certificate_v1.json
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: wildcard-svc-${SECRET_DOMAIN/./-}
-spec:
-  secretName: wildcard-svc-${SECRET_DOMAIN/./-}-tls
-  privateKey:
-    algorithm: ECDSA
-    size: 256
-  dnsNames:
-    - "*.svc.${SECRET_DOMAIN}"
-  issuerRef:
-    name: acme
+    name: letsencrypt-production
     kind: ClusterIssuer
