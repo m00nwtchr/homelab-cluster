@@ -19,19 +19,16 @@ kind: HelmRelease
 metadata:
   name: prometheus-adapter
 spec:
-  interval: 60m
-
+  interval: 1h
   maxHistory: 2
   driftDetection:
     mode: enabled
-
   chartRef:
     kind: OCIRepository
     name: prometheus-adapter
-
   install:
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
@@ -64,8 +61,3 @@ spec:
     tolerations:
       - key: node-role.kubernetes.io/control-plane
         effect: NoSchedule
-
-  valuesFrom:
-    - kind: ConfigMap
-      name: prometheus-adapter-helm-values
-      optional: true
