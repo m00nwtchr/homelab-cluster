@@ -40,6 +40,17 @@ metadata:
 spec:
   gatewayClassName: envoy-gateway
   listeners:
+    - name: https
+      hostname: m00nlit.dev
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: wildcard-{{ include "domainDashed" . }}-tls
+          - kind: Secret
+            name: wildcard-svc-{{ include "domainDashed" . }}-tls
     - name: http
       protocol: HTTP
       port: 80
