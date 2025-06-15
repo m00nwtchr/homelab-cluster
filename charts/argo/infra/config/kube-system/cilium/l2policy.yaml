@@ -1,9 +1,0 @@
-apiVersion: "cilium.io/v2alpha1"
-kind: CiliumL2AnnouncementPolicy
-metadata:
-  name: policy1
-spec:
-  interfaces:
-    - ^enp+
-  externalIPs: true
-  loadBalancerIPs: true
