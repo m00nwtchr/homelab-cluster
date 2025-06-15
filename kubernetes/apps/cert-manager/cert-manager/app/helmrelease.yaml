@@ -15,9 +15,14 @@ metadata:
   name: cert-manager
 spec:
   interval: 1h
-  chartRef:
-    kind: HelmRepository
-    name: cert-manager
+  chart:
+    spec:
+      chart: cert-manager
+      version: 1.18.0
+      sourceRef:
+        kind: HelmRepository
+        name: jetstack
+        namespace: cert-manager
   install:
     remediation:
       retries: -1
