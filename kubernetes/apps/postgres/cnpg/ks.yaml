@@ -3,8 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cnpg
-  namespace: &namespace cnpg-system
+  name: &app cnpg-cluster
+  namespace: &namespace postgres
 spec:
   commonMetadata:
     labels:
@@ -18,8 +18,12 @@ spec:
       kind: HelmRelease
       name: *app
       namespace: *namespace
+  #    - apiVersion: postgresql.cnpg.io/v1
+  #      kind: Cluster
+  #      name: postgres
+  #      namespace: postgres
   interval: 1h
-  path: ./kubernetes/apps/cnpg-system/cnpg/app
+  path: ./kubernetes/apps/postgres/cnpg/cluster
   postBuild:
     substituteFrom:
       - name: cluster-secrets
