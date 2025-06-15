@@ -19,12 +19,23 @@
 						kubectl
 						kubelogin-oidc
 
-						kubernetes-helm
+     (wrapHelm kubernetes-helm {
+            plugins = with pkgs.kubernetes-helmPlugins; [
+
+              helm-diff
+
+            ];
+          })
+            helmfile
 						kubeseal
 
 						cilium-cli
 
+
+            sops
+
 						jq    # JSON parser (handy for `kubectl` output)
+						yq
 						gh    # GitHub CLI (for auth and repo ops)
 					];
 				};

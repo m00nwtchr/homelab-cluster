@@ -1,0 +1,23 @@
+---
+keys:
+  - &cluster age1689ww93cs2fkv3np57388eyepd789kk3zu47vyx67u8sc48vlprq9qafje
+  - &personal F846C93BF4BEAB99D98D29B2DF3CEC6BF015D41D
+creation_rules:
+  - path_regex: talos/.*\.sops\.ya?ml
+    mac_only_encrypted: true
+    key_groups:
+      - pgp:
+          - *personal
+        age:
+          - *cluster
+  - path_regex: (bootstrap|kubernetes)/.*\.sops\.ya?ml
+    encrypted_regex: "^(data|stringData)$"
+    mac_only_encrypted: true
+    key_groups:
+      - pgp:
+          - *personal
+        age:
+          - *cluster
+stores:
+  yaml:
+    indent: 2
