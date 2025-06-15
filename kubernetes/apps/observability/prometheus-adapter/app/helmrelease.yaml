@@ -40,6 +40,9 @@ spec:
     rules:
       default: true
 
+    prometheus:
+      url: http://prometheus-operated.observability.svc
+
     logLevel: 1
 
     strategy:
