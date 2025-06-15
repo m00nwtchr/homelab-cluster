@@ -38,7 +38,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app cnpg-cluster
-  namespace: &namespace postgres
+  namespace: &namespace cnpg-system
 spec:
   commonMetadata:
     labels:
@@ -51,11 +51,11 @@ spec:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       name: *app
-      namespace: cnpg-system
+      namespace: *namespace
     - apiVersion: postgresql.cnpg.io/v1
       kind: Cluster
       name: postgres
-      namespace: *namespace
+      namespace: postgres
   interval: 1h
   path: ./kubernetes/apps/cnpg-system/cnpg/cluster
   postBuild:
@@ -68,5 +68,5 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: postgres
   timeout: 5m
