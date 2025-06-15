@@ -20,10 +20,10 @@ app-template:
             tag: v1.3.2@sha256:4f923bf0e9391b3a8bc5527e539b022e92dcc8a3a13e6ab66122ea9ed030e196
           env:
             TZ: "Europe/Warsaw"
-#            LOG_LEVEL: debug
+            #            LOG_LEVEL: debug
             HOSTNAME: "::"
             LOG_TARGETS: stdout
-            HOMEPAGE_ALLOWED_HOSTS: "homepage.svc.m00nlit.dev"
+            HOMEPAGE_ALLOWED_HOSTS: &host "home.svc.m00nlit.dev"
             HOMEPAGE_VAR_RADARR_API_KEY:
               valueFrom:
                 secretKeyRef:
@@ -50,7 +50,7 @@ app-template:
               memory: 225M
           securityContext:
             allowPrivilegeEscalation: false
-            capabilities: { drop: ["ALL"] }
+            capabilities: { drop: [ "ALL" ] }
 
   rbac:
     roles:
@@ -102,7 +102,7 @@ app-template:
           - identifier: *app
 
   serviceAccount:
-    homepage: {}
+    homepage: { }
 
   service:
     app:
@@ -112,16 +112,33 @@ app-template:
           port: 80
           targetPort: 3000
 
-#  ingress:
-#    app:
-#      hosts:
-#        - host: "home.svc.m00nlit.dev"
-#          paths:
-#            - path: /
-#              pathType: Prefix
-#              service:
-#                identifier: app
-#                port: http
+  route:
+    app:
+      hostnames:
+        - *host
+      parentRefs:
+        - name: internal
+          namespace: network
+          sectionName: https
+      rules:
+        - backendRefs:
+            - name: homepage
+              port: http
+          sessionPersistence:
+            sessionName: homepage-session
+            type: Cookie
+            absoluteTimeout: 35m
+
+  #  ingress:
+  #    app:
+  #      hosts:
+  #        - host: "home.svc.m00nlit.dev"
+  #          paths:
+  #            - path: /
+  #              pathType: Prefix
+  #              service:
+  #                identifier: app
+  #                port: http
 
   persistence:
     config:
