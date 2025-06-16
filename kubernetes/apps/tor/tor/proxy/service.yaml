@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tor-proxy
+  namespace: default
+spec:
+  ports:
+    - name: socks
+      protocol: TCP
+      port: 9050
+      targetPort: 9050
+  selector:
+    app: tor-proxy-tor-svc
+  type: ClusterIP
