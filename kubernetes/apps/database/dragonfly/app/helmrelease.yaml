@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: dargonfly
+  name: dragonfly
 spec:
   interval: 5m
   layerSelector:
@@ -17,12 +17,12 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: dargonfly
+  name: dragonfly
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: dargonfly
+    name: dragonfly
   install:
     remediation:
       retries: -1
