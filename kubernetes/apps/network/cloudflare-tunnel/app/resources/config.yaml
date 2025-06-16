@@ -4,7 +4,7 @@
 
 ingress:
   - hostname: "voltkonekt.pl"
-    service: &svc http://wordpress.wordpress.svc:80
+    service: &svc http://wordpress.default.svc:80
   - hostname: "*.voltkonekt.pl"
     service: *svc
 #  - hostname: "${SECRET_DOMAIN}"
