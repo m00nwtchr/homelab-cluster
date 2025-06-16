@@ -76,7 +76,6 @@ spec:
 
         containers:
           app:
-            nameOverride: qbittorrent
             image:
               repository: ghcr.io/home-operations/qbittorrent
               tag: 5.1.0@sha256:37aefd713ba31d51255995261616f1144378887bc5f21665a0ebf851fb85f69a
@@ -146,7 +145,7 @@ spec:
     service:
       app:
         controller: *app
-        nameOverride: ""
+        forceRename: *app
         ipFamilyPolicy: PreferDualStack
         primary: true
         ports:
