@@ -1,3 +1,4 @@
+---
 apiVersion: tor.k8s.torproject.org/v1alpha2
 kind: Tor
 metadata:
@@ -16,18 +17,3 @@ spec:
   config: |
     MapAddress palladium.libera.chat libera75jm6of4wxpxt4aynol3xjmbtxgfyjpu34ss4d7r7q2v5zrpyd.onion
     MapAddress irc.oftc.net oftcnet6xg6roj6d7id4y4cu6dchysacqj2ldgea73qzdagufflqxrid.onion
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: tor-proxy
-  namespace: default
-spec:
-  ports:
-    - name: socks
-      protocol: TCP
-      port: 9050
-      targetPort: 9050
-  selector:
-    app: tor-proxy-tor-svc
-  type: ClusterIP
