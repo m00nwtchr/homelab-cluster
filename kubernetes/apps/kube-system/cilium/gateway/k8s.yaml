@@ -5,7 +5,7 @@ metadata:
   name: kube-apiserver-route
 spec:
   parentRefs:
-    - name: cilium
+    - name: internal
       namespace: kube-system
       sectionName: https
   hostnames:
