@@ -1,3 +1,4 @@
+---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
@@ -11,7 +12,7 @@ metadata:
     gethomepage.dev/icon: prowlarr.svg
     gethomepage.dev/widget.type: prowlarr
     gethomepage.dev/widget.url: "http://prowlarr.media.svc"
-    gethomepage.dev/widget.key: "{{ "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}" }}"
+    gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}"
 spec:
   routes:
     - match: 'Host(`prowlarr.svc.m00nlit.dev`)'
