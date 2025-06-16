@@ -44,7 +44,7 @@ externalIPs:
   enabled: true
 
 gatewayAPI:
-  enabled: true
+  enabled: false
 
 hubble:
   enabled: false
