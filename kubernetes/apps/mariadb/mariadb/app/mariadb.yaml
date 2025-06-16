@@ -1,8 +1,8 @@
+---
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: MariaDB
 metadata:
   name: mariadb
-  namespace: mariadb
 spec:
   rootPasswordSecretKeyRef:
     name: mariadb
