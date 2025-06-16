@@ -53,3 +53,11 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
+  values:
+    metrics:
+      enabled: true
+
+    webhook:
+      cert:
+        certManager:
+          enabled: true
