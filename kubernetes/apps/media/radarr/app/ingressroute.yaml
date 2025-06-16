@@ -12,7 +12,7 @@ metadata:
     gethomepage.dev/widget.type: radarr
     gethomepage.dev/widget.enableQueue: "true"
     gethomepage.dev/widget.url: "http://radarr.media.svc"
-    gethomepage.dev/widget.key: "{{ "{{HOMEPAGE_VAR_RADARR_API_KEY}}" }}"
+    gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_RADARR_API_KEY}}"
 spec:
   routes:
     - match: 'Host(`radarr.svc.m00nlit.dev`)'
