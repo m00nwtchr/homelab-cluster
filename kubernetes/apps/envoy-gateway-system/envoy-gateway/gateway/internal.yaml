@@ -16,6 +16,10 @@ spec:
     annotations:
       metallb.io/address-pool: private
       external-dns.alpha.kubernetes.io/hostname: "internal.${SECRET_DOMAIN}"
+    parametersRef:
+      group: gateway.envoyproxy.io
+      kind: EnvoyProxy
+      name: proxy-config
   listeners:
     - name: http
       protocol: HTTP
