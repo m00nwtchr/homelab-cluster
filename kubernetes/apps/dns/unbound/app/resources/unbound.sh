@@ -32,10 +32,6 @@ else
     slabs=4
 fi
 
-set -x
-
-echo "DBG: msg=$msg_cache_size rr=$rr_cache_size thr=$threads slabs=$slabs" >&2
-
 # ── 4. render template ───────────────────────────────────────────────────────
 sed -e "s/@MSG_CACHE_SIZE@/$msg_cache_size/" \
     -e "s/@RR_CACHE_SIZE@/$rr_cache_size/" \
