@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./db.yaml
+  - ./helmrelease.yaml
+  - ./oidc.yaml
+  - ./rbac.yaml
+  - ./secret.yaml
+configMapGenerator:
+  - name: forgejo-values
+    files:
+      - values.yaml=./helm/values.yaml
+configurations:
+  - ./helm/kustomizeconfig.yaml
