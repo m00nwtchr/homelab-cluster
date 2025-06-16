@@ -1,0 +1,94 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app ${APP}
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      ${APP}:
+        strategy: RollingUpdate
+        rollingUpdate:
+          maxUnavailable: 0
+          maxSurge: 25%
+
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          dnsConfig:
+            options:
+              - { name: ndots, value: "1" }
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            fsGroup: 65534
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile: { type: RuntimeDefault }
+        containers:
+          app:
+            image:
+              repository: mvance/unbound
+              tag: 1.22.0@sha256:76906da36d1806f3387338f15dcf8b357c51ce6897fb6450d6ce010460927e90
+            env:
+              TZ: ${TZ}
+            ports:
+              - containerPort: &dns-port 5354
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: false
+                type: TCP
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256M
+              limits:
+                memory: 512M
+
+    service:
+      app:
+        controller: *app
+        clusterIP: 2001:cafe:43::f497
+        ports:
+          dns-tcp:
+            enabled: true
+            port: 53
+            protocol: TCP
+            targetPort: *dns-port
+          dns-udp:
+            enabled: true
+            port: 53
+            protocol: UDP
+            targetPort: *dns-port
+
+    persistence:
+      config:
+        type: configMap
+        name: unbound-configmap
+        defaultMode: 0755
+        globalMounts:
+          - path: /config
+          - path: /unbound.sh
+            subPath: unbound.sh
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /var/lib/unbound/
+            subPath: var
+          - path: /etc/unbound
+            subPath: etc
