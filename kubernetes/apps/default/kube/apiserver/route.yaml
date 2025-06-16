@@ -29,5 +29,5 @@ spec:
     hostname: kubernetes.default.svc
     caCertificateRefs:
       - group: v1
-        kind: Secret
+        kind: ConfigMap
         name: kube-root-ca.crt
