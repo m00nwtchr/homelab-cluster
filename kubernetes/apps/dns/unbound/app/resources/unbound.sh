@@ -34,22 +34,14 @@ fi
 
 set -x
 
-# ── 4. render template ───────────────────────────────────────────────────────
-sed -e "s/@MSG_CACHE_SIZE@/${msg_cache_size}/" \
-    -e "s/@RR_CACHE_SIZE@/${rr_cache_size}/" \
-    -e "s/@THREADS@/${threads}/" \
-    -e "s/@SLABS@/${slabs}/" \
-    /config/unbound.conf > /etc/unbound/unbound.conf
+echo "DBG: msg=$msg_cache_size rr=$rr_cache_size thr=$threads slabs=$slabs" >&2
 
-# ── 5. show our work ─────────────────────────────────────────────────────────
-{
-  echo "--- Unbound auto-tune summary ---------------------"
-  printf "Msg cache    : %s\n" "$msg_cache_size"
-  printf "RRset cache  : %s\n" "$rr_cache_size"
-  printf "Threads      : %s\n" "$threads"
-  printf "Slabs        : %s\n" "$slabs"
-  echo "---------------------------------------------------"
-} >&2
+# ── 4. render template ───────────────────────────────────────────────────────
+sed -e "s/@MSG_CACHE_SIZE@/$msg_cache_size/" \
+    -e "s/@RR_CACHE_SIZE@/$rr_cache_size/" \
+    -e "s/@THREADS@/$threads/" \
+    -e "s/@SLABS@/$slabs/" \
+    /config/unbound.conf > /etc/unbound/unbound.conf
 
 # ── 6. launch ────────────────────────────────────────────────────────────────
 /opt/unbound/sbin/unbound-anchor -a /var/lib/unbound/root.key
