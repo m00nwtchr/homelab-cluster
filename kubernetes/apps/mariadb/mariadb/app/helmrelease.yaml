@@ -57,7 +57,7 @@ spec:
     metrics:
       enabled: true
 
-    webhook:
-      cert:
-        certManager:
-          enabled: true
+#    webhook:
+#      cert:
+#        certManager:
+#          enabled: true
