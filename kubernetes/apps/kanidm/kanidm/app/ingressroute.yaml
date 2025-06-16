@@ -2,28 +2,24 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: kanidm
-  namespace: {{ .Release.Namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
+  name: &app ${APP}
 spec:
   entryPoints:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`idm.{{ .Values.domain }}`)
+      match: Host(`idm.${SECRET_DOMAIN}`)
       services:
-        - name: kanidm
-          namespace: kanidm
+        - name: *app
+          namespace: *app
           port: https
-          serversTransport: kanidm
+          serversTransport: *app
   tls:
-    secretName: kanidm-tls
+    secretName: ${APP}-tls
 ---
 apiVersion: traefik.io/v1alpha1
 kind: ServersTransport
 metadata:
-  name: kanidm
-  namespace: {{ .Release.Namespace }}
+  name: ${APP}
 spec:
-  serverName: "idm.{{ .Values.domain }}"
+  serverName: "idm.${SECRET_DOMAIN}"
