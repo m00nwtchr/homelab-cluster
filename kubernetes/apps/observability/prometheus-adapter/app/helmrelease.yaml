@@ -46,7 +46,7 @@ spec:
               rate(container_cpu_usage_seconds_total{container!="",<<.LabelMatchers>>}[3m])
             )
           nodeQuery: |
-            sum  by (<<.GroupBy>>) (
+            sum by (<<.GroupBy>>) (
               rate(node_cpu_seconds_total{mode!="idle",mode!="iowait",mode!="steal",<<.LabelMatchers>>}[3m])
             )
           resources:
@@ -94,7 +94,7 @@ spec:
     resources:
       limits:
         cpu: 100m
-#        memory: 128Mi
+      #        memory: 128Mi
       requests:
         cpu: 50m
         memory: 64Mi
