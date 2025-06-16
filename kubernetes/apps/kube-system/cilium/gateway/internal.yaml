@@ -35,3 +35,16 @@ spec:
         certificateRefs:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
+
+    - name: k8s-tls
+      protocol: TLS
+      port: 443
+      hostname: "k8s.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Passthrough
+        certificateRefs:
+          - kind: Secret
+            name: wildcard-${SECRET_DOMAIN/./-}-tls
