@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app mariadb-crds
+  name: &app mariadb
   namespace: &namespace mariadb
 spec:
   commonMetadata:
@@ -19,7 +19,7 @@ spec:
       name: *app
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/mariadb/mariadb/crds
+  path: ./kubernetes/apps/mariadb/mariadb/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -38,7 +38,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app mariadb
+  name: &app mariadb-cluster
   namespace: &namespace mariadb
 spec:
   commonMetadata:
@@ -49,16 +49,12 @@ spec:
     secretRef:
       name: sops-age
   healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
     - apiVersion: k8s.mariadb.com/v1alpha1
       kind: MariaDB
-      name: *app
+      name: mariadb
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/mariadb/mariadb/app
+  path: ./kubernetes/apps/mariadb/mariadb/cluster
   postBuild:
     substituteFrom:
       - name: cluster-secrets
