@@ -38,5 +38,7 @@ sed \
     -e "s/@SLABS@/${slabs}/" \
     /config/unbound.conf > /etc/unbound/unbound.conf
 
+cat /etc/unbound/unbound.conf
+
 /opt/unbound/sbin/unbound-anchor -a /var/lib/unbound/root.key
 exec /opt/unbound/sbin/unbound -d -c /etc/unbound/unbound.conf
