@@ -1,0 +1,137 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prowlarr
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      prowlarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          securityContext:
+            runAsUser: 2000
+            runAsGroup: 2000
+            runAsNonRoot: true
+            fsGroup: 2000
+            fsGroupChangePolicy: OnRootMismatch
+
+        #      initContainers:
+        #        disable-ipv6:
+        #          args:
+        #            - -w
+        #            - net.ipv6.conf.all.disable_ipv6=1
+        #          command:
+        #            - /bin/sysctl
+        #          image:
+        #            repository: docker.io/busybox
+        #            tag: latest
+        #            pullPolicy: IfNotPresent
+        #          securityContext:
+        #            privileged: true
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/prowlarr
+              tag: 1.37.0.5076@sha256:aab0bfd4e96bdca19cca280a2bbf8ac60b9251dcae13459856b724a2dd3ae020
+            env:
+              PROWLARR__APP__INSTANCENAME: Prowlarr
+              PROWLARR__LOG__LEVEL: info
+
+              PROWLARR__AUTH__APIKEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: prowlarr-secret
+                    key: api_key
+              PROWLARR__AUTH__METHOD: External
+              PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              PROWLARR__LOG__ANALYTICSENABLED: "False"
+              PROWLARR__LOG__DBENABLED: "False"
+              PROWLARR__POSTGRES__HOST: postgres-rw.postgres.svc
+              PROWLARR__POSTGRES__USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-prowlarr
+                    key: username
+              PROWLARR__POSTGRES__PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-prowlarr
+                    key: password
+              PROWLARR__POSTGRES__MAINDB: prowlarr
+              PROWLARR__SERVER__PORT: &port 9696
+              PROWLARR__UPDATE__BRANCH: develop
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 18m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+            securityContext:
+              allowPrivilegeEscalation: true
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        controller: prowlarr
+        ipFamilyPolicy: PreferDualStack
+        ports:
+          http:
+            targetPort: *port
+            port: 80
+
+    # ingress:
+    #   app:
+    #     annotations:
+    #       traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd,traefik-auth@kubernetescrd
+    #     hosts:
+    #       - host: prowlarr.svc.m00nlit.dev
+    #         paths:
+    #           - path: /
+    #             service:
+    #               identifier: app
+    #               port: http
+
+    persistence:
+      config:
+        size: 1Gi
+        accessMode: ReadWriteOnce
+        annotations:
+          argocd.argoproj.io/sync-options: Delete=false
+      config-logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
+      tmp:
+        type: emptyDir
