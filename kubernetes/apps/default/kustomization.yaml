@@ -6,4 +6,5 @@ namespace: default
 components:
   - ../../components/common
 resources:
+  - ./kube/ks.yaml
   - ./wordpress/ks.yaml
