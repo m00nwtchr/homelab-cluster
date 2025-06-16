@@ -2,21 +2,21 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: radarr
+  name: &app ${APP}
   namespace: media
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Media
     gethomepage.dev/name: Radarr
     gethomepage.dev/href: "https://radarr.svc.m00nlit.dev"
-    gethomepage.dev/icon: radarr.svg
-    gethomepage.dev/widget.type: radarr
+    gethomepage.dev/icon: ${APP}.svg
+    gethomepage.dev/widget.type: *app
     gethomepage.dev/widget.enableQueue: "true"
-    gethomepage.dev/widget.url: "http://radarr.media.svc"
+    gethomepage.dev/widget.url: "http://${APP}.media.svc"
     gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_RADARR_API_KEY}}"
 spec:
   routes:
-    - match: 'Host(`radarr.svc.m00nlit.dev`)'
+    - match: 'Host(`${APP}.svc.m00nlit.dev`)'
       kind: Rule
       middlewares:
         - name: vpn-only
@@ -24,13 +24,13 @@ spec:
         - name: auth
           namespace: traefik
       services:
-        - name: radarr
+        - name: *app
           port: http
-    - match: 'Host(`radarr.svc.m00nlit.dev`) && PathPrefix(`/api`)'
+    - match: 'Host(`${APP}.svc.m00nlit.dev`) && PathPrefix(`/api`)'
       kind: Rule
       middlewares:
         - name: vpn-only
           namespace: traefik
       services:
-        - name: radarr
+        - name: *app
           port: http

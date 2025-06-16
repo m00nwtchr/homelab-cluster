@@ -2,10 +2,10 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: postgres-sonarr
+  name: postgres-${APP}
   namespace: postgres
 spec:
-  name: &app sonarr
+  name: &app ${APP}
   owner: *app
   cluster:
     name: postgres

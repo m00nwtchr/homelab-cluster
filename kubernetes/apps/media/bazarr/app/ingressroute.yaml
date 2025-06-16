@@ -9,7 +9,7 @@ metadata:
     gethomepage.dev/group: Media
     gethomepage.dev/name: Bazarr
     gethomepage.dev/href: "https://${APP}.svc.m00nlit.dev"
-    gethomepage.dev/icon: bazarr.svg
+    gethomepage.dev/icon: ${APP}.svg
     gethomepage.dev/widget.type: *app
     gethomepage.dev/widget.url: "http://${APP}.media.svc"
     gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_${APP}_API_KEY}}"
