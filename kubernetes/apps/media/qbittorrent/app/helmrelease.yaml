@@ -176,8 +176,8 @@ spec:
           gethomepage.dev/icon: ${APP}.svg
           gethomepage.dev/widget.type: *app
           gethomepage.dev/widget.url: "http://${APP}.media.svc"
-          gethomepage.dev/widget.username: "{{HOMEPAGE_VAR_QBIT_USERNAME}}"
-          gethomepage.dev/widget.password: "{{HOMEPAGE_VAR_QBIT_PASSWORD}}"
+          gethomepage.dev/widget.username: "{{ \"{{HOMEPAGE_VAR_QBIT_USERNAME}}\" }}"
+          gethomepage.dev/widget.password: "{{ \"{{HOMEPAGE_VAR_QBIT_PASSWORD}}\" }}"
         hosts:
           - host: qbit.svc.m00nlit.dev
             paths:
