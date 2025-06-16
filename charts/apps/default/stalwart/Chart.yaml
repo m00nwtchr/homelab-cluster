@@ -1,9 +1,0 @@
-apiVersion: v2
-name: stalwart
-type: application
-version: 1.0.0
-appVersion: "1.0.0"
-dependencies:
-  - name: app-template
-    version: 4.1.0
-    repository: https://bjw-s-labs.github.io/helm-charts
