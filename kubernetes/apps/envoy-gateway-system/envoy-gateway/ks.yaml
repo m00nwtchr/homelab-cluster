@@ -38,7 +38,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app envoy-gateway
-  namespace: &namespace kube-system
+  namespace: &namespace envoy-gateway-system
 spec:
   commonMetadata:
     labels:
