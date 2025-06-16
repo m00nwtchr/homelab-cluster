@@ -26,5 +26,8 @@ spec:
       kind: Service
       name: kubernetes
   validation:
-      hostname: kubernetes.default.svc
-      wellKnownCACertificates: System
+    hostname: kubernetes.default.svc
+    caCertificateRefs:
+      - group: v1
+        kind: Secret
+        name: kube-root-ca.crt
