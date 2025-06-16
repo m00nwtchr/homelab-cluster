@@ -159,7 +159,7 @@ spec:
             protocol: TCP
       http:
         controller: *app
-        nameOverride: *app
+        forceRename: *app
         ports:
           http:
             primary: true
