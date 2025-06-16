@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app reflector
+  name: &app reloader
   namespace: &namespace kube-system
 spec:
   commonMetadata:
@@ -14,7 +14,7 @@ spec:
     secretRef:
       name: sops-age
   interval: 1h
-  path: ./kubernetes/apps/kube-system/reflector/app
+  path: ./kubernetes/apps/kube-system/reloader/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets

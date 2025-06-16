@@ -10,6 +10,8 @@ resources:
   - ./coredns/ks.yaml
 #  - ./metrics-server/ks.yaml
   - ./reloader/ks.yaml
+  - ./reflector/ks.yaml
+  - ./sealed-secrets/ks.yaml
 #  #% if spegel_enabled %#
 #  - ./spegel/ks.yaml
 #  #% endif %#
