@@ -1,0 +1,21 @@
+version = "2"
+
+domain = "idm.m00nlit.dev"
+origin = "https://idm.m00nlit.dev"
+
+bindaddress = "[::]:8443"
+ldapbindaddress = "[::]:3636"
+
+db_path = "/data/kanidm.db"
+tls_chain = "/certs/tls.crt"
+tls_key = "/certs/tls.key"
+
+[http_client_address_info]
+x-forward-for = ["2001:cafe:42::/64"]
+
+# [ldap_client_address_info]
+# proxy-v2 = ["2001:cafe:42::/64"]
+
+[online_backup]
+path = "/data/backups"
+schedule = "00 00 * * *"
