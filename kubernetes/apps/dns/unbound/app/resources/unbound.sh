@@ -39,7 +39,7 @@ sed -e "s/@MSG_CACHE_SIZE@/${msg_cache_size}/" \
     -e "s/@SLABS@/${slabs}/" \
     /config/unbound.conf > /etc/unbound/unbound.conf
 
-cat /etc/unbound/unbound.conf
+cat /config/unbound.conf
 
 # ── 5. show our work ─────────────────────────────────────────────────────────
 {
