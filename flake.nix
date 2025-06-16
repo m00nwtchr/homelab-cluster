@@ -30,7 +30,7 @@
 						kubeseal
 
 						cilium-cli
-
+            fluxcd
 
             sops
 
