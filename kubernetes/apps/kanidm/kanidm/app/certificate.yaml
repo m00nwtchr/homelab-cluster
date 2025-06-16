@@ -2,8 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: {{ .Release.Name }}-tls
-  namespace: {{ .Release.Namespace }}
+  name: ${APP}-tls
 spec:
   dnsNames:
     - idm.m00nlit.dev
@@ -14,7 +13,7 @@ spec:
   privateKey:
     algorithm: ECDSA
     size: 384
-  secretName: {{ .Release.Name }}-tls
+  secretName: ${APP}-tls
   usages:
     - digital signature
     - key encipherment
