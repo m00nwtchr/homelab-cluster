@@ -10,7 +10,7 @@ spec:
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: public-pool
+  name: private-pool
 spec:
   addresses:
     - fd42:78a5:2c09::100-fd42:78a5:2c09::1ff
