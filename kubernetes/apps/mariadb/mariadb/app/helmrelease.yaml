@@ -17,11 +17,11 @@ spec:
   interval: 1h
   chart:
     spec:
-      chart: mariadb-operator
+      chart: mariadb-operator-crds
       version: 0.38.1
       sourceRef:
         kind: HelmRepository
-        name: mariadb-operator-crds
+        name: mariadb-operator
         namespace: mariadb
   install:
     remediation:
