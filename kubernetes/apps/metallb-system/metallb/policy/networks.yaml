@@ -22,7 +22,7 @@ metadata:
 spec:
   addresses:
     - 192.168.0.53/24
-    - fd42:78a5:2c09::53/64
+    - fd42:78a5:2c09::53/128
   autoAssign: false
 ---
 apiVersion: metallb.io/v1beta1
