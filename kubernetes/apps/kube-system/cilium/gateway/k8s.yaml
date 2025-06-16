@@ -11,11 +11,7 @@ spec:
   hostnames:
     - "k8s.${SECRET_DOMAIN}"
   rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
-      backendRefs:
+    - backendRefs:
         - name: kubernetes
           namespace: default
           port: 443

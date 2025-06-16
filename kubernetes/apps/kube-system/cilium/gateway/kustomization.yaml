@@ -6,3 +6,4 @@ resources:
   - ./certificate.yaml
   - ./external.yaml
   - ./internal.yaml
+  - ./k8s.yaml
