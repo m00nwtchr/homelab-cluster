@@ -40,6 +40,9 @@ envoy:
       enabled: true
   rollOutPods: true
 
+externalIPs:
+  enabled: true
+
 gatewayAPI:
   enabled: true
 
