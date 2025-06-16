@@ -2,18 +2,28 @@
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: public-pool
+  name: public
 spec:
   addresses:
-    - 2a02:a313:43e4:7080::100-2a02:a313:43e4:7080::1ff
+    - 2a02:a313:43e4:7080::200/120
 ---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: private-pool
+  name: private
 spec:
   addresses:
-    - fd42:78a5:2c09::100-fd42:78a5:2c09::1ff
+    - fd42:78a5:2c09::200/120
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: reserved
+spec:
+  addresses:
+    - 192.168.0.53
+    - fd42:78a5:2c09::53
+  autoAssign: false
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
