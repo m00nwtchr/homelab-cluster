@@ -47,7 +47,7 @@ hubble:
   enabled: false
 
 ipam:
-  #  mode: kubernetes
+  # mode: kubernetes
   mode: cluster-pool
   operator:
     clusterPoolIPv4MaskSize: 24
