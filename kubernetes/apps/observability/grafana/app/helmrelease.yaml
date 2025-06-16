@@ -40,7 +40,7 @@ spec:
       GF_EXPLORE_ENABLED: true
       #      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
       #      GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
-      GF_SERVER_ROOT_URL: https://grafana.m00nlit.dev
+      GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN}
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -276,7 +276,7 @@ spec:
     route:
       main:
         enabled: true
-        hostnames: [ "{{ .Release.Name }}.m00nlit.dev" ]
+        hostnames: [ "grafana.${SECRET_DOMAIN}" ]
         parentRefs:
           - name: internal
             namespace: kube-system
