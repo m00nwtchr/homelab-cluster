@@ -48,6 +48,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: mariadb-operator
+      namespace: mariadb
   healthChecks:
     - apiVersion: k8s.mariadb.com/v1alpha1
       kind: MariaDB
