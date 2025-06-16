@@ -8,15 +8,15 @@ metadata:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Media
     gethomepage.dev/name: Sonarr
-    gethomepage.dev/href: "https://sonarr.svc.m00nlit.dev"
-    gethomepage.dev/icon: sonarr.svg
+    gethomepage.dev/href: "https://${APP}.svc.m00nlit.dev"
+    gethomepage.dev/icon: ${APP}.svg
     gethomepage.dev/widget.type: *app
     gethomepage.dev/widget.enableQueue: "true"
-    gethomepage.dev/widget.url: "http://sonarr.media.svc"
+    gethomepage.dev/widget.url: "http://${APP}.media.svc"
     gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_SONARR_API_KEY}}"
 spec:
   routes:
-    - match: 'Host(`sonarr.svc.m00nlit.dev`)'
+    - match: 'Host(`${APP}.svc.m00nlit.dev`)'
       kind: Rule
       middlewares:
         - name: vpn-only
@@ -26,7 +26,7 @@ spec:
       services:
         - name: *app
           port: http
-    - match: 'Host(`sonarr.svc.m00nlit.dev`) && PathPrefix(`/api`)'
+    - match: 'Host(`${APP}.svc.m00nlit.dev`) && PathPrefix(`/api`)'
       kind: Rule
       middlewares:
         - name: vpn-only
