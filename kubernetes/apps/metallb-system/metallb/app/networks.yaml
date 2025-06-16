@@ -1,0 +1,8 @@
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: public-pool
+spec:
+  addresses:
+    - 2a02:a313:43e4:7080::100-2a02:a313:43e4:7080::1ff
