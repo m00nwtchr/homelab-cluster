@@ -14,14 +14,10 @@ spec:
     secretRef:
       name: sops-age
   healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
-  #    - apiVersion: postgresql.cnpg.io/v1
-  #      kind: Cluster
-  #      name: postgres
-  #      namespace: postgres
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      name: postgres
+      namespace: postgres
   interval: 1h
   path: ./kubernetes/apps/postgres/cnpg/cluster
   postBuild:
