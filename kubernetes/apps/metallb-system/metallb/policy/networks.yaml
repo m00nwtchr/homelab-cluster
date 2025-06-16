@@ -8,6 +8,14 @@ spec:
     - 2a02:a313:43e4:7080::100-2a02:a313:43e4:7080::1ff
 ---
 apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: public-pool
+spec:
+  addresses:
+    - fd42:78a5:2c09::100-fd42:78a5:2c09::1ff
+---
+apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
   name: l2-policy
