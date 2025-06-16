@@ -32,14 +32,14 @@ else
     slabs=4
 fi
 
+set -x
+
 # ── 4. render template ───────────────────────────────────────────────────────
 sed -e "s/@MSG_CACHE_SIZE@/${msg_cache_size}/" \
     -e "s/@RR_CACHE_SIZE@/${rr_cache_size}/" \
     -e "s/@THREADS@/${threads}/" \
     -e "s/@SLABS@/${slabs}/" \
     /config/unbound.conf > /etc/unbound/unbound.conf
-
-cat /config/unbound.conf
 
 # ── 5. show our work ─────────────────────────────────────────────────────────
 {
