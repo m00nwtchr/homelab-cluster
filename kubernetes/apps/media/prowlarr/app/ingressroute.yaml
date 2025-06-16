@@ -8,14 +8,14 @@ metadata:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Media
     gethomepage.dev/name: Prowlarr
-    gethomepage.dev/href: "https://${APP}.svc.m00nlit.dev"
+    gethomepage.dev/href: "https://${APP}.svc.${SECRET_DOMAIN}"
     gethomepage.dev/icon: ${APP}.svg
     gethomepage.dev/widget.type: *app
     gethomepage.dev/widget.url: "http://${APP}.media.svc"
     gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}"
 spec:
   routes:
-    - match: 'Host(`${APP}.svc.m00nlit.dev`)'
+    - match: 'Host(`${APP}.svc.${SECRET_DOMAIN}`)'
       kind: Rule
       middlewares:
         - name: vpn-only
@@ -25,7 +25,7 @@ spec:
       services:
         - name: *app
           port: http
-    - match: 'Host(`${APP}.svc.m00nlit.dev`) && PathPrefix(`/api`)'
+    - match: 'Host(`${APP}.svc.${SECRET_DOMAIN}`) && PathPrefix(`/api`)'
       kind: Rule
       middlewares:
         - name: vpn-only

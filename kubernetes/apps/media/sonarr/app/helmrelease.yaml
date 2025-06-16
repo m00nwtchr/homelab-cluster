@@ -102,7 +102,7 @@ spec:
     #     annotations:
     #       traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd,traefik-auth@kubernetescrd
     #     hosts:
-    #       - host: ${APP}.svc.m00nlit.dev
+    #       - host: ${APP}.svc.${SECRET_DOMAIN}
     #         paths:
     #           - path: /
     #             service:
