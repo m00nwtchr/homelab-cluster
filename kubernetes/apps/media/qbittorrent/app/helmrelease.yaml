@@ -179,7 +179,7 @@ spec:
           gethomepage.dev/widget.username: "{{ \"{{HOMEPAGE_VAR_QBIT_USERNAME}}\" }}"
           gethomepage.dev/widget.password: "{{ \"{{HOMEPAGE_VAR_QBIT_PASSWORD}}\" }}"
         hosts:
-          - host: qbit.svc.m00nlit.dev
+          - host: qbit.svc.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
