@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app sonarr
+  name: &app radarr
   namespace: &namespace media
 spec:
   commonMetadata:
@@ -15,7 +15,7 @@ spec:
 #    - name: rook-ceph-cluster
 #      namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/media/sonarr/app
+  path: ./kubernetes/apps/media/radarr/app
   postBuild:
     substitute:
       APP: *app
