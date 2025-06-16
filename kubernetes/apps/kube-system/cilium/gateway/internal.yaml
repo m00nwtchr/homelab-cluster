@@ -5,6 +5,7 @@ kind: Gateway
 metadata:
   name: internal
   annotations:
+    metallb.io/address-pool: private
     external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
 spec:
   gatewayClassName: cilium
@@ -13,6 +14,7 @@ spec:
       value: "fd42:78a5:2c09::200"
   infrastructure:
     annotations:
+      metallb.io/address-pool: private
       external-dns.alpha.kubernetes.io/hostname: "internal.${SECRET_DOMAIN}"
   listeners:
     - name: http
