@@ -1,0 +1,24 @@
+{
+  "storageClassConfigs": {
+    "local-path": {
+      "nodePathMap": [
+        {
+          "node": "DEFAULT_PATH_FOR_NON_LISTED_NODES",
+          "paths": [
+            "/var/lib/rancher/k3s/storage"
+          ]
+        }
+      ]
+    },
+    "local-path-hdd": {
+      "nodePathMap": [
+        {
+          "node": "DEFAULT_PATH_FOR_NON_LISTED_NODES",
+          "paths": [
+            "/mnt/hdd/k3s/storage"
+          ]
+        }
+      ]
+    }
+  }
+}
