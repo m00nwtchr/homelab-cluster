@@ -35,4 +35,10 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-#  values:
+  values:
+    persistence:
+      data:
+        storageClass: local-path-hdd
+
+    deployment:
+      replicaCount: 1
