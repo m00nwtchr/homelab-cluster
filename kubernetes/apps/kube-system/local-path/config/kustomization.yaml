@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./storageclass.yaml
 configMapGenerator:
-  - name: unbound-configmap
+  - name: local-path-config
     files:
       - config.json=./resources/config.json
       - helperPod.yaml=./resources/helperPod.yaml
