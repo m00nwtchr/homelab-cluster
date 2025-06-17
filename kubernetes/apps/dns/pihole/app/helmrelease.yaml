@@ -146,7 +146,7 @@ spec:
         type: LoadBalancer
         ipFamilyPolicy: PreferDualStack
         annotations:
-          metallb.io/loadBalancerIPs: 'fd42:78a5:2c09::53,fd42:78a5:2c09::253,192.168.0.53'
+          metallb.io/loadBalancerIPs: 'fd42:78a5:2c09::53,192.168.0.53'
         #        lbipam.cilium.io/ips: 'fd42:78a5:2c09::53'
         externalIPs:
           - 100.116.45.53 # Tailscale
