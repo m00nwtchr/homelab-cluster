@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./storageclass.yaml
+configMapGenerator:
+  - name: unbound-configmap
+    files:
+      - config.json=./resources/config.json
+      - helperPod.yaml=./resources/helperPod.yaml
+      - setup=./resources/setup.sh
+      - teardown=./resources/teardown.sh
+generatorOptions:
+  disableNameSuffixHash: true
