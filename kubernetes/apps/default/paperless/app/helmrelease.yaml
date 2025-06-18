@@ -121,9 +121,8 @@ spec:
 
     persistence:
       data:
-        enabled: true
-        type: persistentVolumeClaim
-        existingClaim: *app
+        size: 1Gi
+        accessMode: ReadWriteOnce
         globalMounts:
           - path: /usr/src/paperless/data
       media:
