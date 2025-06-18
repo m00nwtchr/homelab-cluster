@@ -19,6 +19,7 @@ spec:
   values:
     controllers:
       jellyfin:
+        type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
 
