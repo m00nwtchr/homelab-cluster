@@ -13,11 +13,11 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-#  dependsOn:
+  dependsOn:
 #    - name: openebs
 #      namespace: openebs-system
-#    - name: snapshot-controller
-#      namespace: kube-system
+    - name: snapshot-controller
+      namespace: kube-system
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
