@@ -1,7 +1,7 @@
 version = "2"
 
-domain = "idm.m00nlit.dev"
-origin = "https://idm.m00nlit.dev"
+domain = "idm.${SECRET_DOMAIN}"
+origin = "https://idm.${SECRET_DOMAIN}"
 
 bindaddress = "[::]:8443"
 ldapbindaddress = "[::]:3636"
