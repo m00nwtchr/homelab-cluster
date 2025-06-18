@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./database.yaml
+  - ./externalsecret.yaml
+  - ./helmrelease.yaml
+  - ./secret.yaml
+configMapGenerator:
+  - name: baikal-configmap
+    files:
+      - baikal.yaml=./resources/baikal.yaml
+      - nginx.conf=./resources/nginx.conf
+generatorOptions:
+  disableNameSuffixHash: true

@@ -16,6 +16,12 @@ spec:
 
   managed:
     roles:
+      - name: baikal
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-baikal
       - name: sonarr
         ensure: present
         login: true
