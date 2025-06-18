@@ -11,7 +11,7 @@ spec:
     manual: restore-once
   restic:
     repository: "${APP}-volsync-secret"
-    copyMethod: Clone
+    copyMethod: Direct
 #    copyMethod: Snapshot
 #    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=local-path}"
     cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:=local-path}"
