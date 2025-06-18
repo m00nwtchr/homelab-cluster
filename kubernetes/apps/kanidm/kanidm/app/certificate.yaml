@@ -5,7 +5,7 @@ metadata:
   name: ${APP}-tls
 spec:
   dnsNames:
-    - idm.m00nlit.dev
+    - idm.${SECRET_DOMAIN}
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer
