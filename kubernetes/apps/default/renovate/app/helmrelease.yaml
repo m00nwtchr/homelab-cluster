@@ -55,7 +55,7 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: renovate-config
+        name: renovate-configmap
         globalMounts:
           - path: /opt/renovate/config.json
             subPath: config.json
@@ -74,13 +74,3 @@ spec:
     #              service:
     #                identifier: renovate
     #                port: http
-    configMaps:
-      config:
-        enabled: true
-        data:
-          config.json: |-
-            {
-              onboardingConfig: {
-                extends: ['config:recommended'],
-              }
-            }
