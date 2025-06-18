@@ -11,10 +11,10 @@ system:
   invite_from: ''
 database:
   sqlite_file: ''
-  backend: mysql
-  mysql_host: mariadb.mariadb.svc
-  mysql_dbname: baikal
-  mysql_username: baikal
+  backend: pgsql
+  mysql_host: ''
+  mysql_dbname: ''
+  mysql_username: ''
   mysql_password: ''
   encryption_key: "{{ .encryption_key }}"
   pgsql_host: 'postgres-rw.postgres.svc'
