@@ -228,11 +228,10 @@ spec:
             scrapeTimeout: 10s
 
     persistence:
-      config:
-        size: 1Gi
-        accessMode: ReadWriteOnce
-        annotations:
-          argocd.argoproj.io/sync-options: Delete=false
+      data:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: *app
         globalMounts:
           - path: /etc/pihole/
 
