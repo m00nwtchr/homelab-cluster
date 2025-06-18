@@ -26,4 +26,4 @@ spec:
       fsGroup: ${VOLSYNC_PGID:=1000}
     enableFileDeletion: true
     cleanupCachePVC: true
-    cleanupTempPVC: false
+    cleanupTempPVC: true
