@@ -15,9 +15,9 @@ database:
   mysql_host: mariadb.mariadb.svc
   mysql_dbname: baikal
   mysql_username: baikal
-  mysql_password: "{{ .mysql_password }}"
+  mysql_password: ''
   encryption_key: "{{ .encryption_key }}"
-  pgsql_host: ''
-  pgsql_dbname: ''
-  pgsql_username: ''
-  pgsql_password: ''
+  pgsql_host: 'postgres-rw.postgres.svc'
+  pgsql_dbname: 'baikal'
+  pgsql_username: '{{ .pgsql_username }}'
+  pgsql_password: '{{ .pgsql_password }}'
