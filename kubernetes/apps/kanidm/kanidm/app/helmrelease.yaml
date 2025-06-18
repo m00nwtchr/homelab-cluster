@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app kanidm
+  name: &app ${APP}
 spec:
   interval: 1h
   chartRef:
@@ -92,15 +92,16 @@ spec:
     #                port: http
 
     persistence:
+      data:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: *app
       config:
         type: configMap
         name: kanidm-configmap
         globalMounts:
           - path: /data/server.toml
             subPath: server.toml
-      data:
-        size: 1Gi
-        accessMode: ReadWriteOnce
       certs:
         type: secret
         name: kanidm-tls
