@@ -21,6 +21,6 @@ spec:
     namespace: mariadb
   privileges:
     - "ALL PRIVILEGES"
-  database: *app
+  database: voltkonekt_wordpress
   table: "*"
   username: *app
