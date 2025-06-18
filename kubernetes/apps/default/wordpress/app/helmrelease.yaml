@@ -45,3 +45,6 @@ spec:
 
     service:
       type: ClusterIP
+
+    persistence:
+      existingClaim: "wordpress"
