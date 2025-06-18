@@ -5,4 +5,8 @@ kind: Kustomization
 resources:
   - secrets
   - cluster.yaml
+  - objectstore.yaml
+  - scheduledbackup.yaml
+  - secret.sops.yaml
   - secretstore.yaml
+
