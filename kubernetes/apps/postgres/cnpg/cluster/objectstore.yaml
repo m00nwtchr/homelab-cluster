@@ -1,0 +1,20 @@
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: garage-store
+spec:
+  configuration:
+    destinationPath: s3://postgres/
+    endpointURL: http://garage.garage.svc:3900
+    s3Credentials:
+      accessKeyId:
+        name: garage
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: garage
+        key: ACCESS_SECRET_KEY
+    wal:
+      compression: zstd
+    data:
+      compression: gzip
