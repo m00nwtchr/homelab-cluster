@@ -14,6 +14,12 @@ spec:
     shared_preload_libraries:
       - "vectors.so"
 
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: garage-store
+
   bootstrap:
     initdb:
       owner: immich

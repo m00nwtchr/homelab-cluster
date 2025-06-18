@@ -6,6 +6,13 @@ metadata:
 spec:
   instances: 1
   imageName: ghcr.io/cloudnative-pg/postgis:17-3.5@sha256:2c7d703dabc3a238d42705299702a023574d75cfb0b6931731e8030620790f82
+
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: dawarich-garage-store
+
   bootstrap:
     initdb:
       owner: dawarich
