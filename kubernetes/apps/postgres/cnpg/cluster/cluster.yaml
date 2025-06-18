@@ -12,7 +12,7 @@ spec:
     - name: barman-cloud.cloudnative-pg.io
       isWALArchiver: true
       parameters:
-        barmanObjectName: dawarich-garage-store
+        barmanObjectName: garage-store
 
   managed:
     roles:
