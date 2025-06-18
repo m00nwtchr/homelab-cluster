@@ -103,8 +103,8 @@ spec:
         type: persistentVolumeClaim
         existingClaim: *app
       metadata:
-        enabled: true
-        type: persistentVolumeClaim
+        size: 1Gi
+        accessMode: ReadWriteOnce
         globalMounts:
           - path: /metadata
             subPath: metadata
