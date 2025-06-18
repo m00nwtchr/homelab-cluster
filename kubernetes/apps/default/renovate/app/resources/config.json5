@@ -1,0 +1,7 @@
+{
+  onboardingConfig: {
+    extends: [
+      'config:recommended'
+    ]
+  }
+}
