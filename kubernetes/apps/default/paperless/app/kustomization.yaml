@@ -2,10 +2,8 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: default
-components:
-  - ../../components/common
 resources:
-  - ./kube/ks.yaml
-  - ./paperless/ks.yaml
-  - ./wordpress/ks.yaml
+  - ./database.yaml
+  - ./helmrelease.yaml
+  - ./pvc.yaml
+  - ./secret.yaml
