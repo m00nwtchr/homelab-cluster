@@ -9,10 +9,11 @@ spec:
   trigger:
     schedule: "0 * * * *"
   restic:
-    copyMethod: "${VOLSYNC_COPYMETHOD:=Snapshot}"
+#    copyMethod: "${VOLSYNC_COPYMETHOD:=Snapshot}"
+    copyMethod: Clone
     pruneIntervalDays: 14
     repository: "${APP}-volsync-secret"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=local-path}"
+#    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=local-path}"
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:=5Gi}"
     cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:=local-path}"
     cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}"]
