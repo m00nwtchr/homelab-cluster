@@ -8,4 +8,5 @@ components:
 resources:
   - ./kube/ks.yaml
   - ./paperless/ks.yaml
+  - ./renovate/ks.yaml
   - ./wordpress/ks.yaml
