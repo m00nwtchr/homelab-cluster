@@ -9,4 +9,5 @@ resources:
   - ./kube/ks.yaml
   - ./paperless/ks.yaml
   - ./renovate/ks.yaml
+  - ./wks/ks.yaml
   - ./wordpress/ks.yaml
