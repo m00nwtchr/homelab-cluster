@@ -14,6 +14,9 @@ spec:
       secretAccessKey:
         name: garage
         key: ACCESS_SECRET_KEY
+      region:
+        key: garage
+        name: REGION
     wal:
       compression: zstd
     data:
