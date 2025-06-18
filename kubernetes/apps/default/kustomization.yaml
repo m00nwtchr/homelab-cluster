@@ -6,6 +6,7 @@ namespace: default
 components:
   - ../../components/common
 resources:
+  - ./baikal/ks.yaml
   - ./kube/ks.yaml
   - ./paperless/ks.yaml
   - ./renovate/ks.yaml
