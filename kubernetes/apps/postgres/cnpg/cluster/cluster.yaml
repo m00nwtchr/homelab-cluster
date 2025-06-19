@@ -42,6 +42,13 @@ spec:
         passwordSecret:
           name: postgres-home-assistant
 
+      - name: maubot
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-maubot
+
       - name: sonarr
         ensure: present
         login: true
