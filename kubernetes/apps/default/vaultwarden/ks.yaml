@@ -48,7 +48,7 @@ spec:
   path: ./kubernetes/apps/default/vaultwarden/database
   postBuild:
     substitute:
-      APP: *app
+      APP: vaultwarden
   prune: true
   retryInterval: 2m
   sourceRef:
