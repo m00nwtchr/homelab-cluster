@@ -4,8 +4,8 @@ address = ["::"]
 port = 8008
 
 database_path = "/data"
-#database_backup_path = "/opt/conduwuit-db-backups"
-#database_backups_to_keep = 1
+database_backup_path = "/backups"
+database_backups_to_keep = 1
 
 max_request_size = 20971520
 
