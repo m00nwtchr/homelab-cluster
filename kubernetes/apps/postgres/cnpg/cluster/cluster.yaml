@@ -22,6 +22,20 @@ spec:
         superuser: false
         passwordSecret:
           name: postgres-baikal
+
+      - name: bazarr
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-bazarr
+      - name: freshrss
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-freshrss
+
       - name: sonarr
         ensure: present
         login: true
@@ -40,12 +54,7 @@ spec:
         superuser: false
         passwordSecret:
           name: postgres-prowlarr
-      - name: bazarr
-        ensure: present
-        login: true
-        superuser: false
-        passwordSecret:
-          name: postgres-bazarr
+
       - name: open-webui
         ensure: present
         login: true

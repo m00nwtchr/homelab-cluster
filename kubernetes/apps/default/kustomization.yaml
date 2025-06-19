@@ -8,6 +8,7 @@ components:
 resources:
   - ./baikal/ks.yaml
   - ./dawarich/ks.yaml
+  - ./freshrss/ks.yaml
   - ./kube/ks.yaml
   - ./ntfy/ks.yaml
   - ./paperless/ks.yaml
