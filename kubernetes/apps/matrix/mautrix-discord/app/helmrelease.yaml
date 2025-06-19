@@ -41,7 +41,7 @@ spec:
             image:
               repository: dock.mau.dev/mautrix/discord
               tag: v0.7.3@sha256:7b54f5476ca06395597bc05da2849eb252f6ae88f650e65c8a49d833763dd521
-            command: [ "/usr/bin/mautrix-meta" ]
+            command: [ "/usr/bin/${APP}" ]
             args: [ "-c", "/config/config.yaml", "--no-update" ]
             probes:
               liveness: &probe
