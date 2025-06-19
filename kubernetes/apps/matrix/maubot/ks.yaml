@@ -40,7 +40,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app maubot-db
-  namespace: &namespace matrix
+  namespace: &namespace postgres
 spec:
   commonMetadata:
     labels:
