@@ -55,15 +55,15 @@ spec:
 
     service:
       app:
-        forceRename: "ntfy"
-        controller: ntfy
+        forceRename: *app
+        controller: *app
         ports:
           http:
             port: 80
             targetPort: 8080
 
       metrics:
-        controller: ntfy
+        controller: *app
         labels:
           app.kubernetes.io/component: metrics
         ports:
