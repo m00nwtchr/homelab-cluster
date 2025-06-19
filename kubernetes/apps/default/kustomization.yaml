@@ -12,5 +12,6 @@ resources:
   - ./ntfy/ks.yaml
   - ./paperless/ks.yaml
   - ./renovate/ks.yaml
+  - ./vaultwarden/ks.yaml
   - ./wks/ks.yaml
   - ./wordpress/ks.yaml
