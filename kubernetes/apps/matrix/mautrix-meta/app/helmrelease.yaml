@@ -1,0 +1,107 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app ${APP}
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    defaultPodOptions:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        #        pod:
+        #          securityContext:
+        #            runAsUser: 999
+        #            runAsGroup: 999
+        #            runAsNonRoot: true
+        #            fsGroup: 999
+        #            fsGroupChangePolicy: "OnRootMismatch"
+
+        containers:
+          app:
+            image:
+              repository: dock.mau.dev/mautrix/meta
+              tag: v0.4.6@sha256:5948ccc6a2178d3b3b66359cdbd7b44f8474419c1e3dbd0c9e4d1b9bae98b8b4
+            command: [ "/usr/bin/mautrix-meta" ]
+            args: [ "-c", "/config/config.yaml", "--no-update" ]
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /_matrix/mau/live
+                    port: &port 8000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                <<: *probe
+                spec:
+                  httpGet:
+                    path: /_matrix/mau/ready
+            resources:
+              limits:
+                # cpu: 50M
+                memory: 256Gi
+              requests:
+                cpu: 50m
+                memory: 128Mi
+            securityContext:
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        controller: main
+        ports:
+          http:
+            port: 80
+            targetPort: *port
+
+    #    ingress:
+    #      app:
+    #        annotations:
+    #          traefik.ingress.kubernetes.io/router.tls.options: traefik-intermediate@kubernetescrd
+    #        hosts:
+    #          - host: "${SECRET_DOMAIN}"
+    #            paths:
+    #              - path: /.well-known/matrix/
+    #                pathType: Prefix
+    #                service:
+    #                  identifier: app
+    #                  port: http
+
+    persistence:
+      data:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: *app
+
+      config:
+        type: configMap
+        name: mautrix-meta-configmap
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml

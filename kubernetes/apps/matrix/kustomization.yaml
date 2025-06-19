@@ -7,3 +7,4 @@ components:
   - ../../components/common
 resources:
   - ./continuwuity/ks.yaml
+  - ./mautrix-meta/ks.yaml
