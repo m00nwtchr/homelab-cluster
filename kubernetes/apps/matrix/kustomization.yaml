@@ -8,5 +8,6 @@ components:
 resources:
   - ./continuwuity/ks.yaml
   - ./heisenbridge/ks.yaml
+  - ./maubot/ks.yaml
   - ./mautrix-meta/ks.yaml
   - ./mautrix-discord/ks.yaml
