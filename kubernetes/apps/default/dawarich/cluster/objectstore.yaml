@@ -3,7 +3,6 @@ apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
   name: dawarich-garage-store
-  namespace: postgres
 spec:
   configuration:
     destinationPath: s3://dawarich-postgres/
