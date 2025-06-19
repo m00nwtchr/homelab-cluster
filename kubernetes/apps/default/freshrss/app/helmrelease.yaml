@@ -29,7 +29,7 @@ spec:
               CRON_MIN: 18,48
               DOMAIN: "https://${APP}.svc.${SECRET_DOMAIN}"
               OIDC_ENABLED: 1
-              OIDC_PROVIDER_METADATA_URL: https://idm.m${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
+              OIDC_PROVIDER_METADATA_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
               OIDC_CLIENT_ID: *app
               OIDC_REMOTE_USER_CLAIM: preferred_username
               OIDC_SCOPES: openid groups email profile
