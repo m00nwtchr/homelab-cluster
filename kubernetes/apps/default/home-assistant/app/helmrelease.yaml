@@ -96,6 +96,7 @@ spec:
       cache:
         size: 1Gi
         accessMode: ReadWriteOnce
+        suffix: "cache"
         globalMounts:
           - path: /config/.venv
       tmpfs:
