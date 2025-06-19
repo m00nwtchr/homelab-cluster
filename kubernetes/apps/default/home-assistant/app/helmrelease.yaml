@@ -84,6 +84,12 @@ spec:
 
     persistence:
       config:
+        type: configMap
+        name: home-assistant-configmap
+        globalMounts:
+          - path: /config/configuration.yaml
+            subPath: configuration.yaml
+      data:
         existingClaim: *app
         globalMounts:
           - path: /config
