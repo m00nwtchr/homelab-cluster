@@ -1,0 +1,51 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Database
+metadata:
+  name: hass
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb
+  characterSet: utf8mb4
+  collate: utf8mb4_unicode_520_ci
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
+metadata:
+  name: hass
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb
+  passwordSecretKeyRef:
+    name: hass-db-user
+    key: mariadb-password
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: hass
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb
+  privileges:
+    - "ALL PRIVILEGES"
+  database: "hass"
+  table: "*"
+  username: hass
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: hass-db-user
+  namespace: default
+spec:
+  encryptedData:
+    mariadb-password: AgAILsdYR/mRH7voPBQa2GfS/LBE7Hzr72+aT3VMLLNHEBknGO6jqcpx3SEm+JfnRvPwEacRuVPf0Dbsf5i79S8PdVVhGO9HwNf6EGnQgLdzKalZtFjZu7f16lN5/nozVnzE21/WCAPGk2S++RSUsn5q/mojB/rkWZdErlbJmvYNOVWgwI2u0bll7c3IkMv3Cf5ZghJ5idH6kYIpsyE58ijJ81kCgie23IHvWYEqJ0xOuCNygO7O+xY+gtEexPveXkZXuTPItXN49a4Hazr1X62oSuRPoUwhz3hFbHEtXl/Gj5javcDNiRfcaiB4FLuseMtwqLSsVth3T4W+wiExmhC8l4vcYW/0VtnZ6qtTqUM1wvX3Y91QTxYvvuB7RhUOrkC0n3WyYrzg/l5yIjtsNQGjHGcVUCDKKQkey7Ph8W25wv2grdsXN1F6pwSvl/+8kLf21GelYe8numOlXGAWfpM00L2dhLPsdGN6MkUhfa9Ds/Cj/rw4NBC/fiiQrQhcVbjp6+D/gwFiv6/opU/r556DTFn3+bxzzjZnJFjAHGJebIqvep/1V/5XpAeA/fsOX375aF6di3fZsVtJXlHx968X2ZmdPtCrgfbRWs+NXLu7g6w23rZERiOVkvYP3SjMhG82H8KuPV5biltXhvLFgFV7R8A3VBgGXH/Ev4dknj6zEbXiXMH1lVRrmFuLT+egtBNPAQTHFMbu0/0zBA0GD8psyqTCtSFFrqgIbVzdU+Su9OkpwiY7iIzXMCFNF2Qa7Vmg5lnnRjIXbdJz6mzAe28HJi6d1VFJsNo=
