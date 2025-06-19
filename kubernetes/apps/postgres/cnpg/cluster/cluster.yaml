@@ -76,3 +76,9 @@ spec:
         superuser: false
         passwordSecret:
           name: postgres-stalwart
+      - name: vaultwarden
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-vaultwarden
