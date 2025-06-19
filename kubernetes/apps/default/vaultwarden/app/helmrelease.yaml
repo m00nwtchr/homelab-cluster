@@ -45,6 +45,11 @@ spec:
 #              SMTP_SECURITY: "off"
               ROCKET_ADDRESS: "::"
               ROCKET_PORT: &port 8080
+              DATABASE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-postgres
+                    key: POSTGRES_URL
             envFrom:
               - secretRef:
                   name: ${APP}
