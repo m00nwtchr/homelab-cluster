@@ -29,7 +29,7 @@ spec:
               RAILS_ENV: development
               TIME_ZONE: "Europe/Warsaw"
               REDIS_URL: redis://localhost
-              APPLICATION_HOSTS: "dawarich.svc.m00nlit.dev"
+              APPLICATION_HOSTS: "${APP}.svc.${SECRET_DOMAIN}"
               APPLICATION_PROTOCOL: http
               MIN_MINUTES_SPENT_IN_CITY: 60
               DISTANCE_UNIT: km
