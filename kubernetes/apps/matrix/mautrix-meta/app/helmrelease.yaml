@@ -104,8 +104,8 @@ spec:
 #        existingClaim: *app
 
       config:
-        type: configMap
-        name: mautrix-meta-configmap
+        type: secret
+        name: mautrix-meta-config
         globalMounts:
           - path: /config/config.yaml
             subPath: config.yaml
