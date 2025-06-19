@@ -122,6 +122,7 @@ spec:
         accessMode: ReadWriteOnce
         storageClass: local-path-hdd
         suffix: "media"
+        retain: true
         globalMounts:
           - path: /data/media
 
