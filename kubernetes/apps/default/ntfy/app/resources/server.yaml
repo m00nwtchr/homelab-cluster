@@ -7,6 +7,6 @@ auth-file: /data/user.db
 attachment-cache-dir: /cache/attachments
 cache-file: /cache/ntfy/cache.db
 
-listen-http: :8080
+listen-http: "[::]:8080"
 enable-metrics: true
-metrics-listen-http: :9090
+metrics-listen-http: "[::]:9090"
