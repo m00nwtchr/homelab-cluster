@@ -43,6 +43,8 @@ spec:
 #              SMTP_PORT: 25
 #              SMTP_FROM: admin@${SECRET_DOMAIN}
 #              SMTP_SECURITY: "off"
+              ROCKET_ADDRESS: "::"
+              ROCKET_PORT: &port 8080
             envFrom:
               - secretRef:
                   name: ${APP}
@@ -62,6 +64,7 @@ spec:
         ports:
           http:
             port: 80
+            targetPort: *port
     ingress:
       app:
 #        className: external
