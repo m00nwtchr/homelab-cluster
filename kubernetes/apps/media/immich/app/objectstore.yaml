@@ -3,7 +3,6 @@ apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
   name: garage-store
-  namespace: media
 spec:
   configuration:
     destinationPath: s3://immich-postgres/
