@@ -19,6 +19,8 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      VOLSYNC_PUID: "33"
+      VOLSYNC_PGID: "33"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
@@ -50,8 +52,6 @@ spec:
   postBuild:
     substitute:
       APP: freshrss
-      VOLSYNC_PUID: "33"
-      VOLSYNC_PGID: "33"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
