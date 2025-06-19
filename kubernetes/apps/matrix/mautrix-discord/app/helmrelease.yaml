@@ -1,0 +1,109 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app ${APP}
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    defaultPodOptions:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          securityContext:
+            runAsUser: 1337
+            runAsGroup: 1337
+            runAsNonRoot: true
+            fsGroup: 1337
+            fsGroupChangePolicy: "OnRootMismatch"
+
+        containers:
+          app:
+            image:
+              repository: dock.mau.dev/mautrix/discord
+              tag: v0.7.3@sha256:7b54f5476ca06395597bc05da2849eb252f6ae88f650e65c8a49d833763dd521
+            command: [ "/usr/bin/mautrix-meta" ]
+            args: [ "-c", "/config/config.yaml", "--no-update" ]
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /_matrix/mau/live
+                    port: &port 8000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                <<: *probe
+                spec:
+                  httpGet:
+                    path: /_matrix/mau/ready
+                    port: *port
+            resources:
+              limits:
+                # cpu: 50M
+                memory: 256Gi
+              requests:
+                cpu: 50m
+                memory: 128Mi
+            securityContext:
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        controller: main
+        publishNotReadyAddresses: true
+        ports:
+          http:
+            port: 80
+            targetPort: *port
+
+    ingress:
+      app:
+        hosts:
+          - host: "${APP}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      data:
+        size: 1Gi
+        accessMode: ReadWriteOnce
+      #        enabled: true
+      #        type: persistentVolumeClaim
+      #        existingClaim: *app
+
+      config:
+        type: secret
+        name: ${APP}-config
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
