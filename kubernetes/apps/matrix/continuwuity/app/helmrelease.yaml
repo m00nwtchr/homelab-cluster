@@ -51,7 +51,7 @@ spec:
                 spec:
                   httpGet:
                     path: /_matrix/federation/v1/version
-                    port: http
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
