@@ -1,0 +1,156 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app ${APP}
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    defaultPodOptions:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+
+    controllers:
+      homepage:
+        strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/gethomepage/homepage
+              tag: v1.3.2@sha256:4f923bf0e9391b3a8bc5527e539b022e92dcc8a3a13e6ab66122ea9ed030e196
+            env:
+              TZ: "${TZ}"
+              #            LOG_LEVEL: debug
+              HOSTNAME: "::"
+              LOG_TARGETS: stdout
+              HOMEPAGE_ALLOWED_HOSTS: &host "home.svc.${SECRET_DOMAIN}"
+              HOMEPAGE_VAR_RADARR_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: radarr-secret
+                    key: api_key
+              HOMEPAGE_VAR_SONARR_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: api_key
+              HOMEPAGE_VAR_PROWLARR_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: prowlarr-secret
+                    key: api_key
+            envFrom:
+              - secretRef:
+                  name: *app
+            resources:
+              requests:
+                cpu: 25m
+                memory: 105M
+              limits:
+                memory: 225M
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: [ "ALL" ] }
+
+    rbac:
+      roles:
+        homepage:
+          type: ClusterRole
+          rules:
+            - apiGroups:
+                - ""
+              resources:
+                - namespaces
+                - pods
+                - nodes
+              verbs:
+                - get
+                - list
+            - apiGroups:
+                - extensions
+                - networking.k8s.io
+                - gateway.networking.k8s.io # GatewayAPI
+                - traefik.io # Traefik
+              resources:
+                - ingresses
+                - httproutes # GatewayAPI HttpRoute
+                - ingressroutes # Traefik IngressRoute
+              verbs:
+                - get
+                - list
+            - apiGroups:
+                - metrics.k8s.io
+              resources:
+                - nodes
+                - pods
+              verbs:
+                - get
+                - list
+            - apiGroups:
+                - apiextensions.k8s.io
+              resources:
+                - customresourcedefinitions/status
+              verbs:
+                - get
+                - list
+      bindings:
+        homepage:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: *app
+          subjects:
+            - identifier: *app
+
+    serviceAccount:
+      homepage: { }
+
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 80
+            targetPort: 3000
+
+    route:
+      app:
+        hostnames:
+          - *host
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: homepage
+                port: 80
+            sessionPersistence:
+              sessionName: homepage-session
+              type: Cookie
+              absoluteTimeout: 35m
+
+    persistence:
+      config:
+        type: configMap
+        name: homepage-configmap
+        globalMounts:
+          - path: /app/config/
+  #    cache:
+  #      type: emptyDir
+  #      globalMounts:
+  #        - path: /app/.next/server

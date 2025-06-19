@@ -1,0 +1,4 @@
+mode: cluster
+ingress: true # default, enable ingress
+traefik: true # enable traefik ingressRoute
+gateway: true # enable gateway-api
