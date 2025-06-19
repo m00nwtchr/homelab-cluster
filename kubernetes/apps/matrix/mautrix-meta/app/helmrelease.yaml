@@ -28,13 +28,13 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
 
-        #        pod:
-        #          securityContext:
-        #            runAsUser: 999
-        #            runAsGroup: 999
-        #            runAsNonRoot: true
-        #            fsGroup: 999
-        #            fsGroupChangePolicy: "OnRootMismatch"
+          pod:
+            securityContext:
+              runAsUser: 1337
+              runAsGroup: 1337
+              runAsNonRoot: true
+              fsGroup: 1337
+              fsGroupChangePolicy: "OnRootMismatch"
 
         containers:
           app:
@@ -99,9 +99,9 @@ spec:
       data:
         size: 1Gi
         accessMode: ReadWriteOnce
-#        enabled: true
-#        type: persistentVolumeClaim
-#        existingClaim: *app
+      #        enabled: true
+      #        type: persistentVolumeClaim
+      #        existingClaim: *app
 
       config:
         type: secret
