@@ -9,6 +9,7 @@ resources:
   - ./baikal/ks.yaml
   - ./dawarich/ks.yaml
   - ./kube/ks.yaml
+  - ./ntfy/ks.yaml
   - ./paperless/ks.yaml
   - ./renovate/ks.yaml
   - ./wks/ks.yaml
