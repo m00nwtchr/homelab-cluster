@@ -121,12 +121,14 @@ spec:
         size: 5Gi
         accessMode: ReadWriteOnce
         storageClass: local-path-hdd
+        suffix: "media"
         globalMounts:
           - path: /data/media
 
       backups:
         size: 5Gi
         accessMode: ReadWriteOnce
+        suffix: "backups"
         globalMounts:
           - path: /backups
 
