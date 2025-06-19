@@ -39,8 +39,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/kanidm/server
-              tag: 1.6.3@sha256:8141f14aa62a271204bf3a0e2207d9a7c565e63a1bcd295aff4444e35967f1b8
+              repository: forgejo.ellis.link/continuwuation/continuwuity
+              tag: main@sha256:ea489b65b117ef88dbaea039ca15cf584ce4cd5eccafe2a289257d9048bc7e6c
             env:
               CONDUWUIT_CONFIG: "/config/conduit.toml"
               CONDUWUIT_PORT: &port 8008
