@@ -43,8 +43,6 @@ spec:
     ingress:
       app:
         enabled: true
-        annotations:
-          traefik.ingress.kubernetes.io/router.tls.options: traefik-intermediate@kubernetescrd
         hosts:
           - host: "${APP}.svc.${SECRET_DOMAIN}"
             paths:
