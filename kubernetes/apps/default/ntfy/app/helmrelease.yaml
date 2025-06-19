@@ -30,6 +30,19 @@ spec:
             env:
               TZ: ${TZ}
               NTFY_LOG_LEVEL: INFO
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /v1/health
+                    port: &port 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 10m
@@ -62,7 +75,7 @@ spec:
         ports:
           http:
             port: 80
-            targetPort: 8080
+            targetPort: *port
 
       metrics:
         controller: *app
