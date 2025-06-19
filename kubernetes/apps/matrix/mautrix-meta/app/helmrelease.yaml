@@ -76,6 +76,7 @@ spec:
     service:
       app:
         controller: main
+        publishNotReadyAddresses: true
         ports:
           http:
             port: 80
