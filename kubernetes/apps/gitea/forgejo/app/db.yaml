@@ -2,8 +2,6 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Database
 metadata:
   name: gitea
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
 spec:
   mariaDbRef:
     name: mariadb
@@ -15,8 +13,6 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: User
 metadata:
   name: gitea
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
 spec:
   mariaDbRef:
     name: mariadb
@@ -29,8 +25,6 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Grant
 metadata:
   name: gitea
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
 spec:
   mariaDbRef:
     name: mariadb
