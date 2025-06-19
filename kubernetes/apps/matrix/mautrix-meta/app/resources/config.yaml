@@ -74,7 +74,7 @@ direct_media:
   enabled: false
   server_name: "${APP}.${SECRET_DOMAIN}"
   allow_proxy: true
-  server_key: "ed25519 lqMI-w LMeaUaaI8kmFMDhcWc2+Z8RE4WjDFZNZlhRhBuYfkHA"
+  server_key: "{{ .server_key }}"
 
 # See https://docs.mau.fi/bridges/general/backfill.html for more details.
 backfill:
