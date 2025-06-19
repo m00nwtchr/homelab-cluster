@@ -1,0 +1,95 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app ${APP}
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      ntfy:
+        containers:
+          app:
+            image:
+              repository: binwiederhier/ntfy
+              tag: v2.12.0@sha256:e1a5e7324268fac1918c511105cedc2fd33d3a31f26a2abc4cf3c3c8d63dcb0c
+            #            repository: ghcr.io/vaskozl/ntfy
+            #            tag: 2.11.0@sha256:27b3ee3d5bd5a70d5c339033da4b8f102e91095124a41f1443b1c2a71aeead61
+            args:
+              - serve
+            resources:
+              requests:
+                cpu: 10m
+                memory: 25Mi
+              limits:
+                memory: 25Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              readOnlyRootFilesystem: true
+        statefulset:
+          podManagementPolicy: Parallel
+        type: statefulset
+
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 568
+        runAsGroup: 568
+        runAsNonRoot: true
+        runAsUser: 568
+        seccompProfile:
+          type: RuntimeDefault
+
+    service:
+      app:
+        forceRename: "ntfy"
+        controller: ntfy
+        ports:
+          http:
+            port: 80
+            targetPort: 8080
+
+      metrics:
+        controller: ntfy
+        labels:
+          app.kubernetes.io/component: metrics
+        ports:
+          metrics:
+            port: 9090
+
+    ingress:
+      app:
+        hosts:
+          - host: "${APP}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      config:
+        name: ntfy-configmap
+        type: configMap
+        globalMounts:
+          - path: /etc/ntfy/server.yml
+            subPath: server.yaml
+
+      data:
+        existingClaim: *app
+
+      cache:
+        type: emptyDir

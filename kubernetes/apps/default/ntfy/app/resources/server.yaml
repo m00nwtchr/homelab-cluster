@@ -1,0 +1,12 @@
+base-url: https://${APP}.${SECRET_DOMAIN}
+behind-proxy: true
+
+auth-default-access: deny-all
+auth-file: /data/user.db
+
+attachment-cache-dir: /cache/attachments
+cache-file: /cache/ntfy/cache.db
+
+listen-http: :8080
+enable-metrics: true
+metrics-listen-http: :9090
