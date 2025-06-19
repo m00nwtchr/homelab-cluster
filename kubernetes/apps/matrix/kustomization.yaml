@@ -8,3 +8,4 @@ components:
 resources:
   - ./continuwuity/ks.yaml
   - ./mautrix-meta/ks.yaml
+  - ./mautrix-discord/ks.yaml
