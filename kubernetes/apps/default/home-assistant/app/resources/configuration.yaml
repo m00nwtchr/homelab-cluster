@@ -1,0 +1,21 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 2001:cafe:42::/56
+    - 10.42.0.0/16
+
+recorder:
+  db_url: !env_var HASS_RECORDER_DB_URL
+
+wake_on_lan:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
