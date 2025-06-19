@@ -95,9 +95,11 @@ spec:
 
     persistence:
       data:
-        enabled: true
-        type: persistentVolumeClaim
-        existingClaim: *app
+        size: 1Gi
+        accessMode: ReadWriteOnce
+#        enabled: true
+#        type: persistentVolumeClaim
+#        existingClaim: *app
 
       config:
         type: configMap

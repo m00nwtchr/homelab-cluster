@@ -1,6 +1,6 @@
 network:
   mode: messenger
-  displayname_template: '{{or .DisplayName .Username "Unknown user"}}'
+  displayname_template: {{ '{{or .DisplayName .Username "Unknown user"}}' }}
 
 bridge:
   command_prefix: '!meta'
