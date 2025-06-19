@@ -19,6 +19,7 @@ spec:
   values:
     controllers:
       app:
+        type: statefulset
         containers:
           app:
             image:
