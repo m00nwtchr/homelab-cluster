@@ -28,7 +28,7 @@ database:
   max_conn_lifetime: null
 
 homeserver:
-  address: http://conduit.matrix.svc
+  address: http://continuwuity.matrix.svc
   domain: "${SECRET_DOMAIN}"
   status_endpoint:
   message_send_checkpoint_endpoint:
