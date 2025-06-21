@@ -38,5 +38,4 @@ spec:
       type: ClusterIP
       port: 53
       clusterIP: 2001:cafe:43::c
-      externalTrafficPolicy: Cluster
     watchedResources: ["HTTPRoute", "Service"]
