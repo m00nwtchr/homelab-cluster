@@ -68,7 +68,7 @@ spec:
               FTLCONF_dns_listeningMode: all
               FTLCONF_dns_port: &dns-port 53
               FTLCONF_dns_dnssec: 'true'
-              FTLCONF_dns_upstreams: 2001:cafe:43::b
+              FTLCONF_dns_upstreams: 2001:cafe:43::c
               FTLCONF_dns_revServers: 'true,192.168.0.0/24,192.168.0.1;true,100.64.0.0/10,100.100.100.100,tail096cd8.ts.net'
               FTLCONF_dns_specialDomains_mozillaCanary: true
               FTLCONF_webserver_interface_boxed: false
