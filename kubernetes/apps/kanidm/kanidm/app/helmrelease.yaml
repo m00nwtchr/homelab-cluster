@@ -90,7 +90,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: 443
+                port: *port
 
     #  ingress:
     #    app:
