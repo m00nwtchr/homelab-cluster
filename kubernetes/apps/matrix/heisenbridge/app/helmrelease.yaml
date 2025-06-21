@@ -42,6 +42,21 @@ spec:
             port: 80
             targetPort: 9898
 
+    route:
+      app:
+        hostnames: [ "matrix.${SECRET_DOMAIN}" ]
+        parentRefs:
+          - name: external
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - matches:
+              - path:
+                  value: /_heisenbridge/media/
+            backendRefs:
+              - identifier: app
+                port: 80
+
     ingress:
       media:
         annotations:
