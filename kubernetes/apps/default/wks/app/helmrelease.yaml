@@ -50,7 +50,7 @@ spec:
       app:
         hostnames: [ "${SECRET_DOMAIN}" ]
         parentRefs:
-          - name: internal
+          - name: external
             namespace: envoy-gateway-system
             sectionName: https
         rules:
