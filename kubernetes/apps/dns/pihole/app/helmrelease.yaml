@@ -190,7 +190,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: *app
+              - identifier: http
                 port: 80
 
     serviceMonitor:
