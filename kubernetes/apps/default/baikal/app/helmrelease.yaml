@@ -59,6 +59,18 @@ spec:
             port: 80
             targetPort: 8080
 
+    route:
+      app:
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
+        parentRefs:
+          - name: external
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
+
     ingress:
       app:
         hosts:
