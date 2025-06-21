@@ -41,7 +41,7 @@ servers:
       - name: autopath
         parameters: "@kubernetes"
       - name: forward
-        parameters: . 2001:cafe:43::f497
+        parameters: . 2001:cafe:43::b
       - name: cache
         configBlock: |-
           prefetch 20
