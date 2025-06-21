@@ -63,7 +63,7 @@ spec:
     service:
       app:
         controller: *app
-        clusterIP: "2001:cafe:43::b"
+        clusterIP: "2001:cafe:43::c"
         ports:
           dns-tcp:
             enabled: true
