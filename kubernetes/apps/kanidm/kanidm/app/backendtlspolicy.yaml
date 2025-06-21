@@ -8,6 +8,7 @@ spec:
     - group: ""
       kind: Service
       name: kanidm
+  hostname: idm.${SECRET_DOMAIN}
   validation:
     hostname: idm.${SECRET_DOMAIN}
     wellKnownCACertificates: System
