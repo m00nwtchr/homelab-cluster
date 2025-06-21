@@ -46,6 +46,21 @@ spec:
             port: 80
             targetPort: 3434
 
+    route:
+      app:
+        hostnames: [ "${SECRET_DOMAIN}" ]
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - matches:
+              - path:
+                  value: /.well-known/openpgpkey/
+            backendRefs:
+              - identifier: app
+                port: 80
+
     ingress:
       main:
         annotations:
