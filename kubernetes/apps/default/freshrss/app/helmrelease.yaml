@@ -47,21 +47,24 @@ spec:
         ports:
           http:
             port: 80
-    ingress:
+
+    route:
       app:
-        enabled: true
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Home
           gethomepage.dev/name: FreshRSS
           gethomepage.dev/icon: freshrss.svg
-        hosts:
-          - host: "${APP}.svc.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
+
     persistence:
       config:
         existingClaim: *app

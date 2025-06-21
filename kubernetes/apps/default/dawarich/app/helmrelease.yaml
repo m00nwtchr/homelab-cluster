@@ -89,6 +89,23 @@ spec:
             port: 80
             targetPort: 3000
 
+    route:
+      app:
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Home
+          gethomepage.dev/name: Dawarich
+          gethomepage.dev/icon: google-maps.png
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
+
     ingress:
       app:
         annotations:
