@@ -37,7 +37,7 @@ spec:
     service:
       type: ClusterIP
       port: 53
-      clusterIP: 2001:cafe:43::c
+      clusterIP: 2001:cafe:43::b
     watchedResources: [ "HTTPRoute", "Service" ]
 
     extraZonePlugins:
@@ -53,7 +53,7 @@ spec:
       - name: prometheus
         parameters: 0.0.0.0:9153
       - name: forward
-        parameters: . 2001:cafe:43::b
+        parameters: . 2001:cafe:43::c
       - name: loop
       - name: reload
       - name: loadbalance
