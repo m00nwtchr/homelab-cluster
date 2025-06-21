@@ -173,6 +173,20 @@ spec:
             port: *exporter-port
             protocol: HTTP
 
+    ingress:
+      app:
+        hosts:
+          - host: "${APP}.svc.${SECRET_DOMAIN}"
+            paths:
+              - path: /admin
+                service:
+                  identifier: http
+                  port: http
+              - path: /api
+                service:
+                  identifier: http
+                  port: http
+
     route:
       app:
         hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
