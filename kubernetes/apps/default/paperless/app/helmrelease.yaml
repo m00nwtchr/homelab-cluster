@@ -33,7 +33,7 @@ spec:
                   secretKeyRef:
                     name: postgres-paperless
                     key: password
-              PAPERLESS_URL: https://${APP}.svc.${SECRET_DOMAIN}
+              PAPERLESS_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}
               PAPERLESS_ENABLE_HTTP_REMOTE_USER: 'true'
 
               PAPERLESS_OCR_LANGUAGE: pol
@@ -104,20 +104,22 @@ spec:
             port: 80
             targetPort: 8000
 
-    ingress:
+    route:
       app:
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Home
           gethomepage.dev/name: Paperless
           gethomepage.dev/icon: paperless.svg
-        hosts:
-          - host: ${APP}.svc.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
 
     persistence:
       data:
