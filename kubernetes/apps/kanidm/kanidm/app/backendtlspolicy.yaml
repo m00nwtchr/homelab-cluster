@@ -8,6 +8,7 @@ spec:
     - group: ""
       kind: Service
       name: kanidm
+      sectionName: "443"
   validation:
     hostname: idm.${SECRET_DOMAIN}
     wellKnownCACertificates: System
