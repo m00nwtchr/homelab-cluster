@@ -80,6 +80,18 @@ spec:
             port: 636
             targetPort: 3636
 
+    route:
+      app:
+        hostnames: [ "idm.${SECRET_DOMAIN}" ]
+        parentRefs:
+          - name: external
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 443
+
     #  ingress:
     #    app:
     #      hosts:
