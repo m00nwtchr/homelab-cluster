@@ -97,6 +97,7 @@ spec:
         rules:
           - matches:
               - path:
+                  type: PathPrefix
                   value: /.well-known/matrix/
             backendRefs:
               - identifier: app
