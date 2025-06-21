@@ -77,6 +77,31 @@ spec:
             port: 80
             targetPort: *port
 
+    route:
+      app:
+        hostnames: [ "matrix.${SECRET_DOMAIN}", "matrix-fed.${SECRET_DOMAIN}" ]
+        parentRefs:
+          - name: external
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
+      well-known:
+        hostnames: [ "${SECRET_DOMAIN}" ]
+        parentRefs:
+          - name: external
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - matches:
+              - path:
+                  value: /.well-known/matrix/
+            backendRefs:
+              - identifier: app
+                port: 80
+
     ingress:
       app:
         annotations:
