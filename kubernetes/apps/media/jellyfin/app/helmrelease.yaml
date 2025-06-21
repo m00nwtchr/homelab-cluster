@@ -79,8 +79,9 @@ spec:
             port: 80
             targetPort: *port
 
-    ingress:
+    route:
       app:
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Media
@@ -90,13 +91,14 @@ spec:
           gethomepage.dev/widget.enableBlocks: "true"
           gethomepage.dev/widget.url: "http://jellyfin.media.svc"
           gethomepage.dev/widget.key: "{{ \"{{HOMEPAGE_VAR_JELLYFIN_KEY}}\" }}"
-        hosts:
-          - host: ${APP}.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
 
     persistence:
       config:

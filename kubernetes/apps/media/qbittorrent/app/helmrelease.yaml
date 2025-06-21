@@ -166,10 +166,10 @@ spec:
             nodePort: 31495
             protocol: UDP
 
-    ingress:
+    route:
       app:
+        hostnames: [ "qbit.${SECRET_DOMAIN}" ]
         annotations:
-          traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd,traefik-auth@kubernetescrd
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Media
           gethomepage.dev/name: qBittorrent
@@ -178,13 +178,14 @@ spec:
           gethomepage.dev/widget.url: "http://${APP}.media.svc"
           gethomepage.dev/widget.username: "{{ \"{{HOMEPAGE_VAR_QBIT_USERNAME}}\" }}"
           gethomepage.dev/widget.password: "{{ \"{{HOMEPAGE_VAR_QBIT_PASSWORD}}\" }}"
-        hosts:
-          - host: qbit.svc.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
 
     persistence:
       config:
