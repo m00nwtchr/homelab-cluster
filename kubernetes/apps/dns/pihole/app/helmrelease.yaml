@@ -211,14 +211,14 @@ spec:
         globalMounts:
           - path: /etc/pihole/
 
-  #    config-map:
-  #      type: configMap
-  #      advancedMounts:
-  #        pihole:
-  #          pihole:
-  #            - path: /etc/dnsmasq.d/02-custom.conf
-  #              subPath: 02-custom.conf
-  #              readOnly: true
+      config:
+        type: configMap
+        name: pihole-configmap
+        advancedMounts:
+          pihole:
+            pihole:
+              - path: /etc/dnsmasq.d/02-custom.conf
+                subPath: 02-custom.conf
   #            - path: /etc/dnsmasq.d/03-hosts.conf
   #              subPath: 03-hosts.conf
   #              readOnly: truea
