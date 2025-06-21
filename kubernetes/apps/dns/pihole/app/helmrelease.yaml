@@ -79,6 +79,7 @@ spec:
                   secretKeyRef:
                     name: pihole-secret
                     key: password
+              FTLCONF_misc_etc_dnsmasq_d: 'true'
             #          probes:
             #            liveness: &pihole-probes
             #              enabled: true
