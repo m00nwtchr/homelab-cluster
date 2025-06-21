@@ -38,7 +38,7 @@ spec:
               #            LOG_LEVEL: debug
               HOSTNAME: "::"
               LOG_TARGETS: stdout
-              HOMEPAGE_ALLOWED_HOSTS: &host "home.svc.${SECRET_DOMAIN}"
+              HOMEPAGE_ALLOWED_HOSTS: &host "home.${SECRET_DOMAIN}"
               HOMEPAGE_VAR_RADARR_API_KEY:
                 valueFrom:
                   secretKeyRef:
