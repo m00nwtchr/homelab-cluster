@@ -133,7 +133,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ['ALL'] }
+              capabilities: { drop: [ 'ALL' ] }
               runAsNonRoot: true
               runAsUser: 1000
               runAsGroup: 1000
@@ -147,9 +147,9 @@ spec:
         ipFamilyPolicy: PreferDualStack
         annotations:
           metallb.io/loadBalancerIPs: 'fd42:78a5:2c09::53,192.168.0.53'
-#          lbipam.cilium.io/ips: 'fd42:78a5:2c09::53'
-#        externalIPs:
-#          - 100.116.45.53 # Tailscale
+        #          lbipam.cilium.io/ips: 'fd42:78a5:2c09::53'
+        #        externalIPs:
+        #          - 100.116.45.53 # Tailscale
         ports:
           dns-udp:
             port: 53
@@ -172,8 +172,9 @@ spec:
             port: *exporter-port
             protocol: HTTP
 
-    ingress:
+    route:
       app:
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Home
@@ -183,39 +184,14 @@ spec:
           gethomepage.dev/widget.version: "6"
           gethomepage.dev/widget.url: "http://pihole.dns.svc"
           gethomepage.dev/widget.key: "{{ \"{{HOMEPAGE_VAR_PIHOLE_KEY}}\" }}"
-        hosts:
-          - host: "${APP}.svc.${SECRET_DOMAIN}"
-            paths:
-              - path: /admin
-                service:
-                  identifier: http
-                  port: http
-              - path: /api
-                service:
-                  identifier: http
-                  port: http
-
-    #  route:
-    #    app:
-    #      hostnames:
-    #        - '{{ .Release.Name }}.${SECRET_DOMAIN}'
-    #      parentRefs:
-    #        - name: internal
-    #          namespace: network
-    #          sectionName: https
-    #      rules:
-    #        - backendRefs:
-    #            - name: *app
-    #              port: *pihole-port
-    #          sessionPersistence:
-    #            sessionName: *app
-    #            type: Cookie
-    #            absoluteTimeout: 35m
-    #      annotations:
-    #        gethomepage.dev/enabled: 'true'
-    #        gethomepage.dev/group: Infrastructure
-    #        gethomepage.dev/name: Pi-Hole
-    #        gethomepage.dev/icon: pi-hole.svg
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
 
     serviceMonitor:
       app:
