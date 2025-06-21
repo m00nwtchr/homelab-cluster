@@ -6,6 +6,7 @@ resources:
   - ./db.yaml
   - ./helmrelease.yaml
   - ./oidc.yaml
+  - ./pvc.yaml
   - ./rbac.yaml
   - ./secret.yaml
 configMapGenerator:

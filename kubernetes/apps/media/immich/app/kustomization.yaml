@@ -6,6 +6,7 @@ resources:
   - ./cluster.yaml
   - ./helmrelease.yaml
   - ./objectstore.yaml
+  - ./pvc.yaml
   - ./scheduledbackup.yaml
   - ./secret.sops.yaml
   - ./secret.yaml
