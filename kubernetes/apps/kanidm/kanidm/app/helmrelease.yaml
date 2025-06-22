@@ -86,7 +86,7 @@ spec:
         parentRefs:
           - name: external
             namespace: envoy-gateway-system
-            sectionName: https
+            sectionName: kanidm
         rules:
           - backendRefs:
               - identifier: app

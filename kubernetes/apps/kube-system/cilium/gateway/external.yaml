@@ -37,6 +37,20 @@ spec:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
 
+    - name: kanidm
+      protocol: HTTPS
+      port: 443
+      hostname: "idm.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: kanidm-tls
+            namespace: kanidm
+
 #    - name: https-tls
 #      protocol: TLS
 #      port: 443
