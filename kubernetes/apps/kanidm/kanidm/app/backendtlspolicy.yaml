@@ -5,10 +5,9 @@ metadata:
   name: kanidm-upstream
 spec:
   targetRefs:
-    - group: ""
-      kind: Service
+    - kind: Service
       name: kanidm
-      sectionName: "443"
+      group: ""
   validation:
-    hostname: idm.${SECRET_DOMAIN}
     wellKnownCACertificates: System
+    hostname: idm.${SECRET_DOMAIN}
