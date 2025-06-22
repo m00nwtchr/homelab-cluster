@@ -82,12 +82,11 @@ spec:
 
     route:
       app:
-        kind: TLSRoute
         hostnames: [ "idm.${SECRET_DOMAIN}" ]
         parentRefs:
           - name: external
             namespace: envoy-gateway-system
-            sectionName: https-tls
+            sectionName: https
         rules:
           - backendRefs:
               - identifier: app
