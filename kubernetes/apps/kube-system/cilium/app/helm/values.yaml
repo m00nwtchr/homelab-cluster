@@ -27,7 +27,7 @@ dashboards:
 
 devices:
   - enp+
-  - tailscale0
+#  - tailscale0
 
 enableIPv6Masquerade: true
 
@@ -87,8 +87,8 @@ loadBalancer:
 
 localRedirectPolicy: true
 
-nodePort:
-  directRoutingDevice: tailscale0
+#nodePort:
+#  directRoutingDevice: tailscale0
 
 nodeSelectorLabels: true
 
