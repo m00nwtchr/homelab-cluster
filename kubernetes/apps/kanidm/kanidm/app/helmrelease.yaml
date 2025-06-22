@@ -82,7 +82,7 @@ spec:
 
     route:
       app:
-        type: TLSRoute
+        kind: TLSRoute
         hostnames: [ "idm.${SECRET_DOMAIN}" ]
         parentRefs:
           - name: external
