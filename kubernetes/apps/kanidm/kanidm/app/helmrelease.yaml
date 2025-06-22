@@ -87,7 +87,7 @@ spec:
         parentRefs:
           - name: external
             namespace: envoy-gateway-system
-            sectionName: https
+            sectionName: https-tls
         rules:
           - backendRefs:
               - identifier: app
