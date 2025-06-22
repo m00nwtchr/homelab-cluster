@@ -27,7 +27,7 @@ spec:
     - name: https
       protocol: HTTPS
       port: 443
-#      hostname: "*.${SECRET_DOMAIN}"
+      hostname: "*.${SECRET_DOMAIN}"
       allowedRoutes:
         namespaces:
           from: All
@@ -37,12 +37,12 @@ spec:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
 
-    - name: https-tls
-      protocol: TLS
-      port: 443
-      hostname: "idm.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        mode: Passthrough
+#    - name: https-tls
+#      protocol: TLS
+#      port: 443
+#      hostname: "idm.${SECRET_DOMAIN}"
+#      allowedRoutes:
+#        namespaces:
+#          from: All
+#      tls:
+#        mode: Passthrough
