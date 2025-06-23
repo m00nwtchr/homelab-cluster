@@ -5,7 +5,7 @@ kind: Gateway
 metadata:
   name: internal
   annotations:
-    metallb.io/address-pool: private
+    metallb.io/loadBalancerIPs: 'fd42:78a5:2c09::200'
     external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
 spec:
   gatewayClassName: eg
@@ -14,7 +14,7 @@ spec:
       value: "fd42:78a5:2c09::200"
   infrastructure:
     annotations:
-      metallb.io/address-pool: private
+      metallb.io/loadBalancerIPs: 'fd42:78a5:2c09::200'
       external-dns.alpha.kubernetes.io/hostname: "internal.${SECRET_DOMAIN}"
     parametersRef:
       group: gateway.envoyproxy.io
