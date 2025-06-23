@@ -30,6 +30,8 @@ gitea:
     database:
       DB_TYPE: postgres
       HOST: postgres-rw.postgres.svc:5432
+      NAME: forgejo
+      USER: forgejo
     server:
       APP_DATA_PATH: /data/gitea
       ROOT_URL: https://git.${SECRET_DOMAIN}
