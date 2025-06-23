@@ -29,6 +29,12 @@ spec:
         superuser: false
         passwordSecret:
           name: postgres-bazarr
+      - name: forgejo
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-forgejo
       - name: freshrss
         ensure: present
         login: true
