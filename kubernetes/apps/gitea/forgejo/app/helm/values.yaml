@@ -1,11 +1,11 @@
 ---
-ingress:
+httpRoute:
   enabled: true
-  hosts:
-    - host: git.${SECRET_DOMAIN}
-      paths:
-        - path: /
-          pathType: Prefix
+  hostnames: [ "git.${SECRET_DOMAIN}" ]
+  parentRefs:
+    - name: external
+      namespace: envoy-gateway-system
+      sectionName: https
 
 image:
   rootless: true
@@ -15,16 +15,16 @@ image:
   digest: sha256:97b544c9bf4ff13c034a6a8319feffe822ff4f5f73d5bd03dbca3fdeaae0c2ac
 
 gitea:
-#  admin:
-#    existingSecret: forgejo-admin-secret
-#    email: "m00n@example.com"
+  #  admin:
+  #    existingSecret: forgejo-admin-secret
+  #    email: "m00n@example.com"
 
-#  oauth:
-#    - name: kanidm
-#      provider: openidConnect
-#      key: gitea
-#      existingSecret: forgejo-oidc
-#      autoDiscoverUrl: "https://idm.${SECRET_DOMAIN}/oauth2/openid/gitea/.well-known/openid-configuration"
+  #  oauth:
+  #    - name: kanidm
+  #      provider: openidConnect
+  #      key: gitea
+  #      existingSecret: forgejo-oidc
+  #      autoDiscoverUrl: "https://idm.${SECRET_DOMAIN}/oauth2/openid/gitea/.well-known/openid-configuration"
 
   config:
     database:
