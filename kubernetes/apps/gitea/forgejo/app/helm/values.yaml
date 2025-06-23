@@ -15,21 +15,21 @@ image:
   digest: sha256:97b544c9bf4ff13c034a6a8319feffe822ff4f5f73d5bd03dbca3fdeaae0c2ac
 
 gitea:
-#  admin:
-#    existingSecret: gitea-admin-secret
-#    email: { { .Values.email } }
+  admin:
+    existingSecret: gitea-admin-secret
+    email: { { .Values.email } }
 
-  oauth:
-    - name: kanidm
-      provider: openidConnect
-      key: gitea
-      existingSecret: forgejo-oidc
-      autoDiscoverUrl: "https://idm.${SECRET_DOMAIN}/oauth2/openid/gitea/.well-known/openid-configuration"
+#  oauth:
+#    - name: kanidm
+#      provider: openidConnect
+#      key: gitea
+#      existingSecret: forgejo-oidc
+#      autoDiscoverUrl: "https://idm.${SECRET_DOMAIN}/oauth2/openid/gitea/.well-known/openid-configuration"
 
   config:
     database:
-      DB_TYPE: mysql
-      HOST: mariadb.mariadb.svc:3306
+      DB_TYPE: postgres
+      HOST: postgres-rw.postgres.svc:3306
     server:
       APP_DATA_PATH: /data/gitea
       ROOT_URL: https://git.${SECRET_DOMAIN}
@@ -64,8 +64,13 @@ additionalConfigFromEnvs:
   - name: GITEA__DATABASE__PASSWD
     valueFrom:
       secretKeyRef:
-        name: gitea-db-user
-        key: mariadb-password
+        name: postgres-forgejo
+        key: password
+  - name: GITEA__DATABASE__USER
+    valueFrom:
+      secretKeyRef:
+        name: postgres-forgejo
+        key: username
 
 service:
   ssh:
