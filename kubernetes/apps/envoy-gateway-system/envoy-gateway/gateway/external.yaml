@@ -24,7 +24,6 @@ spec:
     - name: http
       protocol: HTTP
       port: 80
-      hostname: "*.${SECRET_DOMAIN}"
       allowedRoutes:
         namespaces:
           from: Same
@@ -36,6 +35,7 @@ spec:
         namespaces:
           from: All
       tls:
+        mode: Terminate
         certificateRefs:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
