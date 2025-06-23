@@ -11,7 +11,7 @@ spec:
   gatewayClassName: eg
   addresses:
     - type: IPAddress
-      value: "2a02:a313:43e4:7080::7dc5"
+      value: "2a02:a313:43e4:7080::200"
   infrastructure:
     annotations:
       metallb.io/address-pool: public
