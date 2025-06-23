@@ -4,4 +4,4 @@ kind: EnvoyProxy
 metadata:
   name: proxy-config
 spec:
-  ipFamily: DualStack
+  ipFamily: IPv6
