@@ -12,9 +12,9 @@ instance:
     - notification-controller
   sync:
     kind: GitRepository
-#    url: "ssh://git@github.com/#{ repository_name }#.git"
-#    pullSecret: github-deploy-key
-    url: "http://forgejo-http.gitea.svc.cluster.local:3000/m00n/homelab-cluster.git"
+    url: "ssh://git@github.com/m00nwtchr/homelab-cluster.git"
+    pullSecret: github-deploy-key
+#    url: "http://forgejo-http.gitea.svc.cluster.local:3000/m00n/homelab-cluster.git"
     ref: "refs/heads/master"
     path: kubernetes/flux/cluster
   commonMetadata:
