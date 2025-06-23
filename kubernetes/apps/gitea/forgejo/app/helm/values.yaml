@@ -63,12 +63,12 @@ gitea:
       HOST: redis://dragonfly.database.svc:6379/0?pool_size=100&idle_timeout=180s
 
 additionalConfigFromEnvs:
-  - name: GITEA__DATABASE__PASSWD
+  - name: FORGEJO__DATABASE__PASSWD
     valueFrom:
       secretKeyRef:
         name: postgres-forgejo
         key: password
-  - name: GITEA__DATABASE__USER
+  - name: FORGEJO__DATABASE__USER
     valueFrom:
       secretKeyRef:
         name: postgres-forgejo
