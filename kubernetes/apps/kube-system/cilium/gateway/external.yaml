@@ -5,13 +5,13 @@ kind: Gateway
 metadata:
   name: external
   annotations:
-    metallb.io/address-pool: public
+#    metallb.io/address-pool: public
     external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
 spec:
   gatewayClassName: cilium
   addresses:
     - type: IPAddress
-      value: "2a02:a313:43e4:7080::200"
+      value: "2a02:a313:43e4:7080::7dc5"
   infrastructure:
     annotations:
       metallb.io/address-pool: public
