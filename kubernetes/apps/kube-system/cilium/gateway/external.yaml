@@ -37,10 +37,10 @@ spec:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
 
-    - name: tls
+    - name: kanidm
       protocol: TLS
       port: 443
-      hostname: "*.${SECRET_DOMAIN}"
+      hostname: "idm.${SECRET_DOMAIN}"
       allowedRoutes:
         namespaces:
           from: All
