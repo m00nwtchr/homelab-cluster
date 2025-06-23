@@ -15,7 +15,6 @@ spec:
       valuesObject:
         minecraftServer:
           serviceType: ClusterIP
-{{/*          nodePort: 30100*/}}
           externalTrafficPolicy: Local
           ipFamilyPolicy: PreferDualStack
           externalIPs:
