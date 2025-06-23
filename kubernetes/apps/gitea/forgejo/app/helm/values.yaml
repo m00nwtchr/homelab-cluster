@@ -15,9 +15,9 @@ image:
   digest: sha256:97b544c9bf4ff13c034a6a8319feffe822ff4f5f73d5bd03dbca3fdeaae0c2ac
 
 gitea:
-  admin:
-    existingSecret: gitea-admin-secret
-    email: { { .Values.email } }
+#  admin:
+#    existingSecret: forgejo-admin-secret
+#    email: "m00n@example.com"
 
 #  oauth:
 #    - name: kanidm
