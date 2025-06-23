@@ -29,7 +29,7 @@ gitea:
   config:
     database:
       DB_TYPE: postgres
-      HOST: postgres-rw.postgres.svc:3306
+      HOST: postgres-rw.postgres.svc:5432
     server:
       APP_DATA_PATH: /data/gitea
       ROOT_URL: https://git.${SECRET_DOMAIN}
