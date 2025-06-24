@@ -5,9 +5,3 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./secret.yaml
-configMapGenerator:
-  - name: pihole-configmap
-    files:
-      - 02-custom.conf=./resources/02-custom.conf
-generatorOptions:
-  disableNameSuffixHash: true
