@@ -5,3 +5,6 @@ metadata:
   name: proxy-config
 spec:
   ipFamily: IPv6
+  backendTLS:
+    ecdhCurves:
+      - P-384
