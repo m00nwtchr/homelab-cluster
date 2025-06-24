@@ -79,7 +79,8 @@ spec:
                   secretKeyRef:
                     name: pihole-secret
                     key: password
-              FTLCONF_misc_etc_dnsmasq_d: 'true'
+              FTLCONF_misc_dnsmasq_lines: |
+                server=/${SECRET_DOMAIN}/2001:cafe:43::c
             #          probes:
             #            liveness: &pihole-probes
             #              enabled: true
@@ -225,15 +226,3 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /etc/pihole/
-
-      config:
-        type: configMap
-        name: pihole-configmap
-        advancedMounts:
-          pihole:
-            pihole:
-              - path: /etc/dnsmasq.d/02-custom.conf
-                subPath: 02-custom.conf
-  #            - path: /etc/dnsmasq.d/03-hosts.conf
-  #              subPath: 03-hosts.conf
-  #              readOnly: truea
