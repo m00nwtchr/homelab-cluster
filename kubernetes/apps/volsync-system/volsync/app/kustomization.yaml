@@ -8,3 +8,4 @@ resources:
 #  - ./mutatingadmissionpolicy.yaml
   - ./prometheusrule.yaml
   - ./secret.sops.yaml
+  - ./secret2.sops.yaml
