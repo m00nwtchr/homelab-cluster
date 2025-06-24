@@ -103,7 +103,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Media
-          gethomepage.dev/name: Sonarrs
+          gethomepage.dev/name: Sonarr
           gethomepage.dev/icon: ${APP}.svg
           gethomepage.dev/widget.type: *app
           gethomepage.dev/widget.url: "http://${APP}.media.svc"
