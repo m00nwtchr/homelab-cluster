@@ -38,6 +38,15 @@ spec:
     zfs-localpv:
       enabled: true
 
+    engines:
+      local:
+        lvm:
+          enabled: false
+        zfs:
+          enabled: true
+      replicated:
+        mayastor:
+          enabled: false
 
     loki:
       enabled: false
