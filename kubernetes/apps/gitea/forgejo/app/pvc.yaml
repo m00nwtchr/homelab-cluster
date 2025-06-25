@@ -1,27 +1,57 @@
 ---
+apiVersion: zfs.openebs.io/v1
+kind: ZFSVolume
+metadata:
+  name: git
+  finalizers:
+    - cluster.local/data-protection
+spec:
+  capacity: "10737418240"
+  fsType: zfs
+  ownerNodeID: m00nsrv
+  poolName: vault
+  shared: "yes"
+  thinProvision: "yes"
+  volumeType: DATASET
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: "git"
-  labels:
-    type: "local"
+  name: storage-zfs-git
 spec:
-  storageClassName: "manual"
-  capacity:
-    storage: "12Ti"
   accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/mnt/hdd/git"
+    - ReadWriteMany
+  capacity:
+    storage: 10Gi
+  csi:
+    driver: zfs.csi.openebs.io
+    fsType: zfs
+    volumeAttributes:
+      openebs.io/cas-type: localpv-zfs
+      openebs.io/poolname: vault
+    volumeHandle: git
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: openebs.io/nodeid
+              operator: In
+              values:
+                - m00nsrv
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: "git"
+  name: git
 spec:
-  storageClassName: "manual"
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
-      storage: "12Ti"
+      storage: 10Gi
+  storageClassName: ""
+  volumeMode: Filesystem
+  volumeName: storage-zfs-git
