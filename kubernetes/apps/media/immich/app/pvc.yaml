@@ -54,7 +54,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 50Ti
+      storage: 50Gi
   storageClassName: ""
   volumeMode: Filesystem
   volumeName: storage-zfs-photos
