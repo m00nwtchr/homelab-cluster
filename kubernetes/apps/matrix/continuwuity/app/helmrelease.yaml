@@ -146,7 +146,7 @@ spec:
       media:
         size: 5Gi
         accessMode: ReadWriteOnce
-        storageClass: local-path-hdd
+        storageClass: zfs-vault
         suffix: "media"
         retain: true
         globalMounts:
