@@ -9,22 +9,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  dependsOn:
-#    - name: openebs
-#      namespace: openebs-system
-    - name: snapshot-controller
-      namespace: kube-system
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       name: *app
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/volsync-system/volsync/app
+  path: ./kubernetes/apps/openebs-system/openebs/app
   prune: true
   retryInterval: 2m
   sourceRef:
