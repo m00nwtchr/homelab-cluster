@@ -7,7 +7,7 @@ metadata:
     - cluster.local/data-protection
 spec:
   capacity: "10995116277760"
-  compression: "off"
+  compression: "lz4"
   dedup: "off"
   fsType: zfs
   ownerNodeID: m00nsrv
