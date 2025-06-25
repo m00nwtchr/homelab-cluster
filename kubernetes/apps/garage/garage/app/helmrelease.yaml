@@ -42,7 +42,7 @@ spec:
 
     persistence:
       data:
-        storageClass: local-path-hdd
+        storageClass: zfs-vault
 
     deployment:
       replicaCount: 1
