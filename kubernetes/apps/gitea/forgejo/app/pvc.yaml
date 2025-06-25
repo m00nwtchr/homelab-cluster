@@ -20,7 +20,7 @@ metadata:
   name: storage-zfs-git
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   capacity:
     storage: 10Gi
   csi:
@@ -48,7 +48,7 @@ metadata:
   name: git
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi
