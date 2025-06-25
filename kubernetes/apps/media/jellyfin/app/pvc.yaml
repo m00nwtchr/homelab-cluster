@@ -1,28 +1,60 @@
 ---
+apiVersion: zfs.openebs.io/v1
+kind: ZFSVolume
+metadata:
+  name: media
+  finalizers:
+    - cluster.local/data-protection
+spec:
+  capacity: "10995116277760"
+  compression: "off"
+  dedup: "off"
+  fsType: zfs
+  ownerNodeID: m00nsrv
+  poolName: vault
+  recordsize: 1M
+  shared: "yes"
+  thinProvision: "yes"
+  volumeType: DATASET
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: "media"
-  labels:
-    type: "local"
+  name: storage-zfs-media
 spec:
-  storageClassName: "manual"
-  capacity:
-    storage: "12Ti"
   accessModes:
     - ReadWriteMany
-  hostPath:
-    path: "/mnt/media"
+  capacity:
+    storage: 10Ti
+  csi:
+    driver: zfs.csi.openebs.io
+    fsType: zfs
+    volumeAttributes:
+      openebs.io/cas-type: localpv-zfs
+      openebs.io/poolname: vault
+    volumeHandle: media
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: openebs.io/nodeid
+              operator: In
+              values:
+                - m00nsrv
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: "media"
-  namespace: "media"
+  name: media
 spec:
-  storageClassName: "manual"
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: "12Ti"
+      storage: 10Ti
+  storageClassName: ""
+  volumeMode: Filesystem
+  volumeName: storage-zfs-media
