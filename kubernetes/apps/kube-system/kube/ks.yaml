@@ -15,6 +15,10 @@ spec:
       name: sops-age
   interval: 1h
   path: ./kubernetes/apps/kube-system/kube/config
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   retryInterval: 2m
   sourceRef:
