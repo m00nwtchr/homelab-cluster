@@ -37,3 +37,11 @@ spec:
       enabled: false
     zfs-localpv:
       enabled: true
+
+
+    loki:
+      enabled: false
+    alloy:
+      enabled: false
+    minio:
+      enabled: false
