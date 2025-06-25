@@ -1,28 +1,57 @@
 ---
+apiVersion: zfs.openebs.io/v1
+kind: ZFSVolume
+metadata:
+  name: documents
+  finalizers:
+    - cluster.local/data-protection
+spec:
+  capacity: "10737418240"
+  fsType: zfs
+  ownerNodeID: m00nsrv
+  poolName: vault
+  shared: "yes"
+  thinProvision: "yes"
+  volumeType: DATASET
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: "paperless-media"
-  labels:
-    type: "local"
+  name: storage-zfs-documents
 spec:
-  storageClassName: "manual"
-  capacity:
-    storage: "12Ti"
   accessModes:
     - ReadWriteOnce
-  hostPath:
-    path: "/mnt/hdd/paperless"
+  capacity:
+    storage: 10Gi
+  csi:
+    driver: zfs.csi.openebs.io
+    fsType: zfs
+    volumeAttributes:
+      openebs.io/cas-type: localpv-zfs
+      openebs.io/poolname: vault
+    volumeHandle: photos
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: openebs.io/nodeid
+              operator: In
+              values:
+                - m00nsrv
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: "paperless-media"
-  namespace: "default"
+  name: paperless-media
 spec:
-  storageClassName: "manual"
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: "12Ti"
+      storage: 10Gi
+  storageClassName: ""
+  volumeMode: Filesystem
+  volumeName: storage-zfs-documents
