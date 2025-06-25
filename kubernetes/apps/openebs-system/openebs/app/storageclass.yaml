@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-zfs
+parameters:
+  compression: "zstd"
+  dedup: "on"
+  fstype: "zfs"
+  poolname: "vault"
+provisioner: zfs.csi.openebs.io
