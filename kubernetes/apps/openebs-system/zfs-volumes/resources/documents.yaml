@@ -1,0 +1,43 @@
+---
+apiVersion: zfs.openebs.io/v1
+kind: ZFSVolume
+metadata:
+  name: documents
+  finalizers:
+    - cluster.local/data-protection
+spec:
+  capacity: "10737418240"
+  fsType: zfs
+  ownerNodeID: m00nsrv
+  poolName: vault
+  shared: "yes"
+  thinProvision: "yes"
+  volumeType: DATASET
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: storage-zfs-documents
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 10Gi
+  csi:
+    driver: zfs.csi.openebs.io
+    fsType: zfs
+    volumeAttributes:
+      openebs.io/cas-type: localpv-zfs
+      openebs.io/poolname: vault
+    volumeHandle: photos
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: openebs.io/nodeid
+              operator: In
+              values:
+                - m00nsrv
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  volumeMode: Filesystem
