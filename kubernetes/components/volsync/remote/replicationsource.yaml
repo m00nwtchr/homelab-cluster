@@ -9,14 +9,15 @@ spec:
   trigger:
     schedule: "30 0 * * *"
   restic:
-    copyMethod: "${VOLSYNC_COPYMETHOD:=Snapshot}"
+    copyMethod: Direct
+#    copyMethod: "${VOLSYNC_COPYMETHOD:=Snapshot}"
     pruneIntervalDays: 14
     repository: "${APP}-volsync-b2-secret"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=csi-zfs}"
+#    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=csi-zfs}"
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:=5Gi}"
     cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:=openebs-hostpath}"
     cacheAccessModes: [ "${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}" ]
-    storageClassName: "${VOLSYNC_STORAGECLASS:=zfs-rpool}"
+#    storageClassName: "${VOLSYNC_STORAGECLASS:=zfs-rpool}"
     accessModes: [ "${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}" ]
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
