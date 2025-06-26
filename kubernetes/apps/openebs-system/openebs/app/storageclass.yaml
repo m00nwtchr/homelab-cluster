@@ -8,5 +8,17 @@ parameters:
   compression: "zstd"
   dedup: "on"
   fstype: "zfs"
-  poolname: "vault/var"
+  poolname: "vault/storage"
+provisioner: zfs.csi.openebs.io
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: zfs-rpool
+allowVolumeExpansion: true
+parameters:
+  compression: "zstd"
+  dedup: "on"
+  fstype: "zfs"
+  poolname: "rpool/storage"
 provisioner: zfs.csi.openebs.io
