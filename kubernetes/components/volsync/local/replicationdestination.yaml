@@ -11,13 +11,12 @@ spec:
     manual: restore-once
   restic:
     repository: "${APP}-volsync-secret"
-    copyMethod: Direct
-#    copyMethod: Snapshot
-#    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=local-path}"
-    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:=local-path}"
+    copyMethod: Snapshot
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=csi-zfs}"
+    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:=openebs-hostpath}"
     cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}"]
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:=5Gi}"
-    storageClassName: "${VOLSYNC_STORAGECLASS:=local-path}"
+    storageClassName: "${VOLSYNC_STORAGECLASS:=zfs-rpool}"
     accessModes: ["${VOLSYNC_ACCESSMODES:=ReadWriteOnce}"]
     capacity: "${VOLSYNC_CAPACITY:=5Gi}"
     moverSecurityContext:
