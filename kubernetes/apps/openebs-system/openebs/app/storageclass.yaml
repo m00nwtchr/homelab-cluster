@@ -8,5 +8,5 @@ parameters:
   compression: "zstd"
   dedup: "on"
   fstype: "zfs"
-  poolname: "vault"
+  poolname: "vault/var"
 provisioner: zfs.csi.openebs.io
