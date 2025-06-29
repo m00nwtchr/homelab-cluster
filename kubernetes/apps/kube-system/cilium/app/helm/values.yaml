@@ -7,6 +7,8 @@ bandwidthManager:
 
 bpf:
   datapathMode: netkit
+  # TODO
+  disableExternalIPMitigation: true
   distributedLRU:
     enabled: true
   mapDynamicSizeRatio: 0.08
