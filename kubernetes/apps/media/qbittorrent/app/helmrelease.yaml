@@ -68,7 +68,8 @@ spec:
         primary: true
         ports:
           http:
-            port: *port
+            port: 80
+            targetPort: *port
       bittorrent:
         type: NodePort
         #        annotations:
@@ -99,7 +100,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *port
+                port: 80
 
     persistence:
       config:
