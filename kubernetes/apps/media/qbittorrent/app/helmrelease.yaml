@@ -73,13 +73,13 @@ spec:
             port: 80
             targetPort: *port
       bittorrent:
-        type: NodePort
+        type: LoadBalancer
+        loadBalancerClass: "io.cilium/node"
         #        annotations:
         #          lbipam.cilium.io/ips: 192.168.42.122, ::ffff:192.168.42.122
         ports:
           bittorrent-tcp:
             port: *torrentPort
-            nodePort: *torrentPort
             protocol: TCP
     route:
       app:
