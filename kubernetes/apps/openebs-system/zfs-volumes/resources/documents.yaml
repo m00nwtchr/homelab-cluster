@@ -29,7 +29,7 @@ spec:
     volumeAttributes:
       openebs.io/cas-type: localpv-zfs
       openebs.io/poolname: vault
-    volumeHandle: photos
+    volumeHandle: documents
   nodeAffinity:
     required:
       nodeSelectorTerms:
