@@ -10,20 +10,20 @@ spec:
       - X25519
       - P-256
       - P-384
-#---
-#apiVersion: gateway.envoyproxy.io/v1alpha1
-#kind: EnvoyProxy
-#metadata:
-#  name: external-proxy-config
-#spec:
-#  ipFamily: IPv6
-##  provider:
-##    type: Kubernetes
-##    kubernetes:
-##      envoyService:
-##        type: ClusterIP
-#  backendTLS:
-#    ecdhCurves:
-#      - X25519
-#      - P-256
-#      - P-384
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: external-proxy-config
+spec:
+  ipFamily: IPv6
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyService:
+        loadBalancerClass: "io.cilium/node"
+  backendTLS:
+    ecdhCurves:
+      - X25519
+      - P-256
+      - P-384
