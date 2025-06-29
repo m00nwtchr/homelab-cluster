@@ -7,6 +7,8 @@ bindaddress = "[::]:8443"
 ldapbindaddress = "[::]:3636"
 
 db_path = "/data/kanidm.db"
+db_fs_type = "zfs"
+
 tls_chain = "/certs/tls.crt"
 tls_key = "/certs/tls.key"
 
