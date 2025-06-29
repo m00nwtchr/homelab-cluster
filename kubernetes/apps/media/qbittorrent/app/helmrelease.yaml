@@ -201,6 +201,15 @@ spec:
           ${APP}:
             app:
               - path: /mnt/media
+
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          ${APP}:
+            app:
+              - path: /config/qBittorrent/logs
+                subPath: logs
+
       #empty-config:
       #  type: emptyDir
       #  advancedMounts:
