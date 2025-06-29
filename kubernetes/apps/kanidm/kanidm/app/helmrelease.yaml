@@ -36,25 +36,25 @@ spec:
             fsGroup: 999
             fsGroupChangePolicy: "OnRootMismatch"
 
-        initContainers:
-          kanidm-db-vacuum:
-            image:
-              repository: docker.io/kanidm/server
-              tag: 1.6.3@sha256:8141f14aa62a271204bf3a0e2207d9a7c565e63a1bcd295aff4444e35967f1b8
-
-            args:
-              - kanidmd
-              - database
-              - vacuum
-              - -c
-              - /data/server.toml
-
-            securityContext:
-              runAsUser: 999
-              runAsGroup: 999
-              runAsNonRoot: true
-              capabilities:
-                drop: [ "ALL" ]
+#        initContainers:
+#          kanidm-db-vacuum:
+#            image:
+#              repository: docker.io/kanidm/server
+#              tag: 1.6.3@sha256:8141f14aa62a271204bf3a0e2207d9a7c565e63a1bcd295aff4444e35967f1b8
+#
+#            args:
+#              - kanidmd
+#              - database
+#              - vacuum
+#              - -c
+#              - /data/server.toml
+#
+#            securityContext:
+#              runAsUser: 999
+#              runAsGroup: 999
+#              runAsNonRoot: true
+#              capabilities:
+#                drop: [ "ALL" ]
 
         containers:
           app:
