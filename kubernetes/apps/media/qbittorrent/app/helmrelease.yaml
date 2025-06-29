@@ -201,6 +201,7 @@ spec:
           ${APP}:
             app:
               - path: /mnt/media
+                subPath: downloads
 
       tmpfs:
         type: emptyDir
