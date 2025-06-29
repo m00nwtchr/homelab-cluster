@@ -9,11 +9,11 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-#  components:
-#    - ../../../../components/volsync
-#  dependsOn:
-#    - name: rook-ceph-cluster
-#      namespace: rook-ceph
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
   interval: 1h
   path: ./kubernetes/apps/media/qbittorrent/app
   postBuild:
