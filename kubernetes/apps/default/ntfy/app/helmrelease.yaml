@@ -97,16 +97,6 @@ spec:
               - identifier: app
                 port: 80
 
-    ingress:
-      app:
-        hosts:
-          - host: "${APP}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       config:
         name: ntfy-configmap
