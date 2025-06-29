@@ -89,7 +89,7 @@ spec:
           gethomepage.dev/icon: jellyfin.svg
           gethomepage.dev/widget.type: jellyfin
           gethomepage.dev/widget.enableBlocks: "true"
-          gethomepage.dev/widget.url: "http://jellyfinn.media.svc"
+          gethomepage.dev/widget.url: "http://jellyfin.media.svc"
           gethomepage.dev/widget.key: "{{ \"{{HOMEPAGE_VAR_JELLYFIN_KEY}}\" }}"
         parentRefs:
           - name: external
