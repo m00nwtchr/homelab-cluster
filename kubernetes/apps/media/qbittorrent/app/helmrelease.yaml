@@ -200,7 +200,7 @@ spec:
         advancedMounts:
           ${APP}:
             app:
-              - path: /mnt/media
+              - path: /mnt/media/downloads
                 subPath: downloads
 
       tmpfs:
