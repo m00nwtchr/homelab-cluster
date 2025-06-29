@@ -19,12 +19,12 @@ gitea:
   #    existingSecret: forgejo-admin-secret
   #    email: "m00n@example.com"
 
-  #  oauth:
-  #    - name: kanidm
-  #      provider: openidConnect
-  #      key: gitea
-  #      existingSecret: forgejo-oidc
-  #      autoDiscoverUrl: "https://idm.${SECRET_DOMAIN}/oauth2/openid/gitea/.well-known/openid-configuration"
+  oauth:
+    - name: kanidm
+      provider: openidConnect
+      key: gitea
+      existingSecret: forgejo-oidc
+      autoDiscoverUrl: "https://idm.${SECRET_DOMAIN}/oauth2/openid/gitea/.well-known/openid-configuration"
 
   config:
     database:
@@ -83,7 +83,8 @@ postgresql-ha:
   enabled: false
 
 persistence:
-  enabled: true
+  create: false
+  claimName: ${APP}
 
 extraVolumes:
   - name: git
