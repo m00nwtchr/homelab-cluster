@@ -67,6 +67,7 @@ spec:
       app:
         forceRename: *app
         primary: true
+        ipFamilyPolicy: PreferDualStack
         ports:
           http:
             port: 80
