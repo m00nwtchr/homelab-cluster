@@ -94,6 +94,9 @@ localRedirectPolicy: true
 
 nodeSelectorLabels: true
 
+nodeIPAM:
+  enabled: true
+
 operator:
   dashboards:
     enabled: true
