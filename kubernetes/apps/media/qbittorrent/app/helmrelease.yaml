@@ -102,7 +102,7 @@ spec:
           gethomepage.dev/widget.password: "{{ \"{{HOMEPAGE_VAR_QBIT_PASSWORD}}\" }}"
         parentRefs:
           - name: internal
-            namespace: kube-system
+            namespace: envoy-gateway-system
             sectionName: https
         rules:
           - backendRefs:
