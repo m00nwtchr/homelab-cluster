@@ -28,7 +28,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_LOCAL_BUCKET: conduit
+      VOLSYNC_LOCAL_BUCKET: *app
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
