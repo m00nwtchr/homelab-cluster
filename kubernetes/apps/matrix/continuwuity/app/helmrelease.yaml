@@ -80,6 +80,7 @@ spec:
     route:
       app:
         hostnames: [ "matrix.${SECRET_DOMAIN}" ]
+        forceRename: *app
         parentRefs:
           - name: external
             namespace: envoy-gateway-system
