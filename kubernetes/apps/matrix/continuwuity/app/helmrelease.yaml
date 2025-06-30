@@ -79,7 +79,19 @@ spec:
 
     route:
       app:
-        hostnames: [ "matrix.${SECRET_DOMAIN}", "matrix-fed.${SECRET_DOMAIN}" ]
+        hostnames: [ "matrix.${SECRET_DOMAIN}" ]
+        parentRefs:
+          - name: external
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
+      federation:
+        hostnames: [ "matrix-fed.${SECRET_DOMAIN}" ]
+        annotations:
+          external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
         parentRefs:
           - name: external
             namespace: envoy-gateway-system
