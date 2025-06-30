@@ -8,7 +8,8 @@ metadata:
   name: ${APP}
 spec:
   hostnames:
-    - ${APP}.${SECRET_DOMAIN}
+#    - ${APP}.${SECRET_DOMAIN}
+    - photos.m00nlit.dev
   parentRefs:
     - name: external
       namespace: envoy-gateway-system
