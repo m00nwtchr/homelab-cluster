@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./cluster.yaml
   - ./helmrelease.yaml
+  - ./httproute.yaml
   - ./objectstore.yaml
   - ./pvc.yaml
   - ./scheduledbackup.yaml
