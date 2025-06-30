@@ -27,7 +27,7 @@ spec:
             env:
               # RAILS_ENV: production
               RAILS_ENV: development
-              TIME_ZONE: "Europe/Warsaw"
+              TIME_ZONE: "${TZ}"
               REDIS_URL: redis://localhost
               APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}"
               APPLICATION_PROTOCOL: http
@@ -105,19 +105,3 @@ spec:
           - backendRefs:
               - identifier: app
                 port: 80
-
-    ingress:
-      app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Home
-          gethomepage.dev/name: Dawarich
-          gethomepage.dev/icon: google-maps.png
-          # external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
-        hosts:
-          - host: "${APP}.svc.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
