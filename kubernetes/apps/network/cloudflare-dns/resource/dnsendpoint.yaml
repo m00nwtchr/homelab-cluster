@@ -6,6 +6,6 @@ metadata:
   name: cloudflare-tunnel
 spec:
   endpoints:
-    - dnsName: external.devbu.io
-      recordType: CNAME
-      targets: ["${CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com"]
+    - dnsName: external.${SECRET_DOMAIN}
+      recordType: AAAA
+      targets: ["2a02:a313:43e4:7080::7dc5"]
