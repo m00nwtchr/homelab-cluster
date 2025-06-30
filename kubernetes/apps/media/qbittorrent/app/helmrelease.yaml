@@ -31,7 +31,7 @@ spec:
             probes:
               liveness: &probes
                 enabled: true
-#                custom: false
+#                custom: true
 #                spec:
 #                  httpGet:
 #                    path: /api/v2/app/version
