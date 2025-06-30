@@ -41,8 +41,11 @@ spec:
       replicationMode: "1"
 
     persistence:
+      meta:
+        size: 1Gi
       data:
         storageClass: zfs-vault
+        size: 10Gi
 
     deployment:
       replicaCount: 1
