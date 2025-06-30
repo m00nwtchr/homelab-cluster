@@ -19,6 +19,8 @@ spec:
   values:
     controllers:
       qbittorrent:
+        type: statefulset
+
         containers:
           app:
             image:
