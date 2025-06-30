@@ -138,5 +138,6 @@ securityContext:
       - SYS_ADMIN
       - SYS_RESOURCE
 
-#socketLB:
-#  hostNamespaceOnly: true
+# Needed for Tailscale operator
+socketLB:
+  hostNamespaceOnly: true
