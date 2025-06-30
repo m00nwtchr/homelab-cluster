@@ -72,15 +72,26 @@ spec:
             port: 8123
     #        code-server:
     #          port: 12321
-    ingress:
+    route:
       app:
-        hosts:
-          - host: hass.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}", "hass.${SECRET_DOMAIN}" ]
+#        annotations:
+#          gethomepage.dev/enabled: "true"
+#          gethomepage.dev/group: Media
+#          gethomepage.dev/name: Jellyfin
+#          gethomepage.dev/icon: jellyfin.svg
+#          gethomepage.dev/widget.type: jellyfin
+#          gethomepage.dev/widget.enableBlocks: "true"
+#          gethomepage.dev/widget.url: "http://jellyfin.media.svc"
+#          gethomepage.dev/widget.key: "{{ \"{{HOMEPAGE_VAR_JELLYFIN_KEY}}\" }}"
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
 
     persistence:
       config:
@@ -93,12 +104,6 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
-      cache:
-        size: 1Gi
-        accessMode: ReadWriteOnce
-        suffix: "cache"
-        globalMounts:
-          - path: /config/.venv
       tmpfs:
         type: emptyDir
         globalMounts:
@@ -108,3 +113,5 @@ spec:
             subPath: tts
           - path: /tmp
             subPath: tmp
+          - path: /config/.venv
+            subPath: cache
