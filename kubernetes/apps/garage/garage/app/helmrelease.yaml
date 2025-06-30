@@ -39,7 +39,6 @@ spec:
 
     garage:
       replicationMode: "1"
-
     persistence:
 #      meta:
 #        size: 1Gi
