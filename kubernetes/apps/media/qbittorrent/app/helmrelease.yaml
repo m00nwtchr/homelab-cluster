@@ -28,7 +28,7 @@ spec:
               tag: 5.1.0@sha256:37aefd713ba31d51255995261616f1144378887bc5f21665a0ebf851fb85f69a
             env:
               TZ: ${TZ}
-              QBT_WEBUI_PORT: &port 80
+              QBT_WEBUI_PORT: &port 8080
               QBT_TORRENTING_PORT: &torrentPort 31495
 #            probes:
 #              liveness: &probes
@@ -72,7 +72,8 @@ spec:
         ipFamilyPolicy: PreferDualStack
         ports:
           http:
-            port: *port
+            port: 80
+            targetPort: *port
       bittorrent:
         type: LoadBalancer
         loadBalancerClass: "io.cilium/node"
@@ -106,7 +107,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *port
+                port: 80
 
     persistence:
       config:
