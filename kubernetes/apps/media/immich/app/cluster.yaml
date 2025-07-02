@@ -7,14 +7,13 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   instances: 1
-  # At the time of writing, immich is only compatible with pgvecto.rs <0.4. Latest postgres image with that version is 16.5.
-  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16-v0.3.0@sha256:be3f025d79aa1b747817f478e07e71be43236e14d00d8a9eb3914146245035ba
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.4.3@sha256:acebb38ca309938bc05ce268b019c98aa718cb554dd54e4443654d9d00a0d498
   storage:
     size: 4Gi
 
   postgresql:
     shared_preload_libraries:
-      - "vectors.so"
+      - "vchord.so"
 
   bootstrap:
     recovery:
@@ -28,9 +27,8 @@ spec:
   #        name: immich-postgres-user
   #      postInitSQL:
   #        - ALTER SYSTEM SET search_path TO "$user", public, vectors;
-  #        - CREATE EXTENSION IF NOT EXISTS "vectors";
-  #        - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
-  #        - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
+  #        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
+  #        - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
 
   plugins:
     - name: &plugin barman-cloud.cloudnative-pg.io
@@ -65,6 +63,5 @@ spec:
   cluster:
     name: immich-postgres
   extensions:
-    - name: vectors
-    - name: cube
+    - name: vchord
     - name: earthdistance
