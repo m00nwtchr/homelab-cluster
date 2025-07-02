@@ -19,6 +19,8 @@ spec:
   values:
     controllers:
       home-assistant:
+        type: statefulset
+
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
