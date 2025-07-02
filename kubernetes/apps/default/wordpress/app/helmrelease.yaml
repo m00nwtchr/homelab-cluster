@@ -35,6 +35,8 @@ spec:
     overrideDatabaseSettings: true
 
     mariadb:
+      auth:
+        rootPassword: 0n}u&2UicEAC1ks3
       enabled: true
 
 #    externalDatabase:
