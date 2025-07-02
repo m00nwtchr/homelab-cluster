@@ -32,7 +32,7 @@ spec:
 
   plugins:
     - name: &plugin barman-cloud.cloudnative-pg.io
-#      isWALArchiver: true
+      isWALArchiver: true
       parameters:
         barmanObjectName: &store garage-store
 
