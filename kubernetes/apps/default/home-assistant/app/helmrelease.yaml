@@ -107,8 +107,10 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
+
       cache:
-        existingClaim: *app
+        size: 1Gi
+        accessMode: ReadWriteOnce
         globalMounts:
           - path: /config/.venv
             subPath: venv
