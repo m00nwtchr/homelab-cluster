@@ -42,8 +42,6 @@ spec:
         superuser: false
         passwordSecret:
           name: postgres-dawarich
-
-
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
