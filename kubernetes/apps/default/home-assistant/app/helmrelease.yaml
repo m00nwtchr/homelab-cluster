@@ -107,6 +107,12 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
+      cache:
+        existingClaim: *app
+        globalMounts:
+          - path: /config/.venv
+            subPath: venv
+
       tmpfs:
         type: emptyDir
         globalMounts:
@@ -116,5 +122,3 @@ spec:
             subPath: tts
           - path: /tmp
             subPath: tmp
-          - path: /config/.venv
-            subPath: cache
