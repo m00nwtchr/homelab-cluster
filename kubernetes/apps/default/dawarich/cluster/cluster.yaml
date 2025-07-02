@@ -13,6 +13,8 @@ spec:
 
   bootstrap:
     recovery:
+      owner: dawarich
+      database: dawarich
       source: &src source
   #    initdb:
   #      owner: dawarich
