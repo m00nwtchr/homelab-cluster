@@ -2,17 +2,31 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres
+  name: &name postgres
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: "true"
 spec:
   instances: 1
   storage:
     size: 8Gi
 
+  bootstrap:
+    recovery:
+      source: &src source
+
   plugins:
-    - name: barman-cloud.cloudnative-pg.io
+    - name: &plugin barman-cloud.cloudnative-pg.io
       isWALArchiver: true
       parameters:
-        barmanObjectName: garage-store
+        barmanObjectName: &store garage-store
+
+  externalClusters:
+    - name: *src
+      plugin:
+        name: *plugin
+        parameters:
+          barmanObjectName: *store
+          serverName: *name
 
   managed:
     roles:
