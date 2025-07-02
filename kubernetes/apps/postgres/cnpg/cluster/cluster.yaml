@@ -4,7 +4,7 @@ kind: Cluster
 metadata:
   name: &name postgres
   annotations:
-    cnpg.io/skipEmptyWalArchiveCheck: "true"
+    cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   instances: 1
   storage:
@@ -26,7 +26,7 @@ spec:
         name: *plugin
         parameters:
           barmanObjectName: *store
-          serverName: *name
+          serverName: postgres
 
   managed:
     roles:
