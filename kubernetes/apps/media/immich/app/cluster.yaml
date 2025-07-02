@@ -1,3 +1,4 @@
+---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
@@ -17,33 +18,48 @@ spec:
       - "vchord.so"
 
   bootstrap:
-    recovery:
+#    recovery:
+#      owner: immich
+#      database: immich
+#      source: &src source
+    initdb:
       owner: immich
       database: immich
-      source: &src source
-  #    initdb:
-  #      owner: immich
-  #      database: immich
-  #      secret:
-  #        name: immich-postgres-user
-  #      postInitSQL:
-  #        - ALTER SYSTEM SET search_path TO "$user", public, vectors;
-  #        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
-  #        - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
+      secret:
+        name: immich-postgres-user
+      import:
+        type: microservice
+        databases:
+          - immich
+        source:
+          externalCluster: pg16
+      postInitSQL:
+        - ALTER SYSTEM SET search_path TO "$user", public, vectors;
+        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
+        - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
 
-  plugins:
-    - name: &plugin barman-cloud.cloudnative-pg.io
-      isWALArchiver: true
-      parameters:
-        barmanObjectName: &store garage-store
+#  plugins:
+#    - name: &plugin barman-cloud.cloudnative-pg.io
+#      isWALArchiver: false
+#      parameters:
+#        barmanObjectName: &store garage-store
 
   externalClusters:
-    - name: *src
-      plugin:
-        name: *plugin
-        parameters:
-          barmanObjectName: *store
-          serverName: immich-postgres
+    - name: pg16
+      connectionParameters:
+        # Use the correct IP or host name for the source database
+        host: immich-postgres-16-rw.media.svc
+        user: immich
+        dbname: immich
+      password:
+        name: immich-postgres-user
+        key: password
+#    - name: *src
+#      plugin:
+#        name: *plugin
+#        parameters:
+#          barmanObjectName: *store
+#          serverName: immich-postgres
 
   managed:
     roles:
