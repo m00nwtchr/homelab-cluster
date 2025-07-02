@@ -63,5 +63,6 @@ spec:
   cluster:
     name: immich-postgres
   extensions:
+    - name: vector
     - name: vchord
     - name: earthdistance
