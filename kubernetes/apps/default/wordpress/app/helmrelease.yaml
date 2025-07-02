@@ -35,16 +35,16 @@ spec:
     overrideDatabaseSettings: true
 
     mariadb:
-      enabled: false
+      enabled: true
 
-    externalDatabase:
-      host: mariadb.mariadb.svc
-      user: *app
-      database: voltkonekt_${APP}
-      existingSecret: ${APP}-db-user
+#    externalDatabase:
+#      host: mariadb.mariadb.svc
+#      user: *app
+#      database: voltkonekt_wordpress
+#      existingSecret: postgres-wordpress
 
     service:
       type: ClusterIP
 
     persistence:
-      existingClaim: "wordpress"
+      existingClaim: *app
