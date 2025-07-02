@@ -7,7 +7,7 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   instances: 1
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16-0.4.3@sha256:bdb8d8829bd68c9204628cde5c495db9db0d2b45e958ddd17de1703338a3b98b
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.4.3@sha256:acebb38ca309938bc05ce268b019c98aa718cb554dd54e4443654d9d00a0d498
   storage:
     size: 4Gi
 
