@@ -39,12 +39,6 @@ spec:
         rootPassword: 0n}u&2UicEAC1ks3
       enabled: true
 
-#    externalDatabase:
-#      host: mariadb.mariadb.svc
-#      user: *app
-#      database: voltkonekt_wordpress
-#      existingSecret: postgres-wordpress
-
     service:
       type: ClusterIP
 
