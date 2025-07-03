@@ -13,8 +13,8 @@ instance:
   sync:
     kind: GitRepository
 #    url: "ssh://git@github.com/m00nwtchr/homelab-cluster.git"
-#    pullSecret: github-deploy-key
-    url: "http://forgejo-http.gitea.svc.cluster.local:3000/m00n/homelab-cluster.git"
+    url: "ssh://git@forgejo-ssh.gitea.svc.cluster.local/m00n/homelab-cluster.git"
+    pullSecret: deploy-key
     ref: "refs/heads/master"
     path: kubernetes/flux/cluster
   commonMetadata:
