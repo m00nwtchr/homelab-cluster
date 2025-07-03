@@ -70,7 +70,7 @@ spec:
         name: ${APP}-configmap
         globalMounts:
           - path: /config/recyclarr.yml
-            subPath: recyclarr.yml
+            subPath: recyclarr.yaml
             readOnly: true
       tmpfs:
         type: emptyDir
