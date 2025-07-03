@@ -47,6 +47,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: tor-controller
+      namespace: tor
   healthChecks:
     - apiVersion: tor.k8s.torproject.org/v1alpha2
       kind: Tor
