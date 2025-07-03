@@ -78,6 +78,8 @@ spec:
             app:
               - path: /config/logs
                 subPath: logs
+              - path: /config/cache
+                subPath: cache
               - path: /config/repositories
                 subPath: repositories
               - path: /tmp
