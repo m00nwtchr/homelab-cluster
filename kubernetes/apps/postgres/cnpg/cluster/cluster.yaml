@@ -69,6 +69,13 @@ spec:
         passwordSecret:
           name: postgres-maubot
 
+      - name: mautrix-discord
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-discord-meta
+
       - name: mautrix-meta
         ensure: present
         login: true

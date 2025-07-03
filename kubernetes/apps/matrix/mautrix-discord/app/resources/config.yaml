@@ -11,9 +11,8 @@ appservice:
   port: 8000
 
   database:
-    type: sqlite3-fk-wal
-
-    uri: file:/data/data.db?_txlock=immediate
+    type: postgres
+    uri: postgres://{{ .username }}:{{ .password }}@postgres-rw.postgres.svc/${APP}?sslmode=disable
     max_open_conns: 20
     max_idle_conns: 2
     max_conn_idle_time: null
