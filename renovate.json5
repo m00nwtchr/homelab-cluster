@@ -1,68 +1,43 @@
 {
-	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": [
-		"config:recommended",
-		"docker:enableMajor",
-		":automergeBranch",
-		":disableRateLimiting",
-		":dependencyDashboard",
-		":semanticCommits",
-		":timezone(Europe/Warsaw)",
-		"local>m00n/homelab-cluster//.renovate/autoMerge.json5",
-		// "github>onedr0p/home-ops//.renovate/customManagers.json5",
-		// "github>onedr0p/home-ops//.renovate/grafanaDashboards.json5",
-		// "github>onedr0p/home-ops//.renovate/groups.json5",
-		// "github>onedr0p/home-ops//.renovate/labels.json5",
-		// "github>onedr0p/home-ops//.renovate/packageRules.json5",
-		// "github>onedr0p/home-ops//.renovate/semanticCommits.json5"
-	],
-	"argocd": {
-		"fileMatch": [
-			"(^|/)charts/.+\\.ya?ml$"
-		]
-	},
-	"helmv3": {
-		"fileMatch": [
-			"(^|/)charts/.+\\.ya?ml$"
-		]
-	},
-	"helm-values": {
-		"fileMatch": [
-			"(^|/)charts/.+\\.ya?ml$"
-		]
-	},
-	"kubernetes": {
-		"fileMatch": [
-			"(^|/)charts/.+\\.ya?ml$",
-			"(^|/)apps/.+\\.ya?ml$"
-		]
-	},
-	"customManagers": [
-		{
-			"customType": "regex",
-			"description": "Apply an explicit forgejo digest field match",
-			"fileMatch": [
-				"forgejo\\.ya?ml"
-			],
-			"matchStrings": [
-				"(?<depName>forgejo\\/forgejo)\\n(?<indentation>\\s+)tag: (?<currentValue>[^@].*?)\\n\\s+digest: (?<currentDigest>sha256:[a-f0-9]+)"
-			],
-			"datasourceTemplate": "docker",
-			"packageNameTemplate": "code.forgejo.org/{{depName}}",
-			"autoReplaceStringTemplate": "{{depName}}\n{{indentation}}tag: {{newValue}}\n{{indentation}}digest: {{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}"
-		},
-		{
-			"customType": "regex",
-			"description": "Match and update imageName with tag and digest",
-			"fileMatch": [
-				".*\\.ya?ml"
-			],
-			"matchStrings": [
-				"imageName: (?<depName>[^:\\s]+):(?<currentValue>[^@\\s]+)@(?<currentDigest>sha256:[a-f0-9]+)"
-			],
-			"datasourceTemplate": "docker",
-			"packageNameTemplate": "{{depName}}",
-			"autoReplaceStringTemplate": "imageName: {{depName}}:{{newValue}}@{{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}"
-		}
-	]
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    "config:recommended",
+    "docker:enableMajor",
+//    "helpers:pinGitHubActionDigests",
+    "m00n/homelab-cluster//.renovate/autoMerge.json5",
+    "m00n/homelab-cluster//.renovate/customManagers.json5",
+    "m00n/homelab-cluster//.renovate/grafanaDashboards.json5",
+    "m00n/homelab-cluster//.renovate/groups.json5",
+    "m00n/homelab-cluster//.renovate/labels.json5",
+    "m00n/homelab-cluster//.renovate/semanticCommits.json5",
+    ":automergeBranch",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":timezone(Europe/Warsaw)",
+  ],
+  dependencyDashboardTitle: "Renovate Dashboard 🤖",
+  suppressNotifications: [
+    "prEditedNotification",
+    "prIgnoreNotification",
+  ],
+  ignorePaths: [
+    "**/*.sops.*",
+    "**/resources/**",
+  ],
+  flux: {
+    managerFilePatterns: [
+      "/(^|/)kubernetes/.+\\.ya?ml$/"
+    ]
+  },
+  "helm-values": {
+    managerFilePatterns: [
+      "/(^|/)kubernetes/.+\\.ya?ml$/"
+    ]
+  },
+  kubernetes: {
+    managerFilePatterns: [
+      "/(^|/)kubernetes/.+\\.ya?ml$/"
+    ]
+  },
 }
