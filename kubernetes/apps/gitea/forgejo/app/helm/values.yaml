@@ -34,7 +34,7 @@ gitea:
     server:
       APP_DATA_PATH: /data/gitea
       ROOT_URL: https://git.${SECRET_DOMAIN}
-      START_SSH_SERVER: false
+      START_SSH_SERVER: true
     lfs:
       PATH: /data/git/lfs
     repository:
