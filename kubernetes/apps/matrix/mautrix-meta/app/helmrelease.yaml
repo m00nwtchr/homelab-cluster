@@ -82,18 +82,17 @@ spec:
             port: 80
             targetPort: *port
 
-    #    ingress:
-    #      app:
-    #        annotations:
-    #          traefik.ingress.kubernetes.io/router.tls.options: traefik-intermediate@kubernetescrd
-    #        hosts:
-    #          - host: "${SECRET_DOMAIN}"
-    #            paths:
-    #              - path: /.well-known/matrix/
-    #                pathType: Prefix
-    #                service:
-    #                  identifier: app
-    #                  port: http
+    route:
+      app:
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
+        parentRefs:
+          - name: external
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
 
     persistence:
       data:

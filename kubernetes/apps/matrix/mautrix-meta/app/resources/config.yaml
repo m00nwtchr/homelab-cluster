@@ -71,7 +71,7 @@ public_media:
   hash_length: 32
 
 direct_media:
-  enabled: false
+  enabled: true
   server_name: "${APP}.${SECRET_DOMAIN}"
   allow_proxy: true
   server_key: "{{ .server_key }}"
