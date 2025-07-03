@@ -24,7 +24,7 @@
   ignorePaths: [
     "**/*.sops.*",
     "**/resources/**",
-    "old/**"
+    "**/old/**"
   ],
   flux: {
     managerFilePatterns: [
