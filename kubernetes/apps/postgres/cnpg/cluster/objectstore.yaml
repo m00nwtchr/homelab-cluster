@@ -21,3 +21,4 @@ spec:
       compression: zstd
     data:
       compression: gzip
+  retentionPolicy: "30d"
