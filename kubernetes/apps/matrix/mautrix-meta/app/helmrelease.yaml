@@ -95,13 +95,6 @@ spec:
                 port: 80
 
     persistence:
-      data:
-        size: 1Gi
-        accessMode: ReadWriteOnce
-      #        enabled: true
-      #        type: persistentVolumeClaim
-      #        existingClaim: *app
-
       config:
         type: secret
         name: mautrix-meta-config
