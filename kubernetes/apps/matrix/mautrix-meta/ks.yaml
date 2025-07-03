@@ -57,11 +57,11 @@ spec:
   dependsOn:
     - name: cnpg
       namespace: cnpg-system
-  healthChecks:
-    - apiVersion: postgresql.cnpg.io/v1
-      kind: Database
-      name: postgres-mautrix-meta
-      namespace: postgres
+#  healthChecks:
+#    - apiVersion: postgresql.cnpg.io/v1
+#      kind: Database
+#      name: postgres-mautrix-meta
+#      namespace: postgres
   interval: 1h
   path: ./kubernetes/apps/matrix/mautrix-meta/database
   postBuild:
