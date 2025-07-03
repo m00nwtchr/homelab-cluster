@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: dock.mau.dev/mautrix/discord
-              tag: v0.7.3@sha256:7b54f5476ca06395597bc05da2849eb252f6ae88f650e65c8a49d833763dd521
+              tag: v0.7.4@sha256:d1a4e86b5e0945dcf8a5332d6cf7a56c49b8e1d087590a04150a4f8af588a1cb
             command: [ "/usr/bin/${APP}" ]
             args: [ "-c", "/config/config.yaml", "--no-update" ]
             probes:
