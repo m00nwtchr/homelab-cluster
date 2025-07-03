@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: github-deploy-key
+  name: deploy-key
   namespace: flux-system
 stringData:
   identity: ENC[AES256_GCM,data:IXwg5Bbsffw7UjAjJova3+eVYpYcPUzeFWURsNFPXdloW+FQK54KjvBd9mDzhInAtaoXy1oA7yiVrxPd5BPps1HQckqzL81SmS/ivFRUEI7ndaq1zij+HtQIfuWy3NVxMNVGzH33m4V1z9odD+rQDhGVFwB0FGTU/D8SVtM4FELxezFO/Db9+iDi8/v/2q0wrnGaVJLNCn/0Goc2NiCbj1kVoFUO0Dtyedpo5F/JpYPCL/y7Ck6rvRf3Ar+/e+UYms1t2ZFgfDP6fjgi5E50Yd7UBMn3kwSAIQDjbMiKsTu0bjTIkN4bilXfc5ABSm+600RuTWV9kJxS5kyweUKk1y5IG9hJy+bCgPBcEkAj5TAJivLvbD2rjxSdx2lCb3GMAD3bp1uvkpdH8h/0GSFdheKZGbHSHaKO7Wkj+oIEILBweJgnWWrdO7dttPm9LVV9oQfIHbF86iBm73kNffK3kRmwHoSTnt0yNAENA5BYCKzNCtL5Nszfdf4iTLbPvn+1Opcoc4gN2MOGLF1PhMYC,iv:kknggvo4hIipbG7mBBR65cnTmeS8UWqqrVT3kpufyx4=,tag:3kIaUhZ4ChUCjSJ/+FyWYw==,type:str]
