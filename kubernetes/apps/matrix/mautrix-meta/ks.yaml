@@ -60,7 +60,7 @@ spec:
   healthChecks:
     - apiVersion: postgresql.cnpg.io/v1
       kind: Database
-      name: mautrix-meta
+      name: postgres-mautrix-meta
       namespace: postgres
   interval: 1h
   path: ./kubernetes/apps/matrix/mautrix-meta/database
