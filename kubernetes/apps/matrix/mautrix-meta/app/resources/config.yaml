@@ -20,8 +20,10 @@ bridge:
     "@m00n:${SECRET_DOMAIN}": admin
 
 database:
-  type: sqlite3-fk-wal
-  uri: file:/data/data.db?_txlock=immediate
+#  type: sqlite3-fk-wal
+  type: postgres
+#  uri: file:/data/data.db?_txlock=immediate
+  uri: postgres://{{ .username }}:{{ .password }}@postgres-rw.postgres.svc/${APP}?sslmode=disable
   max_open_conns: 5
   max_idle_conns: 1
   max_conn_idle_time: null
