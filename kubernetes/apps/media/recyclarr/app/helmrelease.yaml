@@ -63,6 +63,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+
     persistence:
       config-file:
         type: configMap
@@ -76,11 +77,6 @@ spec:
         advancedMounts:
           recyclarr:
             app:
-              - path: /config/logs
-                subPath: logs
-              - path: /config/cache
-                subPath: cache
-              - path: /config/repositories
-                subPath: repositories
+              - path: /config/
               - path: /tmp
                 subPath: tmp
