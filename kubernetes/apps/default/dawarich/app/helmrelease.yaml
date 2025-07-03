@@ -28,7 +28,7 @@ spec:
               # RAILS_ENV: production
               RAILS_ENV: development
               TIME_ZONE: "${TZ}"
-              REDIS_URL: redis://localhost
+              REDIS_URL: redis://dragonfly.database.svc
               APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}"
               APPLICATION_PROTOCOL: http
               MIN_MINUTES_SPENT_IN_CITY: 60
@@ -76,10 +76,6 @@ spec:
                 cpu: "250m"
               limits:
                 memory: "3Gi"
-          valkey:
-            image:
-              repository: docker.io/valkey/valkey
-              tag: 8.1.2-alpine@sha256:81681ebc32ea2ce5153094084ca541861168ff588b4b0db998046fc896b99ba7
 
     service:
       app:
