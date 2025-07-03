@@ -3,7 +3,7 @@ server_name = "${SECRET_DOMAIN}"
 address = ["::"]
 port = 8008
 
-log = "debug"
+log = "info"
 
 database_path = "/data"
 database_backup_path = "/backups"
