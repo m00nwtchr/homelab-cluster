@@ -69,24 +69,12 @@ spec:
         passwordSecret:
           name: postgres-maubot
 
-      - name: sonarr
+      - name: mautrix-meta
         ensure: present
         login: true
         superuser: false
         passwordSecret:
-          name: postgres-sonarr
-      - name: radarr
-        ensure: present
-        login: true
-        superuser: false
-        passwordSecret:
-          name: postgres-radarr
-      - name: prowlarr
-        ensure: present
-        login: true
-        superuser: false
-        passwordSecret:
-          name: postgres-prowlarr
+          name: postgres-mautrix-meta
 
       - name: open-webui
         ensure: present
@@ -94,30 +82,56 @@ spec:
         superuser: false
         passwordSecret:
           name: postgres-open-webui
+
       - name: paperless
         ensure: present
         login: true
         superuser: false
         passwordSecret:
           name: postgres-paperless
-      - name: splitpro
+
+      - name: prowlarr
         ensure: present
         login: true
         superuser: false
         passwordSecret:
-          name: postgres-splitpro
+          name: postgres-prowlarr
+
+      - name: radarr
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-radarr
+
       - name: rssflow
         ensure: present
         login: true
         superuser: false
         passwordSecret:
           name: postgres-rssflow
+
+      - name: sonarr
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-sonarr
+
+      - name: splitpro
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-splitpro
+
       - name: stalwart
         ensure: present
         login: true
         superuser: false
         passwordSecret:
           name: postgres-stalwart
+
       - name: vaultwarden
         ensure: present
         login: true
