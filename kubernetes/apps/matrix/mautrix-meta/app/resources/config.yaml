@@ -110,7 +110,7 @@ encryption:
     send: cross-signed-tofu
     share: cross-signed-tofu
 logging:
-  min_level: debug
+  min_level: info
   writers:
     - type: stdout
       format: pretty-colored
