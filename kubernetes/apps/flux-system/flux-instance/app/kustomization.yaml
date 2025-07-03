@@ -5,8 +5,9 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./httproute.yaml
-  - ./secret.sops.yaml
+  - ./pull.sops.yaml
   - ./receiver.yaml
+  - ./secret.sops.yaml
 configMapGenerator:
   - name: flux-instance-values
     files:
