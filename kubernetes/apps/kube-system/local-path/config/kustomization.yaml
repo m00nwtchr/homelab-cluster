@@ -7,8 +7,8 @@ kind: Kustomization
 configMapGenerator:
   - name: local-path-config
     files:
-      - config.json=./resources/config.json
-      - helperPod.yaml=./resources/helperPod.yaml
+      - ./resources/config.json
+      - ./resources/helperPod.yaml
       - setup=./resources/setup.sh
       - teardown=./resources/teardown.sh
 generatorOptions:

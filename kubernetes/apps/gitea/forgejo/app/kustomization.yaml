@@ -10,6 +10,6 @@ resources:
 configMapGenerator:
   - name: forgejo-values
     files:
-      - values.yaml=./helm/values.yaml
+      - ./helm/values.yaml
 configurations:
   - ./helm/kustomizeconfig.yaml
