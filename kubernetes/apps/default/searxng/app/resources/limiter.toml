@@ -29,7 +29,8 @@ block_ip = []
 
 pass_ip = [
   '192.168.0.0/16', # IPv4 private network
-  '10.0.0.0/8',     # IPv4 private network
+  '10.42.0.0/16',     # IPv4 private network
+  '2001:cafe:42::/56'
 ]
 
 # Activate passlist of (hardcoded) IPs from the SearXNG organization,
