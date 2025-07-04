@@ -49,14 +49,14 @@ gitea:
       ENABLE_PASSWORD_SIGNIN_FORM: false
     queue:
       TYPE: redis
-      CONN_STR: redis://dragonfly.database.svc:6379/0?pool_size=100&idle_timeout=180s
+      CONN_STR: redis://dragonfly.database.svc:6379/14?pool_size=100&idle_timeout=180s
     session:
       PROVIDER: redis
-      PROVIDER_CONFIG: redis://dragonfly.database.svc:6379/0?pool_size=100&idle_timeout=180s
+      PROVIDER_CONFIG: redis://dragonfly.database.svc:6379/14?pool_size=100&idle_timeout=180s
     cache:
       ENABLED: true
       ADAPTER: redis
-      HOST: redis://dragonfly.database.svc:6379/0?pool_size=100&idle_timeout=180s
+      HOST: redis://dragonfly.database.svc:6379/14?pool_size=100&idle_timeout=180s
 
   additionalConfigFromEnvs:
     - name: FORGEJO__DATABASE__PASSWD
