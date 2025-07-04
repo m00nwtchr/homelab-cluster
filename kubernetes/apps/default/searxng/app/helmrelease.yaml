@@ -34,9 +34,10 @@ spec:
               - searx.webapp:app
             env:
               SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
-            #            envFrom:
-            #              - secretRef:
-            #                  name: *app
+              SEARXNG_PORT: &port 8080
+            envFrom:
+              - secretRef:
+                  name: *app
             probes:
               liveness: &probes
                 enabled: true
@@ -44,7 +45,7 @@ spec:
                 spec:
                   httpGet:
                     path: /stats
-                    port: &port 8080
+                    port: *port
                   initialDelaySeconds: 5
                   periodSeconds: 10
                   timeoutSeconds: 1
