@@ -7,6 +7,6 @@ resources:
 configMapGenerator:
   - name: recyclarr-configmap
     files:
-      - recyclarr.yaml=resources/recyclarr.yaml
+      - ./resources/recyclarr.yaml
 generatorOptions:
   disableNameSuffixHash: true

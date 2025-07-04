@@ -7,8 +7,8 @@ resources:
 configMapGenerator:
   - name: unbound-configmap
     files:
-      - forward-records.conf=./resources/forward-records.conf
-      - unbound.conf=./resources/unbound.conf
-      - unbound.sh=./resources/unbound.sh
+      - ./resources/forward-records.conf
+      - ./resources/unbound.conf
+      - ./resources/unbound.sh
 generatorOptions:
   disableNameSuffixHash: true

@@ -9,7 +9,7 @@ resources:
 configMapGenerator:
   - name: baikal-configmap
     files:
-      - baikal.yaml=./resources/baikal.yaml
-      - nginx.conf=./resources/nginx.conf
+      - ./resources/baikal.yaml
+      - ./resources/nginx.conf
 generatorOptions:
   disableNameSuffixHash: true

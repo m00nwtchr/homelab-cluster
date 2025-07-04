@@ -7,6 +7,6 @@ resources:
 configMapGenerator:
   - name: wks-keys
     files:
-      - m00n.gpg=./resources/m00n.gpg
+      - ./resources/m00n.gpg
 generatorOptions:
   disableNameSuffixHash: true
