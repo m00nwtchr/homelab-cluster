@@ -6,10 +6,10 @@ engine:
     disabled: false
 
 server:
-  limiter: false
+  limiter: true
   image_proxy: true
   method: GET # https://github.com/searxng/searxng/pull/3619
-  public_instance: false
+  public_instance: true
 
 redis:
   url: redis://dragonfly.database.svc.cluster.local/15
