@@ -44,7 +44,7 @@ spec:
           version: v1
           flags:
             plugin:
-              deviceListStrategy: "cdi-cri"
+              deviceListStrategy: "cdi-annotations"
 #          sharing:
 #            timeSlicing:
 #              renameByDefault: false
