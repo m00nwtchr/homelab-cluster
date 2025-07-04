@@ -80,7 +80,7 @@ spec:
     route:
       app:
         hostnames:
-          - ${APP}.${SECRET_DOMAIN}
+          - search.${SECRET_DOMAIN}
         annotations:
           gethomepage.dev/enabled: 'true'
           gethomepage.dev/group: Home
