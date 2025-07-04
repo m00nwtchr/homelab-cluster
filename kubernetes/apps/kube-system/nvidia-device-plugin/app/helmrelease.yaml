@@ -37,4 +37,18 @@ spec:
   values:
     gfd:
       enabled: true
-    runtimeClassName: nvidia
+#    runtimeClassName: nvidia
+    config:
+      map:
+        default: |-
+          version: v1
+          flags:
+            plugin:
+              deviceListStrategy: "cdi-cri"
+#          sharing:
+#            timeSlicing:
+#              renameByDefault: false
+#              failRequestsGreaterThanOne: false
+#              resources:
+#                - name: nvidia.com/gpu
+#                  replicas: 6
