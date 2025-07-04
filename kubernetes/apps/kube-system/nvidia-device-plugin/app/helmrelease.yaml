@@ -24,7 +24,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: nvdp
-        namespace: flux-system
+        namespace: kube-system
   install:
     crds: CreateReplace
     remediation:
