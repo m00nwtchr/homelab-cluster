@@ -36,7 +36,7 @@ spec:
         containers:
           app:
             env:
-              PAPERLESS_REDIS: redis://dragonfly.database.svc:6379
+              PAPERLESS_REDIS: redis://dragonfly.database.svc:6379/13
               PAPERLESS_DBHOST: postgres-rw.postgres.svc.cluster.local
               PAPERLESS_DBPASS:
                 valueFrom:

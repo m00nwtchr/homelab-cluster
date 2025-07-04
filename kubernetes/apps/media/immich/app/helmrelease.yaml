@@ -42,6 +42,7 @@ spec:
           name: immich-postgres-user
           key: password
       REDIS_HOSTNAME: "dragonfly.database.svc"
+      REDIS_DBINDEX: 12
 
     immich:
       persistence:
