@@ -37,3 +37,4 @@ spec:
   values:
     gfd:
       enabled: true
+    runtimeClassName: nvidia
