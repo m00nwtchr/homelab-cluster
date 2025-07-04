@@ -34,3 +34,6 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
+  values:
+    gfd:
+      enabled: true
