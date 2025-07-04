@@ -32,6 +32,7 @@ spec:
             enable_loopback_candidate: false
           redis:
             address: dragonfly.database.svc:6379
+            db: 11
           turn:
             enabled: true
             domain: turn.{{ .Values.domain }}
