@@ -197,7 +197,7 @@ spec:
     route:
       websub:
         hostnames:
-          - rssflow.${SECRET_DOMAIN}
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: external
             namespace: envoy-gateway-system
