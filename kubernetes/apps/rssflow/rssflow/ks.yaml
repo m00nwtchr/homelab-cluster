@@ -44,7 +44,7 @@ spec:
   path: ./kubernetes/apps/rssflow/rssflow/database
   postBuild:
     substitute:
-      APP: freshrss
+      APP: rssflow
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
