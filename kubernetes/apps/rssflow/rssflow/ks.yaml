@@ -4,13 +4,13 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app rssflow
-  namespace: &namespace default
+  namespace: &namespace rssflow
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   interval: 1h
-  path: ./kubernetes/apps/default/rssflow/app
+  path: ./kubernetes/apps/rssflow/rssflow/app
   postBuild:
     substitute:
       APP: *app
@@ -41,7 +41,7 @@ spec:
     - name: cnpg
       namespace: cnpg-system
   interval: 1h
-  path: ./kubernetes/apps/default/rssflow/database
+  path: ./kubernetes/apps/rssflow/rssflow/database
   postBuild:
     substitute:
       APP: freshrss
