@@ -171,35 +171,28 @@ spec:
           grpc:
             port: *port
 
-      fetch:
+      fetch: &svc
         controller: fetch
+        publishNotReadyAddresses: true
         ports:
           grpc:
             port: *port
 
       filter:
+        <<: *svc
         controller: filter
-        ports:
-          grpc:
-            port: *port
 
       replace:
+        <<: *svc
         controller: replace
-        ports:
-          grpc:
-            port: *port
 
       retrieve:
+        <<: *svc
         controller: retrieve
-        ports:
-          grpc:
-            port: *port
 
       sanitize:
+        <<: *svc
         controller: sanitize
-        ports:
-          grpc:
-            port: *port
 
     route:
       websub:
