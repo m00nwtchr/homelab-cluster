@@ -141,3 +141,6 @@ spec:
         existingClaim: paperless-media
         globalMounts:
           - path: /usr/src/paperless/media
+            subPath: media
+          - path: /usr/src/paperless/consume
+            subPath: consume

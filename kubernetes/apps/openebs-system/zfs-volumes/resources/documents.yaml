@@ -2,7 +2,7 @@
 apiVersion: zfs.openebs.io/v1
 kind: ZFSVolume
 metadata:
-  name: documents
+  name: paperless
   finalizers:
     - cluster.local/data-protection
 spec:
@@ -11,13 +11,18 @@ spec:
   ownerNodeID: m00nsrv
   poolName: vault
   shared: "yes"
+  encryption: "on"
+  keylocation: file:///root/paperless.key
+  keyformat: raw
+  compression: on
+  dedup: on
   thinProvision: "yes"
   volumeType: DATASET
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: storage-zfs-documents
+  name: storage-zfs-paperless
 spec:
   accessModes:
     - ReadWriteOnce
@@ -29,7 +34,7 @@ spec:
     volumeAttributes:
       openebs.io/cas-type: localpv-zfs
       openebs.io/poolname: vault
-    volumeHandle: documents
+    volumeHandle: paperless
   nodeAffinity:
     required:
       nodeSelectorTerms:

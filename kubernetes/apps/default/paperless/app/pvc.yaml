@@ -11,4 +11,4 @@ spec:
       storage: 10Gi
   storageClassName: ""
   volumeMode: Filesystem
-  volumeName: storage-zfs-documents
+  volumeName: storage-zfs-paperless
