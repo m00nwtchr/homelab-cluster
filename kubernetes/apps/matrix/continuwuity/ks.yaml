@@ -28,6 +28,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      VOLSYNC_CAPACITY: 8Gi
       VOLSYNC_LOCAL_BUCKET: *app
     substituteFrom:
       - name: cluster-secrets
