@@ -14,9 +14,6 @@ bpf:
 
 bpfClockProbe: true
 
-cni:
-  binPath: "/usr/lib/cni/"
-
 #cgroup:
 #  automount:
 #    enabled: false
