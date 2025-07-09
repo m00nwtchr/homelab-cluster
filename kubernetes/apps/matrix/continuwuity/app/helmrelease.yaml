@@ -116,40 +116,6 @@ spec:
               - identifier: app
                 port: 80
 
-    ingress:
-      app:
-        annotations:
-          traefik.ingress.kubernetes.io/router.tls.options: traefik-intermediate@kubernetescrd
-        hosts:
-          - host: "${SECRET_DOMAIN}"
-            paths:
-              - path: /.well-known/matrix/
-                pathType: Prefix
-                service:
-                  identifier: app
-                  port: http
-          - host: "matrix.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: app
-                  port: http
-          - host: "matrix6.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: app
-                  port: http
-          - host: "matrix-fed.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       data:
         enabled: true
