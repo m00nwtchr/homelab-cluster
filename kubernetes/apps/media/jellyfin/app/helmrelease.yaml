@@ -30,9 +30,8 @@ spec:
             k8s.v1.cni.cncf.io/networks: |
               [{
                 "name":"multus-lan",
-                "namespace": "network",
+                "namespace": "network"
               }]
-
 
           securityContext:
             runAsUser: 2000
