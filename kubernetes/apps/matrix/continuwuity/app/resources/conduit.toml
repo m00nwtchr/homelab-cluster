@@ -10,8 +10,8 @@ database_backup_path = "/backups"
 database_backups_to_keep = 1
 
 rocksdb_compression_algo = "zstd"
-rocksdb_compression_level = 6
-rocksdb_bottommost_compression_level = 22
+rocksdb_compression_level = 32767
+rocksdb_bottommost_compression_level = 32767
 rocksdb_bottommost_compression = true
 
 max_request_size = 20971520
