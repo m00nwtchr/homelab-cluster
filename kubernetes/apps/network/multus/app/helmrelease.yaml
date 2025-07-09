@@ -48,7 +48,7 @@ spec:
           - path: /host/etc/cni/net.d
       opt-cni-bin:
         type: hostPath
-        hostPath: /usr/lib/cni/
+        hostPath: /usr/opt/cni/bin
         globalMounts:
           - path: /host/opt/cni/bin
 
