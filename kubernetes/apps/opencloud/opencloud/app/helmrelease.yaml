@@ -1,0 +1,94 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app opencloud
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      opencloud:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+#            supplementalGroups:
+#              - 65542 # gladius:external-services
+
+        containers:
+          app:
+            image:
+              repository: opencloudeu/opencloud-rolling
+              tag: 3.1.0@sha256:57b59f69e49f07fff39ba2a5689a9ef4b5137aaa30b9ef1464a7fa3744ec4535
+            command: ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
+            env:
+              OC_INSECURE: true
+              OC_URL: https://cloud.${SECRET_DOMAIN}
+              PROXY_TLS: false
+#              IDM_CREATE_DEMO_USERS: false
+#              IDM_ADMIN_PASSWORD:
+#                valueFrom:
+#                  secretKeyRef:
+#                    name: opencloud-secret
+#                    key: idm-admin-password
+              GATEWAY_GRPC_ADDR: 0.0.0.0:9142
+              OC_ENABLE_OCM: false
+
+#            envFrom:
+#              - secretRef:
+#                  name: opencloud-secret
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128Mi
+              limits:
+                memory: 1Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        ports:
+          http:
+            port: 9200
+
+    route:
+      app:
+        hostnames: ["cloud.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: external
+            namespace: envoy-gateway-system
+            sectionName: https
+
+    persistence:
+      data:
+#        existingClaim: opencloud-data
+        type: emptyDir
+        globalMounts:
+          - path: /var/lib/opencloud
+            subPath: data
+          - path: /etc/opencloud
+            subPath: config
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
