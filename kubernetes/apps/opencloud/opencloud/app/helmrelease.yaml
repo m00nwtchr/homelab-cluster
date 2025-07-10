@@ -68,7 +68,8 @@ spec:
       app:
         ports:
           http:
-            port: 9200
+            port: 80
+            targetPort: 9200
 
     route:
       app:
@@ -77,6 +78,10 @@ spec:
           - name: external
             namespace: envoy-gateway-system
             sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
 
     persistence:
       data:
