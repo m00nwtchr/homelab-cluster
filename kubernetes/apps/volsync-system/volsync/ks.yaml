@@ -14,8 +14,8 @@ spec:
     secretRef:
       name: sops-age
   dependsOn:
-#    - name: openebs
-#      namespace: openebs-system
+    - name: openebs
+      namespace: openebs-system
     - name: snapshot-controller
       namespace: kube-system
   healthChecks:
