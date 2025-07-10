@@ -11,9 +11,13 @@ spec:
       app.kubernetes.io/name: *app
 #  components:
 #    - ../../../../components/volsync
-#  dependsOn:
+  dependsOn:
 #    - name: volsync
 #      namespace: volsync-system
+    - name: sonarr
+      namespace: media
+    - name: radarr
+      namespace: media
   interval: 1h
   path: ./kubernetes/apps/media/bazarr/app
   postBuild:
