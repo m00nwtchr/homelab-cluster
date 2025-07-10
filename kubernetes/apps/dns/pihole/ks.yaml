@@ -11,9 +11,9 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
-#  dependsOn:
-#    - name: rook-ceph-cluster
-#      namespace: rook-ceph
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
   interval: 1h
   path: ./kubernetes/apps/dns/pihole/app
   postBuild:

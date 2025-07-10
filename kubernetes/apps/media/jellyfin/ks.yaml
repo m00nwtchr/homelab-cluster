@@ -12,8 +12,8 @@ spec:
   components:
     - ../../../../components/volsync
   dependsOn:
-    - name: openebs
-      namespace: openebs-system
+    - name: volsync
+      namespace: volsync-system
   interval: 1h
   path: ./kubernetes/apps/media/jellyfin/app
   postBuild:
