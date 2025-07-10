@@ -9,8 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/volsync
+#  components:
+#    - ../../../../components/volsync
   decryption:
     provider: sops
     secretRef:
