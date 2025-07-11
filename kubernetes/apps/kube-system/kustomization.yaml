@@ -11,7 +11,7 @@ resources:
   - ./kube/ks.yaml
   - ./local-path/ks.yaml
   - ./metrics-server/ks.yaml
-  - ./nvidia-device-plugin/ks.yaml
+#  - ./nvidia-device-plugin/ks.yaml
   - ./reloader/ks.yaml
   - ./reflector/ks.yaml
   - ./sealed-secrets/ks.yaml
