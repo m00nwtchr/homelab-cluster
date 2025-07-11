@@ -10,5 +10,5 @@ configMapGenerator:
       - ./resources/forward-records.conf
       - ./resources/unbound.conf
       - ./resources/unbound.sh
-generatorOptions:
-  disableNameSuffixHash: true
+configurations:
+  - ./resources/kustomizeconfig.yaml

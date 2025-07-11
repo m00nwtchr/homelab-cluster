@@ -10,5 +10,5 @@ configMapGenerator:
     files:
       - ./resources/limiter.toml
       - ./resources/settings.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+configurations:
+  - ./resources/kustomizeconfig.yaml
