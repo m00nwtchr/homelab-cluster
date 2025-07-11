@@ -20,8 +20,6 @@ spec:
     controllers:
       cloudflare-tunnel:
         strategy: RollingUpdate
-        annotations:
-          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -74,10 +72,9 @@ spec:
         endpoints:
           - port: http
     persistence:
-      config-file:
+      config:
+        name: cloudflare-tunnel-configmap # overriden by kustomizeconfig
         type: configMap
-        name: cloudflare-tunnel-configmap
         globalMounts:
           - path: /etc/cloudflared/config.yaml
             subPath: config.yaml
-            readOnly: true
