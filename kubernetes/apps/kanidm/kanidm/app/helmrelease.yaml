@@ -113,17 +113,6 @@ spec:
               - identifier: app
                 port: 443
 
-    #  ingress:
-    #    app:
-    #      hosts:
-    #        - host: "idm.m00nlit.dev"
-    #          paths:
-    #            - path: /
-    #              pathType: Prefix
-    #              service:
-    #                identifier: app
-    #                port: http
-
     persistence:
       data:
         enabled: true
