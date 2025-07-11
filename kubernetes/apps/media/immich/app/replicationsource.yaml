@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: "photos-mega"
+spec:
+  sourcePVC: "photos"
+  trigger:
+    schedule: "30 0 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 14
+    repository: "photos-volsync-mega-secret"
+    volumeSnapshotClassName: csi-zfs
+    cacheCapacity: 5Gi
+    cacheStorageClassName: openebs-hostpath
+    cacheAccessModes: [ "ReadWriteOnce" ]
+    storageClassName: "zfs-vault"
+    accessModes: [ "ReadWriteOnce" ]
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    retain:
+      daily: 7
