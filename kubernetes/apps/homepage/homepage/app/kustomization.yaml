@@ -15,5 +15,5 @@ configMapGenerator:
       - ./resources/services.yaml
       - ./resources/settings.yaml
       - ./resources/widgets.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+configurations:
+  - ./resources/kustomizeconfig.yaml

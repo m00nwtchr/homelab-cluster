@@ -10,5 +10,5 @@ configMapGenerator:
   - name: kanidm-configmap
     files:
       - ./resources/server.toml
-generatorOptions:
-  disableNameSuffixHash: true
+configurations:
+  - ./resources/kustomizeconfig.yaml

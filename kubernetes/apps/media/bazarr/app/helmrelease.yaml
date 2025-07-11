@@ -21,9 +21,6 @@ spec:
       ${APP}:
         type: statefulset
 
-        annotations:
-          reloader.stakater.com/auto: "true"
-
         pod:
           securityContext:
             runAsUser: 2000
