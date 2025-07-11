@@ -1,15 +1,11 @@
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file will be
-# reopened with the relevant failures.
-#
+---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: ${APP}
 spec:
   hostnames:
-#    - ${APP}.${SECRET_DOMAIN}
-    - photos.m00nlit.dev
+    - photos.${SECRET_DOMAIN}
   parentRefs:
     - name: external
       namespace: envoy-gateway-system
