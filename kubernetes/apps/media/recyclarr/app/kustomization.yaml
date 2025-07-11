@@ -8,5 +8,5 @@ configMapGenerator:
   - name: recyclarr-configmap
     files:
       - ./resources/recyclarr.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+configurations:
+  - ./resources/kustomizeconfig.yaml
