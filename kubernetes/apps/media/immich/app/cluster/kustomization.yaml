@@ -6,4 +6,6 @@ resources:
   - ./cluster.yaml
   - ./objectstore.yaml
   - ./scheduledbackup.yaml
+  - ./secret.sops.yaml
   - ./secret.yaml
+
