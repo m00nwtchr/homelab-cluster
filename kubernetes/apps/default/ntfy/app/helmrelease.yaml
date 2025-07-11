@@ -99,7 +99,8 @@ spec:
 
     persistence:
       config:
-        name: ntfy-configmap
+        enabled: true
+        name: ntfy-configmap # overriden by kustomizeconfig
         type: configMap
         globalMounts:
           - path: /etc/ntfy/server.yml

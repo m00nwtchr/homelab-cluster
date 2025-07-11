@@ -8,5 +8,5 @@ configMapGenerator:
   - name: ntfy-configmap
     files:
       - ./resources/server.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+configurations:
+  - ./resources/kustomizeconfig.yaml
