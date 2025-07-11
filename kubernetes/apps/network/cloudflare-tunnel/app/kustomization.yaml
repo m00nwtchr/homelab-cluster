@@ -9,5 +9,5 @@ configMapGenerator:
   - name: cloudflare-tunnel-configmap
     files:
       - ./resources/config.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+configurations:
+  - ./resources/kustomizeconfig.yaml
