@@ -67,7 +67,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: ${APP}-configmap
+        name: recyclarr-configmap
         globalMounts:
           - path: /config/recyclarr.yml
             subPath: recyclarr.yaml
