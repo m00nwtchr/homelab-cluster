@@ -48,6 +48,9 @@ gitea:
       ENABLE_INTERNAL_SIGNIN: false
       SHOW_REGISTRATION_BUTTON: false
       ENABLE_PASSWORD_SIGNIN_FORM: false
+    openid:
+      ENABLE_OPENID_SIGNIN: false
+      ENABLE_OPENID_SIGNUP: false
     queue:
       TYPE: redis
       CONN_STR: redis://dragonfly.database.svc:6379/14?pool_size=100&idle_timeout=180s
