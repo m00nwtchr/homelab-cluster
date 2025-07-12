@@ -43,6 +43,25 @@ spec:
               GATEWAY_GRPC_ADDR: 0.0.0.0:9142
               OC_ENABLE_OCM: false
 
+              PROXY_AUTOPROVISION_ACCOUNTS: "false"
+              OC_LDAP_SERVER_WRITE_ENABLED: "false"
+
+              GRAPH_LDAP_URI: ldaps://kanidm.kanidm.svc
+
+              PROXY_ROLE_ASSIGNMENT_DRIVER: "oidc"
+              OC_OIDC_ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/
+              PROXY_OIDC_REWRITE_WELLKNOWN: "true"
+              WEB_OIDC_CLIENT_ID: ${APP}
+              PROXY_USER_OIDC_CLAIM: "sub"
+              PROXY_USER_CS3_CLAIM: "userid""
+#              WEB_OPTION_ACCOUNT_EDIT_LINK_HREF: "https://${KEYCLOAK_DOMAIN:-keycloak.opencloud.test}/realms/${KEYCLOAK_REALM:-openCloud}/account"
+              # admin and demo accounts must be created in Keycloak
+#              OC_ADMIN_USER_ID: ""
+#              SETTINGS_SETUP_DEFAULT_ASSIGNMENTS: "false"
+#              GRAPH_ASSIGN_DEFAULT_USER_ROLE: "false"
+#              GRAPH_USERNAME_MATCH: "none"
+#              KEYCLOAK_DOMAIN: idm.${SECRET_
+
 #            envFrom:
 #              - secretRef:
 #                  name: opencloud-secret
