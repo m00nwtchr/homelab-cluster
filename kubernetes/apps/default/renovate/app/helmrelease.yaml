@@ -22,6 +22,12 @@ spec:
         type: cronjob
         cronjob:
           schedule: "@hourly"
+
+        pod:
+          securityContext:
+            supplementalGroups:
+              - 991 # TPM TSS
+
         containers:
           app:
             image:
