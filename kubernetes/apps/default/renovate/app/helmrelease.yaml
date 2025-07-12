@@ -48,11 +48,11 @@ spec:
               requests:
                 cpu: 250m
                 memory: 500Mi
-                squat.ai/tpmrm: 1
+#                squat.ai/tpmrm: 1
               limits:
                 cpu: '2'
                 memory: 4Gi
-                squat.ai/tpmrm: 1
+#                squat.ai/tpmrm: 1
     #  service:
     #    renovate:
     #      controller: renovate
