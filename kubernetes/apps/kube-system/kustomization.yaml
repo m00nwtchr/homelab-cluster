@@ -17,6 +17,4 @@ resources:
   - ./reflector/ks.yaml
   - ./sealed-secrets/ks.yaml
   - ./snapshot-controller/ks.yaml
-#  #% if spegel_enabled %#
 #  - ./spegel/ks.yaml
-#  #% endif %#
