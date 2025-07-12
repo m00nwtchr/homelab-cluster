@@ -45,6 +45,7 @@ gitea:
       REPO_INDEXER_ENABLED: true
     service:
       ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+      ENABLE_INTERNAL_SIGNIN: false
       SHOW_REGISTRATION_BUTTON: false
       ENABLE_PASSWORD_SIGNIN_FORM: false
     queue:
