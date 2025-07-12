@@ -1,2 +1,7 @@
 ---
-devices:
+#devices:
+#  - name: tpmrm
+#    groups:
+#      - count: 10
+#        paths:
+#          - path: /dev/tpmrm0
