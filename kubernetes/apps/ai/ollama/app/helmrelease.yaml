@@ -47,6 +47,7 @@ spec:
               requests:
                 cpu: 200m
                 memory: 2Gi
+
     service:
       app:
         controller: *app
