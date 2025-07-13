@@ -9,7 +9,6 @@ resources:
   - ./baikal/ks.yaml
   - ./dawarich/ks.yaml
   - ./freshrss/ks.yaml
-  - ./home-assistant/ks.yaml
   - ./kube/ks.yaml
   - ./ntfy/ks.yaml
   - ./paperless/ks.yaml
