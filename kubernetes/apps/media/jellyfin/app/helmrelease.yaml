@@ -24,12 +24,12 @@ spec:
         pod:
           #        nodeSelector:
           #          intel.feature.node.kubernetes.io/gpu: "true"
-          annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [{
-                "name":"multus-lan",
-                "namespace": "network"
-              }]
+          #          annotations:
+          #            k8s.v1.cni.cncf.io/networks: |
+          #              [{
+          #                "name":"multus-lan",
+          #                "namespace": "network"
+          #              }]
 
           securityContext:
             runAsUser: 2000
@@ -67,17 +67,17 @@ spec:
             resources:
               requests:
                 cpu: 100m
-#                nvidia.com/gpu: 1
+                #                nvidia.com/gpu: 1
                 memory: 512Mi
               limits:
-#                nvidia.com/gpu: 1
+                #                nvidia.com/gpu: 1
                 memory: 8Gi
 
     service:
       app:
         controller: *app
-        #      type: LoadBalancer
-        annotations:
+        type: LoadBalancer
+        #        annotations:
         #        lbipam.cilium.io/ips: 10.1.1.133
         ports:
           http:
