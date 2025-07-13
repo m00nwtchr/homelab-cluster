@@ -31,9 +31,14 @@ spec:
             env:
               TZ: ${TZ}
               HOME_ASSISTANT__HACS_INSTALL: "true"
+              HASS_OPENID_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-oidc
+                    key: client_secret
             envFrom:
               - secretRef:
-                  name: home-assistant-secret
+                  name: ${APP}-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
