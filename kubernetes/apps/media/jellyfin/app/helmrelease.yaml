@@ -78,7 +78,7 @@ spec:
         controller: *app
         type: LoadBalancer
         annotations:
-          metallb.io/loadBalancerIPs: 'fd42:78a5:2c09::200,192.16.0.200'
+          metallb.io/loadBalancerIPs: 'fd42:78a5:2c09::250,192.16.0.250'
         ports:
           http:
             port: 80
