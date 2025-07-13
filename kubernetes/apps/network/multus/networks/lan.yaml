@@ -15,16 +15,24 @@ spec:
           "master": "enp5s0",
           "mode": "bridge",
           "ipam": {
-            "type": "static",
-            "addresses": [
-              {
-                "address": "192.168.0.50/24",
-                "gateway": "192.168.0.1"
-              },
-              {
-                "address": "fd42:78a5:2c09::50/64",
-                "gateway": "fe80::5e7b:5cff:fe24:fc98"
-              }
+            "type": "host-local",
+            "ranges": [
+              [
+                {
+                  "subnet": "192.168.0.0/24",
+                  "rangeStart": "192.168.0.100",
+                  "rangeEnd": "192.168.0.199",
+                  "gateway": "192.168.0.1"
+                }
+              ],
+              [
+                {
+                  "subnet": "fd42:78a5:2c09::/64",
+                  "rangeStart": "fd42:78a5:2c09::100",
+                  "rangeEnd": "fd42:78a5:2c09::1ff",
+                  "gateway": "fd42:78a5:2c09::1"
+                }
+              ]
             ]
           }
         },
