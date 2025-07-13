@@ -54,21 +54,16 @@ spec:
           http:
             port: 80
             targetPort: 11434
-    ingress:
-      app:
+
+    route:
+      main:
         enabled: true
-        annotations:
-          traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd
-        hosts:
-          - host: &host "${APP}.svc.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway-system
+            sectionName: https
+
     persistence:
       data:
         size: 1Gi
