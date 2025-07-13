@@ -1,0 +1,51 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app ${APP}
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      *app:
+        containers:
+          app:
+            image:
+              repository: rhasspy/wyoming-piper
+              tag: 1.6.2@sha256:b2963d60fb3e3591894f3b8e899d1c35c2cb4b28513e596874126c68920a7525
+            args:
+              - --voice
+              - en_GB-alan-medium
+            env:
+              TZ: ${TZ}
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 10200
+
+    persistence:
+      data:
+        size: 1Gi
+        accessMode: ReadWriteOnce
