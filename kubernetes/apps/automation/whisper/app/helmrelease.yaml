@@ -49,7 +49,7 @@ spec:
       app:
         controller: *app
         ports:
-          http:
+          wyoming:
             port: 10300
 
     persistence:
