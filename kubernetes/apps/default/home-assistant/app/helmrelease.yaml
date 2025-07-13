@@ -24,13 +24,13 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
 
-        pod:
-          annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [{
-                "name":"multus-lan",
-                "namespace": "network"
-              }]
+#        pod:
+#          annotations:
+#            k8s.v1.cni.cncf.io/networks: |
+#              [{
+#                "name":"multus-lan",
+#                "namespace": "network"
+#              }]
 
         containers:
           app:
