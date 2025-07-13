@@ -10,6 +10,15 @@ http:
 recorder:
   db_url: !env_var HASS_RECORDER_DB_URL
 
+openid:
+  client_id: ${APP}
+  client_secret: !env_var HASS_OPENID_CLIENT_SECRET
+  configure_url: "https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration"
+  username_field: "preferred_username"
+  scope: "openid profile email"
+  block_login: false
+  openid_text: "Login"
+
 wake_on_lan:
 
 # Load frontend themes from the themes folder
