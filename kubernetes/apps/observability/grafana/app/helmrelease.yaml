@@ -233,10 +233,10 @@ spec:
         enabled: true
         searchNamespace: ALL
         labelValue: ""
-      plugins:
-        - grafana-clock-panel
-        - grafana-piechart-panel
-        - grafana-worldmap-panel
+    plugins:
+      - grafana-clock-panel
+      - grafana-piechart-panel
+      - grafana-worldmap-panel
     #      - natel-discrete-panel
     #      - pr0ps-trackmap-panel
     #      - vonage-status-panel
