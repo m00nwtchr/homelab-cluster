@@ -115,11 +115,6 @@ spec:
               path: /var/lib/grafana/dashboards/default
     dashboards:
       default:
-        #        apc-ups:
-        #          # renovate: depName="APC UPS (SNMP)"
-        #          gnetId: 12340
-        #          revision: 1
-        #          datasource: Prometheus
         #        ceph-cluster:
         #          # renovate: depName="Ceph Cluster"
         #          gnetId: 2842
@@ -140,23 +135,23 @@ spec:
           gnetId: 20842
           revision: 3
           datasource: Prometheus
-        #        cloudflared:
-        #          # renovate: depName="Cloudflare Tunnels (cloudflared)"
-        #          gnetId: 17457
-        #          revision: 6
-        #          datasource:
-        #            - { name: DS_PROMETHEUS, value: Prometheus }
+        cloudflared:
+          # renovate: depName="Cloudflare Tunnels (cloudflared)"
+          gnetId: 17457
+          revision: 6
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         envoy:
           # renovate: depName="Envoy Proxy Monitoring gRPC"
           gnetId: 23239
           revision: 1
           datasource:
             - { name: DS_AFRANET_PROMETHEUS, value: Prometheus }
-        #        external-dns:
-        #          # renovate: depName="External-dns"
-        #          gnetId: 15038
-        #          revision: 3
-        #          datasource: Prometheus
+        external-dns:
+          # renovate: depName="External-dns"
+          gnetId: 15038
+          revision: 3
+          datasource: Prometheus
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
           gnetId: 15761
@@ -209,44 +204,18 @@ spec:
           revision: 2
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
-    #        unifi-pdu:
-    #          # renovate: depName="UniFi-Poller: PDU Insights - Prometheus"
-    #          gnetId: 23027
-    #          revision: 1
-    #          datasource:
-    #            - { name: DS_PROMETHEUS, value: Prometheus }
-    #        unifi-insights:
-    #          # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
-    #          gnetId: 11315
-    #          revision: 9
-    #          datasource: Prometheus
-    #        unifi-network-sites:
-    #          # renovate: depName="UniFi-Poller: Network Sites - Prometheus"
-    #          gnetId: 11311
-    #          revision: 5
-    #          datasource: Prometheus
-    #        unifi-uap:
-    #          # renovate: depName="UniFi-Poller: UAP Insights - Prometheus"
-    #          gnetId: 11314
-    #          revision: 10
-    #          datasource: Prometheus
-    #        unifi-usw:
-    #          # renovate: depName="UniFi-Poller: USW Insights - Prometheus"
-    #          gnetId: 11312
-    #          revision: 9
-    #          datasource: Prometheus
-    #        volsync:
-    #          # renovate: depName="VolSync Dashboard"
-    #          gnetId: 21356
-    #          revision: 3
-    #          datasource:
-    #            - { name: DS_PROMETHEUS, value: Prometheus }
-    #            - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
-    #        zfs:
-    #          # renovate: depName="ZFS"
-    #          gnetId: 7845
-    #          revision: 4
-    #          datasource: Prometheus
+        volsync:
+          # renovate: depName="VolSync Dashboard"
+          gnetId: 21356
+          revision: 3
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
+        zfs:
+          # renovate: depName="ZFS"
+          gnetId: 7845
+          revision: 4
+          datasource: Prometheus
     sidecar:
       image:
         registry: ghcr.io
@@ -264,10 +233,10 @@ spec:
         enabled: true
         searchNamespace: ALL
         labelValue: ""
-    #    plugins:
-    #      - grafana-clock-panel
-    #      - grafana-piechart-panel
-    #      - grafana-worldmap-panel
+      plugins:
+        - grafana-clock-panel
+        - grafana-piechart-panel
+        - grafana-worldmap-panel
     #      - natel-discrete-panel
     #      - pr0ps-trackmap-panel
     #      - vonage-status-panel
