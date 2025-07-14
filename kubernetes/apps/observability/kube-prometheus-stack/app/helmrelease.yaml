@@ -38,28 +38,28 @@ spec:
         forceConflicts: true
     cleanPrometheusOperatorObjectNames: true
 
-    #    alertmanager:
-    #      route:
-    #        main:
-    #          enabled: true
-    #          hostnames: ["alertmanager.devbu.io"]
-    #          parentRefs:
-    #            - name: internal
-    #              namespace: kube-system
-    #              sectionName: https
-    #      alertmanagerSpec:
-    #        alertmanagerConfiguration:
-    #          name: alertmanager
-    #          global:
-    #            resolveTimeout: 5m
-    #        externalUrl: https://alertmanager.devbu.io
-    #        storage:
-    #          volumeClaimTemplate:
-    #            spec:
-    #              storageClassName: ceph-block
-    #              resources:
-    #                requests:
-    #                  storage: 1Gi
+    alertmanager:
+      route:
+        main:
+          enabled: true
+          hostnames: [ "alertmanager.${SECRET_DOMAIN}" ]
+          parentRefs:
+            - name: internal
+              namespace: envoy-gateway-system
+              sectionName: https
+      alertmanagerSpec:
+        alertmanagerConfiguration:
+          name: alertmanager
+          global:
+            resolveTimeout: 5m
+        externalUrl: https://alertmanager.${SECRET_DOMAIN}
+        storage:
+          volumeClaimTemplate:
+            spec:
+              #              storageClassName: ceph-block
+              resources:
+                requests:
+                  storage: 1Gi
 
     kubeEtcd:
       service:
@@ -100,13 +100,13 @@ spec:
             cpu: 100m
           limits:
             memory: 2000Mi
-    #        storageSpec:
-    #          volumeClaimTemplate:
-    #            spec:
-    #              storageClassName: ceph-block
-    #              resources:
-    #                requests:
-    #                  storage: 50Gi
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+#              storageClassName: ceph-block
+              resources:
+                requests:
+                  storage: 50Gi
 
     prometheus-node-exporter:
       fullnameOverride: node-exporter
