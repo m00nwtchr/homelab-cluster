@@ -216,7 +216,7 @@ spec:
           gnetId: 7845
           revision: 4
           datasource: Prometheus
-        pi-hole-exporter:
+        pihole-exporter:
           # renovate: depName="Pi-hole Exporter"
           gnetId: 10176
           revision: 3
