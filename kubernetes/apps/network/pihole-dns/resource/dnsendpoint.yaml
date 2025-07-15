@@ -3,9 +3,9 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: external
+  name: internal
 spec:
   endpoints:
-    - dnsName: external.${SECRET_DOMAIN}
+    - dnsName: internal.${SECRET_DOMAIN}
       recordType: AAAA
-      targets: ["2a02:a313:43e4:7080::7dc5"]
+      targets: ["fd42:78a5:2c09::200"]
