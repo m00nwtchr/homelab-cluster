@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cloudflare-dns
+  name: &app pihole-dns
   namespace: &namespace network
 spec:
   commonMetadata:
@@ -41,14 +41,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cloudflare-dns-resource
+  name: &app pihole-dns-resource
   namespace: &namespace network
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   interval: 1h
-  path: ./kubernetes/apps/network/cloudflare-dns/resource
+  path: ./kubernetes/apps/network/pihole-dns/resource
   postBuild:
     substituteFrom:
       - name: cluster-secrets
