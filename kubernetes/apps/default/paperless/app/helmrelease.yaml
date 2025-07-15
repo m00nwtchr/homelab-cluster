@@ -77,10 +77,10 @@ spec:
                 type: HTTP
             resources:
               limits:
-                memory: 1.2Gi
+                memory: 1Gi
               requests:
                 cpu: 40m
-                memory: 1.2Gi
+                memory: 1Gi
 
           gotenberg:
             env:
@@ -90,7 +90,7 @@ spec:
               tag: 8.21.1@sha256:91486863744f7420ca985ee6cef7c216910e40faffd378f3da7c0fad724d01ba
             resources:
               limits:
-                memory: 1Gi
+                memory: 512Mi
               requests:
                 cpu: 10m
                 memory: 30Mi
