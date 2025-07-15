@@ -61,7 +61,7 @@ spec:
           pihole:
             image:
               repository: ghcr.io/pi-hole/pihole
-              tag: 2025.06.2@sha256:706fa18daedc85b73684b57468b7e20ec213cfaf98be735aadee183825188ea0
+              tag: 2025.07.0@sha256:da0216f6ee64c36dd9cae8576d3ec8c8f7436d6f5fb504a8f58bdda913647db5
             env:
               TZ: '${TZ}'
               DNSMASQ_USER: 'root'
