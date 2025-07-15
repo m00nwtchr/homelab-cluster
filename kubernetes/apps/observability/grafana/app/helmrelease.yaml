@@ -33,19 +33,19 @@ spec:
   values:
     deploymentStrategy:
       type: Recreate
-    #    admin:
-    #      existingSecret: grafana-admin-secret
+
     env:
-      #      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
-      #      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
-      #      GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
+#      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
+      GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
       GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN}
     grafana.ini:
       analytics:
         check_for_updates: false
         check_for_plugin_updates: false
         reporting_enabled: false
+
       auth.anonymous:
         enabled: true
         org_id: 1
@@ -215,6 +215,11 @@ spec:
           # renovate: depName="ZFS"
           gnetId: 7845
           revision: 4
+          datasource: Prometheus
+        pi-hole-exporter:
+          # renovate: depName="Pi-hole Exporter"
+          gnetId: 10176
+          revision: 3
           datasource: Prometheus
     sidecar:
       image:
