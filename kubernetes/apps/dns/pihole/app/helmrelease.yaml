@@ -79,8 +79,8 @@ spec:
                   secretKeyRef:
                     name: pihole-secret
                     key: password
-              FTLCONF_misc_dnsmasq_lines: |
-                server=/${SECRET_DOMAIN}/2001:cafe:43::c
+#              FTLCONF_misc_dnsmasq_lines: |
+#                server=/${SECRET_DOMAIN}/2001:cafe:43::c
             #          probes:
             #            liveness: &pihole-probes
             #              enabled: true
