@@ -15,7 +15,7 @@ bpf:
 bpfClockProbe: true
 
 cni:
-  exclusive: false
+  exclusive: true
 
 #cgroup:
 #  automount:
