@@ -9,7 +9,7 @@ bpf:
   datapathMode: netkit
   distributedLRU:
     enabled: true
-  mapDynamicSizeRatio: 0.08
+#  mapDynamicSizeRatio: 0.08
   masquerade: true
 
 bpfClockProbe: true
