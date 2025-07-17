@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app podgrab
+  name: &app pinepods
   namespace: &namespace media
 spec:
   commonMetadata:
@@ -15,7 +15,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   interval: 1h
-  path: ./kubernetes/apps/media/prowlarr/app
+  path: ./kubernetes/apps/media/pinepods/app
   postBuild:
     substitute:
       APP: *app
