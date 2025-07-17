@@ -97,6 +97,13 @@ spec:
         passwordSecret:
           name: postgres-paperless
 
+      - name: pinepods
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-pinepods
+
       - name: prowlarr
         ensure: present
         login: true
