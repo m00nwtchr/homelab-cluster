@@ -43,6 +43,7 @@ spec:
 
               DB_TYPE: postgresql
               DB_HOST: postgres-rw.postgres.svc.cluster.local
+              DB_PORT: 5432
               DB_USER: *app
               DB_PASSWORD:
                 valueFrom:
