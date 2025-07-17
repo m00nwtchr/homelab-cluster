@@ -43,13 +43,13 @@ spec:
 
               DB_TYPE: postgresql
               DB_HOST: postgres-rw.postgres.svc.cluster.local
-              DB_USER: pinepods
+              DB_USER: *app
               DB_PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: postgres-pinepods
                     key: password
-              DB_NAME: pinepods
+              DB_NAME: *app
 
             #            envFrom: *envFrom
             probes:
@@ -69,8 +69,8 @@ spec:
                 memory: 1Gi
 
     service:
-      server:
-        controller: pinepods
+      app:
+        controller: *app
         ports:
           http:
             port: 80
@@ -86,7 +86,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: server
+              - identifier: app
                 port: 80
 
     persistence:
