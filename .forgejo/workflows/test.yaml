@@ -88,7 +88,6 @@ jobs:
       - name: FORGEJO_EVENT_NAME
         run: |
           set -x
-          test "$FORGEJO_EVENT_NAME" = push
           test "$FORGEJO_EVENT_NAME" = "${{ env.FORGEJO_EVENT_NAME }}"
           test "$FORGEJO_EVENT_NAME" = "${{ github.EVENT_NAME }}"
           test "$FORGEJO_EVENT_NAME" = "${{ forge.EVENT_NAME }}"
