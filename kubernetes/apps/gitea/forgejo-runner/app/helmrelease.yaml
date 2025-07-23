@@ -53,12 +53,13 @@ spec:
                     --token $(RUNNER_TOKEN) \
                     --name $(RUNNER_NAME) \
                     --instance $(FORGEJO_INSTANCE_URL) \
-                    --labels "docker:docker://ghcr.io/catthehacker/ubuntu:act-latest,x86_64:docker://ghcr.io/catthehacker/ubuntu:act-latest,linux:docker://ghcr.io/catthehacker/ubuntu:act-latest,pc:docker://ghcr.io/catthehacker/ubuntu:act-latest,ubuntu-x86_64:docker://ghcr.io/catthehacker/ubuntu:act-latest,linux:host";
+                    --labels "$(LABELS)";
                 else
                   echo "Runner already registered, skipping.";
                 fi
             env:
               FORGEJO_INSTANCE_URL: http://forgejo-http.gitea.svc.cluster.local:3000
+              LABELS: "docker:docker://ghcr.io/catthehacker/ubuntu:act-latest,x86_64:docker://ghcr.io/catthehacker/ubuntu:act-latest,linux:docker://ghcr.io/catthehacker/ubuntu:act-latest,pc:docker://ghcr.io/catthehacker/ubuntu:act-latest,ubuntu-x86_64:docker://ghcr.io/catthehacker/ubuntu:act-latest,linux:host"
             envFrom:
               - secretRef:
                   name: forgejo-runner-secret
