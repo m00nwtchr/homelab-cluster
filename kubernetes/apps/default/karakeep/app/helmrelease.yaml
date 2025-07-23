@@ -33,6 +33,7 @@ spec:
               repository: ghcr.io/karakeep-app/karakeep
               tag: 0.26.0@sha256:f575a34ed3f8975225c156786442f177846126cf27d7fd37350f3af23c549d22
             env:
+              HOSTNAME: "::"
               #              BROWSER_WEB_URL: http://karakeep-chrome.default.svc.cluster.local:9222
 #              BROWSER_WEBSOCKET_URL: ws://karakeep-chrome.default.svc.cluster.local:9222/devtools/browser/1c3bd0b0-16db-4c0c-b692-1e57c6530b99
               CRAWLER_DOWNLOAD_BANNER_IMAGE: true
