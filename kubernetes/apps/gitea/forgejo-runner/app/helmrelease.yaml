@@ -27,6 +27,7 @@ spec:
 
         pod:
           securityContext:
+            fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
 
         statefulset:
