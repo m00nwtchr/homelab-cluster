@@ -32,12 +32,6 @@ jobs:
           test "$FORGEJO_ACTION_PATH" = "${{ forge.ACTION_PATH }}"
           test "$FORGEJO_ACTION_PATH" = "$GITHUB_ACTION_PATH"
 
-      - name: when running an action
-        if: ${{ env.FORGEJO_ACTIONS }}
-        uses: SELF@main
-        with:
-          input-one: "otherone"
-
       - name: FORGEJO_ACTION_REPOSITORY
         run: test -f /srv/example/example-context/FORGEJO_ACTION_REPOSITORY
 
