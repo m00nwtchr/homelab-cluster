@@ -10,7 +10,7 @@ on:
 jobs:
   labeler:
     name: Labeler
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
