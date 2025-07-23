@@ -23,7 +23,7 @@ spec:
         fsGroupChangePolicy: "OnRootMismatch"
 
     controllers:
-      *app:
+      *app :
         forceRename: *app
         annotations:
           reloader.stakater.com/auto: "true"
@@ -33,7 +33,8 @@ spec:
               repository: ghcr.io/karakeep-app/karakeep
               tag: 0.26.0@sha256:f575a34ed3f8975225c156786442f177846126cf27d7fd37350f3af23c549d22
             env:
-              BROWSER_WEB_URL: http://karakeep-chrome.default.svc.cluster.local:9222
+              #              BROWSER_WEB_URL: http://karakeep-chrome.default.svc.cluster.local:9222
+              BROWSER_WEBSOCKET_URL: ws://karakeep-chrome.default.svc.cluster.local:9222/devtools/browser/1c3bd0b0-16db-4c0c-b692-1e57c6530b99
               CRAWLER_DOWNLOAD_BANNER_IMAGE: true
               CRAWLER_ENABLE_ADBLOCKER: true
               CRAWLER_STORE_SCREENSHOT: true
@@ -53,6 +54,7 @@ spec:
               NEXTAUTH_URL: https://${APP}.${SECRET_DOMAIN}
               DISABLE_NEW_RELEASE_CHECK: true
               COREPACK_INTEGRITY_KEYS: 0
+              DB_WAL_MODE: true
             probes:
               liveness:
                 enabled: true
