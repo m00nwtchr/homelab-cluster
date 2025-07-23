@@ -1,0 +1,96 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app ${APP}
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+      strategy: rollback
+  values:
+    controllers:
+      *app:
+        replicas: 2
+        initContainers:
+          runner-register:
+            image:
+              repository: code.forgejo.org/forgejo/runner
+              tag: 7.0.0@sha256:f66c6bed9e8ff5a886cf5b302a52317d8e05c392ddcc8d9f34398142ee2a5822
+            command:
+              - "forgejo-runner"
+              - "register"
+              - "--no-interactive"
+              - "--token"
+              - $(RUNNER_TOKEN)
+              - "--name"
+              - $(RUNNER_NAME)
+              - "--instance"
+              - $(FORGEJO_INSTANCE_URL)
+              - "--labels"
+              - "docker:docker://ghcr.io/catthehacker/ubuntu:act-latest,x86_64:docker://ghcr.io/catthehacker/ubuntu:act-latest,linux:docker://ghcr.io/catthehacker/ubuntu:act-latest,pc:docker://ghcr.io/catthehacker/ubuntu:act-latest,ubuntu-x86_64:docker://ghcr.io/catthehacker/ubuntu:act-latest,linux:host"
+            env:
+              FORGEJO_INSTANCE_URL: http://forgejo-http.gitea.svc.cluster.local:3000
+            envFrom:
+              secretKeyRef:
+                name: forgejo-runner-secret
+        containers:
+          daemon:
+            image:
+              repository: docker
+              tag: 28.3.2-dind@sha256:f341edb0395a4bc8a00629821a5fa48d6c0055d88901b10aac42787d6ba76eae
+            securityContext:
+              privileged: true
+            env:
+              - name: DOCKER_TLS_CERTDIR
+                value: /certs
+          app:
+            image:
+              repository: code.forgejo.org/forgejo/runner
+              tag: 7.0.0@sha256:f66c6bed9e8ff5a886cf5b302a52317d8e05c392ddcc8d9f34398142ee2a5822
+            command:
+              - "sh"
+              - "-c"
+              - "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; forgejo-runner --config /config/config.yaml daemon"
+            env:
+              - name: DOCKER_HOST
+                value: tcp://localhost:2376
+              - name: DOCKER_CERT_PATH
+                value: /certs/client
+              - name: DOCKER_TLS_VERIFY
+                value: "1"
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 45315
+
+    persistence:
+      config:
+        type: configMap
+        name: forgejo-runner-configmap
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
+
+      docker-certs:
+        type: emptyDir
+        globalMounts:
+          - path: /certs
+      runner-data:
+        type: emptyDir
+        globalMounts:
+          - path: /data
