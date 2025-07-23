@@ -25,6 +25,10 @@ spec:
         type: statefulset
         replicas: 2
 
+        pod:
+          securityContext:
+            fsGroupChangePolicy: OnRootMismatch
+
         statefulset:
           volumeClaimTemplates:
             - name: data
