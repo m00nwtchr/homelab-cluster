@@ -158,7 +158,7 @@ spec:
             targetPort: 3000
       chrome:
         controller: chrome
-        ipFamily: IPv4
+        ipFamilies: [IPv4]
         ports:
           http:
             port: 9222
