@@ -44,17 +44,19 @@ spec:
               repository: code.forgejo.org/forgejo/runner
               tag: 7.0.0@sha256:f66c6bed9e8ff5a886cf5b302a52317d8e05c392ddcc8d9f34398142ee2a5822
             command:
-              - "forgejo-runner"
-              - "register"
-              - "--no-interactive"
-              - "--token"
-              - $(RUNNER_TOKEN)
-              - "--name"
-              - $(RUNNER_NAME)
-              - "--instance"
-              - $(FORGEJO_INSTANCE_URL)
-              - "--labels"
-              - "docker:docker://ghcr.io/catthehacker/ubuntu:act-latest,x86_64:docker://ghcr.io/catthehacker/ubuntu:act-latest,linux:docker://ghcr.io/catthehacker/ubuntu:act-latest,pc:docker://ghcr.io/catthehacker/ubuntu:act-latest,ubuntu-x86_64:docker://ghcr.io/catthehacker/ubuntu:act-latest,linux:host"
+              - "sh"
+              - "-c"
+              - >
+                if [ ! -f /data/.runner ]; then
+                  echo "Registering runner...";
+                  forgejo-runner register --no-interactive \
+                    --token $(RUNNER_TOKEN) \
+                    --name $(RUNNER_NAME) \
+                    --instance $(FORGEJO_INSTANCE_URL) \
+                    --labels "docker:docker://ghcr.io/catthehacker/ubuntu:act-latest,x86_64:docker://ghcr.io/catthehacker/ubuntu:act-latest,linux:docker://ghcr.io/catthehacker/ubuntu:act-latest,pc:docker://ghcr.io/catthehacker/ubuntu:act-latest,ubuntu-x86_64:docker://ghcr.io/catthehacker/ubuntu:act-latest,linux:host";
+                else
+                  echo "Runner already registered, skipping.";
+                fi
             env:
               FORGEJO_INSTANCE_URL: http://forgejo-http.gitea.svc.cluster.local:3000
             envFrom:
