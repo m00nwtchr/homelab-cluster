@@ -41,6 +41,15 @@ spec:
               CRAWLER_STORE_SCREENSHOT: true
               DATA_DIR: /data
               DISABLE_SIGNUPS: true
+              DISABLE_PASSWORD_AUTH: true
+              OAUTH_WELLKNOWN_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
+              OAUTH_CLIENT_ID: *app
+              OAUTH_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: karakeep-secret
+                    key: oidc_client_secret
+              OAUTH_PROVIDER_NAME: Kanidm
               MEILI_ADDR: http://karakeep-meilisearch.default.svc.cluster.local:7700
               MEILI_MASTER_KEY:
                 valueFrom:
