@@ -3,7 +3,7 @@
   extends: [
     "config:recommended",
     "docker:enableMajor",
-//    "helpers:pinGitHubActionDigests",
+    "helpers:pinGitHubActionDigests",
     "m00n/homelab-cluster//.renovate/autoMerge.json5",
     "m00n/homelab-cluster//.renovate/customManagers.json5",
     "m00n/homelab-cluster//.renovate/grafanaDashboards.json5",
