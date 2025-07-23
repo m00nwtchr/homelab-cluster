@@ -61,6 +61,8 @@ gitea:
       ENABLED: true
       ADAPTER: redis
       HOST: redis://dragonfly.database.svc:6379/14?pool_size=100&idle_timeout=180s
+    actions:
+      ENABLED: true
 
   additionalConfigFromEnvs:
     - name: FORGEJO__DATABASE__PASSWD
