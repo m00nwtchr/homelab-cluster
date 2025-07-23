@@ -18,7 +18,7 @@ spec:
       strategy: rollback
   values:
     controllers:
-      *app:
+      *app :
         replicas: 2
         initContainers:
           runner-register:
@@ -40,7 +40,7 @@ spec:
             env:
               FORGEJO_INSTANCE_URL: http://forgejo-http.gitea.svc.cluster.local:3000
             envFrom:
-              secretKeyRef:
+              - secretRef:
                 name: forgejo-runner-secret
         containers:
           daemon:
