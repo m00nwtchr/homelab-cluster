@@ -7,7 +7,7 @@ on:
     branches: ["master"]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  group: ${{ forge.workflow }}-${{ forge.event.number || forge.ref }}
   cancel-in-progress: true
 
 jobs:
