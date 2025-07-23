@@ -41,7 +41,7 @@ spec:
               FORGEJO_INSTANCE_URL: http://forgejo-http.gitea.svc.cluster.local:3000
             envFrom:
               - secretRef:
-                name: forgejo-runner-secret
+                  name: forgejo-runner-secret
         containers:
           daemon:
             image:
