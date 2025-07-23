@@ -69,7 +69,5 @@ spec:
       data:
         size: 10Gi
         accessMode: ReadWriteOnce
-        annotations:
-          argocd.argoproj.io/sync-options: Delete=false
         globalMounts:
           - path: /root/.ollama
