@@ -86,11 +86,7 @@ spec:
             subPath: config.yaml
             readOnly: true
 
-      docker-certs:
+      certs:
         type: emptyDir
-        globalMounts:
-          - path: /certs
-      runner-data:
+      data:
         type: emptyDir
-        globalMounts:
-          - path: /data
