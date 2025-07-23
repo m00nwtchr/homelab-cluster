@@ -38,7 +38,7 @@ jobs:
       - name: Run flux-local test
         uses: docker://ghcr.io/allenporter/flux-local:v7.6.0
         with:
-          args: test --enable-helm --all-namespaces --path "$FORGEJO_WORKSPACE/kubernetes/flux/cluster" -v
+          args: test --enable-helm --all-namespaces --path "/workspace/m00n/homelab-cluster/kubernetes/flux/cluster" -v
 
   diff:
     name: Flux Local Diff
@@ -71,8 +71,8 @@ jobs:
           args: >-
             diff ${{ matrix.resources }}
             --unified 6
-            --path "$FORGEJO_WORKSPACE/pull/kubernetes/flux/cluster"
-            --path-orig "$FORGEJO_WORKSPACE/default/kubernetes/flux/cluster"
+            --path "/workspace/m00n/homelab-cluster/pull/kubernetes/flux/cluster"
+            --path-orig "/workspace/m00n/homelab-cluster/default/kubernetes/flux/cluster"
             --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
             --limit-bytes 10000
             --all-namespaces
