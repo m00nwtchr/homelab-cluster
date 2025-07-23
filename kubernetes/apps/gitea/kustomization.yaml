@@ -7,3 +7,4 @@ components:
   - ../../components/common
 resources:
   - ./forgejo/ks.yaml
+  - ./forgejo-runner/ks.yaml
