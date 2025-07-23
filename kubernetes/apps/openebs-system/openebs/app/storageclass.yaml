@@ -9,6 +9,7 @@ parameters:
   dedup: "on"
   fstype: "zfs"
   poolname: "vault/storage"
+  shared: "yes"
 provisioner: zfs.csi.openebs.io
 ---
 apiVersion: storage.k8s.io/v1
@@ -23,4 +24,5 @@ parameters:
   dedup: "on"
   fstype: "zfs"
   poolname: "rpool/storage"
+  shared: "yes"
 provisioner: zfs.csi.openebs.io
