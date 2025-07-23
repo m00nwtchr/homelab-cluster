@@ -139,7 +139,7 @@ jobs:
       - name: FORGEJO_REPOSITORY
         run: |
           set -x
-          test "$FORGEJO_REPOSITORY" = root/example-context
+          test "$FORGEJO_REPOSITORY" = m00n/homelab-cluster
           test "$FORGEJO_REPOSITORY" = "${{ env.FORGEJO_REPOSITORY }}"
           test "$FORGEJO_REPOSITORY" = "${{ github.REPOSITORY }}"
           test "$FORGEJO_REPOSITORY" = "${{ forge.REPOSITORY }}"
