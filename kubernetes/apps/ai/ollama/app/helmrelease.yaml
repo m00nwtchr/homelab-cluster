@@ -67,7 +67,7 @@ spec:
 
     persistence:
       data:
-        size: 1Gi
+        size: 10Gi
         accessMode: ReadWriteOnce
         annotations:
           argocd.argoproj.io/sync-options: Delete=false
