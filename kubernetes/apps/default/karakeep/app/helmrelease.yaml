@@ -79,7 +79,7 @@ spec:
               - --no-sandbox
               - --disable-gpu
               - --disable-dev-shm-usage
-              - --remote-debugging-address=::
+              - "--remote-debugging-address=::"
               - --remote-debugging-port=9222
               - --hide-scrollbars
             securityContext:
@@ -120,7 +120,7 @@ spec:
               - /bin/meilisearch
               - --experimental-dumpless-upgrade
             env:
-              MEILI_HTTP_ADDR: [::]:7700
+              MEILI_HTTP_ADDR: "[::]:7700"
               MEILI_NO_ANALYTICS: true
               MEILI_MASTER_KEY:
                 valueFrom:
