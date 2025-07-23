@@ -40,7 +40,6 @@ spec:
               CRAWLER_ENABLE_ADBLOCKER: true
               CRAWLER_STORE_SCREENSHOT: true
               DATA_DIR: /data
-              DISABLE_SIGNUPS: true
               DISABLE_PASSWORD_AUTH: true
               OAUTH_WELLKNOWN_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
               OAUTH_CLIENT_ID: *app
