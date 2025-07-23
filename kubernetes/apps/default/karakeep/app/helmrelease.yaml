@@ -180,7 +180,7 @@ spec:
     route:
       app:
         hostnames:
-          - ${APP}.${SECRET_DOMAIN}
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: internal
             namespace: envoy-gateway-system
