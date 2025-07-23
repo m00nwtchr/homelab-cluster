@@ -148,7 +148,7 @@ jobs:
       - name: FORGEJO_REPOSITORY_OWNER
         run: |
           set -x
-          test "$FORGEJO_REPOSITORY_OWNER" = root
+          test "$FORGEJO_REPOSITORY_OWNER" = m00n
           test "$FORGEJO_REPOSITORY_OWNER" = "${{ env.FORGEJO_REPOSITORY_OWNER }}"
           test "$FORGEJO_REPOSITORY_OWNER" = "${{ github.REPOSITORY_OWNER }}"
           test "$FORGEJO_REPOSITORY_OWNER" = "${{ forge.REPOSITORY_OWNER }}"
