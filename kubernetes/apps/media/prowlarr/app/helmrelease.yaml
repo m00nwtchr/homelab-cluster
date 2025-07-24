@@ -18,7 +18,7 @@ spec:
       retries: 3
   values:
     controllers:
-      ${APP}:
+      *app :
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
@@ -132,27 +132,17 @@ spec:
               - identifier: app
                 port: 80
 
-    # ingress:
-    #   app:
-    #     annotations:
-    #       traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd,traefik-auth@kubernetescrd
-    #     hosts:
-    #       - host: ${APP}.svc.m00nlit.dev
-    #         paths:
-    #           - path: /
-    #             service:
-    #               identifier: app
-    #               port: http
-
     persistence:
       config:
         size: 1Gi
         accessMode: ReadWriteOnce
         annotations:
           argocd.argoproj.io/sync-options: Delete=false
-      config-logs:
+
+      cache:
         type: emptyDir
         globalMounts:
+          - path: /tmp
+            subPath: tmp
           - path: /config/logs
-      tmp:
-        type: emptyDir
+            subPath: logs

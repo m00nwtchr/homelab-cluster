@@ -18,7 +18,7 @@ spec:
       retries: 3
   values:
     controllers:
-      ${APP}:
+      *app :
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
@@ -121,15 +121,16 @@ spec:
       config:
         size: 1Gi
         accessMode: ReadWriteOnce
-      add-ons:
-        type: emptyDir
-      config-logs:
-        type: emptyDir
-        globalMounts:
-          - path: /config/logs
-      tmp:
-        type: emptyDir
+
       media:
         existingClaim: media
         globalMounts:
           - path: /mnt/media
+
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
+          - path: /config/logs
+            subPath: logs

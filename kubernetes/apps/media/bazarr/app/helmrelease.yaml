@@ -18,7 +18,7 @@ spec:
       retries: 3
   values:
     controllers:
-      ${APP}:
+      *app :
         type: statefulset
 
         pod:
@@ -108,35 +108,22 @@ spec:
               - identifier: app
                 port: 80
 
-    # ingress:
-    #   app:
-    #     annotations:
-    #       traefik.ingress.kubernetes.io/router.middlewares: traefik-vpn-only@kubernetescrd,traefik-auth@kubernetescrd
-    #     hosts:
-    #       - host: ${APP}.svc.m00nlit.dev
-    #         paths:
-    #           - path: /
-    #             service:
-    #               identifier: app
-    #               port: http
-
     persistence:
       config:
         size: 1Gi
         accessMode: ReadWriteOnce
-        annotations:
-          argocd.argoproj.io/sync-options: Delete=false
-      config-cache:
-        type: emptyDir
-        globalMounts:
-          - path: /config/cache
-      config-log:
-        type: emptyDir
-        globalMounts:
-          - path: /config/log
-      tmp:
-        type: emptyDir
+
       media:
         existingClaim: media
         globalMounts:
           - path: /mnt/media
+
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
+          - path: /config/cache
+            subPath: cache
+          - path: /config/log
+            subPath: log
