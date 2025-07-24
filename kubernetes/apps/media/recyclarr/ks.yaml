@@ -9,17 +9,11 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: sonarr
-      namespace: media
-    - name: radarr
-      namespace: media
   interval: 1h
   path: ./kubernetes/apps/media/recyclarr/app
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 1Gi
   prune: true
   retryInterval: 2m
   sourceRef:

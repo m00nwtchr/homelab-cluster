@@ -45,9 +45,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  #  dependsOn:
-  #    - name: rook-ceph-cluster
-  #      namespace: rook-ceph
+  dependsOn:
+    - name: cnpg
+      namespace: cnpg-system
   interval: 1h
   path: ./kubernetes/apps/gitea/forgejo/database
   postBuild:

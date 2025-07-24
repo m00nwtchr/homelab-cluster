@@ -18,7 +18,7 @@ spec:
       retries: 3
   values:
     controllers:
-      ${APP}:
+      *app :
         type: cronjob
         cronjob:
           schedule: 0 0 * * *
@@ -71,12 +71,11 @@ spec:
         globalMounts:
           - path: /config/recyclarr.yml
             subPath: recyclarr.yaml
+
       tmpfs:
         type: emptyDir
-        advancedMounts:
-          recyclarr:
-            app:
-              - path: /config/
-                subPath: config
-              - path: /tmp
-                subPath: tmp
+        globalMounts:
+          - path: /config/
+            subPath: config
+          - path: /tmp
+            subPath: tmp
