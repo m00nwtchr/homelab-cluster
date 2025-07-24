@@ -3,5 +3,5 @@ nameReference:
   - kind: ConfigMap
     version: v1
     fieldSpecs:
-      - path: spec/target/template/templateFrom/0/configMap/name
+      - path: spec/target/template/templateFrom/configMap/name
         kind: ExternalSecret
