@@ -9,6 +9,6 @@ resources:
 configMapGenerator:
   - name: mautrix-meta-configmap
     files:
-      - config.yaml=resources/config.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+      - resources/config.yaml
+configurations:
+  - ./resources/kustomizeconfig.yaml
