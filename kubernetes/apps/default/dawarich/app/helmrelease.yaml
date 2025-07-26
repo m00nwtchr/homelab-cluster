@@ -23,7 +23,7 @@ spec:
           app: &bapp
             image:
               repository: freikin/dawarich
-              tag: 0.30.3@sha256:80cc95f09e1ee323d848be159f82b8ad083228dd4224b18be883e0f5093c4122
+              tag: 0.30.5@sha256:a510b24c1d39d1e8326edbefc2db0efa8463dd0047667151c07c9a4f3501b1af
             env:
               # RAILS_ENV: production
               RAILS_ENV: development
