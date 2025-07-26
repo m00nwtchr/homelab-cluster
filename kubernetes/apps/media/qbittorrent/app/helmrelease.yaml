@@ -119,5 +119,12 @@ spec:
           - path: /mnt/media/downloads
             subPath: downloads
 
+      qbrr:
+        type: custom
+        volumeSpec:
+          image:
+            reference: ghcr.io/buroa/qbrr:0.0.28@sha256:4c86e047a3da5b18a1b5af840d38c11a820d2e07a4155f63865ea3225a222553
+            pullPolicy: IfNotPresent
+
       tmp:
         type: emptyDir
