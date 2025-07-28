@@ -43,12 +43,11 @@
         ".*\\.ya?ml"
       ],
       "matchStrings": [
-        // CNPG images
-        "imageName: (?<depName>[^:\\s]+):(?<currentValue>[^@\\s]+)@(?<currentDigest>sha256:[a-f0-9]+)"
+        "(?<field>imageName|reference): (?<depName>[^:\\s]+):(?<currentValue>[^@\\s]+)@(?<currentDigest>sha256:[a-f0-9]+)",
       ],
       "datasourceTemplate": "docker",
       "packageNameTemplate": "{{depName}}",
-      "autoReplaceStringTemplate": "imageName: {{depName}}:{{newValue}}@{{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}"
+      "autoReplaceStringTemplate": "{{field}}: {{depName}}:{{newValue}}@{{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}"
     }
   ],
 }
