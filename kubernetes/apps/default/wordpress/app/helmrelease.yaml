@@ -44,3 +44,6 @@ spec:
 
     persistence:
       existingClaim: *app
+
+    networkPolicy:
+      enabled: false
