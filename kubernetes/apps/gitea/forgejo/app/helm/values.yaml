@@ -93,6 +93,13 @@ extraVolumes:
   - name: git
     persistentVolumeClaim:
       claimName: git
+  - name: forgejo-ssh
+    secret:
+      secretName: forgejo-ssh
+
 extraContainerVolumeMounts:
   - name: git
     mountPath: "/data/git/"
+  - name: forgejo-ssh
+    mountPath: "/data/gitea/ssh/ssh_host_ed25519_key"
+    subPath: ssh_host_ed25519_key
