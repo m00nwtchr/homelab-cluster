@@ -83,7 +83,7 @@ spec:
   dnsNames:
     - "livekit.{{ .Values.domain }}"
   issuerRef:
-    name: acme
+    name: letsencrypt-production
     kind: ClusterIssuer
 ---
 # TURN: full TLS passthrough, routed by SNI
