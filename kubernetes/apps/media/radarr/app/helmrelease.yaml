@@ -116,6 +116,8 @@ spec:
           - backendRefs:
               - identifier: app
                 port: 80
+            timeouts:
+              request: "300s"
 
     persistence:
       config:
