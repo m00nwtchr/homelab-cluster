@@ -107,7 +107,7 @@ spec:
           exporter:
             image:
               repository: ekofr/pihole-exporter
-              tag: v1.0.1@sha256:c33eec2a8308fa510608b93d4921bb62f75f6132f8792b24e63972835f624496
+              tag: v1.2.0@sha256:242c53ef3c24b88fcbe8184390b456d05604bd50de5732ca3fd3eb24395585b3
             env:
               PIHOLE_HOSTNAME: localhost
               PIHOLE_PORT: &pihole-port 8080
