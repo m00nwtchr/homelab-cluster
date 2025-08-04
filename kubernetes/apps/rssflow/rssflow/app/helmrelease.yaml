@@ -85,7 +85,7 @@ spec:
             <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-filter
-              tag: master@sha256:e38f516865140c2f5f0f02b558c6b0426bdea6682786bcef05c95d483fc05e31
+              tag: master@sha256:12fb8b41987ae754008f10e91f668eb6e86710308390ed04b6c3af34180e60c3
             env:
               <<: *svc-env
               SERVICE_URL: http://rssflow-filter:50051/
