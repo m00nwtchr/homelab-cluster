@@ -11,24 +11,25 @@ bpf:
     enabled: true
 #  mapDynamicSizeRatio: 0.08
   masquerade: true
+  preallocateMaps: true
 
 bpfClockProbe: true
-
-cni:
-  exclusive: true
 
 #cgroup:
 #  automount:
 #    enabled: false
 #  hostRoot: /sys/fs/cgroup
 
+
+cni:
+  exclusive: true
+
 dashboards:
   enabled: true
 
-devices:
-  - enp+
-#  - tailscale0
-
+devices: enp+
+enableIPv4BIGTCP: true
+enableIPv6BIGTCP: true
 enableIPv6Masquerade: true
 
 endpointRoutes:
@@ -40,11 +41,10 @@ envoy:
       enabled: true
   rollOutPods: true
 
-externalIPs:
-  enabled: true
-
 gatewayAPI:
   enabled: false
+  enableAlpn: true
+  xffNumTrustedHops: 1
 
 hubble:
   enabled: false
@@ -52,13 +52,13 @@ hubble:
 ipam:
   mode: kubernetes
 #  mode: cluster-pool
-  operator:
-    clusterPoolIPv4MaskSize: 24
-    clusterPoolIPv4PodCIDRList:
-      - 10.42.0.0/16
-    clusterPoolIPv6MaskSize: 64
-    clusterPoolIPv6PodCIDRList:
-      - 2001:cafe:42::/56
+#  operator:
+#    clusterPoolIPv4MaskSize: 24
+#    clusterPoolIPv4PodCIDRList:
+#      - 10.42.0.0/16
+#    clusterPoolIPv6MaskSize: 64
+#    clusterPoolIPv6PodCIDRList:
+#      - 2001:cafe:42::/56
 
 ipv4:
   enabled: true
@@ -82,13 +82,10 @@ l2announcements:
   enabled: false
 
 loadBalancer:
-  #  algorithm: maglev
-  mode: hybrid
+  algorithm: maglev
+  mode: dsr
 
 localRedirectPolicy: true
-
-#nodePort:
-#  directRoutingDevice: tailscale0
 
 nodeSelectorLabels: true
 
