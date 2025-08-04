@@ -17,3 +17,4 @@ spec:
   selector:
     app.kubernetes.io/instance: rssflow
     app.kubernetes.io/name: rssflow
+    app.kubernetes.io/component: node
