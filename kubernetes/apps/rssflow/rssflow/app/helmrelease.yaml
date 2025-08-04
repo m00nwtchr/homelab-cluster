@@ -48,7 +48,7 @@ spec:
 
       websub:
         containers:
-          app: &controller
+          app: &container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-websub
               tag: master@sha256:7196280a1e036f2276e8dcfa467955e0719e42acbc5c9492a7fe7176411c63e4
@@ -65,9 +65,11 @@ spec:
                 memory: 256Mi
 
       fetch:
+        labels: &node-labels
+          app.kubernetes.io/component: node
         containers:
           app:
-            <<: *controller
+            <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-fetch
               tag: master@sha256:4b928487fc70e2f79c185d8bb0b78f3a7e03510bd81f6d4d8924144025593929
@@ -76,9 +78,10 @@ spec:
               SERVICE_URL: http://rssflow-fetch:50051/
 
       filter:
+        labels: *node-labels
         containers:
           app:
-            <<: *controller
+            <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-filter
               tag: master@sha256:e38f516865140c2f5f0f02b558c6b0426bdea6682786bcef05c95d483fc05e31
@@ -87,9 +90,10 @@ spec:
               SERVICE_URL: http://rssflow-filter:50051/
 
       replace:
+        labels: *node-labels
         containers:
           app:
-            <<: *controller
+            <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-replace
               tag: master@sha256:a406e7c39ce90aeaf5a3f09cdc8035baaaf06ff51225ebb1b4d9060d15e5ebe5
@@ -98,9 +102,10 @@ spec:
               SERVICE_URL: http://rssflow-replace:50051/
 
       retrieve:
+        labels: *node-labels
         containers:
           app:
-            <<: *controller
+            <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-retrieve
               tag: master@sha256:6aa1349412dd415c52eb59be11967654cd106f9a459105320f962cdb7f88b083
@@ -109,9 +114,10 @@ spec:
               SERVICE_URL: http://rssflow-retrieve:50051/
 
       sanitize:
+        labels: *node-labels
         containers:
           app:
-            <<: *controller
+            <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-sanitize
               tag: master@sha256:76a122856aa6d95ca274f8e9c027318ec4b217322803a6c2e6f72dec93e6bce0
