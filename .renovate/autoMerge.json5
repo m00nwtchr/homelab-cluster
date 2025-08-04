@@ -12,7 +12,8 @@
 				"digest"
 			],
 			matchPackageNames: [
-				"/home-operations/"
+				"/home-operations/",
+        "/m00nwtchr/"
 			],
 			ignoreTests: false
 		},
