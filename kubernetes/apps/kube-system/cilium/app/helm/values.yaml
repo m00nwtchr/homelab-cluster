@@ -15,11 +15,10 @@ bpf:
 
 bpfClockProbe: true
 
-#cgroup:
-#  automount:
-#    enabled: false
-#  hostRoot: /sys/fs/cgroup
-
+cgroup:
+  automount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
 
 cni:
   exclusive: true
