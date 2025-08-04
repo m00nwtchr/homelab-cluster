@@ -71,7 +71,7 @@ k8s:
   requireIPv4PodCIDR: false
   requireIPv6PodCIDR: true
 
-k8sServiceHost: ::1
+k8sServiceHost: "::1"
 k8sServicePort: 6444
 
 kubeProxyReplacement: true
