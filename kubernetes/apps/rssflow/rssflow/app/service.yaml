@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: rssflow
+    app.kubernetes.io/service: rssflow-headless
+  name: rssflow-headless
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: grpc
+      port: 50051
+      protocol: TCP
+      targetPort: 50051
+  selector:
+    app.kubernetes.io/instance: rssflow
+    app.kubernetes.io/name: rssflow
