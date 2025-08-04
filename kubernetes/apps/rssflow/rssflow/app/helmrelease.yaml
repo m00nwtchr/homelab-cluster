@@ -65,8 +65,9 @@ spec:
                 memory: 256Mi
 
       fetch:
-        labels: &node-labels
-          app.kubernetes.io/component: node
+        pod: &node-pod
+          labels:
+            app.kubernetes.io/component: node
         containers:
           app:
             <<: *container
@@ -78,7 +79,7 @@ spec:
               SERVICE_URL: http://rssflow-fetch:50051/
 
       filter:
-        labels: *node-labels
+        pod: *node-pod
         containers:
           app:
             <<: *container
@@ -90,7 +91,7 @@ spec:
               SERVICE_URL: http://rssflow-filter:50051/
 
       replace:
-        labels: *node-labels
+        pod: *node-pod
         containers:
           app:
             <<: *container
@@ -102,7 +103,7 @@ spec:
               SERVICE_URL: http://rssflow-replace:50051/
 
       retrieve:
-        labels: *node-labels
+        pod: *node-pod
         containers:
           app:
             <<: *container
@@ -114,7 +115,7 @@ spec:
               SERVICE_URL: http://rssflow-retrieve:50051/
 
       sanitize:
-        labels: *node-labels
+        pod: *node-pod
         containers:
           app:
             <<: *container
