@@ -92,7 +92,6 @@ nodeIPAM:
   enabled: true
 
 operator:
-  tolerations: []
   dashboards:
     enabled: true
   prometheus:
