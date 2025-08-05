@@ -33,7 +33,8 @@ spec:
                     command:
                       - /usr/bin/dig
                       - "@::1"
-                      - -p=5354
+                      - -p
+                      - &port 5354
                       - healthcheck.blocky
                       - +tcp
                       - +short
@@ -88,11 +89,11 @@ spec:
             port: 4000
           dns-tcp:
             port: 53
-            targetPort: 5354
+            targetPort: *port
             protocol: TCP
           dns-udp:
             port: 53
-            targetPort: 5354
+            targetPort: *port
             protocol: UDP
 
       ts:
