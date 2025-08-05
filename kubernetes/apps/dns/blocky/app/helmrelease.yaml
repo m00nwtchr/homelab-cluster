@@ -39,10 +39,10 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
-                drop:
-                  - ALL
                 add:
                   - NET_BIND_SERVICE
+                drop:
+                  - ALL
         readOnlyRootFilesystem: true
 
     defaultPodOptions:
