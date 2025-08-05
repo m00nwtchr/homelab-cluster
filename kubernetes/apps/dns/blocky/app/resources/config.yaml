@@ -9,7 +9,7 @@ upstreams:
 conditional:
   fallbackUpstream: true
   mapping:
-    ${SECRET_DOMAIN}: 192.168.0.1
+    ${SECRET_DOMAIN}: 2001:cafe:43::b
 
 blocking:
   denylists:
