@@ -141,30 +141,6 @@ spec:
 
 
     service:
-      dns:
-        controller: *app
-        type: LoadBalancer
-        ipFamilyPolicy: PreferDualStack
-        annotations:
-          metallb.io/loadBalancerIPs: 'fd42:78a5:2c09::53,192.168.0.53'
-        #          lbipam.cilium.io/ips: 'fd42:78a5:2c09::53'
-        #        externalIPs:
-        #          - 100.116.45.53 # Tailscale
-        ports: &lb-ports
-          dns-udp:
-            port: 53
-            targetPort: *dns-port
-            protocol: UDP
-          dns-tcp:
-            port: 53
-            targetPort: *dns-port
-            protocol: TCP
-      dns-ts:
-        controller: *app
-        type: LoadBalancer
-        ipFamilyPolicy: PreferDualStack
-        loadBalancerClass: "tailscale"
-        ports: *lb-ports
       http:
         controller: *app
         forceRename: *app
@@ -177,6 +153,28 @@ spec:
           prometheus:
             port: *exporter-port
             protocol: HTTP
+
+      dns:
+        controller: *app
+        type: LoadBalancer
+        ipFamilyPolicy: PreferDualStack
+        annotations:
+          metallb.io/loadBalancerIPs: 'fd42:78a5:2c09::53,192.168.0.53'
+        #          lbipam.cilium.io/ips: 'fd42:78a5:2c09::53,192.168.0.53'
+        ports: &lb-ports
+          dns-udp:
+            port: 53
+            targetPort: *dns-port
+            protocol: UDP
+          dns-tcp:
+            port: 53
+            targetPort: *dns-port
+            protocol: TCP
+      dns-ts:
+        controller: *app
+        type: LoadBalancer
+        loadBalancerClass: "tailscale"
+        ports: *lb-ports
 
     route:
       app:
