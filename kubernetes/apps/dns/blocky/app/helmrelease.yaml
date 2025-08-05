@@ -78,11 +78,9 @@ spec:
             port: 4000
           dns-tcp:
             port: 53
-            targetPort: 5353
             protocol: TCP
           dns-udp:
             port: 53
-            targetPort: 5353
             protocol: UDP
 
       ts:
