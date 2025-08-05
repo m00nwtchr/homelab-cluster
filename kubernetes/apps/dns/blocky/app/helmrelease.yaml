@@ -14,10 +14,6 @@ spec:
       *app :
         replicas: 2
 
-        type: statefulset
-        statefulset:
-          podManagementPolicy: Parallel
-
         containers:
           app:
             image:
