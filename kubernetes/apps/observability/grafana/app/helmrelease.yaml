@@ -216,10 +216,10 @@ spec:
           gnetId: 7845
           revision: 4
           datasource: Prometheus
-        pihole-exporter:
-          # renovate: depName="Pi-hole Exporter"
-          gnetId: 10176
-          revision: 3
+        blocky4:
+          # renovate: depName="blocky4"
+          gnetId: 13768
+          revision: 6
           datasource: Prometheus
     sidecar:
       image:
