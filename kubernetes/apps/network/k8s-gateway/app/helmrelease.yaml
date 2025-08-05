@@ -36,6 +36,7 @@ spec:
     ttl: 1
     service:
       type: ClusterIP
+      clusterIP: "2001:cafe:43::b"
       port: 53
       externalTrafficPolicy: Cluster
     watchedResources: ["HTTPRoute", "Service"]
