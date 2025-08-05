@@ -23,7 +23,7 @@ spec:
           app:
             image:
               repository: ghcr.io/m00nwtchr/rssflow
-              tag: master@sha256:e628b71b603daf62d48990b14d7154d15b977fe2b1c5c3bfc4bdf593989eed3e
+              tag: master@sha256:0434255be077cf187a40d1b7db26f7782fe7239f4f0a117f1a4256880222308f
             env:
               RUST_LOG: "info"
               REDIS_URL: redis://dragonfly.database.svc/10
@@ -51,7 +51,7 @@ spec:
           app: &container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-websub
-              tag: master@sha256:ca88291850c63943db05b43cbe107c32bfc950477b8834d41cbe2fec460d7fdc
+              tag: master@sha256:42d7c8536fd0855eff90adbe9a23042d1575f9970932f2d4cadb045086cf1e1a
             env: &svc-env
               RUST_LOG: "info"
               REDIS_URL: redis://dragonfly.database.svc/10
@@ -73,7 +73,7 @@ spec:
             <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-fetch
-              tag: master@sha256:41d14d39c8382c8f788da78cb9fef378a9d0a19fe39c190ffcc2e875b85dd038
+              tag: master@sha256:e3bd3889b2b8f5ce26519219a0223a54d4da25ee74c3e51cc282a15a4bb423fc
             env:
               <<: *svc-env
               SERVICE_URL: http://rssflow-fetch:50051/
@@ -85,7 +85,7 @@ spec:
             <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-filter
-              tag: master@sha256:12fb8b41987ae754008f10e91f668eb6e86710308390ed04b6c3af34180e60c3
+              tag: master@sha256:39cf8d71742819741a4475e40d0875ea2379464c8eb14690addeaf522b6faaec
             env:
               <<: *svc-env
               SERVICE_URL: http://rssflow-filter:50051/
@@ -97,7 +97,7 @@ spec:
             <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-replace
-              tag: master@sha256:124d52bbebc9d6c43318739080286b049bc9e45bc812000af37edaa6c56f205e
+              tag: master@sha256:fd4d8e1d6280220efee9a06f53926104161f286100edfe6907c1198c2b7d0ec6
             env:
               <<: *svc-env
               SERVICE_URL: http://rssflow-replace:50051/
@@ -109,7 +109,7 @@ spec:
             <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-retrieve
-              tag: master@sha256:ef119119186e21f35a365668601558e79f4d62221927f5c5f6397a1b54e0216f
+              tag: master@sha256:3914eb07e7a2b7b909fae8336c73299bb4af40f3ae8f7b4732afc07dba40b8e0
             env:
               <<: *svc-env
               SERVICE_URL: http://rssflow-retrieve:50051/
@@ -121,7 +121,7 @@ spec:
             <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-sanitize
-              tag: master@sha256:d97028cae0ec23d6cd87838d71a418122121914f8ea7977867976d01dc9d9934
+              tag: master@sha256:691d4549bf4cddb48f58a0035a4819ad02a68caa05e1770fec92f4d96eafd35e
             env:
               <<: *svc-env
               SERVICE_URL: http://rssflow-sanitize:50051/
