@@ -83,6 +83,7 @@ spec:
         type: LoadBalancer
         loadBalancerClass: tailscale
         annotations:
+          tailscale.com/hostname: *app
           tailscale.com/proxy-group: ingress-proxy
         ports: *ports
 
