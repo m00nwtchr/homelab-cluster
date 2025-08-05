@@ -84,6 +84,7 @@ spec:
         loadBalancerClass: tailscale
         annotations:
           tailscale.com/hostname: *app
+          tailscale.com/tags: dns
           tailscale.com/proxy-group: ingress-proxy
         ports: *ports
 
