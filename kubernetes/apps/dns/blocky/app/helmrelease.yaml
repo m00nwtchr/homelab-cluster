@@ -34,7 +34,7 @@ spec:
                       - /app/blocky
                       - healthcheck
                       - -p
-                      - &port "5354"
+                      - &port "53"
               startup: *probe
               readiness: *probe
             resources:
