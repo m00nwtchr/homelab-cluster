@@ -32,7 +32,7 @@ spec:
                   exec:
                     command:
                       - /usr/bin/dig
-                      - @::1
+                      - "@::1"
                       - -p=53
                       - healthcheck.blocky
                       - +tcp
