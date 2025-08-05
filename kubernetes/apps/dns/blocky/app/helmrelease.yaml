@@ -34,7 +34,7 @@ spec:
                       - /usr/bin/dig
                       - "@::1"
                       - -p
-                      - &port 5354
+                      - &port "5354"
                       - healthcheck.blocky
                       - +tcp
                       - +short
