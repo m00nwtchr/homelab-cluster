@@ -31,13 +31,10 @@ spec:
                 spec:
                   exec:
                     command:
-                      - /usr/bin/dig
-                      - "@::1"
+                      - /app/blocky
+                      - healthcheck
                       - -p
                       - &port "5354"
-                      - healthcheck.blocky
-                      - +tcp
-                      - +short
               startup: *probe
               readiness: *probe
             resources:
