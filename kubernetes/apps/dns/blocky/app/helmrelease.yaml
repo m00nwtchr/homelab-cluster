@@ -83,15 +83,15 @@ spec:
             targetPort: 5353
             protocol: UDP
 
-      ts:
-        controller: *app
-        type: LoadBalancer
-        loadBalancerClass: tailscale
-        annotations:
-          tailscale.com/hostname: *app
-          tailscale.com/tags: apps
-          tailscale.com/proxy-group: ingress-proxy
-        ports: *ports
+#      ts:
+#        controller: *app
+#        type: LoadBalancer
+#        loadBalancerClass: tailscale
+#        annotations:
+#          tailscale.com/hostname: *app
+#          tailscale.com/tags: apps
+#          tailscale.com/proxy-group: ingress-proxy
+#        ports: *ports
 
     serviceMonitor:
       app:
