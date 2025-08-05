@@ -6,5 +6,4 @@ namespace: dns
 components:
   - ../../components/common
 resources:
-  - ./unbound/ks.yaml
-  - ./pihole/ks.yaml
+  - ./blocky/ks.yaml
