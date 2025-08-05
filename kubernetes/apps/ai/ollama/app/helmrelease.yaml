@@ -39,6 +39,8 @@ spec:
               # OLLAMA_ORIGINS: ""
               # OLLAMA_KEEP_ALIVE: "24h"
               # OLLAMA_LOAD_TIMEOUT: "600"
+              OLLAMA_FLASH_ATTENTION: "true"
+              OLLAMA_KV_CACHE_TYPE: q8_0
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
