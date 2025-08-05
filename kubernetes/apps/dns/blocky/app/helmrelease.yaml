@@ -78,9 +78,11 @@ spec:
             port: 4000
           dns-tcp:
             port: 53
+            targetPort: 5354
             protocol: TCP
           dns-udp:
             port: 53
+            targetPort: 5354
             protocol: UDP
 
       ts:
@@ -91,7 +93,7 @@ spec:
         annotations:
           tailscale.com/hostname: *app
           tailscale.com/tags: tag:dns
-#          tailscale.com/proxy-group: ingress-proxy
+        #          tailscale.com/proxy-group: ingress-proxy
         ports: *ports
 
     serviceMonitor:
