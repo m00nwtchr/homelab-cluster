@@ -1,12 +1,17 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrepository-source-v1.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+kind: OCIRepository
 metadata:
-  name: tailscale
+  name: tailscale-operator
 spec:
-  interval: 1h
-  url: https://pkgs.tailscale.com/helmcharts
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 1.86.2
+  url: oci://ghcr.io/home-operations/charts-mirror/tailscale-operator
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -15,14 +20,9 @@ metadata:
   name: tailscale-operator
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: tailscale-operator
-      version: 1.86.2
-      sourceRef:
-        kind: HelmRepository
-        name: tailscale
-        namespace: tailscale
+  chartRef:
+    kind: OCIRepository
+    name: tailscale-operator
   install:
     remediation:
       retries: -1
