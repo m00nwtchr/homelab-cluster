@@ -34,7 +34,7 @@ prometheus:
   enable: true
 
 redis:
-  address: dragonfly.database.svc
+  address: dragonfly.database.svc:6379
   database: 9
   required: true
   connectionAttempts: 10
