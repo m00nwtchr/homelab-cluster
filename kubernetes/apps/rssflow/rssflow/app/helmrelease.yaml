@@ -109,7 +109,7 @@ spec:
             <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-retrieve
-              tag: master@sha256:ef119119186e21f35a365668601558e79f4d62221927f5c5f6397a1b54e0216f
+              tag: master@sha256:3914eb07e7a2b7b909fae8336c73299bb4af40f3ae8f7b4732afc07dba40b8e0
             env:
               <<: *svc-env
               SERVICE_URL: http://rssflow-retrieve:50051/
