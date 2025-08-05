@@ -33,8 +33,6 @@ spec:
                     command:
                       - /app/blocky
                       - healthcheck
-                      - -p
-                      - &port "53"
               startup: *probe
               readiness: *probe
             resources:
@@ -86,11 +84,9 @@ spec:
             port: 4000
           dns-tcp:
             port: 53
-            targetPort: *port
             protocol: TCP
           dns-udp:
             port: 53
-            targetPort: *port
             protocol: UDP
 
       ts:
