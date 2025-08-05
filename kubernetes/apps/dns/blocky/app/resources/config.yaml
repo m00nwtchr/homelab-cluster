@@ -9,7 +9,7 @@ upstreams:
 conditional:
   fallbackUpstream: true
   mapping:
-    ${SECRET_DOMAIN}: 2001:cafe:43::b
+    ${SECRET_DOMAIN}: tcp+udp:2001:cafe:43::b
 
 blocking:
   denylists:
@@ -36,7 +36,6 @@ prometheus:
 redis:
   address: dragonfly.database.svc:6379
   database: 9
-  required: true
   connectionAttempts: 10
   connectionCooldown: 3s
 
