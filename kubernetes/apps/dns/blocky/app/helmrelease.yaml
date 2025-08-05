@@ -33,7 +33,7 @@ spec:
                     command:
                       - /usr/bin/dig
                       - "@::1"
-                      - -p=53
+                      - -p=5354
                       - healthcheck.blocky
                       - +tcp
                       - +short
