@@ -121,7 +121,7 @@ spec:
             <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-sanitize
-              tag: master@sha256:d97028cae0ec23d6cd87838d71a418122121914f8ea7977867976d01dc9d9934
+              tag: master@sha256:691d4549bf4cddb48f58a0035a4819ad02a68caa05e1770fec92f4d96eafd35e
             env:
               <<: *svc-env
               SERVICE_URL: http://rssflow-sanitize:50051/
