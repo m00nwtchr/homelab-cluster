@@ -35,3 +35,6 @@ spec:
       image:
         repository: ghcr.io/tailscale/k8s-operator
         pullPolicy: IfNotPresent
+    proxyConfig:
+      image:
+        repository: ghcr.io/tailscale/tailscale
