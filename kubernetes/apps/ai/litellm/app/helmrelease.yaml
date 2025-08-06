@@ -83,3 +83,8 @@ spec:
         globalMounts:
           - path: /app/config.yaml
             subPath: config.yaml
+
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache
