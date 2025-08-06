@@ -62,6 +62,13 @@ spec:
         passwordSecret:
           name: postgres-home-assistant
 
+      - name: litellm
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-litellm
+
       - name: maubot
         ensure: present
         login: true
