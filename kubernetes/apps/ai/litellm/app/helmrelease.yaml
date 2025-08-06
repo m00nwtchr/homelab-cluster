@@ -31,7 +31,7 @@ spec:
               REDIS_HOST: dragonfly.database.svc.cluster.local
               STORE_MODEL_IN_DB: True
 
-              LITELLM_LOG: "ERROR"
+#              LITELLM_LOG: "ERROR"
               LITELLM_MODE: "PRODUCTION"
               #              USE_PRISMA_MIGRATE: "True"
 
