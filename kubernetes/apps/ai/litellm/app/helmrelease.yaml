@@ -17,16 +17,7 @@ spec:
     remediation:
       retries: 3
   values:
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 150
-        runAsNonRoot: true
-        privileged: false
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: false
-        capabilities: { drop: [ "ALL" ] }
-        seccompProfile: { type: RuntimeDefault }
+
 
     controllers:
       *app :
@@ -42,7 +33,7 @@ spec:
 
               LITELLM_LOG: "ERROR"
               LITELLM_MODE: "PRODUCTION"
-#              USE_PRISMA_MIGRATE: "True"
+              #              USE_PRISMA_MIGRATE: "True"
 
               LITELLM_MASTER_KEY:
                 valueFrom:
@@ -56,6 +47,11 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
               capabilities: { drop: [ "ALL" ] }
+              runAsUser: 1000
+              runAsGroup: 150
+              runAsNonRoot: true
+              privileged: false
+              seccompProfile: { type: RuntimeDefault }
             resources:
               requests:
                 cpu: 25m
