@@ -46,7 +46,7 @@ spec:
                   name: litellm-env-secret
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+#              readOnlyRootFilesystem: false
               capabilities: { drop: [ "ALL" ] }
               runAsUser: 1000
               runAsGroup: 150
@@ -85,10 +85,10 @@ spec:
           - path: /app/config.yaml
             subPath: config.yaml
 
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /.cache
-            subPath: cache
-          - path: /.npm
-            subPath: npm
+#      cache:
+#        type: emptyDir
+#        globalMounts:
+#          - path: /.cache
+#            subPath: cache
+#          - path: /.npm
+#            subPath: npm
