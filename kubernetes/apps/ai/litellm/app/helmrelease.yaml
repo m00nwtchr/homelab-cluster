@@ -46,12 +46,12 @@ spec:
                   name: litellm-env-secret
             securityContext:
               allowPrivilegeEscalation: false
-#              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: false
               capabilities: { drop: [ "ALL" ] }
-              runAsUser: 1000
-              runAsGroup: 150
-              runAsNonRoot: true
-              privileged: false
+#              runAsUser: 1000
+#              runAsGroup: 150
+#              runAsNonRoot: true
+
               seccompProfile: { type: RuntimeDefault }
             resources:
               requests:
