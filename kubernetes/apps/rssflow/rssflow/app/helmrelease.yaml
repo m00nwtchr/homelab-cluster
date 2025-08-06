@@ -51,7 +51,7 @@ spec:
           app: &container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-websub
-              tag: master@sha256:42d7c8536fd0855eff90adbe9a23042d1575f9970932f2d4cadb045086cf1e1a
+              tag: master@sha256:783c85b8d1911ceaca7674cd3eec504e5bcd6d8b41587b4ee9018c050cb119b7
             env: &svc-env
               RUST_LOG: "info"
               REDIS_URL: redis://dragonfly.database.svc/10
