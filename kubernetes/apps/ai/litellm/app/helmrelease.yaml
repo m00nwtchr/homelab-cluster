@@ -31,6 +31,8 @@ spec:
               TZ: "${TIME_ZONE}"
               REDIS_HOST: dragonfly.database.svc.cluster.local
               STORE_MODEL_IN_DB: True
+              UVICORN_HOST: "::"
+
 
 #              LITELLM_LOG: "ERROR"
               LITELLM_MODE: "PRODUCTION"
