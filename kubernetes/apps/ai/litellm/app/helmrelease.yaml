@@ -29,7 +29,7 @@ spec:
               tag: v1.74.9-stable@sha256:f78c763d6f2289305a3acc3a003c6170f797bdda70c56e75776fbab670e663cc
             args:
               - --port
-              - &port 4000
+              - &port "4000"
               - --host
               - "::"
             env:
