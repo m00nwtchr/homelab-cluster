@@ -28,10 +28,12 @@ spec:
               repository: ghcr.io/berriai/litellm
               tag: v1.74.9-stable@sha256:f78c763d6f2289305a3acc3a003c6170f797bdda70c56e75776fbab670e663cc
             args:
-              - --port
-              - &port "4000"
               - --host
               - "::"
+              - --port
+              - &port "4000"
+              - --config
+              - "/app/config.yaml"
             env:
               TZ: "${TIME_ZONE}"
               REDIS_HOST: dragonfly.database.svc.cluster.local
