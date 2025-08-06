@@ -27,12 +27,15 @@ spec:
             image:
               repository: ghcr.io/berriai/litellm
               tag: v1.74.9-stable@sha256:f78c763d6f2289305a3acc3a003c6170f797bdda70c56e75776fbab670e663cc
+            args:
+              - --port
+              - 4000
+              - --host
+              - "::"
             env:
               TZ: "${TIME_ZONE}"
               REDIS_HOST: dragonfly.database.svc.cluster.local
               STORE_MODEL_IN_DB: True
-              UVICORN_HOST: "::"
-
 
 #              LITELLM_LOG: "ERROR"
               LITELLM_MODE: "PRODUCTION"
