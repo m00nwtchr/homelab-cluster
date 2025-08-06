@@ -63,7 +63,7 @@ spec:
           name: postgres-home-assistant
 
       - name: litellm
-        ensure: present
+        ensure: absent
         login: true
         superuser: false
         passwordSecret:
