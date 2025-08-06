@@ -41,9 +41,7 @@ servers:
       - name: autopath
         parameters: "@kubernetes"
       - name: forward
-        parameters: . tls://9.9.9.9
-        configBlock: |-
-          tls_servername dns.quad9.net
+        parameters: . 2001:cafe:43::c
       - name: cache
         configBlock: |-
           prefetch 20
