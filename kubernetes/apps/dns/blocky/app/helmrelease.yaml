@@ -74,7 +74,6 @@ spec:
         forceRename: *app
         controller: *app
         type: LoadBalancer
-        clusterIP: "2001:cafe:43::c"
         ipFamilyPolicy: PreferDualStack
         annotations:
           metallb.io/loadBalancerIPs: 'fd42:78a5:2c09::53,192.168.0.53'
@@ -83,6 +82,17 @@ spec:
           http:
             primary: true
             port: 4000
+          dns-tcp:
+            port: 53
+            protocol: TCP
+          dns-udp:
+            port: 53
+            protocol: UDP
+
+      internal:
+        controller: *app
+        clusterIP: "2001:cafe:43::c"
+        ports:
           dns-tcp:
             port: 53
             protocol: TCP
