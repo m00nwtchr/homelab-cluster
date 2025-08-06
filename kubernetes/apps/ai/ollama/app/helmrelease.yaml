@@ -66,6 +66,10 @@ spec:
           - name: internal
             namespace: envoy-gateway-system
             sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
 
     persistence:
       data:
