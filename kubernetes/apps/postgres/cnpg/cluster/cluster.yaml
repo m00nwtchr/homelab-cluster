@@ -30,6 +30,13 @@ spec:
 
   managed:
     roles:
+      - name: autobrr
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-autobrr
+
       - name: baikal
         ensure: present
         login: true
