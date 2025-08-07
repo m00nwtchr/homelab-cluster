@@ -36,7 +36,7 @@ spec:
             env:
               TZ: ${TZ}
               AUTOBRR__CHECK_FOR_UPDATES: "false"
-              AUTOBRR__HOST: "::"
+              AUTOBRR__HOST: "[::]"
               AUTOBRR__PORT: &port 7474
               AUTOBRR__LOG_LEVEL: DEBUG
 
