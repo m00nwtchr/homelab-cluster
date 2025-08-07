@@ -23,6 +23,8 @@ spec:
             runAsUser: 2000
             runAsGroup: 2000
             runAsNonRoot: true
+            fsGroup: 2000
+            fsGroupChangePolicy: OnRootMismatch
 
         containers:
           app:
@@ -83,7 +85,8 @@ spec:
 
     persistence:
       config:
-        existingClaim: *app
+        size: 1Gi
+        accessMode: ReadWriteOnce
 
       tmpfs:
         type: emptyDir
