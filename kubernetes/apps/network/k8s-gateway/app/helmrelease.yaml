@@ -39,7 +39,8 @@ spec:
       clusterIP: "2001:cafe:43::b"
       port: 53
     watchedResources: ["HTTPRoute", "Service"]
-    fallthrough: true
+    fallthrough:
+      enabled: true
     extraZonePlugins:
       - name: forward
         parameters: ${SECRET_DOMAIN} tls://1.1.1.1 tls://1.0.0.1
