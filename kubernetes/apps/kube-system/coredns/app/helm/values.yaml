@@ -41,7 +41,9 @@ servers:
       - name: autopath
         parameters: "@kubernetes"
       - name: forward
-        parameters: . 2001:cafe:43::c
+        parameters: . tls://1.1.1.1 tls://1.0.0.1
+        configBlock: |-
+          tls_servername cloudflare-dns.com
       - name: cache
         configBlock: |-
           prefetch 20
