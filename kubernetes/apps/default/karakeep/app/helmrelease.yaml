@@ -64,9 +64,13 @@ spec:
               COREPACK_INTEGRITY_KEYS: 0
               DB_WAL_MODE: true
 
-              OLLAMA_BASE_URL: http://ollama.ai.svc.cluster.local
-              INFERENCE_TEXT_MODEL: gemma3
-              INFERENCE_IMAGE_MODEL: llava
+#              OLLAMA_BASE_URL: http://ollama.ai.svc.cluster.local
+#              INFERENCE_TEXT_MODEL: gemma3
+#              INFERENCE_IMAGE_MODEL: llava
+
+              OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
+              INFERENCE_TEXT_MODEL: pc-llama3.2:3b
+              INFERENCE_IMAGE_MODEL: llava:7b
             probes:
               liveness:
                 enabled: true
