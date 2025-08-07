@@ -69,6 +69,11 @@ spec:
 #              INFERENCE_IMAGE_MODEL: llava
 
               OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
+              OPENAI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: karakeep-secret
+                    key: litellm_key
               INFERENCE_TEXT_MODEL: pc-llama3.2:3b
               INFERENCE_IMAGE_MODEL: llava:7b
             probes:
