@@ -34,6 +34,7 @@ spec:
               repository: ghcr.io/autobrr/autobrr
               tag: v1.65.0@sha256:494e821e7a9c9a1279d1541522a65ed06b03d0b66563e827e3d29b9a63e61ddc
             env:
+              TZ: ${TZ}
               AUTOBRR__CHECK_FOR_UPDATES: "false"
               AUTOBRR__HOST: "::"
               AUTOBRR__PORT: &port 7474
