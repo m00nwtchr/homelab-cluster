@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - helmrelease.yaml
   - sealedsecret.yaml
+  - secret.sops.yaml
