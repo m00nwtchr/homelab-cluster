@@ -11,6 +11,10 @@ model_list:
     litellm_params:
       model: ollama_chat/llama3.2:3b
       api_base: "http://ollama.ai.svc.cluster.local"
+  - model_name: pc-llama3.2:3b
+    litellm_params:
+      model: ollama_chat/llama3.2:3b
+      api_base: "http://192.168.0.126:11434"
 
 general_settings:
   proxy_batch_write_at: 60 # Batch write spend updates every 60s
