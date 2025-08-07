@@ -80,8 +80,6 @@ spec:
 
       metrics:
         controller: *app
-        labels:
-          app.kubernetes.io/component: metrics
         ports:
           metrics:
             port: 9090
@@ -97,6 +95,16 @@ spec:
           - backendRefs:
               - identifier: app
                 port: 80
+
+    serviceMonitor:
+      app:
+        serviceName: metrics
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
 
     persistence:
       config:
