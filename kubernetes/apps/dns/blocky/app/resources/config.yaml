@@ -26,6 +26,7 @@ blocking:
 caching:
 #  maxItemsCount: 10_000
   prefetching: true
+  minTime: 60s
 #  prefetchMaxItemsCount: 1_000
 #  cacheTimeNegative: 30s
 
