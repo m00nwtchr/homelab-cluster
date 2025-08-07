@@ -44,7 +44,7 @@ filters:
       - { name: added:14d,    update: ['AddedDays >= 14 && AddedDays < 30'] }
       - { name: added:30d,    update: ['AddedDays >= 30 && AddedDays < 180'] }
       - { name: added:180d,   update: ['AddedDays >= 180'] }
-      - { name: not-linked,   update: ['HardlinkedOutsideClient == false && Label in ["sonarr", "radarr"]'] }
+      - { name: not-linked,   update: ['HardlinkedOutsideClient == false && Label in ["tv-sonarr", "movie-radarr"]'] }
       - { name: site:ant,     update: ['TrackerName == "anthelion.me"'] }
       - { name: site:ar,      update: ['TrackerName == "alpharatio.cc"'] }
       - { name: site:ath,     update: ['TrackerName == "aither.cc"'] }
