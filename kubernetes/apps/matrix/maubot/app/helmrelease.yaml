@@ -66,4 +66,3 @@ spec:
         globalMounts:
           - path: /data/config.yaml
             subPath: config.yaml
-            readOnly: true
