@@ -11,8 +11,8 @@ spec:
     name: app-template
     namespace: flux-system
   dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
+    - name: openebs
+      namespace: openebs-system
   values:
     controllers:
       *app :
