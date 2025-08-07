@@ -91,7 +91,7 @@ spec:
     #          port: 12321
     route:
       app:
-        hostnames: [ "hass.${SECRET_DOMAIN}" ]
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}", "hass.${SECRET_DOMAIN}" ]
 #        annotations:
 #          gethomepage.dev/enabled: "true"
 #          gethomepage.dev/group: Media
