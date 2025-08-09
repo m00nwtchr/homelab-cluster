@@ -58,7 +58,7 @@ spec:
               SSO_CLIENT_ID: *app
             envFrom:
               - secretRef:
-                  name: ${APP}
+                  name: *app
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
