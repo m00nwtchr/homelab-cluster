@@ -19,7 +19,7 @@ spec:
       retries: 3
   values:
     controllers:
-      vaultwarden:
+      *app :
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -40,10 +40,10 @@ spec:
               TZ: ${TZ}
               SIGNUPS_ALLOWED: true
               WEBSOCKET_ENABLED: true
-#              SMTP_HOST: ${ROUTER_IP}
-#              SMTP_PORT: 25
-#              SMTP_FROM: admin@${SECRET_DOMAIN}
-#              SMTP_SECURITY: "off"
+              #              SMTP_HOST: ${ROUTER_IP}
+              #              SMTP_PORT: 25
+              #              SMTP_FROM: admin@${SECRET_DOMAIN}
+              #              SMTP_SECURITY: "off"
               ROCKET_ADDRESS: "::"
               ROCKET_PORT: &port 8080
               DATABASE_URL:
@@ -51,13 +51,18 @@ spec:
                   secretKeyRef:
                     name: ${APP}-postgres
                     key: POSTGRES_URL
+
+              SSO_ENABLED: true
+              SSO_ONLY: true
+              SSO_AUTHORITY: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
+              SSO_CLIENT_ID: *app
             envFrom:
               - secretRef:
                   name: ${APP}
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: { drop: [ "ALL" ] }
             resources:
               requests:
                 cpu: 100m
