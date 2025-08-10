@@ -104,7 +104,6 @@ spec:
       ts:
         controller: *app
         type: LoadBalancer
-        ipFamilyPolicy: PreferDualStack
         loadBalancerClass: tailscale
         annotations:
           tailscale.com/hostname: *app
