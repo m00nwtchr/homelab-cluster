@@ -46,7 +46,6 @@ spec:
                     name: ${APP}-secret
                     key: api_key
               RADARR__AUTH__METHOD: External
-              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
               RADARR__LOG__ANALYTICSENABLED: "False"
               RADARR__LOG__DBENABLED: "False"
               RADARR__POSTGRES__HOST: postgres-rw.postgres.svc
