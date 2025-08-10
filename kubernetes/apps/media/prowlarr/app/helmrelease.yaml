@@ -61,7 +61,6 @@ spec:
                     name: ${APP}-secret
                     key: api_key
               PROWLARR__AUTH__METHOD: External
-              PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
               PROWLARR__LOG__ANALYTICSENABLED: "False"
               PROWLARR__LOG__DBENABLED: "False"
               PROWLARR__POSTGRES__HOST: postgres-rw.postgres.svc
