@@ -3,6 +3,8 @@ apiVersion: tailscale.com/v1alpha1
 kind: Connector
 metadata:
   name: ts-lbs
+  annotations:
+    tailscale.com/proxy-group: ingress-proxy
 spec:
   hostname: ts-lbs
   subnetRouter:
