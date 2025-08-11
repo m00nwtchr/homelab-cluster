@@ -10,3 +10,4 @@ spec:
   subnetRouter:
     advertiseRoutes:
       - "fd42:78a5:2c09::200/120"
+      - "2001:cafe:43::/112"
