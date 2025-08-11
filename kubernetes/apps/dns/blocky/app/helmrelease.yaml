@@ -83,6 +83,7 @@ spec:
           tailscale.com/expose: "true"
           tailscale.com/hostname: *app
           tailscale.com/tags: tag:k8s,tag:dns
+          tailscale.com/proxy-group: ingress-proxy
         ports: &ports
           http:
             primary: true
