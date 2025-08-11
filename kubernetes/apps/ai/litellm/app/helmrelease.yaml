@@ -35,22 +35,18 @@ spec:
               - --config
               - "/app/config.yaml"
             env:
-              TZ: "${TIME_ZONE}"
+              TZ: "${TZ}"
               REDIS_HOST: dragonfly.database.svc.cluster.local
               STORE_MODEL_IN_DB: True
 
 #              LITELLM_LOG: "ERROR"
               LITELLM_MODE: "PRODUCTION"
               #              USE_PRISMA_MIGRATE: "True"
-
-              LITELLM_MASTER_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-secret
-                    key: master_key
             envFrom:
               - secretRef:
-                  name: litellm-env-secret
+                  name: *app
+              - secretRef:
+                  name: litellm-postgres
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
