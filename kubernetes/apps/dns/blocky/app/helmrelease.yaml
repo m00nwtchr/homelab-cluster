@@ -81,7 +81,7 @@ spec:
           lbipam.cilium.io/ips: 'fd42:78a5:2c09::53,192.168.0.53'
 
           tailscale.com/hostname: *app
-          tailscale.com/expose: "true"
+#          tailscale.com/expose: "true"
         ports: &ports
           http:
             primary: true
