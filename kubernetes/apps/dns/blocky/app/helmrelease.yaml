@@ -79,6 +79,9 @@ spec:
         annotations:
           metallb.io/loadBalancerIPs: 'fd42:78a5:2c09::53,192.168.0.53'
           lbipam.cilium.io/ips: 'fd42:78a5:2c09::53,192.168.0.53'
+
+          tailscale.com/hostname: *app
+          tailscale.com/expose: "true"
         ports: &ports
           http:
             primary: true
@@ -101,16 +104,16 @@ spec:
             port: 53
             protocol: UDP
 
-      ts:
-        controller: *app
-        type: LoadBalancer
-        loadBalancerClass: tailscale
-
-        ipFamilies: [IPv4]
-        annotations:
-          tailscale.com/hostname: *app
-          tailscale.com/proxy-group: ingress-proxy
-        ports: *ports
+#      ts:
+#        controller: *app
+#        type: LoadBalancer
+#        loadBalancerClass: tailscale
+#
+#        ipFamilies: [IPv4]
+#        annotations:
+#          tailscale.com/hostname: *app
+#          tailscale.com/proxy-group: ingress-proxy
+#        ports: *ports
 
     serviceMonitor:
       app:
