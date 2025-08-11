@@ -105,6 +105,8 @@ spec:
         controller: *app
         type: LoadBalancer
         loadBalancerClass: tailscale
+
+        ipFamily: [IPv4]
         annotations:
           tailscale.com/hostname: *app
           tailscale.com/proxy-group: ingress-proxy
