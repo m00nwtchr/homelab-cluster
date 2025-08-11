@@ -16,7 +16,7 @@ kind: EnvoyProxy
 metadata:
   name: external-proxy-config
 spec:
-  ipFamily: DualStack
+  ipFamily: IPv6
   provider:
     type: Kubernetes
     kubernetes:
