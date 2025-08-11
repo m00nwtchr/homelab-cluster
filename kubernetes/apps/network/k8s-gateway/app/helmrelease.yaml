@@ -38,4 +38,28 @@ spec:
       type: ClusterIP
       clusterIP: "2001:cafe:43::b"
       port: 53
-    watchedResources: ["HTTPRoute", "Service"]
+    watchedResources: [ "HTTPRoute", "Service" ]
+    fallthrough:
+      enabled: true
+    extraZonePlugins:
+      - name: log
+      - name: errors
+      # Serves a /health endpoint on :8080, required for livenessProbe
+      - name: health
+        configBlock: lameduck 5s
+      # Serves a /ready endpoint on :8181, required for readinessProbe
+      - name: ready
+      # Serves a /metrics endpoint on :9153, required for serviceMonitor
+      - name: prometheus
+        parameters: 0.0.0.0:9153
+      - name: forward
+        parameters: . tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001
+        configBlock: |-
+          tls_servername one.one.one.one
+      - name: forward
+        parameters: ". tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001"
+        configBlock: |-
+          tls_servername one.one.one.one
+      - name: loop
+      - name: reload
+      - name: loadbalance
