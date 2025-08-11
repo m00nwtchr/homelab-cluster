@@ -17,7 +17,7 @@ model_list:
       api_base: "http://192.168.0.126:11434"
   - model_name: gpt-oss-120b # Model Alias to use for requests
     litellm_params:
-      model: openai/gpt-oss-120b
+      model: groq/openai/gpt-oss-120b
       api_key: "os.environ/GROQ_API_KEY" # ensure you have `GROQ_API_KEY` in your .env
 
 general_settings:
