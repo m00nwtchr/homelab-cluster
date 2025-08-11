@@ -4,7 +4,7 @@ kind: EnvoyProxy
 metadata:
   name: proxy-config
 spec:
-  ipFamily: IPv6
+  ipFamily: DualStack
   backendTLS:
     ecdhCurves:
       - X25519
@@ -16,7 +16,7 @@ kind: EnvoyProxy
 metadata:
   name: external-proxy-config
 spec:
-  ipFamily: IPv6
+  ipFamily: DualStack
   provider:
     type: Kubernetes
     kubernetes:
