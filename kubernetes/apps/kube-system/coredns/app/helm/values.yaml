@@ -43,7 +43,7 @@ servers:
       - name: forward
         parameters: . tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001
         configBlock: |-
-          tls_servername cloudflare-dns.com
+          tls_servername one.one.one.one
       - name: cache
         configBlock: |-
           prefetch 20
