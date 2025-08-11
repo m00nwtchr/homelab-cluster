@@ -28,7 +28,7 @@ caching:
   prefetching: true
   minTime: 60s
 #  prefetchMaxItemsCount: 1_000
-  cacheTimeNegative: 10s
+#  cacheTimeNegative: 10s
 
 clientLookup:
   upstream: 192.168.0.1
