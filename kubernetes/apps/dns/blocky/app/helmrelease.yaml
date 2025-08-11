@@ -93,9 +93,6 @@ spec:
       internal:
         controller: *app
         clusterIP: "2001:cafe:43::c"
-        annotations:
-          tailscale.com/hostname: *app
-          tailscale.com/expose: "true"
         ports:
           dns-tcp:
             port: 53
@@ -104,16 +101,16 @@ spec:
             port: 53
             protocol: UDP
 
-#      ts:
-#        controller: *app
-#        type: LoadBalancer
-#        loadBalancerClass: tailscale
-#
-#        ipFamilies: [IPv4]
-#        annotations:
-#          tailscale.com/hostname: *app
-#          tailscale.com/proxy-group: ingress-proxy
-#        ports: *ports
+      ts:
+        controller: *app
+        type: LoadBalancer
+        loadBalancerClass: tailscale
+        ipFamilyPolicy: SingleStack
+        ipFamilies: [IPv4]
+        annotations:
+          tailscale.com/hostname: *app
+          tailscale.com/proxy-group: ingress-proxy
+        ports: *ports
 
     serviceMonitor:
       app:
