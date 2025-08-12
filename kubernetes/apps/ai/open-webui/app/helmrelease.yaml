@@ -88,8 +88,13 @@ spec:
             namespace: envoy-gateway-system
             sectionName: https
 
-#    persistence:
-#      data:
-#        existingClaim: *app
-#        globalMounts:
-#          - path: /app/backend/data
+    persistence:
+      data:
+        existingClaim: *app
+        globalMounts:
+          - path: /app/backend/data
+
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /app/backend/data/cache
