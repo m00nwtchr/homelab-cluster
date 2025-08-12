@@ -31,6 +31,8 @@ spec:
               ENABLE_OPENAI_API: True
               OPENAI_API_BASE_URL: http://litellm.ai.svc.cluster.local
 
+              # Vector
+              VECTOR_DB: pgvector
 
               # Image Generation
               #              ENABLE_IMAGE_GENERATION: True
