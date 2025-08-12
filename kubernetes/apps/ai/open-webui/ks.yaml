@@ -29,3 +29,34 @@ spec:
     namespace: flux-system
   targetNamespace: *namespace
   timeout: 5m
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app open-webui-db
+  namespace: &namespace postgres
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: cnpg
+      namespace: cnpg-system
+  interval: 1h
+  path: ./kubernetes/apps/ai/open-webui/database
+  postBuild:
+    substitute:
+      APP: open-webui
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  prune: true
+  retryInterval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false
