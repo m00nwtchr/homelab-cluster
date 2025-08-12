@@ -46,9 +46,8 @@ spec:
               #              AUTOMATIC1111_SCHEDULER: Karras
 
               # Search
-              ENABLE_RAG_WEB_SEARCH: true
-              ENABLE_SEARCH_QUERY: true
-              RAG_WEB_SEARCH_ENGINE: searxng
+              ENABLE_WEB_SEARCH: True
+              WEB_SEARCH_ENGINE: searxng
               SEARXNG_QUERY_URL: http://searxng.default.svc:8080/search?q=<query>
 
               # Websocket
