@@ -63,7 +63,8 @@ spec:
               ENABLE_OAUTH_ROLE_MANAGEMENT: True
 
               # RAG
-              RAG_EMBEDDING_ENGINE: openai
+              RAG_EMBEDDING_ENGINE: ollama
+              RAG_OLLAMA_BASE_URL: http://ollama.ai.svc:11434
 
               # Web
               HOST: "::"
