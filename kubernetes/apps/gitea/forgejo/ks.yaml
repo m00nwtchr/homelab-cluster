@@ -39,23 +39,20 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app forgejo-db
+  name: forgejo-db
   namespace: &namespace postgres
 spec:
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
+      app.kubernetes.io/name: &app forgejo
   dependsOn:
     - name: cnpg
       namespace: cnpg-system
   interval: 1h
-  path: ./kubernetes/apps/gitea/forgejo/database
+  path: ./kubernetes/components/database
   postBuild:
     substitute:
-      APP: forgejo
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
+      APP: *app
   prune: true
   retryInterval: 2m
   sourceRef:
