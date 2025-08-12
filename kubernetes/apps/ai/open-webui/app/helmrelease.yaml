@@ -101,5 +101,6 @@ spec:
       cache:
         size: 1Gi
         accessMode: ReadWriteOnce
+        suffix: "cache"
         globalMounts:
           - path: /app/backend/data/cache
