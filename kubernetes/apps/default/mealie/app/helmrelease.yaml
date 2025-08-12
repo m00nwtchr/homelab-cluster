@@ -92,6 +92,7 @@ spec:
     service:
       app:
         controller: *app
+        ipFamilies: [IPv4]
         ports:
           http:
             port: 80
