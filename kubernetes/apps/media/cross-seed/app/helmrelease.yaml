@@ -75,9 +75,9 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-#              capabilities:
-#                drop:
-#                  - ALL
+    #              capabilities:
+    #                drop:
+    #                  - ALL
 
     service:
       app:
@@ -89,6 +89,8 @@ spec:
     persistence:
       data:
         existingClaim: *app
+        globalMounts:
+          - path: /config/
 
       config:
         type: configMap
