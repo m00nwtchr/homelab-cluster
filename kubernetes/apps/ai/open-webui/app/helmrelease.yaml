@@ -58,6 +58,9 @@ spec:
               OAUTH_CLIENT_ID: *app
               OPENID_PROVIDER_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
               ENABLE_OAUTH_ROLE_MANAGEMENT: True
+
+              # Web
+              CORS_ALLOW_ORIGIN: ${APP}.${SECRET_DOMAIN}
             envFrom:
               - secretRef:
                   name: *app
