@@ -3,7 +3,7 @@ function fetchIndexers(baseUrl, apiKey, tag) {
   const response = JSON.parse(buffer.toString('utf8'));
   const indexerIds = response.filter(t => t.label === tag)[0]?.indexerIds ?? [];
   const indexers = indexerIds.map(i => `${baseUrl}/${i}/api?apikey=${apiKey}`);
-  console.log(`Loaded $${indexers.length} indexers from Prowlarr`);
+  console.log(`Loaded ${indexers.length} indexers from Prowlarr`);
   return indexers;
 }
 
