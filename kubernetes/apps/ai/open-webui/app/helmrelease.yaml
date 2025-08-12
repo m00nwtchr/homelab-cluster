@@ -64,7 +64,7 @@ spec:
 
               # RAG
               RAG_EMBEDDING_ENGINE: ollama
-              RAG_OLLAMA_BASE_URL: http://ollama.ai.svc:11434
+              RAG_OLLAMA_BASE_URL: http://ollama.ai.svc
 
               # Web
               HOST: "::"
