@@ -18,6 +18,6 @@ module.exports = {
   skipRecheck: true,
   sonarr: [`http://sonarr.media.svc.cluster.local/?apikey=${process.env.SONARR_API_KEY}`],
   torrentClients: [`qbittorrent:http://qbittorrent.media.svc.cluster.local`],
-  torznab: fetchIndexers("http://prowlarr.media.svc.cluster.local", process.env.PROWLARR_API_KEY, "cross-seed"),
+  torznab: fetchIndexers("http://prowlarr.media.svc.cluster.local:80", process.env.PROWLARR_API_KEY, "cross-seed"),
   useClientTorrents: true
 }
