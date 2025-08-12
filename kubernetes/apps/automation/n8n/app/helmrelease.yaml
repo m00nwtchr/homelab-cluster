@@ -75,9 +75,7 @@ spec:
 
     persistence:
       data:
-#        existingClaim: *app
-        size: 5Gi
-        accessMode: ReadWriteOnce
+        existingClaim: *app
         globalMounts:
           - path: /home/node/.n8n
 
