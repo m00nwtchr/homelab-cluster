@@ -60,13 +60,13 @@ spec:
               OAUTH_CLIENT_ID: *app
               OPENID_PROVIDER_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
               OAUTH_CODE_CHALLENGE_METHOD: "S256"
-              OAUTH_MERGE_ACCOUNTS_BY_EMAIL: True
               ENABLE_OAUTH_ROLE_MANAGEMENT: True
 
               # Web
               HOST: "::"
               WEBUI_URL: https://${APP}.${SECRET_DOMAIN}
               CORS_ALLOW_ORIGIN: https://${APP}.${SECRET_DOMAIN}
+              ENABLE_LOGIN_FORM: False
             envFrom:
               - secretRef:
                   name: *app
