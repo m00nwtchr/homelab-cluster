@@ -36,8 +36,6 @@ spec:
               HOST: "::"
               BASE_URL: https://${APP}.${SECRET_DOMAIN}
 
-              OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
-
               DB_ENGINE: postgres
               POSTGRES_SERVER: postgres-rw.postgres.svc
               POSTGRES_DB: *app
@@ -52,7 +50,6 @@ spec:
                     name: postgres-${APP}
                     key: password
 
-
               ALLOW_PASSWORD_LOGIN: "false"
               OIDC_AUTH_ENABLED: "true"
               OIDC_CONFIGURATION_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
@@ -61,6 +58,10 @@ spec:
               OIDC_ADMIN_GROUP: "admins"
               OIDC_AUTO_REDIRECT: "true"
               OIDC_SCOPES_OVERRIDE: "openid profile email groups"
+
+              OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
+              OPENAI_MODEL: llama3.1:8b
+              OPENAI_ENABLE_IMAGE_SERVICES: false
             envFrom:
               - secretRef:
                   name: *app
