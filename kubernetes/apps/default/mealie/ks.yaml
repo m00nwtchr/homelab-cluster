@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app vaultwarden
+  name: &app paperless
   namespace: &namespace default
 spec:
   commonMetadata:
@@ -14,12 +14,8 @@ spec:
   dependsOn:
     - name: volsync
       namespace: volsync-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   interval: 1h
-  path: ./kubernetes/apps/default/vaultwarden/app
+  path: ./kubernetes/apps/default/mealie/app
   postBuild:
     substitute:
       APP: *app
@@ -41,17 +37,20 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app vaultwarden-db
+  name: &app mealie-db
   namespace: &namespace postgres
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: cnpg
+      namespace: cnpg-system
   interval: 1h
-  path: ./kubernetes/apps/default/vaultwarden/database
+  path: ./kubernetes/apps/default/mealie/database
   postBuild:
     substitute:
-      APP: vaultwarden
+      APP: mealie
   prune: true
   retryInterval: 2m
   sourceRef:

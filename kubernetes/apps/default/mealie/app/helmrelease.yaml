@@ -1,0 +1,110 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app ${APP}
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+
+    controllers:
+      *app :
+        type: statefulset
+        containers:
+          app:
+            env:
+              TZ: ${TZ}
+              BASE_URL: https://${APP}.${SECRET_DOMAIN}
+
+              OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
+
+              DB_ENGINE: postgres
+              POSTGRES_SERVER: postgres-rw.postgres.svc
+              POSTGRES_DB: *app
+              POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-${APP}
+                    key: username
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-${APP}
+                    key: password
+
+
+              ALLOW_PASSWORD_LOGIN: "false"
+              OIDC_AUTH_ENABLED: "true"
+              OIDC_CONFIGURATION_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
+              OIDC_CLIENT_ID: *app
+              OIDC_USER_GROUP: "users"
+              OIDC_ADMIN_GROUP: "admins"
+              OIDC_AUTO_REDIRECT: "true"
+              OIDC_SCOPES_OVERRIDE: "openid profile email groups"
+            envFrom:
+              - secretRef:
+                  name: *app
+            image:
+              repository: ghcr.io/mealie-recipes/mealie
+              tag: v2.7.1@sha256:708e9ffb843bafdcebf46ee35bb45d1b003518e8c204483a1da039b4076ef980
+            #            probes:
+            #              liveness:
+            #                enabled: true
+            #                type: HTTP
+            #              readiness:
+            #                enabled: true
+            #                type: HTTP
+            #              startup:
+            #                enabled: true
+            #                spec:
+            #                  failureThreshold: 30
+            #                  periodSeconds: 5
+            #                type: HTTP
+            resources:
+              requests:
+                memory: 250Mi
+                cpu: 50m
+              limits:
+                memory: 500Mi
+
+
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 80
+            targetPort: 9000
+
+    route:
+      app:
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
+        parentRefs:
+          - name: external
+            namespace: envoy-gateway-system
+            sectionName: https
+
+    persistence:
+      data:
+        existingClaim: *app
+        globalMounts:
+          - path: /app/data

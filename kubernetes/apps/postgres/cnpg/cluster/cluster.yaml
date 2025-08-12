@@ -97,6 +97,13 @@ spec:
         passwordSecret:
           name: postgres-mautrix-meta
 
+      - name: mealie
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-mealie
+
       - name: open-webui
         ensure: present
         login: true
