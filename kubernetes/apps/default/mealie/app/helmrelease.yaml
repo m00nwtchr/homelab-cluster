@@ -33,6 +33,7 @@ spec:
           app:
             env:
               TZ: ${TZ}
+              HOST: "::"
               BASE_URL: https://${APP}.${SECRET_DOMAIN}
 
               OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
