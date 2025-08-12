@@ -40,38 +40,30 @@ spec:
   targetNamespace: *namespace
   timeout: 5m
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app mautrix-discord-database
-  namespace: matrix
+  name: mautrix-discord-db
+  namespace: &namespace postgres
 spec:
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
+      app.kubernetes.io/name: &app mautrix-discord
   dependsOn:
     - name: cnpg
       namespace: cnpg-system
-  #  healthChecks:
-  #    - apiVersion: postgresql.cnpg.io/v1
-  #      kind: Database
-  #      name: postgres-mautrix-meta
-  #      namespace: postgres
   interval: 1h
-  path: ./kubernetes/apps/matrix/mautrix-discord/database
+  path: ./kubernetes/components/database
   postBuild:
     substitute:
-      APP: mautrix-discord
+      APP: *app
   prune: true
   retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: postgres
+  targetNamespace: *namespace
   timeout: 5m
+  wait: false
