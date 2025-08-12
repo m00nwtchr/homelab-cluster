@@ -7,6 +7,9 @@ resources:
   - ./secret.sops.yaml
 configMapGenerator:
   - name: cross-seed-configmap
+    options:
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
     files:
       - resources/config.js
 configurations:
