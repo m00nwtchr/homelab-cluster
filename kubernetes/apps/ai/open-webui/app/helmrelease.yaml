@@ -51,10 +51,8 @@ spec:
               WEB_SEARCH_ENGINE: searxng
               SEARXNG_QUERY_URL: http://searxng.default.svc:8080/search?q=<query>
 
-              # Websocket
-              ENABLE_WEBSOCKET_SUPPORT: "true"
-              WEBSOCKET_MANAGER: "redis"
-              WEBSOCKET_REDIS_URL: "redis://dragonfly.database.svc.cluster.local:6379/8"
+              # Websocket / Session Store
+              REDIS_URL: "redis://dragonfly.database.svc.cluster.local:6379/8"
 
               # Auth
               OAUTH_CLIENT_ID: *app
