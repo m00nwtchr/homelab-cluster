@@ -29,6 +29,7 @@ spec:
               tag: 0.6.22@sha256:fb739f0e9cb0b51d66f0c43bab8bab00960dac38804a243aca1323a563add9cd
             env:
               ENABLE_OPENAI_API: True
+              ENABLE_OLLAMA_API: False
               OPENAI_API_BASE_URL: http://litellm.ai.svc.cluster.local
 
               # Vector
