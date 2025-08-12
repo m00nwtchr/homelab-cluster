@@ -45,7 +45,7 @@ spec:
             resources:
               requests:
                 cpu: 50m
-                memory: 256Mi
+                memory: 128Mi
 
       websub:
         containers:
@@ -63,7 +63,7 @@ spec:
             resources:
               requests:
                 cpu: 50m
-                memory: 256Mi
+                memory: 128Mi
 
       fetch:
         pod: &node-pod
