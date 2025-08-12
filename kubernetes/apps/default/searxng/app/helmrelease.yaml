@@ -31,7 +31,7 @@ spec:
               repository: ghcr.io/searxng/searxng
               tag: latest@sha256:fe702750a9ffbf923533c67c456951a3be77f298915cf632077f3650ed4b5e4b
             command:
-              - /usr/local/searxng/venv/bin/granian
+              - /usr/local/searxng/.venv/bin/granian
               - searx.webapp:app
             env:
               SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
