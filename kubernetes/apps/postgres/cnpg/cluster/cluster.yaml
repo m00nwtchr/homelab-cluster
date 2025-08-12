@@ -104,6 +104,13 @@ spec:
         passwordSecret:
           name: postgres-mealie
 
+      - name: n8n
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-n8n
+
       - name: open-webui
         ensure: present
         login: true
