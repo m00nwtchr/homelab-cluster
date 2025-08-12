@@ -99,7 +99,7 @@ spec:
           - path: /app/backend/data
 
       cache:
-        size: 1Gi
+        size: 2Gi
         accessMode: ReadWriteOnce
         suffix: "cache"
         globalMounts:
