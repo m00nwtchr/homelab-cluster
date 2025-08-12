@@ -54,8 +54,8 @@ spec:
               OIDC_AUTH_ENABLED: "true"
               OIDC_CONFIGURATION_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
               OIDC_CLIENT_ID: *app
-              OIDC_USER_GROUP: "users"
-              OIDC_ADMIN_GROUP: "admins"
+              OIDC_USER_GROUP: "users@idm.m00nlit.dev"
+              OIDC_ADMIN_GROUP: "admins@idm.m00nlit.dev"
               OIDC_AUTO_REDIRECT: "true"
               OIDC_SCOPES_OVERRIDE: "openid profile email groups"
 
