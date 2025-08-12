@@ -6,6 +6,6 @@ metadata:
   namespace: postgres
 spec:
   name: &app ${APP}
-  owner: *app
+  owner: ${OWNER:=${APP}}
   cluster:
     name: postgres
