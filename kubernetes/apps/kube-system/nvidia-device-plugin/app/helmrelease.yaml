@@ -1,13 +1,18 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrepository-source-v1.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+kind: OCIRepository
 metadata:
   name: nvdp
-  namespace: kube-system # Required for Renovate lookups
+  namespace: kube-system
 spec:
-  interval: 1h
-  url: https://nvidia.github.io/k8s-device-plugin
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 0.17.3
+  url: oci://ghcr.io/home-operations/charts-mirror/nvidia-device-plugin
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -17,14 +22,9 @@ metadata:
   namespace: kube-system
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: nvidia-device-plugin
-      version: 0.17.3
-      sourceRef:
-        kind: HelmRepository
-        name: nvdp
-        namespace: kube-system
+  chartRef:
+    kind: OCIRepository
+    name: nvdp
   install:
     crds: CreateReplace
     remediation:
@@ -37,18 +37,15 @@ spec:
   values:
     gfd:
       enabled: true
-#    runtimeClassName: nvidia
+    runtimeClassName: nvidia
     config:
       map:
         default: |-
           version: v1
-          flags:
-            plugin:
-              deviceListStrategy: "cdi-annotations"
-#          sharing:
-#            timeSlicing:
-#              renameByDefault: false
-#              failRequestsGreaterThanOne: false
-#              resources:
-#                - name: nvidia.com/gpu
-#                  replicas: 6
+          sharing:
+            timeSlicing:
+              renameByDefault: false
+              failRequestsGreaterThanOne: false
+              resources:
+                - name: nvidia.com/gpu
+                  replicas: 6
