@@ -7,7 +7,7 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgis:17-3.5@sha256:2664f5525c7fa65db4a65792cc330ec24af53d3c5e3e0d4e38b81f477779c531
+  imageName: ghcr.io/cloudnative-pg/postgis:17-3.5@sha256:4f959e9ad32536ca532fd7c7534a1a0d0526eae225a14332e007c24898437637
   storage:
     size: 4Gi
 
