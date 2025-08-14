@@ -14,6 +14,7 @@ module.exports = {
   linkDirs: ["/mnt/media/downloads/complete/cross-seed"],
   linkType: "hardlink",
   matchMode: "partial",
+  ignoreNonRelevantFilesToResume: true,
   radarr: [`http://radarr.media.svc.cluster.local/?apikey=${process.env.RADARR_API_KEY}`],
   skipRecheck: true,
   sonarr: [`http://sonarr.media.svc.cluster.local/?apikey=${process.env.SONARR_API_KEY}`],
