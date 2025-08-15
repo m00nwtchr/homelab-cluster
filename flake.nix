@@ -18,20 +18,20 @@
 					packages = with pkgs; [
 						kubectl
 						kubelogin-oidc
+						talosctl
 
-     (wrapHelm kubernetes-helm {
-            plugins = with pkgs.kubernetes-helmPlugins; [
-
-              helm-diff
-
-            ];
-          })
+            (wrapHelm kubernetes-helm {
+              plugins = with pkgs.kubernetes-helmPlugins; [
+                helm-diff
+              ];
+            })
             helmfile
 						kubeseal
 
 						cilium-cli
             fluxcd
 
+            go-task
             sops
 
 						jq    # JSON parser (handy for `kubectl` output)
