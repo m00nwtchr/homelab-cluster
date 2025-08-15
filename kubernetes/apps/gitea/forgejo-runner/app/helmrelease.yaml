@@ -60,7 +60,7 @@ spec:
                 fi
             env:
               FORGEJO_INSTANCE_URL: http://forgejo-http.gitea.svc.cluster.local:3000
-              LABELS: "docker:docker://ghcr.io/catthehacker/ubuntu:act-latest,x86_64:docker://ghcr.io/catthehacker/ubuntu:act-latest,linux:docker://ghcr.io/catthehacker/ubuntu:act-latest,pc:docker://ghcr.io/catthehacker/ubuntu:act-latest,ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-latest,linux:host"
+              LABELS: "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-latest"
             envFrom:
               - secretRef:
                   name: forgejo-runner-secret
