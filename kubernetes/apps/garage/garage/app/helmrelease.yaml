@@ -37,6 +37,9 @@ spec:
       retries: 3
   values:
 
+    podSecurityContext:
+      fsGroupChangePolicy: "OnRootMismatch"
+
     garage:
       replicationMode: "1"
     persistence:
