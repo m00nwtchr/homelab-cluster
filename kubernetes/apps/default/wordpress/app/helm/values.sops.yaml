@@ -1,0 +1,39 @@
+wordpressSkipInstall: ENC[AES256_GCM,data:lLzshw==,iv:nMryf+0yRZ/JuVJYhhaSmpIyvYoN4DKVfB0cdJBgHzk=,tag:Wa0SrpJCvPghEBVfRnfSTg==,type:bool]
+overrideDatabaseSettings: ENC[AES256_GCM,data:k2NSoA==,iv:er5NO3lDniLUrsW3toVjICs0ju82lBJCnWjGxRRTEpI=,tag:+TU7hRQEvEK/IcsrTnYHXw==,type:bool]
+mariadb:
+  auth:
+    rootPassword: ENC[AES256_GCM,data:psugavwO3foy7z4tnMZulw==,iv:43LK1IGLsxEsb9Tu2EyociCUYTBDShAWeUX+X9MXnu4=,tag:eIF399N43bhJcsRsYl6CIw==,type:str]
+  enabled: ENC[AES256_GCM,data:4D6HCA==,iv:ba//J4AtDZSfA7XiORs+ta6BjIrhvFRXnh7GLUqfgNw=,tag:ZaulIhE2g3weldTD2kVqlA==,type:bool]
+service:
+  type: ENC[AES256_GCM,data:pqGPGYhqZQPU,iv:iHsY2/ysvwXLHX9iaT4vhbD/bbtuROe917VJflo76GE=,tag:d6IWcU0pZCYX+dMZoqesYg==,type:str]
+persistence:
+  existingClaim: ENC[AES256_GCM,data:C6jHrAya8ssY,iv:i8WZ3+O5umOMs7BpqBru15tLsr3UmklFCslTh+7gc08=,tag:wI46tn7UfLmRod2LQGjMhw==,type:str]
+networkPolicy:
+  enabled: ENC[AES256_GCM,data:PF3TRHM=,iv:86AXTKkb7+TvKyIvqgNff90uAGwOj4kITI2qbOE+MUI=,tag:75kQiClRRkN7IM6cK5Dctg==,type:bool]
+sops:
+  age:
+    - recipient: age1689ww93cs2fkv3np57388eyepd789kk3zu47vyx67u8sc48vlprq9qafje
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB5SDRPUmx6d09xeFJJUmY0
+        Z0ViQldSWHF2blVNSi9seW01RW56OWdIb1NrCjdWejlJMDBvOGlVT01qODczYmdF
+        N2hFWGt2RUNraDd4cGhWWUc2RHhsdUkKLS0tIDdXUzhnM0tFbVBHdkIzdmRMd1M2
+        cEJ6TkYyVnlVSDlmN3FEbkVCZVFpdW8KepKo5IoZMvvST97HEW8eev0B53vyKvBM
+        Cpfq7OzFj7nVZhD1oTFDhRsYxW0SFZoDyVfHe5OFdUobUFFYvuxtFw==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2025-08-18T00:06:06Z"
+  mac: ENC[AES256_GCM,data:d7MNnL/9ZTzG2tZPgB/PDeoyE2tmllt+KhDCgnfwtobzGj8/e5OK9BX5z1lVSkCy5HGUyowfripJagneZycYzHxEqYn7Om1agHV+5s+zCiUq0WJy3FS7f2iAfWiMp8ZedirbTMz4wF99W+Mp29KtFez7gkNVw9cr281CG4SbIyM=,iv:RQUmWtozj5GPsD0jdst4CDbU0QA3KVxN2iWZlouZw2w=,tag:lMhk2ju41VKnNtrE4pHAEQ==,type:str]
+  pgp:
+    - created_at: "2025-08-18T00:06:06Z"
+      enc: |-
+        -----BEGIN PGP MESSAGE-----
+
+        hF4DC0EwVK2S0BUSAQdA1Euywb5wra/g/VFF6+YZmSeIx9tNwUZQm7RPgwbEYXww
+        ahf31o5Qcp2BzXaRkjw+dGFT4dPm/3aKLRZYQaBZEars2Oxdbcu85F5Nckdhpdwb
+        0l4Bc6VkLGlAnoVJQIb+l30AwCc/jbvmlwfScAWYiSZvD+7M2gJYdogidRsehhkm
+        hl/cy3KG6jK9bBnPZ/VM0jkFT+q4FthhNZJEJcNW/sKyagXt2anPZOvF/0ERFoOk
+        =VdQP
+        -----END PGP MESSAGE-----
+      fp: F846C93BF4BEAB99D98D29B2DF3CEC6BF015D41D
+  unencrypted_suffix: _unencrypted
+  version: 3.10.2
