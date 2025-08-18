@@ -30,20 +30,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  values:
-    wordpressSkipInstall: true
-    overrideDatabaseSettings: true
-
-    mariadb:
-      auth:
-        rootPassword: 0n}u&2UicEAC1ks3
-      enabled: true
-
-    service:
-      type: ClusterIP
-
-    persistence:
-      existingClaim: *app
-
-    networkPolicy:
-      enabled: false
+  valuesFrom:
+    - kind: Secret
+      name: wordpress-values
