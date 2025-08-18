@@ -24,7 +24,7 @@ spec:
           type: RuntimeDefault
 
     controllers:
-      main:
+      *app :
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
@@ -72,7 +72,7 @@ spec:
 
     service:
       app:
-        controller: main
+        controller: *app
         ports:
           http:
             port: 80
