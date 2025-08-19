@@ -6,4 +6,5 @@ namespace: homepage
 components:
   - ../../components/common
 #resources:
+# TODO: add auth
 #  - ./homepage/ks.yaml
