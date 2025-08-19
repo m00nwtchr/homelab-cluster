@@ -30,3 +30,25 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
+  values:
+    controller:
+      image:
+        repository: ghcr.io/xentra-ai/images/guardian-controller
+        tag: "v0.0.19@sha256:54816f077c9d840c9d75376a0a4636ae41d8d37f131c7f4496be02980b20e62b"
+        pullPolicy: IfNotPresent
+      initContainer:
+        image:
+          repository: busybox
+          tag: "1.37.0-musl@sha256:597bf7e5e8faf26b8efc4cb558eea5dc14d9cc97d5b4c8cdbe6404a7432d5a67"
+          pullPolicy: IfNotPresent
+    broker:
+      image:
+        repository: ghcr.io/xentra-ai/images/guardian-broker
+        tag: "v0.0.19@sha256:a72f0b3b22d07c160319639f2f9c84cb487eacf8771ad1b6be4fd323793452a0"
+        pullPolicy: IfNotPresent
+
+    database:
+      image:
+        repository: postgres
+        tag: "17.6-alpine@sha256:3406990b6e4c7192317b6fdc5680498744f6142f01f0287f4ee0420d8c74063c"
+        pullPolicy: IfNotPresent
