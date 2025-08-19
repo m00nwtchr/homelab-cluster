@@ -32,6 +32,7 @@ spec:
       retries: 3
   values:
     controller:
+      ignoreDaemonSet: false
       image:
         repository: ghcr.io/xentra-ai/images/guardian-controller
         tag: "v0.0.19@sha256:54816f077c9d840c9d75376a0a4636ae41d8d37f131c7f4496be02980b20e62b"
