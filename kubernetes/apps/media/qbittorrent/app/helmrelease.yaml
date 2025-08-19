@@ -108,7 +108,9 @@ spec:
             sectionName: https
 
       api:
-        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - qb.${SECRET_DOMAIN}
         parentRefs:
           - name: internal
             namespace: envoy-gateway-system
