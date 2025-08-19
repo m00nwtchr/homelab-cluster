@@ -9,6 +9,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: eg
+      namespace: envoy-gateway-system
   interval: 1h
   path: ./kubernetes/apps/media/sonarr/app
   postBuild:
