@@ -89,6 +89,7 @@ spec:
             protocol: UDP
     route:
       app:
+        forceRename: *app
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
           - qb.${SECRET_DOMAIN}
@@ -105,8 +106,19 @@ spec:
           - name: internal
             namespace: envoy-gateway-system
             sectionName: https
+
+      api:
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway-system
+            sectionName: https
         rules:
-          - backendRefs:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /api
+            backendRefs:
               - identifier: app
                 port: 80
 
