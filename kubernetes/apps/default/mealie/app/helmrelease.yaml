@@ -54,7 +54,6 @@ spec:
               OIDC_AUTH_ENABLED: "true"
               OIDC_CONFIGURATION_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
               OIDC_CLIENT_ID: *app
-              OIDC_NAME_CLAIM: given_name
               OIDC_USER_GROUP: "users@idm.${SECRET_DOMAIN}"
               OIDC_ADMIN_GROUP: "admins@idm.${SECRET_DOMAIN}"
               OIDC_AUTO_REDIRECT: "true"
