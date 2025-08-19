@@ -5,5 +5,5 @@ kind: Kustomization
 namespace: kube-guardian
 components:
   - ../../components/common
-resources:
-  - ./kube-guardian/ks.yaml
+#resources:
+#  - ./kube-guardian/ks.yaml
