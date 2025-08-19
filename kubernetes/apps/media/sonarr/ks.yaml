@@ -12,6 +12,10 @@ spec:
   dependsOn:
     - name: eg
       namespace: envoy-gateway-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/media/sonarr/app
   postBuild:
