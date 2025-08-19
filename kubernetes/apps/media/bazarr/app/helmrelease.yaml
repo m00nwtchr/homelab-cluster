@@ -91,7 +91,7 @@ spec:
     route:
       app:
         forceRename: *app
-        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
+        hostnames: [ &host "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Media
@@ -107,7 +107,7 @@ spec:
             sectionName: https
 
       api:
-        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
+        hostnames: [ *host ]
         parentRefs:
           - name: internal
             namespace: envoy-gateway-system
