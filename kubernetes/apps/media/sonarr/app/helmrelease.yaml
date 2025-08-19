@@ -119,6 +119,24 @@ spec:
                 port: 80
             timeouts:
               request: "300s"
+
+      api:
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - matches:
+              path:
+                type: PathPrefix
+                value: /api
+            backendRefs:
+              - identifier: app
+                port: 80
+            timeouts:
+              request: "300s"
+
     persistence:
       config:
         size: 1Gi
