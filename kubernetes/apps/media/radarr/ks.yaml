@@ -9,6 +9,15 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/envoy-oidc
+  dependsOn:
+    - name: eg
+      namespace: envoy-gateway-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/media/radarr/app
   postBuild:

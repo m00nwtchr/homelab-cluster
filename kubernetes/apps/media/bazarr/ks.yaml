@@ -9,11 +9,18 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-#  components:
-#    - ../../../../components/volsync
-#  dependsOn:
-#    - name: volsync
-#      namespace: volsync-system
+  components:
+    - ../../../../components/envoy-oidc
+  #    - ../../../../components/volsync
+  dependsOn:
+    - name: eg
+      namespace: envoy-gateway-system
+  #    - name: volsync
+  #      namespace: volsync-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/media/bazarr/app
   postBuild:
