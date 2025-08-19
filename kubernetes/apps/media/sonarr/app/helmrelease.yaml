@@ -128,7 +128,7 @@ spec:
             sectionName: https
         rules:
           - matches:
-              path:
+              - path:
                 type: PathPrefix
                 value: /api
             backendRefs:
