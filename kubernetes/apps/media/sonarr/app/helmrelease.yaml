@@ -100,6 +100,7 @@ spec:
 
     route:
       app:
+        forceRename: *app
         hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
         annotations:
           gethomepage.dev/enabled: "true"
