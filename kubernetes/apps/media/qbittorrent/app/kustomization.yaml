@@ -6,3 +6,4 @@ resources:
   - ./helmrelease.yaml
   - ./secret.yaml
   - ./secret.sops.yaml
+  - ./securitypolicy.yaml
