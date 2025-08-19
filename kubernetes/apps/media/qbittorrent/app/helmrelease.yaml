@@ -87,10 +87,11 @@ spec:
           bittorrent-udp:
             port: *torrentPort
             protocol: UDP
+
     route:
       app:
-        hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        forceRename: *app
+        hostnames: &host
           - qb.${SECRET_DOMAIN}
         annotations:
           gethomepage.dev/enabled: "true"
@@ -107,6 +108,21 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
+              - identifier: app
+                port: 80
+
+      api:
+        hostnames: *host
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway-system
+            sectionName: https
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /api
+            backendRefs:
               - identifier: app
                 port: 80
 

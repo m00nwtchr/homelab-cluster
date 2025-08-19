@@ -14,6 +14,12 @@ spec:
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: eg
+      namespace: envoy-gateway-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/media/qbittorrent/app
   postBuild:
