@@ -51,7 +51,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      OWNER: hass
+      DATABASE_OWNER: hass
   prune: true
   retryInterval: 2m
   sourceRef:
