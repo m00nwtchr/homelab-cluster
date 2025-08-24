@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
+    - ../../../../components/database
   dependsOn:
     - name: volsync
       namespace: volsync-system
@@ -23,34 +24,6 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-  prune: true
-  retryInterval: 2m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: *namespace
-  timeout: 5m
-  wait: false
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: pinepods-db
-  namespace: &namespace postgres
-spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: &app pinepods
-  dependsOn:
-    - name: cnpg
-      namespace: cnpg-system
-  interval: 1h
-  path: ./kubernetes/components/database
-  postBuild:
-    substitute:
-      APP: *app
   prune: true
   retryInterval: 2m
   sourceRef:
