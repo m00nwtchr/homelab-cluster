@@ -47,7 +47,6 @@
         packages = with pkgs; [
           kubectl
           kubelogin-oidc
-          xentra
           talosctl
 
           (wrapHelm kubernetes-helm {
