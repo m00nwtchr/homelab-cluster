@@ -8,6 +8,7 @@ resources:
   - ./pvc.yaml
   - ./rbac.yaml
   - ./secret.sops.yaml
+  - ./tcproute.yaml
 configMapGenerator:
   - name: forgejo-values
     files:
