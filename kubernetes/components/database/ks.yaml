@@ -20,6 +20,7 @@ spec:
       OWNER: ${DATABASE_OWNER:=${APP}}
   healthChecks:
     - name: postgres-${APP}
+      namespace: *namespace
       kind: Database
       apiVersion: postgresql.cnpg.io/v1
   prune: true
