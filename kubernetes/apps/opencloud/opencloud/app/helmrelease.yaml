@@ -35,12 +35,6 @@ spec:
               OC_INSECURE: true
               OC_URL: https://cloud.${SECRET_DOMAIN}
               PROXY_TLS: false
-              #              IDM_CREATE_DEMO_USERS: false
-              #              IDM_ADMIN_PASSWORD:
-              #                valueFrom:
-              #                  secretKeyRef:
-              #                    name: opencloud-secret
-              #                    key: idm-admin-password
               GATEWAY_GRPC_ADDR: 0.0.0.0:9142
               OC_ENABLE_OCM: false
 
