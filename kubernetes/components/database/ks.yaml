@@ -17,6 +17,10 @@ spec:
   postBuild:
     substitute:
       APP: *app
+  healthChecks:
+    - name: postgres-${APP}
+      kind: Database
+      apiVersion: postgresql.cnpg.io/v1
   prune: true
   retryInterval: 2m
   sourceRef:
