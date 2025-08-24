@@ -62,6 +62,8 @@ spec:
               OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
               OPENAI_MODEL: llama3.1:8b
               OPENAI_ENABLE_IMAGE_SERVICES: false
+
+              LOG_CONFIG_OVERRIDE: /config/logconf.json
             envFrom:
               - secretRef:
                   name: *app
@@ -107,6 +109,13 @@ spec:
             sectionName: https
 
     persistence:
+      config:
+        type: configMap
+        name: mealie-configmap
+        globalMounts:
+          - path: /config/logconf.json
+            subPath: logconf.json
+
       data:
         existingClaim: *app
         globalMounts:
