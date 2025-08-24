@@ -3,28 +3,20 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app freshrss
-  namespace: &namespace default
+  name: ${APP}-db
+  namespace: &namespace postgres
 spec:
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/volsync
-    - ../../../../components/database
+      app.kubernetes.io/name: &app ${APP}
   dependsOn:
-    - name: volsync
-      namespace: volsync-system
+    - name: cnpg
+      namespace: cnpg-system
   interval: 1h
-  path: ./kubernetes/apps/default/freshrss/app
+  path: ./kubernetes/components/database/kustomization
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_PUID: "33"
-      VOLSYNC_PGID: "33"
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
   prune: true
   retryInterval: 2m
   sourceRef:
