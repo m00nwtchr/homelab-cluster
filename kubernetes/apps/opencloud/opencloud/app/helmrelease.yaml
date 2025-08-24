@@ -12,7 +12,7 @@ spec:
     namespace: flux-system
   values:
     controllers:
-      opencloud:
+      *app :
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -22,25 +22,25 @@ spec:
             runAsNonRoot: true
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
-#            supplementalGroups:
-#              - 65542 # gladius:external-services
+        #            supplementalGroups:
+        #              - 65542 # gladius:external-services
 
         containers:
           app:
             image:
               repository: opencloudeu/opencloud-rolling
               tag: 3.1.0@sha256:57b59f69e49f07fff39ba2a5689a9ef4b5137aaa30b9ef1464a7fa3744ec4535
-            command: ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
+            command: [ "/bin/sh", "-c", "opencloud init || true; opencloud server" ]
             env:
               OC_INSECURE: true
               OC_URL: https://cloud.${SECRET_DOMAIN}
               PROXY_TLS: false
-#              IDM_CREATE_DEMO_USERS: false
-#              IDM_ADMIN_PASSWORD:
-#                valueFrom:
-#                  secretKeyRef:
-#                    name: opencloud-secret
-#                    key: idm-admin-password
+              #              IDM_CREATE_DEMO_USERS: false
+              #              IDM_ADMIN_PASSWORD:
+              #                valueFrom:
+              #                  secretKeyRef:
+              #                    name: opencloud-secret
+              #                    key: idm-admin-password
               GATEWAY_GRPC_ADDR: 0.0.0.0:9142
               OC_ENABLE_OCM: false
 
@@ -52,20 +52,20 @@ spec:
               PROXY_ROLE_ASSIGNMENT_DRIVER: "oidc"
               OC_OIDC_ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/
               PROXY_OIDC_REWRITE_WELLKNOWN: "true"
-              WEB_OIDC_CLIENT_ID: ${APP}
+              WEB_OIDC_CLIENT_ID: *app
               PROXY_USER_OIDC_CLAIM: "sub"
-              PROXY_USER_CS3_CLAIM: "userid""
+              PROXY_USER_CS3_CLAIM: "userid"
 #              WEB_OPTION_ACCOUNT_EDIT_LINK_HREF: "https://${KEYCLOAK_DOMAIN:-keycloak.opencloud.test}/realms/${KEYCLOAK_REALM:-openCloud}/account"
               # admin and demo accounts must be created in Keycloak
-#              OC_ADMIN_USER_ID: ""
-#              SETTINGS_SETUP_DEFAULT_ASSIGNMENTS: "false"
-#              GRAPH_ASSIGN_DEFAULT_USER_ROLE: "false"
-#              GRAPH_USERNAME_MATCH: "none"
-#              KEYCLOAK_DOMAIN: idm.${SECRET_
+            #              OC_ADMIN_USER_ID: ""10
+            #              SETTINGS_SETUP_DEFAULT_ASSIGNMENTS: "false"
+            #              GRAPH_ASSIGN_DEFAULT_USER_ROLE: "false"
+            #              GRAPH_USERNAME_MATCH: "none"
+            #              KEYCLOAK_DOMAIN: idm.${SECRET_
 
-#            envFrom:
-#              - secretRef:
-#                  name: opencloud-secret
+            #            envFrom:
+            #              - secretRef:
+            #                  name: opencloud-secret
             probes:
               liveness:
                 enabled: true
@@ -93,7 +93,7 @@ spec:
 
     route:
       app:
-        hostnames: ["cloud.${SECRET_DOMAIN}"]
+        hostnames: [ "cloud.${SECRET_DOMAIN}" ]
         parentRefs:
           - name: external
             namespace: envoy-gateway-system
@@ -105,7 +105,7 @@ spec:
 
     persistence:
       data:
-#        existingClaim: opencloud-data
+        #        existingClaim: opencloud-data
         type: emptyDir
         globalMounts:
           - path: /var/lib/opencloud
