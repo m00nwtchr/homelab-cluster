@@ -7,6 +7,9 @@ resources:
   - ./secret.sops.yaml
 configMapGenerator:
   - name: mealie-configmap
+    options:
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
     files:
       - resources/logconf.json
 configurations:
