@@ -5,7 +5,7 @@ metadata:
   name: postgres-${APP}
   namespace: postgres
 spec:
-  name: &app ${APP}
-  owner: ${OWNER:=${APP}}
+  name: ${APP}
+  owner: ${DATABASE_OWNER}
   cluster:
     name: postgres

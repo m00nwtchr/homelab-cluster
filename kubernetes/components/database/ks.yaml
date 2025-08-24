@@ -17,6 +17,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      OWNER: ${DATABASE_OWNER:=${APP}}
   healthChecks:
     - name: postgres-${APP}
       kind: Database
