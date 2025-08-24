@@ -221,6 +221,11 @@ spec:
           gnetId: 13768
           revision: 6
           datasource: Prometheus
+        trivy-operator-dashboard:
+          # renovate: depName="Trivy Operator Dashboard"
+          gnetId: 17813
+          revision: 2
+          datasource: Prometheus
     sidecar:
       image:
         registry: ghcr.io
