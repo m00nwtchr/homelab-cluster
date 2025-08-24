@@ -30,3 +30,10 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
+  values:
+    serviceMonitor:
+      enabled: true
+    trivy:
+      ignoreUnfixed: true
+    service:
+      headless: false
