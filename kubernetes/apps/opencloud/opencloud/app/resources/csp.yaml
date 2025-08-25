@@ -4,8 +4,8 @@ directives:
   connect-src:
     - '''self'''
     - 'blob:'
-#    - 'https://${COMPANION_DOMAIN|companion.opencloud.test}/'
-#    - 'wss://${COMPANION_DOMAIN|companion.opencloud.test}/'
+    - 'https://companion.{SECRET_DOMAIN}/'
+    - 'wss://companion.{SECRET_DOMAIN}/'
     - 'https://raw.githubusercontent.com/opencloud-eu/awesome-apps/'
     - 'https://idm.${SECRET_DOMAIN}/'
   default-src:
@@ -18,7 +18,7 @@ directives:
     - '''self'''
     - 'blob:'
     - 'https://embed.diagrams.net/'
-#    - 'https://${COLLABORA_DOMAIN|collabora.opencloud.test}/'
+    - 'https://collabora.{SECRET_DOMAIN}/'
     # This is needed for the external-sites web extension when embedding sites
     - 'https://docs.opencloud.eu'
   img-src:
@@ -26,7 +26,7 @@ directives:
     - 'data:'
     - 'blob:'
     - 'https://raw.githubusercontent.com/opencloud-eu/awesome-apps/'
-#    - 'https://${COLLABORA_DOMAIN|collabora.opencloud.test}/'
+    - 'https://collabora.{SECRET_DOMAIN}/'
   manifest-src:
     - '''self'''
   media-src:
