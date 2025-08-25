@@ -9,6 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components: []
   interval: 1h
   retryInterval: 2m
   path: ./kubernetes/apps/default/searxng/app

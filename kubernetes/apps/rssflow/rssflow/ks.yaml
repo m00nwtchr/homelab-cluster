@@ -9,6 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components: []
   interval: 1h
   path: ./kubernetes/apps/rssflow/rssflow/app
   postBuild:
@@ -37,6 +38,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components: []
   dependsOn:
     - name: cnpg
       namespace: cnpg-system

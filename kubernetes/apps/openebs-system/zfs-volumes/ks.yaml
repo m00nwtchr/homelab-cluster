@@ -6,6 +6,7 @@ metadata:
   name: openebs-zfs-volumes
   namespace: &namespace openebs-system
 spec:
+  components: []
   interval: 1h
   path: ./kubernetes/apps/openebs-system/zfs-volumes/resources
   prune: true

@@ -43,6 +43,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &app home-assistant
+  components: []
   dependsOn:
     - name: cnpg
       namespace: cnpg-system
