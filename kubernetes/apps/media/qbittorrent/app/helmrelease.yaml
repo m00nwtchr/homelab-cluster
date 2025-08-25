@@ -78,10 +78,10 @@ spec:
       bittorrent-tcp:
         type: NodePort
         ports:
-          bittorrent-tcp:
-            port: *torrentPort
-            nodePort: *torrentPort
-            protocol: TCP
+#          bittorrent-tcp:
+#            port: *torrentPort
+#            nodePort: *torrentPort
+#            protocol: TCP
           bittorrent-udp:
             port: *torrentPort
             nodePort: *torrentPort
