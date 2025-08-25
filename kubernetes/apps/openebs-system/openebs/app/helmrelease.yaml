@@ -36,6 +36,7 @@ spec:
     openebs-crds:
       csi:
         volumeSnapshots:
+          # CRDs deployed by snapshot-controller
           enabled: false
 
     localpv-provisioner:
