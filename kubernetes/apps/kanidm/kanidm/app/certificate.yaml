@@ -6,6 +6,9 @@ metadata:
 spec:
   dnsNames:
     - idm.${SECRET_DOMAIN}
+    - kanidm.kanidm.svc.cluster.local
+    - kanidm.kanidm.svc
+    - kanidm
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer
