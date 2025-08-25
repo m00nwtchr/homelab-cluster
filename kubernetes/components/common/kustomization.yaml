@@ -2,6 +2,15 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
+patches:
+  - target:
+      kind: Kustomization
+      version: v1
+      group: kustomize.toolkit.fluxcd.io
+    patch: |-
+      - op: add
+        path: /spec/components
+        value: ../../../../components/volsync
 resources:
   - ./namespace.yaml
   - ./sops

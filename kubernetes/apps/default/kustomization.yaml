@@ -5,7 +5,6 @@ kind: Kustomization
 namespace: default
 components:
   - ../../components/common
-  - ../../components/drift-detection
 resources:
   - ./baikal/ks.yaml
   - ./dawarich/ks.yaml
