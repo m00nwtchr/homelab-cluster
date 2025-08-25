@@ -9,9 +9,8 @@ patches:
       group: kustomize.toolkit.fluxcd.io
     patch: |-
       - op: add
-        path: /spec/components
-        value:
-          "../../../../components/drift-detection"
+        path: /spec/components/-
+        value: "../../../../components/drift-detection"
 resources:
   - ./namespace.yaml
   - ./sops
