@@ -45,7 +45,7 @@ spec:
               PROXY_AUTOPROVISION_ACCOUNTS: "false"
               OC_LDAP_SERVER_WRITE_ENABLED: "false"
 
-              GRAPH_LDAP_URI: ldaps://idm.${SECRET_DOMAIN}
+              OC_LDAP_URI: ldaps://idm.${SECRET_DOMAIN}
               GRAPH_ASSIGN_DEFAULT_USER_ROLE: "false"
 
               PROXY_ROLE_ASSIGNMENT_DRIVER: "oidc"
