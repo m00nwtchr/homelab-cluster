@@ -10,6 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  components: []
   path: "./kubernetes/apps/kube-system/generic-device-plugin/app"
   sourceRef:
     kind: GitRepository

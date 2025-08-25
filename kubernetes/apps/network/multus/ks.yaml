@@ -10,6 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  components: []
   interval: 30m
   timeout: 5m
   path: "./kubernetes/apps/network/multus/app"
@@ -31,6 +32,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  components: []
   interval: 30m
   timeout: 5m
   path: "./kubernetes/apps/network/multus/networks"
