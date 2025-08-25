@@ -34,7 +34,7 @@ spec:
             env:
               OC_INSECURE: true
               OC_URL: https://cloud.${SECRET_DOMAIN}
-              OC_EXCLUDE_RUN_SERVICES: idp
+              OC_EXCLUDE_RUN_SERVICES: idp,idm
 
               PROXY_TLS: false
               PROXY_CSP_CONFIG_FILE_LOCATION: /etc/opencloud/csp.yaml
