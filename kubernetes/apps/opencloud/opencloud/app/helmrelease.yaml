@@ -35,6 +35,8 @@ spec:
               OC_INSECURE: true
               OC_URL: https://cloud.${SECRET_DOMAIN}
               PROXY_TLS: false
+              PROXY_CSP_CONFIG_FILE_LOCATION: /etc/opencloud/csp.yaml
+
               GATEWAY_GRPC_ADDR: 0.0.0.0:9142
               OC_ENABLE_OCM: false
 
@@ -98,6 +100,13 @@ spec:
                 port: 80
 
     persistence:
+      config:
+        type: configMap
+        name: opencloud-configmap
+        globalMounts:
+          - path: /etc/opencloud/csp.yaml
+            subPath: csp.yaml
+
       data:
         #        existingClaim: opencloud-data
         type: emptyDir
