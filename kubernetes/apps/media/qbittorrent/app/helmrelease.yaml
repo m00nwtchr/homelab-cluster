@@ -76,25 +76,36 @@ spec:
             port: 80
             targetPort: *port
       bittorrent-tcp:
-        type: LoadBalancer
-        loadBalancerClass: "io.cilium/node"
+        type: NodePort
         ports:
           bittorrent-tcp:
             port: *torrentPort
+            nodePort: *torrentPort
             protocol: TCP
-#          bittorrent-udp:
-#            port: *torrentPort
-#            protocol: UDP
-      bittorrent-udp:
-        type: LoadBalancer
-        loadBalancerClass: "io.cilium/node"
-        ports:
-#          bittorrent-tcp:
-#            port: *torrentPort
-#            protocol: TCP
           bittorrent-udp:
             port: *torrentPort
+            nodePort: *torrentPort
             protocol: UDP
+    #      bittorrent-tcp:
+    #        type: LoadBalancer
+    #        loadBalancerClass: "io.cilium/node"
+    #        ports:
+    #          bittorrent-tcp:
+    #            port: *torrentPort
+    #            protocol: TCP
+    ##          bittorrent-udp:
+    ##            port: *torrentPort
+    ##            protocol: UDP
+    #      bittorrent-udp:
+    #        type: LoadBalancer
+    #        loadBalancerClass: "io.cilium/node"
+    #        ports:
+    ##          bittorrent-tcp:
+    ##            port: *torrentPort
+    ##            protocol: TCP
+    #          bittorrent-udp:
+    #            port: *torrentPort
+    #            protocol: UDP
 
     route:
       app:
