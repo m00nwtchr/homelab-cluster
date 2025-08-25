@@ -10,7 +10,8 @@ patches:
     patch: |-
       - op: add
         path: /spec/components
-        value: ../../../../components/volsync
+        value:
+          - ../../../../components/volsync
 resources:
   - ./namespace.yaml
   - ./sops
