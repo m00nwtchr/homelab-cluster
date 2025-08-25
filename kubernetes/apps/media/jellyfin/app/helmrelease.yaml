@@ -49,7 +49,7 @@ spec:
               tag: 10.10.7@sha256:e4d1dc5374344446a3a78e43dd211247f22afba84ea2e5a13cbe1a94e1ff2141
             env:
               DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
-              JELLYFIN_PublishedServerUrl:
+              JELLYFIN_PublishedServerUrl: https://jellyfin.${SECRET_DOMAIN}
             probes:
               liveness: &probes
                 enabled: true
