@@ -29,13 +29,13 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
 
-        #        pod:
-        #          securityContext:
-        #            runAsUser: 999
-        #            runAsGroup: 999
-        #            runAsNonRoot: true
-        #            fsGroup: 999
-        #            fsGroupChangePolicy: "OnRootMismatch"
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
 
         containers:
           app:
