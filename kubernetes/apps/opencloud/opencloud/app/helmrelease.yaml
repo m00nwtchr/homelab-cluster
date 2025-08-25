@@ -43,26 +43,23 @@ spec:
               OC_ENABLE_OCM: false
 
               PROXY_AUTOPROVISION_ACCOUNTS: "false"
-              OC_LDAP_SERVER_WRITE_ENABLED: "false"
 
               OC_LDAP_URI: ldaps://idm.${SECRET_DOMAIN}
-              GRAPH_ASSIGN_DEFAULT_USER_ROLE: "false"
+              OC_LDAP_SERVER_WRITE_ENABLED: "false"
+
 
               PROXY_ROLE_ASSIGNMENT_DRIVER: "oidc"
               OC_OIDC_ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
-              PROXY_OIDC_REWRITE_WELLKNOWN: "true"
+              WEB_OPTION_ACCOUNT_EDIT_LINK_HREF: "https://idm.${SECRET_DOMAIN}/ui/profile"
               WEB_OIDC_CLIENT_ID: *app
+              PROXY_OIDC_REWRITE_WELLKNOWN: "true"
               PROXY_USER_OIDC_CLAIM: "sub"
               PROXY_USER_CS3_CLAIM: "userid"
 
-              WEB_OPTION_ACCOUNT_EDIT_LINK_HREF: "https://idm.${SECRET_DOMAIN}/ui/profile"
-              # admin and demo accounts must be created in Keycloak
-            #              OC_ADMIN_USER_ID: ""10
-            #              SETTINGS_SETUP_DEFAULT_ASSIGNMENTS: "false"
-
-            #              GRAPH_USERNAME_MATCH: "none"
-            #              KEYCLOAK_DOMAIN: idm.${SECRET_
-
+              OC_ADMIN_USER_ID: ""
+              SETTINGS_SETUP_DEFAULT_ASSIGNMENTS: "false"
+              GRAPH_ASSIGN_DEFAULT_USER_ROLE: "false"
+              GRAPH_USERNAME_MATCH: "none"
             #            envFrom:
             #              - secretRef:
             #                  name: opencloud-secret
