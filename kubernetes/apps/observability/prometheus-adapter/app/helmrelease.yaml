@@ -21,8 +21,6 @@ metadata:
 spec:
   interval: 1h
   maxHistory: 2
-  driftDetection:
-    mode: enabled
   chartRef:
     kind: OCIRepository
     name: prometheus-adapter
