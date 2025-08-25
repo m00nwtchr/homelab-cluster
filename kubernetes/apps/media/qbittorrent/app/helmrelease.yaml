@@ -75,7 +75,7 @@ spec:
           http:
             port: 80
             targetPort: *port
-      bittorrent-tcp:
+      bittorrent:
         type: NodePort
         ports:
 #          bittorrent-tcp:
