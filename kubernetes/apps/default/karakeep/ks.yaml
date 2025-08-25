@@ -10,6 +10,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
   interval: 30m
   timeout: 5m
   path: ./kubernetes/apps/default/karakeep/app
@@ -26,8 +28,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  components:
-    - ../../../../components/volsync
   postBuild:
     substitute:
       APP: *app
