@@ -8,5 +8,6 @@ configMapGenerator:
   - name: opencloud-configmap
     files:
       - ./resources/csp.yaml
+      - ./resources/proxy.yaml
 configurations:
   - resources/kustomizeconfig.yaml
