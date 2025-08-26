@@ -60,7 +60,8 @@ spec:
               WEB_OIDC_CLIENT_ID: *app
               PROXY_OIDC_REWRITE_WELLKNOWN: "true"
               PROXY_USER_OIDC_CLAIM: "sub"
-              PROXY_USER_CS3_CLAIM: "userid"
+              PROXY_AUTOPROVISION_CLAIM_USERNAME: sub
+              PROXY_USER_CS3_CLAIM: username
 
               OC_ADMIN_USER_ID: ""
               SETTINGS_SETUP_DEFAULT_ASSIGNMENTS: "false"
