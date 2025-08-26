@@ -37,3 +37,5 @@ spec:
       ignoreUnfixed: true
     service:
       headless: false
+    operator:
+      builtInTrivyServer: true
