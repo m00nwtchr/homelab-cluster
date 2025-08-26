@@ -114,6 +114,8 @@ spec:
         globalMounts:
           - path: /etc/opencloud/csp.yaml
             subPath: csp.yaml
+          - path: /etc/opencloud/proxy.yaml
+            subPath: proxy.yaml
 
       data:
         #        existingClaim: opencloud-data
