@@ -42,13 +42,16 @@ spec:
               GATEWAY_GRPC_ADDR: 0.0.0.0:9142
               OC_ENABLE_OCM: false
 
-              PROXY_AUTOPROVISION_ACCOUNTS: "false"
-
               OC_LDAP_URI: ldaps://idm.${SECRET_DOMAIN}
               OC_LDAP_SERVER_WRITE_ENABLED: "false"
+              OC_LDAP_BIND_DN: cn=anonymous,dc=idm,dc=m00nlit,dc=dev
+#              OC_LDAP_BIND_PASSWORD: admin-password
+              OC_LDAP_USER_BASE_DN: dc=idm,dc=m00nlit,dc=dev
+              OC_LDAP_USER_SCHEMA_ID: entryUUID
+              OC_LDAP_DISABLE_USER_MECHANISM: none
+              OC_LDAP_GROUP_BASE_DN: dc=idm,dc=m00nlit,dc=dev
+              OC_LDAP_GROUP_SCHEMA_ID: entryUUID
 
-
-              PROXY_ROLE_ASSIGNMENT_DRIVER: "oidc"
               OC_OIDC_ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
               WEB_OPTION_ACCOUNT_EDIT_LINK_HREF: "https://idm.${SECRET_DOMAIN}/ui/profile"
               WEB_OIDC_CLIENT_ID: *app
