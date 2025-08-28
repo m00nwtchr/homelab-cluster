@@ -58,3 +58,9 @@ spec:
 
     deployment:
       replicaCount: 1
+
+    monitoring:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
