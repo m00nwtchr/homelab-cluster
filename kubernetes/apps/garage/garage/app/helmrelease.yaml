@@ -41,7 +41,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
 
     garage:
-      replicationMode: "1"
+      replicationFactor: "1"
     persistence:
 #      meta:
 #        size: 1Gi
