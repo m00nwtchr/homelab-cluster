@@ -17,7 +17,3 @@ spec:
         - name: garage
           namespace: garage
           port: 3900
-      matches:
-        - path:
-            type: PathPrefix
-            value: /hook/
