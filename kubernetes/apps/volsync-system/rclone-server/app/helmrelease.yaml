@@ -30,6 +30,8 @@ spec:
               - serve
               - restic
               - -v
+              - --addr
+              - :8080
               - mega:backups
               - --config
               - /config/rclone.conf
