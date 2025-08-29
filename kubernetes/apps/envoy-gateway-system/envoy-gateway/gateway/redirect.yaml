@@ -54,7 +54,6 @@ spec:
     - name: external
       namespace: envoy-gateway-system
       sectionName: https
-  # Optionally lock to your domains:
   hostnames:
      - "${SECRET_DOMAIN}"
      - "*.${SECRET_DOMAIN}"
