@@ -10,3 +10,4 @@ resources:
   - ./external.yaml
   - ./gatewayclass.yaml
   - ./internal.yaml
+  - ./redirect.yaml

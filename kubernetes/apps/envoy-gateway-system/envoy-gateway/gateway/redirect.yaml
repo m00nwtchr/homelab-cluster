@@ -1,0 +1,46 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: https-redirect
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: none
+spec:
+  parentRefs:
+    - name: internal
+      namespace: envoy-gateway-system
+      sectionName: http
+    - name: external
+      namespace: envoy-gateway-system
+      sectionName: http
+  rules:
+    - filters:
+        - requestRedirect:
+            scheme: https
+            statusCode: 301
+          type: RequestRedirect
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: www-redirect
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: none
+spec:
+  parentRefs:
+    - name: external
+      namespace: envoy-gateway-system
+      sectionName: http
+  hostnames: [ "${SECRET_DOMAIN}" ]
+  rules:
+    - filters:
+        - requestRedirect:
+            hostname: "www.${SECRET_DOMAIN}"
+            statusCode: 301
+          type: RequestRedirect
+      matches:
+        - path:
+            type: Exact
+            value: /
