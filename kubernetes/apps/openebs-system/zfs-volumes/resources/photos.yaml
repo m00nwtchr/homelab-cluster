@@ -42,5 +42,5 @@ spec:
               values:
                 - m00nsrv
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: ""
+  storageClassName: "zfs-vault"
   volumeMode: Filesystem
