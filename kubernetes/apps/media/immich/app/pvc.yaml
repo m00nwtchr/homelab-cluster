@@ -9,6 +9,6 @@ spec:
   resources:
     requests:
       storage: 50Gi
-  storageClassName: "zfs-vault"
+  storageClassName: ""
   volumeMode: Filesystem
   volumeName: storage-zfs-photos
