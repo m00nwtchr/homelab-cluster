@@ -56,8 +56,8 @@ spec:
       sectionName: https
   # Optionally lock to your domains:
   hostnames:
-     - ${SECRET_DOMAIN}
-     - *.${SECRET_DOMAIN}
+     - "${SECRET_DOMAIN}"
+     - "*.${SECRET_DOMAIN}"
   rules:
     - matches:
         - path:
