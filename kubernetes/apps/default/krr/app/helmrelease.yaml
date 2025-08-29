@@ -39,9 +39,9 @@ spec:
               - krr.py
               - simple
               - --max-workers
-              - 3
+              - "3"
               - --width
-              - 2048
+              - "2048"
 
             probes:
               liveness:
