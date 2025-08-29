@@ -11,7 +11,7 @@ spec:
   dedup: "off"
   fsType: zfs
   ownerNodeID: m00nsrv
-  poolName: vault
+  poolName: vault/storage
   recordsize: 1M
   shared: "yes"
   thinProvision: "yes"
