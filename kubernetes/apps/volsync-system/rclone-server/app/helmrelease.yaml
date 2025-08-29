@@ -31,6 +31,8 @@ spec:
               - restic
               - -v
               - mega:backups
+              - --config
+              - /config/rclone.conf
             securityContext:
               readOnlyRootFilesystem: true
               allowPrivilegeEscalation: false
