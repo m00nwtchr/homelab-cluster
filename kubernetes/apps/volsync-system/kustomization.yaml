@@ -6,4 +6,5 @@ namespace: volsync-system
 components:
   - ../../components/common
 resources:
+  - ./rclone-server/ks.yaml
   - ./volsync/ks.yaml

@@ -15,6 +15,12 @@ creation_rules:
           - *personal
         age:
           - *cluster
+  - path_regex: (bootstrap|kubernetes)/.*\.sops\.conf
+    key_groups:
+      - pgp:
+          - *personal
+        age:
+          - *cluster
   - path_regex: (bootstrap|kubernetes)/.*\.sops\.ya?ml
     encrypted_regex: "^(data|stringData)$"
     mac_only_encrypted: true
