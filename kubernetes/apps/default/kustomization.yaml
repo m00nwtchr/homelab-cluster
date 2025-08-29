@@ -10,6 +10,7 @@ resources:
   - ./dawarich/ks.yaml
   - ./freshrss/ks.yaml
   - ./karakeep/ks.yaml
+  - ./karakeep/ks.yaml
   - ./kube/ks.yaml
   - ./mealie/ks.yaml
   - ./ntfy/ks.yaml
