@@ -54,12 +54,22 @@ spec:
     - name: external
       namespace: envoy-gateway-system
       sectionName: https
+  # Optionally lock to your domains:
+  # hostnames:
+  #   - example.com
+  #   - www.example.com
   rules:
     - matches:
         - path:
-            type: RegularExpression
-            value: ^.*\/robots\.txt$
+            type: Exact
+            value: /robots.txt
       filters:
+        # Add cache headers (optional but nice)
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Cache-Control
+                value: public, max-age=600
         - type: ExtensionRef
           extensionRef:
             group: gateway.envoyproxy.io
