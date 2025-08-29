@@ -63,7 +63,6 @@ spec:
             type: Exact
             value: /robots.txt
       filters:
-        # Add cache headers (optional but nice)
         - type: ResponseHeaderModifier
           responseHeaderModifier:
             set:
