@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "photos-dst"
+  labels:
+    kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: "photos-volsync-mega-secret"
+    copyMethod: Snapshot
+    volumeSnapshotClassName: "csi-zfs"
+    cacheStorageClassName: "openebs-hostpath"
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: "5Gi"
+    storageClassName: "zfs-vault"
+    accessModes: ["ReadWriteOnce"]
+    capacity: "50Gi"
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    enableFileDeletion: true
+    cleanupCachePVC: true
+    cleanupTempPVC: true
