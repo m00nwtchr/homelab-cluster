@@ -64,12 +64,14 @@ spec:
               COREPACK_INTEGRITY_KEYS: 0
               DB_WAL_MODE: true
 
-              OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
-              OPENAI_API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: karakeep-secret
-                    key: litellm_key
+#              OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
+#              OPENAI_API_KEY:
+#                valueFrom:
+#                  secretKeyRef:
+#                    name: karakeep-secret
+#                    key: litellm_key
+              OLLAMA_BASE_URL: http://ollama.ai.svc.cluster.local
+
               INFERENCE_TEXT_MODEL: gemma3:4b
               INFERENCE_IMAGE_MODEL: llava-llama3:8b
               INFERENCE_CONTEXT_LENGTH: "8192"
@@ -164,7 +166,7 @@ spec:
             targetPort: 3000
       chrome:
         controller: chrome
-        ipFamilies: [IPv4]
+        ipFamilies: [ IPv4 ]
         ports:
           http:
             port: 9222
