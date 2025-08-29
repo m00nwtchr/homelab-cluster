@@ -57,8 +57,8 @@ spec:
   rules:
     - matches:
         - path:
-            type: PathPrefix
-            value: /robots.txt
+            type: RegularExpression
+            value: ^.*\/robots\.txt$
       filters:
         - type: ExtensionRef
           extensionRef:
