@@ -226,6 +226,11 @@ spec:
           gnetId: 17813
           revision: 2
           datasource: Prometheus
+        cnpg:
+          # renovate: depName="CloudNativePG"
+          gnetId: 20417
+          revision: 4
+          datasource: Prometheus
     sidecar:
       image:
         registry: ghcr.io
