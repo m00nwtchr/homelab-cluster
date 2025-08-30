@@ -37,7 +37,7 @@ spec:
               BASE_URL: https://${APP}.${SECRET_DOMAIN}
 
               DB_ENGINE: postgres
-              POSTGRES_SERVER: postgres-rw.postgres.svc
+              POSTGRES_SERVER: pooler-rw.postgres.svc
               POSTGRES_DB: *app
               POSTGRES_USER:
                 valueFrom:
