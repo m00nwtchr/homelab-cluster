@@ -47,7 +47,7 @@ spec:
 
               DB_TYPE: postgresdb
               DB_POSTGRESDB_DATABASE: *app
-              DB_POSTGRESDB_HOST: postgres-rw.postgres.svc
+              DB_POSTGRESDB_HOST: pooler-rw.postgres.svc
               DB_POSTGRESDB_USER:
                 valueFrom:
                   secretKeyRef:

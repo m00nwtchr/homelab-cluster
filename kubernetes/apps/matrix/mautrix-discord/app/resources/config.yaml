@@ -12,7 +12,7 @@ appservice:
 
   database:
     type: postgres
-    uri: postgres://{{ .username }}:{{ .password }}@postgres-rw.postgres.svc/${APP}?sslmode=disable
+    uri: postgres://{{ .username }}:{{ .password }}@pooler-rw.postgres.svc/${APP}?sslmode=disable
     max_open_conns: 20
     max_idle_conns: 2
     max_conn_idle_time: null
