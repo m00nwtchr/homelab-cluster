@@ -6,7 +6,7 @@ resources:
   - secrets
   - cluster.yaml
   - objectstore.yaml
+  - pooler.yaml
   - scheduledbackup.yaml
   - secret.sops.yaml
   - secretstore.yaml
-
