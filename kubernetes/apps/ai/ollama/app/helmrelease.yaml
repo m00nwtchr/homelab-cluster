@@ -18,15 +18,16 @@ spec:
     remediation:
       retries: 3
   values:
-    # defaultPodOptions:
-    #   securityContext:
-    #     runAsUser: 2999
-    #     runAsGroup: 2999
-    #     fsGroup: 2999
-    #     fsGroupChangePolicy: "OnRootMismatch"
-    #     runAsNonRoot: true
-    #     seccompProfile:
-    #       type: RuntimeDefault
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 2999
+        runAsGroup: 2999
+        fsGroup: 2999
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+
     controllers:
       ollama:
         containers:
@@ -77,4 +78,4 @@ spec:
         size: 10Gi
         accessMode: ReadWriteOnce
         globalMounts:
-          - path: /root/.ollama
+          - path: /.ollama
