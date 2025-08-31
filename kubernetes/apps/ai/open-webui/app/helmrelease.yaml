@@ -77,9 +77,10 @@ spec:
                   name: "${APP}-postgres"
             resources:
               requests:
-                cpu: 500m
+                cpu: 10m
+                memory: 470Mi
               limits:
-                memory: 2Gi
+                memory: 470Mi
     service:
       app:
         ports:

@@ -31,6 +31,12 @@ spec:
               - tcp://[::]:10400
               - --preload-model
               - "ok_nabu"
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 100Mi
 
     defaultPodOptions:
       securityContext:

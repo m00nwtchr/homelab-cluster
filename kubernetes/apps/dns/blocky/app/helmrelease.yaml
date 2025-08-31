@@ -37,12 +37,11 @@ spec:
               startup: *probe
               readiness: *probe
             resources:
-              limits:
-                cpu: 1
-                memory: 420Mi
               requests:
-                cpu: 50m
-                memory: 250Mi
+                cpu: 13m
+                memory: 394Mi
+              limits:
+                memory: 394Mi
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:

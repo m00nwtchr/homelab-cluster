@@ -40,8 +40,10 @@ spec:
                   name: freshrss-secret
             resources:
               requests:
-                cpu: 50m
-                memory: 256Mi
+                cpu: 10m
+                memory: 106Mi
+              limits:
+                memory: 106Mi
     service:
       app:
         controller: *app

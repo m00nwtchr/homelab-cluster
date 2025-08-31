@@ -30,6 +30,12 @@ spec:
               - tcp://[::]:10200
               - --voice
               - en_GB-alan-medium
+            resources:
+              requests:
+                cpu: 10m
+                memory: 157Mi
+              limits:
+                memory: 157Mi
 
     defaultPodOptions:
       securityContext:

@@ -57,10 +57,10 @@ spec:
             #                name: dawarich-db-secret
             resources:
               requests:
-                memory: "1Gi"
-                cpu: "250m"
+                cpu: 10m
+                memory: 288Mi
               limits:
-                memory: "3Gi"
+                memory: 288Mi
             command:
               - "web-entrypoint.sh"
             args:
@@ -73,10 +73,10 @@ spec:
               - "bundle exec sidekiq"
             resources:
               requests:
-                memory: "1Gi"
-                cpu: "250m"
+                cpu: 10m
+                memory: 233Mi
               limits:
-                memory: "3Gi"
+                memory: 233Mi
 
     service:
       app:
