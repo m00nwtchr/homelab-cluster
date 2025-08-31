@@ -1,12 +1,25 @@
 model_list:
+#  - model_name: gemma3:4b
+#    litellm_params:
+#      model: ollama_chat/gemma3:4b
+#      api_base: "http://ollama.ai.svc.cluster.local"
+#  - model_name: llava-llama3:8b
+#    litellm_params:
+#      model: ollama_chat/llava-llama3:8b
+#      api_base: "http://ollama.ai.svc.cluster.local"
+
+  - model_name: qwen3:30b-a3b
+    litellm_params:
+      model: ollama_chat/qwen3:30b-a3b
+      api_base: "http://ts-ollama.tailscale.svc:11434"
   - model_name: gemma3:4b
     litellm_params:
       model: ollama_chat/gemma3:4b
-      api_base: "http://ollama.ai.svc.cluster.local"
+      api_base: "http://ts-ollama.tailscale.svc:11434"
   - model_name: llava-llama3:8b
     litellm_params:
       model: ollama_chat/llava-llama3:8b
-      api_base: "http://ollama.ai.svc.cluster.local"
+      api_base: "http://ts-ollama.tailscale.svc:11434"
 
   - model_name: gpt-oss:120b
     litellm_params:
