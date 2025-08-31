@@ -9,8 +9,6 @@ metadata:
 spec:
   externalName: placeholder # any value - will be overwritten by the operator
   type: ExternalName
-  ipFamilies:
-    - IPv4
   ports:
     - port: 80
       targetPort: 11434
