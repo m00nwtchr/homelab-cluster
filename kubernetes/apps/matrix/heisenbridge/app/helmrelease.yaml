@@ -58,18 +58,6 @@ spec:
               - identifier: app
                 port: 80
 
-    ingress:
-      media:
-        annotations:
-          traefik.ingress.kubernetes.io/router.tls.options: traefik-intermediate@kubernetescrd
-        hosts:
-          - host: "matrix.${SECRET_DOMAIN}"
-            paths:
-              - path: /_heisenbridge/media/
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       config:
         type: secret
