@@ -1,7 +1,7 @@
 model_list:
   - model_name: nomic-embed-text
     litellm_params:
-      model: ollama_chat/nomic-embed-text
+      model: ollama/nomic-embed-text
       api_base: "http://ollama.ai.svc.cluster.local"
 
   - model_name: gemma3:4b
