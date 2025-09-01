@@ -44,7 +44,7 @@ spec:
               - --host
               - "::"
               - --port
-              - &port "4000"
+              - "4000"
               - --config
               - "/app/config.yaml"
             env:
@@ -67,7 +67,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health/liveliness
-                    port: *port
+                    port: &port 4000
                   initialDelaySeconds: 30
                   periodSeconds: 60
                   timeoutSeconds: 10
