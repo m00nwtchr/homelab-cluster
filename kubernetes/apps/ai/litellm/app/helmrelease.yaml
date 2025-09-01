@@ -62,7 +62,7 @@ spec:
 
             probes:
               liveness:
-                enabled: false
+                enabled: true
                 custom: true
                 spec:
                   httpGet:
@@ -73,7 +73,7 @@ spec:
                   timeoutSeconds: 10
                   failureThreshold: 3
               readiness:
-                enabled: false
+                enabled: true
                 custom: true
                 spec:
                   httpGet:
