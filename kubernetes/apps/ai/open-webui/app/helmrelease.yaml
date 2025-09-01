@@ -35,7 +35,7 @@ spec:
               # Vector
               VECTOR_DB: qdrant
               QDRANT_URI: http://qdrant.ai.svc
-              ENABLE_QDRANT_MULTITENANCY_MODE: true
+              ENABLE_QDRANT_MULTITENANCY_MODE: "True"
 
               # Image Generation
               #              ENABLE_IMAGE_GENERATION: True
@@ -66,6 +66,7 @@ spec:
               RAG_EMBEDDING_ENGINE: openai
 #              RAG_OLLAMA_BASE_URL: http://ollama.ai.svc
               RAG_EMBEDDING_MODEL: all-minilm:22m
+              ENABLE_RAG_HYBRID_SEARCH: True
 
               # Web
               HOST: "::"
