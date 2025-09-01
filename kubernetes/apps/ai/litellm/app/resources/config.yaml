@@ -33,6 +33,10 @@ model_list:
     litellm_params:
       model: groq/meta-llama/llama-4-scout-17b-16e-instruct
       api_key: "os.environ/GROQ_API_KEY"
+  - model_name: llama3.3:70b
+    litellm_params:
+      model: groq/llama-3.3-70b-versatile
+      api_key: "os.environ/GROQ_API_KEY"
   - model_name: llama3.1:8b
     litellm_params:
       model: groq/llama-3.1-8b-instant
