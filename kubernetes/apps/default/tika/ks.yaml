@@ -9,6 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components: []
   interval: 1h
   path: ./kubernetes/apps/default/tika/app
   postBuild:
