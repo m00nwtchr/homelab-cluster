@@ -89,24 +89,6 @@ spec:
               - identifier: app
                 port: 80
 
-    ingress:
-      app:
-        hosts:
-          - host: &host ${APP}.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-      admin:
-        hosts:
-          - host: *host
-            paths:
-              - path: /admin
-                service:
-                  identifier: app
-                  port: http
-
     persistence:
       data:
         existingClaim: *app
