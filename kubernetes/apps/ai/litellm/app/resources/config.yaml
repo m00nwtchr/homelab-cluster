@@ -1,13 +1,21 @@
 model_list:
   - model_name: nomic-embed-text
     litellm_params:
-      model: ollama/nomic-embed-text
+      model: ollama/nomic-embed-text:latest
       api_base: "http://ollama.ai.svc.cluster.local"
     model_info:
       mode: embedding
+
   - model_name: all-minilm:22m
     litellm_params:
-      model: ollama/nomic-embed-text
+      model: ollama/all-minilm:22m
+      api_base: "http://ollama.ai.svc.cluster.local"
+    model_info:
+      mode: embedding
+
+  - model_name: mxbai-embed-large
+    litellm_params:
+      model: ollama/mxbai-embed-large:latest
       api_base: "http://ollama.ai.svc.cluster.local"
     model_info:
       mode: embedding
