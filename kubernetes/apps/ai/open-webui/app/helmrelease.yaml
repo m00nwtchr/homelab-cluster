@@ -33,7 +33,9 @@ spec:
               OPENAI_API_BASE_URL: http://litellm.ai.svc.cluster.local
 
               # Vector
-              VECTOR_DB: pgvector
+              VECTOR_DB: qdrant
+              QDRANT_URI: http://qdrant.ai.svc
+              ENABLE_QDRANT_MULTITENANCY_MODE: true
 
               # Image Generation
               #              ENABLE_IMAGE_GENERATION: True
