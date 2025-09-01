@@ -54,6 +54,7 @@ spec:
               USE_PRISMA_MIGRATE: "True"
               LITELLM_MODE: "PRODUCTION"
               LITELLM_DONT_SHOW_FEEDBACK_BOX: "True"
+              QDRANT_API_BASE: http://qdrant.ai.svc.cluster.local:6333
             envFrom:
               - secretRef:
                   name: *app

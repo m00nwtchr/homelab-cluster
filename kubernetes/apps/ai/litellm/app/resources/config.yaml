@@ -13,18 +13,18 @@ model_list:
       model: ollama_chat/llava-llama3:8b
       api_base: "http://ollama.ai.svc.cluster.local"
 
-#  - model_name: qwen3:30b-a3b
-#    litellm_params:
-#      model: ollama_chat/qwen3:30b-a3b
-#      api_base: "http://ts-ollama.tailscale.svc:11434"
-#  - model_name: gemma3:4b
-#    litellm_params:
-#      model: ollama_chat/gemma3:4b
-#      api_base: "http://ts-ollama.tailscale.svc:11434"
-#  - model_name: llava-llama3:8b
-#    litellm_params:
-#      model: ollama_chat/llava-llama3:8b
-#      api_base: "http://ts-ollama.tailscale.svc:11434"
+  #  - model_name: qwen3:30b-a3b
+  #    litellm_params:
+  #      model: ollama_chat/qwen3:30b-a3b
+  #      api_base: "http://ts-ollama.tailscale.svc:11434"
+  #  - model_name: gemma3:4b
+  #    litellm_params:
+  #      model: ollama_chat/gemma3:4b
+  #      api_base: "http://ts-ollama.tailscale.svc:11434"
+  #  - model_name: llava-llama3:8b
+  #    litellm_params:
+  #      model: ollama_chat/llava-llama3:8b
+  #      api_base: "http://ts-ollama.tailscale.svc:11434"
 
   - model_name: gpt-oss:20b
     litellm_params:
@@ -61,12 +61,13 @@ router_settings:
   redis_host: os.environ/REDIS_HOST
 
 litellm_settings:
-#  request_timeout: 600    # raise Timeout error if call takes longer than 600 seconds. Default value is 6000seconds if not set
+  #  request_timeout: 600    # raise Timeout error if call takes longer than 600 seconds. Default value is 6000seconds if not set
   set_verbose: False      # Switch off Debug Logging, ensure your logs do not have any debugging on
   json_logs: true         # Get debug logs in json format
   cache: True
   cache_params:
-    type: "redis"
-    host: os.environ/REDIS_HOST
-    similarity_threshold: 0.8   # similarity threshold for semantic cache
-    redis_semantic_cache_embedding_model: nomic-embed-text # set this to a model_name set in model_list
+    type: qdrant-semantic
+    qdrant_semantic_cache_embedding_model: nomic-embed-text # set this to a model_name set in model_list
+    qdrant_collection_name: litellm
+    qdrant_quantization_config: binary
+    similarity_threshold: 0.8
