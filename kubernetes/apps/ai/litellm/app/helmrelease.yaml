@@ -19,9 +19,22 @@ spec:
       retries: 3
   values:
 
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
 
     controllers:
       *app :
+        strategy: RollingUpdate
+        rollingUpdate:
+          unavailable: 0
+          surge: 1
+
         containers:
           app:
             image:
@@ -38,30 +51,45 @@ spec:
               TZ: "${TZ}"
               REDIS_HOST: dragonfly.database.svc.cluster.local
               STORE_MODEL_IN_DB: True
-
-#              LITELLM_LOG: "ERROR"
               LITELLM_MODE: "PRODUCTION"
-              #              USE_PRISMA_MIGRATE: "True"
+              LITELLM_DONT_SHOW_FEEDBACK_BOX: "True"
             envFrom:
               - secretRef:
                   name: *app
               - secretRef:
                   name: litellm-postgres
+
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health/liveliness
+                    port: &port 4000
+                  initialDelaySeconds: 30
+                  periodSeconds: 60
+                  timeoutSeconds: 10
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health/readiness
+                    port: *port
+                  initialDelaySeconds: 5
+                  periodSeconds: 5
+                  timeoutSeconds: 5
+                  failureThreshold: 3
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities: { drop: [ "ALL" ] }
-#              runAsUser: 1000
-#              runAsGroup: 150
-#              runAsNonRoot: true
-
-              seccompProfile: { type: RuntimeDefault }
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 25m
-                memory: 830Mi
+                cpu: 10m
               limits:
-                cpu: 100m
                 memory: 1Gi
 
     service:
@@ -92,10 +120,18 @@ spec:
           - path: /app/config.yaml
             subPath: config.yaml
 
-#      cache:
-#        type: emptyDir
-#        globalMounts:
-#          - path: /.cache
-#            subPath: cache
-#          - path: /.npm
-#            subPath: npm
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache
+            subPath: cache
+          - path: /.npm
+            subPath: npm
+          - path: /tmp
+            subPath: tmp
+
+      prisma-client:
+        type: emptyDir
+        globalMounts:
+          - path: /usr/local/lib/python3.13/site-packages/prisma
+            subPath: prisma
