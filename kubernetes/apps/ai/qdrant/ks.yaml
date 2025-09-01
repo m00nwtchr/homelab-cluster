@@ -16,6 +16,12 @@ spec:
       name: sops-age
   interval: 1h
   path: ./kubernetes/apps/ai/qdrant/app
+  postBuild:
+    substitute:
+      APP: *app
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   retryInterval: 2m
   sourceRef:
