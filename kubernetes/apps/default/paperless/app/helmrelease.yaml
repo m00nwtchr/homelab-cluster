@@ -51,7 +51,7 @@ spec:
               PAPERLESS_OCR_LANGUAGES: pol
 
               PAPERLESS_TIKA_ENABLED: 1
-              PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
+              PAPERLESS_TIKA_ENDPOINT: http://tika.default.svc
               PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
 
               PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
@@ -95,17 +95,6 @@ spec:
               requests:
                 cpu: 10m
                 memory: 30Mi
-
-          tika:
-            image:
-              repository: ghcr.io/paperless-ngx/tika
-              tag: 2.9.1-minimal@sha256:20db3df89eaeb1b271dd840888fe909b88b12f4b86ef641ec07a1d45d4c5168f
-            resources:
-              limits:
-                memory: 512Mi
-              requests:
-                cpu: 10m
-                memory: 220Mi
 
     service:
       app:
