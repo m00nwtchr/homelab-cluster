@@ -66,8 +66,9 @@ litellm_settings:
   json_logs: true         # Get debug logs in json format
   cache: True
   cache_params:
-    type: qdrant-semantic
-    qdrant_semantic_cache_embedding_model: nomic-embed-text # set this to a model_name set in model_list
-    qdrant_collection_name: litellm
-    qdrant_quantization_config: binary
-    similarity_threshold: 0.8
+    type: redis
+#    type: qdrant-semantic
+#    qdrant_semantic_cache_embedding_model: nomic-embed-text # set this to a model_name set in model_list
+#    qdrant_collection_name: litellm
+#    qdrant_quantization_config: binary
+#    similarity_threshold: 0.8
