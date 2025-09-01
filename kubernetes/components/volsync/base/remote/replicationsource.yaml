@@ -9,6 +9,7 @@ spec:
   trigger:
     schedule: "30 0 * * *"
   restic:
+    unlock: now
     copyMethod: "${VOLSYNC_COPYMETHOD:=Snapshot}"
     pruneIntervalDays: 14
     repository: "${APP}-volsync-b2-secret"
