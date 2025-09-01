@@ -3,15 +3,27 @@ model_list:
     litellm_params:
       model: ollama/nomic-embed-text
       api_base: "http://ollama.ai.svc.cluster.local"
+    model_info:
+      mode: embedding
+  - model_name: all-minilm:22m
+    litellm_params:
+      model: ollama/nomic-embed-text
+      api_base: "http://ollama.ai.svc.cluster.local"
+    model_info:
+      mode: embedding
 
   - model_name: gemma3:4b
     litellm_params:
       model: ollama_chat/gemma3:4b
       api_base: "http://ollama.ai.svc.cluster.local"
+    model_info:
+      mode: completion
   - model_name: llava-llama3:8b
     litellm_params:
       model: ollama_chat/llava-llama3:8b
       api_base: "http://ollama.ai.svc.cluster.local"
+    model_info:
+      mode: completion
 
   #  - model_name: qwen3:30b-a3b
   #    litellm_params:
@@ -30,22 +42,36 @@ model_list:
     litellm_params:
       model: groq/openai/gpt-oss-20b
       api_key: "os.environ/GROQ_API_KEY"
+    model_info:
+      mode: completion
+
   - model_name: gpt-oss:120b
     litellm_params:
       model: groq/openai/gpt-oss-120b
       api_key: "os.environ/GROQ_API_KEY"
+    model_info:
+      mode: completion
+
   - model_name: llama4-scout:17b-16e
     litellm_params:
       model: groq/meta-llama/llama-4-scout-17b-16e-instruct
       api_key: "os.environ/GROQ_API_KEY"
+    model_info:
+      mode: completion
+
   - model_name: llama3.3:70b
     litellm_params:
       model: groq/llama-3.3-70b-versatile
       api_key: "os.environ/GROQ_API_KEY"
+    model_info:
+      mode: completion
+
   - model_name: llama3.1:8b
     litellm_params:
       model: groq/llama-3.1-8b-instant
       api_key: "os.environ/GROQ_API_KEY"
+    model_info:
+      mode: completion
 
 general_settings:
   proxy_batch_write_at: 60 # Batch write spend updates every 60s
