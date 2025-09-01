@@ -31,6 +31,7 @@ spec:
               ENABLE_OPENAI_API: True
               ENABLE_OLLAMA_API: False
               OPENAI_API_BASE_URL: http://litellm.ai.svc.cluster.local
+              OLLAMA_BASE_URL: http://ollama.ai.svc
 
               # Vector
               VECTOR_DB: qdrant
@@ -63,10 +64,12 @@ spec:
               ENABLE_OAUTH_ROLE_MANAGEMENT: True
 
               # RAG
-              RAG_EMBEDDING_ENGINE: openai
-#              RAG_OLLAMA_BASE_URL: http://ollama.ai.svc
+              RAG_EMBEDDING_ENGINE: ollama
               RAG_EMBEDDING_MODEL: all-minilm:22m
               ENABLE_RAG_HYBRID_SEARCH: True
+              RAG_RERANKING_MODEL: BAAI/bge-reranker-v2-m3
+              RAG_TOP_K: 20
+              RAG_TOP_K_RERANKER: 10
 
               # Web
               HOST: "::"
