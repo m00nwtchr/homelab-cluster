@@ -33,6 +33,7 @@ spec:
             image:
               repository: apache/tika
               tag: 3.2.0.0@sha256:c01b700def0f3020265ec4072ed37e98b5f1f3aa7ee5f9a27e2eb3e88a3561d8
+
             resources:
               limits:
                 memory: 512Mi
@@ -43,6 +44,7 @@ spec:
     service:
       app:
         controller: *app
+        ipFamilies: [IPv4]
         ports:
           http:
             port: 80
