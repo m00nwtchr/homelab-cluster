@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: apache/tika
-              tag: 3.2.0.0@sha256:c01b700def0f3020265ec4072ed37e98b5f1f3aa7ee5f9a27e2eb3e88a3561d8
+              tag: 3.2.2.0@sha256:031530a4b81f37454631ce9352b07cedfd03d83c875b05677d80bff6958d11ff
 
             resources:
               limits:
