@@ -31,6 +31,10 @@ spec:
     remediation:
       retries: 3
   values:
+    config:
+      service:
+        host: "::"
+
     metrics:
       serviceMonitor:
         enabled: true
