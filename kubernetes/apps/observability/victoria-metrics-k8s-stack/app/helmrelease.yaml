@@ -24,9 +24,11 @@ spec:
     kind: OCIRepository
     name: victoria-metrics-k8s-stack
   install:
+    crds: CreateReplace
     remediation:
-      retries: -1
+      retries: 3
   upgrade:
+    crds: CreateReplace
     cleanupOnFail: true
     remediation:
       retries: 3
