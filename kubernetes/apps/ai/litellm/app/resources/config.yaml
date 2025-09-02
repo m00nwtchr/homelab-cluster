@@ -66,6 +66,12 @@ model_list:
       api_key: "os.environ/GROQ_API_KEY"
     model_info:
       mode: completion
+  - model_name: llama4-maverick:17b-128e
+    litellm_params:
+      model: groq/meta-llama/llama-4-maverick-17b-128e-instruct
+      api_key: "os.environ/GROQ_API_KEY"
+    model_info:
+      mode: completion
 
   - model_name: llama3.3:70b
     litellm_params:
