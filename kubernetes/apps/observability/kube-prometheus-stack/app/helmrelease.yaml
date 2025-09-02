@@ -103,10 +103,9 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-#              storageClassName: ceph-block
-            selector:
-              matchLabels:
-                app.kubernetes.io/name: prometheus
+              selector:
+                matchLabels:
+                  app.kubernetes.io/name: prometheus
               resources:
                 requests:
                   storage: 50Gi
