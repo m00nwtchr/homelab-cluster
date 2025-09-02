@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app ${APP}
+  name: &app home-assistant
 spec:
   interval: 1h
   chartRef:
@@ -25,13 +25,13 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
 
-#        pod:
-#          annotations:
-#            k8s.v1.cni.cncf.io/networks: |
-#              [{
-#                "name":"multus-lan",
-#                "namespace": "network"
-#              }]
+        #        pod:
+        #          annotations:
+        #            k8s.v1.cni.cncf.io/networks: |
+        #              [{
+        #                "name":"multus-lan",
+        #                "namespace": "network"
+        #              }]
 
         containers:
           app:
@@ -44,7 +44,7 @@ spec:
               HASS_OPENID_CLIENT_SECRET:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-oidc
+                    name: *app
                     key: client_secret
             envFrom:
               - secretRef:
@@ -58,22 +58,7 @@ spec:
                 cpu: 10m
               limits:
                 memory: 2Gi
-    #        code-server:
-    #          image:
-    #            repository: ghcr.io/coder/code-server
-    #            tag: 4.96.4@sha256:f93810f7f6636b3af3b1a750faf612349cddb89fbb6d28d69123a214fc75ee9e
-    #          args: [
-    #            "--auth", "none",
-    #            "--user-data-dir", "/config/.vscode",
-    #            "--extensions-dir", "/config/.vscode",
-    #            "--port", "12321",
-    #            "/config"
-    #          ]
-    #          resources:
-    #            requests:
-    #              cpu: 10m
-    #            limits:
-    #              memory: 512Mi
+
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -81,27 +66,40 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+
     service:
       app:
-        controller: home-assistant
+        controller: *app
         ports:
           http:
             port: 80
             targetPort: 8123
-    #        code-server:
-    #          port: 12321
+
+    serviceMonitor:
+      app:
+        serviceName: app
+        endpoints:
+          - port: http
+            scheme: http
+            path: /api/prometheus
+            interval: 1m
+            authorization:
+              credentials:
+                name: *app
+                key: access_token
+
     route:
       app:
         hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}", "hass.${SECRET_DOMAIN}" ]
-#        annotations:
-#          gethomepage.dev/enabled: "true"
-#          gethomepage.dev/group: Media
-#          gethomepage.dev/name: Jellyfin
-#          gethomepage.dev/icon: jellyfin.svg
-#          gethomepage.dev/widget.type: jellyfin
-#          gethomepage.dev/widget.enableBlocks: "true"
-#          gethomepage.dev/widget.url: "http://jellyfin.media.svc"
-#          gethomepage.dev/widget.key: "{{ \"{{HOMEPAGE_VAR_JELLYFIN_KEY}}\" }}"
+        #        annotations:
+        #          gethomepage.dev/enabled: "true"
+        #          gethomepage.dev/group: Media
+        #          gethomepage.dev/name: Jellyfin
+        #          gethomepage.dev/icon: jellyfin.svg
+        #          gethomepage.dev/widget.type: jellyfin
+        #          gethomepage.dev/widget.enableBlocks: "true"
+        #          gethomepage.dev/widget.url: "http://jellyfin.media.svc"
+        #          gethomepage.dev/widget.key: "{{ \"{{HOMEPAGE_VAR_JELLYFIN_KEY}}\" }}"
         parentRefs:
           - name: internal
             namespace: envoy-gateway-system
