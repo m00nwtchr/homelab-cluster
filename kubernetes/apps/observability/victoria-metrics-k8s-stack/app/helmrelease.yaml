@@ -62,6 +62,11 @@ spec:
                 requests:
                   storage: 1Gi
 
+    vmgent:
+      spec:
+        extraArgs:
+          enableTCP6: true
+
     vmsingle:
 #      route:
 #        main:
