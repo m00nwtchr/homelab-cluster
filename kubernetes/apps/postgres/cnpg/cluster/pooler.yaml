@@ -10,7 +10,7 @@ spec:
   instances: 1
   type: rw
   pgbouncer:
-    poolMode: session
+    poolMode: transaction
     parameters:
       max_client_conn: "1000"
       default_pool_size: "10"
