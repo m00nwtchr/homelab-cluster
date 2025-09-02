@@ -24,9 +24,11 @@ spec:
     kind: OCIRepository
     name: trivy-operator
   install:
+    crds: CreateReplace
     remediation:
       retries: -1
   upgrade:
+    crds: CreateReplace
     cleanupOnFail: true
     remediation:
       retries: 3
