@@ -10,6 +10,23 @@ http:
 recorder:
   db_url: !env_var HASS_RECORDER_DB_URL
 
+prometheus:
+  namespace: hass
+#  component_config_glob:
+#    sensor.*_hum:
+#      override_metric: humidity_percent
+#    sensor.*_temp:
+#      override_metric: temperature_c
+#    sensor.temperature*:
+#      override_metric: temperature_c
+#    sensor.*_bat:
+#      override_metric: battery_percent
+  filter:
+    include_domains:
+      - sensor
+    exclude_entity_globs:
+      - sensor.weather_*
+
 auth_oidc:
   client_id: ${APP}
   client_secret: !env_var HASS_OPENID_CLIENT_SECRET
