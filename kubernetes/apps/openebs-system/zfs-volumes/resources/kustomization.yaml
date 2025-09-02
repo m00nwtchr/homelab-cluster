@@ -7,3 +7,4 @@ resources:
   - ./git.yaml
   - ./media.yaml
   - ./photos.yaml
+  - ./prometheus.yaml
