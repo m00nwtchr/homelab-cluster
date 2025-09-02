@@ -250,6 +250,7 @@ spec:
         searchNamespace: ALL
         labelValue: ""
     plugins:
+      - victoriametrics-metrics-datasource
       - grafana-clock-panel
       - grafana-piechart-panel
       - grafana-worldmap-panel
