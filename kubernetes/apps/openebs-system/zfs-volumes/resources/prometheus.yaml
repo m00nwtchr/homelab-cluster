@@ -8,7 +8,6 @@ metadata:
 spec:
   capacity: "53687091200"
   compression: "lz4"
-  atime: "off"
   dedup: "off"
   recordsize: 16K
 
