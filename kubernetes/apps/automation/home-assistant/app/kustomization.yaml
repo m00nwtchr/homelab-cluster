@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./sealedsecret.yaml
+  - ./secret.sops.yaml
 configMapGenerator:
   - name: home-assistant-configmap
     files:
