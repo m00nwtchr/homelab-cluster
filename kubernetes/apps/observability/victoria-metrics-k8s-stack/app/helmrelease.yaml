@@ -73,7 +73,7 @@ spec:
 #              sectionName: https
       spec:
         extraArgs:
-          - "-httpListenAddr=[::]:8428"
+          httpListenAddr: "[::]:8428"
         #        securityContext:
 #          runAsNonRoot: true
 #          runAsUser: 64535
