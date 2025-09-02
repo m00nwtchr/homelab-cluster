@@ -72,7 +72,9 @@ spec:
 #              namespace: kube-system
 #              sectionName: https
       spec:
-#        securityContext:
+        extraArgs:
+          - "-httpListenAddr=[::]:8428"
+        #        securityContext:
 #          runAsNonRoot: true
 #          runAsUser: 64535
 #          runAsGroup: 64535
