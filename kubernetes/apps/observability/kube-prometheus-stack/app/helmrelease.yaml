@@ -103,6 +103,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
+              storageClassName: ""
               selector:
                 matchLabels:
                   app.kubernetes.io/name: prometheus
