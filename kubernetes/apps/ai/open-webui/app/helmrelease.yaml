@@ -64,6 +64,9 @@ spec:
               ENABLE_OAUTH_ROLE_MANAGEMENT: True
 
               # RAG
+              RAG_TEXT_SPLITTER: token
+              CHUNK_SIZE: 500
+              CHUNK_OVERLAP: 100
               RAG_EMBEDDING_ENGINE: ollama
               RAG_EMBEDDING_MODEL: all-minilm:22m
               ENABLE_RAG_HYBRID_SEARCH: True
