@@ -9,11 +9,15 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/database
 #  dependsOn:
 #    - name: rook-ceph-cluster
 #      namespace: rook-ceph
-  components:
-    - ../../../../components/database
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/default/baikal/app
   postBuild:
