@@ -12,7 +12,6 @@ spec:
   dedup: "off"
   recordsize: 16K
   logbias: "throughput"
-  xattr: "sa"
 
   fsType: zfs
   ownerNodeID: m00nsrv
