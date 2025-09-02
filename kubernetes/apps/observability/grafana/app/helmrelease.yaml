@@ -82,7 +82,7 @@ spec:
           - { name: VictoriaMetrics, orgId: 1 }
         datasources:
           - name: VictoriaMetrics
-            type: prometheus
+            type: victoriametrics-metrics-datasource
             uid: victoria-metrics
             access: proxy
             url: http://vmsingle-vmks.observability.svc.cluster.local:8428
