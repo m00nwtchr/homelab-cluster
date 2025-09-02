@@ -39,6 +39,7 @@ spec:
     cleanPrometheusOperatorObjectNames: true
 
     alertmanager:
+      enabled: false
       route:
         main:
           enabled: true
@@ -112,6 +113,7 @@ spec:
                   storage: 50Gi
 
     prometheus-node-exporter:
+      enabled: false
       fullnameOverride: node-exporter
       prometheus:
         monitor:
@@ -124,6 +126,7 @@ spec:
               targetLabel: kubernetes_node
 
     kube-state-metrics:
+      enabled: false
       fullnameOverride: kube-state-metrics
       metricLabelsAllowlist:
         - pods=[*]
