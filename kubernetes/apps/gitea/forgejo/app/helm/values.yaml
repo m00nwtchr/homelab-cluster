@@ -29,7 +29,8 @@ gitea:
   config:
     database:
       DB_TYPE: postgres
-      HOST: pooler-rw.postgres.svc:5432
+      # Needs session-mode pooler
+      HOST: se-pooler-rw.postgres.svc:5432
       NAME: forgejo
     server:
       APP_DATA_PATH: /data/gitea
