@@ -28,7 +28,7 @@ model_list:
       mode: completion
   - model_name: llava-llama3:8b
     litellm_params:
-      model: ollama_chat/llava-llama3:8b
+      model: ollama/llava-llama3:8b
       api_base: "http://ollama.ai.svc.cluster.local"
     model_info:
       mode: completion
@@ -41,12 +41,12 @@ model_list:
   #    litellm_params:
   #      model: ollama_chat/gemma3:4b
   #      api_base: "http://ts-ollama.tailscale.svc:11434"
-#  - model_name: llava-llama3:8b
-#    litellm_params:
-#      model: ollama_chat/llava-llama3:8b
-#      api_base: "http://ts-ollama.tailscale.svc:11434"
-#    model_info:
-#      mode: completion
+  - model_name: llava-llama3:8b
+    litellm_params:
+      model: ollama/llava-llama3:8b
+      api_base: "http://ts-ollama.tailscale.svc:11434"
+    model_info:
+      mode: completion
 
   - model_name: gpt-oss:20b
     litellm_params:
