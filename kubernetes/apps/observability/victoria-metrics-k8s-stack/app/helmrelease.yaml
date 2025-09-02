@@ -79,7 +79,7 @@ spec:
 #          fsGroup: 64535
         retentionPeriod: 30d
         storage:
-          storageClassName: "zfs-tank"
+          storageClassName: "zfs-vault"
           accessModes:
             - ReadWriteOnce
           resources:
