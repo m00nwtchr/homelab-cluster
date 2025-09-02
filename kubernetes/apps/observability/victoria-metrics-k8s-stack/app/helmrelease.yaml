@@ -65,12 +65,12 @@ spec:
     vmgent:
       spec:
         extraArgs:
-          enableTCP6: true
+          enableTCP6: "true"
 
     vmalert:
       spec:
         extraArgs:
-          enableTCP6: true
+          enableTCP6: "true"
 
     vmsingle:
 #      route:
@@ -83,7 +83,7 @@ spec:
 #              sectionName: https
       spec:
         extraArgs:
-          enableTCP6: true
+          enableTCP6: "true"
         #        securityContext:
 #          runAsNonRoot: true
 #          runAsUser: 64535
