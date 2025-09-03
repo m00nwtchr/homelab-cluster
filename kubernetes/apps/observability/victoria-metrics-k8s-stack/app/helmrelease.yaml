@@ -62,15 +62,16 @@ spec:
                 requests:
                   storage: 1Gi
 
-    vmgent:
-      spec:
-        extraArgs:
-          enableTCP6: "true"
-
     vmalert:
       spec:
         extraArgs:
           enableTCP6: "true"
+
+    vmagent:
+      spec:
+        extraArgs:
+          enableTCP6: "true"
+
 
     vmsingle:
 #      route:
