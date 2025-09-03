@@ -82,7 +82,8 @@ spec:
         ports: &ports
           http:
             primary: true
-            port: 4000
+            port: 80
+            targetPort: 4000
           dns-tcp:
             port: 53
             protocol: TCP
@@ -114,7 +115,7 @@ spec:
 
     serviceMonitor:
       app:
-        serviceName: app
+        serviceName: *app
         endpoints:
           - port: http
             scheme: http
