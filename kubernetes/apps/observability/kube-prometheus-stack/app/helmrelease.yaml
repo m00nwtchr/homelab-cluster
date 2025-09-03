@@ -38,6 +38,9 @@ spec:
         forceConflicts: true
     cleanPrometheusOperatorObjectNames: true
 
+    prometheusOperator:
+      enabled: false
+
     alertmanager:
       enabled: false
 
