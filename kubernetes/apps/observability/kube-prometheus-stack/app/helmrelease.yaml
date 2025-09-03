@@ -101,10 +101,9 @@ spec:
                 requests:
                   storage: 50Gi
 
-    prometheus-node-exporter:
+    kubeStateMetrics:
       enabled: false
-
-    kube-state-metrics:
+    nodeExporter:
       enabled: false
 
     grafana:
