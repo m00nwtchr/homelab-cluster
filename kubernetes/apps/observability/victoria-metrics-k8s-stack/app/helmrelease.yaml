@@ -84,6 +84,7 @@ spec:
       spec:
         extraArgs:
           enableTCP6: "true"
+          selfScrapeInterval: "10s"
         #        securityContext:
 #          runAsNonRoot: true
 #          runAsUser: 64535
@@ -133,7 +134,12 @@ spec:
 
     grafana:
       enabled: false
-      forceDeployDashboards: true
+
+    defaultDashboards:
+      enabled: true
+      dashboards:
+        node-exporter-full:
+          enabled: false
 
     additionalVictoriaMetricsMap:
       dockerhub-rules:

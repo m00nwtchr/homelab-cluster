@@ -82,7 +82,7 @@ spec:
         datasources:
           - name: VictoriaMetrics
             type: prometheus
-            uid: victoria-metrics
+            uid: victoriametrics
             access: proxy
             url: http://vmsingle-vmks.observability.svc.cluster.local:8428
             isDefault: true
@@ -193,11 +193,11 @@ spec:
           revision: 41
           datasource:
             - { name: DS_PROMETHEUS, value: VictoriaMetrics }
-        prometheus:
-          # renovate: depName="Prometheus"
-          gnetId: 19105
-          revision: 7
-          datasource: Prometheus
+        victoriametrics:
+          # renovate: depName="VictoriaMetrics - single-node"
+          gnetId: 10229
+          revision: 41
+          datasource: VictoriaMetrics
         smartctl-exporter:
           # renovate: depName="SMARTctl Exporter Dashboard"
           gnetId: 22604
