@@ -84,7 +84,6 @@ spec:
       spec:
         extraArgs:
           enableTCP6: "true"
-          selfScrapeInterval: "10s"
         #        securityContext:
 #          runAsNonRoot: true
 #          runAsUser: 64535
