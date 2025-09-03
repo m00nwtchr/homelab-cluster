@@ -78,7 +78,6 @@ spec:
         deleteDatasources:
           - { name: Alertmanager, orgId: 1 }
           - { name: Loki, orgId: 1 }
-          - { name: Prometheus, orgId: 1 }
           - { name: VictoriaMetrics, orgId: 1 }
         datasources:
           - name: VictoriaMetrics
@@ -87,11 +86,6 @@ spec:
             access: proxy
             url: http://vmsingle-vmks.observability.svc.cluster.local:8428
             isDefault: true
-          - name: Prometheus
-            type: prometheus
-            uid: prometheus
-            access: proxy
-            url: http://prometheus-operated.observability.svc.cluster.local:9090
           - name: Loki
             type: loki
             uid: loki
