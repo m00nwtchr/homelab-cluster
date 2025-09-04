@@ -9,3 +9,6 @@ spec:
     - dnsName: external.${SECRET_DOMAIN}
       recordType: AAAA
       targets: ["2a02:a313:43e4:7080::7dc5"]
+    - dnsName: _443._tcp.idm.${SECRET_DOMAIN}
+      recordType: CNAME
+      targets: ["_443._tcp.external.${SECRET_DOMAIN}"]
