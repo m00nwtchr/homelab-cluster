@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ${APP}-tls
+  name: &name ${APP}-tls
 spec:
   dnsNames:
     - idm.${SECRET_DOMAIN}
@@ -13,7 +13,7 @@ spec:
   privateKey:
     algorithm: ECDSA
     size: 384
-  secretName: ${APP}-tls
+  secretName: *name
   usages:
     - digital signature
     - key encipherment
