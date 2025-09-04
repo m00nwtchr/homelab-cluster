@@ -10,6 +10,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components: []
+  dependsOn:
+    - name: barman-cloud-crds
+      namespace: cnpg-system
   decryption:
     provider: sops
     secretRef:
