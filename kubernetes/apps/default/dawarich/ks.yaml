@@ -44,6 +44,9 @@ spec:
   #  dependsOn:
   #    - name: rook-ceph-cluster
   #      namespace: rook-ceph
+  dependsOn:
+    - name: barman-cloud-crds
+      namespace: cnpg-system
   components: []
   decryption:
     provider: sops
