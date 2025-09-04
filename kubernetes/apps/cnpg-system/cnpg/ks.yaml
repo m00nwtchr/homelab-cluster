@@ -10,10 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components: []
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
@@ -21,10 +17,6 @@ spec:
       namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/cnpg-system/cnpg/app
-  postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
   prune: true
   retryInterval: 2m
   sourceRef:
@@ -33,3 +25,28 @@ spec:
     namespace: flux-system
   targetNamespace: *namespace
   timeout: 5m
+---
+# yaml-language-server: $schema=https://schemas.tholinka.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app plugin-barman-cloud
+  namespace: &namespace cnpg-system
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  components: []
+  interval: 1h
+  retryInterval: 2m
+  path: ./kubernetes/apps/cnpg-system/cnpg/plugin-barman-cloud
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  dependsOn:
+    - name: cnpg
+      namespace: *namespace
