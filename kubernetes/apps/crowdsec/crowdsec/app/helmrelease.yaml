@@ -1,0 +1,59 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrepository-source-v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: crowdsec
+spec:
+  interval: 1h
+  url: https://qdrant.github.io/qdrant-helm
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app crowdsec
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: *app
+      version: 0.19.5
+      sourceRef:
+        kind: HelmRepository
+        name: crowdsec
+        namespace: ai
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    container_runtime: containerd
+    lapi:
+      metrics:
+        serviceMonitor:
+          enabled: true
+      persistentVolume:
+        data:
+          enabled: false
+          accessModes:
+            - ReadWriteOnce
+          # storageClassName: "cstor-replica-raspberry-pi-pool"
+          size: 1Gi
+        config:
+          enabled: true
+          accessModes:
+            - ReadWriteOnce
+          # storageClassName: "cstor-replica-raspberry-pi-pool"
+          size: 100Mi
+    agent:
+      acquisition:
+        - namespace: nginx-ingress
+          podName: ingress-nginx-controller-*
+          program: nginx
+      metrics:
+        serviceMonitor:
+          enabled: true
