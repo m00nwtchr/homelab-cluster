@@ -56,7 +56,6 @@ spec:
       sectionName: https
   hostnames:
      - "${SECRET_DOMAIN}"
-     - "*.${SECRET_DOMAIN}"
   rules:
     - matches:
         - path:
