@@ -116,6 +116,19 @@ spec:
             backendRefs:
               - identifier: app
                 port: 80
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /.well-known/matrix/client
+            backendRefs:
+              - identifier: app
+                port: 80
+            filters:
+              - type: ExtensionRef
+                extensionRef:
+                  group: gateway.envoyproxy.io
+                  kind: HTTPRouteFilter
+                  name: well-known-matrix-client
 
     persistence:
       data:
