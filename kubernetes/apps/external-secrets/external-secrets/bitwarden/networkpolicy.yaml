@@ -28,6 +28,8 @@ spec:
         - ports:
             - port: "8080"
               protocol: TCP
+            - port: "80"
+              protocol: TCP
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system
