@@ -47,6 +47,13 @@ gatewayAPI:
 
 hubble:
   enabled: true
+  tls:
+    auto:
+      method: certmanager
+      certManagerIssuerRef:
+        group: cert-manager.io
+        kind: ClusterIssuer
+        name: cluster-ca
   ui:
     enabled: true
   relay:
