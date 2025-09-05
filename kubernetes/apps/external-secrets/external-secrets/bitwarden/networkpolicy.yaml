@@ -20,7 +20,10 @@ spec:
             app.kubernetes.io/instance: vaultwarden
             app.kubernetes.io/name: vaultwarden
             k8s:io.kubernetes.pod.namespace: default
-
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system
