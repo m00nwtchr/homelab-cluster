@@ -39,3 +39,15 @@ spec:
         certificateRefs:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
+    - name: tls
+      protocol: TLS
+      port: 443
+      #      hostname: "*.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: wildcard-${SECRET_DOMAIN/./-}-tls
