@@ -17,3 +17,26 @@ spec:
         - ports:
             - port: "8087"
               protocol: TCP
+  egress:
+    - toFQDNs:
+        - matchName: api.bitwarden.com
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+            k8s-app: coredns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+          rules:
+            dns:
+              - matchPattern: "*"
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: vaultwarden
+            app.kubernetes.io/name: vaultwarden
+            io.kubernetes.pod.namespace: default
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
