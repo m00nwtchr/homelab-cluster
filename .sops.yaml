@@ -9,7 +9,7 @@ creation_rules:
     key_groups:
       - pgp:
           - *personal
-  - path_regex: values\.sops\.ya?ml
+  - path_regex: (values|keys)\.sops\.ya?ml
     key_groups:
       - pgp:
           - *personal
