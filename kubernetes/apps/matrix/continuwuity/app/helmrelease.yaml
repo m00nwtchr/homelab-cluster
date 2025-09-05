@@ -87,9 +87,27 @@ spec:
             namespace: envoy-gateway-system
             sectionName: https
         rules:
-          - backendRefs:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
               - identifier: app
                 port: 80
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /.well-known/matrix/client
+            backendRefs:
+              - identifier: app
+                port: 80
+            filters:
+              - type: ExtensionRef
+                extensionRef:
+                  group: gateway.envoyproxy.io
+                  kind: HTTPRouteFilter
+                  name: well-known-matrix-client
+
       federation:
         hostnames: [ "matrix-fed.${SECRET_DOMAIN}" ]
         annotations:
