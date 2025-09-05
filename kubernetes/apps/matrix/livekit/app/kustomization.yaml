@@ -5,3 +5,9 @@ kind: Kustomization
 resources:
   - helmrelease.yaml
   - secret.sops.yaml
+secretGenerator:
+  - name: livekit-keys
+    files:
+      - keys.yaml=./resources/keys.sops.yaml
+configurations:
+  - resources/kustomizeconfig.yaml

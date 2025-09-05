@@ -1,0 +1,7 @@
+---
+nameReference:
+  - kind: Secret
+    version: v1
+    fieldSpecs:
+      - path: spec/values/storeKeysInSecret/existingSecret
+        kind: HelmRelease
