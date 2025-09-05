@@ -39,7 +39,7 @@ spec:
         certificateRefs:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
-    - name: tls
+    - name: turn
       protocol: TLS
       port: 443
       hostname: "turn.${SECRET_DOMAIN}"
