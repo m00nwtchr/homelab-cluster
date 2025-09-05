@@ -9,13 +9,7 @@ creation_rules:
     key_groups:
       - pgp:
           - *personal
-  - path_regex: (values|keys)\.sops\.ya?ml
-    key_groups:
-      - pgp:
-          - *personal
-        age:
-          - *cluster
-  - path_regex: (bootstrap|kubernetes)/.*\.sops\.conf
+  - path_regex: (bootstrap|kubernetes)/.*/(resources|helm)/.*\.sops\..*
     key_groups:
       - pgp:
           - *personal
