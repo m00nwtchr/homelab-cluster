@@ -17,11 +17,10 @@ spec:
 ---
 # yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1alpha2
-kind: TLSRoute
+kind: TCPRoute
 metadata:
   name: &app ${APP}
 spec:
-  hostnames: ["turn.${SECRET_DOMAIN}"]
   parentRefs:
     - name: external
       namespace: envoy-gateway-system
