@@ -25,7 +25,7 @@ spec:
   parentRefs:
     - name: external
       namespace: envoy-gateway-system
-      sectionName: tls
+      sectionName: turn
   rules:
     - backendRefs:
         - name: livekit-turn
