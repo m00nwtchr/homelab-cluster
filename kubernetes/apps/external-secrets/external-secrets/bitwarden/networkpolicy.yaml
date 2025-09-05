@@ -12,7 +12,7 @@ spec:
         - matchLabels:
             app.kubernetes.io/instance: external-secrets
             app.kubernetes.io/name: external-secrets
-            io.kubernetes.pod.namespace: external-secrets
+            k8s:io.kubernetes.pod.namespace: external-secrets
       toPorts:
         - ports:
             - port: "8087"
@@ -21,9 +21,13 @@ spec:
     - toFQDNs:
         - matchName: api.bitwarden.com
         - matchName: vaultwarden.m00nlit.dev
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
     - toEndpoints:
         - matchLabels:
-            io.kubernetes.pod.namespace: kube-system
+            k8s:io.kubernetes.pod.namespace: kube-system
             k8s-app: coredns
       toPorts:
         - ports:
