@@ -14,6 +14,10 @@ spec:
             app.kubernetes.io/instance: external-secrets
             app.kubernetes.io/name: external-secrets
             k8s:io.kubernetes.pod.namespace: external-secrets
+      toPorts:
+        - ports:
+            - port: "8087"
+              protocol: TCP
   egress:
     - toEndpoints:
         - matchLabels:
