@@ -34,7 +34,7 @@ spec:
               repository: ghcr.io/m00nwtchr/bw
               tag: 2025.8.0@sha256:d4c4a11897740df652ae1159c9257fca21d42a2570db2e1b67595fd7b1309e84
             env:
-              BW_HOST: http://vaultwarden.default.svc.cluster.local:8080
+              BW_HOST: https://vaultwarden.m00nlit.dev
             envFrom:
               - secretRef:
                   name: *app
