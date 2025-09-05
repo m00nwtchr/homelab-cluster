@@ -1,45 +1,42 @@
----
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: &app bitwarden
+  name: &name bitwarden
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: *app
-      app.kubernetes.io/name: *app
+      app.kubernetes.io/instance: *name
+      app.kubernetes.io/name: *name
   ingress:
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/instance: external-secrets
             app.kubernetes.io/name: external-secrets
-            k8s:io.kubernetes.pod.namespace: external-secrets
+            io.kubernetes.pod.namespace: external-secrets
       toPorts:
         - ports:
             - port: "8087"
               protocol: TCP
   egress:
+    - toFQDNs:
+        - matchName: api.bitwarden.com
     - toEndpoints:
         - matchLabels:
-            app.kubernetes.io/instance: vaultwarden
-            app.kubernetes.io/name: vaultwarden
-            k8s:io.kubernetes.pod.namespace: default
-      toPorts:
-        - ports:
-            - port: "8080"
-              protocol: TCP
-            - port: "80"
-              protocol: TCP
-    - toEndpoints:
-        - matchLabels:
-            k8s:io.kubernetes.pod.namespace: kube-system
+            io.kubernetes.pod.namespace: kube-system
             k8s-app: coredns
       toPorts:
         - ports:
             - port: "53"
-              protocol: ANY
+              protocol: UDP
           rules:
             dns:
               - matchPattern: "*"
-    - toFQDNs:
-        - matchName: api.bitwarden.com
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: vaultwarden
+            app.kubernetes.io/name: vaultwarden
+            io.kubernetes.pod.namespace: default
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
