@@ -36,7 +36,3 @@ spec:
             app.kubernetes.io/instance: vaultwarden
             app.kubernetes.io/name: vaultwarden
             io.kubernetes.pod.namespace: default
-      toPorts:
-        - ports:
-            - port: "8080"
-              protocol: TCP
