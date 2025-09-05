@@ -42,7 +42,7 @@ spec:
     - name: tls
       protocol: TLS
       port: 443
-      #      hostname: "*.${SECRET_DOMAIN}"
+      hostname: "turn.${SECRET_DOMAIN}"
       allowedRoutes:
         namespaces:
           from: All
