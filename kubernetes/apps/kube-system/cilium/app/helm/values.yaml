@@ -47,6 +47,8 @@ gatewayAPI:
 
 hubble:
   enabled: true
+  ui:
+    enabled: true
 
 ipam:
   mode: kubernetes
