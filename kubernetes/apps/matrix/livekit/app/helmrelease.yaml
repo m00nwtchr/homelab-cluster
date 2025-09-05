@@ -63,7 +63,7 @@ spec:
       enabled: true
       existingSecret: livekit-keys
 
-#    fullnameOverride: *app
+    fullnameOverride: *app
 
     turnLoadBalancer:
       enable: false
