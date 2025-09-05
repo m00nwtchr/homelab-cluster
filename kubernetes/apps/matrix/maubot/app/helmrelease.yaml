@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app ${APP}
+  name: &app maubot
 spec:
   interval: 1h
   chartRef:
@@ -19,7 +19,7 @@ spec:
       retries: 3
   values:
     controllers:
-      main:
+      *app:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
@@ -35,7 +35,7 @@ spec:
 
     service:
       app:
-        controller: main
+        controller: *app
         ports:
           http:
             port: 80
@@ -48,11 +48,6 @@ spec:
           - name: internal
             namespace: envoy-gateway-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
-
 
     persistence:
       data:

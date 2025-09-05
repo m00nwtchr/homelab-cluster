@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app ${APP}
+  name: &app wks
 spec:
   interval: 1h
   chartRef:
@@ -19,17 +19,15 @@ spec:
       retries: 3
   values:
     defaultPodOptions:
-      enableServiceLinks: false
       securityContext:
-        runAsUser: 568
-        runAsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
         runAsNonRoot: true
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-    #      supplementalGroups: [160, 140, 241, 0, 10, 121]
 
     controllers:
-      wks:
+      *app :
         strategy: Recreate
         containers:
           main:
@@ -41,7 +39,7 @@ spec:
 
     service:
       app:
-        controller: wks
+        controller: *app
         ports:
           http:
             port: 80
@@ -58,21 +56,6 @@ spec:
           - matches:
               - path:
                   value: /.well-known/openpgpkey/
-            backendRefs:
-              - identifier: app
-                port: 80
-
-#    ingress:
-#      main:
-#        annotations:
-#          traefik.ingress.kubernetes.io/router.tls.options: traefik-intermediate@kubernetescrd
-#        hosts:
-#          - host: ${SECRET_DOMAIN}
-#            paths:
-#              - path: /.well-known/openpgpkey/
-#                service:
-#                  identifier: app
-#                  port: http
 
     persistence:
       keys:
@@ -80,4 +63,3 @@ spec:
         name: wks-keys
         globalMounts:
           - path: /keys/
-            readOnly: true

@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app ${APP}
+  name: &app paperless
 spec:
   interval: 1h
   chartRef:
@@ -18,16 +18,16 @@ spec:
     remediation:
       retries: 3
   values:
-#    defaultPodOptions:
-#      securityContext:
-#        runAsUser: 1000
-#        runAsGroup: 1000
-#        #          runAsNonRoot: true
-#        fsGroup: 1000
-#        fsGroupChangePolicy: "OnRootMismatch"
+    #    defaultPodOptions:
+    #      securityContext:
+    #        runAsUser: 1000
+    #        runAsGroup: 1000
+    #        #          runAsNonRoot: true
+    #        fsGroup: 1000
+    #        fsGroupChangePolicy: "OnRootMismatch"
 
     controllers:
-      paperless-ngx:
+      *app :
         type: statefulset
         statefulset:
           podManagementPolicy: Parallel
@@ -98,7 +98,7 @@ spec:
 
     service:
       app:
-        controller: paperless-ngx
+        controller: *app
         ports:
           http:
             port: 80
