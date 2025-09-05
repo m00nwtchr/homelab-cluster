@@ -31,8 +31,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/roxedus/bw
-              tag: 2025.7.0@sha256:5c4fff9587f420cf648181b0aee253f0260b127b36c801cbab46bb67f48053e3
+              repository: ghcr.io/m00nwtchr/bw
+              tag: 2025.8.0@sha256:d4c4a11897740df652ae1159c9257fca21d42a2570db2e1b67595fd7b1309e84
             env:
               BW_HOST: http://vaultwarden.default.svc.cluster.local
             envFrom:
@@ -66,7 +66,6 @@ spec:
     service:
       app:
         controller: *app
-        ipFamilies: [IPv4]
         ports:
           http:
             port: 8087
