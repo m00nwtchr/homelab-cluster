@@ -1,4 +1,13 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrepository-source-v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: livekit
+spec:
+  interval: 1h
+  url: https://helm.livekit.io
+---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -6,10 +15,14 @@ metadata:
   name: &app livekit
 spec:
   interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
+  chart:
+    spec:
+      chart: *app
+      version: 1.9.0
+      sourceRef:
+        kind: HelmRepository
+        name: *app
+        namespace: matrix
   install:
     remediation:
       retries: -1
@@ -18,136 +31,48 @@ spec:
     remediation:
       retries: 3
   values:
-    defaultPodOptions:
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
+    replicaCount: 1
 
-    controllers:
-      *app :
-        type: statefulset
-        annotations:
-          reloader.stakater.com/auto: "true"
+    # Suggested value for gracefully terminate the pod: 5 hours
+    # terminationGracePeriodSeconds: 18000
 
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            fsGroup: 1000
-            fsGroupChangePolicy: "OnRootMismatch"
+    livekit:
+      port: 7880
+      prometheus:
+        port: 6789
+      log_level: info
 
-        containers:
-          app:
-            image:
-              repository: forgejo.ellis.link/continuwuation/continuwuity
-              tag: main@sha256:2adfa8fbece0e23fa4716b0bcf332304d86e3572c1ef07580ee7c666a336cbfa
-            env:
-              CONDUWUIT_CONFIG: "/config/conduit.toml"
-              CONDUWUIT_PORT: &port 8008
-            probes:
-              liveness: &probe
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /_matrix/federation/v1/version
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probe
-            resources:
-              limits:
-                #                cpu: 50M
-                memory: 1Gi
-              requests:
-                cpu: 2
-                memory: 512Mi
-            securityContext:
-              capabilities:
-                drop:
-                  - ALL
-
-    service:
-      app:
-        controller: *app
-        ports:
-          http:
-            port: 80
-            targetPort: *port
-
-    route:
-      app:
-        hostnames: [ "matrix.${SECRET_DOMAIN}" ]
-        forceRename: *app
-        parentRefs:
-          - name: external
-            namespace: envoy-gateway-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
-      federation:
-        hostnames: [ "matrix-fed.${SECRET_DOMAIN}" ]
-        annotations:
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
-        parentRefs:
-          - name: external
-            namespace: envoy-gateway-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
-      well-known:
-        hostnames: [ "${SECRET_DOMAIN}" ]
-        parentRefs:
-          - name: external
-            namespace: envoy-gateway-system
-            sectionName: https
-        rules:
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /.well-known/matrix/
-            backendRefs:
-              - identifier: app
-                port: 80
-
-    persistence:
-      data:
+      rtc:
+        tcp_port: 7881
+        port_range_start: 50000
+        port_range_end: 60000
+        use_external_ip: false
+        enable_loopback_candidate: false
+      redis:
+        address: dragonfly.database.svc:6379
+        db: 11
+      turn:
         enabled: true
-        type: persistentVolumeClaim
-        existingClaim: *app
+        domain: turn.${SECRET_DOMAIN}
+        tls_port: 5349
+        udp_port: 3478
+        external_tls: true
 
-      media:
-        size: 5Gi
-        accessMode: ReadWriteOnce
-        storageClass: zfs-vault
-        suffix: "media"
-        retain: true
-        globalMounts:
-          - path: /data/media
+      # one or more API key/secret pairs
+      # see https://docs.livekit.io/guides/getting-started/#generate-api-key-and-secret
+      keys:
+        myapikey: "rohng8bi8aepaeQu4saibohsied0uu4cahzuaJe7aiThoong0hae8shoceishuew8yauweit"
 
-      backups:
-        size: 5Gi
-        accessMode: ReadWriteOnce
-        suffix: "backups"
-        globalMounts:
-          - path: /backups
+    turnLoadBalancer:
+      enable: false
 
-      config:
-        type: configMap
-        name: conduit-configmap
-        globalMounts:
-          - path: /config/conduit.toml
-            subPath: conduit.toml
-      token:
-        type: secret
-        name: conduit-registration-secret
-        globalMounts:
-          - path: /config/token
-            subPath: token
+    resources:
+      { }
+      # Due to port restrictions, you can run only one instance of LiveKit per physical
+      # node. Because of that, we recommend giving it plenty of resources to work with
+      # limits:
+      #   cpu: 6000m
+      #   memory: 2048Mi
+      # requests:
+    #   cpu: 4000m
+    #   memory: 1024Mi
