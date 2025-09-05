@@ -46,7 +46,7 @@ gatewayAPI:
   xffNumTrustedHops: 1
 
 hubble:
-  enabled: false
+  enabled: true
 
 ipam:
   mode: kubernetes
