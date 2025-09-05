@@ -7,6 +7,7 @@ components:
   - ../../components/common
 resources:
   - ./continuwuity/ks.yaml
+  - ./livekit/ks.yaml
   - ./heisenbridge/ks.yaml
   - ./maubot/ks.yaml
   - ./mautrix-meta/ks.yaml
