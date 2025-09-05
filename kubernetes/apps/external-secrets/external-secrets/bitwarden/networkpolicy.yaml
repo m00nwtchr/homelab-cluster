@@ -18,6 +18,10 @@ spec:
             - port: "8087"
               protocol: TCP
   egress:
+    - toPorts:
+        - ports:
+            - port: "10443"
+              protocol: TCP
     - toFQDNs:
         - matchName: api.bitwarden.com
         - matchName: vaultwarden.m00nlit.dev
