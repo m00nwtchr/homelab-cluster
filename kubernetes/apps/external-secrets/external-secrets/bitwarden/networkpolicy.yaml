@@ -20,6 +20,7 @@ spec:
   egress:
     - toFQDNs:
         - matchName: api.bitwarden.com
+        - matchName: vaultwarden.m00nlit.dev
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
@@ -31,8 +32,8 @@ spec:
           rules:
             dns:
               - matchPattern: "*"
-    - toEndpoints:
-        - matchLabels:
-            app.kubernetes.io/instance: vaultwarden
-            app.kubernetes.io/name: vaultwarden
-            io.kubernetes.pod.namespace: default
+#    - toEndpoints:
+#        - matchLabels:
+#            app.kubernetes.io/instance: vaultwarden
+#            app.kubernetes.io/name: vaultwarden
+#            io.kubernetes.pod.namespace: default
