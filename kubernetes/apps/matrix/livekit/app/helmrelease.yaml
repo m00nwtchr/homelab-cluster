@@ -17,7 +17,7 @@ spec:
   interval: 1h
   chart:
     spec:
-      chart: *app
+      chart: livekit-server
       version: 1.9.0
       sourceRef:
         kind: HelmRepository
