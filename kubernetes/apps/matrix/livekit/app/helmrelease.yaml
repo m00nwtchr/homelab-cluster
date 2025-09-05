@@ -58,10 +58,9 @@ spec:
         udp_port: 3478
         external_tls: true
 
-      # one or more API key/secret pairs
-      # see https://docs.livekit.io/guides/getting-started/#generate-api-key-and-secret
-      keys:
-        myapikey: "rohng8bi8aepaeQu4saibohsied0uu4cahzuaJe7aiThoong0hae8shoceishuew8yauweit"
+    storeKeysInSecret:
+      enabled: true
+      existingSecret: livekit-keys
 
     turnLoadBalancer:
       enable: false
