@@ -38,12 +38,12 @@ spec:
             env:
               DOMAIN: https://${APP}.${SECRET_DOMAIN}
               TZ: ${TZ}
-              SIGNUPS_ALLOWED: true
+              SIGNUPS_ALLOWED: false
+              INVITATIONS_ALLOWED: false
               WEBSOCKET_ENABLED: true
-              #              SMTP_HOST: ${ROUTER_IP}
-              #              SMTP_PORT: 25
-              #              SMTP_FROM: admin@${SECRET_DOMAIN}
-              #              SMTP_SECURITY: "off"
+#              SMTP_PORT: 465
+#              SMTP_FROM: admin@${SECRET_DOMAIN}
+#              SMTP_SECURITY: force_tls
               ROCKET_ADDRESS: "::"
               ROCKET_PORT: &port 8080
               DATABASE_URL:
