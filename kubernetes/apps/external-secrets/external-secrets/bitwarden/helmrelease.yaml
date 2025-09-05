@@ -69,8 +69,7 @@ spec:
         ipFamilies: [IPv4]
         ports:
           http:
-            port: 80
-            targetPort: 8087
+            port: 8087
 
     persistence:
       tmp:
