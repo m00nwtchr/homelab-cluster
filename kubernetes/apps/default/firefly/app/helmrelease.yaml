@@ -201,10 +201,10 @@ spec:
         fsGroupChangePolicy: "OnRootMismatch"
         seccompProfile: { type: "RuntimeDefault" }
 
-    networkpolicies:
-      same-ns:
-        podSelector: { }
-        policyTypes: [ Ingress, Egress ]
-        rules:
-          ingress: [ from: [ { podSelector: { } } ] ]
-          egress: [ to: [ { podSelector: { } } ] ]
+#    networkpolicies:
+#      same-ns:
+#        podSelector: { }
+#        policyTypes: [ Ingress, Egress ]
+#        rules:
+#          ingress: [ from: [ { podSelector: { } } ] ]
+#          egress: [ to: [ { podSelector: { } } ] ]
