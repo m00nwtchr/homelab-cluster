@@ -50,12 +50,12 @@ spec:
               DB_USERNAME:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-postgres
+                    name: &postgres postgres-${APP}
                     key: username
               DB_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-postgres
+                    name: *postgres
                     key: password
 
 
