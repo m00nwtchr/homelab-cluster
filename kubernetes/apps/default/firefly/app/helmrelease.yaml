@@ -47,7 +47,6 @@ spec:
               DB_HOST: "se-pooler-rw.postgres.svc"
               DB_PORT: "5432"
               DB_DATABASE: *app
-#              PGSQL_SCHEMA: *app
               DB_USERNAME:
                 valueFrom:
                   secretKeyRef:
