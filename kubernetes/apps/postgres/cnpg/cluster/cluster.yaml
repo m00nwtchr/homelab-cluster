@@ -53,6 +53,14 @@ spec:
         superuser: false
         passwordSecret:
           name: postgres-bazarr
+
+      - name: firefly
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-firefly
+
       - name: forgejo
         ensure: present
         login: true
