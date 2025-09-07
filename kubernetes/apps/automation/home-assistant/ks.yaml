@@ -24,6 +24,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      DATABASE_OWNER: hass
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
