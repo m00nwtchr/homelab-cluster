@@ -44,7 +44,7 @@ spec:
               #              AUTHENTICATION_GUARD_HEADER: "HTTP_X_AUTHENTIK_USERNAME" # disabled username change ability for users
               #              AUTHENTICATION_GUARD_EMAIL: "HTTP_X_AUTHENTIK_EMAIL" # somehow doesn't work?
               DB_CONNECTION: "pgsql"
-              DB_HOST: "pooler-rw.postgres.svc"
+              DB_HOST: "se-pooler-rw.postgres.svc"
               DB_PORT: "5432"
               DB_DATABASE: *app
 #              PGSQL_SCHEMA: *app
