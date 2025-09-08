@@ -37,6 +37,10 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components: []
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
@@ -44,6 +48,10 @@ spec:
       namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/network/envoy-gateway/config
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   retryInterval: 2m
   sourceRef:
