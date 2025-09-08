@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: robustadev/krr
-              tag: v1.26.2@sha256:4be4db62ddfadf6854c2218540c443263161f60ee086eeda282328ca381b3ccf
+              tag: v1.26.3@sha256:ea829e0f966ee4f1737ea75f64437dcac9777e7de5f98c7889a32ef66b4fa4c9
               pullPolicy: IfNotPresent
 
             # /bin/sh -c "python krr.py simple --max-workers 3 --width 2048"
