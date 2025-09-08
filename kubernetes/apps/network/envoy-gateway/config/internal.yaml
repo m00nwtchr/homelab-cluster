@@ -7,7 +7,7 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
 spec:
-  gatewayClassName: eg
+  gatewayClassName: envoy
   addresses:
     - type: IPAddress
       value: "fd42:78a5:2c09::200"
