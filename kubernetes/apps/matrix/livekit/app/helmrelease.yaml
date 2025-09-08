@@ -58,7 +58,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: [ "ALL" ] }
+#              capabilities: { drop: [ "ALL" ] }
     #            resources:
     #              requests:
     #                cpu: 100m
@@ -66,13 +66,13 @@ spec:
     #              limits:
     #                memory: 1Gi
 
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 2000
-        runAsGroup: 2000
-        fsGroup: 2000
-        fsGroupChangePolicy: OnRootMismatch
+#    defaultPodOptions:
+#      securityContext:
+#        runAsNonRoot: true
+#        runAsUser: 2000
+#        runAsGroup: 2000
+#        fsGroup: 2000
+#        fsGroupChangePolicy: OnRootMismatch
 
     service:
       app:
@@ -96,7 +96,7 @@ spec:
                   value: /
             backendRefs:
               - name: *app
-                port: 80
+                port: 7880
           - matches:
               - path:
                   type: PathPrefix
