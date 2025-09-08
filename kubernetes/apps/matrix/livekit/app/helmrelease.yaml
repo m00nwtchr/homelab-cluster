@@ -79,5 +79,8 @@ spec:
 
     podHostNetwork: false
 
+    turnLoadbalancer:
+      enable: false
+
     serviceMonitor:
       create: true
