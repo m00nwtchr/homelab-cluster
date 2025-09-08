@@ -46,6 +46,14 @@ spec:
     kubeEtcd:
       endpoints:
         - 2a02:a313:43e4:7080::7dc5
+      vmScrape:
+        spec:
+          endpoints:
+            - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+              port: http-metrics
+              scheme: https
+              tlsConfig:
+                insecureSkipVerify: true
 
     alertmanager:
 #      route:
