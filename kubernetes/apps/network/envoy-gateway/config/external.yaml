@@ -3,7 +3,7 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: &name external
+  name: &name envoy-external
   annotations:
 #    metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
     external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
