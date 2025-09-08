@@ -1,7 +1,12 @@
 ---
 nameReference:
+  - kind: ConfigMap
+    version: v1
+    fieldSpecs:
+      - path: spec/values/controllers/livekit/containers/app/env/LIVEKIT_CONFIG/valueFrom/configMapKeyRef/name
+        kind: HelmRelease
   - kind: Secret
     version: v1
     fieldSpecs:
-      - path: spec/values/storeKeysInSecret/existingSecret
+      - path: spec/values/persistence/keys/name
         kind: HelmRelease

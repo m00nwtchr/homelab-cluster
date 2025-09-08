@@ -1,13 +1,4 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrepository-source-v1.json
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: livekit
-spec:
-  interval: 1h
-  url: https://helm.livekit.io
----
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -15,14 +6,10 @@ metadata:
   name: &app livekit
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: livekit-server
-      version: 1.9.0
-      sourceRef:
-        kind: HelmRepository
-        name: *app
-        namespace: matrix
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
   install:
     remediation:
       retries: -1
@@ -31,55 +18,100 @@ spec:
     remediation:
       retries: 3
   values:
-    replicaCount: 1
+    controllers:
+      *app :
+        type: statefulset
 
-    # Suggested value for gracefully terminate the pod: 5 hours
-    # terminationGracePeriodSeconds: 18000
+        pod:
+          hostNetwork: true
 
-    livekit:
-      port: 7880
-      prometheus:
-        port: 6789
-      log_level: info
+        containers:
+          app:
+            image:
+              repository: livekit/livekit-server
+              tag: v1.9.1
+            ports:
+              - containerPort: 7880
+                name: http
+                protocol: TCP
+              - containerPort: 7881
+                hostPort: 7881
+                name: rtc-tcp
+                protocol: TCP
+              #              - containerPort: 443
+              #                hostPort: 443
+              #                name: turn-tls
+              #                protocol: TCP
+              - containerPort: 3478
+                hostPort: 3478
+                name: turn-udp
+                protocol: UDP
+            env:
+              LIVEKIT_CONFIG:
+                valueFrom:
+                  configMapKeyRef:
+                    name: livekit-configmap
+                    key: config.yaml
 
-      rtc:
-        tcp_port: 7881
-        port_range_start: 50000
-        port_range_end: 60000
-        use_external_ip: false
-        enable_loopback_candidate: false
-      redis:
-        address: dragonfly.database.svc:6379
-        db: 11
-      turn:
-        enabled: true
-        domain: livekit.${SECRET_DOMAIN}
-        tls_port: 443
-        udp_port: 3478
-        external_tls: true
-      key_file: keys.yaml
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ "ALL" ] }
+    #            resources:
+    #              requests:
+    #                cpu: 100m
+    #                memory: 1Gi
+    #              limits:
+    #                memory: 1Gi
 
-    storeKeysInSecret:
-      enabled: true
-      existingSecret: livekit-keys
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 2000
+        runAsGroup: 2000
+        fsGroup: 2000
+        fsGroupChangePolicy: OnRootMismatch
 
-    fullnameOverride: *app
+    service:
+      app:
+        ports:
+          http:
+            port: 7880
+          rtc-tcp:
+            port: 7880
 
-    resources:
-      { }
-      # Due to port restrictions, you can run only one instance of LiveKit per physical
-      # node. Because of that, we recommend giving it plenty of resources to work with
-      # limits:
-      #   cpu: 6000m
-      #   memory: 2048Mi
-    # requests:
-    #   cpu: 4000m
-    #   memory: 1024Mi
+    route:
+      app:
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
+        parentRefs:
+          - name: external
+            namespace: network
+            sectionName: https
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - name: *app
+              port: 80
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /rtc
+          backendRefs:
+            - name: *app
+              port: 7881
 
-    podHostNetwork: false
 
-    turnLoadbalancer:
-      enable: false
-
-    serviceMonitor:
-      create: true
+    persistence:
+      keys:
+        type: configMap
+        name: livekit-keys
+        globalMounts:
+          - path: /config/keys.yaml
+            subPath: keys.yaml
