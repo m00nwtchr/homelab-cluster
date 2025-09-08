@@ -25,18 +25,3 @@ spec:
       backendRefs:
         - name: *app
           port: 7881
----
-# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
-apiVersion: gateway.networking.k8s.io/v1alpha2
-kind: TCPRoute
-metadata:
-  name: &app ${APP}
-spec:
-  parentRefs:
-    - name: external
-      namespace: network
-      sectionName: turn
-  rules:
-    - backendRefs:
-        - name: livekit-turn
-          port: 443

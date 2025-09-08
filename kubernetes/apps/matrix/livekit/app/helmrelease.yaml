@@ -53,7 +53,7 @@ spec:
         db: 11
       turn:
         enabled: true
-        domain: turn.${SECRET_DOMAIN}
+        domain: livekit.${SECRET_DOMAIN}
         tls_port: 443
         udp_port: 3478
         external_tls: true
