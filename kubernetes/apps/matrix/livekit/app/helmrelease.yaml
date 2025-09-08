@@ -110,6 +110,7 @@ spec:
       keys:
         type: secret
         name: livekit-keys
+        defaultMode: 0600
         globalMounts:
           - path: /config/keys.yaml
             subPath: keys.yaml
