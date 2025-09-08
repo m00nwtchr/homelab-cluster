@@ -100,7 +100,7 @@ spec:
           gethomepage.dev/widget.key: "{{ \"{{HOMEPAGE_VAR_JELLYFIN_KEY}}\" }}"
         parentRefs:
           - name: external
-            namespace: envoy-gateway-system
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:

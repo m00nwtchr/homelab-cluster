@@ -102,7 +102,7 @@ spec:
           gethomepage.dev/widget.password: "{{ \"{{HOMEPAGE_VAR_QBIT_PASSWORD}}\" }}"
         parentRefs:
           - name: internal
-            namespace: envoy-gateway-system
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:
@@ -113,7 +113,7 @@ spec:
         hostnames: *host
         parentRefs:
           - name: internal
-            namespace: envoy-gateway-system
+            namespace: network
             sectionName: https
         rules:
           - matches:

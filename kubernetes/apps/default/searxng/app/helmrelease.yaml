@@ -87,7 +87,7 @@ spec:
           gethomepage.dev/icon: searxng.svg
         parentRefs:
           - name: external
-            namespace: envoy-gateway-system
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:

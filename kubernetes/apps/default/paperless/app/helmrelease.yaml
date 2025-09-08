@@ -114,7 +114,7 @@ spec:
           gethomepage.dev/icon: paperless.svg
         parentRefs:
           - name: internal
-            namespace: envoy-gateway-system
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:

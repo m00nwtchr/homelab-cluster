@@ -59,7 +59,7 @@ spec:
           gethomepage.dev/icon: freshrss.svg
         parentRefs:
           - name: internal
-            namespace: envoy-gateway-system
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:

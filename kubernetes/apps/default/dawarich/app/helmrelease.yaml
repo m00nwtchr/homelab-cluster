@@ -96,7 +96,7 @@ spec:
           gethomepage.dev/icon: google-maps.png
         parentRefs:
           - name: internal
-            namespace: envoy-gateway-system
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:

@@ -89,7 +89,7 @@ spec:
         hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
         parentRefs:
           - name: external
-            namespace: envoy-gateway-system
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:

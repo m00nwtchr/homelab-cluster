@@ -9,7 +9,7 @@ spec:
     - "voltkonekt.pl"
   parentRefs:
     - name: external
-      namespace: envoy-gateway-system
+      namespace: network
       sectionName: https
   rules:
     - backendRefs:

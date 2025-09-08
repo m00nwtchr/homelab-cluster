@@ -87,7 +87,7 @@ spec:
           - *hostName
         parentRefs:
           - name: internal
-            namespace: envoy-gateway-system
+            namespace: network
             sectionName: https
 
       webhook:
@@ -95,7 +95,7 @@ spec:
           - ${APP}-webhook.${SECRET_DOMAIN}
         parentRefs:
           - name: external
-            namespace: envoy-gateway-system
+            namespace: network
             sectionName: https
         rules:
           - matches:
