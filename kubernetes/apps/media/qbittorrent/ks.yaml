@@ -14,8 +14,8 @@ spec:
   dependsOn:
     - name: volsync
       namespace: volsync-system
-    - name: eg
-      namespace: envoy-gateway-system
+    - name: envoy-gateway
+      namespace: network
   decryption:
     provider: sops
     secretRef:

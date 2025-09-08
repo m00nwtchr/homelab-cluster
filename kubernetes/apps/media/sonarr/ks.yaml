@@ -13,8 +13,8 @@ spec:
     - ../../../../components/envoy-oidc
     - ../../../../components/database
   dependsOn:
-    - name: eg
-      namespace: envoy-gateway-system
+    - name: envoy-gateway
+      namespace: network
   decryption:
     provider: sops
     secretRef:

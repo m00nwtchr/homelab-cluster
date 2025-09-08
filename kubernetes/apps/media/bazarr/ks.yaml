@@ -14,8 +14,8 @@ spec:
   #    - ../../../../components/volsync
     - ../../../../components/database
   dependsOn:
-    - name: eg
-      namespace: envoy-gateway-system
+    - name: envoy-gateway
+      namespace: network
   #    - name: volsync
   #      namespace: volsync-system
   decryption:
