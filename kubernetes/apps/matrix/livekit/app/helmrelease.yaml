@@ -82,7 +82,7 @@ spec:
           http:
             port: 7880
           rtc-tcp:
-            port: 7880
+            port: 7881
 
     route:
       app:
