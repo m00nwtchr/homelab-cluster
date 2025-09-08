@@ -9,6 +9,7 @@ resources:
   - ./envoyproxy.yaml
   - ./external.yaml
   - ./gatewayclass.yaml
+  - ./helmrelease.yaml
   - ./internal.yaml
   - ./podmonitor.yaml
   - ./redirect.yaml
