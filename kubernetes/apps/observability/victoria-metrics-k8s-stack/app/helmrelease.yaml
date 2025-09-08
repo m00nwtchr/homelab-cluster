@@ -43,6 +43,10 @@ spec:
     kubeProxy:
       enabled: false
 
+    kubeEtcd:
+      endpoints:
+        - 2a02:a313:43e4:7080::7dc5
+
     alertmanager:
 #      route:
 #        main:
