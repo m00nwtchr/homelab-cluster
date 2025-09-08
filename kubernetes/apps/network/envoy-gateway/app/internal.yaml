@@ -3,23 +3,24 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: external
+  name: &name internal
   annotations:
-#    metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
-    external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+    external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
 spec:
   gatewayClassName: eg
-#  addresses:
-#    - type: IPAddress
-#      value: "2a02:a313:43e4:7080::7dc5"
+  addresses:
+    - type: IPAddress
+      value: "fd42:78a5:2c09::200"
+    - type: IPAddress
+      value: "192.168.0.192"
   infrastructure:
     annotations:
-#      metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
-      external-dns.alpha.kubernetes.io/hostname: "external.${SECRET_DOMAIN}"
+      metallb.io/loadBalancerIPs: 'fd42:78a5:2c09::200,192.168.0.192'
+      external-dns.alpha.kubernetes.io/hostname: "internal.${SECRET_DOMAIN}"
     parametersRef:
       group: gateway.envoyproxy.io
       kind: EnvoyProxy
-      name: external-proxy-config
+      name: *name
   listeners:
     - name: http
       protocol: HTTP
@@ -35,19 +36,18 @@ spec:
         namespaces:
           from: All
       tls:
-        mode: Terminate
         certificateRefs:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
-    - name: turn
-      protocol: TLS
-      port: 443
-      hostname: "turn.${SECRET_DOMAIN}"
+    - name: ssh
+      protocol: TCP
+      port: 2222
       allowedRoutes:
         namespaces:
           from: All
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - kind: Secret
-            name: wildcard-${SECRET_DOMAIN/./-}-tls
+#        namespaces:
+#          from: Selector
+#          selector:
+#            matchLabels:
+        kinds:
+          - kind: TCPRoute

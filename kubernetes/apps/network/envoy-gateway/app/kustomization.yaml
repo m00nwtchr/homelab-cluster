@@ -10,4 +10,6 @@ resources:
   - ./external.yaml
   - ./gatewayclass.yaml
   - ./internal.yaml
+  - ./podmonitor.yaml
   - ./redirect.yaml
+  - ./servicemonitor.yaml
