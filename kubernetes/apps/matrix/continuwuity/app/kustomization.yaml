@@ -11,5 +11,6 @@ configMapGenerator:
   - name: conduit-configmap
     files:
       - conduit.toml=resources/conduit.toml
+      - response.body=resources/client.json
 generatorOptions:
   disableNameSuffixHash: true
