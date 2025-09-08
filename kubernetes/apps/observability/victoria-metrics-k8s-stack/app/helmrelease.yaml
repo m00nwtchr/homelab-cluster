@@ -40,6 +40,9 @@ spec:
     victoria-metrics-operator:
       enabled: false
 
+    kubeProxy:
+      enabled: false
+
     alertmanager:
 #      route:
 #        main:

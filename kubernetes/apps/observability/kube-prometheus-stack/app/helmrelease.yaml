@@ -45,6 +45,9 @@ spec:
             pullPolicy: IfNotPresent
     cleanPrometheusOperatorObjectNames: true
 
+    defaultRules:
+      create: false
+
     grafana:
       enabled: false
       forceDeployDashboards: true
@@ -55,10 +58,7 @@ spec:
     alertmanager:
       enabled: false
 
-    kubeEtcd:
-      enabled: false
-
-    kubeProxy:
+    kubernetesServiceMonitors:
       enabled: false
 
     prometheus:
