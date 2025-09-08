@@ -8,7 +8,7 @@ metadata:
 #    metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
     external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
 spec:
-  gatewayClassName: eg
+  gatewayClassName: envoy
 #  addresses:
 #    - type: IPAddress
 #      value: "2a02:a313:43e4:7080::7dc5"
