@@ -54,7 +54,7 @@ spec:
       turn:
         enabled: true
         domain: turn.${SECRET_DOMAIN}
-        tls_port: 5349
+        tls_port: 443
         udp_port: 3478
         external_tls: true
         serviceType: ClusterIP
