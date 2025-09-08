@@ -91,21 +91,21 @@ spec:
           - name: external
             namespace: network
             sectionName: https
-      rules:
-        - matches:
-            - path:
-                type: PathPrefix
-                value: /
-          backendRefs:
-            - name: *app
-              port: 80
-        - matches:
-            - path:
-                type: PathPrefix
-                value: /rtc
-          backendRefs:
-            - name: *app
-              port: 7881
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - name: *app
+                port: 80
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /rtc
+            backendRefs:
+              - name: *app
+                port: 7881
 
 
     persistence:
