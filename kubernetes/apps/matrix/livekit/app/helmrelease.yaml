@@ -20,8 +20,8 @@ spec:
   values:
     controllers:
       *app :
-        pod:
-          hostNetwork: true
+#        pod:
+#          hostNetwork: true
 
         containers:
           app:
