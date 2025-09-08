@@ -4,7 +4,7 @@ httpRoute:
   hostnames: [ "git.${SECRET_DOMAIN}" ]
   parentRefs:
     - name: external
-      namespace: envoy-gateway-system
+      namespace: network
       sectionName: https
 
 image:

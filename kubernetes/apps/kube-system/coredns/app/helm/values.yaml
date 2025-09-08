@@ -34,7 +34,7 @@ servers:
           lameduck 5s
       - name: ready
       - name: rewrite
-        parameters: name substring idm.${SECRET_DOMAIN} envoy-envoy-gateway-system-external-7d05cf23.envoy-gateway-system.svc.cluster.local
+        parameters: name substring idm.${SECRET_DOMAIN} envoy-external.network.svc.cluster.local
       - name: kubernetes
         parameters: cluster.local in-addr.arpa ip6.arpa
         configBlock: |-
