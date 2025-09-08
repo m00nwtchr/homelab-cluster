@@ -2,14 +2,11 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: BackendTrafficPolicy
 metadata:
-  name: compression
+  name: envoy
 spec:
+  targetSelectors:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
   compression:
     - type: Brotli
-  targetRefs:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: external
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: internal
+    - type: Gzip
