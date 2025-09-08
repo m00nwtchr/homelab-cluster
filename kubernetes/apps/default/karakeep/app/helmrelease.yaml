@@ -195,7 +195,7 @@ spec:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: internal
-            namespace: envoy-gateway-system
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:

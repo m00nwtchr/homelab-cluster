@@ -6,7 +6,7 @@ metadata:
 spec:
   parentRefs:
     - name: internal
-      namespace: envoy-gateway-system
+      namespace: network
       sectionName: https
   hostnames:
     - "k8s.${SECRET_DOMAIN}"
