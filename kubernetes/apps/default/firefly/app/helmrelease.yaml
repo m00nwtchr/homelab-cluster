@@ -109,7 +109,7 @@ spec:
               APP_ENV: "production"
               APP_DEBUG: "false"
               LOG_CHANNEL: "stdout"
-              FIREFLY_III_URL: http://firefly.firefly.svc.cluster.local
+              FIREFLY_III_URL: http://firefly.default.svc.cluster.local
               VANITY_URL: "https://firefly.${SECRET_DOMAIN}"
               # FIREFLY_III_CLIENT_ID:
               #   valueFrom:
