@@ -110,7 +110,7 @@ spec:
 
     persistence:
       keys:
-        type: configMap
+        type: secret
         name: livekit-keys
         globalMounts:
           - path: /config/keys.yaml
