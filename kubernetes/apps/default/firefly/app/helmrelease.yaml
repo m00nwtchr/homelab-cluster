@@ -109,7 +109,7 @@ spec:
               APP_ENV: "production"
               APP_DEBUG: "false"
               LOG_CHANNEL: "stdout"
-              FIREFLY_III_URL: http://firefly.firefly.svc.cluster.local:8080
+              FIREFLY_III_URL: http://firefly.firefly.svc.cluster.local
               VANITY_URL: "https://firefly.${SECRET_DOMAIN}"
               # FIREFLY_III_CLIENT_ID:
               #   valueFrom:
@@ -143,7 +143,8 @@ spec:
         controller: data-importer
         ports:
           http:
-            port: 8080
+            port: 80
+            targetPort: 8080
             protocol: HTTP
             appProtocol: http
 
