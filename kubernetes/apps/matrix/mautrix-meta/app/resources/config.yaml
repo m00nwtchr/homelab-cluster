@@ -21,7 +21,7 @@ bridge:
 
 database:
   type: postgres
-  uri: postgres://{{ .username }}:{{ .password }}@pooler-rw.postgres.svc/${APP}?sslmode=disable
+  uri: postgres://{{ .username }}:{{ .password }}@se-pooler-rw.postgres.svc/${APP}?sslmode=disable
   max_open_conns: 5
   max_idle_conns: 1
   max_conn_idle_time: null
