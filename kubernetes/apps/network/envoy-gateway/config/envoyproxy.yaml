@@ -26,6 +26,9 @@ spec:
               cpu: 100m
             limits:
               memory: 1Gi
+      envoyService:
+        name: envoy-internal
+        externalTrafficPolicy: Cluster
   shutdown:
     drainTimeout: 180s
   telemetry:
@@ -62,7 +65,9 @@ spec:
             limits:
               memory: 1Gi
       envoyService:
+        name: envoy-external
         loadBalancerClass: "io.cilium/node"
+        externalTrafficPolicy: Cluster
   shutdown:
     drainTimeout: 180s
   telemetry:
