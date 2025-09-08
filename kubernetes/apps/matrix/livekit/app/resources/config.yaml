@@ -1,0 +1,21 @@
+port: 7880
+prometheus:
+  port: 6789
+log_level: info
+
+rtc:
+  tcp_port: 7881
+  port_range_start: 50000
+  port_range_end: 60000
+  use_external_ip: false
+  enable_loopback_candidate: false
+redis:
+  address: dragonfly.database.svc:6379
+  db: 11
+turn:
+  enabled: true
+  domain: livekit.${SECRET_DOMAIN}
+  tls_port: 443
+  udp_port: 3478
+  external_tls: true
+key_file: /config/keys.yaml
