@@ -10,4 +10,4 @@ spec:
       sectionName: udp
   rules:
     - backendRefs:
-        - name: livekit-server
+        - name: livekit
