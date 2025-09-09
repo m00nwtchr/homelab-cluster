@@ -129,7 +129,7 @@ spec:
               value: Object.spec.template.spec.volumes{
                 name: "rclone",
                 image: Object.spec.template.spec.volumes.image{
-                  reference: "ghcr.io/restic/restic:0.18.0@sha256:c34f8216c1536fc6a1677d088b195b9353e0f1615c842407efefb84ed761c435",
+                  reference: "ghcr.io/m00nwtchr/restic-rclone:0.18.0-1.71.0@sha256:d5d5823112bad547b953647c2d51a781886069d73a77d807db091cd6260ead3c",
                   pullPolicy: "IfNotPresent"
                 }
               }
