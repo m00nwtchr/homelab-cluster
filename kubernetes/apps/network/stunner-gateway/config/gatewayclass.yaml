@@ -5,10 +5,10 @@ metadata:
   name: stunner
 spec:
   logLevel: "all:DEBUG,turn:INFO"
-#  realm: stunner.l7mp.io
-#  authRef:
-#    name: stunner-auth-secret
-#    namespace: stunner
+  realm: stunner.l7mp.io
+  authType: static
+  userName: "user-1"
+  password: "pass-1"
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
