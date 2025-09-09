@@ -23,12 +23,12 @@ spec:
         kind: HelmRepository
         name: stunner
   install:
-    crds: CreateReplace
+    crds: Skip
     remediation:
       retries: -1
   upgrade:
     cleanupOnFail: true
-    crds: CreateReplace
+    crds: Skip
     remediation:
       retries: 3
   values:
