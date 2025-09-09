@@ -8,5 +8,14 @@ secretGenerator:
   - name: rclone-config
     files:
       - rclone.conf=resources/rclone.sops.conf
+  - name: volsync-mega-rclone-config
+    files:
+      - rclone.conf=resources/rclone.sops.conf
+    options:
+      annotations:
+        reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+        reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+        reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "media"
+      disableNameSuffixHash: true
 configurations:
   - ./resources/kustomizeconfig.yaml
