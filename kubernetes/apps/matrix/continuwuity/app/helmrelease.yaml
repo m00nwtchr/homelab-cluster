@@ -122,21 +122,23 @@ spec:
             backendRefs:
               - identifier: app
                 port: 80
-          - matches:
-              - path:
-                  type: Exact
-                  value: /.well-known/matrix/client
-            backendRefs: []
-            filters:
-              - type: ExtensionRef
-                extensionRef:
-                  group: gateway.envoyproxy.io
-                  kind: HTTPRouteFilter
-                  name: well-known-matrix-client
-              - type: CORS
-                cors:
-                  allowOrigins:
-                    - "https://*"
+#          - matches:
+#              - path:
+#                  type: Exact
+#                  value: /.well-known/matrix/client
+#            backendRefs:
+#              - identifier: app
+#                port: 80
+#            filters:
+#              - type: ExtensionRef
+#                extensionRef:
+#                  group: gateway.envoyproxy.io
+#                  kind: HTTPRouteFilter
+#                  name: well-known-matrix-client
+#              - type: CORS
+#                cors:
+#                  allowOrigins:
+#                    - "https://*"
 
     persistence:
       data:
