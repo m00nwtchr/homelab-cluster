@@ -26,8 +26,8 @@ spec:
               cpu: 100m
             limits:
               memory: 1Gi
-  shutdown:
-    drainTimeout: 180s
+#  shutdown:
+#    drainTimeout: 180s
   telemetry:
     metrics:
       prometheus:
@@ -63,8 +63,8 @@ spec:
               memory: 1Gi
       envoyService:
         loadBalancerClass: "io.cilium/node"
-  shutdown:
-    drainTimeout: 180s
+#  shutdown:
+#    drainTimeout: 180s
   telemetry:
     metrics:
       prometheus:
