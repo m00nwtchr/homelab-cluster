@@ -6,3 +6,4 @@ resources:
   - certificate.yaml
   - gateway.yaml
   - gatewayclass.yaml
+  - podmonitor.yaml
