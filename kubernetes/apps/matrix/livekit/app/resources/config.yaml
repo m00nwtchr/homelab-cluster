@@ -31,7 +31,8 @@ turn:
   external_tls: true
   domain: turn.${SECRET_DOMAIN}
 
-prometheus_port: 6789
+prometheus:
+  port: 6789
 log_level: info
 
 key_file: /config/keys.yaml
