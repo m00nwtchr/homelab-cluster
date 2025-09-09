@@ -111,7 +111,7 @@ spec:
               op: "add", path: "/spec/template/spec/containers/0/volumeMounts/-",
               value: Object.spec.template.spec.containers.volumeMounts{
                 name: "rclone",
-                mountPath: "/usr/local/sbin/",
+                mountPath: "/usr/local/bin/",
                 subPath: "usr/bin/"
               }
             },
