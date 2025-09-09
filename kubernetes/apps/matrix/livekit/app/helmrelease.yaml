@@ -59,7 +59,6 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
 
-
       jwt:
         containers:
           app:
@@ -145,7 +144,7 @@ spec:
                   type: PathPrefix
                   value: /sfu
             backendRefs:
-              - name: jwt
+              - name: livekit-jwt
                 port: 80
 
     persistence:
