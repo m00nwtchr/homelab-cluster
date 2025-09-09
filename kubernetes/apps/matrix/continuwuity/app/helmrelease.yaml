@@ -132,7 +132,7 @@ spec:
             filters:
               - type: CORS
                 cors:
-                  allowOrigins: ["*"]
+                  allowOrigins: ["https://*"]
               - type: ExtensionRef
                 extensionRef:
                   group: gateway.envoyproxy.io
