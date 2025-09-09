@@ -20,8 +20,8 @@ spec:
   values:
     controllers:
       *app :
-#        pod:
-#          hostNetwork: true
+        #        pod:
+        #          hostNetwork: true
 
         containers:
           app:
@@ -58,7 +58,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-#              capabilities: { drop: [ "ALL" ] }
+    #              capabilities: { drop: [ "ALL" ] }
     #            resources:
     #              requests:
     #                cpu: 100m
@@ -66,13 +66,13 @@ spec:
     #              limits:
     #                memory: 1Gi
 
-#    defaultPodOptions:
-#      securityContext:
-#        runAsNonRoot: true
-#        runAsUser: 2000
-#        runAsGroup: 2000
-#        fsGroup: 2000
-#        fsGroupChangePolicy: OnRootMismatch
+    #    defaultPodOptions:
+    #      securityContext:
+    #        runAsNonRoot: true
+    #        runAsUser: 2000
+    #        runAsGroup: 2000
+    #        fsGroup: 2000
+    #        fsGroupChangePolicy: OnRootMismatch
 
     service:
       app:
@@ -81,6 +81,8 @@ spec:
             port: 7880
           rtc-tcp:
             port: 7881
+          turn-tls:
+            port: 5349
           metrics:
             port: 6789
 
@@ -115,7 +117,16 @@ spec:
             backendRefs:
               - name: *app
                 port: 7881
-
+      turn:
+        kind: TCPRoute
+        parentRefs:
+          - name: external
+            namespace: network
+            sectionName: turn
+        rules:
+          - backendRefs:
+              - name: *app
+                port: 5349
 
     persistence:
       keys:
