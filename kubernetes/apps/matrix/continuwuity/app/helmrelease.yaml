@@ -126,7 +126,6 @@ spec:
               - path:
                   type: Exact
                   value: /.well-known/matrix/client
-                method: GET
             backendRefs: []
             filters:
               - type: ExtensionRef
@@ -134,17 +133,6 @@ spec:
                   group: gateway.envoyproxy.io
                   kind: HTTPRouteFilter
                   name: well-known-matrix-client
-              - type: CORS
-                cors:
-                  allowOrigins:
-                    - "http://*.foo.com"
-          - matches:
-              - path:
-                  type: Exact
-                  value: /.well-known/matrix/client
-                method: OPTIONS
-            backendRefs: []
-            filters:
               - type: CORS
                 cors:
                   allowOrigins:
