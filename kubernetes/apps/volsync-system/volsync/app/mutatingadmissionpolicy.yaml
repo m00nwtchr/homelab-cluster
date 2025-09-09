@@ -81,7 +81,7 @@ spec:
 
     - name: in-media-namespace
       expression: >-
-        object.metadata.namespace == "media
+        object.metadata.namespace == "media"
 
     - name: has-volsync-created-by-labels
       expression: >-
@@ -103,7 +103,7 @@ spec:
               op: "add", path: "/spec/template/spec/containers/0/volumeMounts/-",
               value: Object.spec.template.spec.containers.volumeMounts{
                 name: "rclone",
-                mountPath: "/.rclone.conf"
+                mountPath: "/.rclone.conf",
                 subPath: "rclone.conf
               }
             },
@@ -112,7 +112,7 @@ spec:
               value: Object.spec.template.spec.volumes{
                 name: "rclone",
                 secret: Object.spec.template.spec.volumes.secret{
-                  secretName: "volsync-mega-rclone-config",
+                  secretName: "volsync-mega-rclone-config"
                 }
               }
             }
