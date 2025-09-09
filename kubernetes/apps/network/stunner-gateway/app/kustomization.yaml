@@ -4,3 +4,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./helmrelease.yaml
+  - https://raw.githubusercontent.com/l7mp/stunner-helm/refs/heads/main/helm/stunner-gateway-operator/crds/stunner-crd.yaml
