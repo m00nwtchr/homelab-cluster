@@ -129,7 +129,7 @@ spec:
               value: Object.spec.template.spec.volumes{
                 name: "rclone",
                 image: Object.spec.template.spec.volumes.image{
-                  reference: "instrumentisto/restic:0.18@sha256:ccf8aa0debcda0f9a487f4b76fc39361d48b460d84b8198c6c7dc68d435e2245",
+                  reference: "docker.io/rclone/rclone:1.71.0@sha256:fd635aecd9667ee3c3bf920d14118090d4f2a83a080c1fa77e0bafbd4587ca87",
                   pullPolicy: "IfNotPresent"
                 }
               }
