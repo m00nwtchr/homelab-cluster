@@ -58,6 +58,27 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
+
+
+      lk-jwt:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/element-hq/lk-jwt-service
+              tag: 0.3.0sha256:52357326970d3f3e3cf6e9c33766e49cf2665e2cd57842e29a5c298514bd2e58
+            env:
+              LIVEKIT_URL: wss://livekit.${SECRET_DOMAIN}
+              LIVEKIT_KEY_FILE: /config/keys.yaml
+              LIVEKIT_FULL_ACCESS_HOMESERVERS: "${SECRET_DOMAIN}"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+
+
     #              capabilities: { drop: [ "ALL" ] }
     #            resources:
     #              requests:
@@ -76,15 +97,22 @@ spec:
 
     service:
       app:
+        controller: *app
         ports:
           http:
-            port: 7880
+            port: 80
+            targetPort: 7880
           rtc-tcp:
             port: 7881
-          turn-tls:
-            port: 5349
           metrics:
             port: 6789
+
+      jwt:
+        controller: lt-jwt
+        ports:
+          http:
+            port: 80
+            targetPort: 8080
 
     serviceMonitor:
       app:
@@ -109,24 +137,14 @@ spec:
                   value: /
             backendRefs:
               - name: *app
-                port: 7880
-#          - matches:
-#              - path:
-#                  type: PathPrefix
-#                  value: /rtc
-#            backendRefs:
-#              - name: *app
-#                port: 7881
-      turn:
-        kind: TCPRoute
-        parentRefs:
-          - name: external
-            namespace: network
-            sectionName: turn
-        rules:
-          - backendRefs:
+                port: 80
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /sfu
+            backendRefs:
               - name: *app
-                port: 5349
+                port: 7880
 
     persistence:
       keys:
