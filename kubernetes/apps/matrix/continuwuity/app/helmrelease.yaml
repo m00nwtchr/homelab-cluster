@@ -96,7 +96,7 @@ spec:
                 port: 80
           - matches:
               - path:
-                  type: PathPrefix
+                  type: Exact
                   value: /.well-known/matrix/client
             backendRefs:
               - identifier: app
@@ -136,7 +136,7 @@ spec:
                 port: 80
           - matches:
               - path:
-                  type: PathPrefix
+                  type: Exact
                   value: /.well-known/matrix/client
             backendRefs:
               - identifier: app
