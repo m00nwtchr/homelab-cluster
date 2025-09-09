@@ -44,3 +44,10 @@ spec:
               image:
                 name: mirror.gcr.io/l7mp/stunner-gateway-operator
 
+
+    stunnerAuthService:
+      deployment:
+        container:
+          authService:
+            image:
+              name: mirror.gcr.io/l7mp/stunner-auth-server
