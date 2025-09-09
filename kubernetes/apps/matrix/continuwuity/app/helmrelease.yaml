@@ -133,6 +133,10 @@ spec:
                   group: gateway.envoyproxy.io
                   kind: HTTPRouteFilter
                   name: well-known-matrix-client
+              - type: CORS
+                cors:
+                  allowOrigins:
+                    - "http://*.foo.com"
 
     persistence:
       data:
