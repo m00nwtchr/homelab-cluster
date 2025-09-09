@@ -102,17 +102,35 @@ spec:
             JSONPatch{
               op: "add", path: "/spec/template/spec/containers/0/volumeMounts/-",
               value: Object.spec.template.spec.containers.volumeMounts{
-                name: "rclone",
+                name: "rclone-config",
                 mountPath: "/.rclone.conf",
                 subPath: "rclone.conf"
+              }
+            },
+            JSONPatch{
+              op: "add", path: "/spec/template/spec/containers/0/volumeMounts/-",
+              value: Object.spec.template.spec.containers.volumeMounts{
+                name: "rclone",
+                mountPath: "/usr/local/bin/rclone",
+                subPath: "/usr/local/bin/rclone"
+              }
+            },
+            JSONPatch{
+              op: "add", path: "/spec/template/spec/volumes/-",
+              value: Object.spec.template.spec.volumes{
+                name: "rclone-config",
+                secret: Object.spec.template.spec.volumes.secret{
+                  secretName: "volsync-mega-rclone-config"
+                }
               }
             },
             JSONPatch{
               op: "add", path: "/spec/template/spec/volumes/-",
               value: Object.spec.template.spec.volumes{
                 name: "rclone",
-                secret: Object.spec.template.spec.volumes.secret{
-                  secretName: "volsync-mega-rclone-config"
+                image: Object.spec.template.spec.volumes.image{
+                  reference: "docker.io/rclone/rclone:1.71.0@sha256:fd635aecd9667ee3c3bf920d14118090d4f2a83a080c1fa77e0bafbd4587ca87",
+                  pullPolicy: "IfNotPresent"
                 }
               }
             }
