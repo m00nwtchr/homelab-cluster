@@ -35,4 +35,12 @@ spec:
     stunnerGatewayOperator:
       dataplane:
         spec:
+          image:
+            name: mirror.gcr.io/l7mp/stunnerd
           enableMetricsEndpoint: true
+        deployment:
+          container:
+            manager:
+              image:
+                name: mirror.gcr.io/l7mp/stunner-gateway-operator
+
