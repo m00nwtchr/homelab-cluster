@@ -86,6 +86,14 @@ spec:
             port: 80
             targetPort: *port
 
+    serviceMonitor:
+      app:
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+
     route:
       app:
         hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
