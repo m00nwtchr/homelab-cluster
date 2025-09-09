@@ -10,6 +10,8 @@ spec:
     algorithm: ECDSA
     size: 256
   commonName: "turn.${SECRET_DOMAIN}"
+  dnsNames:
+    - "turn.${SECRET_DOMAIN}"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
