@@ -130,14 +130,14 @@ spec:
               - identifier: app
                 port: 80
             filters:
-              - type: CORS
-                cors:
-                  allowOrigins: ["https://*"]
               - type: ExtensionRef
                 extensionRef:
                   group: gateway.envoyproxy.io
                   kind: HTTPRouteFilter
                   name: well-known-matrix-client
+              - type: CORS
+                cors:
+                  allowOrigins: ["https://*"]
 
     persistence:
       data:
