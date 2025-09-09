@@ -33,17 +33,16 @@ spec:
       retries: 3
   values:
     stunnerGatewayOperator:
-      dataplane:
-        spec:
-          image:
-            name: mirror.gcr.io/l7mp/stunnerd
-          enableMetricsEndpoint: true
       deployment:
         container:
           manager:
             image:
               name: mirror.gcr.io/l7mp/stunner-gateway-operator
-
+      dataplane:
+        spec:
+          image:
+            name: mirror.gcr.io/l7mp/stunnerd
+          enableMetricsEndpoint: true
 
     stunnerAuthService:
       deployment:
