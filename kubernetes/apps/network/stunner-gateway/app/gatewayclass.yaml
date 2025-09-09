@@ -1,0 +1,24 @@
+---
+apiVersion: stunner.l7mp.io/v1
+kind: GatewayConfig
+metadata:
+  name: stunner
+spec:
+  logLevel: "all:DEBUG,turn:INFO"
+#  realm: stunner.l7mp.io
+#  authRef:
+#    name: stunner-auth-secret
+#    namespace: stunner
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: stunner
+spec:
+  controllerName: "stunner.l7mp.io/gateway-operator"
+  parametersRef:
+    group: "stunner.l7mp.io"
+    kind: GatewayConfig
+    name: stunner
+    namespace: network
+  description: "STUNner is a WebRTC ingress gateway for Kubernetes"

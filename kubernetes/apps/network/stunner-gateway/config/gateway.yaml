@@ -1,0 +1,32 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/gateway_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: stunner
+  annotations:
+    #    metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
+    external-dns.alpha.kubernetes.io/target: "turn.${SECRET_DOMAIN}"
+    stunner.l7mp.io/enable-mixed-protocol-lb: "true"
+    stunner.l7mp.io/external-traffic-policy: local
+spec:
+  gatewayClassName: stunner
+  #  addresses:
+  #    - type: IPAddress
+  #      value: "2a02:a313:43e4:7080::7dc5"
+  infrastructure:
+    annotations:
+      #      metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
+      external-dns.alpha.kubernetes.io/hostname: "turn.${SECRET_DOMAIN}"
+  listeners:
+    - name: udp
+      port: 3478
+      protocol: TURN-UDP
+    - name: tls
+      port: 5349
+      protocol: TURN-TLS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: turn-${SECRET_DOMAIN/./-}-tls
