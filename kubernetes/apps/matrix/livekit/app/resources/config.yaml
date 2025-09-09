@@ -8,19 +8,28 @@ rtc:
   tcp_port: 7881
   port_range_start: 50000
   port_range_end: 60000
-  stun_servers:
-    - turn.${SECRET_DOMAIN}:3478
-  turn_servers:
-    - host: turn.${SECRET_DOMAIN}
-      port: 3478
-      protocol: udp
-      username: user-1
-      credential: pass-1
+  #  stun_servers:
+  #    - turn.${SECRET_DOMAIN}:3478
+  #  turn_servers:
+  #    - host: turn.${SECRET_DOMAIN}
+  #      port: 3478
+  #      protocol: udp
+  #      username: user-1
+  #      credential: pass-1
   use_external_ip: false
   enable_loopback_candidate: false
 
 turn:
-  enabled: false
+  enabled: true
+  # defaults to 3478 - recommended to 443 if not running HTTP3/QUIC server
+  # only 53/80/443 are allowed if less than 1024
+  udp_port: 3478
+  # defaults to 5349 - if not using a load balancer, this must be set to 443
+  tls_port: 5349
+  # set external_tls to true if using a L4 load balancer to terminate TLS. when enabled,
+  # LiveKit expects unencrypted traffic on tls_port, and still advertise tls_port as a TURN/TLS candidate.
+  external_tls: true
+  domain: turn.${SECRET_DOMAIN}
 
 prometheus_port: 6789
 log_level: info
