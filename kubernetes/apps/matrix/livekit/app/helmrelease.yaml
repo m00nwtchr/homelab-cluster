@@ -110,13 +110,13 @@ spec:
             backendRefs:
               - name: *app
                 port: 7880
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /rtc
-            backendRefs:
-              - name: *app
-                port: 7881
+#          - matches:
+#              - path:
+#                  type: PathPrefix
+#                  value: /rtc
+#            backendRefs:
+#              - name: *app
+#                port: 7881
       turn:
         kind: TCPRoute
         parentRefs:
