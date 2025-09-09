@@ -81,6 +81,17 @@ spec:
             port: 7880
           rtc-tcp:
             port: 7881
+          metrics:
+            port: 6789
+
+    serviceMonitor:
+      app:
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
 
     route:
       app:
