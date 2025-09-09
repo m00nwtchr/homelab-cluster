@@ -60,7 +60,7 @@ spec:
               readOnlyRootFilesystem: true
 
 
-      lk-jwt:
+      jwt:
         containers:
           app:
             image:
@@ -108,7 +108,7 @@ spec:
             port: 6789
 
       jwt:
-        controller: lt-jwt
+        controller: jwt
         ports:
           http:
             port: 80
@@ -143,8 +143,8 @@ spec:
                   type: PathPrefix
                   value: /sfu
             backendRefs:
-              - name: *app
-                port: 7880
+              - name: jwt
+                port: 80
 
     persistence:
       keys:
