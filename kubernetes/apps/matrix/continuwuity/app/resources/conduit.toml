@@ -24,7 +24,7 @@ allow_federation = true
 
 # Additional config
 [global.well_known]
-client = "https://matrix.${SECRET_DOMAIN}"
+#client = "https://matrix.${SECRET_DOMAIN}"
 server = "matrix-fed.${SECRET_DOMAIN}:443"
 
 #support_page =
