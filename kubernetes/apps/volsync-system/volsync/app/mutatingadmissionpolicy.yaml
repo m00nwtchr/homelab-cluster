@@ -112,7 +112,7 @@ spec:
               value: Object.spec.template.spec.containers.volumeMounts{
                 name: "rclone",
                 mountPath: "/usr/local/bin/rclone",
-                subPath: "/usr/local/bin/rclone"
+                subPath: "usr/local/bin/rclone"
               }
             },
             JSONPatch{
