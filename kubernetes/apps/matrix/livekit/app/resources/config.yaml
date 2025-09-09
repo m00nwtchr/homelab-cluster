@@ -22,8 +22,7 @@ rtc:
 turn:
   enabled: false
 
-prometheus:
-  port: 6789
+prometheus_port: 6789
 log_level: info
 
 key_file: /config/keys.yaml
