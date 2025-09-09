@@ -7,6 +7,7 @@ resources:
   - httproutefilter.yaml
   - sealedsecret.yaml
   - secretstore.yaml
+  - securitypolicy.yaml
 configMapGenerator:
   - name: conduit-configmap
     files:

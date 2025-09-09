@@ -1,0 +1,13 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: &name ${APP}-well-known
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: *name
+  cors:
+    allowOrigins:
+      - "https://*"
