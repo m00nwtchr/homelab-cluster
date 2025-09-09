@@ -136,7 +136,7 @@ spec:
               - type: CORS
                 cors:
                   allowOrigins:
-                    - "http://*.foo.com"
+                    - "https://*"
 
     persistence:
       data:
