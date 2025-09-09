@@ -111,8 +111,7 @@ spec:
               op: "add", path: "/spec/template/spec/containers/0/volumeMounts/-",
               value: Object.spec.template.spec.containers.volumeMounts{
                 name: "rclone",
-                mountPath: "/usr/local/bin/",
-                subPath: "usr/bin/"
+                mountPath: "/usr/local/sbin/"
               }
             },
             JSONPatch{
@@ -129,7 +128,7 @@ spec:
               value: Object.spec.template.spec.volumes{
                 name: "rclone",
                 image: Object.spec.template.spec.volumes.image{
-                  reference: "ghcr.io/m00nwtchr/restic-rclone:0.18.0-1.71.0@sha256:d5d5823112bad547b953647c2d51a781886069d73a77d807db091cd6260ead3c",
+                  reference: "ghcr.io/m00nwtchr/restic-rclone:0.18.0-1.71.0@sha256:763d2cb7454fd94f6ff473009f462b3c6bfb5b120c24bf33a6fa23e5be747ad2",
                   pullPolicy: "IfNotPresent"
                 }
               }
