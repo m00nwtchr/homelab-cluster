@@ -16,7 +16,7 @@ spec:
       name: *app
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/network/stunner/app
+  path: ./kubernetes/apps/network/stunner-gateway/app
   prune: true
   retryInterval: 2m
   sourceRef:
@@ -43,7 +43,7 @@ spec:
     - name: stunner-gateway
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/network/stunner/config
+  path: ./kubernetes/apps/network/stunner-gateway/config
   postBuild:
     substituteFrom:
       - name: cluster-secrets
