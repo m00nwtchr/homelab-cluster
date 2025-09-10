@@ -34,6 +34,6 @@ spec:
     fullnameOverride: promtail
     config:
       clients:
-        - url: "http://vlsingle-vl.observability.svc.cluster.local:9428/insert/loki/api/v1/push?_stream_fields=instance,job"
+        - url: "http://vlsingle-vl.observability.svc.cluster.local:9428/insert/loki/api/v1/push"
     serviceMonitor:
       enabled: true
