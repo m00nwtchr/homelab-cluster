@@ -59,6 +59,9 @@ spec:
       enabled: false
 
     kubernetesServiceMonitors:
+      enabled: true
+
+    kubeProxy:
       enabled: false
 
     prometheus:
