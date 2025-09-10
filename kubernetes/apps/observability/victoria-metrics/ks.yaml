@@ -33,6 +33,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components: []
+  dependsOn:
+    - name: victoria-metrics-operator
+      namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/observability/victoria-metrics/logs
   prune: true
