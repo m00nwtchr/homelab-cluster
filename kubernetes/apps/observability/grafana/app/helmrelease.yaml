@@ -78,7 +78,7 @@ spec:
         apiVersion: 1
         deleteDatasources:
           - { name: Alertmanager, orgId: 1 }
-          - { name: Loki, orgId: 1 }
+          - { name: VictoriaLogs, orgId: 1 }
           - { name: VictoriaMetrics, orgId: 1 }
         datasources:
           - name: VictoriaMetrics
@@ -87,11 +87,11 @@ spec:
             access: proxy
             url: http://vmsingle-vmks.observability.svc.cluster.local:8428
             isDefault: true
-          - name: Loki
+          - name: VictoriaLogs
             type: loki
-            uid: loki
+            uid: victorialogs
             access: proxy
-            url: http://loki-headless.observability.svc.cluster.local:3100
+            url: http://vlsingle-vl.observability.svc.cluster.local:9428
             jsonData:
               maxLines: 250
           - name: Alertmanager
