@@ -79,3 +79,10 @@ spec:
         globalMounts:
           - path: /etc/cloudflared/config.yaml
             subPath: config.yaml
+
+      credentials:
+        name: cloudflare-tunnel-secret
+        type: secret
+        globalMounts:
+          - path: /etc/cloudflared/creds/credentials.json
+            subPath: credentials.json
