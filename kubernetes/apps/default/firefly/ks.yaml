@@ -12,7 +12,7 @@ spec:
   components:
     - ../../../../components/volsync
     - ../../../../components/database
-#    - ../../../../components/envoy-oidc
+#    - ../../../../components/oidc/envoy
 #  dependsOn:
 #    - name: rook-ceph-cluster
 #      namespace: rook-ceph
