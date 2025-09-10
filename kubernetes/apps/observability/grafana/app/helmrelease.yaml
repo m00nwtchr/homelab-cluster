@@ -88,7 +88,7 @@ spec:
             url: http://vmsingle-vmks.observability.svc.cluster.local:8428
             isDefault: true
           - name: VictoriaLogs
-            type: loki
+            type: victoriametrics-logs-datasource
             uid: victorialogs
             access: proxy
             url: http://vlsingle-vl.observability.svc.cluster.local:9428
@@ -248,6 +248,7 @@ spec:
         labelValue: ""
     plugins:
       - victoriametrics-metrics-datasource
+      - victoriametrics-logs-datasource
       - grafana-clock-panel
       - grafana-piechart-panel
       - grafana-worldmap-panel
