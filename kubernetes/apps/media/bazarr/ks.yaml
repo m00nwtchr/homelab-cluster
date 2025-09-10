@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/envoy-oidc
+    - ../../../../components/oidc/envoy
   #    - ../../../../components/volsync
     - ../../../../components/database
   dependsOn:
