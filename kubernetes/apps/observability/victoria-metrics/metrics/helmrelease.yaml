@@ -111,15 +111,19 @@ spec:
 
     prometheus-node-exporter:
       fullnameOverride: node-exporter
-      prometheus:
-        monitor:
-#          enabled: false
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels: [ "__meta_kubernetes_pod_node_name" ]
-              targetLabel: kubernetes_node
+      vmScrape:
+        spec:
+          endpoints:
+            - port: metrics
+              metricRelabelConfigs:
+                - action: drop
+                  source_labels: [ mountpoint ]
+                  regex: "/var/lib/kubelet/pods.+"
+                - action: replace
+                  regex: (.*)
+                  replacement: $1
+                  sourceLabels: [ "__meta_kubernetes_pod_node_name" ]
+                  targetLabel: kubernetes_node
 
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
@@ -127,16 +131,20 @@ spec:
         - pods=[*]
         - deployments=[*]
         - persistentvolumeclaims=[*]
-      prometheus:
-        monitor:
-#          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels: [ "__meta_kubernetes_pod_node_name" ]
-              targetLabel: kubernetes_node
-
+      vmScrape:
+        enabled: true
+        spec:
+          endpoints:
+            - port: http
+              honorLabels: true
+              metricRelabelConfigs:
+                - action: labeldrop
+                  regex: (uid|container_id|image_id)
+                - action: replace
+                  regex: (.*)
+                  replacement: $1
+                  sourceLabels: [ "__meta_kubernetes_pod_node_name" ]
+                  targetLabel: kubernetes_node
     grafana:
       enabled: false
 
