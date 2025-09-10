@@ -119,6 +119,7 @@ spec:
                 - action: drop
                   source_labels: [ mountpoint ]
                   regex: "/var/lib/kubelet/pods.+"
+              relabelConfigs:
                 - action: replace
                   regex: (.*)
                   replacement: $1
@@ -140,6 +141,7 @@ spec:
               metricRelabelConfigs:
                 - action: labeldrop
                   regex: (uid|container_id|image_id)
+              relabelConfigs:
                 - action: replace
                   regex: (.*)
                   replacement: $1
