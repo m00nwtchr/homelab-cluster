@@ -1,0 +1,12 @@
+---
+apiVersion: operator.victoriametrics.com/v1
+kind: VLSingle
+metadata:
+  name: vl
+spec:
+  retentionPeriod: 30m
+  retentionMaxDiskSpaceUsageBytes: 20GB
+  storage:
+    resources:
+      requests:
+        storage: 50Gi
