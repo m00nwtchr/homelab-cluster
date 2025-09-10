@@ -9,6 +9,9 @@ spec:
     - dnsName: external.${SECRET_DOMAIN}
       recordType: AAAA
       targets: ["2a02:a313:43e4:7080::7dc5"]
+    - dnsName: cftunnel.${SECRET_DOMAIN}
+      recordType: CNAME
+      targets: ["441fc81d-5800-4fb7-adb7-6e2ec19dc6dc.cfargotunnel.com"]
     - dnsName: _443._tcp.idm.${SECRET_DOMAIN}
       recordType: CNAME
       targets: ["_443._tcp.external.${SECRET_DOMAIN}"]

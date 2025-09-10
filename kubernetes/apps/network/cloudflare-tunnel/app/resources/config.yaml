@@ -1,4 +1,8 @@
 ---
+tunnel: HS
+credentials-file: /etc/cloudflared/creds/credentials.json
+no-autoupdate: true
+
 originRequest:
   originServerName: "external.${SECRET_DOMAIN}"
 
@@ -7,8 +11,8 @@ ingress:
     service: &svc https://external.network.svc.cluster.local
   - hostname: "*.voltkonekt.pl"
     service: *svc
-#  - hostname: "${SECRET_DOMAIN}"
-#    service: &svc https://cilium-gateway-external.kube-system.svc.cluster.local
-#  - hostname: "*.${SECRET_DOMAIN}"
-#    service: *svc
+  - hostname: "${SECRET_DOMAIN}"
+    service: *svc
+  - hostname: "*.${SECRET_DOMAIN}"
+    service: *svc
   - service: http_status:404
