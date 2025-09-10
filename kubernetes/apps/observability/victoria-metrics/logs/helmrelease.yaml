@@ -32,7 +32,8 @@ spec:
       retries: 3
   values:
     global:
-      imageRegistry: mirror.gcr.io
+      image:
+        registry: mirror.gcr.io
 
     remoteWrite:
       - url: http://vlsingle-vl:9428
