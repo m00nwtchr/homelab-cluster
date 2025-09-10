@@ -31,5 +31,8 @@ spec:
     remediation:
       retries: 3
   values:
+    global:
+      imageRegistry: mirror.gcr.io
+
     remoteWrite:
       - url: http://vlsingle-vl:9428
