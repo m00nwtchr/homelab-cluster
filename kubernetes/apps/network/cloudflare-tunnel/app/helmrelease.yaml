@@ -32,9 +32,6 @@ spec:
               TUNNEL_ORIGIN_ENABLE_HTTP2: true
               TUNNEL_POST_QUANTUM: true
               TUNNEL_TRANSPORT_PROTOCOL: quic
-            envFrom:
-              - secretRef:
-                  name: cloudflare-tunnel-secret
             args: ["tunnel", "run"]
             probes:
               liveness: &probes
