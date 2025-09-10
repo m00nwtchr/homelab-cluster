@@ -57,7 +57,7 @@ spec:
       transforms:
         json_parser:
           type: remap
-          inputs: [ k8s ]
+          inputs: [ kubernetes_logs ]
           source: |
             .message = parse_json(.message) ?? .message
 
