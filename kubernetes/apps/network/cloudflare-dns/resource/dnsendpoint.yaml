@@ -12,6 +12,9 @@ spec:
     - dnsName: cftunnel.${SECRET_DOMAIN}
       recordType: CNAME
       targets: ["441fc81d-5800-4fb7-adb7-6e2ec19dc6dc.cfargotunnel.com"]
+      providerSpecific:
+        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
+          value: "true"
     - dnsName: _443._tcp.idm.${SECRET_DOMAIN}
       recordType: CNAME
       targets: ["_443._tcp.external.${SECRET_DOMAIN}"]
