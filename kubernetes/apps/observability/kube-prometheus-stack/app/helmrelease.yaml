@@ -66,7 +66,7 @@ spec:
     kubeProxy:
       enabled: false
     kubeScheduler:
-      enabled: false
+      enabled: true
     kubeApiServer:
       enabled: false
     coreDns:
