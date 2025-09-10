@@ -77,10 +77,6 @@ spec:
           http:
             port: 80
             targetPort: *port
-
-      metrics:
-        controller: *app
-        ports:
           metrics:
             port: 9090
 
@@ -98,7 +94,7 @@ spec:
 
     serviceMonitor:
       app:
-        serviceName: metrics
+        serviceName: *app
         endpoints:
           - port: metrics
             scheme: http
