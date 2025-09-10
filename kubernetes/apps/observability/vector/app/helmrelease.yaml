@@ -36,6 +36,8 @@ spec:
     podMonitor:
       enabled: true
 
+    role: Agent
+
     customConfig:
       data_dir: /vector-data-dir
       sources:
