@@ -36,6 +36,9 @@ spec:
     podMonitor:
       enabled: true
 
+    image:
+      repository: "mirror.gcr.io/timberio/vector"
+
     role: Agent
 
     customConfig:
