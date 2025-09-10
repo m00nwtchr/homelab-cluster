@@ -4,7 +4,7 @@ kind: VLSingle
 metadata:
   name: vl
 spec:
-  retentionPeriod: 30m
+  retentionPeriod: 30d
   retentionMaxDiskSpaceUsageBytes: 20GB
   storage:
     resources:
