@@ -21,6 +21,7 @@ registration_token_file = "/config/token"
 new_user_displayname_suffix = ""
 
 allow_federation = true
+trusted_servers = ["codestorm.net", "envs.net"]
 
 # Additional config
 [global.well_known]
