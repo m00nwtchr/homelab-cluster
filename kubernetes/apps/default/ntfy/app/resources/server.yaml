@@ -10,3 +10,6 @@ cache-file: /cache/cache.db
 listen-http: "[::]:8080"
 enable-metrics: true
 metrics-listen-http: "[::]:9090"
+
+log-level: info
+log-format: json
