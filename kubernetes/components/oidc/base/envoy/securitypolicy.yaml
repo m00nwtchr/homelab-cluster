@@ -14,5 +14,5 @@ spec:
     clientID: "${APP}"
     clientSecret:
       name: "kanidm-${APP}-oidc"
-    redirectURL: "https://${APP}.${SECRET_DOMAIN}/oauth2/callback"
+    redirectURL: "https://${SUBDOMAIN:=${APP}}.${SECRET_DOMAIN}/oauth2/callback"
     logoutPath: "/logout"
