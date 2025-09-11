@@ -20,7 +20,8 @@ data:
             "public": ${PUBLIC},
             "preferShortUsername": ${SHORT_USERNAME},
             "enableLegacyCrypto": ${LEGACY_CRYPTO},
-            "allowInsecureClientDisablePkce": ${DISABLE_PKCE}
+            "allowInsecureClientDisablePkce": ${DISABLE_PKCE},
+            "scopeMaps": ${SCOPE_MAPS:=${emptyState}}
           }
         }
       }
