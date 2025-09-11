@@ -25,4 +25,10 @@ data:
         }
       }
     }
-  custom.json: "${CUSTOM_STATE}"
+  custom.json: |
+    {
+      "systems": {
+        "oauth2": {
+          "${APP}": ${CUSTOM_STATE},
+        }
+    }
