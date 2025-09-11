@@ -4,6 +4,8 @@ kind: ConfigMap
 metadata:
   name: kanidm-${APP}-oidc
   namespace: kanidm
+  labels:
+    kanidm_config: "1"
 data:
   targetNamespace: "${NAMESPACE}"
   state.json: |
