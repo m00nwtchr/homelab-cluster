@@ -25,5 +25,4 @@ data:
         }
       }
     }
-  custom.json: |
-    ${CUSTOM_STATE}
+  custom.json: "${CUSTOM_STATE}"
