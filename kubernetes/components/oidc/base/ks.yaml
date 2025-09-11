@@ -22,12 +22,14 @@ spec:
       ORIGIN: ${OIDC_ORIGIN:=/}
       DISPLAY_NAME: ${OIDC_DISPLAY_NAME:=${APP}}
 
-      PUBLIC: "${OIDC_PUBLIC_CLIENT:=\"false\"}"
-      SHORT_USERNAME: "${OIDC_SHORT_USERNAME:=\"false\"}"
-      LEGACY_CRYPTO: "${OIDC_LEGACY_CRYPTO:=\"false\"}"
-      DISABLE_PKCE: "${OIDC_DISABLE_PKCE:=\"false\"}"
+      PUBLIC: '"${OIDC_PUBLIC_CLIENT:=false}"'
+      SHORT_USERNAME: '"${OIDC_SHORT_USERNAME:=false}"'
+      LEGACY_CRYPTO: '"${OIDC_LEGACY_CRYPTO:=false}"'
+      DISABLE_PKCE: '"${OIDC_DISABLE_PKCE:=false}"'
 
-      CUSTOM_STATE: '"{}"'
+      CUSTOM_STATE: "{}"
+
+      quote: '"'
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
