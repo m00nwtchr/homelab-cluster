@@ -1,0 +1,39 @@
+---
+machine:
+  install:
+    diskSelector:
+      model: Samsung SSD 980 PRO 500GB
+  network:
+    hostname: m00nsrv.m00nlit.internal
+    interfaces:
+      - interface: bond0
+        bond:
+          deviceSelectors:
+            - hardwareAddr: 9c:6b:00:08:bb:03
+              driver: r8169
+          mode: active-backup
+        dhcp: true
+        vip:
+          ip: "2a02:a313:43e4:7080::7dc5"
+#        vlans:
+#          - vlanId: 303
+#            dhcp: false
+#            mtu: 1500
+#  nodeLabels:
+#    intel.feature.node.kubernetes.io/gpu: "true"
+#---
+#apiVersion: v1alpha1
+#kind: VolumeConfig
+#name: EPHEMERAL
+#provisioning:
+#  diskSelector:
+#    match: system_disk
+#  maxSize: 512GiB
+#---
+#apiVersion: v1alpha1
+#kind: UserVolumeConfig
+#name: local-hostpath
+#provisioning:
+#  diskSelector:
+#    match: system_disk
+#  maxSize: 256GiB
