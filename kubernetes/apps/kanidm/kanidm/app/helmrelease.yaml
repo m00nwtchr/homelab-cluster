@@ -35,25 +35,25 @@ spec:
             fsGroup: 999
             fsGroupChangePolicy: "OnRootMismatch"
 
-#        initContainers:
-#          kanidm-db-vacuum:
-#            image:
-#              repository: docker.io/kanidm/server
-#              tag: 1.6.3@sha256:8141f14aa62a271204bf3a0e2207d9a7c565e63a1bcd295aff4444e35967f1b8
-#
-#            args:
-#              - kanidmd
-#              - database
-#              - vacuum
-#              - -c
-#              - /data/server.toml
-#
-#            securityContext:
-#              runAsUser: 999
-#              runAsGroup: 999
-#              runAsNonRoot: true
-#              capabilities:
-#                drop: [ "ALL" ]
+        #        initContainers:
+        #          kanidm-db-vacuum:
+        #            image:
+        #              repository: docker.io/kanidm/server
+        #              tag: 1.6.3@sha256:8141f14aa62a271204bf3a0e2207d9a7c565e63a1bcd295aff4444e35967f1b8
+        #
+        #            args:
+        #              - kanidmd
+        #              - database
+        #              - vacuum
+        #              - -c
+        #              - /data/server.toml
+        #
+        #            securityContext:
+        #              runAsUser: 999
+        #              runAsGroup: 999
+        #              runAsNonRoot: true
+        #              capabilities:
+        #                drop: [ "ALL" ]
 
         containers:
           app:
@@ -83,6 +83,21 @@ spec:
               requests:
                 cpu: 10m
                 memory: 50Mi
+            securityContext:
+              capabilities:
+                drop:
+                  - ALL
+          provision:
+            image:
+              repository: ghcr.io/m00nwtchr/kanidm-provision
+              tag: 0.3.0@sha256:5f81479f949d3f1e713bc5edb8359b8a8a960dbdd7b074f2b10a09e3e143d1ca
+            env:
+              KANIDM_INSTANCE: "https://idm.${SECRET_DOMAIN}"
+              KANIDM_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: kanidm-token
+                    key: token
             securityContext:
               capabilities:
                 drop:
@@ -131,3 +146,34 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /var/run
+
+    rbac:
+      roles:
+        *app :
+          type: ClusterRole
+          rules:
+            - apiGroups: [ "" ]
+              resources: [ "secrets" ]
+              verbs: [ "create", "update" ]
+        kanidm-read:
+          type: Role
+          rules:
+            - apiGroups: [ "" ]
+              resources: [ "secrets" ]
+              verbs: [ "get", "list", "watch" ]
+      bindings:
+        *app :
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: *app
+          subjects:
+            - identifier: *app
+        kanidm-read:
+          type: RoleBinding
+          roleRef:
+            identifier: kanidm-read
+          subjects:
+            - identifier: *app
+
+    serviceAccount:
+      *app : { }

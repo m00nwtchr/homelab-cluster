@@ -6,6 +6,7 @@ resources:
   - ./backendtlspolicy.yaml
   - ./certificate.yaml
   - ./helmrelease.yaml
+  - ./secret.sops.yaml
 configMapGenerator:
   - name: kanidm-configmap
     files:
