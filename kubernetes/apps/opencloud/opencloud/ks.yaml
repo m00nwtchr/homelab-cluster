@@ -25,6 +25,7 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      SUBDOMAIN: cloud
       OIDC_PUBLIC_CLIENT: "true"
       OIDC_DISPLAY_NAME: "OpenCloud"
       OIDC_CALLBACK: /oidc-callback.html
