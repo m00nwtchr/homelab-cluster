@@ -4,7 +4,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app renovate
-  namespace: &namespace default
+  namespace: &namespace gitea
 spec:
   commonMetadata:
     labels:
@@ -20,7 +20,7 @@ spec:
       name: *app
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/default/renovate/app
+  path: ./kubernetes/apps/gitea/renovate/app
   postBuild:
     substitute:
       APP: *app
