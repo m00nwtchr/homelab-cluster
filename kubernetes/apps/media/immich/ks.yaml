@@ -29,6 +29,7 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      SUBDOMAIN: photos
       OIDC_DISPLAY_NAME: "Immich"
       OIDC_CALLBACK: /auth/login
       OIDC_LEGACY_CRYPTO: "true"
