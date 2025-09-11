@@ -34,6 +34,7 @@ spec:
       OIDC_LEGACY_CRYPTO: "true"
       OIDC_CUSTOM_STATE: |
         {
+          "originUrl": ["app.immich:///oauth-callback", "https://photos.m00nlit.dev/user-settings"]
         }
     substituteFrom:
       - name: cluster-secrets

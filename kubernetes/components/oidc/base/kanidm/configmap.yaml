@@ -13,7 +13,7 @@ data:
       "systems": {
         "oauth2": {
           "${APP}": {
-            "originUrl": "https://${SUBDOMAIN}.${SECRET_DOMAIN}${CALLBACK}",
+            "originUrl": ["https://${SUBDOMAIN}.${SECRET_DOMAIN}${CALLBACK}"],
             "originLanding": "https://${SUBDOMAIN}.${SECRET_DOMAIN}${ORIGIN}",
             "displayName": "${DISPLAY_NAME}",
             "removeOrphanedClaimMaps": false,
