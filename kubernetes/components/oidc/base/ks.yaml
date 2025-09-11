@@ -26,6 +26,8 @@ spec:
       SHORT_USERNAME: "${OIDC_SHORT_USERNAME:=\"false\"}"
       LEGACY_CRYPTO: "${OIDC_LEGACY_CRYPTO:=\"false\"}"
       DISABLE_PKCE: "${OIDC_DISABLE_PKCE:=\"false\"}"
+
+      CUSTOM_STATE: "${OIDC_CUSTOM_STATE:=\"{}\"}"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
