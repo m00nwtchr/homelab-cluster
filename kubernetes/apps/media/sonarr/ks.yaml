@@ -25,6 +25,7 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      OIDC_DISPLAY_NAME: Sonarr
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
