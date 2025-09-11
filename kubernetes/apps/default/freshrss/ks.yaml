@@ -24,6 +24,7 @@ spec:
       NAMESPACE: *namespace
       VOLSYNC_PUID: "33"
       VOLSYNC_PGID: "33"
+      OIDC_DISPLAY_NAME: "FreshRSS"
       OIDC_CALLBACK: /i/oidc/
       OIDC_SHORT_USERNAME: '"true"'
       OIDC_DISABLE_PKCE: '"true"'
