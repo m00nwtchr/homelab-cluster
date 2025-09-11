@@ -35,7 +35,7 @@ spec:
       OIDC_LEGACY_CRYPTO: "true"
       OIDC_SCOPE_MAPS: |
         {
-          "users@idm.m00nlit.dev": ["openid", "profile", "email]
+          "users@idm.m00nlit.dev": ["openid", "profile", "email"]
         }
       OIDC_CUSTOM_STATE: |
         {
