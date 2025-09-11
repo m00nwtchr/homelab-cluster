@@ -25,6 +25,20 @@ spec:
       OIDC_CALLBACK: /sso/OID/redirect/kanidm
       OIDC_ORIGIN: /sso/OID/start/kanidm
       OIDC_SHORT_USERNAME: "true"
+      OIDC_SCOPE_MAPS: |
+        {
+          "admins@idm.m00nlit.dev": ["openid", "profile", "email", "groups"]
+        }
+      OIDC_CLAIM_MAPS: |
+        {
+          "roles": {
+            "joinType": "array",
+            "valuesByGroup": {
+              "users@idm.m00nlit.dev": ["user"],
+              "admins@idm.m00nlit.dev": ["admin"]
+            }
+          }
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

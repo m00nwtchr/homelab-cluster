@@ -30,6 +30,10 @@ spec:
       OIDC_DISPLAY_NAME: Forgejo
       OIDC_CALLBACK: /user/oauth2/kanidm/callback
       OIDC_DISABLE_PKCE: "true"
+      OIDC_SCOPE_MAPS: |
+        {
+          "users@idm.m00nlit.dev": ["openid", "profile", "email", "groups", "ssh_publickeys"]
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
