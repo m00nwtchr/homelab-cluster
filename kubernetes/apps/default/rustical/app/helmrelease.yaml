@@ -47,9 +47,9 @@ spec:
               RUSTICAL_OIDC__SCOPES: '["openid", "profile", "groups"]'
               #              RUSTICAL_OIDC__REQUIRE_GROUP: "app:rustical" # optional
               RUSTICAL_OIDC__ALLOW_SIGN_UP: "true"
-            envFrom:
-              - secretRef:
-                  name: *app
+#            envFrom:
+#              - secretRef:
+#                  name: *app
 
             probes:
               liveness:
