@@ -16,6 +16,7 @@ data:
             "originUrl": "https://${SUBDOMAIN}.${SECRET_DOMAIN}${CALLBACK}",
             "originLanding": "https://${SUBDOMAIN}.${SECRET_DOMAIN}/",
             "displayName": "${DISPLAY_NAME}",
+            "removeOrphanedClaimMaps": false,
             "preferShortUsername": ${SHORT_USERNAME},
             "enableLegacyCrypto": ${LEGACY_CRYPTO},
             "allowInsecureClientDisablePkce": ${DISABLE_PKCE}
