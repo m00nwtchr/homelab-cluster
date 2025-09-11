@@ -29,7 +29,7 @@ data:
     {
       "systems": {
           "oauth2": {
-            "${APP}": ${CUSTOM_STATE},
+            "${APP}": ${CUSTOM_STATE}
           }
         }
     }
