@@ -149,29 +149,29 @@ spec:
 
     rbac:
       roles:
-        *app :
+        kanidm-write-secret:
           type: ClusterRole
           rules:
             - apiGroups: [ "" ]
               resources: [ "secrets" ]
               verbs: [ "create", "update" ]
-        kanidm-read:
+        kanidm-read-cm:
           type: Role
           rules:
             - apiGroups: [ "" ]
-              resources: [ "secrets" ]
+              resources: [ "configmaps" ]
               verbs: [ "get", "list", "watch" ]
       bindings:
-        *app :
+        kanidm-write-secret:
           type: ClusterRoleBinding
           roleRef:
-            identifier: *app
+            identifier: kanidm-write-secret
           subjects:
             - identifier: *app
-        kanidm-read:
+        kanidm-read-cm:
           type: RoleBinding
           roleRef:
-            identifier: kanidm-read
+            identifier: kanidm-read-cm
           subjects:
             - identifier: *app
 
