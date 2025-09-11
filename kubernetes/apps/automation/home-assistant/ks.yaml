@@ -28,6 +28,7 @@ spec:
       NAMESPACE: *namespace
       SUBDOMAIN: hass
       DATABASE_OWNER: hass
+      OIDC_DISPLAY_NAME: "Home Assistant"
       OIDC_CALLBACK: /auth/oidc/callback
       OIDC_ORIGIN: /auth/oidc/welcome
       OIDC_SHORT_USERNAME: '"true"'
