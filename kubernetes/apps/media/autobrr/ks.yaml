@@ -35,6 +35,10 @@ spec:
       OIDC_SHORT_USERNAME: "true"
       OIDC_LEGACY_CRYPTO: "true"
       OIDC_DISABLE_PKCE: "true"
+      OIDC_SCOPE_MAPS: |
+        {
+          "admins@idm.m00nlit.dev": ["openid", "profile", "email"]
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
