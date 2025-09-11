@@ -28,7 +28,8 @@ data:
   custom.json: |
     {
       "systems": {
-        "oauth2": {
-          "${APP}": ${CUSTOM_STATE},
+          "oauth2": {
+            "${APP}": "${CUSTOM_STATE}"
+          }
         }
     }
