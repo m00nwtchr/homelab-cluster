@@ -32,12 +32,18 @@ spec:
               OIDC_ENABLED: 1
               OIDC_PROVIDER_METADATA_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
               OIDC_CLIENT_ID: *app
+              OIDC_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: kanidm-${APP}-oidc
+                    key: client-secret
               OIDC_REMOTE_USER_CLAIM: preferred_username
               OIDC_SCOPES: openid groups email profile
               OIDC_X_FORWARDED_HEADERS: X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto
-            envFrom:
-              - secretRef:
-                  name: freshrss-secret
+
+#            envFrom:
+#              - secretRef:
+#                  name: freshrss-secret
             resources:
               requests:
                 cpu: 50m
