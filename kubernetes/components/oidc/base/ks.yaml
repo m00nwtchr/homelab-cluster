@@ -18,7 +18,7 @@ spec:
       APP: *app
       NAMESPACE: ${NAMESPACE}
       SUBDOMAIN: ${SUBDOMAIN:=${APP}}
-      DOMAIN: "${DOMAIN}"
+      DOMAIN: "${DOMAIN:=}"
 
       PUBLIC: ${q:="}${OIDC_PUBLIC_CLIENT:=false}${q:="}
       DISPLAY_NAME: ${OIDC_DISPLAY_NAME:=${APP}}
