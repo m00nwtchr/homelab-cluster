@@ -24,6 +24,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
