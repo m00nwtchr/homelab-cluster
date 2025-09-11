@@ -23,7 +23,7 @@ spec:
       NAMESPACE: *namespace
       OIDC_DISPLAY_NAME: Grafana
       OIDC_CALLBACK: /login/generic_oauth
-      OIDC_SCOPE_MAP: |
+      OIDC_SCOPE_MAPS: |
         {
           "admins@idm.$${SECRET_DOMAIN}": ["openid", "profile", "email", "groups"]
         }
