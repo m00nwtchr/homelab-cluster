@@ -11,5 +11,7 @@ configMapGenerator:
     files:
       - ./resources/baikal.yaml
       - ./resources/nginx.conf
+    literals:
+      - empty=
 generatorOptions:
   disableNameSuffixHash: true
