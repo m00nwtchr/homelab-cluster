@@ -27,7 +27,7 @@ spec:
       LEGACY_CRYPTO: "${OIDC_LEGACY_CRYPTO:=\"false\"}"
       DISABLE_PKCE: "${OIDC_DISABLE_PKCE:=\"false\"}"
 
-      CUSTOM_STATE: '${OIDC_CUSTOM_STATE:={}}'
+      CUSTOM_STATE: '${OIDC_CUSTOM_STATE:="{}"}'
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
