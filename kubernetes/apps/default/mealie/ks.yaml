@@ -30,7 +30,7 @@ spec:
       OIDC_DISPLAY_NAME: "Mealie"
       OIDC_CALLBACK: /login
       OIDC_LEGACY_CRYPTO: '"true"'
-      OIDC_SHORT_NAME: '"true"'
+      OIDC_SHORT_USERNAME: '"true"'
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
