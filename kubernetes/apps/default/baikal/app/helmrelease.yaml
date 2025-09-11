@@ -90,6 +90,8 @@ spec:
             nginx:
               - path: /etc/nginx/conf.d/default.conf
                 subPath: nginx.conf
+              - path: /docker-entrypoint.d/40-php-fpm.sh
+                subPath: empty
 
       cache:
         type: emptyDir
@@ -105,8 +107,6 @@ spec:
                 subPath: nginx
               - path: /var/log/nginx/
                 subPath: log/nginx
-              - path: /docker-entrypoint.d/40-php-fpm.sh
-                subPath: empty
             php:
               - path: /run/php/
                 subPath: run/php
