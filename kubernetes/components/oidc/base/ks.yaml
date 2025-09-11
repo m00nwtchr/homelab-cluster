@@ -18,16 +18,21 @@ spec:
       APP: *app
       NAMESPACE: ${NAMESPACE}
       SUBDOMAIN: ${SUBDOMAIN:=${APP}}
-      CALLBACK: ${OIDC_CALLBACK:=/oauth2/callback}
-      ORIGIN: ${OIDC_ORIGIN:=/}
-      DISPLAY_NAME: ${OIDC_DISPLAY_NAME:=${APP}}
 
       PUBLIC: ${q:="}${OIDC_PUBLIC_CLIENT:=false}${q:="}
+      DISPLAY_NAME: ${OIDC_DISPLAY_NAME:=${APP}}
+      CALLBACK: ${OIDC_CALLBACK:=/oauth2/callback}
+      ORIGIN: ${OIDC_ORIGIN:=/}
       SHORT_USERNAME: ${q:="}${OIDC_SHORT_USERNAME:=false}${q:="}
+
+      LOCALHOST: ${q:="}${OIDC_LOCALHOST:=false}${q:="}
       LEGACY_CRYPTO: ${q:="}${OIDC_LEGACY_CRYPTO:=false}${q:="}
       DISABLE_PKCE: ${q:="}${OIDC_DISABLE_PKCE:=false}${q:="}
 
       SCOPE_MAPS: ${q:='}${OIDC_SCOPE_MAPS}${q:='}
+      SUP_SCOPE_MAPS: ${q:='}${OIDC_SUP_SCOPE_MAPS}${q:='}
+      CLAIM_MAPS: ${q:='}${OIDC_CLAIM_MAPS}${q:='}
+
       CUSTOM_STATE: ${q:='}${OIDC_CUSTOM_STATE}${q:='}
       emptyState: "{}"
     substituteFrom:
