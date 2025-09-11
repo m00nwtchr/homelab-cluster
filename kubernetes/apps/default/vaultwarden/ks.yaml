@@ -29,6 +29,10 @@ spec:
       VOLSYNC_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: "Vaultwarden"
       OIDC_CALLBACK: /identity/connect/oidc-signin
+      OIDC_SCOPE_MAPS: |
+        {
+          "users@idm.m00nlit.dev": ["openid", "profile", "email", "groups"]
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
