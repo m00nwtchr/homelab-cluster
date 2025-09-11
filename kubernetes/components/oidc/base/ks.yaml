@@ -18,11 +18,12 @@ spec:
       APP: *app
       NAMESPACE: ${NAMESPACE}
       SUBDOMAIN: ${SUBDOMAIN:=${APP}}
+      DOMAIN: ${DOMAIN}
 
       PUBLIC: ${q:="}${OIDC_PUBLIC_CLIENT:=false}${q:="}
       DISPLAY_NAME: ${OIDC_DISPLAY_NAME:=${APP}}
       CALLBACK: ${OIDC_CALLBACK:=/oauth2/callback}
-      FULL_CALLBACK: ${OIDC_FULL_CALLBACK}
+
       ORIGIN: ${OIDC_ORIGIN:=/}
       EXTRA_CALLBACKS: ${q:='}${OIDC_EXTRA_CALLBACKS}${q:='}
       SHORT_USERNAME: ${q:="}${OIDC_SHORT_USERNAME:=false}${q:="}
