@@ -25,7 +25,7 @@ spec:
       OIDC_CALLBACK: /login/generic_oauth
       OIDC_SCOPE_MAP: |
         {
-          admins@idm.${SECRET_DOMAIN}: ["openid", "profile", "email", "groups]
+          "admins@idm.$${SECRET_DOMAIN}": ["openid", "profile", "email", "groups]
         }
     substituteFrom:
       - name: cluster-secrets
