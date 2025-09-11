@@ -53,9 +53,13 @@ spec:
             namespace: network
             sectionName: https
         rules:
-          - matches:
+          - backendRefs:
+              - identifier: app
+                port: 80
+            matches:
               - path:
                   value: /.well-known/openpgpkey/
+
 
     persistence:
       keys:
