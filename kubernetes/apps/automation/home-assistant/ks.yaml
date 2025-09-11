@@ -31,7 +31,7 @@ spec:
       OIDC_DISPLAY_NAME: "Home Assistant"
       OIDC_CALLBACK: /auth/oidc/callback
       OIDC_ORIGIN: /auth/oidc/welcome
-      OIDC_SHORT_USERNAME: '"true"'
+      OIDC_SHORT_USERNAME: "true"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

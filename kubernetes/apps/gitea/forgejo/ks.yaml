@@ -29,7 +29,7 @@ spec:
       SUBDOMAIN: git
       OIDC_DISPLAY_NAME: Forgejo
       OIDC_CALLBACK: /user/oauth2/kanidm/callback
-      OIDC_DISABLE_PKCE: '"true"'
+      OIDC_DISABLE_PKCE: "true"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

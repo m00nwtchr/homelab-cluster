@@ -32,9 +32,9 @@ spec:
       NAMESPACE: *namespace
       OIDC_CALLBACK: /api/auth/oidc/callback
 
-      OIDC_SHORT_USERNAME: '"true"'
-      OIDC_LEGACY_CRYPTO: '"true"'
-      OIDC_DISABLE_PKCE: '"true"'
+      OIDC_SHORT_USERNAME: "true"
+      OIDC_LEGACY_CRYPTO: "true"
+      OIDC_DISABLE_PKCE: "true"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

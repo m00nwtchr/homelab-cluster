@@ -26,8 +26,8 @@ spec:
       VOLSYNC_PGID: "33"
       OIDC_DISPLAY_NAME: "FreshRSS"
       OIDC_CALLBACK: /i/oidc/
-      OIDC_SHORT_USERNAME: '"true"'
-      OIDC_DISABLE_PKCE: '"true"'
+      OIDC_SHORT_USERNAME: "true"
+      OIDC_DISABLE_PKCE: "true"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

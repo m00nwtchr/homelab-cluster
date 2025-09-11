@@ -28,8 +28,6 @@ spec:
       DISABLE_PKCE: ${q:="}${OIDC_DISABLE_PKCE:=false}${q:="}
 
       CUSTOM_STATE: "{}"
-
-      quote: '"'
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
