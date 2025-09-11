@@ -105,6 +105,8 @@ spec:
                 subPath: nginx
               - path: /var/log/nginx/
                 subPath: log/nginx
+              - path: /docker-entrypoint.d/40-php-fpm.sh
+                subPath: null
             php:
               - path: /run/php/
                 subPath: run/php
@@ -113,11 +115,3 @@ spec:
             copy-config:
               - path: /mnt
                 subPath: config
-
-  #    data:
-  #      size: 1Gi
-  #      accessMode: ReadWriteOnce
-  #      annotations:
-  #        argocd.argoproj.io/sync-options: Delete=false
-  #      globalMounts:
-  #        - path: /var/www/baikal/Specific
