@@ -106,7 +106,7 @@ spec:
               - path: /var/log/nginx/
                 subPath: log/nginx
               - path: /docker-entrypoint.d/40-php-fpm.sh
-                subPath: null
+                subPath: empty
             php:
               - path: /run/php/
                 subPath: run/php
