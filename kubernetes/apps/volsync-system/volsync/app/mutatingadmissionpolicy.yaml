@@ -79,6 +79,10 @@ spec:
       expression: >-
         object.metadata.name.startsWith("volsync-")
 
+    - name: job-name-contains-mega
+      expression: >-
+        object.metadata.name.contains("mega")
+
     - name: in-media-namespace
       expression: >-
         object.metadata.namespace == "media"
