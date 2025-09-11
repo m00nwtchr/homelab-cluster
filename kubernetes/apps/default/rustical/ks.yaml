@@ -26,6 +26,7 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       OIDC_DISPLAY_NAME: RustiCal
+      OIDC_CALLBACK: /frontend/login/oidc/callback
       OIDC_SCOPE_MAPS: |
         {
           "users@idm.m00nlit.dev": ["openid", "profile", "groups"]
