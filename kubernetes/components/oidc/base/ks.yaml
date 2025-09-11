@@ -22,10 +22,10 @@ spec:
       ORIGIN: ${OIDC_ORIGIN:=/}
       DISPLAY_NAME: ${OIDC_DISPLAY_NAME:=${APP}}
 
-      PUBLIC: ${q:='"'}${OIDC_PUBLIC_CLIENT:=false}${q:='"'}
-      SHORT_USERNAME: ${q:='"'}${OIDC_SHORT_USERNAME:=false}${q:='"'}
-      LEGACY_CRYPTO: ${q:='"'}${OIDC_LEGACY_CRYPTO:=false}${q:='"'}
-      DISABLE_PKCE: ${q:='"'}${OIDC_DISABLE_PKCE:=false}${q:='"'}
+      PUBLIC: ${q:="}${OIDC_PUBLIC_CLIENT:=false}${q:="}
+      SHORT_USERNAME: ${q:="}${OIDC_SHORT_USERNAME:=false}${q:="}
+      LEGACY_CRYPTO: ${q:="}${OIDC_LEGACY_CRYPTO:=false}${q:="}
+      DISABLE_PKCE: ${q:="}${OIDC_DISABLE_PKCE:=false}${q:="}
 
       CUSTOM_STATE: "{}"
 
