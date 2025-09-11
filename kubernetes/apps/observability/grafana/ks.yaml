@@ -27,6 +27,15 @@ spec:
         {
           "admins@idm.m00nlit.dev": ["openid", "profile", "email", "groups"]
         }
+      OIDC_CLAIM_MAPS: |
+        {
+          "grafana_role": {
+            "joinType": "array",
+            "valuesByGroup": {
+              "admins@idm.m00nlit.dev": ["GrafanaAdmin"]
+            }
+          }
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
