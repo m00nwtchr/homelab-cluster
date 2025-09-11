@@ -136,7 +136,7 @@ spec:
 
       qbrr:
         type: image
-        image: ghcr.io/buroa/qbrr:0.0.31@sha256:d0b8adc911a0e555480ef9ad679c5df994072a81b84bcdb1347b81fb3f1007f9
+        image: ghcr.io/buroa/qbrr:0.1.1@sha256:fe4a1d100ba896999253a5122d9c77cc4920779d618c23f765458cb6ec7383ca
         pullPolicy: IfNotPresent
         globalMounts:
           - path: /opt/qbrr
