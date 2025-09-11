@@ -22,9 +22,9 @@ spec:
       CALLBACK: ${OIDC_CALLBACK:=/oauth2/callback}
       DISPLAY_NAME: ${OIDC_DISPLAY_NAME:=${APP}}
 
-      SHORT_USERNAME: "${OIDC_SHORT_USERNAME:=false}"
-      LEGACY_CRYPTO: "${OIDC_LEGACY_CRYPTO:=false}"
-      DISABLE_PKCE: "${OIDC_DISABLE_PKCE:=false}"
+      SHORT_USERNAME: "${OIDC_SHORT_USERNAME:=\"false\"}"
+      LEGACY_CRYPTO: "${OIDC_LEGACY_CRYPTO:=\"false\"}"
+      DISABLE_PKCE: "${OIDC_DISABLE_PKCE:=\"false\"}"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
