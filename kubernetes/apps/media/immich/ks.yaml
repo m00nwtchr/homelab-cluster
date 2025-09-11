@@ -9,7 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components: []
+  components:
+    - ../../../../components/oidc
   dependsOn:
     - name: barman-cloud-crds
       namespace: cnpg-system
@@ -27,6 +28,13 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
+      OIDC_DISPLAY_NAME: "Immich"
+      OIDC_CALLBACK: /auth/login
+      OIDC_LEGACY_CRYPTO: "true"
+      OIDC_CUSTOM_STATE: |
+        {
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
