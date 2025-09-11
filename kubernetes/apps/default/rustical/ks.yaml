@@ -25,8 +25,10 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      VOLSYNC_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: RustiCal
       OIDC_CALLBACK: /frontend/login/oidc/callback
+      OIDC_SHORT_USERNAME: "true"
       OIDC_SCOPE_MAPS: |
         {
           "users@idm.m00nlit.dev": ["openid", "profile", "groups"]
