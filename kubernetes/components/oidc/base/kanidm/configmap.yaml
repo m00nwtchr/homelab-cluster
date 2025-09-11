@@ -15,7 +15,10 @@ data:
           "${APP}": {
             "originUrl": "https://${SUBDOMAIN}.${SECRET_DOMAIN}${CALLBACK}",
             "originLanding": "https://${SUBDOMAIN}.${SECRET_DOMAIN}/",
-            "displayName": "${DISPLAY_NAME}"
+            "displayName": "${DISPLAY_NAME}",
+            "preferShortUsername": ${SHORT_USERNAME},
+            "enableLegacyCrypto": ${LEGACY_CRYPTO},
+            "allowInsecureClientDisablePkce": ${DISABLE_PKCE}
           }
         }
       }

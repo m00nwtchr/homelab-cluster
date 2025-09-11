@@ -13,7 +13,7 @@ spec:
     - name: kanidm
       namespace: kanidm
   interval: 1h
-  path: ./kubernetes/components/oidc/base/kanidm-ks
+  path: ./kubernetes/components/oidc/base/kanidm
   postBuild:
     substitute:
       APP: *app
@@ -21,6 +21,10 @@ spec:
       SUBDOMAIN: ${SUBDOMAIN:=${APP}}
       CALLBACK: ${OIDC_CALLBACK:=/oauth2/callback}
       DISPLAY_NAME: ${OIDC_DISPLAY_NAME:=${APP}}
+
+      SHORT_USERNAME: "${OIDC_SHORT_USERNAME:=false}"
+      LEGACY_CRYPTO: "${OIDC_LEGACY_CRYPTO:=false}"
+      DISABLE_PKCE: "${OIDC_DISABLE_PKCE:=false}"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
