@@ -45,7 +45,7 @@ spec:
                   secretKeyRef:
                     name: kanidm-${APP}-oidc
                     key: client-secret
-              RUSTICAL_OIDC__CLAIM_USERID: "sub"
+              RUSTICAL_OIDC__CLAIM_USERID: "preferred_username"
               RUSTICAL_OIDC__SCOPES: '["openid", "profile", "groups"]'
               #              RUSTICAL_OIDC__REQUIRE_GROUP: "app:rustical" # optional
               RUSTICAL_OIDC__ALLOW_SIGN_UP: "true"
