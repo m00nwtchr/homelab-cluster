@@ -23,6 +23,7 @@ spec:
       NAMESPACE: *namespace
       OIDC_DISPLAY_NAME: "Jellyfin"
       OIDC_CALLBACK: /sso/OID/redirect/kanidm
+      OIDC_EXTRA_CALLBACKS: '["/sso/OID/r/kanidm"]'
       OIDC_ORIGIN: /sso/OID/start/kanidm
       OIDC_SHORT_USERNAME: "true"
       OIDC_SCOPE_MAPS: |
