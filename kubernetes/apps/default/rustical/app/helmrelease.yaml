@@ -34,6 +34,8 @@ spec:
               repository: ghcr.io/lennart-k/rustical
               tag: 0.9.4@sha256:b20aad0b94551452b2448bad010fb8872da0086b42dc6c4463a033e008f93dd7
             env:
+              RUSTICAL_HTTP__HOST: "::"
+
               RUSTICAL_FRONTEND__ALLOW_PASSWORD_LOGIN: "false"
               RUSTICAL_OIDC__NAME: "Kanidm"
               RUSTICAL_OIDC__ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
