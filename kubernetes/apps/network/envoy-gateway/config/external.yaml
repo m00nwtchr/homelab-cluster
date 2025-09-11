@@ -39,15 +39,15 @@ spec:
         certificateRefs:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
-    - name: turn
-      protocol: TLS
-      port: 443
-      hostname: "turn.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - kind: Secret
-            name: wildcard-${SECRET_DOMAIN/./-}-tls
+#    - name: turn
+#      protocol: TLS
+#      port: 443
+#      hostname: "turn.${SECRET_DOMAIN}"
+#      allowedRoutes:
+#        namespaces:
+#          from: All
+#      tls:
+#        mode: Terminate
+#        certificateRefs:
+#          - kind: Secret
+#            name: wildcard-${SECRET_DOMAIN/./-}-tls
