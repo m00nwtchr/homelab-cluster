@@ -13,15 +13,18 @@ data:
       "systems": {
         "oauth2": {
           "${APP}": {
+            "displayName": "${DISPLAY_NAME}",
             "originUrl": ["https://${SUBDOMAIN}.${SECRET_DOMAIN}${CALLBACK}"],
             "originLanding": "https://${SUBDOMAIN}.${SECRET_DOMAIN}${ORIGIN}",
-            "displayName": "${DISPLAY_NAME}",
             "removeOrphanedClaimMaps": false,
             "public": ${PUBLIC},
             "preferShortUsername": ${SHORT_USERNAME},
+            "enableLocalhostRedirects": ${LOCALHOST},
             "enableLegacyCrypto": ${LEGACY_CRYPTO},
             "allowInsecureClientDisablePkce": ${DISABLE_PKCE},
-            "scopeMaps": ${SCOPE_MAPS:=${emptyState}}
+            "scopeMaps": ${SCOPE_MAPS:=${emptyState}},
+            "supplementaryScopeMaps": ${SUP_SCOPE_MAPS:=${emptyState}},
+            "claimMaps": ${CLAIM_MAPS:=${emptyState}},
           }
         }
       }
