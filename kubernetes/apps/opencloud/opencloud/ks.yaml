@@ -9,12 +9,12 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components: []
-#      - ../../../../components/oidc
-#    - ../../../../components/volsync
-#  dependsOn:
-#    - name: volsync
-#      namespace: volsync-system
+  components:
+    - ../../../../components/oidc
+  #    - ../../../../components/volsync
+  #  dependsOn:
+  #    - name: volsync
+  #      namespace: volsync-system
   decryption:
     provider: sops
     secretRef:
@@ -27,6 +27,23 @@ spec:
       NAMESPACE: *namespace
       OIDC_PUBLIC_CLIENT: "true"
       OIDC_DISPLAY_NAME: "OpenCloud"
+      OIDC_CALLBACK: /oidc-callback.html
+      OIDC_EXTRA_CALLBACKS: '["https://cloud.m00nlit.dev/oidc-silent-redirect.html"]'
+      OIDC_SHORT_USERNAME: "true"
+      OIDC_SCOPE_MAPS: |
+        {
+          "users@idm.m00nlit.dev": ["openid", "profile", "email", "groups"]
+        }
+      OIDC_CLAIM_MAPS: |
+        {
+          "roles": {
+            "joinType": "array",
+            "valuesByGroup": {
+              "users@idm.m00nlit.dev": ["user"],
+              "admins@idm.m00nlit.dev": ["admin"]
+            }
+          }
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

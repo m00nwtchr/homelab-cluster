@@ -31,6 +31,10 @@ spec:
       OIDC_CALLBACK: /login
       OIDC_LEGACY_CRYPTO: "true"
       OIDC_SHORT_USERNAME: "true"
+      OIDC_SCOPE_MAPS: |
+        {
+          "users@idm.m00nlit.dev": ["openid", "profile", "email", "groups"]
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

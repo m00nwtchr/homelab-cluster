@@ -26,6 +26,10 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       OIDC_DISPLAY_NAME: Sonarr
+      OIDC_SCOPE_MAPS: |
+        {
+          "admins@idm.m00nlit.dev": ["openid", "profile"]
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
