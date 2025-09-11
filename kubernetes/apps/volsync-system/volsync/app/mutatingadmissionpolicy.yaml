@@ -83,10 +83,6 @@ spec:
       expression: >-
         object.metadata.name.contains("mega")
 
-    - name: in-media-namespace
-      expression: >-
-        object.metadata.namespace == "media"
-
     - name: has-volsync-created-by-labels
       expression: >-
         object.metadata.labels["app.kubernetes.io/created-by"] == "volsync"
