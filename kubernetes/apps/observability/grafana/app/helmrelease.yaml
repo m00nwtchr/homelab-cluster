@@ -274,7 +274,7 @@ spec:
 
     extraSecretMounts:
       - name: grafana-oidc
-        secretName: grafana-oidc
+        secretName: kanidm-grafana-oidc
         defaultMode: 0440
         mountPath: /etc/secrets/auth_generic_oauth
         readOnly: true
