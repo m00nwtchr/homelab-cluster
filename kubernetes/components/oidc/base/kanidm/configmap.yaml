@@ -25,3 +25,5 @@ data:
         }
       }
     }
+  custom.json: |
+    ${CUSTOM_STATE}
