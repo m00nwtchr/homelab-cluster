@@ -19,6 +19,7 @@ spec:
       NAMESPACE: ${NAMESPACE}
       SUBDOMAIN: ${SUBDOMAIN:=${APP}}
       CALLBACK: ${OIDC_CALLBACK:=/oauth2/callback}
+      ORIGIN: ${OIDC_ORIGIN:=/}
       DISPLAY_NAME: ${OIDC_DISPLAY_NAME:=${APP}}
 
       SHORT_USERNAME: "${OIDC_SHORT_USERNAME:=\"false\"}"
