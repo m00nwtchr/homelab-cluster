@@ -21,9 +21,9 @@ spec:
     substitute:
       APP: kubernetes
       NAMESPACE: *namespace
-      SUBDOMAIN: k8s
       OIDC_PUBLIC_CLIENT: "true"
-      OIDC_FULL_CALLBACK: http://localhost:8000/
+      DOMAIN: http://localhost:8000
+      OIDC_CALLBACK: /
       OIDC_EXTRA_CALLBACKS: '["http://localhost:18000/"]'
       OIDC_SCOPE_MAPS: |
         {

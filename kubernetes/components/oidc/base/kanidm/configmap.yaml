@@ -14,8 +14,8 @@ data:
         "oauth2": {
           "${APP}": {
             "displayName": "${DISPLAY_NAME}",
-            "originUrl": ["${FULL_CALLBACK:=https://${SUBDOMAIN}.${SECRET_DOMAIN}${CALLBACK}}"],
-            "originLanding": "https://${SUBDOMAIN}.${SECRET_DOMAIN}${ORIGIN}",
+            "originUrl": ["${DOMAIN:=https://${SUBDOMAIN}.${SECRET_DOMAIN}}${CALLBACK}"],
+            "originLanding": "${DOMAIN:=https://${SUBDOMAIN}.${SECRET_DOMAIN}}${ORIGIN}",
             "removeOrphanedClaimMaps": true,
             "public": ${PUBLIC},
             "preferShortUsername": ${SHORT_USERNAME},
