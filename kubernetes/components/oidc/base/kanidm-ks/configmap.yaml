@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kanidm-${APP}-oidc
+  namespace: kanidm
+data:
+  targetNamespace: "${NAMESPACE}"
+  state.json: |
+    {
+      "systems": {
+        "oauth2": {
+          "${APP}": {
+            "originUrl": "https://${SUBDOMAIN}.${SECRET_DOMAIN}${CALLBACK}",
+            "originLanding": "https://${SUBDOMAIN}.${SECRET_DOMAIN}/",
+            "displayName": "${DISPLAY_NAME}"
+          }
+        }
+      }
+    }

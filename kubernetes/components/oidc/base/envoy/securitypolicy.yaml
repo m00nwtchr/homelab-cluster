@@ -13,6 +13,6 @@ spec:
       issuer: "https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}"
     clientID: "${APP}"
     clientSecret:
-      name: "${APP}-oidc"
+      name: "kanidm-${APP}-oidc"
     redirectURL: "https://${APP}.${SECRET_DOMAIN}/oauth2/callback"
     logoutPath: "/logout"
