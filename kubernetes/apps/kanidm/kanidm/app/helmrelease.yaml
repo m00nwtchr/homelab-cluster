@@ -90,7 +90,7 @@ spec:
           provision:
             image:
               repository: ghcr.io/m00nwtchr/kanidm-provision
-              tag: 0.3.0@sha256:35181e373d8c8b4e307f44bcf86e1134fd967e7065ff748b47ea97f8b49187a1
+              tag: 0.3.0@sha256:efba1792d9a71a9f35833b78aa46448ff128ec89b97c181e3d92eeb658841968
             env:
               KANIDM_INSTANCE: "https://idm.${SECRET_DOMAIN}"
               KANIDM_TOKEN:
