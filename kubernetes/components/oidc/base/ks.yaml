@@ -27,7 +27,8 @@ spec:
       LEGACY_CRYPTO: ${q:="}${OIDC_LEGACY_CRYPTO:=false}${q:="}
       DISABLE_PKCE: ${q:="}${OIDC_DISABLE_PKCE:=false}${q:="}
 
-      CUSTOM_STATE: ${q:='}${OIDC_CUSTOM_STATE:={${b:=}}}${q:='}
+      emptyState: "{}"
+      CUSTOM_STATE: ${q:='}${OIDC_CUSTOM_STATE}${q:='}
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
