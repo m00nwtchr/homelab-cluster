@@ -10,6 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/oidc
     - ../../../../components/volsync
     - ../../../../components/database
   dependsOn:
@@ -20,7 +21,15 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
+      OIDC_DISPLAY_NAME: "PinePods"
+      OIDC_CALLBACK: /api/auth/callback
+      OIDC_DISABLE_PKCE: "true"
+      OIDC_SCOPE_MAPS: |
+        {
+          "users@idm.m00nlit.dev": ["openid", "profile", "email"]
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
