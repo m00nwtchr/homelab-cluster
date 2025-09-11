@@ -17,6 +17,7 @@ data:
             "originLanding": "https://${SUBDOMAIN}.${SECRET_DOMAIN}${ORIGIN}",
             "displayName": "${DISPLAY_NAME}",
             "removeOrphanedClaimMaps": false,
+            "public": ${PUBLIC},
             "preferShortUsername": ${SHORT_USERNAME},
             "enableLegacyCrypto": ${LEGACY_CRYPTO},
             "allowInsecureClientDisablePkce": ${DISABLE_PKCE}
