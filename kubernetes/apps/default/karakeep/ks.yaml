@@ -11,6 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/oidc
     - ../../../../components/volsync
   interval: 30m
   timeout: 5m
@@ -31,7 +32,10 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
       VOLSYNC_ACCESSMODES: ReadWriteMany
+      OIDC_CALLBACK: /api/auth/callback/custom
+      OIDC_LEGACY_CRYPTO: '"true"'
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
