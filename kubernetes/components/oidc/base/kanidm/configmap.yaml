@@ -16,7 +16,7 @@ data:
             "displayName": "${DISPLAY_NAME}",
             "originUrl": ["https://${SUBDOMAIN}.${SECRET_DOMAIN}${CALLBACK}"],
             "originLanding": "https://${SUBDOMAIN}.${SECRET_DOMAIN}${ORIGIN}",
-            "removeOrphanedClaimMaps": false,
+            "removeOrphanedClaimMaps": true,
             "public": ${PUBLIC},
             "preferShortUsername": ${SHORT_USERNAME},
             "enableLocalhostRedirects": ${LOCALHOST},
