@@ -29,6 +29,16 @@ data:
         }
       }
     }
+  extra.json: |
+    {
+      "systems": {
+        "oauth2": {
+          "${APP}": {
+            "originUrl": ${EXTRA_ORIGINS:=${emptyArray}}
+          }
+        }
+      }
+    }
   custom.json: |
     {
       "systems": {
