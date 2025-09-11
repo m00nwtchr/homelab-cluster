@@ -23,7 +23,7 @@ spec:
       DISPLAY_NAME: ${OIDC_DISPLAY_NAME:=${APP}}
       CALLBACK: ${OIDC_CALLBACK:=/oauth2/callback}
       ORIGIN: ${OIDC_ORIGIN:=/}
-      EXTRA_ORIGINS: ${q:='}${OIDC_EXTRA_ORIGINS}${q:='}
+      EXTRA_CALLBACKS: ${q:='}${OIDC_EXTRA_CALLBACKS}${q:='}
       SHORT_USERNAME: ${q:="}${OIDC_SHORT_USERNAME:=false}${q:="}
 
       LOCALHOST: ${q:="}${OIDC_LOCALHOST:=false}${q:="}

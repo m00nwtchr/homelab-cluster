@@ -34,7 +34,7 @@ data:
       "systems": {
         "oauth2": {
           "${APP}": {
-            "originUrl": ${EXTRA_ORIGINS:=${emptyArray}}
+            "originUrl": ${EXTRA_CALLBACKS:=${emptyArray}}
           }
         }
       }
