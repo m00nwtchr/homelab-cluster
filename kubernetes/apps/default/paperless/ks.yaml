@@ -13,13 +13,17 @@ spec:
 #    - name: rook-ceph-cluster
 #      namespace: rook-ceph
   components:
+    - ../../../../components/oidc
     - ../../../../components/database
   interval: 1h
   path: ./kubernetes/apps/default/paperless/app
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
+      OIDC_DISPLAY_NAME: "Paperless"
+      OIDC_CALLBACK: /accounts/oidc/kanidm/login/callback/
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
