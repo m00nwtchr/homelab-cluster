@@ -9,7 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components: []
+  components:
+    - ../../../../components/oidc
   decryption:
     provider: sops
     secretRef:
@@ -17,6 +18,16 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/default/kube/apiserver
   postBuild:
+    substitute:
+      APP: kubernetes
+      NAMESPACE: *namespace
+      SUBDOMAIN: k8s
+      OIDC_FULL_CALLBACK: http://localhost:8000/
+      OIDC_EXTRA_CALLBACKS: '["http://localhost:18000/"]'
+      OIDC_SCOPE_MAPS: |
+        {
+          "k8s_admins@idm.m00nlit.dev": ["openid", "groups", "email", "offline_access"]
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
