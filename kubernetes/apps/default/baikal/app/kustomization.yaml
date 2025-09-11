@@ -13,5 +13,5 @@ configMapGenerator:
       - ./resources/nginx.conf
     literals:
       - empty=
-generatorOptions:
-  disableNameSuffixHash: true
+configurations:
+  - resources/kustomizeconfig.yaml

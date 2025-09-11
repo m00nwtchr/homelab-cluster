@@ -1,0 +1,9 @@
+---
+nameReference:
+  - kind: ConfigMap
+    version: v1
+    fieldSpecs:
+      - path: spec/values/persistence/nginx/name
+        kind: HelmRelease
+      - path: spec/target/template/templateFrom/configMap/name
+        kind: ExternalSecret
