@@ -45,8 +45,8 @@ spec:
               OAUTH_CLIENT_SECRET:
                 valueFrom:
                   secretKeyRef:
-                    name: karakeep-secret
-                    key: oidc_client_secret
+                    name: kanidm-${APP}-oidc
+                    key: client-secret
               OAUTH_PROVIDER_NAME: Kanidm
               MEILI_ADDR: http://karakeep-meilisearch.default.svc.cluster.local:7700
               MEILI_MASTER_KEY:

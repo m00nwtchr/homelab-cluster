@@ -10,6 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/oidc
     - ../../../../components/volsync
     - ../../../../components/database
   dependsOn:
@@ -20,8 +21,13 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
       VOLSYNC_PUID: "33"
       VOLSYNC_PGID: "33"
+      OIDC_DISPLAY_NAME: "FreshRSS"
+      OIDC_CALLBACK: /i/oidc/
+      OIDC_SHORT_USERNAME: '"true"'
+      OIDC_DISABLE_PKCE: '"true"'
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

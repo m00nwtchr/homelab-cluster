@@ -10,6 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/oidc/envoy
     - ../../../../components/volsync
   dependsOn:
     - name: volsync
@@ -25,7 +26,10 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
+      SUBDOMAIN: qb
+      OIDC_DISPLAY_NAME: qBittorrent
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

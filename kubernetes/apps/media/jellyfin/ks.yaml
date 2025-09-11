@@ -10,6 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/oidc
     - ../../../../components/volsync
   dependsOn:
     - name: volsync
@@ -19,6 +20,11 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
+      OIDC_DISPLAY_NAME: "Jellyfin"
+      OIDC_CALLBACK: /sso/OID/redirect/kanidm
+      OIDC_ORIGIN: /sso/OID/start/kanidm
+      OIDC_SHORT_USERNAME: '"true"'
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

@@ -57,7 +57,7 @@ spec:
         enabled: true
         name: Kanidm
         client_id: grafana
-        client_secret: $__file{/etc/secrets/auth_generic_oauth/client_secret}
+        client_secret: $__file{/etc/secrets/auth_generic_oauth/client-secret}
 
         scopes: openid,profile,email,groups
         auth_url: https://idm.${SECRET_DOMAIN}/ui/oauth2
@@ -274,7 +274,7 @@ spec:
 
     extraSecretMounts:
       - name: grafana-oidc
-        secretName: grafana-oidc
+        secretName: kanidm-grafana-oidc
         defaultMode: 0440
         mountPath: /etc/secrets/auth_generic_oauth
         readOnly: true

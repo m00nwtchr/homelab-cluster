@@ -90,7 +90,7 @@ spec:
           provision:
             image:
               repository: ghcr.io/m00nwtchr/kanidm-provision
-              tag: 0.3.0@sha256:5f81479f949d3f1e713bc5edb8359b8a8a960dbdd7b074f2b10a09e3e143d1ca
+              tag: 0.3.0@sha256:5518fe60bb08221aec9cafecccb711eed6513f8f9bddc95f8c237851945c20e0
             env:
               KANIDM_INSTANCE: "https://idm.${SECRET_DOMAIN}"
               KANIDM_TOKEN:
@@ -149,29 +149,29 @@ spec:
 
     rbac:
       roles:
-        *app :
+        kanidm-write-secret:
           type: ClusterRole
           rules:
             - apiGroups: [ "" ]
               resources: [ "secrets" ]
               verbs: [ "create", "update" ]
-        kanidm-read:
+        kanidm-read-cm:
           type: Role
           rules:
             - apiGroups: [ "" ]
-              resources: [ "secrets" ]
+              resources: [ "configmaps" ]
               verbs: [ "get", "list", "watch" ]
       bindings:
-        *app :
+        kanidm-write-secret:
           type: ClusterRoleBinding
           roleRef:
-            identifier: *app
+            identifier: kanidm-write-secret
           subjects:
             - identifier: *app
-        kanidm-read:
+        kanidm-read-cm:
           type: RoleBinding
           roleRef:
-            identifier: kanidm-read
+            identifier: kanidm-read-cm
           subjects:
             - identifier: *app
 

@@ -44,8 +44,8 @@ spec:
               HASS_OPENID_CLIENT_SECRET:
                 valueFrom:
                   secretKeyRef:
-                    name: *app
-                    key: client_secret
+                    name: kanidm-${APP}-oidc
+                    key: client-secret
             envFrom:
               - secretRef:
                   name: ${APP}-secret

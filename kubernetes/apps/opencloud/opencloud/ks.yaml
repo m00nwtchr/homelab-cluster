@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components: []
-#  components:
+#      - ../../../../components/oidc
 #    - ../../../../components/volsync
 #  dependsOn:
 #    - name: volsync
@@ -24,6 +24,9 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
+      OIDC_PUBLIC_CLIENT: '"true"'
+      OIDC_DISPLAY_NAME: "OpenCloud"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

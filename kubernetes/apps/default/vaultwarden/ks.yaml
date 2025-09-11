@@ -10,6 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/oidc
     - ../../../../components/volsync
     - ../../../../components/database
   dependsOn:
@@ -24,7 +25,10 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
+      OIDC_DISPLAY_NAME: "Vaultwarden"
+      OIDC_CALLBACK: /identity/connect/oidc-signin
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

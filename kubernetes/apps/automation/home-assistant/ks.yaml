@@ -10,6 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/oidc
     - ../../../../components/volsync
     - ../../../../components/database
   dependsOn:
@@ -24,7 +25,13 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
+      SUBDOMAIN: hass
       DATABASE_OWNER: hass
+      OIDC_DISPLAY_NAME: "Home Assistant"
+      OIDC_CALLBACK: /auth/oidc/callback
+      OIDC_ORIGIN: /auth/oidc/welcome
+      OIDC_SHORT_USERNAME: '"true"'
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

@@ -24,6 +24,8 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
+      OIDC_DISPLAY_NAME: Prowlarr
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
