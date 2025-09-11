@@ -10,6 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/oidc
     - ../../../../components/volsync
     - ../../../../components/database
   dependsOn:
@@ -24,6 +25,9 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
+      OIDC_DISPLAY_NAME: "Open WebUI"
+      OIDC_CALLBACK: /oauth/oidc/callback
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

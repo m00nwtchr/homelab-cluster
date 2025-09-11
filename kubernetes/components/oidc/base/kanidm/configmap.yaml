@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kanidm-${APP}-oidc
+  namespace: kanidm
+  labels:
+    kanidm_config: "1"
+data:
+  targetNamespace: "${NAMESPACE}"
+  state.json: |
+    {
+      "systems": {
+        "oauth2": {
+          "${APP}": {
+            "originUrl": "https://${SUBDOMAIN}.${SECRET_DOMAIN}${CALLBACK}",
+            "originLanding": "https://${SUBDOMAIN}.${SECRET_DOMAIN}${ORIGIN}",
+            "displayName": "${DISPLAY_NAME}",
+            "removeOrphanedClaimMaps": false,
+            "public": ${PUBLIC},
+            "preferShortUsername": ${SHORT_USERNAME},
+            "enableLegacyCrypto": ${LEGACY_CRYPTO},
+            "allowInsecureClientDisablePkce": ${DISABLE_PKCE}
+          }
+        }
+      }
+    }

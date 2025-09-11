@@ -9,7 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components: []
+  components:
+    - ../../../../components/oidc
   decryption:
     provider: sops
     secretRef:
@@ -17,6 +18,11 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/observability/grafana/app
   postBuild:
+    substitute:
+      APP: *app
+      NAMESPACE: *namespace
+      OIDC_DISPLAY_NAME: Grafana
+      OIDC_CALLBACK: /login/generic_oauth
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

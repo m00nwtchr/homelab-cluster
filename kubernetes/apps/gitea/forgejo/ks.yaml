@@ -10,6 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/oidc
     - ../../../../components/volsync
     - ../../../../components/database
   dependsOn:
@@ -24,6 +25,11 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
+      SUBDOMAIN: git
+      OIDC_DISPLAY_NAME: Forgejo
+      OIDC_CALLBACK: /user/oauth2/kanidm/callback
+      OIDC_DISABLE_PKCE: '"true"'
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

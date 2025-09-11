@@ -41,9 +41,9 @@ spec:
               SIGNUPS_ALLOWED: false
               INVITATIONS_ALLOWED: false
               WEBSOCKET_ENABLED: true
-#              SMTP_PORT: 465
-#              SMTP_FROM: admin@${SECRET_DOMAIN}
-#              SMTP_SECURITY: force_tls
+              #              SMTP_PORT: 465
+              #              SMTP_FROM: admin@${SECRET_DOMAIN}
+              #              SMTP_SECURITY: force_tls
               ROCKET_ADDRESS: "::"
               ROCKET_PORT: &port 8080
               DATABASE_URL:
@@ -56,6 +56,11 @@ spec:
               SSO_ONLY: true
               SSO_AUTHORITY: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
               SSO_CLIENT_ID: *app
+              SSO_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: kanidm-${APP}-oidc
+                    key: client-secret
             envFrom:
               - secretRef:
                   name: *app

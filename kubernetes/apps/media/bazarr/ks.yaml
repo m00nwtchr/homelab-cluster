@@ -27,7 +27,9 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
+      OIDC_DISPLAY_NAME: Bazarr
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

@@ -24,6 +24,8 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
+      OIDC_DISPLAY_NAME: Radarr
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
