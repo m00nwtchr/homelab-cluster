@@ -29,6 +29,7 @@ spec:
       NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: qBittorrent
+      OIDC_SUBDOMAIN: qb
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
