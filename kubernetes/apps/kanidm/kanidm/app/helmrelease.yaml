@@ -87,7 +87,17 @@ spec:
               capabilities:
                 drop:
                   - ALL
-          provision:
+
+      provision:
+        pod:
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
+            runAsNonRoot: true
+            fsGroup: 999
+            fsGroupChangePolicy: "OnRootMismatch"
+        containers:
+          app:
             image:
               repository: ghcr.io/m00nwtchr/kanidm-provision
               tag: 0.3.0@sha256:f3c518b804cef571dcf23afda4123f8ddd23989798632b6c903209e43acc286c
