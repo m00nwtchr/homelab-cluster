@@ -40,7 +40,7 @@ spec:
         expression: >-
           [
             JSONPatch{
-              op: "set", path: "/spec/template/spec/priorityClassName",
+              op: "add", path: "/spec/template/spec/priorityClassName",
               value: "system-cluster-critical"
             }
           ]
