@@ -74,7 +74,7 @@ spec:
                   name: *app
             image:
               repository: ghcr.io/mealie-recipes/mealie
-              tag: v3.0.2@sha256:448d56c5b41b668a8e2f0e435ade52ce6bd574d906d3e45eba1e9a1d05f844ff
+              tag: v3.1.2@sha256:d872fb529097df2d77b3c6f5e469b047f99d0d1c9f793a84ae27aa106e1f5d7e
             #            probes:
             #              liveness:
             #                enabled: true
