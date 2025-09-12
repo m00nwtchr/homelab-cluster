@@ -23,6 +23,7 @@ spec:
       NAMESPACE: *namespace
       OIDC_PUBLIC_CLIENT: "true"
       DOMAIN: http://localhost:8000
+      OIDC_DISPLAY_NAME: "Kubernetes"
       OIDC_CALLBACK: /
       OIDC_EXTRA_CALLBACKS: '["http://localhost:18000/"]'
       OIDC_SCOPE_MAPS: |
