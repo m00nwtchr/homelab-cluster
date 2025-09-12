@@ -154,7 +154,7 @@ spec:
           rules:
             - apiGroups: [ "" ]
               resources: [ "secrets" ]
-              verbs: [ "create", "update" ]
+              verbs: [ "create", "patch" ]
         kanidm-read-cm:
           type: Role
           rules:
