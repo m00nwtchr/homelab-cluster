@@ -10,5 +10,6 @@ resources:
   - ./mutatingadmissionpolicy.yaml
   - ./podmonitor.yaml
   - ./policies.yaml
+  - ./priorityclass.yaml
   - ./redirect.yaml
   - ./servicemonitor.yaml
