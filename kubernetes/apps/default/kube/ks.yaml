@@ -34,7 +34,7 @@ spec:
         {
           "groups": {
             "k8s_admins": {
-              "members": ["idm_admins"]
+              "members": ["idm_admins", "admins"]
             }
           }
         }
