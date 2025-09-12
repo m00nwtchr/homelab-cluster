@@ -36,6 +36,9 @@ spec:
       SUP_SCOPE_MAPS: ${q:='}${OIDC_SUP_SCOPE_MAPS}${q:='}
       CLAIM_MAPS: ${q:='}${OIDC_CLAIM_MAPS}${q:='}
 
+      CLIENT_ID_KEY: ${OIDC_CLIENT_ID_KEY:=client-id}
+      CLIENT_SECRET_KEY: ${OIDC_CLIENT_SECRET_KEY:=client-secret}
+
       CUSTOM_STATE: ${q:='}${OIDC_CUSTOM_STATE}${q:='}
       emptyState: "{}"
       emptyArray: "[]"
