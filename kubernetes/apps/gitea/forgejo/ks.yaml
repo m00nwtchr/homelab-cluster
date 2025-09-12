@@ -34,6 +34,8 @@ spec:
         {
           "users@idm.m00nlit.dev": ["openid", "profile", "email", "groups", "ssh_publickeys"]
         }
+      OIDC_CLIENT_ID_KEY: key
+      OIDC_CLIENT_SECRET_KEY: secret
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
