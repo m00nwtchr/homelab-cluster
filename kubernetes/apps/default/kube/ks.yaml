@@ -30,6 +30,14 @@ spec:
         {
           "k8s_admins@idm.m00nlit.dev": ["openid", "groups", "email", "offline_access"]
         }
+      OIDC_CUSTOM_STATE: |
+        {
+          "groups": {
+            "k8s_admins": {
+              "members": ["idm_admins"]
+            }
+          }
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
