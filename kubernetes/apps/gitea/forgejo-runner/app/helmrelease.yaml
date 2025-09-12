@@ -43,7 +43,7 @@ spec:
           register:
             image:
               repository: code.forgejo.org/forgejo/runner
-              tag: 9.0.3@sha256:9ae7e65c14e7d49549432cbbbb2ed95e5e04ede234feb28bfd70a2dc04385263
+              tag: 9.1.1@sha256:fb38cf65183f935821b930de7bd27c303aa188d297be709c762dae564f838402
             command:
               - "sh"
               - "-c"
@@ -77,7 +77,7 @@ spec:
           app:
             image:
               repository: code.forgejo.org/forgejo/runner
-              tag: 9.0.3@sha256:9ae7e65c14e7d49549432cbbbb2ed95e5e04ede234feb28bfd70a2dc04385263
+              tag: 9.1.1@sha256:fb38cf65183f935821b930de7bd27c303aa188d297be709c762dae564f838402
             command:
               - "sh"
               - "-c"
