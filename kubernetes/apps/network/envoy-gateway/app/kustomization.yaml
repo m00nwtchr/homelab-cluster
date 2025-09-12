@@ -5,3 +5,5 @@ kind: Kustomization
 resources:
   - ./gatewayclass.yaml
   - ./helmrelease.yaml
+  - ./mutatingadmissionpolicy.yaml
+  - ./priorityclass.yaml
