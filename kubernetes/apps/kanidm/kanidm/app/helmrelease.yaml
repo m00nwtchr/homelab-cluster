@@ -24,7 +24,7 @@ spec:
           type: RuntimeDefault
 
     controllers:
-      main:
+      *app :
         type: statefulset
 
         pod:
