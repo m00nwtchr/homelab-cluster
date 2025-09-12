@@ -52,9 +52,9 @@ spec:
     server:
       image:
         repository: ghcr.io/immich-app/immich-server
-        tag: v1.137.3@sha256:e517f806457057d44695152a0af2dfa094225a7d85eb37f518925e68864c658d
+        tag: v1.141.1@sha256:6d48910532cb8e2bc85737e52a633c2e65eeb499f6307e106cd131c5778ec634
 
     machine-learning:
       image:
         repository: ghcr.io/immich-app/immich-machine-learning
-        tag: v1.137.3@sha256:ef517c041fa4a6a84a6c3c4f88a1124058e686c9c92bf09a973e7e60c3c3ea1e
+        tag: v1.141.1@sha256:a315e714c8af88894c2b711127af9c383bdaa6d213eae87273967251dff8e488
