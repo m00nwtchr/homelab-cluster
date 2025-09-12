@@ -22,9 +22,8 @@ gitea:
   oauth:
     - name: kanidm
       provider: openidConnect
-      key: client-secret
       existingSecret: kanidm-forgejo-oidc
-      autoDiscoverUrl: "https://idm.${SECRET_DOMAIN}/oauth2/openid/gitea/.well-known/openid-configuration"
+      autoDiscoverUrl: "https://idm.${SECRET_DOMAIN}/oauth2/openid/forgejo/.well-known/openid-configuration"
 
   config:
     database:
