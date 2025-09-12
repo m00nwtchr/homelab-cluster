@@ -41,6 +41,6 @@ spec:
           [
             JSONPatch{
               op: "add", path: "/spec/template/spec/priorityClassName",
-              value: "system-cluster-critical"
+              value: "envoy-gateway-priority"
             }
           ]
