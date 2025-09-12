@@ -115,7 +115,7 @@ spec:
 
     service:
       app:
-        controller: main
+        controller: *app
         ports:
           https:
             port: 443
