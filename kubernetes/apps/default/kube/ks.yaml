@@ -33,7 +33,7 @@ spec:
       OIDC_CUSTOM_STATE: |
         {
           "groups": {
-            "k8s_admins": {
+            "k8s_admins@idm.m00nlit.dev": {
               "members": ["idm_admins@idm.m00nlit.dev", "admins@idm.m00nlit.dev"]
             }
           }
