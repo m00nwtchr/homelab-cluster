@@ -34,3 +34,6 @@ spec:
         {
           "admins@idm.m00nlit.dev": ["openid", "profile"]
         }
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
