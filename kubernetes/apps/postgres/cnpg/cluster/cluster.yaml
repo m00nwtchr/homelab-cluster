@@ -80,12 +80,12 @@ spec:
         passwordSecret:
           name: postgres-home-assistant
 
-      - name: jellyseerrr
+      - name: jellyseerr
         ensure: present
         login: true
         superuser: false
         passwordSecret:
-          name: postgres-jellyseerrr
+          name: postgres-jellyseerr
 
       - name: litellm
         ensure: present
