@@ -31,6 +31,8 @@ spec:
               PORT: &port 80
               TZ: ${TZ}
 
+              HOST: "::"
+
               #              API_KEY:
               #                valueFrom:
               #                  secretKeyRef:
