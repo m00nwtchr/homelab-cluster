@@ -65,11 +65,12 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 2Gi
+                memory: 512Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: [ "ALL" ] }
+
     defaultPodOptions:
       hostUsers: false
       securityContext:
@@ -98,6 +99,7 @@ spec:
                 subPath: logs
               - path: /tmp
                 subPath: tmp
+
     route:
       app:
         hostnames:
