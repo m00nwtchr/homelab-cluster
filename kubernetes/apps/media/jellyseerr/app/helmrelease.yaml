@@ -31,7 +31,7 @@ spec:
               PORT: &port 8080
               TZ: ${TZ}
 
-              HOST: "::"
+              HOST: "[::]"
 
               #              API_KEY:
               #                valueFrom:
