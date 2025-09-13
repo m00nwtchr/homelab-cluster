@@ -48,8 +48,7 @@ spec:
                     fieldPath: metadata.name
               DOCKER_VERNEMQ_LISTENER__TCP__DEFAULT: '0:0:0:0:0:0:0:0:1883'
               DOCKER_VERNEMQ_LISTENER__WS__DEFAULT: '0:0:0:0:0:0:0:0:8080'
-              DOCKER_VERNEMQ_LISTENER__HTTP__DEFAULT: '::1:8881'
-              DOCKER_VERNEMQ_LISTENER__HTTP__METRICS: '::1:8882'
+              DOCKER_VERNEMQ_LISTENER__HTTP__DEFAULT: '0:0:0:0:0:0:0:0:8889'
               DOCKER_VERNEMQ_LISTENER__VMQ__CLUSTERING: '0:0:0:0:0:0:0:0:44053'
 
               DOCKER_VERNEMQ_ACCEPT_EULA: 'yes'
@@ -73,7 +72,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health/ping
-                    port: &http 8888
+                    port: &http 8889
                   periodSeconds: 10
                   timeoutSeconds: 5
               readiness: *probes
