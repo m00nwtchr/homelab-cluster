@@ -191,7 +191,7 @@ spec:
 
     serviceMonitor:
       app:
-        serviceName: '{{ .Release.Name }}-http'
+        serviceName: *app
         endpoints:
           - port: http
             scheme: http
