@@ -46,7 +46,7 @@ spec:
                 valueFrom:
                   fieldRef:
                     fieldPath: metadata.name
-              DOCKER_VERNEMQ_LISTENER__HTTP__DEFAULT: '0:0:0:0:0:0:0:0:8888'
+              DOCKER_VERNEMQ_LISTENER__HTTP__METRICS: '0:0:0:0:0:0:0:0:8888'
               DOCKER_VERNEMQ_LISTENER__WS__DEFAULT: '0:0:0:0:0:0:0:0:8080'
               DOCKER_VERNEMQ_LISTENER__TCP__DEFAULT: '0:0:0:0:0:0:0:0:1883'
 
