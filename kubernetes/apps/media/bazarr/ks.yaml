@@ -11,13 +11,13 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/oidc/envoy
-  #    - ../../../../components/volsync
+    - ../../../../components/volsync
     - ../../../../components/database
   dependsOn:
     - name: envoy-gateway
       namespace: network
-  #    - name: volsync
-  #      namespace: volsync-system
+    - name: volsync
+      namespace: volsync-system
   decryption:
     provider: sops
     secretRef:
