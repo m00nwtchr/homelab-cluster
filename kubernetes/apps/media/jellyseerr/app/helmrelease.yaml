@@ -89,7 +89,7 @@ spec:
         globalMounts:
           - path: /app/config
 
-      config-cache:
+      cache:
         type: emptyDir
         globalMounts:
           - path: /app/config/cache
