@@ -31,11 +31,11 @@ spec:
               PORT: &port 80
               TZ: ${TZ}
 
-#              API_KEY:
-#                valueFrom:
-#                  secretKeyRef:
-#                    name: *app
-#                    key: api_key
+              #              API_KEY:
+              #                valueFrom:
+              #                  secretKeyRef:
+              #                    name: *app
+              #                    key: api_key
 
               DB_TYPE: postgres
               DB_HOST: pooler-rw.postgres.svc
@@ -45,9 +45,9 @@ spec:
                   secretKeyRef:
                     name: postgres-${APP}
                     key: password
-#            envFrom:
-#              - secretRef:
-#                  name: "{{ .Release.Name }}-secret"
+            #            envFrom:
+            #              - secretRef:
+            #                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
@@ -81,17 +81,18 @@ spec:
 
     persistence:
       config:
-        existingClaim: "{{ .Release.Name }}"
+        type: emptyDir
         globalMounts:
           - path: /app/config
       config-cache:
-        existingClaim: "{{ .Release.Name }}-cache"
+        type: emptyDir
         globalMounts:
           - path: /app/config/cache
+
       tmpfs:
         type: emptyDir
         advancedMounts:
-          jellyseerr:
+          *app :
             app:
               - path: /app/config/logs
                 subPath: logs
