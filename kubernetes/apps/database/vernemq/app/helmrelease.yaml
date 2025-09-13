@@ -49,6 +49,7 @@ spec:
               DOCKER_VERNEMQ_LISTENER__TCP__DEFAULT: '0:0:0:0:0:0:0:0:1883'
               DOCKER_VERNEMQ_LISTENER__WS__DEFAULT: '0:0:0:0:0:0:0:0:8080'
               DOCKER_VERNEMQ_LISTENER__HTTP__DEFAULT: '0:0:0:0:0:0:0:0:8889'
+              DOCKER_VERNEMQ_LISTENER__HTTP__DEFAULT4: '0.0.0.0:8890'
               DOCKER_VERNEMQ_LISTENER__VMQ__CLUSTERING: '0:0:0:0:0:0:0:0:44053'
 
               DOCKER_VERNEMQ_ACCEPT_EULA: 'yes'
@@ -138,7 +139,7 @@ spec:
       http:
         ports:
           http:
-            port: *http
+            port: 8890
 
     route:
       app:
