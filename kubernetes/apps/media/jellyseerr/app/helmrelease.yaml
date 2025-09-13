@@ -50,19 +50,19 @@ spec:
             #            envFrom:
             #              - secretRef:
             #                  name: "{{ .Release.Name }}-secret"
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api/v1/status
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+#            probes:
+#              liveness: &probes
+#                enabled: true
+#                custom: true
+#                spec:
+#                  httpGet:
+#                    path: /api/v1/status
+#                    port: *port
+#                  initialDelaySeconds: 0
+#                  periodSeconds: 10
+#                  timeoutSeconds: 1
+#                  failureThreshold: 3
+#              readiness: *probes
             resources:
               requests:
                 cpu: 10m
@@ -113,6 +113,7 @@ spec:
 
     service:
       app:
+        ipFamilies: [IPv4]
         ports:
           http:
             port: 80
