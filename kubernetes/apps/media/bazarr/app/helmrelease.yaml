@@ -125,8 +125,7 @@ spec:
 
     persistence:
       config:
-        size: 1Gi
-        accessMode: ReadWriteOnce
+        existingClaim: *app
 
       media:
         existingClaim: media
