@@ -139,7 +139,8 @@ spec:
       http:
         ports:
           http:
-            port: 8890
+            port: 8888
+            targetPort: 8890
 
     route:
       app:
