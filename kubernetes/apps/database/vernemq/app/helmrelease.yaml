@@ -133,6 +133,7 @@ spec:
       headless:
         publishNotReadyAddresses: true
         clusterIP: None
+        ipFamilies: [IPv4]
         ports: *ports
       http:
         ports:
