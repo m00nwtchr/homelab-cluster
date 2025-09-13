@@ -43,10 +43,8 @@ spec:
               DB_PASS:
                 valueFrom:
                   secretKeyRef:
-                    valueFrom:
-                      secretKeyRef:
-                        name: postgres-${APP}
-                        key: password
+                    name: postgres-${APP}
+                    key: password
 #            envFrom:
 #              - secretRef:
 #                  name: "{{ .Release.Name }}-secret"
