@@ -85,9 +85,10 @@ spec:
 
     persistence:
       config:
-        type: emptyDir
+        existingClaim: *app
         globalMounts:
           - path: /app/config
+
       config-cache:
         type: emptyDir
         globalMounts:
