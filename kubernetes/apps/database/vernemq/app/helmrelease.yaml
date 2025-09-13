@@ -50,6 +50,10 @@ spec:
               DOCKER_VERNEMQ_LISTENER__WS__DEFAULT: '0:0:0:0:0:0:0:0:8080'
               DOCKER_VERNEMQ_LISTENER__HTTP__DEFAULT: '0:0:0:0:0:0:0:0:8889'
 
+              DOCKER_VERNEMQ_LISTENER__SSL__CAFILE: "/etc/ssl/vernemq/tls.crt"
+              DOCKER_VERNEMQ_LISTENER__SSL__CERTFILE: "/etc/ssl/vernemq/tls.crt"
+              DOCKER_VERNEMQ_LISTENER__SSL__KEYFILE: "/etc/ssl/vernemq/tls.key"
+
               DOCKER_VERNEMQ_ACCEPT_EULA: 'yes'
               DOCKER_VERNEMQ_DISCOVERY_KUBERNETES: '1'
               DOCKER_VERNEMQ_KUBERNETES_LABEL_SELECTOR: 'app.kubernetes.io/name=vernemq'
@@ -178,6 +182,12 @@ spec:
           gethomepage.dev/icon: mqtt.svg
 
     persistence:
+      ssl:
+        type: secret
+        name: mqtt-${SECRET_DOMAIN/./-}
+        globalMounts:
+          - path: /etc/ssl/vernemq
+
       tmpfs:
         type: emptyDir
         globalMounts:
