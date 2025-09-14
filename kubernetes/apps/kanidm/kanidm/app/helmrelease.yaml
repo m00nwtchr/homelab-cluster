@@ -139,23 +139,41 @@ spec:
 
     persistence:
       data:
-        enabled: true
-        type: persistentVolumeClaim
         existingClaim: *app
+        advancedMounts:
+          *app :
+            app:
+              - path: /data
+
       config:
         type: configMap
         name: kanidm-configmap
-        globalMounts:
-          - path: /data/server.toml
-            subPath: server.toml
+        advancedMounts:
+          *app :
+            app:
+              - path: /data/server.toml
+                subPath: server.toml
       certs:
         type: secret
         name: kanidm-tls
         defaultMode: 0400
+        advancedMounts:
+          *app :
+            app:
+              - path: /certs
+
       empty:
         type: emptyDir
         globalMounts:
           - path: /var/run
+
+      icon-cache:
+        size: 1Gi
+        accessMode: ReadWriteOnce
+        advancedMounts:
+          provision:
+            app:
+              - path: /data/icons
 
     rbac:
       roles:
