@@ -34,7 +34,7 @@ data:
       "systems": {
         "oauth2": {
           "${APP}": {
-            "k8s": { "clientIdKey": "${CLIENT_ID_KEY}", "clientSecretKey": "${CLIENT_SECRET_KEY}" },
+            "k8s": { "clientIdKey": "${CLIENT_ID_KEY}", "clientSecretKey": "${CLIENT_SECRET_KEY}", "imageUrl": "${IMAGE_URL:=}" },
             "originUrl": ${EXTRA_CALLBACKS:=${emptyArray}}
           }
         }

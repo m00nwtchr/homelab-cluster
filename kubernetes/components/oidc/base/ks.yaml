@@ -39,6 +39,8 @@ spec:
       CLIENT_ID_KEY: ${OIDC_CLIENT_ID_KEY:=client-id}
       CLIENT_SECRET_KEY: ${OIDC_CLIENT_SECRET_KEY:=client-secret}
 
+      IMAGE_URL: ${OIDC_IMAGE_URL:=${OIDC_IMAGE_HOST:=https://cdn.jsdelivr.net/gh/selfhst/icons/svg}/${OIDC_IMAGE_NAME:=${APP}}.svg}
+
       CUSTOM_STATE: ${q:='}${OIDC_CUSTOM_STATE}${q:='}
       emptyState: "{}"
       emptyArray: "[]"
