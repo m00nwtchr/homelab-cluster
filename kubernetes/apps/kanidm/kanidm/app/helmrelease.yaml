@@ -168,6 +168,7 @@ spec:
           - path: /var/run
 
       icon-cache:
+        suffix: "icon-cache"
         size: 1Gi
         accessMode: ReadWriteOnce
         advancedMounts:
