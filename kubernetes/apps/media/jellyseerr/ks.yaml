@@ -12,6 +12,7 @@ spec:
   components:
     - ../../../../components/volsync
     - ../../../../components/database
+    - ../../../../components/oidc
   interval: 1h
   path: ./kubernetes/apps/media/jellyseerr/app
   postBuild:
@@ -19,6 +20,13 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
+      OIDC_DISPLAY_NAME: Jellyseer
+      OIDC_CALLBACK: /login/oidc/callback/authelia
+      OIDC_SHORT_USERNAME: "true"
+      OIDC_SCOPE_MAPS: |
+        {
+          "users@idm.m00nlit.dev": ["openid", "email", "profile", "groups"]
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
