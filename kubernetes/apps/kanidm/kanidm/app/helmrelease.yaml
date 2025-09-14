@@ -100,7 +100,7 @@ spec:
           app:
             image:
               repository: ghcr.io/m00nwtchr/kanidm-provision
-              tag: 1.3.0@sha256:21fc1faa9f07fc867371740e08c86857d464533397e4b644adb14735fe2f9cfe
+              tag: 1.3.0@sha256:95f21e4d99b32ca2e446c6c2af76ae5b66b8cb92f4ff3313f2b15fcc1270df61
             env:
               KANIDM_INSTANCE: "https://idm.${SECRET_DOMAIN}"
               KANIDM_TOKEN:
