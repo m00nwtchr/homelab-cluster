@@ -21,8 +21,9 @@ spec:
       NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: Jellyseer
-      OIDC_CALLBACK: /login
+      OIDC_CALLBACK: /login?provider=kanidm&callback=true
       OIDC_SHORT_USERNAME: "true"
+      OIDC_DISABLE_PKCE: "true"
       OIDC_SCOPE_MAPS: |
         {
           "users@idm.m00nlit.dev": ["openid", "email", "profile", "groups"]
