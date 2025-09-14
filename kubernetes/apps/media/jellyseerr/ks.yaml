@@ -21,7 +21,7 @@ spec:
       NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: Jellyseer
-      OIDC_CALLBACK: /login/oidc/callback/authelia
+      OIDC_CALLBACK: /login
       OIDC_SHORT_USERNAME: "true"
       OIDC_SCOPE_MAPS: |
         {
