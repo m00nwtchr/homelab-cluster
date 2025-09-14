@@ -28,6 +28,7 @@ spec:
         {
           "users@idm.m00nlit.dev": ["openid", "profile", "email"]
         }
+      OIDC_IMAGE_NAME: paperless-ngx
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
