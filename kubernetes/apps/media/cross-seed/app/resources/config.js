@@ -14,6 +14,7 @@ module.exports = {
   linkDirs: ["/mnt/media/downloads/complete/cross-seed"],
   linkType: "hardlink",
   dataDirs: ["/mnt/media/movies", "/mnt/media/tv"],
+  maxDataDepth: 3,
   seasonFromEpisodes: 0.5,
   matchMode: "partial",
   ignoreNonRelevantFilesToResume: true,
