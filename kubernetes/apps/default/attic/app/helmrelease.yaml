@@ -38,7 +38,7 @@ spec:
               ATTIC_SERVER_DATABASE_URL:
                 valueFrom:
                   secretKeyRef:
-                    name: "postgres-{{ .Release.Name }}"
+                    name: "{{ .Release.Name }}-postgres"
                     key: DATABASE_URL
             envFrom:
               - secretRef:
