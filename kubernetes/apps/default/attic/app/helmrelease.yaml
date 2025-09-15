@@ -83,3 +83,4 @@ spec:
         name: attic-configmap
         globalMounts:
           - path: /var/empty/.config/attic/server.toml
+            subPath: server.toml
