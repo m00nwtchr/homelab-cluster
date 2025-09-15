@@ -102,5 +102,4 @@ spec:
       media:
         existingClaim: media
         globalMounts:
-          - path: /mnt/media/downloads/complete
-            subPath: downloads/complete
+          - path: /mnt/media/

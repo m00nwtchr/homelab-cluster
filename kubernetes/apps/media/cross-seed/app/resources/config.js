@@ -13,6 +13,7 @@ module.exports = {
   linkCategory: "cross-seed",
   linkDirs: ["/mnt/media/downloads/complete/cross-seed"],
   linkType: "hardlink",
+  dataDirs: ["/mnt/media/movies", "/mnt/media/tv"],
   matchMode: "partial",
   ignoreNonRelevantFilesToResume: true,
   radarr: [`http://radarr.media.svc.cluster.local/?apikey=${process.env.RADARR_API_KEY}`],
