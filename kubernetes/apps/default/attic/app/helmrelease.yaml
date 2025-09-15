@@ -18,13 +18,13 @@ spec:
     remediation:
       retries: 3
   values:
-#    defaultPodOptions:
-#      securityContext:
-#        runAsUser: 1000
-#        runAsGroup: 1000
-#        runAsNonRoot: true
-#        fsGroup: 1000
-#        fsGroupChangePolicy: "OnRootMismatch"
+    #    defaultPodOptions:
+    #      securityContext:
+    #        runAsUser: 1000
+    #        runAsGroup: 1000
+    #        runAsNonRoot: true
+    #        fsGroup: 1000
+    #        fsGroupChangePolicy: "OnRootMismatch"
 
     controllers:
       *app :
@@ -43,22 +43,22 @@ spec:
             envFrom:
               - secretRef:
                   name: *app
-#            probes:
-#              liveness:
-#                enabled: true
-#                type: HTTP
-#              readiness:
-#                enabled: true
-#                type: HTTP
-#              startup:
-#                enabled: true
-#                type: HTTP
-#            resources:
-#              requests:
-#                memory: 250Mi
-#                cpu: 50m
-#              limits:
-#                memory: 500Mi
+    #            probes:
+    #              liveness:
+    #                enabled: true
+    #                type: HTTP
+    #              readiness:
+    #                enabled: true
+    #                type: HTTP
+    #              startup:
+    #                enabled: true
+    #                type: HTTP
+    #            resources:
+    #              requests:
+    #                memory: 250Mi
+    #                cpu: 50m
+    #              limits:
+    #                memory: 500Mi
 
     service:
       app:
@@ -75,6 +75,12 @@ spec:
           - name: external
             namespace: network
             sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
+            timeouts:
+              request: "300s"
 
     persistence:
       config:
