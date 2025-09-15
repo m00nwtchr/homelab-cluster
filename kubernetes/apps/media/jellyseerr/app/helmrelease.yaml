@@ -31,13 +31,13 @@ spec:
               PORT: &port 8080
               TZ: ${TZ}
 
-#              HOST: "::"
+              #              HOST: "::"
 
-              #              API_KEY:
-              #                valueFrom:
-              #                  secretKeyRef:
-              #                    name: *app
-              #                    key: api_key
+              API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: *app
+                    key: api_key
 
               DB_TYPE: postgres
               DB_HOST: pooler-rw.postgres.svc
@@ -50,19 +50,19 @@ spec:
             #            envFrom:
             #              - secretRef:
             #                  name: "{{ .Release.Name }}-secret"
-#            probes:
-#              liveness: &probes
-#                enabled: true
-#                custom: true
-#                spec:
-#                  httpGet:
-#                    path: /api/v1/status
-#                    port: *port
-#                  initialDelaySeconds: 0
-#                  periodSeconds: 10
-#                  timeoutSeconds: 1
-#                  failureThreshold: 3
-#              readiness: *probes
+            #            probes:
+            #              liveness: &probes
+            #                enabled: true
+            #                custom: true
+            #                spec:
+            #                  httpGet:
+            #                    path: /api/v1/status
+            #                    port: *port
+            #                  initialDelaySeconds: 0
+            #                  periodSeconds: 10
+            #                  timeoutSeconds: 1
+            #                  failureThreshold: 3
+            #              readiness: *probes
             resources:
               requests:
                 cpu: 10m
@@ -115,7 +115,7 @@ spec:
 
     service:
       app:
-        ipFamilies: [IPv4]
+        ipFamilies: [ IPv4 ]
         ports:
           http:
             port: 80
