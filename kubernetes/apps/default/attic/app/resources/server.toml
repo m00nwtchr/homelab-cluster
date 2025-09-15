@@ -41,7 +41,7 @@ api-endpoint = "https://attic.${SECRET_DOMAIN}/"
 type = "s3"
 region = "garage"
 bucket = "attic"
-endpoint = "http://garage.garage.svc.cluster.local"
+endpoint = "http://garage.garage.svc.cluster.local:3900"
 
 # Credentials
 #
