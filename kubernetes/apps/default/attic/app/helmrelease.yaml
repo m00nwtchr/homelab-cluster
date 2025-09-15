@@ -43,16 +43,16 @@ spec:
             envFrom:
               - secretRef:
                   name: *app
-            probes:
-              liveness:
-                enabled: true
-                type: HTTP
-              readiness:
-                enabled: true
-                type: HTTP
-              startup:
-                enabled: true
-                type: HTTP
+#            probes:
+#              liveness:
+#                enabled: true
+#                type: HTTP
+#              readiness:
+#                enabled: true
+#                type: HTTP
+#              startup:
+#                enabled: true
+#                type: HTTP
 #            resources:
 #              requests:
 #                memory: 250Mi
