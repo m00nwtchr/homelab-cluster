@@ -41,7 +41,7 @@ spec:
               AUTOBRR__LOG_LEVEL: DEBUG
 
               AUTOBRR__DATABASE_TYPE: postgres
-              AUTOBRR__POSTGRES_HOST: pooler-rw.postgres.svc
+              AUTOBRR__POSTGRES_HOST: se-pooler-rw.postgres.svc
               AUTOBRR__POSTGRES_PORT: 5432
 
               AUTOBRR__POSTGRES_DB: autobrr
