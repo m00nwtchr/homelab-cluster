@@ -33,6 +33,13 @@ spec:
 
   managed:
     roles:
+      - name: attic
+        ensure: present
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-attic
+
       - name: autobrr
         ensure: present
         login: true
