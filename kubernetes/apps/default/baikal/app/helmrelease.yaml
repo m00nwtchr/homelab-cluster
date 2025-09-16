@@ -31,8 +31,8 @@ spec:
         initContainers:
           copy-config:
             image:
-              repository: docker.io/busybox
-              tag: 1.37.0-musl@sha256:254e6134b1bf813b34e920bc4235864a54079057d51ae6db9a4f2328f261c2ad
+              repository: ghcr.io/home-operations/busybox
+              tag: 1.37.0@sha256:026ed7273270ec08f6902b4ae8334c23b473e5394bec3bbbdbfe580c710d50bc
               pullPolicy: IfNotPresent
             command: [ "/bin/sh", "-c", "cp /config/baikal.yaml /mnt/ && chown 101:101 /mnt/baikal.yaml" ]
 
