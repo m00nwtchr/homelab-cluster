@@ -12,6 +12,7 @@ spec:
   components:
     - ../../../../components/oidc/envoy
     - ../../../../components/volsync
+    - ../../../../components/gatus/guarded
   dependsOn:
     - name: volsync
       namespace: volsync-system
