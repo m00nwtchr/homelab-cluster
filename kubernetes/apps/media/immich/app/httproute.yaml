@@ -18,3 +18,5 @@ spec:
         - name: immich-server
           namespace: media
           port: 2283
+
+# TODO: make only /share/ accessible on external gateway
