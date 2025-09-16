@@ -1,14 +1,10 @@
 ---
 endpoints:
   - name: "${APP}"
-    group: guarded
-    url: 1.1.1.1
+    group: external
+    url: "https://${DOMAIN:=${SUBDOMAIN:=${APP}}.${SECRET_DOMAIN}}${GATUS_PATH:=/}"
     interval: 1m
-    ui:
-      hide-hostname: true
-      hide-url: true
-    dns:
-      query-name: "${DOMAIN:=${SUBDOMAIN:=${APP}}.${SECRET_DOMAIN}}"
-#      query-type: A
+    client:
+      dns-resolver: tcp://1.1.1.1:53
     conditions:
-      - len([BODY]) == 0
+      - "[STATUS] == ${GATUS_STATUS:=200}"
