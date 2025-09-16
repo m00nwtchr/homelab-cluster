@@ -62,7 +62,7 @@ spec:
             env:
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
-              GATUS_WEB_PORT: &port 80
+              GATUS_WEB_PORT: &port 8080
               TZ: ${TZ}
             probes:
               liveness: &probes
@@ -97,7 +97,8 @@ spec:
       app:
         ports:
           http:
-            port: *port
+            port: 80
+            targetPort: *port
 
     serviceMonitor:
       app:
