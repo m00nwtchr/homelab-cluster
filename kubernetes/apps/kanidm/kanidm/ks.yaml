@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
+    - ../../../../components/gatus/external
   dependsOn:
     - name: volsync
       namespace: volsync-system
@@ -28,6 +29,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      SUBDOMAIN: idm
       VOLSYNC_PUID: "999"
       VOLSYNC_PGID: "999"
     substituteFrom:

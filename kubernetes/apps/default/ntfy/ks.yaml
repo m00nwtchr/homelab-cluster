@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
+    - ../../../../components/gatus/external
   dependsOn:
     - name: volsync
       namespace: volsync-system
