@@ -17,6 +17,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      SUBDOMAIN: search
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
