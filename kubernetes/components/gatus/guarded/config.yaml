@@ -9,6 +9,6 @@ endpoints:
       hide-url: true
     dns:
       query-name: "${DOMAIN:=${SUBDOMAIN:=${APP}}.${SECRET_DOMAIN}}"
-      query-type: A
+      query-type: AAAA
     conditions:
       - len([BODY]) == 0
