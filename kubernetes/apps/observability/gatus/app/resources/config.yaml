@@ -1,0 +1,32 @@
+---
+connectivity:
+  checker:
+    target: 1.1.1.1:53
+    interval: 1m
+
+endpoints:
+  - name: flux-webhook
+    group: external
+    url: https://flux-webhook.${SECRET_DOMAIN}
+    interval: 1m
+    client:
+      dns-resolver: tcp://1.1.1.1:53
+    conditions:
+      - "[STATUS] == 404"
+
+metrics: true
+
+ui:
+  title: Status | Gatus
+  header: Status
+  logo: https://avatars.githubusercontent.com/u/13919176
+  link: https://github.com/m00nwtchr
+  buttons:
+    - name: Github
+      link: https://github.com/m00nwtchr
+
+    - name: Homelab
+      link: https://github.com/m00nwtchr/homelab-cluster
+
+web:
+  port: $${GATUS_WEB_PORT}
