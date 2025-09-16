@@ -153,6 +153,9 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: VictoriaMetrics
+        gatus:
+          url: https://raw.githubusercontent.com/TwiN/gatus/refs/heads/master/.examples/docker-compose-grafana-prometheus/grafana/provisioning/dashboards/gatus.json
+          datasource: VictoriaMetrics
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
           gnetId: 15761
