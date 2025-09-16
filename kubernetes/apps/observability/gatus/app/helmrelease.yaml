@@ -37,16 +37,6 @@ spec:
           reloader.stakater.com/auto: "true"
 
         initContainers:
-          fix-config-perms:
-            image:
-              repository: ghcr.io/home-operations/busybox
-              tag: 1.37.0@sha256:026ed7273270ec08f6902b4ae8334c23b473e5394bec3bbbdbfe580c710d50bc
-            command: [ "sh", "-c", "chown 1000:1000 /config" ]
-            securityContext:
-              runAsUser: 0
-              runAsGroup: 0
-              runAsNonRoot: false
-
           init-config:
             image:
               repository: ghcr.io/home-operations/k8s-sidecar
