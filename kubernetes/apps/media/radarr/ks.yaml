@@ -12,6 +12,7 @@ spec:
   components:
     - ../../../../components/oidc/envoy
     - ../../../../components/database
+    - ../../../../components/gatus/guarded
   dependsOn:
     - name: envoy-gateway
       namespace: network

@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/oidc
+    - ../../../../components/gatus/guarded
   decryption:
     provider: sops
     secretRef:

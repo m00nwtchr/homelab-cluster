@@ -13,6 +13,7 @@ spec:
     - ../../../../components/volsync
     - ../../../../components/database
     - ../../../../components/oidc
+    - ../../../../components/gatus/guarded
   interval: 1h
   path: ./kubernetes/apps/media/jellyseerr/app
   postBuild:
