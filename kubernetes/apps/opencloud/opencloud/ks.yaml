@@ -12,6 +12,7 @@ spec:
   components:
     - ../../../../components/oidc
   #    - ../../../../components/volsync
+    - ../../../../components/gatus/external
   #  dependsOn:
   #    - name: volsync
   #      namespace: volsync-system

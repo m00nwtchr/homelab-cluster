@@ -13,6 +13,7 @@ spec:
     - ../../../../components/volsync
     - ../../../../components/database
 #    - ../../../../components/oidc/envoy
+    - ../../../../components/gatus/guarded
 #  dependsOn:
 #    - name: rook-ceph-cluster
 #      namespace: rook-ceph

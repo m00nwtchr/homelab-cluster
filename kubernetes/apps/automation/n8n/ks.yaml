@@ -13,6 +13,7 @@ spec:
   components:
     - ../../../../components/volsync
     - ../../../../components/database
+    - ../../../../components/gatus/guarded
   decryption:
     provider: sops
     secretRef:

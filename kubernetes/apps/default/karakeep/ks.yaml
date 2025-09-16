@@ -13,6 +13,7 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/volsync
+    - ../../../../components/gatus/guarded
   interval: 30m
   timeout: 5m
   path: ./kubernetes/apps/default/karakeep/app
