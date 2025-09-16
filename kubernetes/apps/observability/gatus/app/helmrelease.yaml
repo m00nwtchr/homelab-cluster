@@ -159,6 +159,8 @@ spec:
     persistence:
       data:
         type: emptyDir
+        globalMounts:
+          - path: /config/
 
       config:
         type: configMap
