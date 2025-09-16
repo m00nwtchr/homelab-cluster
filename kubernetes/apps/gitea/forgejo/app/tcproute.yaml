@@ -5,6 +5,9 @@ metadata:
   name: forgejo-ssh
 spec:
   parentRefs:
+    - name: external
+      namespace: network
+      sectionName: ssh
     - name: internal
       namespace: network
       sectionName: ssh
