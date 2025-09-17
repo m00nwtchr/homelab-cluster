@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: matrix-gatus-ep
+  labels:
+    gatus.io/enabled: "true"
+data:
+  config.yaml: |
+    ---
+    endpoints:
+      - name: "matrix federation"
+        group: external
+        url: "https://matrix-fed.m00nlit.dev/"
+        interval: 1m
+        client:
+          dns-resolver: tcp://1.1.1.1:53
+        conditions:
+          - "[STATUS] == 200"
