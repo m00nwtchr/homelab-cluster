@@ -10,6 +10,8 @@ persistence:
   existingClaim: ENC[AES256_GCM,data:C6jHrAya8ssY,iv:i8WZ3+O5umOMs7BpqBru15tLsr3UmklFCslTh+7gc08=,tag:wI46tn7UfLmRod2LQGjMhw==,type:str]
 networkPolicy:
   enabled: ENC[AES256_GCM,data:PF3TRHM=,iv:86AXTKkb7+TvKyIvqgNff90uAGwOj4kITI2qbOE+MUI=,tag:75kQiClRRkN7IM6cK5Dctg==,type:bool]
+global:
+  imageRegistry: ENC[AES256_GCM,data:JIgIwfSVTb/K7PXraA==,iv:3IM58Qvt1i9M3AZumFIAlXGESTqQwOzSfzVAyQpjGhY=,tag:M6NmVmTpz0CNDP53p5y0dw==,type:str]
 sops:
   age:
     - recipient: age1689ww93cs2fkv3np57388eyepd789kk3zu47vyx67u8sc48vlprq9qafje
@@ -21,8 +23,8 @@ sops:
         cEJ6TkYyVnlVSDlmN3FEbkVCZVFpdW8KepKo5IoZMvvST97HEW8eev0B53vyKvBM
         Cpfq7OzFj7nVZhD1oTFDhRsYxW0SFZoDyVfHe5OFdUobUFFYvuxtFw==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2025-08-18T00:06:06Z"
-  mac: ENC[AES256_GCM,data:d7MNnL/9ZTzG2tZPgB/PDeoyE2tmllt+KhDCgnfwtobzGj8/e5OK9BX5z1lVSkCy5HGUyowfripJagneZycYzHxEqYn7Om1agHV+5s+zCiUq0WJy3FS7f2iAfWiMp8ZedirbTMz4wF99W+Mp29KtFez7gkNVw9cr281CG4SbIyM=,iv:RQUmWtozj5GPsD0jdst4CDbU0QA3KVxN2iWZlouZw2w=,tag:lMhk2ju41VKnNtrE4pHAEQ==,type:str]
+  lastmodified: "2025-09-17T17:59:10Z"
+  mac: ENC[AES256_GCM,data:vmDfRuNQAdq3uzgzcP8biV7NgQpivzaJSYRJfezv+XKgktJqg5kvY30GWeyv8IO42TuvLiYX0XQvZZ69fc5ZddaHePl6lltgfp8kHI++xXOHlhbhx3+PgStzMGub/gpmROCTp8FX2jsZml/fh/M1jXREGiflso1O1wZcyRRkquE=,iv:ubAb/SAJ63Qz4PuKHGZ2nR+L9Y0zlY4Fd02BKG1oRf8=,tag:8gGnqmDyMe+tLV4V1ewi8g==,type:str]
   pgp:
     - created_at: "2025-08-18T00:06:06Z"
       enc: |-
