@@ -23,7 +23,7 @@ spec:
         containers:
           app: &bapp
             image:
-              repository: freikin/dawarich
+              repository: mirror.gcr.io/freikin/dawarich
               tag: 0.32.0@sha256:4cb9bd4e05dbea4cf5176c2d07c613c10bff231e487e2a95ab978fd7e3e7c174
             env:
               # RAILS_ENV: production
