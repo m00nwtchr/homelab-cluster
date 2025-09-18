@@ -49,8 +49,8 @@ spec:
               DATABASE_URL:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-postgres
-                    key: POSTGRES_URL
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
 
               SSO_ENABLED: true
               SSO_ONLY: true

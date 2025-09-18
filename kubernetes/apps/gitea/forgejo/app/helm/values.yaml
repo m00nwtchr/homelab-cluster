@@ -31,8 +31,6 @@ gitea:
   config:
     database:
       DB_TYPE: postgres
-      # Needs session-mode pooler
-      HOST: se-pooler-rw.postgres.svc:5432
       NAME: forgejo
     server:
       APP_DATA_PATH: /data/gitea
@@ -68,16 +66,21 @@ gitea:
       ENABLED: true
 
   additionalConfigFromEnvs:
+    - name: FORGEJO__DATABASE__HOST
+      valueFrom:
+        secretKeyRef:
+          name: "{{ .Release.Name }}-postgres"
+          key: host
     - name: FORGEJO__DATABASE__PASSWD
       valueFrom:
         secretKeyRef:
-          name: postgres-forgejo
+          name: "{{ .Release.Name }}-postgres"
           key: password
     - name: FORGEJO__DATABASE__USER
       valueFrom:
         secretKeyRef:
-          name: postgres-forgejo
-          key: username
+          name: "{{ .Release.Name }}-postgres"
+          key: user
 
 service:
   ssh:
