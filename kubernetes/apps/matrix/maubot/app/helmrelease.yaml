@@ -23,6 +23,15 @@ spec:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
+
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 989
+            runAsGroup: 989
+            fsGroup: 989
+            fsGroupChangePolicy: "OnRootMismatch"
+
         containers:
           app:
             image:
