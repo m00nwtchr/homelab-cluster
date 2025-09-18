@@ -11,13 +11,14 @@ patches:
       apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       metadata:
-        name: dummy  # name is required but not actually used by the merge
+        name: not-used
       spec:
         values:
           persistence:
             postgres-certs:
               type: secret
               name: "postgres-{{ .Release.Name }}-cert"
+              defaultMode: 0600
               globalMounts:
                 - path: /var/run/secrets/postgresql
 resources:
