@@ -21,6 +21,5 @@ patches:
               defaultMode: 0600
               globalMounts:
                 - path: /var/run/secrets/postgresql
-resources:
-  - ./base/cert
-  - ./base
+components:
+  - ./manual
