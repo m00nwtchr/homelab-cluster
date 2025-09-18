@@ -40,7 +40,7 @@ spec:
                     key: api_key
 
               DB_TYPE: postgres
-              DB_HOST: pooler-rw.postgres.svc
+              DB_HOST: postgres-rw.postgres.svc
               DB_USER: *app
               DB_PASS:
                 valueFrom:

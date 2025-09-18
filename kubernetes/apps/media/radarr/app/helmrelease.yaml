@@ -46,7 +46,7 @@ spec:
               RADARR__AUTH__METHOD: External
               RADARR__LOG__ANALYTICSENABLED: "False"
               RADARR__LOG__DBENABLED: "False"
-              RADARR__POSTGRES__HOST: pooler-rw.postgres.svc
+              RADARR__POSTGRES__HOST: postgres-rw.postgres.svc
               RADARR__POSTGRES__USER:
                 valueFrom:
                   secretKeyRef:
