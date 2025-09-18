@@ -38,6 +38,13 @@ spec:
   monitoring:
     enablePodMonitor: true
 
+  postgresql:
+    pg_hba:
+      - hostssl   all all 0.0.0.0/0         cert clientcert=verify-full
+      - hostssl   all all ::/0              cert clientcert=verify-full
+      - hostnossl all all 10.42.0.0/16      scram-sha-256
+      - hostnossl all all 2001:cafe:42::/56 scram-sha-256
+
   managed:
     roles:
       - name: attic
