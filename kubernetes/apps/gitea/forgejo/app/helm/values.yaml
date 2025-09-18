@@ -80,7 +80,7 @@ gitea:
       valueFrom:
         secretKeyRef:
           name: "forgejo-postgres"
-          key: user
+          key: username
 
 service:
   ssh:
