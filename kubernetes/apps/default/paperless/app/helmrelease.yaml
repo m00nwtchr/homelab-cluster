@@ -137,12 +137,6 @@ spec:
         globalMounts:
           - path: /usr/src/paperless/data
 
-      certs:
-        type: secret
-        name: "postgres-{{ .Release.Name }}-cert"
-        globalMounts:
-          - path: /var/run/secrets/postgresql
-
       media:
         existingClaim: paperless-media
         globalMounts:
