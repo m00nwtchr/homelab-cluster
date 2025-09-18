@@ -56,7 +56,7 @@ spec:
         accessMode: ReadWriteOnce
 
       config:
-        type: secret
+        type: configMap
         name: maubot-configmap
         globalMounts:
           - path: /data/config.yaml
