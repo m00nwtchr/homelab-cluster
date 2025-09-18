@@ -48,6 +48,9 @@ spec:
                   secretKeyRef:
                     name: "{{ .Release.Name }}-postgres"
                     key: password
+              PAPERLESS_DBSSLROOTCERT: /var/run/secrets/postgresql/ca.crt
+              PAPERLESS_DBSSLCERT: /var/run/secrets/postgresql/tls.crt
+              PAPERLESS_DBSSLKEY: /var/run/secrets/postgresql/tls.key
 
               PAPERLESS_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}
               PAPERLESS_ENABLE_HTTP_REMOTE_USER: 'true'
@@ -132,6 +135,13 @@ spec:
         accessMode: ReadWriteOnce
         globalMounts:
           - path: /usr/src/paperless/data
+
+      certs:
+        type: secret
+        name: "postgres-{{ .Release.Name }}-cert"
+        globalMounts:
+          - path: /var/run/secrets/postgresql
+
       media:
         existingClaim: paperless-media
         globalMounts:
