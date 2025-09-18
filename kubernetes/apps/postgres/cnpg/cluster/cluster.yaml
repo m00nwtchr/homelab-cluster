@@ -7,6 +7,13 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   instances: 1
+
+  certificates:
+    serverTLSSecret: postgres-server-cert
+    serverCASecret: postgres-server-cert
+    clientCASecret: postgres-client-cert
+    replicationTLSSecret: postgres-client-cert
+
   storage:
     size: 8Gi
 
