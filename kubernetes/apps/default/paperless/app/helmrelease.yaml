@@ -38,12 +38,17 @@ spec:
           app:
             env:
               PAPERLESS_REDIS: redis://dragonfly.database.svc:6379/13
-              PAPERLESS_DBHOST: postgres-rw.postgres.svc.cluster.local
+              PAPERLESS_DBHOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: host
               PAPERLESS_DBPASS:
                 valueFrom:
                   secretKeyRef:
-                    name: postgres-paperless
+                    name: "{{ .Release.Name }}-postgres"
                     key: password
+
               PAPERLESS_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}
               PAPERLESS_ENABLE_HTTP_REMOTE_USER: 'true'
 

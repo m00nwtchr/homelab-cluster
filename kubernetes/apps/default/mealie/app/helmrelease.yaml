@@ -37,18 +37,11 @@ spec:
               BASE_URL: https://${APP}.${SECRET_DOMAIN}
 
               DB_ENGINE: postgres
-              POSTGRES_SERVER: postgres-rw.postgres.svc
-              POSTGRES_DB: *app
-              POSTGRES_USER:
+              POSTGRES_URL_OVERRIDE:
                 valueFrom:
                   secretKeyRef:
-                    name: postgres-${APP}
-                    key: username
-              POSTGRES_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: postgres-${APP}
-                    key: password
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
 
               ALLOW_PASSWORD_LOGIN: "false"
               OIDC_AUTH_ENABLED: "true"
