@@ -24,8 +24,8 @@ spec:
       #        runAsUser: 1000
       #        runAsGroup: 1000
       #        #          runAsNonRoot: true
-      fsGroup: 33
-      fsGroupChangePolicy: "OnRootMismatch"
+        fsGroup: 33
+        fsGroupChangePolicy: "OnRootMismatch"
 
     controllers:
       freshrss:

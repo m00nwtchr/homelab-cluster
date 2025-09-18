@@ -32,8 +32,6 @@ spec:
         statefulset:
           podManagementPolicy: Parallel
 
-
-
         containers:
           app:
             env:
