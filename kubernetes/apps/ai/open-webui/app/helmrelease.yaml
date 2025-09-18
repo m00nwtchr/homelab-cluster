@@ -84,11 +84,15 @@ spec:
               WEBUI_URL: https://${APP}.${SECRET_DOMAIN}
               CORS_ALLOW_ORIGIN: https://${APP}.${SECRET_DOMAIN}
               ENABLE_LOGIN_FORM: False
+
+              DATABASE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
             envFrom:
               - secretRef:
                   name: *app
-              - secretRef:
-                  name: "${APP}-postgres"
             resources:
               requests:
                 cpu: 500m
