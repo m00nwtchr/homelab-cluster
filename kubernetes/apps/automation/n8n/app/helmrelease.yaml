@@ -47,16 +47,20 @@ spec:
 
               DB_TYPE: postgresdb
               DB_POSTGRESDB_DATABASE: *app
-              DB_POSTGRESDB_HOST: postgres-rw.postgres.svc
+              DB_POSTGRESDB_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: host
               DB_POSTGRESDB_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: postgres-${APP}
+                    name: "{{ .Release.Name }}-postgres"
                     key: username
               DB_POSTGRESDB_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: postgres-${APP}
+                    name: "{{ .Release.Name }}-postgres"
                     key: password
             envFrom:
               - secretRef:
