@@ -48,6 +48,7 @@ spec:
                   secretKeyRef:
                     name: "{{ .Release.Name }}-postgres"
                     key: password
+              PAPERLESS_DBSSLMODE: verify-full
               PAPERLESS_DBSSLROOTCERT: /var/run/secrets/postgresql/ca.crt
               PAPERLESS_DBSSLCERT: /var/run/secrets/postgresql/tls.crt
               PAPERLESS_DBSSLKEY: /var/run/secrets/postgresql/tls.key
