@@ -46,7 +46,7 @@ spec:
               VALKEY_HOST: dragonfly.database.svc.cluster.local
 
               DB_TYPE: postgresql
-              DB_HOST: se-pooler-rw.postgres.svc.cluster.local
+              DB_HOST: postgres-rw.postgres.svc.cluster.local
               DB_PORT: 5432
               DB_USER: *app
               DB_PASSWORD:

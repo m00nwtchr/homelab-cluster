@@ -37,7 +37,7 @@ spec:
               tag: 1.5.2@sha256:dbc87e5ce9e199709188e152e82b3ff5d33e6521a1b3d61e465aa75b4b739e7f
             env:
               POSTGRES_ENABLED: true
-              POSTGRES_HOST: pooler-rw.postgres.svc
+              POSTGRES_HOST: postgres-rw.postgres.svc
               POSTGRES_USERNAME:
                 valueFrom:
                   secretKeyRef:
