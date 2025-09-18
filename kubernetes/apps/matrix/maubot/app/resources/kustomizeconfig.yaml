@@ -3,5 +3,7 @@ nameReference:
   - kind: ConfigMap
     version: v1
     fieldSpecs:
-      - path: spec/target/template/templateFrom/configMap/name
-        kind: ExternalSecret
+      - path: spec/persistence/config/name
+        kind: HelmRelease
+#      - path: spec/target/template/templateFrom/configMap/name
+#        kind: ExternalSecret

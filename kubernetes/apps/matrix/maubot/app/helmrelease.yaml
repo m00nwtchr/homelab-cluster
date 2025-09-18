@@ -57,7 +57,7 @@ spec:
 
       config:
         type: secret
-        name: maubot-config
+        name: maubot-configmap
         globalMounts:
           - path: /data/config.yaml
             subPath: config.yaml
