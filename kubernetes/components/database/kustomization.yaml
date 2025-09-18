@@ -18,7 +18,7 @@ patches:
             postgres-certs:
               type: secret
               name: "postgres-{{ .Release.Name }}-cert"
-              defaultMode: 0600
+              defaultMode: 0440
               globalMounts:
                 - path: /var/run/secrets/postgresql
 components:
