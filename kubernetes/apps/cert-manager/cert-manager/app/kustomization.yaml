@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./clusterissuer.yaml
   - ./helmrelease.yaml
+  - ./postgres.yaml
   - ./secret.sops.yaml
   - ./selfsigned.yaml
 configMapGenerator:

@@ -19,7 +19,7 @@ spec:
     group: cert-manager.io
 ---
 apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
+kind: Issuer
 metadata:
   name: postgres-ca-issuer
 spec:
@@ -52,35 +52,8 @@ spec:
     - postgres-ro.postgres.svc.cluster.local
   issuerRef:
     name: postgres-ca-issuer
-    kind: ClusterIssuer
+    kind: Issuer
     group: cert-manager.io
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: postgres-client-ca
-spec:
-  isCA: true
-  commonName: postgres-client-ca
-  secretName: postgres-client-ca-secret
-  secretTemplate:
-    labels:
-      cnpg.io/reload: ""
-  privateKey:
-    algorithm: ECDSA
-    size: 256
-  issuerRef:
-    name: cluster-ca
-    kind: ClusterIssuer
-    group: cert-manager.io
----
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: postgres-client-ca-issuer
-spec:
-  ca:
-    secretName: postgres-client-ca-secret
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
