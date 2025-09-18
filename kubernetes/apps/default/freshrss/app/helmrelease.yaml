@@ -20,7 +20,7 @@ spec:
   values:
 
     defaultPodOptions:
-      #      securityContext:
+      securityContext:
       #        runAsUser: 1000
       #        runAsGroup: 1000
       #        #          runAsNonRoot: true
@@ -50,9 +50,9 @@ spec:
               OIDC_SCOPES: openid groups email profile
               OIDC_X_FORWARDED_HEADERS: X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto
 
-#            envFrom:
-#              - secretRef:
-#                  name: freshrss-secret
+            #            envFrom:
+            #              - secretRef:
+            #                  name: freshrss-secret
             resources:
               requests:
                 cpu: 50m

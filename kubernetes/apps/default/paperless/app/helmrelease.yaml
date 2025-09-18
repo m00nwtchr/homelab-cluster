@@ -19,12 +19,12 @@ spec:
       retries: 3
   values:
     defaultPodOptions:
-      #      securityContext:
-      #        runAsUser: 1000
-      #        runAsGroup: 1000
-      #        #          runAsNonRoot: true
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
+      securityContext:
+        #        runAsUser: 1000
+        #        runAsGroup: 1000
+        #        #          runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
 
     controllers:
       *app :
