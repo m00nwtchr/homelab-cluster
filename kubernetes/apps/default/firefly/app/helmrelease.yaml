@@ -58,9 +58,9 @@ spec:
                     name: *postgres
                     key: password
               PGSQL_SSL_MODE: verify-full
-              PGSQL_SSL_ROOT_CERT_FILE: /var/run/secrets/postgresql/ca.crt
-              PGSQL_SSL_CERT_FILE: /var/run/secrets/postgresql/tls.crt
-              PGSQL_SSL_KEY_FILE: /var/run/secrets/postgresql/tls.key
+              PGSQL_SSL_ROOT_CERT: /var/run/secrets/postgresql/ca.crt
+              PGSQL_SSL_CERT: /var/run/secrets/postgresql/tls.crt
+              PGSQL_SSL_KEY: /var/run/secrets/postgresql/tls.key
 
               CACHE_DRIVER: "redis"
               SESSION_DRIVER: "redis"
