@@ -46,9 +46,12 @@ spec:
                   secretKeyRef:
                     name: kanidm-${APP}-oidc
                     key: client-secret
-            envFrom:
-              - secretRef:
-                  name: ${APP}-secret
+
+              HASS_RECORDER_DB_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
