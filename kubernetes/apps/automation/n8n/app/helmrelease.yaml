@@ -46,22 +46,14 @@ spec:
               N8N_RUNNERS_ENABLED: true
 
               DB_TYPE: postgresdb
+              DB_POSTGRESDB_HOST: postgres-rw.postgres.svc
               DB_POSTGRESDB_DATABASE: *app
-              DB_POSTGRESDB_HOST:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-postgres"
-                    key: host
-              DB_POSTGRESDB_USER:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-postgres"
-                    key: username
-              DB_POSTGRESDB_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-postgres"
-                    key: password
+              DB_POSTGRESDB_USER: *app
+#              DB_POSTGRESDB_PASSWORD:
+#                valueFrom:
+#                  secretKeyRef:
+#                    name: "{{ .Release.Name }}-postgres"
+#                    key: password
               DB_POSTGRESDB_SSL_CA: /var/run/secrets/postgresql/ca.crt
               DB_POSTGRESDB_SSL_CERT: /var/run/secrets/postgresql/tls.crt
               DB_POSTGRESDB_SSL_KEY: /var/run/secrets/postgresql/tls.key
