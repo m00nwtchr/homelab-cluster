@@ -42,11 +42,6 @@ spec:
               DB_TYPE: postgres
               DB_HOST: postgres-rw.postgres.svc
               DB_USER: *app
-              DB_PASS:
-                valueFrom:
-                  secretKeyRef:
-                    name: postgres-${APP}
-                    key: password
               DB_USE_SSL: "true"
               DB_SSL_CA_FILE: /var/run/secrets/postgresql/ca.crt
               DB_SSL_CERT_FILE: /var/run/secrets/postgresql/tls.crt
