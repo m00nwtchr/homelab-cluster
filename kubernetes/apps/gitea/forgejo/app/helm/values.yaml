@@ -31,7 +31,11 @@ gitea:
   config:
     database:
       DB_TYPE: postgres
+
+      HOST: postgres-rw.database.svc:5432
+      USER: forgejo
       NAME: forgejo
+#      SSL_MODE: verify-full
     server:
       APP_DATA_PATH: /data/gitea
       ROOT_URL: https://git.${SECRET_DOMAIN}
@@ -66,21 +70,11 @@ gitea:
       ENABLED: true
 
   additionalConfigFromEnvs:
-    - name: FORGEJO__DATABASE__HOST
-      valueFrom:
-        secretKeyRef:
-          name: "forgejo-postgres"
-          key: host
     - name: FORGEJO__DATABASE__PASSWD
       valueFrom:
         secretKeyRef:
           name: "forgejo-postgres"
           key: password
-    - name: FORGEJO__DATABASE__USER
-      valueFrom:
-        secretKeyRef:
-          name: "forgejo-postgres"
-          key: username
 
 service:
   ssh:
