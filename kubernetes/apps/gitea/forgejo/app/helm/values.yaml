@@ -73,7 +73,7 @@ gitea:
     - name: FORGEJO__DATABASE__PASSWD
       valueFrom:
         secretKeyRef:
-          name: "forgejo-postgres"
+          name: "postgres-forgejo"
           key: password
 
 service:
