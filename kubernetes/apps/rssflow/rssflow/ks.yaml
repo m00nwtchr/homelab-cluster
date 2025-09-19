@@ -39,6 +39,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &app rssflow-websub
+  components: []
   dependsOn:
     - name: cnpg
       namespace: cnpg-system
