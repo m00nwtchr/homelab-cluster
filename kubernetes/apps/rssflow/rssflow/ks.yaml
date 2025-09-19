@@ -33,24 +33,26 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app rssflow-db
+  name: rssflow-websub-db
   namespace: &namespace postgres
 spec:
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
-  components: []
+      app.kubernetes.io/name: &app rssflow-websub
   dependsOn:
     - name: cnpg
       namespace: cnpg-system
   interval: 1h
-  path: ./kubernetes/apps/rssflow/rssflow/database
+  path: ./kubernetes/components/database/base/postgres
   postBuild:
     substitute:
-      APP: rssflow
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
+      APP: *app
+      OWNER: rssflow
+  healthChecks:
+    - name: postgres-rssflow-websub
+      namespace: *namespace
+      kind: Database
+      apiVersion: postgresql.cnpg.io/v1
   prune: true
   retryInterval: 2m
   sourceRef:
