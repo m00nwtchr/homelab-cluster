@@ -49,11 +49,6 @@ spec:
               DB_POSTGRESDB_HOST: postgres-rw.postgres.svc
               DB_POSTGRESDB_DATABASE: *app
               DB_POSTGRESDB_USER: *app
-#              DB_POSTGRESDB_PASSWORD:
-#                valueFrom:
-#                  secretKeyRef:
-#                    name: "{{ .Release.Name }}-postgres"
-#                    key: password
               DB_POSTGRESDB_SSL_CA_FILE: /var/run/secrets/postgresql/ca.crt
               DB_POSTGRESDB_SSL_CERT_FILE: /var/run/secrets/postgresql/tls.crt
               DB_POSTGRESDB_SSL_KEY_FILE: /var/run/secrets/postgresql/tls.key
