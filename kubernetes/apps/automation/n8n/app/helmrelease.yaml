@@ -54,9 +54,9 @@ spec:
 #                  secretKeyRef:
 #                    name: "{{ .Release.Name }}-postgres"
 #                    key: password
-              DB_POSTGRESDB_SSL_CA: /var/run/secrets/postgresql/ca.crt
-              DB_POSTGRESDB_SSL_CERT: /var/run/secrets/postgresql/tls.crt
-              DB_POSTGRESDB_SSL_KEY: /var/run/secrets/postgresql/tls.key
+              DB_POSTGRESDB_SSL_CA_FILE: /var/run/secrets/postgresql/ca.crt
+              DB_POSTGRESDB_SSL_CERT_FILE: /var/run/secrets/postgresql/tls.crt
+              DB_POSTGRESDB_SSL_KEY_FILE: /var/run/secrets/postgresql/tls.key
             envFrom:
               - secretRef:
                   name: *app
