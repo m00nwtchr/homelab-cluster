@@ -98,7 +98,7 @@ spec:
             <<: *container
             image:
               repository: ghcr.io/m00nwtchr/rssflow-replace
-              tag: master@sha256:0437ea16a6fff2f484c25a36845f9e53693ddce04da31263cd04a16dc0ebf192
+              tag: master@sha256:c066997851f2a744855e849acb4dda214b8842f9e8b13f00c2e35db7a56d121b
             env:
               <<: *svc-env
               SERVICE_URL: http://rssflow-replace:50051/
