@@ -50,15 +50,13 @@ spec:
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-attic
+        disablePassword: true
 
       - name: autobrr
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-autobrr
+        disablePassword: true
 
       - name: baikal
         ensure: present
@@ -78,8 +76,7 @@ spec:
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-firefly
+        disablePassword: true
 
       - name: forgejo
         ensure: present
@@ -87,81 +84,72 @@ spec:
         superuser: false
         passwordSecret:
           name: postgres-forgejo
+
       - name: freshrss
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-freshrss
+        disablePassword: true
+
       - name: hass
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-home-assistant
+        disablePassword: true
 
       - name: jellyseerr
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-jellyseerr
+        disablePassword: true
 
       - name: litellm
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-litellm
+        disablePassword: true
 
       - name: maubot
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-maubot
+        disablePassword: true
 
       - name: mautrix-discord
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-mautrix-discord
+        disablePassword: true
 
       - name: mautrix-meta
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-mautrix-meta
+        disablePassword: true
 
       - name: mealie
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-mealie
+        disablePassword: true
 
       - name: n8n
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-n8n
+        disablePassword: true
 
       - name: open-webui
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-open-webui
+        disablePassword: true
 
       - name: paperless
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-paperless
+        disablePassword: true
 
       - name: pinepods
         ensure: present
@@ -202,5 +190,4 @@ spec:
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-vaultwarden
+        disablePassword: true
