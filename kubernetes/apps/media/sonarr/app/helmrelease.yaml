@@ -49,18 +49,16 @@ spec:
               SONARR__AUTH__METHOD: External
               SONARR__LOG__ANALYTICSENABLED: "False"
               SONARR__LOG__DBENABLED: "False"
+
               SONARR__POSTGRES__HOST: postgres-rw.postgres.svc
-              SONARR__POSTGRES__USER:
-                valueFrom:
-                  secretKeyRef:
-                    name: postgres-${APP}
-                    key: username
+              SONARR__POSTGRES__USER: *app
+              SONARR__POSTGRES__MAINDB: *app
               SONARR__POSTGRES__PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: postgres-${APP}
+                    name: "{{ .Release.Name }}-postgres"
                     key: password
-              SONARR__POSTGRES__MAINDB: *app
+
               SONARR__SERVER__PORT: &port 8989
               SONARR__UPDATE__BRANCH: develop
             probes:
