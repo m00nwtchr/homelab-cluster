@@ -2,17 +2,6 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: postgres-${APP}
-  namespace: postgres
-spec:
-  name: &app ${APP}
-  owner: *app
-  cluster:
-    name: postgres
----
-apiVersion: postgresql.cnpg.io/v1
-kind: Database
-metadata:
   name: postgres-${APP}-websub
   namespace: postgres
 spec:
