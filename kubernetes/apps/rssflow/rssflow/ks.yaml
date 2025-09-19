@@ -9,7 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components: []
+  components:
+    - ../../../../components/database
   interval: 1h
   path: ./kubernetes/apps/rssflow/rssflow/app
   postBuild:

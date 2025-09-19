@@ -28,9 +28,11 @@ spec:
             env:
               RUST_LOG: "info"
               REDIS_URL: redis://dragonfly.database.svc/10
-            envFrom:
-              - secretRef:
-                  name: rssflow-env
+              POSTGRES_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
             probes: &probes
               liveness: &probe
                 enabled: true
@@ -56,9 +58,7 @@ spec:
             env: &svc-env
               RUST_LOG: "info"
               REDIS_URL: redis://dragonfly.database.svc/10
-            envFrom:
-              - secretRef:
-                  name: rssflow-websub-env
+              POSTGRES_URL: postgresql://rssflow@postgres-rw.postgres.svc/rssflow-websub?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/postgresql/ca.crt
             probes: *probes
             resources:
               requests:

@@ -38,17 +38,13 @@ spec:
             env:
               POSTGRES_ENABLED: true
               POSTGRES_HOST: postgres-rw.postgres.svc
-              POSTGRES_USERNAME:
-                valueFrom:
-                  secretKeyRef:
-                    name: postgres-${APP}
-                    key: username
+              POSTGRES_USERNAME: *app
+              POSTGRES_DATABASE: *app
               POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: postgres-${APP}
                     key: password
-              POSTGRES_DATABASE: *app
             # envFrom:
             #   - secretRef:
             #       name: bazarr-secret
