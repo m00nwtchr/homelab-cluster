@@ -47,16 +47,7 @@ spec:
               DB_HOST: "postgres-rw.postgres.svc"
               DB_PORT: "5432"
               DB_DATABASE: *app
-              DB_USERNAME:
-                valueFrom:
-                  secretKeyRef:
-                    name: &postgres postgres-${APP}
-                    key: username
-              DB_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: *postgres
-                    key: password
+              DB_USERNAME: *app
               PGSQL_SSL_MODE: verify-full
               PGSQL_SSL_ROOT_CERT: /var/run/secrets/postgresql/ca.crt
               PGSQL_SSL_CERT: /var/run/secrets/postgresql/tls.crt
