@@ -63,14 +63,14 @@ spec:
         login: true
         superuser: false
         passwordSecret:
-          name: postgres-baikal
+          name: baikal-postgres
 
       - name: bazarr
         ensure: present
         login: true
         superuser: false
         passwordSecret:
-          name: postgres-bazarr
+          name: bazarr-postgres
 
       - name: firefly
         ensure: present
@@ -83,7 +83,7 @@ spec:
         login: true
         superuser: false
         passwordSecret:
-          name: postgres-forgejo
+          name: forgejo-postgres
 
       - name: freshrss
         ensure: present
@@ -156,21 +156,21 @@ spec:
         login: true
         superuser: false
         passwordSecret:
-          name: postgres-pinepods
+          name: pinepods-postgres
 
       - name: prowlarr
         ensure: present
         login: true
         superuser: false
         passwordSecret:
-          name: postgres-prowlarr
+          name: prowlarr-postgres
 
       - name: radarr
         ensure: present
         login: true
         superuser: false
         passwordSecret:
-          name: postgres-radarr
+          name: radarr-postgres
 
       - name: rssflow
         ensure: present
@@ -183,7 +183,7 @@ spec:
         login: true
         superuser: false
         passwordSecret:
-          name: postgres-sonarr
+          name: sonarr-postgres
 
       - name: vaultwarden
         ensure: present

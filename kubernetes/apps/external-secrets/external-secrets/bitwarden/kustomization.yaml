@@ -6,4 +6,5 @@ resources:
   - clustersecretstore.yaml
   - helmrelease.yaml
   - networkpolicy.yaml
+  - password.yaml
   - secret.sops.yaml
