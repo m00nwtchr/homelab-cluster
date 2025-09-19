@@ -176,8 +176,7 @@ spec:
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: postgres-rssflow
+        disablePassword: true
 
       - name: sonarr
         ensure: present
