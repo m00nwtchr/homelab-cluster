@@ -19,5 +19,5 @@ database:
   encryption_key: "{{ .encryption_key }}"
   pgsql_host: 'postgres-rw.postgres.svc'
   pgsql_dbname: 'baikal'
-  pgsql_username: '{{ .pgsql_username }}'
+  pgsql_username: '${APP}'
   pgsql_password: '{{ .pgsql_password }}'

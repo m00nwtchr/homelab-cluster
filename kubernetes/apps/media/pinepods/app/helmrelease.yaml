@@ -49,12 +49,13 @@ spec:
               DB_HOST: postgres-rw.postgres.svc.cluster.local
               DB_PORT: 5432
               DB_USER: *app
+              DB_NAME: *app
               DB_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: postgres-pinepods
+                    name: "{{ .Release.Name }}-postgres"
                     key: password
-              DB_NAME: *app
+
 
             #            envFrom: *envFrom
 #            probes:
