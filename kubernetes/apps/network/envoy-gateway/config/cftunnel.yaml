@@ -6,6 +6,8 @@ metadata:
   name: &name cftunnel
   annotations:
     external-dns.alpha.kubernetes.io/target: "cftunnel.${SECRET_DOMAIN}"
+  labels:
+    gateway: external
 spec:
   gatewayClassName: envoy
   infrastructure:
