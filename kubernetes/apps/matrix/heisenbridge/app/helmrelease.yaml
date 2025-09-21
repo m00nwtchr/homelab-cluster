@@ -26,7 +26,7 @@ spec:
               repository: docker.io/hif1/heisenbridge
               tag: 1.15.3@sha256:53dce310a09cebaa684fd1f1ebeb3c78874f98679622e166ea41e7cde774f611
               pullPolicy: IfNotPresent
-            args: [ "-c=/etc/config.yaml", "-l=::", "-p=9898", "http://continuwuity.matrix.svc" ]
+            args: [ "-c=/etc/config.yaml", "-l=::", "-p=9898", "http://continuwuity.matrix.svc", "-vv" ]
             resources:
               requests:
                 cpu: 250m
