@@ -17,6 +17,7 @@ endpoints:
 metrics: true
 
 ui:
+  default-sort-by: group
   title: Status | Gatus
   header: Status
   logo: https://avatars.githubusercontent.com/u/13919176
