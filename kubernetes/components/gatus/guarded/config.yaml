@@ -20,6 +20,6 @@ endpoints:
       hide-hostname: true
       hide-url: true
     client:
-      dns-resolver: tcp://[2001:cafe:43::b]:53
+      dns-resolver: tcp://2001:cafe:43::b
     conditions:
       - "[STATUS] == ${GATUS_STATUS:=200}"
