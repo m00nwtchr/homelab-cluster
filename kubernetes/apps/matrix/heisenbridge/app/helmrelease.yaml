@@ -19,7 +19,7 @@ spec:
       retries: 3
   values:
     controllers:
-      app:
+      *app :
         type: statefulset
         containers:
           app:
@@ -37,7 +37,8 @@ spec:
 
     service:
       app:
-        controller: app
+        controller: *app
+        ipFamilies: [ IPv4 ]
         ports:
           http:
             port: 80
@@ -46,7 +47,6 @@ spec:
     route:
       app:
         hostnames: [ "matrix.${SECRET_DOMAIN}" ]
-        ipFamilies: [ IPv4 ]
         parentRefs:
           - name: external
             namespace: network
