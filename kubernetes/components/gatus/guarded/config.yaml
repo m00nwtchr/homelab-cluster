@@ -12,3 +12,9 @@ endpoints:
       query-type: AAAA
     conditions:
       - len([BODY]) == 0
+  - name: "${APP}"
+    group: internal
+    url: "https://${DOMAIN:=${SUBDOMAIN:=${APP}}.${SECRET_DOMAIN}}${GATUS_PATH:=/}"
+    interval: 1m
+    conditions:
+      - "[STATUS] == ${GATUS_STATUS:=200}"
