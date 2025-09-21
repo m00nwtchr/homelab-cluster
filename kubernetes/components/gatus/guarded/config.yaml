@@ -16,5 +16,7 @@ endpoints:
     group: internal
     url: "https://${DOMAIN:=${SUBDOMAIN:=${APP}}.${SECRET_DOMAIN}}${GATUS_PATH:=/}"
     interval: 1m
+    client:
+      dns-resolver: tcp://[2001:cafe:43::b]:53
     conditions:
       - "[STATUS] == ${GATUS_STATUS:=200}"
