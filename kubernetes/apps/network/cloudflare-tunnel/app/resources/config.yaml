@@ -4,11 +4,11 @@ credentials-file: /etc/cloudflared/creds/credentials.json
 no-autoupdate: true
 
 originRequest:
-  originServerName: "external.${SECRET_DOMAIN}"
+  originServerName: "cftunnel.${SECRET_DOMAIN}"
 
 ingress:
   - hostname: "voltkonekt.pl"
-    service: &svc https://external.network.svc.cluster.local
+    service: &svc https://cftunnel.network.svc.cluster.local
   - hostname: "*.voltkonekt.pl"
     service: *svc
   - hostname: "${SECRET_DOMAIN}"

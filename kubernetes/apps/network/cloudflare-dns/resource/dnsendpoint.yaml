@@ -16,15 +16,15 @@ spec:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: "true"
 
-    - dnsName: ${SECRET_DOMAIN}
-      recordType: CNAME
-      targets: ["cftunnel.${SECRET_DOMAIN}"]
-      providerSpecific:
-        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
-          value: "true"
-    - dnsName: matrix-fed.${SECRET_DOMAIN}
-      recordType: CNAME
-      targets: ["cftunnel.${SECRET_DOMAIN}"]
-      providerSpecific:
-        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
-          value: "true"
+#    - dnsName: ${SECRET_DOMAIN}
+#      recordType: CNAME
+#      targets: ["cftunnel.${SECRET_DOMAIN}"]
+#      providerSpecific:
+#        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
+#          value: "true"
+#    - dnsName: matrix-fed.${SECRET_DOMAIN}
+#      recordType: CNAME
+#      targets: ["cftunnel.${SECRET_DOMAIN}"]
+#      providerSpecific:
+#        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
+#          value: "true"

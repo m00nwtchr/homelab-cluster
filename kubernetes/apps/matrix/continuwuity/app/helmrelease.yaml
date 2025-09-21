@@ -101,10 +101,9 @@ spec:
       federation:
         hostnames: [ "matrix-fed.${SECRET_DOMAIN}" ]
         annotations:
-#          external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
-          external-dns.alpha.kubernetes.io/controller: ""
+          external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
         parentRefs:
-          - name: external
+          - name: cftunnel
             namespace: network
             sectionName: https
         rules:
@@ -114,8 +113,10 @@ spec:
 
       well-known:
         hostnames: [ "${SECRET_DOMAIN}" ]
+        annotations:
+          external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
         parentRefs:
-          - name: external
+          - name: cftunnel
             namespace: network
             sectionName: https
         rules:
