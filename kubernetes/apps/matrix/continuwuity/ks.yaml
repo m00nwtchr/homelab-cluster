@@ -26,7 +26,7 @@ spec:
       APP: *app
       SUBDOMAIN: matrix
       VOLSYNC_CAPACITY: 8Gi
-      VOLSYNC_LOCAL_BUCKET: *app
+#      VOLSYNC_LOCAL_BUCKET: *app
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
