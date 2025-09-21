@@ -46,6 +46,7 @@ spec:
     route:
       app:
         hostnames: [ "matrix.${SECRET_DOMAIN}" ]
+        ipFamilies: [ IPv4 ]
         parentRefs:
           - name: external
             namespace: network
