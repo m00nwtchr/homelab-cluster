@@ -51,7 +51,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /_matrix/federation/v1/version
+                    path: /_matrix/client/versions
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
