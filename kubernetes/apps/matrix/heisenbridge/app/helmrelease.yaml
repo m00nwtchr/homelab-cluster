@@ -37,9 +37,10 @@ spec:
     service:
       app:
         controller: *app
+        clusterIP: None
         ports:
           http:
-            port: 9898
+            port: 80
             targetPort: 9898
 
     route:
