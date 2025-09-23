@@ -39,7 +39,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: 80
+            port: 9898
             targetPort: 9898
 
     route:
