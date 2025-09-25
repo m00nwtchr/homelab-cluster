@@ -20,6 +20,8 @@ spec:
       owner: immich
       database: immich
       source: &src source
+      recoveryTarget:
+        targetTLI: "latest"
   #    initdb:
   #      owner: immich
   #      database: immich
