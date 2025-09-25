@@ -15,8 +15,6 @@ provisioner: zfs.csi.openebs.io
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  annotations:
-    storageclass.kubernetes.io/is-default-class: "true"
   name: zfs-rpool
 allowVolumeExpansion: true
 parameters:
@@ -24,5 +22,20 @@ parameters:
   dedup: "on"
   fstype: "zfs"
   poolname: "rpool/storage"
+  shared: "yes"
+provisioner: zfs.csi.openebs.io
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+  name: zfs-spark
+allowVolumeExpansion: true
+parameters:
+  compression: "zstd"
+  dedup: "on"
+  fstype: "zfs"
+  poolname: "spark"
   shared: "yes"
 provisioner: zfs.csi.openebs.io
