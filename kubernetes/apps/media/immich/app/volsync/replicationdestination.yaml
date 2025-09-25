@@ -13,7 +13,7 @@ spec:
     repository: "photos-volsync-mega-secret"
     copyMethod: Snapshot
     volumeSnapshotClassName: "csi-zfs"
-    cacheStorageClassName: "openebs-hostpath"
+    cacheStorageClassName: "zfs-spark"
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: "5Gi"
     storageClassName: "zfs-vault"
