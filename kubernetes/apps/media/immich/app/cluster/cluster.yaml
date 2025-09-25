@@ -21,7 +21,7 @@ spec:
       database: immich
       source: &src source
       recoveryTarget:
-        targetTLI: "latest"
+        targetTLI: "1"
   #    initdb:
   #      owner: immich
   #      database: immich
