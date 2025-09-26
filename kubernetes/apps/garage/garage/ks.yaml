@@ -25,6 +25,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      VOLSYNC_PVC: meta-garage-0
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

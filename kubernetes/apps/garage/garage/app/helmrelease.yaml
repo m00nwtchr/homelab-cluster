@@ -52,9 +52,11 @@ spec:
     persistence:
 #      meta:
 #        size: 1Gi
+      meta:
+        existing:
       data:
         storageClass: zfs-vault
-#        size: 10Gi
+        size: 10Gi
 
     deployment:
       replicaCount: 1
