@@ -8,6 +8,9 @@ patches:
       version: v2
     patch: |-
       - op: add
+        path: /spec/interval
+        value: 1h
+      - op: add
         path: /spec/install
         value:
           crds: CreateReplace
