@@ -22,15 +22,10 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: stunner
-  install:
-    crds: Skip
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    crds: Skip
-    remediation:
-      retries: 3
+#  install:
+#    crds: Skip
+#  upgrade:
+#    crds: Skip
   values:
     stunnerGatewayOperator:
       deployment:
