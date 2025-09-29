@@ -10,7 +10,7 @@ patches:
     patch: |-
       - op: add
         path: /spec/components/-
-        value: "../../../../components/drift-detection"
+        value: "../../../../components/defaults"
 resources:
   - ./namespace.yaml
   - ./sops

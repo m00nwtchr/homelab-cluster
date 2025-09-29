@@ -1,16 +1,25 @@
 ---
-# yaml-language-server: $schema=https://www.schemastore.org/kustomization.json
-apiVersion: kustomize.config.k8s.io/v1alpha1
-kind: Component
-# Prometheus Operator ignore rules: mutating webhooks don't trigger during dry-run SSA,
-# causing false drift detection on prometheus-operator-validated annotations.
-# See: https://github.com/fluxcd/helm-controller/issues/643#issuecomment-1465129699
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 patches:
   - target:
       kind: HelmRelease
       version: v2
-      group: helm.toolkit.fluxcd.io
     patch: |-
+      - op: add
+        path: /spec/install
+        value:
+          crds: CreateReplace
+          remediation:
+            retries: -1
+      - op: add
+        path: /spec/upgrade
+        value:
+          cleanupOnFail: true
+          crds: CreateReplace
+          remediation:
+            retries: 3
       - op: add
         path: /spec/driftDetection
         value:
