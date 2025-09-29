@@ -23,10 +23,3 @@ spec:
         kind: HelmRepository
         name: tor-controller
         namespace: tor
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3

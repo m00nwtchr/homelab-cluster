@@ -23,13 +23,6 @@ spec:
         kind: HelmRepository
         name: qdrant
         namespace: ai
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     config:
       service:
