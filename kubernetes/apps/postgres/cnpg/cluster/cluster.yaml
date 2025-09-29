@@ -82,8 +82,7 @@ spec:
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: forgejo-postgres
+        disablePassword: true
 
       - name: freshrss
         ensure: present

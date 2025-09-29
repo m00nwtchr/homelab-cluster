@@ -93,6 +93,10 @@ extraVolumes:
   - name: git
     persistentVolumeClaim:
       claimName: git
+
+  - name: postgres-forgejo
+    secret:
+      secretName: postgres-forgejo-cert
   - name: forgejo-ssh
     secret:
       secretName: forgejo-ssh
@@ -100,6 +104,16 @@ extraVolumes:
 extraContainerVolumeMounts:
   - name: git
     mountPath: "/data/git/"
+
+  - name: postgres-forgejo
+    mountPath: "/data/gitea/git/.postgresql/postgresql.crt"
+    subPath: tls.crt
+  - name: postgres-forgejo
+    mountPath: "/data/gitea/git/.postgresql/postgresql.key"
+    subPath: tls.key
+  - name: postgres-forgejo
+    mountPath: "/data/gitea/git/.postgresql/root.crt"
+    subPath: ca.crt
   - name: forgejo-ssh
     mountPath: "/data/gitea/ssh/ssh_host_ed25519_key"
     subPath: ssh_host_ed25519_key

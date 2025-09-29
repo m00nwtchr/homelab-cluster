@@ -12,7 +12,7 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/volsync
-    - ../../../../components/database/pass
+    - ../../../../components/database
     - ../../../../components/gatus/external
   dependsOn:
     - name: volsync
