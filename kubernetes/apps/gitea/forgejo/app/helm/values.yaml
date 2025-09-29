@@ -14,7 +14,7 @@ image:
   rootless: true
   registry: code.forgejo.org
   repository: forgejo/forgejo
-  tag: 12.0.4-rootless
+  tag: 12.0.4-PGSSLROOTCERT
   digest: sha256:97b544c9bf4ff13c034a6a8319feffe822ff4f5f73d5bd03dbca3fdeaae0c2ac
 
 gitea:
@@ -36,6 +36,7 @@ gitea:
       USER: forgejo
       NAME: forgejo
       SSL_MODE: verify-full
+
     server:
       APP_DATA_PATH: /data/gitea
       ROOT_URL: https://git.${SECRET_DOMAIN}
@@ -69,12 +70,14 @@ gitea:
     actions:
       ENABLED: true
 
-#  additionalConfigFromEnvs:
-#    - name: FORGEJO__DATABASE__PASSWD
-#      valueFrom:
-#        secretKeyRef:
-#          name: "forgejo-postgres"
-#          key: password
+  deployment:
+    env:
+      - name: PGSSLROOTCERT
+        value: /var/run/secrets/postgresql/ca.crt
+      - name: PGSSLCERT
+        value: /var/run/secrets/postgresql/tls.crt
+      - name: PGSSLKEY
+        value: /var/run/secrets/postgresql/tls.key
 
 service:
   ssh:
@@ -96,24 +99,23 @@ extraVolumes:
 
   - name: postgres-forgejo
     secret:
+      defaultMode: 0600
       secretName: postgres-forgejo-cert
   - name: forgejo-ssh
     secret:
       secretName: forgejo-ssh
+
+extraInitVolumeMounts:
+  - name: postgres-forgejo
+    mountPath: "/var/run/secrets/postgresql"
 
 extraContainerVolumeMounts:
   - name: git
     mountPath: "/data/git/"
 
   - name: postgres-forgejo
-    mountPath: "/data/gitea/git/.postgresql/postgresql.crt"
-    subPath: tls.crt
-  - name: postgres-forgejo
-    mountPath: "/data/gitea/git/.postgresql/postgresql.key"
-    subPath: tls.key
-  - name: postgres-forgejo
-    mountPath: "/data/gitea/git/.postgresql/root.crt"
-    subPath: ca.crt
+    mountPath: "/var/run/secrets/postgresql"
+
   - name: forgejo-ssh
     mountPath: "/data/gitea/ssh/ssh_host_ed25519_key"
     subPath: ssh_host_ed25519_key
