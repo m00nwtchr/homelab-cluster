@@ -275,8 +275,8 @@ spec:
             duration: 2160h
             isCA: false
             issuerRef:
-              name: cluster-selfsigned-issuer
-              kind: ClusterIssuer
+              name: barman-cloud-issuer
+              kind: Issuer
               group: cert-manager.io
             renewBefore: 360h
             secretName: *clientCert
