@@ -70,14 +70,14 @@ gitea:
     actions:
       ENABLED: true
 
-  deployment:
-    env:
-      - name: PGSSLROOTCERT
-        value: /var/run/secrets/postgresql/ca.crt
-      - name: PGSSLCERT
-        value: /var/run/secrets/postgresql/tls.crt
-      - name: PGSSLKEY
-        value: /var/run/secrets/postgresql/tls.key
+deployment:
+  env:
+    - name: PGSSLROOTCERT
+      value: /var/run/secrets/postgresql/ca.crt
+    - name: PGSSLCERT
+      value: /var/run/secrets/postgresql/tls.crt
+    - name: PGSSLKEY
+      value: /var/run/secrets/postgresql/tls.key
 
 service:
   ssh:
