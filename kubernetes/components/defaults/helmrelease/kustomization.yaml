@@ -20,10 +20,6 @@ patches:
           crds: CreateReplace
           remediation:
             retries: 3
-  - target:
-      kind: HelmRelease
-      version: v2
-    patch: |-
       - op: add
         path: /spec/driftDetection
         value:
