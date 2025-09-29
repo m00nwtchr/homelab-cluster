@@ -69,12 +69,12 @@ gitea:
     actions:
       ENABLED: true
 
-  additionalConfigFromEnvs:
-    - name: FORGEJO__DATABASE__PASSWD
-      valueFrom:
-        secretKeyRef:
-          name: "forgejo-postgres"
-          key: password
+#  additionalConfigFromEnvs:
+#    - name: FORGEJO__DATABASE__PASSWD
+#      valueFrom:
+#        secretKeyRef:
+#          name: "forgejo-postgres"
+#          key: password
 
 service:
   ssh:
