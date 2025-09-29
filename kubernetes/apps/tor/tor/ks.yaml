@@ -20,7 +20,7 @@ spec:
       name: *app
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/tor/tor/controller
+  path: ./kubernetes/apps/tor/tor/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets

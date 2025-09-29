@@ -25,15 +25,6 @@ spec:
     name: victoria-metrics-k8s-stack
   dependsOn:
     - name: victoria-metrics-operator
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    crds: CreateReplace
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     nameOverride: *app
 
