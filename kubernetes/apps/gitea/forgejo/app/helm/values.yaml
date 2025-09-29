@@ -35,7 +35,7 @@ gitea:
       HOST: postgres-rw.postgres.svc:5432
       USER: forgejo
       NAME: forgejo
-#      SSL_MODE: verify-full
+      SSL_MODE: verify-full
     server:
       APP_DATA_PATH: /data/gitea
       ROOT_URL: https://git.${SECRET_DOMAIN}
