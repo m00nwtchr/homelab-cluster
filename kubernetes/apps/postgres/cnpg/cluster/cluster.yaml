@@ -8,6 +8,8 @@ metadata:
 spec:
   instances: 1
 
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.0@sha256:37e76a90c977b8e5d80224903f640c99cf7758b028880ab71fe47b1e8b021191
+
   certificates:
     serverTLSSecret: postgres-server-cert
     serverCASecret: postgres-server-cert
