@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/n8n-io/n8n
-              tag: 1.112.3@sha256:c5fe3ff0b79f7831dc21f9c709bdb7eee4fff4453a28ce84c8e9fa5b9f562686
+              tag: 1.114.2@sha256:07bd01b531ae173237f0753bda754dca0e2fd69170aa5f353e35da0162c91955
             env:
               EXECUTIONS_DATA_PRUNE: true
               EXECUTIONS_DATA_MAX_AGE: 7
