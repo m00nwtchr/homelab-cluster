@@ -12,10 +12,6 @@ spec:
   components:
     - ../../../../components/database
     - ../../../../components/gatus/external
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/default/attic/app
   postBuild:

@@ -59,10 +59,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components: []
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/observability/victoria-metrics/metrics
   postBuild:

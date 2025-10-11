@@ -16,10 +16,6 @@ spec:
   dependsOn:
     - name: envoy-gateway
       namespace: network
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/media/radarr/app
   postBuild:
