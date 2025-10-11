@@ -41,10 +41,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components: []
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   dependsOn:
     - name: tor-controller
       namespace: tor

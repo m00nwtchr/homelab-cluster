@@ -13,10 +13,6 @@ spec:
   dependsOn:
     - name: barman-cloud-crds
       namespace: cnpg-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   healthChecks:
     - apiVersion: postgresql.cnpg.io/v1
       kind: Cluster

@@ -12,10 +12,6 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/gatus/guarded
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/observability/grafana/app
   postBuild:
