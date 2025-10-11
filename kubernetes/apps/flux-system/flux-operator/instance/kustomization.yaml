@@ -8,9 +8,3 @@ resources:
   - ./pull.sops.yaml
   - ./receiver.yaml
   - ./secret.sops.yaml
-configMapGenerator:
-  - name: flux-instance-values
-    files:
-      - ./helm/values.yaml
-configurations:
-  - ./helm/kustomizeconfig.yaml
