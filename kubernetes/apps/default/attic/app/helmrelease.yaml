@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/zhaofengli/attic
-              tag: main@sha256:260afefa7c30d0385e99c307507451a9353b39413ea078ba106d8051fb5d64cf
+              tag: main@sha256:18574aba70fc89d2b695273fbe2e7b2f8ad7e8e786b4cc535124fbe14bada1d0
 
             env:
               ATTIC_SERVER_DATABASE_URL:
