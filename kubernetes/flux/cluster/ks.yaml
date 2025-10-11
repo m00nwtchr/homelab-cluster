@@ -6,6 +6,8 @@ metadata:
   name: cluster-meta
   namespace: &namespace flux-system
 spec:
+  decryption:
+    provider: sops
   interval: 1h
   path: ./kubernetes/flux/meta
   prune: true
@@ -28,6 +30,8 @@ spec:
   dependsOn:
     - name: cluster-meta
       namespace: flux-system
+  decryption:
+    provider: sops
   interval: 1h
   path: ./kubernetes/apps
   prune: true
