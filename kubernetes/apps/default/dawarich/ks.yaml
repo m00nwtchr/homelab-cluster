@@ -50,10 +50,6 @@ spec:
     - name: barman-cloud-crds
       namespace: cnpg-system
   components: []
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/default/dawarich/cluster
   postBuild:

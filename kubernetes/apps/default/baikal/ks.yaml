@@ -15,10 +15,6 @@ spec:
 #  dependsOn:
 #    - name: rook-ceph-cluster
 #      namespace: rook-ceph
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/default/baikal/app
   postBuild:

@@ -14,10 +14,6 @@ spec:
     - ../../../../components/oidc
     - ../../../../components/database
     - ../../../../components/gatus/guarded
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   interval: 30m
   timeout: 5m
   path: "./kubernetes/apps/media/autobrr/app"

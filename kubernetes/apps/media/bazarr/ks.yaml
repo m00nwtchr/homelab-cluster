@@ -19,10 +19,6 @@ spec:
       namespace: network
     - name: volsync
       namespace: volsync-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/media/bazarr/app
   postBuild:

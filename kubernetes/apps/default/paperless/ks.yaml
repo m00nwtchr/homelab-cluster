@@ -12,10 +12,6 @@ spec:
 #  dependsOn:
 #    - name: rook-ceph-cluster
 #      namespace: rook-ceph
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   components:
     - ../../../../components/oidc
     - ../../../../components/database
