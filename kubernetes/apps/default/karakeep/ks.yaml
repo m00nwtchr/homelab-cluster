@@ -26,10 +26,6 @@ spec:
   dependsOn:
     - name: volsync
       namespace: volsync-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   postBuild:
     substitute:
       APP: *app

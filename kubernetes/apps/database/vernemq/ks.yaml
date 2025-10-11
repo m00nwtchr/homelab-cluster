@@ -11,10 +11,6 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/oidc/envoy
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   interval: 1h
   retryInterval: 2m
   path: ./kubernetes/apps/database/vernemq/app

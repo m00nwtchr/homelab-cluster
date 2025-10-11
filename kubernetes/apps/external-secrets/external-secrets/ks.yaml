@@ -42,10 +42,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components: []
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/external-secrets/external-secrets/bitwarden
   prune: true
