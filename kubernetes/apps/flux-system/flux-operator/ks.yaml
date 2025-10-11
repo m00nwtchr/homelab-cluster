@@ -10,6 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components: []
   path: ./kubernetes/apps/flux-system/flux-operator/app
   prune: false # never should be deleted
   sourceRef:
@@ -30,6 +31,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components: []
   dependsOn:
     - name: flux-operator
   path: ./kubernetes/apps/flux-system/flux-operator/instance
