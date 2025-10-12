@@ -9,7 +9,6 @@ spec:
   retentionPeriod: 30d
   retentionMaxDiskSpaceUsageBytes: 20GB
   storage:
-    storageClassName: "zfs-vault"
     accessModes:
       - ReadWriteOnce
     resources:
