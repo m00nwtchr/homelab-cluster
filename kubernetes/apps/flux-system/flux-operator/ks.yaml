@@ -36,6 +36,10 @@ spec:
     - name: flux-operator
   path: ./kubernetes/apps/flux-system/flux-operator/instance
   prune: false # never should be deleted
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   sourceRef:
     kind: GitRepository
     name: flux-system
