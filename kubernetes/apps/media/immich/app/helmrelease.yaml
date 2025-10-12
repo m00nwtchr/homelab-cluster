@@ -31,7 +31,7 @@ spec:
         containers:
           main:
             image:
-              tag: v1.143.1
+              tag: v2.0.1
             env:
               DB_HOSTNAME: "immich-postgres-rw.media.svc"
               DB_DATABASE_NAME: *app
