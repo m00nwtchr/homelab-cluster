@@ -45,6 +45,15 @@ spec:
       persistence:
         library:
           existingClaim: photos
+        
+        metadata:
+          size: 30GiB
+          accessMode: ReadWriteOnce
+          globalMounts:
+            - path: /data/thumbs
+              subPath: thumbs
+            - path: /data/encoded-video
+              subPath: encoded-video
 
     server:
       controllers:
