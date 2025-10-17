@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: ghcr.io/m00nwtchr/bw
-              tag: 2025.9.0@sha256:13a55b3985b09a77af8fec92bc422d53c5167586bcddf8f8d03b8130e10fa390
+              tag: 2025.10.0@sha256:45517e28aabffea0a9a6380f57145c11debaf90e45c3a5f048b10f1ee4231ff1
             env:
               BW_HOST: https://vaultwarden.m00nlit.dev
             envFrom:
