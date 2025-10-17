@@ -42,18 +42,11 @@ spec:
               REDIS_DBINDEX: 12
 
     immich:
+      metrics:
+        enabled: true
       persistence:
         library:
           existingClaim: photos
-        
-        metadata:
-          size: 30GiB
-          accessMode: ReadWriteOnce
-          globalMounts:
-            - path: /data/thumbs
-              subPath: thumbs
-            - path: /data/encoded-video
-              subPath: encoded-video
 
     server:
       controllers:
@@ -63,6 +56,15 @@ spec:
               image:
                 repository: ghcr.io/immich-app/immich-server
                 tag: v2.1.0@sha256:72a9b9de6c6abfa7a9c9cdc244ae4d2bd9fea2ae00997f194cbd10aca72ea210
+      persistence:
+        metadata:
+          size: 30GiB
+          accessMode: ReadWriteOnce
+          globalMounts:
+            - path: /data/thumbs
+              subPath: thumbs
+            - path: /data/encoded-video
+              subPath: encoded-video
 
     machine-learning:
       controllers:
