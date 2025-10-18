@@ -19,7 +19,7 @@ image:
 
 gitea:
    admin:
-    username: ""
+      username: ""
   #    existingSecret: forgejo-admin-secret
   #    email: "m00n@example.com"
 
