@@ -36,7 +36,7 @@ spec:
               REDIS_HOST: dragonfly.database.svc.cluster.local
               REDIS_DB: 6
               CELERY_BROKER_URL: "redis://dragonfly.database.svc.cluster.local:6379/6"
-              DISPATCHARR_LOG_LEVEL: info
+              DISPATCHARR_LOG_LEVEL: debug
             image: &image
               repository: ghcr.io/dispatcharr/dispatcharr
               tag: 0.10.4@sha256:31242b53f369e82e92d8f5ef53f93d5686c2a8c7fbb486a1fc57d006def13401          
@@ -58,7 +58,7 @@ spec:
                 sed -i "s:/app/uwsgi.sock:/tmp/uwsgi.sock:g" /app/docker/uwsgi.ini && \
                 sed -i '/^attach-daemon = redis-server/s/^/;/' /app/docker/uwsgi.ini && \
                 sed -i '/^attach-daemon = .*celery.*worker.*/s/^/;/' /app/docker/uwsgi.ini && \
-                uwsgi --ini /app/docker/uwsgi.ini --disable-logging
+                uwsgi --ini /app/docker/uwsgi.ini
             resources:
               limits:
                 memory: 1Gi
