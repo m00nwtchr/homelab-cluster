@@ -12,7 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/database
-  #   - ../../../../components/volsync
+    - ../../../../components/volsync
   dependsOn:
     - name: volsync
       namespace: volsync-system
