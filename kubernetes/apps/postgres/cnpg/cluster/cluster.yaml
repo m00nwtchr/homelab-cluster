@@ -87,6 +87,12 @@ spec:
         superuser: false
         disablePassword: true
 
+      - name: dispatcharr
+        ensure: present
+        login: true
+        superuser: false
+        disablePassword: true
+
       - name: firefly
         ensure: present
         login: true
