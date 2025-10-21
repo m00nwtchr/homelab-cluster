@@ -28,7 +28,10 @@ spec:
               POSTGRES_HOST: postgres-rw.postgres.svc
               POSTGRES_DB: *app
               POSTGRES_USER: *app
-              POSTGRES_PASSWORD: secret
+              PGSSLROOTCERT: /var/run/secrets/postgresql/ca.crt
+              PGSSLCERT: /var/run/secrets/postgresql/tls.crt
+              PGSSLKEY: /var/run/secrets/postgresql/tls.key
+              
               REDIS_HOST: dragonfly.database.svc.cluster.local
               REDIS_DB: 6
               CELERY_BROKER_URL: "redis://dragonfly.database.svc.cluster.local:6379/6"
