@@ -29,6 +29,7 @@ spec:
               #   - name: gpu
               requests:
                 cpu: 100m
+                memory: 512Mi # bad
               limits:
                 memory: 4Gi
 
