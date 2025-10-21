@@ -103,8 +103,8 @@ spec:
         #         cpu: 10m
         #         memory: 512Mi
 
-    defaultPodOptions:
-      hostUsers: false
+    # defaultPodOptions:
+      # hostUsers: false
       # resourceClaims:
       #   - name: gpu
       #     resourceClaimTemplateName: plex
