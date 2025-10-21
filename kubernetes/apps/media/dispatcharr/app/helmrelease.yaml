@@ -115,6 +115,7 @@ spec:
           http:
             port: 80
             targetPort: *port
+
     route:
       app:
         hostnames:
@@ -123,7 +124,11 @@ spec:
           - name: internal
             namespace: network
             sectionName: https
-            
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
+
     persistence:
       data:
         existingClaim: *app
