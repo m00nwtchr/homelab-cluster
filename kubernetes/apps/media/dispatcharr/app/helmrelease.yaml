@@ -5,120 +5,125 @@ kind: HelmRelease
 metadata:
   name: &app dispatcharr
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: app-template
     namespace: flux-system
+  interval: 1h
   values:
-    defaultPodOptions:
-      securityContext:
-        #        runAsUser: 1000
-        #        runAsGroup: 1000
-        #        #          runAsNonRoot: true
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
-
     controllers:
       *app :
-
-        initContainers:
-          migrate:
-            env: &env
-              POSTGRES_HOST: postgres-rw.postgres.svc
-              POSTGRES_DB: *app
-              POSTGRES_USER: *app
-              PGSSLMODE: verify-full
-              PGSSLROOTCERT: /var/run/secrets/postgresql/ca.crt
-              PGSSLCERT: /var/run/secrets/postgresql/tls.crt
-              PGSSLKEY: /var/run/secrets/postgresql/tls.key
-              
-              REDIS_HOST: dragonfly.database.svc.cluster.local
-              REDIS_DB: 6
-              CELERY_BROKER_URL: "redis://dragonfly.database.svc.cluster.local:6379/6"
-              DISPATCHARR_LOG_LEVEL: debug
-            image: &image
-              repository: ghcr.io/dispatcharr/dispatcharr
-              tag: 0.10.4@sha256:31242b53f369e82e92d8f5ef53f93d5686c2a8c7fbb486a1fc57d006def13401          
-            workingDir: /app
-            command: bash
-            args:
-             - -c
-             - ". /app/docker/init/03-init-dispatcharr.sh && python manage.py migrate --noinput"
-
         containers:
           app:
-            env: *env
-            image: *image
-            workingDir: /app
-            command: bash
-            args:
-              - -c
-              - |-
-                sed -i "s:/app/uwsgi.sock:/tmp/uwsgi.sock:g" /app/docker/uwsgi.ini && \
-                sed -i '/^attach-daemon = redis-server/s/^/;/' /app/docker/uwsgi.ini && \
-                sed -i '/^attach-daemon = .*celery.*worker.*/s/^/;/' /app/docker/uwsgi.ini && \
-                uwsgi --ini /app/docker/uwsgi.ini
-            resources:
-              limits:
-                memory: 1Gi
-              requests:
-                cpu: 40m
-                memory: 512Mi
-
-          nginx:
+            image:
+              repository: ghcr.io/dispatcharr/dispatcharr
+              tag: 0.10.4@sha256:31242b53f369e82e92d8f5ef53f93d5686c2a8c7fbb486a1fc57d006def13401
             env:
-              DISPATCHARR_HOST: "[::]:9191"
-            image: *image
-            command: bash
-            args:
-            - -c
-            - |-
-              sed -i "s:/app/uwsgi.sock:/tmp/uwsgi.sock:g" /etc/nginx/sites-enabled/default && \
-              sed -i "s/NGINX_PORT/$(DISPATCHARR_HOST)/g" /etc/nginx/sites-enabled/default && \
-              nginx -g "daemon off;"
-
-          celery:
-            env: *env
-            image: *image
-            workingDir: /app
-            command: celery
-            args: ["-A", "dispatcharr", "worker", "-l", "info"]
+              CELERY_BROKER_URL: redis://localhost:6379/0
+              DISPATCHARR_ENV: aio
+              DISPATCHARR_LOG_LEVEL: info
+              DISPATCHARR_PORT: &port 9191
+              REDIS_HOST: localhost
             resources:
-              limits:
-                memory: 1Gi
+              # claims:
+              #   - name: gpu
               requests:
-                cpu: 10m
-                memory: 512Mi
+                cpu: 100m
+              limits:
+                memory: 4Gi
+
+
+        # initContainers:
+        #   migrate:
+        #     env: &env
+        #       POSTGRES_HOST: postgres-rw.postgres.svc
+        #       POSTGRES_DB: *app
+        #       POSTGRES_USER: *app
+        #       PGSSLMODE: verify-full
+        #       PGSSLROOTCERT: /var/run/secrets/postgresql/ca.crt
+        #       PGSSLCERT: /var/run/secrets/postgresql/tls.crt
+        #       PGSSLKEY: /var/run/secrets/postgresql/tls.key
+              
+        #       REDIS_HOST: dragonfly.database.svc.cluster.local
+        #       REDIS_DB: 6
+        #       CELERY_BROKER_URL: "redis://dragonfly.database.svc.cluster.local:6379/6"
+        #       DISPATCHARR_LOG_LEVEL: debug
+        #     image: &image
+        #       repository: ghcr.io/dispatcharr/dispatcharr
+        #       tag: 0.10.4@sha256:31242b53f369e82e92d8f5ef53f93d5686c2a8c7fbb486a1fc57d006def13401          
+        #     workingDir: /app
+        #     command: bash
+        #     args:
+        #      - -c
+        #      - ". /app/docker/init/03-init-dispatcharr.sh && python manage.py migrate --noinput"
+
+        # containers:
+        #   app:
+        #     env: *env
+        #     image: *image
+        #     workingDir: /app
+        #     command: bash
+        #     args:
+        #       - -c
+        #       - |-
+        #         sed -i "s:/app/uwsgi.sock:/tmp/uwsgi.sock:g" /app/docker/uwsgi.ini && \
+        #         sed -i '/^attach-daemon = redis-server/s/^/;/' /app/docker/uwsgi.ini && \
+        #         sed -i '/^attach-daemon = .*celery.*worker.*/s/^/;/' /app/docker/uwsgi.ini && \
+        #         uwsgi --ini /app/docker/uwsgi.ini
+        #     resources:
+        #       limits:
+        #         memory: 1Gi
+        #       requests:
+        #         cpu: 40m
+        #         memory: 512Mi
+
+        #   nginx:
+        #     env:
+        #       DISPATCHARR_HOST: "[::]:9191"
+        #     image: *image
+        #     command: bash
+        #     args:
+        #     - -c
+        #     - |-
+        #       sed -i "s:/app/uwsgi.sock:/tmp/uwsgi.sock:g" /etc/nginx/sites-enabled/default && \
+        #       sed -i "s/NGINX_PORT/$(DISPATCHARR_HOST)/g" /etc/nginx/sites-enabled/default && \
+        #       nginx -g "daemon off;"
+
+        #   celery:
+        #     env: *env
+        #     image: *image
+        #     workingDir: /app
+        #     command: celery
+        #     args: ["-A", "dispatcharr", "worker", "-l", "info"]
+        #     resources:
+        #       limits:
+        #         memory: 1Gi
+        #       requests:
+        #         cpu: 10m
+        #         memory: 512Mi
+
+    defaultPodOptions:
+      hostUsers: false
+      # resourceClaims:
+      #   - name: gpu
+      #     resourceClaimTemplateName: plex
 
     service:
       app:
-        controller: *app
         ports:
           http:
             port: 80
-            targetPort: 9191
-
+            targetPort: *port
     route:
       app:
-        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Media
-          gethomepage.dev/name: Dispatcharr
-          gethomepage.dev/icon: dispatcharr.svg
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: internal
             namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
 
     persistence:
       data:
         existingClaim: *app
-
       tmp:
         type: emptyDir
