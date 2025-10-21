@@ -66,14 +66,15 @@ spec:
 
           nginx:
             env:
-              DISPATCHARR_PORT: "[::]:9191"
+              DISPATCHARR_HOST: "[::]:9191"
             image: *image
             command: bash
             args:
             - -c
             - |-
               sed -i "s:/app/uwsgi.sock:/tmp/uwsgi.sock:g" /etc/nginx/sites-enabled/default && \
-              sed -i "s/NGINX_PORT/${DISPATCHARR_PORT}/g" /etc/nginx/sites-enabled/default && \
+              sed -i "s/NGINX_PORT/$(DISPATCHARR_HOST)/g" /etc/nginx/sites-enabled/default && \
+              cat /etc/nginx/sites-enabled/default && \
               nginx -g "daemon off;"
 
           celery:
