@@ -21,9 +21,10 @@ spec:
 
     controllers:
       *app :
-        containers:
-          app:
-            env:
+
+        initContainers:
+          migrate:
+            env: &env
               POSTGRES_HOST: postgres-rw.postgres.svc
               POSTGRES_DB: *app
               POSTGRES_USER: *app
@@ -32,22 +33,28 @@ spec:
               REDIS_DB: 6
               CELERY_BROKER_URL: "redis://dragonfly.database.svc.cluster.local:6379/6"
               DISPATCHARR_LOG_LEVEL: info
-            image:
+            image: &image
               repository: ghcr.io/dispatcharr/dispatcharr
-              tag: 0.10.4@sha256:31242b53f369e82e92d8f5ef53f93d5686c2a8c7fbb486a1fc57d006def13401
-            probes:
-              liveness:
-                enabled: true
-                type: HTTP
-              readiness:
-                enabled: true
-                type: HTTP
-              startup:
-                enabled: true
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
-                type: HTTP
+              tag: 0.10.4@sha256:31242b53f369e82e92d8f5ef53f93d5686c2a8c7fbb486a1fc57d006def13401          
+            workingDir: /app
+            command: python
+            args:
+             - manage.py
+             - migrate
+             - --noinput
+
+        containers:
+          app:
+            env: *env
+            image: *image
+            workingDir: /app
+            command: bash
+            args:
+              - -c
+              - sed -i "s:/app/uwsgi.sock:/tmp/uwsgi.sock:g" /app/docker/uwsgi.ini && \
+                sed -i '/^attach-daemon = redis-server/s/^/;/' /app/docker/uwsgi.ini && \
+                sed -i '/^attach-daemon = .*celery.*worker.*/s/^/;/' /app/docker/uwsgi.ini && \
+                uwsgi --ini /app/docker/uwsgi.ini --disable-logging
             resources:
               limits:
                 memory: 1Gi
@@ -55,22 +62,29 @@ spec:
                 cpu: 40m
                 memory: 1Gi
 
-          celery:
+          nginx:
             env:
-              POSTGRES_HOST: postgres-rw.postgres.svc
-              POSTGRES_DB: *app
-              POSTGRES_USER: *app
-              POSTGRES_PASSWORD: secret
-              REDIS_HOST: dragonfly.database.svc.cluster.local
-              REDIS_DB: 6
-              CELERY_BROKER_URL: "redis://dragonfly.database.svc.cluster.local:6379/6"
-            image:
-              repository: ghcr.io/dispatcharr/dispatcharr
-              tag: 0.10.4@sha256:31242b53f369e82e92d8f5ef53f93d5686c2a8c7fbb486a1fc57d006def13401
+              NGINX_PORT: 9191
+            image: *image
             command: bash
             args:
             - -c
-            - cd /app && nice -n 5 celery -A dispatcharr worker -l info
+            - sed -i "s:/app/uwsgi.sock:/tmp/uwsgi.sock:g" /etc/nginx/sites-enabled/default && nginx -g "daemon off;"
+
+          celery:
+            env: *env
+            image: *image
+            workingDir: /app
+            command: nice
+            args:
+              - -n
+              - "5"
+              - celery
+              - -A
+              - dispatcharr
+              - worker
+              - -l
+              - info
             resources:
               limits:
                 memory: 512Mi
@@ -103,7 +117,10 @@ spec:
               - identifier: app
                 port: 80
 
-    # persistence:
+    persistence:
+      tmp:
+        type: emptyDir
+
       # data:
       #   size: 1Gi
       #   accessMode: ReadWriteOnce
