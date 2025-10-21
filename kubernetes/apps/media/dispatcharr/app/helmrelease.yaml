@@ -28,6 +28,7 @@ spec:
               POSTGRES_HOST: postgres-rw.postgres.svc
               POSTGRES_DB: *app
               POSTGRES_USER: *app
+              PGSSLMODE: verify-full
               PGSSLROOTCERT: /var/run/secrets/postgresql/ca.crt
               PGSSLCERT: /var/run/secrets/postgresql/tls.crt
               PGSSLKEY: /var/run/secrets/postgresql/tls.key
