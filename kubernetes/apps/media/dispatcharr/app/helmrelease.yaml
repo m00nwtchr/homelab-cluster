@@ -60,9 +60,10 @@ spec:
                 uwsgi --ini /app/docker/uwsgi.ini --disable-logging
             resources:
               limits:
-                memory: 512Mi
+                memory: 1Gi
               requests:
                 cpu: 40m
+                memory: 512Mi
 
           nginx:
             env:
@@ -74,7 +75,6 @@ spec:
             - |-
               sed -i "s:/app/uwsgi.sock:/tmp/uwsgi.sock:g" /etc/nginx/sites-enabled/default && \
               sed -i "s/NGINX_PORT/$(DISPATCHARR_HOST)/g" /etc/nginx/sites-enabled/default && \
-              cat /etc/nginx/sites-enabled/default && \
               nginx -g "daemon off;"
 
           celery:
@@ -88,6 +88,7 @@ spec:
                 memory: 1Gi
               requests:
                 cpu: 10m
+                memory: 512Mi
 
     service:
       app:
