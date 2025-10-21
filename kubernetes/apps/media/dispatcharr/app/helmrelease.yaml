@@ -40,11 +40,10 @@ spec:
               repository: ghcr.io/dispatcharr/dispatcharr
               tag: 0.10.4@sha256:31242b53f369e82e92d8f5ef53f93d5686c2a8c7fbb486a1fc57d006def13401          
             workingDir: /app
-            command: python
+            command: bash
             args:
-             - manage.py
-             - migrate
-             - --noinput
+             - -c
+             - ". /app/docker/init/03-init-dispatcharr.sh && python manage.py migrate --noinput"
 
         containers:
           app:
@@ -78,16 +77,8 @@ spec:
             env: *env
             image: *image
             workingDir: /app
-            command: nice
-            args:
-              - -n
-              - "5"
-              - celery
-              - -A
-              - dispatcharr
-              - worker
-              - -l
-              - info
+            command: celery
+            args: ["-A", "dispatcharr", "worker", "-l", "info"]
             resources:
               limits:
                 memory: 1Gi
@@ -120,19 +111,8 @@ spec:
                 port: 80
 
     persistence:
+      data:
+        existingClaim: *app
+
       tmp:
         type: emptyDir
-
-      # data:
-      #   size: 1Gi
-      #   accessMode: ReadWriteOnce
-      #   globalMounts:
-      #     - path: /usr/src/paperless/data
-
-      # media:
-      #   existingClaim: paperless-media
-      #   globalMounts:
-      #     - path: /usr/src/paperless/media
-      #       subPath: media
-      #     - path: /usr/src/paperless/consume
-      #       subPath: consume
