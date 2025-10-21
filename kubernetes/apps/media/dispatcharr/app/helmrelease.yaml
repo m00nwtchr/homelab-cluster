@@ -61,10 +61,9 @@ spec:
                 uwsgi --ini /app/docker/uwsgi.ini --disable-logging
             resources:
               limits:
-                memory: 1Gi
+                memory: 512Mi
               requests:
                 cpu: 40m
-                memory: 1Gi
 
           nginx:
             env:
@@ -91,10 +90,9 @@ spec:
               - info
             resources:
               limits:
-                memory: 512Mi
+                memory: 1Gi
               requests:
                 cpu: 10m
-                memory: 30Mi
 
     service:
       app:
