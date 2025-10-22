@@ -130,7 +130,7 @@ spec:
               - identifier: app
                 port: 80
             timeouts:
-              request: "0"
+              request: "0s"
 
     persistence:
       data:
