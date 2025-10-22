@@ -88,7 +88,7 @@ spec:
     substitute:
       APP: *app
   healthChecks:
-    - name: postgres-${APP}
+    - name: postgres-dawarich
       namespace: *namespace
       kind: Database
       apiVersion: postgresql.cnpg.io/v1
