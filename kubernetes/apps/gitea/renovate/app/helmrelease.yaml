@@ -18,6 +18,16 @@ spec:
           schedule: "@hourly"
 
         pod:
+          annotations:
+            k8s.ksgate.org/forgejo-deployment: |
+              {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "name": "forgejo",
+                "expression": "resource.status.updatedReplicas >= 1"
+              }
+          schedulingGates:
+            - name: k8s.ksgate.org/forgejo-deployment
           securityContext:
             supplementalGroups:
               - 991 # TPM TSS
