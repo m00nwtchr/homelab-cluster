@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://schemas.m00nlit.dev/postgresql.cnpg.io/cluster_v1.json
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
@@ -45,13 +46,20 @@ spec:
       - hostnossl all all 10.42.0.0/16      scram-sha-256
       - hostnossl all all 2001:cafe:42::/56 scram-sha-256
       - hostssl   all all all               cert clientcert=verify-full
-#    TODO: postgis
-#    extensions:
-#      - name: postgis
-#        ld_library_path:
-#          - system
-#        image:
-#          reference: ghcr.io/cloudnative-pg/postgis-18-testing:latest@sha256:548adc7601ac7ffaf14051c22e5222f191552ee1e4a03477e7fdcdaee5d05ae0
+    # TODO: postgis
+    extensions:
+      # - name: postgis
+      #   ld_library_path:
+      #     - system
+      #   image:
+      #     reference: ghcr.io/cloudnative-pg/postgis-18-testing:latest@sha256:548adc7601ac7ffaf14051c22e5222f191552ee1e4a03477e7fdcdaee5d05ae0
+      - name: vchord
+        image:
+          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3@sha256:c310ede47f7f82bd257c3e53806d60680d5899c318ca946fb313efad9a90a78e 
+        dynamic_library_path:
+          - /usr/lib/postgresql/18/lib
+        extension_control_path:
+          - /usr/share/postgresql/18/
 
   managed:
     roles:
@@ -112,6 +120,12 @@ spec:
         disablePassword: true
 
       - name: hass
+        ensure: present
+        login: true
+        superuser: false
+        disablePassword: true
+
+      - name: immich
         ensure: present
         login: true
         superuser: false
