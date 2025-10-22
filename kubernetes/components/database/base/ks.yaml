@@ -18,6 +18,9 @@ spec:
     substitute:
       APP: *app
       OWNER: ${DATABASE_OWNER:=${APP}}
+      EXTENSIONS: ${q:='}${DATABASE_EXTENSIONS}${q:='}
+
+      emptyArray: "[]"
   healthChecks:
     - name: postgres-${APP}
       namespace: *namespace
