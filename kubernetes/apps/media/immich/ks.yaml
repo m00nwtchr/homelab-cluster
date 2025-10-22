@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/oidc
-    - ../../../../components/database/custom
+    - ../../../../components/database
     - ../../../../components/gatus/guarded
   dependsOn:
     - name: barman-cloud-crds
@@ -28,6 +28,11 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       SUBDOMAIN: photos
+      DATABASE_EXTENSIONS: |
+        - name: vector
+        - name: vchord
+        - name: cube
+        - name: earthdistance
       OIDC_DISPLAY_NAME: "Immich"
       OIDC_CALLBACK: /auth/login
       OIDC_EXTRA_CALLBACKS: '["app.immich:///oauth-callback", "https://photos.m00nlit.dev/user-settings"]'
