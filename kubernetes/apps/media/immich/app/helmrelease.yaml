@@ -31,13 +31,11 @@ spec:
         containers:
           main:
             env:
-              DB_HOSTNAME: "immich-postgres-rw.media.svc"
-              DB_DATABASE_NAME: *app
-              DB_USERNAME: *app
-              DB_PASSWORD:
-                secretKeyRef:
-                  name: immich-postgres-user
-                  key: password
+              DB_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
               REDIS_HOSTNAME: "dragonfly.database.svc"
               REDIS_DBINDEX: 12
 
