@@ -11,5 +11,7 @@ spec:
   cluster:
     name: postgres
   extensions:
+    - name: vector
     - name: vchord
+    - name: cube
     - name: earthdistance
