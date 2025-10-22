@@ -29,10 +29,12 @@ spec:
       NAMESPACE: *namespace
       SUBDOMAIN: photos
       DATABASE_EXTENSIONS: |
-        - name: vector
-        - name: vchord
-        - name: cube
-        - name: earthdistance
+        [
+          { name: vector },
+          { name: vchord },
+          { name: cube },
+          { name: earthdistance }
+        ]
       OIDC_DISPLAY_NAME: "Immich"
       OIDC_CALLBACK: /auth/login
       OIDC_EXTRA_CALLBACKS: '["app.immich:///oauth-callback", "https://photos.m00nlit.dev/user-settings"]'
