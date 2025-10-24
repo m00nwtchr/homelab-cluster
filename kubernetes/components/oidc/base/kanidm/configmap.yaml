@@ -38,7 +38,7 @@ data:
           "${APP}": {
             "k8s": { "clientIdKey": "${CLIENT_ID_KEY}", "clientSecretKey": "${CLIENT_SECRET_KEY}", "imageUrl": "${IMAGE_URL:=}" },
             "originUrl": ${EXTRA_CALLBACKS:=${emptyArray}},
-            "scopeMaps": ${SCOPE_MAPS:=${emptyState}},
+            "scopeMaps": ${SCOPE_MAPS:=${emptyState}}
           }
         }
       }
