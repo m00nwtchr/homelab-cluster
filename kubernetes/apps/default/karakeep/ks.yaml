@@ -33,10 +33,6 @@ spec:
       VOLSYNC_ACCESSMODES: ReadWriteMany
       OIDC_CALLBACK: /api/auth/callback/custom
       OIDC_LEGACY_CRYPTO: "true"
-      OIDC_SCOPE_MAPS: |
-        {
-          "users@idm.m00nlit.dev": ["openid", "profile", "email"]
-        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

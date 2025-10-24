@@ -25,10 +25,6 @@ spec:
       OIDC_CALLBACK: /login?provider=kanidm&callback=true
       OIDC_SHORT_USERNAME: "true"
       OIDC_DISABLE_PKCE: "true"
-      OIDC_SCOPE_MAPS: |
-        {
-          "users@idm.m00nlit.dev": ["openid", "email", "profile", "groups"]
-        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

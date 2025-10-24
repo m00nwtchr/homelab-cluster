@@ -22,10 +22,8 @@ spec:
       OIDC_DISPLAY_NAME: "Kubernetes"
       OIDC_CALLBACK: /
       OIDC_EXTRA_CALLBACKS: '["http://localhost:18000/"]'
-      OIDC_SCOPE_MAPS: |
-        {
-          "k8s_admins@idm.m00nlit.dev": ["openid", "groups", "email", "offline_access"]
-        }
+      OIDC_GROUP: k8s_admins
+      OIDC_SCOPES: '["openid", "groups", "email", "offline_access"]'
       OIDC_CUSTOM_STATE: |
         {
           "groups": {

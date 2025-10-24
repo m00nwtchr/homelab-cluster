@@ -26,10 +26,6 @@ spec:
       OIDC_DISPLAY_NAME: RustiCal
       OIDC_CALLBACK: /frontend/login/oidc/callback
       OIDC_SHORT_USERNAME: "true"
-      OIDC_SCOPE_MAPS: |
-        {
-          "users@idm.m00nlit.dev": ["openid", "profile", "groups"]
-        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

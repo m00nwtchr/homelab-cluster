@@ -25,10 +25,6 @@ spec:
       VOLSYNC_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: "Paperless"
       OIDC_CALLBACK: /accounts/oidc/kanidm/login/callback/
-      OIDC_SCOPE_MAPS: |
-        {
-          "users@idm.m00nlit.dev": ["openid", "profile", "email"]
-        }
       OIDC_IMAGE_NAME: paperless-ngx
     substituteFrom:
       - name: cluster-secrets

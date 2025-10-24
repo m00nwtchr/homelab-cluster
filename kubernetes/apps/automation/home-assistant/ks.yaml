@@ -29,10 +29,6 @@ spec:
       OIDC_CALLBACK: /auth/oidc/callback
       OIDC_ORIGIN: /auth/oidc/welcome
       OIDC_SHORT_USERNAME: "true"
-      OIDC_SCOPE_MAPS: |
-        {
-          "users@idm.m00nlit.dev": ["openid", "profile", "email", "groups"]
-        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
