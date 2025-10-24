@@ -29,7 +29,7 @@ spec:
       OIDC_SHORT_USERNAME: "true"
       OIDC_SCOPE_MAPS: |
         {
-          "users@idm.m00nlit.dev": ["openid", "profile", "email", "groups"]
+          "users": ["openid", "profile", "email", "groups"]
         }
       OIDC_CLAIM_MAPS: |
         {
