@@ -27,7 +27,7 @@ spec:
       NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: Bazarr
-      OIDC_GROUPS: admins
+      OIDC_GROUP: admins
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

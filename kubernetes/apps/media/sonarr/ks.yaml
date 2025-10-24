@@ -23,7 +23,7 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       OIDC_DISPLAY_NAME: Sonarr
-      OIDC_GROUPS: admins
+      OIDC_GROUP: admins
       OIDC_SCOPES: '["openid", "profile"]'
     substituteFrom:
       - name: cluster-secrets
