@@ -27,10 +27,6 @@ spec:
       OIDC_EXTRA_CALLBACKS: '["https://jellyfin.m00nlit.dev/sso/OID/r/kanidm"]'
       OIDC_ORIGIN: /sso/OID/start/kanidm
       OIDC_SHORT_USERNAME: "true"
-      OIDC_SCOPE_MAPS: |
-        {
-          "users": ["openid", "profile", "email", "groups"]
-        }
       OIDC_CLAIM_MAPS: |
         {
           "roles": {

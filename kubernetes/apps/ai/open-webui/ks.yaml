@@ -25,10 +25,6 @@ spec:
       NAMESPACE: *namespace
       OIDC_DISPLAY_NAME: "Open WebUI"
       OIDC_CALLBACK: /oauth/oidc/callback
-      OIDC_SCOPE_MAPS: |
-        {
-          "users@idm.m00nlit.dev": ["openid", "profile", "email"]
-        }
       OIDC_CLAIM_MAPS: |
         {
           "roles": {

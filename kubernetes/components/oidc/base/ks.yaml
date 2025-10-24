@@ -32,6 +32,9 @@ spec:
       LEGACY_CRYPTO: ${q:="}${OIDC_LEGACY_CRYPTO:=false}${q:="}
       DISABLE_PKCE: ${q:="}${OIDC_DISABLE_PKCE:=false}${q:="}
 
+      GROUP: "${OIDC_GROUP:=users}"
+      SCOPES: ${q:='}${OIDC_SCOPES}${q:='}
+
       SCOPE_MAPS: ${q:='}${OIDC_SCOPE_MAPS}${q:='}
       SUP_SCOPE_MAPS: ${q:='}${OIDC_SUP_SCOPE_MAPS}${q:='}
       CLAIM_MAPS: ${q:='}${OIDC_CLAIM_MAPS}${q:='}
@@ -44,6 +47,7 @@ spec:
       CUSTOM_STATE: ${q:='}${OIDC_CUSTOM_STATE}${q:='}
       emptyState: "{}"
       emptyArray: "[]"
+      defaultScopes: '["openid", "profile", "email", "groups"]'
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

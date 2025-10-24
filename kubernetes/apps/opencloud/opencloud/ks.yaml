@@ -28,10 +28,6 @@ spec:
       OIDC_CALLBACK: /oidc-callback.html
       OIDC_EXTRA_CALLBACKS: '["https://cloud.m00nlit.dev/oidc-silent-redirect.html"]'
       OIDC_SHORT_USERNAME: "true"
-      OIDC_SCOPE_MAPS: |
-        {
-          "users@idm.m00nlit.dev": ["openid", "profile", "email", "groups"]
-        }
       OIDC_CLAIM_MAPS: |
         {
           "roles": {

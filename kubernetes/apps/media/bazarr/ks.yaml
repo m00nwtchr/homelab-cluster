@@ -27,10 +27,7 @@ spec:
       NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: Bazarr
-      OIDC_SCOPE_MAPS: |
-        {
-          "admins@idm.m00nlit.dev": ["openid", "profile"]
-        }
+      OIDC_GROUPS: admins
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

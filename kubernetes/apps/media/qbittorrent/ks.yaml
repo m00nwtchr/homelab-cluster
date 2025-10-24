@@ -27,10 +27,8 @@ spec:
       VOLSYNC_CAPACITY: 1Gi
       SUBDOMAIN: qb
       OIDC_DISPLAY_NAME: qBittorrent
-      OIDC_SCOPE_MAPS: |
-        {
-          "admins@idm.m00nlit.dev": ["openid", "profile"]
-        }
+      OIDC_GROUPS: admins
+      OIDC_SCOPES: '["openid", "profile"]'
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
