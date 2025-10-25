@@ -1,5 +1,10 @@
 ---
-#devices:
+devices:
+ - name: tun
+   groups:
+     - count: 1
+       paths:
+         - path: /dev/net/tun
 #  - name: tpmrm
 #    groups:
 #      - count: 10
