@@ -110,7 +110,7 @@ spec:
         ipFamilies: [IPv4]
         annotations:
           tailscale.com/hostname: *app
-          tailscale.com/proxy-group: ingress-proxy
+#          tailscale.com/proxy-group: ingress-proxy
         ports: *ports
 
     serviceMonitor:
