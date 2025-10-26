@@ -11,8 +11,9 @@ serviceAccount:
   create: true
 
 service:
-  clusterIP: "2001:cafe:43::a"
-
+  clusterIPs:
+    - "2001:cafe:43::a"
+    - 10.43.0.10
 prometheus:
   service:
     enabled: true
