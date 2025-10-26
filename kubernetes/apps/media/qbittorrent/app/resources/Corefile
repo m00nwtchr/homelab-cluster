@@ -23,6 +23,6 @@ cluster.local:53 {
     log {
         class error
     }
-    forward . 10.43.0.10
+    forward . 2001:cafe:43::a
 }
 
