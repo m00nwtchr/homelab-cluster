@@ -22,7 +22,7 @@ spec:
               tag: v3.40.0@sha256:2b42bfa046757145a5155acece417b65b4443c8033fb88661a8e9dcf7fda5a00
             restartPolicy: Always
             env:
-              DOT: "off"
+              DOT: "on"
               # DNS_ADDRESS: 127.0.0.2
               # HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH: &gluetunAuthPath /gluetun/auth.toml
               VPN_SERVICE_PROVIDER: protonvpn
