@@ -11,6 +11,7 @@ clients:
 filters:
   default:
     MapHardlinksFor:
+      - clean
       - retag
 
     ignore:
