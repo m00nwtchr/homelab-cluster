@@ -16,13 +16,23 @@ spec:
         type: statefulset
 
         initContainers:
+          coredns:
+            image:
+              repository: mirror.gcr.io/coredns/coredns
+              tag: 1.13.1@sha256:9b9128672209474da07c91439bf15ed704ae05ad918dd6454e5b6ae14e35fee6
+            args:
+              - -conf
+              - /etc/coredns/Corefile
+            restartPolicy: Always
           gluetun:
+            dependsOn:
+              - coredns
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.40.0@sha256:2b42bfa046757145a5155acece417b65b4443c8033fb88661a8e9dcf7fda5a00
             restartPolicy: Always
             env:
-              DOT: "on"
+              DOT: "off"
               # DNS_ADDRESS: 127.0.0.2
               # HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH: &gluetunAuthPath /gluetun/auth.toml
               VPN_SERVICE_PROVIDER: protonvpn
@@ -74,7 +84,6 @@ spec:
             env:
               TZ: ${TZ}
               QBT_WEBUI_PORT: &port 8080
-              # QBT_TORRENTING_PORT: &torrentPort 31495
             securityContext: &ctx
               runAsNonRoot: true
               runAsUser: &uid 2000
@@ -131,17 +140,6 @@ spec:
           http:
             port: 80
             targetPort: *port
-      # bittorrent:
-      #   type: LoadBalancer
-      #   loadBalancerClass: "io.cilium/node"
-      #   ipFamilyPolicy: PreferDualStack
-      #   ports:
-      #     bittorrent-tcp:
-      #       port: *torrentPort
-      #       protocol: TCP
-      #     bittorrent-udp:
-      #       port: *torrentPort
-      #       protocol: UDP
 
     route:
       app:
@@ -190,6 +188,15 @@ spec:
         globalMounts:
           - path: /mnt/media/downloads
             subPath: downloads
+
+      coredns:
+        type: configMap
+        name: qbittorrent-coredns-configmap
+        advancedMounts:
+          *app :
+            coredns:
+              - path: /etc/coredns/Corefile
+                subPath: Corefile
 
       # gluetun:
       #   type: secret

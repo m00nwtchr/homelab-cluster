@@ -5,9 +5,13 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
+configMapGenerator:
+  - name: qbitorrent-coredns-configmap
+    files:
+      - ./resources/Corefile
 # secretGenerator:
 #   - name: gluetun-secret
 #     files:
 #       - auth.toml=./resources/auth.sops.toml
-# configurations:
-#   - ./resources/kustomizeconfig.yaml
+configurations:
+  - ./resources/kustomizeconfig.yaml
