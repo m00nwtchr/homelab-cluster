@@ -11,6 +11,7 @@ serviceAccount:
   create: true
 
 service:
+  ipFamilyPolicy: "PreferDualStack"
   clusterIPs:
     - "2001:cafe:43::a"
     - 10.43.0.10
