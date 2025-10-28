@@ -31,6 +31,12 @@ metadata:
   name: www-redirect
 spec:
   parentRefs:
+    - name: internal
+      namespace: network
+      sectionName: https
+    - name: external
+      namespace: network
+      sectionName: https
     - name: cftunnel
       namespace: network
       sectionName: https
