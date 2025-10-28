@@ -12,5 +12,6 @@ secretGenerator:
   - name: pgp-public-keys
     files:
       - ./resources/m00n.asc
+      - ./resources/renovate.asc
 generatorOptions:
   disableNameSuffixHash: true
