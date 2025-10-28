@@ -17,12 +17,12 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: trivy-operator
+  name: &app trivy-operator
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: trivy-operator
+    name: *app
   values:
     serviceMonitor:
       enabled: true

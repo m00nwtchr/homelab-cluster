@@ -22,7 +22,7 @@ spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: immich
+    name: *app
   values:
     image: { }
 

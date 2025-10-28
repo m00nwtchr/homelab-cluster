@@ -17,12 +17,12 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: loki
+  name: &app loki
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: loki
+    name: *app
 #  install:
 #    crds: Skip
 #  upgrade:

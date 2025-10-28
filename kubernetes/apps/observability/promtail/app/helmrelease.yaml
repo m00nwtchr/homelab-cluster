@@ -17,14 +17,14 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: promtail
+  name: &app promtail
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: promtail
+    name: *app
   values:
-    fullnameOverride: promtail
+    fullnameOverride: *app
     config:
       clients:
         - url: "http://vlsingle-vl.observability.svc.cluster.local:9428/insert/loki/api/v1/push"

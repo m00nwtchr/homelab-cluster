@@ -17,12 +17,12 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: cert-manager
+  name: &app cert-manager
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: cert-manager
+    name: *app
   valuesFrom:
     - kind: ConfigMap
       name: cert-manager-values

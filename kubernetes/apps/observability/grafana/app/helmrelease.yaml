@@ -17,12 +17,12 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: grafana
+  name: &app grafana
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: grafana
+    name: *app
   values:
     deploymentStrategy:
       type: Recreate

@@ -22,7 +22,7 @@ spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: smartctl-exporter
+    name: *app
   values:
     fullnameOverride: *app
     serviceMonitor:

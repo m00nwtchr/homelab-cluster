@@ -23,12 +23,12 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: coredns
+  name: &app coredns
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: coredns
+    name: *app
   valuesFrom:
     - kind: ConfigMap
       name: coredns-values
