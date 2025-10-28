@@ -8,3 +8,9 @@ resources:
   - ./pull.sops.yaml
   - ./receiver.yaml
   - ./secret.sops.yaml
+configMapGenerator:
+  - name: pgp-public-keys
+    files:
+      - ./resources/m00n.asc
+generatorOptions:
+  disableNameSuffixHash: true
