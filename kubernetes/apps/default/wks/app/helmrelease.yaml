@@ -45,6 +45,9 @@ spec:
           - name: external
             namespace: network
             sectionName: https
+          - name: cftunnel
+            namespace: network
+            sectionName: https
         rules:
           - backendRefs:
               - identifier: app
