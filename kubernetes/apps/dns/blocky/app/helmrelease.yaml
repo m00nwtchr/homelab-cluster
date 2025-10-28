@@ -106,8 +106,8 @@ spec:
         controller: *app
         type: LoadBalancer
         loadBalancerClass: tailscale
-        ipFamilyPolicy: SingleStack
-        ipFamilies: [IPv4]
+        ipFamilyPolicy: PreferDualStack
+        # ipFamilies: [IPv4]
         annotations:
           tailscale.com/hostname: *app
           tailscale.com/proxy-group: ingress-proxy
