@@ -50,6 +50,17 @@ spec:
         interval: 1h
       kustomize:
         patches:
+          - # Git commit verification
+            patch: |-
+              - op: add
+                path: /spec/verify
+                value:
+                  mode: HEAD
+                  secretRef:
+                    name: pgp-public-keys
+            target:
+              kind: GitRepository
+              name: flux-system
           - # Increase the number of workers
             patch: |-
               - op: add
@@ -120,14 +131,14 @@ spec:
             target:
               kind: Deployment
               name: helm-controller
-          - # Disable chart digest tracking
-            patch: |-
-              - op: add
-                path: /spec/template/spec/containers/0/args/-
-                value: --feature-gates=DisableChartDigestTracking=true
-            target:
-              kind: Deployment
-              name: helm-controller
+          # - # Disable chart digest tracking
+          #   patch: |-
+          #     - op: add
+          #       path: /spec/template/spec/containers/0/args/-
+          #       value: --feature-gates=DisableChartDigestTracking=true
+          #   target:
+          #     kind: Deployment
+          #     name: helm-controller
           - # Controller-level SOPS decryption
             patch: |-
               - op: add
