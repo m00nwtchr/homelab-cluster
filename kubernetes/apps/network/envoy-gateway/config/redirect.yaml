@@ -14,6 +14,9 @@ spec:
     - name: external
       namespace: network
       sectionName: http
+    - name: cftunnel
+      namespace: network
+      sectionName: http
   rules:
     - filters:
         - requestRedirect:
@@ -50,6 +53,9 @@ metadata:
 spec:
   parentRefs:
     - name: external
+      namespace: network
+      sectionName: https
+    - name: cftunnel
       namespace: network
       sectionName: https
   hostnames:
