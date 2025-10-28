@@ -22,12 +22,12 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: flux-operator
+  name: &app flux-operator
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: flux-operator
+    name: *app
   valuesFrom:
     - kind: ConfigMap
       name: flux-operator-values

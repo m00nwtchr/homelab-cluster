@@ -17,12 +17,12 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: openebs
+  name: &app openebs
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: openebs
+    name: *app
 #  install:
 #    disableHooks: true
 #  upgrade:

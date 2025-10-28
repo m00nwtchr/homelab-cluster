@@ -17,9 +17,9 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: reflector
+  name: &app reflector
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: reflector
+    name: *app

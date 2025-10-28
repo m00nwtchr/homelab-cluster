@@ -17,12 +17,12 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: forgejo
+  name: &app forgejo
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: forgejo
+    name: *app
   valuesFrom:
     - kind: ConfigMap
       name: forgejo-values

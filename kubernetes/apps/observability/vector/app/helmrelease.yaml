@@ -17,14 +17,14 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: vector
+  name: &app vector
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: vector
+    name: *app
   values:
-    fullnameOverride: vector
+    fullnameOverride: *app
 
     podMonitor:
       enabled: true

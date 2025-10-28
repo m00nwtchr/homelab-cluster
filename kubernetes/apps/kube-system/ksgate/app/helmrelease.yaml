@@ -17,9 +17,9 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: ksgate
+  name: &app ksgate
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: ksgate
+    name: *app
