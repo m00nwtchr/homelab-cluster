@@ -34,9 +34,6 @@ spec:
     - name: internal
       namespace: network
       sectionName: https
-    - name: external
-      namespace: network
-      sectionName: https
     - name: cftunnel
       namespace: network
       sectionName: https
