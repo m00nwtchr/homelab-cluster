@@ -193,7 +193,7 @@ spec:
         victoriametrics:
           # renovate: depName="VictoriaMetrics - single-node"
           gnetId: 10229
-          revision: 41
+          revision: 42
           datasource: VictoriaMetrics
         smartctl-exporter:
           # renovate: depName="SMARTctl Exporter Dashboard"
