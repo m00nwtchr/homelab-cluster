@@ -44,6 +44,11 @@ spec:
     grafana:
       enabled: false
       forceDeployDashboards: true
+      operator:
+        dashboardsConfigMapRefEnabled: true
+        folder: observability
+        matchLabels:
+          grafana.internal/instance: grafana
 
     prometheusOperator:
       enabled: false
