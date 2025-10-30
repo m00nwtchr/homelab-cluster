@@ -12,6 +12,7 @@ spec:
   datasources:
     - datasourceName: victoriametrics
       inputName: DS_PROMETHEUS
-    - datasourceName: "http:\\/\\/blocky.dns.svc.cluster.local"
-      inputName: VAR_BLOCKY_URL
+  envs:
+    - name: VAR_BLOCKY_URL
+      value: "http:\\/\\/blocky.dns.svc.cluster.local"
   url: https://grafana.com/api/dashboards/13768/revisions/6/download
