@@ -1,23 +1,40 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: grafana-operator
+spec:
+  components: []
+  interval: 1h
+  path: ./kubernetes/apps/observability/grafana/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: observability
+  wait: true
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app grafana
-  namespace: &namespace observability
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: grafana-operator
+    - name: openebs
+      namespace: openebs-system
   components:
     - ../../../../components/oidc
     - ../../../../components/gatus/guarded
   interval: 1h
-  path: ./kubernetes/apps/observability/grafana/app
+  path: ./kubernetes/apps/observability/grafana/instance
   postBuild:
     substitute:
       APP: *app
-      NAMESPACE: *namespace
+      NAMESPACE: &namespace observability
       OIDC_DISPLAY_NAME: Grafana
       OIDC_CALLBACK: /login/generic_oauth
       OIDC_GROUP: admins
@@ -34,11 +51,9 @@ spec:
       - name: cluster-secrets
         kind: Secret
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
-  timeout: 5m
   wait: false

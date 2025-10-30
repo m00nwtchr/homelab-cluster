@@ -3,274 +3,172 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: grafana
+  name: grafana-operator
 spec:
-  interval: 5m
+  interval: 15m
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 10.1.2
-  url: oci://ghcr.io/grafana/helm-charts/grafana
+    tag: v5.20.0
+  url: oci://ghcr.io/grafana/helm-charts/grafana-operator
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app grafana
+  name: &app grafana-operator
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: *app
+  interval: 1h
   values:
-    deploymentStrategy:
-      type: Recreate
-
-    env:
-      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
-      GF_EXPLORE_ENABLED: true
-#      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
-      GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
-      GF_PANELS_DISABLE_SANITIZE_HTML: true
-      GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN}
-    grafana.ini:
-      analytics:
-        check_for_updates: false
-        check_for_plugin_updates: false
-        reporting_enabled: false
-
-      auth.anonymous:
-        enabled: true
-        org_id: 1
-        org_name: Main Org.
-        org_role: Viewer
-
-      auth.generic_oauth:
-        enabled: true
-        name: Kanidm
-        client_id: grafana
-        client_secret: $__file{/etc/secrets/auth_generic_oauth/client-secret}
-
-        scopes: openid,profile,email,groups
-        auth_url: https://idm.${SECRET_DOMAIN}/ui/oauth2
-        token_url: https://idm.${SECRET_DOMAIN}/oauth2/token
-        api_url: https://idm.${SECRET_DOMAIN}/oauth2/openid/grafana/userinfo
-        use_pkce: true
-        use_refresh_token: true
-        allow_sign_up: true
-        login_attribute_path: preferred_username
-        groups_attribute_path: groups
-        role_attribute_path: contains(grafana_role[*], 'GrafanaAdmin') && 'GrafanaAdmin' || contains(grafana_role[*], 'Admin') && 'Admin' || contains(grafana_role[*], 'Editor') && 'Editor' || 'Viewer'
-        allow_assign_grafana_admin: true
-
-      news:
-        news_feed_enabled: false
-    datasources:
-      datasources.yaml:
-        apiVersion: 1
-        deleteDatasources:
-          - { name: Alertmanager, orgId: 1 }
-          - { name: VictoriaLogs, orgId: 1 }
-          - { name: VictoriaMetrics, orgId: 1 }
-        datasources:
-          - name: VictoriaMetrics
-            type: prometheus
-            uid: victoriametrics
-            access: proxy
-            url: http://vmsingle-vmks.observability.svc.cluster.local:8428
-            isDefault: true
-          - name: VictoriaLogs
-            type: victoriametrics-logs-datasource
-            uid: victorialogs
-            access: proxy
-            url: http://vlsingle-vl.observability.svc.cluster.local:9428
-            jsonData:
-              maxLines: 250
-          - name: Alertmanager
-            type: alertmanager
-            uid: alertmanager
-            access: proxy
-            url: http://vmalertmanager-vmks.observability.svc.cluster.local:9093
-            jsonData:
-              implementation: prometheus
-
-    dashboardProviders:
-      dashboardproviders.yaml:
-        apiVersion: 1
-        providers:
-          - name: default
-            orgId: 1
-            folder: ""
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/default
-    dashboards:
-      default:
-        #        ceph-cluster:
-        #          # renovate: depName="Ceph Cluster"
-        #          gnetId: 2842
-        #          revision: 18
-        #          datasource: Prometheus
-        #        ceph-osd:
-        #          # renovate: depName="Ceph - OSD (Single)"
-        #          gnetId: 5336
-        #          revision: 9
-        #          datasource: Prometheus
-        #        ceph-pools:
-        #          # renovate: depName="Ceph - Pools"
-        #          gnetId: 5342
-        #          revision: 9
-        #          datasource: Prometheus
-        cert-manager:
-          # renovate: depName="Cert-manager-Kubernetes"
-          gnetId: 20842
-          revision: 3
-          datasource: VictoriaMetrics
-        cloudflared:
-          # renovate: depName="Cloudflare Tunnels (cloudflared)"
-          gnetId: 17457
-          revision: 6
-          datasource:
-            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
-        envoy-gateway:
-          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-addons-helm/dashboards/envoy-gateway-global.json
-          datasource: VictoriaMetrics
-        envoy-proxy:
-          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-addons-helm/dashboards/envoy-proxy-global.json
-          datasource: VictoriaMetrics
-        external-dns:
-          # renovate: depName="External-dns"
-          gnetId: 15038
-          revision: 3
-          datasource: VictoriaMetrics
-        gatus:
-          url: https://raw.githubusercontent.com/TwiN/gatus/refs/heads/master/.examples/docker-compose-grafana-prometheus/grafana/provisioning/dashboards/gatus.json
-          datasource: VictoriaMetrics
-        kubernetes-api-server:
-          # renovate: depName="Kubernetes / System / API Server"
-          gnetId: 15761
-          revision: 19
-          datasource: VictoriaMetrics
-        kubernetes-coredns:
-          # renovate: depName="Kubernetes / System / CoreDNS"
-          gnetId: 15762
-          revision: 21
-          datasource: VictoriaMetrics
-        kubernetes-global:
-          # renovate: depName="Kubernetes / Views / Global"
-          gnetId: 15757
-          revision: 43
-          datasource: VictoriaMetrics
-        kubernetes-namespaces:
-          # renovate: depName="Kubernetes / Views / Namespaces"
-          gnetId: 15758
-          revision: 42
-          datasource: VictoriaMetrics
-        kubernetes-nodes:
-          # renovate: depName="Kubernetes / Views / Nodes"
-          gnetId: 15759
-          revision: 37
-          datasource: VictoriaMetrics
-        kubernetes-pods:
-          # renovate: depName="Kubernetes / Views / Pods"
-          gnetId: 15760
-          revision: 36
-          datasource: VictoriaMetrics
-        kubernetes-volumes:
-          # renovate: depName="K8s / Storage / Volumes / Cluster"
-          gnetId: 11454
-          revision: 14
-          datasource: VictoriaMetrics
-        node-exporter-full:
-          # renovate: depName="Node Exporter Full"
-          gnetId: 1860
-          revision: 42
-          datasource:
-            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
-        victoriametrics:
-          # renovate: depName="VictoriaMetrics - single-node"
-          gnetId: 10229
-          revision: 41
-          datasource: VictoriaMetrics
-        smartctl-exporter:
-          # renovate: depName="SMARTctl Exporter Dashboard"
-          gnetId: 22604
-          revision: 2
-          datasource:
-            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
-        volsync:
-          # renovate: depName="VolSync Dashboard"
-          gnetId: 21356
-          revision: 3
-          datasource:
-            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
-            - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
-        zfs:
-          # renovate: depName="ZFS"
-          gnetId: 7845
-          revision: 4
-          datasource: VictoriaMetrics
-        blocky4:
-          # renovate: depName="blocky4"
-          gnetId: 13768
-          revision: 6
-          datasource:
-            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
-            - { name: VAR_BLOCKY_URL, value: "http:\\/\\/blocky.dns.svc.cluster.local"}
-        trivy-operator-dashboard:
-          # renovate: depName="Trivy Operator Dashboard"
-          gnetId: 17813
-          revision: 2
-          datasource: VictoriaMetrics
-    sidecar:
-      image:
-        registry: ghcr.io
-        repository: home-operations/k8s-sidecar
-        tag: 1.30.10@sha256:dd3b1f0c4e6b4512b2deb50c58acf65fd0f0927120a59a95eec854d32a6c9ce3
-      dashboards:
-        enabled: true
-        searchNamespace: ALL
-        label: grafana_dashboard
-        folderAnnotation: grafana_folder
-        provider:
-          disableDelete: true
-          foldersFromFilesStructure: true
-      datasources:
-        enabled: true
-        searchNamespace: ALL
-        labelValue: ""
-    plugins:
-      - victoriametrics-metrics-datasource
-      - victoriametrics-logs-datasource
-      - grafana-clock-panel
-      - grafana-piechart-panel
-      - grafana-worldmap-panel
-    #      - natel-discrete-panel
-    #      - pr0ps-trackmap-panel
-    #      - vonage-status-panel
+    dashboard:
+      enabled: true
     serviceMonitor:
       enabled: true
+# # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: &app grafana
+# spec:
+#   interval: 1h
+#   chartRef:
+#     kind: OCIRepository
+#     name: *app
+#   values:
+#     deploymentStrategy:
+#       type: Recreate
 
-    route:
-      main:
-        enabled: true
-        hostnames: [ "grafana.${SECRET_DOMAIN}" ]
-        parentRefs:
-          - name: internal
-            namespace: network
-            sectionName: https
+#     env:
+#       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+#       GF_EXPLORE_ENABLED: true
+# #      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
+#       GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
+#       GF_PANELS_DISABLE_SANITIZE_HTML: true
+#       GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN}
+#     grafana.ini:
+#       analytics:
+#         check_for_updates: false
+#         check_for_plugin_updates: false
+#         reporting_enabled: false
 
-    persistence:
-      enabled: false
-    testFramework:
-      enabled: false
+#       auth.anonymous:
+#         enabled: true
+#         org_id: 1
+#         org_name: Main Org.
+#         org_role: Viewer
 
-    extraSecretMounts:
-      - name: grafana-oidc
-        secretName: kanidm-grafana-oidc
-        defaultMode: 0440
-        mountPath: /etc/secrets/auth_generic_oauth
-        readOnly: true
+#       auth.generic_oauth:
+#         enabled: true
+#         name: Kanidm
+#         client_id: grafana
+#         client_secret: $__file{/etc/secrets/auth_generic_oauth/client-secret}
+
+#         scopes: openid,profile,email,groups
+#         auth_url: https://idm.${SECRET_DOMAIN}/ui/oauth2
+#         token_url: https://idm.${SECRET_DOMAIN}/oauth2/token
+#         api_url: https://idm.${SECRET_DOMAIN}/oauth2/openid/grafana/userinfo
+#         use_pkce: true
+#         use_refresh_token: true
+#         allow_sign_up: true
+#         login_attribute_path: preferred_username
+#         groups_attribute_path: groups
+#         role_attribute_path: contains(grafana_role[*], 'GrafanaAdmin') && 'GrafanaAdmin' || contains(grafana_role[*], 'Admin') && 'Admin' || contains(grafana_role[*], 'Editor') && 'Editor' || 'Viewer'
+#         allow_assign_grafana_admin: true
+
+#       news:
+#         news_feed_enabled: false
+#     datasources:
+#       datasources.yaml:
+#         apiVersion: 1
+#         deleteDatasources:
+#           - { name: Alertmanager, orgId: 1 }
+#           - { name: VictoriaLogs, orgId: 1 }
+#           - { name: VictoriaMetrics, orgId: 1 }
+#         datasources:
+#           - name: VictoriaMetrics
+#             type: prometheus
+#             uid: victoriametrics
+#             access: proxy
+#             url: http://vmsingle-vmks.observability.svc.cluster.local:8428
+#             isDefault: true
+#           - name: VictoriaLogs
+#             type: victoriametrics-logs-datasource
+#             uid: victorialogs
+#             access: proxy
+#             url: http://vlsingle-vl.observability.svc.cluster.local:9428
+#             jsonData:
+#               maxLines: 250
+#           - name: Alertmanager
+#             type: alertmanager
+#             uid: alertmanager
+#             access: proxy
+#             url: http://vmalertmanager-vmks.observability.svc.cluster.local:9093
+#             jsonData:
+#               implementation: prometheus
+
+#     dashboardProviders:
+#       dashboardproviders.yaml:
+#         apiVersion: 1
+#         providers:
+#           - name: default
+#             orgId: 1
+#             folder: ""
+#             type: file
+#             disableDeletion: false
+#             editable: true
+#             options:
+#               path: /var/lib/grafana/dashboards/default
+
+#     sidecar:
+#       image:
+#         registry: ghcr.io
+#         repository: home-operations/k8s-sidecar
+#         tag: 1.30.10@sha256:dd3b1f0c4e6b4512b2deb50c58acf65fd0f0927120a59a95eec854d32a6c9ce3
+#       dashboards:
+#         enabled: true
+#         searchNamespace: ALL
+#         label: grafana_dashboard
+#         folderAnnotation: grafana_folder
+#         provider:
+#           disableDelete: true
+#           foldersFromFilesStructure: true
+#       datasources:
+#         enabled: true
+#         searchNamespace: ALL
+#         labelValue: ""
+#     plugins:
+#       - victoriametrics-metrics-datasource
+#       - victoriametrics-logs-datasource
+#       - grafana-clock-panel
+#       - grafana-piechart-panel
+#       - grafana-worldmap-panel
+#     #      - natel-discrete-panel
+#     #      - pr0ps-trackmap-panel
+#     #      - vonage-status-panel
+#     serviceMonitor:
+#       enabled: true
+
+#     route:
+#       main:
+#         enabled: true
+#         hostnames: [ "grafana.${SECRET_DOMAIN}" ]
+#         parentRefs:
+#           - name: internal
+#             namespace: network
+#             sectionName: https
+
+#     persistence:
+#       enabled: false
+#     testFramework:
+#       enabled: false
+
+#     extraSecretMounts:
+#       - name: grafana-oidc
+#         secretName: kanidm-grafana-oidc
+#         defaultMode: 0440
+#         mountPath: /etc/secrets/auth_generic_oauth
+#         readOnly: true
