@@ -181,12 +181,18 @@ spec:
 
     kubelet:
       enabled: true
+      vmScrape:
+        kind: VMServiceScrape
+        spec:
+          service:
+            selector:
+              component: apiserver
 
     kubeApiServer:
       enabled: true
 
     kubeControllerManager:
-      enabled: true
+      enabled: false
       service:
         selector:
           component: apiserver # Selects controller node IPs
