@@ -146,6 +146,7 @@ spec:
           allowCrossNamespaceImport: true
           instanceSelector:
             matchLabels:
+              dashboards: null
               grafana.internal/instance: grafana
       dashboards:
         node-exporter-full:
