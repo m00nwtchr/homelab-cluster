@@ -106,15 +106,3 @@ spec:
     matchLabels:
       grafana.internal/instance: grafana
   url: https://grafana.com/api/dashboards/7845/revisions/4/download
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
-apiVersion: grafana.integreatly.org/v1beta1
-kind: GrafanaDashboard
-metadata:
-  name: victoriametrics
-spec:
-  allowCrossNamespaceImport: true
-  instanceSelector:
-    matchLabels:
-      grafana.internal/instance: grafana
-  url: https://grafana.com/api/dashboards/10229/revisions/42/download
