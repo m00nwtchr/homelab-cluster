@@ -37,13 +37,8 @@ spec:
     victoria-metrics-operator:
       enabled: false
 
-    kubeProxy:
+    grafana:
       enabled: false
-
-    kubeEtcd:
-      service:
-        selector:
-          component: apiserver
 
     alertmanager:
       spec:
@@ -137,8 +132,6 @@ spec:
                   replacement: $1
                   sourceLabels: [ "__meta_kubernetes_pod_node_name" ]
                   targetLabel: kubernetes_node
-    grafana:
-      enabled: false
 
     defaultDashboards:
       enabled: true
@@ -185,3 +178,54 @@ spec:
                 expr: node_zfs_zpool_state{state!="online"} > 0
                 labels:
                   severity: critical
+
+    kubelet:
+      enabled: true
+
+    kubeApiServer:
+      enabled: true
+
+    kubeControllerManager:
+      enabled: true
+      service:
+        selector:
+          component: apiserver # Selects controller node IPs
+      vmScrape:
+        spec:
+          endpoints:
+            - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+              port: https
+              scheme: https
+              tlsConfig:
+                insecureSkipVerify: true
+
+    kubeEtcd:
+      enabled: true
+      service:
+        selector:
+          component: apiserver # Selects controller node IPs
+        port: 2381
+        targetPort: 2381
+      vmScrape:
+        spec:
+          endpoints:
+            - scheme: http
+
+    kubeScheduler:
+      enabled: true
+      service:
+        selector:
+          component: apiserver # Selects controller node IPs
+      vmScrape:
+        spec:
+          endpoints:
+            - port: https
+              scheme: https
+              tlsConfig:
+                insecureSkipVerify: true
+
+    kubeProxy:
+      enabled: false
+
+    coreDns:
+      enabled: true
