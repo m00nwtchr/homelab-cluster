@@ -41,7 +41,8 @@ spec:
       enabled: false
 
     kubeEtcd:
-      enabled: false # Idk how to make this work on K3s, wait until switch to Talos.
+      selector:
+        component: apiserver
 
     alertmanager:
       spec:
