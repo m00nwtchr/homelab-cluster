@@ -57,17 +57,6 @@ spec:
       enabled: false
 
     kubernetesServiceMonitors:
-      enabled: true
-
-    kubeControllerManager:
-      enabled: false
-    kubeProxy:
-      enabled: false
-    kubeScheduler:
-      enabled: true
-    kubeApiServer:
-      enabled: false
-    coreDns:
       enabled: false
 
     prometheus:
