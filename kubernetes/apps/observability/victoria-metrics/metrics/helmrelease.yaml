@@ -180,19 +180,19 @@ spec:
                   severity: critical
 
     kubelet:
-      enabled: true
-      vmScrape:
-        kind: VMServiceScrape
-        spec:
-          service:
-            selector:
-              component: apiserver
+      enabled: false
+      # vmScrape:
+      #   kind: VMServiceScrape
+      #   spec:
+      #     service:
+      #       selector:
+      #         component: apiserver
 
     kubeApiServer:
       enabled: true
 
     kubeControllerManager:
-      enabled: false
+      enabled: true
       service:
         selector:
           component: apiserver # Selects controller node IPs
@@ -208,14 +208,21 @@ spec:
     kubeEtcd:
       enabled: true
       service:
-        selector:
-          component: apiserver # Selects controller node IPs
+        # selector:
+        #   component: apiserver # Selects controller node IPs
         port: 2381
         targetPort: 2381
       vmScrape:
         spec:
           endpoints:
             - scheme: http
+          selector:
+            matchLabels:
+              app: null
+              app.kubernetes.io/instance: null
+              app.kubernetes.io/name: null
+              jobLabel: null
+              component: apiserver
 
     kubeScheduler:
       enabled: true
