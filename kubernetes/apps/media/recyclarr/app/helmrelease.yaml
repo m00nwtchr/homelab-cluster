@@ -23,6 +23,7 @@ spec:
           ttlSecondsAfterFinished: 86400
 
         pod:
+            restartPolicy: Never
             annotations:
               k8s.ksgate.org/sonarr-ready: |
                 {
@@ -68,8 +69,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 128Mi
-        pod:
-          restartPolicy: Never
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
