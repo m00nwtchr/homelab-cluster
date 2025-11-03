@@ -27,14 +27,14 @@ spec:
               k8s.ksgate.org/sonarr-ready: |
                 {
                   "apiVersion": "apps/v1",
-                  "kind": "Deployment",
+                  "kind": "StatefulSet",
                   "name": "sonarr",
                   "expression": "resource.status.readyReplicas >= 1"
                 }
               k8s.ksgate.org/radarr-ready: |
                 {
                   "apiVersion": "apps/v1",
-                  "kind": "Deployment",
+                  "kind": "StatefulSet",
                   "name": "radarr",
                   "expression": "resource.status.readyReplicas >= 1"
                 }

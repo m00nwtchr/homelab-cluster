@@ -30,14 +30,14 @@ spec:
             k8s.ksgate.org/qbittorrent-ready: |
               {
                 "apiVersion": "apps/v1",
-                "kind": "Deployment",
+                "kind": "StatefulSet",
                 "name": "qbittorrent",
                 "expression": "resource.status.readyReplicas >= 1"
               }
             k8s.ksgate.org/prowlarr-ready: |
               {
                 "apiVersion": "apps/v1",
-                "kind": "Deployment",
+                "kind": "StatefulSet",
                 "name": "prowlarr",
                 "expression": "resource.status.readyReplicas >= 1"
               }
