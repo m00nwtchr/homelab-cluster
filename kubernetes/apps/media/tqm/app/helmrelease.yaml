@@ -21,6 +21,18 @@ spec:
           successfulJobsHistory: 1
           failedJobsHistory: 1
 
+        pod:
+          annotations:
+            k8s.ksgate.org/qbittorrent-ready: |
+              {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "name": "qbittorrent",
+                "expression": "resource.status.readyReplicas >= 1"
+              }
+          schedulingGates:
+            - name: k8s.ksgate.org/qbittorrent-ready
+
         initContainers:
           retag: &container
             image:

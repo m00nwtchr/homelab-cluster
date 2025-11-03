@@ -22,6 +22,26 @@ spec:
           failedJobsHistory: 1
           ttlSecondsAfterFinished: 86400
 
+        pod:
+            annotations:
+              k8s.ksgate.org/sonarr-ready: |
+                {
+                  "apiVersion": "apps/v1",
+                  "kind": "Deployment",
+                  "name": "sonarr",
+                  "expression": "resource.status.readyReplicas >= 1"
+                }
+              k8s.ksgate.org/radarr-ready: |
+                {
+                  "apiVersion": "apps/v1",
+                  "kind": "Deployment",
+                  "name": "radarr",
+                  "expression": "resource.status.readyReplicas >= 1"
+                }
+            schedulingGates:
+              - name: k8s.ksgate.org/sonarr-ready
+              - name: k8s.ksgate.org/radarr-ready
+
         containers:
           app:
             image:
