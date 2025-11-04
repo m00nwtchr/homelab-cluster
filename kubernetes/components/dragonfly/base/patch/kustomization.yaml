@@ -21,7 +21,7 @@ patches:
                   "apiVersion": "apps/v1",
                   "kind": "StatefulSet",
                   "name": "dragonfly",
-                  "namespace": "database"
+                  "namespace": "database",
                   "expression": "resource.status.readyReplicas >= 1"
                 }
               k8s.ksgate.org/dragonfly-service: |
