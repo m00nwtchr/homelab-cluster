@@ -10,6 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/dragonfly
     - ../../../../components/gatus/external
   interval: 1h
   retryInterval: 2m

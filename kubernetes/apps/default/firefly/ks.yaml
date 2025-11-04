@@ -12,6 +12,7 @@ spec:
   components:
     - ../../../../components/volsync
     - ../../../../components/database
+    - ../../../../components/dragonfly
 #    - ../../../../components/oidc/envoy
     - ../../../../components/gatus/guarded
 #  dependsOn:

@@ -12,6 +12,7 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/database
+    - ../../../../components/dragonfly
     - ../../../../components/gatus/guarded
   dependsOn:
     - name: barman-cloud-crds
