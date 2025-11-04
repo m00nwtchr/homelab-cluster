@@ -53,7 +53,8 @@ spec:
                   name: publish-k8s-schemas-secret
             args:
               - deploy
-              - --compatibility-date 2025-11-04
+              - --compatibility-date
+              - "2025-11-04"
               - --assets
               - /data/crdSchemas
               - --name
