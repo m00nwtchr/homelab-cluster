@@ -52,11 +52,11 @@ spec:
               - secretRef:
                   name: publish-k8s-schemas-secret
             args:
-              - pages
               - deploy
+              - --assets
               - /data/crdSchemas
-              - --project-name
-              - kubernetes-schemas
+              - --name
+              - k8s-schemas
             resources:
               requests:
                 cpu: 10m
