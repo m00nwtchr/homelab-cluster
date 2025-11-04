@@ -10,9 +10,12 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components: []
+  dependsOn:
+    - name: dragonfly-operator
+      namespace: dragonfly-system
   healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
+    - apiVersion: dragonflydb.io/v1alpha1
+      kind: Dragonfly
       name: *app
       namespace: *namespace
   interval: 1h
