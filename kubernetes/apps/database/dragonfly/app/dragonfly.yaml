@@ -21,9 +21,9 @@ spec:
 
     # TODO: (Check if still applicable.) Make sure service is PreferDualStack. Or find a way to make immich-machine-learning work with IPv6 only.
 
-    env:
-      - name: MAX_MEMORY
-        valueFrom:
-          resourceFieldRef:
-            resource: limits.memory
-            divisor: 1Mi
+  env:
+    - name: MAX_MEMORY
+      valueFrom:
+        resourceFieldRef:
+          resource: limits.memory
+          divisor: 1Mi
