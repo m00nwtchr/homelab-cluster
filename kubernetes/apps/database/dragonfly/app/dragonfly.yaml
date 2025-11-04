@@ -19,7 +19,9 @@ spec:
     limits:
       memory: 512Mi
 
-    # TODO: (Check if still applicable.) Make sure service is PreferDualStack. Or find a way to make immich-machine-learning work with IPv6 only.
+  # TODO: (Check if still applicable.) Make sure service is PreferDualStack. Or find a way to make immich-machine-learning work with IPv6 only.
+  labels:
+    role: master # Bug when replicas=1
 
   env:
     - name: MAX_MEMORY
