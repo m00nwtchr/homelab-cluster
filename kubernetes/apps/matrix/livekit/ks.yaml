@@ -9,7 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components: []
+  components:
+    - ../../../../components/dragonfly
   interval: 1h
   path: ./kubernetes/apps/matrix/livekit/app
   postBuild:

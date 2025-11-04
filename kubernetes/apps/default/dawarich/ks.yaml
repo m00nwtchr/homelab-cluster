@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     # - ../../../../components/database
+    - ../../../../components/dragonfly
     - ../../../../components/gatus/guarded
 #  dependsOn:
 #    - name: rook-ceph-cluster

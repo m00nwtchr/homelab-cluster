@@ -15,6 +15,7 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/database
+    - ../../../../components/dragonfly
     - ../../../../components/gatus/guarded
   interval: 1h
   path: ./kubernetes/apps/default/paperless/app

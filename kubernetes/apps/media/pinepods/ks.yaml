@@ -13,6 +13,7 @@ spec:
     - ../../../../components/oidc
     - ../../../../components/volsync
     - ../../../../components/database/pass
+    - ../../../../components/dragonfly
     - ../../../../components/gatus/guarded
   dependsOn:
     - name: volsync

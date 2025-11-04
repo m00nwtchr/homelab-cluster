@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/database
+    - ../../../../components/dragonfly
   interval: 1h
   path: ./kubernetes/apps/rssflow/rssflow/app
   postBuild:
