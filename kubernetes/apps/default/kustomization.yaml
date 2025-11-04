@@ -17,6 +17,7 @@ resources:
   - ./mealie/ks.yaml
   - ./ntfy/ks.yaml
   - ./paperless/ks.yaml
+  - ./publish-k8s-schemas/ks.yaml
   - ./rustical/ks.yaml
   - ./searxng/ks.yaml
   - ./tika/ks.yaml
