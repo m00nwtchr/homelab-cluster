@@ -34,13 +34,11 @@ spec:
     gfd:
       enabled: true
     # runtimeClassName: nvidia
+    deviceListStrategy: cdi-cri
     config:
       map:
         default: |-
           version: v1
-          flags:
-            plugin:
-              deviceListStrategy: "cdi-cri"
           sharing:
             timeSlicing:
               renameByDefault: false
