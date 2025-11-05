@@ -34,7 +34,7 @@ spec:
     gfd:
       enabled: true
     # runtimeClassName: nvidia
-    deviceListStrategy: cdi-cri
+    # deviceListStrategy: cdi-cri
     config:
       map:
         default: |-
