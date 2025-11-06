@@ -35,14 +35,35 @@ spec:
               name: *app
             patch: |
               - op: add
+                path: /spec/template/spec/initContainers/-
+                value:
+                  name: generate-ssh-keys
+                  image: &image ghcr.io/m00nwtchr/ssh-tpm-agent:0.8.0@sha256:21679ac2c857da0b5ef2c3c272c5310ebc157473c12fe83f41af8671633b2e10
+                  imagePullPolicy: IfNotPresent
+                  command:
+                    - "sh"
+                    - "-c"
+                    - '[ ! -f /data/ssh/id_ecdsa.tpm ] && /usr/local/bin/ssh-tpm-keygen -t ecdsa -f /data/ssh/ -N ""'
+                  volumeMounts:
+                    - mountPath: /data/ssh
+                      name: git
+                      subPath: ssh
+                  resources:
+                    limits:
+                      memory: 128Mi
+                      squat.ai/tpmrm: 1
+              - op: add
                 path: /spec/template/spec/containers/-
                 value:
                   name: ssh-tpm-agent
-                  image: ghcr.io/m00nwtchr/ssh-tpm-agent:0.8.0@sha256:8e3b380fb17069d67f1661fabef7af976aa0856dcca170ed7a1df7cb0470ddcd
+                  image: *image
                   imagePullPolicy: IfNotPresent
                   volumeMounts:
                     - mountPath: /var/tmp
                       name: temp
+                    - mountPath: /data/ssh
+                      name: git
+                      subPath: ssh
                   resources:
                     limits:
                       memory: 128Mi
