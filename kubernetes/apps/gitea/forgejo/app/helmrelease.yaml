@@ -26,3 +26,23 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: forgejo-values
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: v1
+              kind: Deployment
+              name: *app
+            patch: |
+              - op: add
+                path: /spec/template/spec/containers/-
+                value:
+                  repository: ghcr.io/m00nwtchr/ssh-tpm-agent:0.8.0@sha256:a389051ca336af8477f26e07500b35e99cc221859a02d40c85ca72d7710e1066
+                  imagePullPolicy: IfNotPresent
+                  volumeMounts:
+                    - mountPath: /var/tmp
+                      name: temp
+                  resources:
+                    limits:
+                      memory: 128Mi
+                      squat.ai/tpmrm: 1
