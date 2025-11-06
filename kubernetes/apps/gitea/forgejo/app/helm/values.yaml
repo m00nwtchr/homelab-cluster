@@ -47,6 +47,16 @@ gitea:
       PATH: /data/git/lfs
     repository:
       ROOT: /data/git/repositories
+    repository.signing:
+      FORMAT: ssh
+      SIGNING_KEY: /data/ssh/id_ecdsa.pub
+      SIGNING_NAME: "Forgejo"
+      SIGNING_EMAIL: "forgejo@${SECRET_DOMAIN}"
+
+      INITIAL_COMMIT: pubkey, twofa
+      CRUD_ACTIONS: pubkey, twofa, parentsigned
+      WIKI: never
+      MERGES: pubkey, twofa, basesigned, commitssigned
     indexer:
       ISSUE_INDEXER_TYPE: bleve
       REPO_INDEXER_ENABLED: true
