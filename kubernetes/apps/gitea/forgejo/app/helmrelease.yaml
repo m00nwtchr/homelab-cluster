@@ -38,7 +38,7 @@ spec:
                 path: /spec/template/spec/containers/-
                 value:
                   name: ssh-tpm-agent
-                  image: ghcr.io/m00nwtchr/ssh-tpm-agent:0.8.0@sha256:a389051ca336af8477f26e07500b35e99cc221859a02d40c85ca72d7710e1066
+                  image: ghcr.io/m00nwtchr/ssh-tpm-agent:0.8.0@sha256:8e3b380fb17069d67f1661fabef7af976aa0856dcca170ed7a1df7cb0470ddcd
                   imagePullPolicy: IfNotPresent
                   volumeMounts:
                     - mountPath: /var/tmp
