@@ -53,10 +53,10 @@ gitea:
       SIGNING_NAME: "Forgejo"
       SIGNING_EMAIL: "forgejo@${SECRET_DOMAIN}"
 
-      INITIAL_COMMIT: pubkey, twofa
-      CRUD_ACTIONS: pubkey, twofa, parentsigned
+      INITIAL_COMMIT: pubkey
+      CRUD_ACTIONS: pubkey, parentsigned
       WIKI: never
-      MERGES: pubkey, twofa, basesigned, commitssigned
+      MERGES: pubkey, basesigned, commitssigned
     indexer:
       ISSUE_INDEXER_TYPE: bleve
       REPO_INDEXER_ENABLED: true
