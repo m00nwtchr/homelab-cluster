@@ -5,8 +5,8 @@ devices:
      - count: 1
        paths:
          - path: /dev/net/tun
-#  - name: tpmrm
-#    groups:
-#      - count: 10
-#        paths:
-#          - path: /dev/tpmrm0
+ - name: tpmrm
+   groups:
+     - count: 1
+       paths:
+         - path: /dev/tpmrm0
