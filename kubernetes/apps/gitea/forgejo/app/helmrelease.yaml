@@ -43,7 +43,11 @@ spec:
                   command:
                     - "sh"
                     - "-c"
-                    - 'mkdir -p /data/ssh && [ ! -f /data/ssh/id_ecdsa.tpm ] && /usr/local/bin/ssh-tpm-keygen -t ecdsa -f /data/ssh/id_ecdsa -N ""'
+                    - >
+                      mkdir -p /data/ssh
+                      if [ ! -f /data/ssh/id_ecdsa.tpm ]; then
+                        /usr/local/bin/ssh-tpm-keygen -t ecdsa -f /data/ssh/id_ecdsa -N ""
+                      fi
                   volumeMounts:
                     - mountPath: /data/
                       name: data
