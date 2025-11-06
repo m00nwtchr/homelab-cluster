@@ -44,7 +44,7 @@ spec:
                     - "sh"
                     - "-c"
                     - >
-                      mkdir -p /data/ssh
+                      mkdir -p /data/ssh;
                       if [ ! -f /data/ssh/id_ecdsa.tpm ]; then
                         /usr/local/bin/ssh-tpm-keygen -t ecdsa -f /data/ssh/id_ecdsa -N ""
                       fi
