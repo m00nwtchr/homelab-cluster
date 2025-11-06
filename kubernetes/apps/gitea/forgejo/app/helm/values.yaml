@@ -79,6 +79,8 @@ deployment:
       value: /var/run/secrets/postgresql/tls.crt
     - name: PGSSLKEY
       value: /var/run/secrets/postgresql/tls.key
+    - name: SSH_AUTH_SOCK
+      value: /tmp/ssh-tpm-agent.sock
 
 service:
   ssh:
