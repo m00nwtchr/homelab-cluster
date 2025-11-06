@@ -64,7 +64,7 @@ spec:
                   volumeMounts:
                     - mountPath: /var/tmp
                       name: temp
-                    - mountPath: /data/ssh
+                    - mountPath: /.ssh
                       name: git
                       subPath: ssh
                   resources:
