@@ -96,10 +96,10 @@ spec:
           gethomepage.dev/widget.url: "http://jellyfin.media.svc"
           gethomepage.dev/widget.key: "{{ \"{{HOMEPAGE_VAR_JELLYFIN_KEY}}\" }}"
         parentRefs:
-          - name: internal
+          - name: external
             namespace: network
             sectionName: https
-          - name: external
+          - name: internal
             namespace: network
             sectionName: https
         rules:
