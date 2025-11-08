@@ -53,7 +53,7 @@ spec:
                   name: paperless-env
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.18.4@sha256:3421ebe06ed27662d014046cf5089e612de853aae0c676a2bc72f73b38080e57
+              tag: 2.19.5@sha256:5f2a72fd7be42c6b1d8fa1751606a140452d4c3e6e829ae6b1b15e3c95129481
             probes:
               liveness:
                 enabled: true
