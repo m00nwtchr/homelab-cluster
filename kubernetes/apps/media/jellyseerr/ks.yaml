@@ -25,6 +25,7 @@ spec:
       OIDC_CALLBACK: /login?provider=kanidm&callback=true
       OIDC_SHORT_USERNAME: "true"
       OIDC_DISABLE_PKCE: "true"
+      OIDC_GROUP: media_users
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
