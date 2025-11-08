@@ -20,6 +20,7 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      SUBDOMAIN: requests
       VOLSYNC_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: Jellyseer
       OIDC_CALLBACK: /login?provider=kanidm&callback=true
