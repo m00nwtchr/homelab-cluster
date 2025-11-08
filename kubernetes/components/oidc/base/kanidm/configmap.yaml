@@ -51,13 +51,14 @@ data:
         }
       }
     }
-  test.json: |
+  default.json: |
     {
       "systems": {
         "oauth2": {
           "${APP}": {
             "scopeMaps": {
-              "users": []
+              "users": [],
+              "admins": []
             }
           }
         }
