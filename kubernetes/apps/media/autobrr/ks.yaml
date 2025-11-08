@@ -28,7 +28,7 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       OIDC_CALLBACK: /api/auth/oidc/callback
-
+      OIDC_GROUP: admins
       OIDC_SHORT_USERNAME: "true"
       OIDC_LEGACY_CRYPTO: "true"
       OIDC_DISABLE_PKCE: "true"
