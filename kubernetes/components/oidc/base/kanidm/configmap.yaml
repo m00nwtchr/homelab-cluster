@@ -51,3 +51,15 @@ data:
         }
       }
     }
+  test.json: |
+    {
+      "systems": {
+        "oauth2": {
+          "${APP}": {
+            "scopeMaps": {
+              "users": []
+            }
+          }
+        }
+      }
+    }
