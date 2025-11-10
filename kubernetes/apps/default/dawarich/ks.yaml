@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    # - ../../../../components/database
+    - ../../../../components/database
     - ../../../../components/dragonfly
     - ../../../../components/gatus/guarded
 #  dependsOn:
