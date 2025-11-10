@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafana_v1beta1.json
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/grafana.integreatly.org/grafana_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: Grafana
 metadata:
@@ -65,6 +65,9 @@ spec:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
                 capabilities: { drop: ["ALL"] }
+              volumeMounts:
+                - name: postgres-certs
+                  mountPath: /var/run/secrets/postgresql
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
@@ -75,6 +78,10 @@ spec:
             - name: grafana-data
               persistentVolumeClaim:
                 claimName: grafana-pvc
+            - name: postgres-certs
+              secret:
+                defaultMode: 0440
+                secretName: postgres-grafana-cert
   persistentVolumeClaim:
     spec:
       accessModes:
