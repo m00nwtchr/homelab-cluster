@@ -16,3 +16,42 @@ spec:
     - name: VAR_BLOCKY_URL
       value: "http:\\/\\/blocky.dns.svc.cluster.local"
   url: https://grafana.com/api/dashboards/13768/revisions/6/download
+#---
+## yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
+#apiVersion: grafana.integreatly.org/v1beta1
+#kind: GrafanaDashboard
+#metadata:
+#  name: blocky-postgres
+#spec:
+#  allowCrossNamespaceImport: true
+#  instanceSelector:
+#    matchLabels:
+#      grafana.internal/instance: grafana
+#  datasources:
+#    - datasourceName: postgres
+#      inputName: DS_PROMETHEUS
+#  url: https://0xerr0r.github.io/blocky/latest/blocky-query-grafana-postgres.json
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadatasource_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: blocky-postgres
+spec:
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana
+  datasource:
+    type: grafana-postgresql-datasource
+    name: blocky-postgres
+    access: proxy
+    jsonData:
+      connMaxLifetime: 14400
+      database: blocky
+      postgresVersion: 1500
+      sslCertFile: /var/run/secrets/postgresql/tls.crt
+      sslKeyFile: /var/run/secrets/postgresql/tls.key
+      sslmode: verify-full
+      sslRootCertFile: /var/run/secrets/postgresql/ca.crt
+    url: postgres-rw.postgres.svc:5432
+    user: grafana-read
