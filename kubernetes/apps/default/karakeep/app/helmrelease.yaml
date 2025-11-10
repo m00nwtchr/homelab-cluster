@@ -27,6 +27,25 @@ spec:
         forceRename: *app
         annotations:
           reloader.stakater.com/auto: "true"
+
+          k8s.ksgate.org/meili-ready: |
+            {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "name": "karakeep-meilisearch",
+              "expression": "resource.status.readyReplicas >= 1"
+            }
+          k8s.ksgate.org/chrome-ready: |
+            {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "name": "karakeep-chrome",
+              "expression": "resource.status.readyReplicas >= 1"
+            }
+        schedulingGates:
+          - name: k8s.ksgate.org/meili-ready
+          - name: k8s.ksgate.org/chrome-ready
+
         containers:
           app:
             image:
@@ -70,7 +89,7 @@ spec:
                   secretKeyRef:
                     name: karakeep-secret
                     key: litellm_key
-#              OLLAMA_BASE_URL: http://ts-ollama.tailscale.svc:11434
+              #              OLLAMA_BASE_URL: http://ts-ollama.tailscale.svc:11434
 
               INFERENCE_TEXT_MODEL: llama3.3:70b
               INFERENCE_IMAGE_MODEL: llava-llama3:8b
