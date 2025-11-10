@@ -12,7 +12,7 @@ spec:
     namespace: flux-system
   values:
     controllers:
-      dawarich:
+      *app :
         containers:
           app: &bapp
             image:
@@ -33,18 +33,19 @@ spec:
               ENABLE_TELEMETRY: false # More on telemetry: https://dawarich.app/docs/tutorials/telemetry
               SELF_HOSTED: "true"
 
-              DATABASE_HOST: dawarich-db-rw.postgres.svc.cluster.local
-              DATABASE_NAME: dawarich
+              DATABASE_HOST: postgres-rw.postgres.svc.cluster.local
+              DATABASE_NAME: *app
               DATABASE_USERNAME:
                 valueFrom:
                   secretKeyRef:
-                    name: postgres-dawarich
+                    name: postgres-${APP}
                     key: username
-              DATABASE_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: postgres-dawarich
-                    key: password
+
+              PGSSLROOTCERT: /var/run/secrets/postgresql/ca.crt
+              PGSSLCERT: /var/run/secrets/postgresql/tls.crt
+              PGSSLKEY: /var/run/secrets/postgresql/tls.key
+              PGSSLMODE: verify-full
+
             #          envFrom:
             #            - secretRef:
             #                name: dawarich-db-secret
