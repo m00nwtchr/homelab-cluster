@@ -45,10 +45,6 @@ spec:
               PGSSLCERT: /var/run/secrets/postgresql/tls.crt
               PGSSLKEY: /var/run/secrets/postgresql/tls.key
               PGSSLMODE: verify-full
-
-            #          envFrom:
-            #            - secretRef:
-            #                name: dawarich-db-secret
             resources:
               requests:
                 memory: "1Gi"
