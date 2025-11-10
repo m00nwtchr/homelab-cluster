@@ -35,11 +35,7 @@ spec:
 
               DATABASE_HOST: postgres-rw.postgres.svc.cluster.local
               DATABASE_NAME: *app
-              DATABASE_USERNAME:
-                valueFrom:
-                  secretKeyRef:
-                    name: postgres-${APP}
-                    key: username
+              DATABASE_USERNAME: *app
 
               PGSSLROOTCERT: /var/run/secrets/postgresql/ca.crt
               PGSSLCERT: /var/run/secrets/postgresql/tls.crt
