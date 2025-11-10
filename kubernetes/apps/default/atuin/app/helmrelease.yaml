@@ -70,10 +70,9 @@ spec:
       app:
         ports:
           http:
-            port: *port
-    persistence:
-      config:
-        existingClaim: atuin
+            port: 80
+            targetPort: *port
+
     route:
       app:
         hostnames:
