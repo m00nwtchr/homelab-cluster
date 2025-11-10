@@ -48,16 +48,16 @@ spec:
       - hostssl   all all all               cert clientcert=verify-full
     shared_preload_libraries:
       - "vchord.so"
-    # TODO: postgis
+
     extensions:
-      # - name: postgis
-      #   ld_library_path:
-      #     - system
-      #   image:
-      #     reference: ghcr.io/cloudnative-pg/postgis-18-testing:latest@sha256:548adc7601ac7ffaf14051c22e5222f191552ee1e4a03477e7fdcdaee5d05ae0
+      - name: postgis
+        ld_library_path:
+          - system
+        image:
+          reference: ghcr.io/cloudnative-pg/postgis-extension-testing:3.6.0-18-trixie@sha256:ec21540f5799561a9b05ca188fd28ce32852a826f48d80329260940855f5f558
       - name: vchord
         image:
-          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3@sha256:c310ede47f7f82bd257c3e53806d60680d5899c318ca946fb313efad9a90a78e 
+          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3@sha256:c310ede47f7f82bd257c3e53806d60680d5899c318ca946fb313efad9a90a78e
         dynamic_library_path:
           - /usr/lib/postgresql/18/lib
         extension_control_path:
