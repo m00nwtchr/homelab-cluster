@@ -73,6 +73,10 @@ spec:
             port: 80
             targetPort: *port
 
+    persistence:
+      config:
+        type: emptyDir
+
     route:
       app:
         hostnames:
