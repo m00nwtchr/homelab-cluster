@@ -39,7 +39,7 @@ prometheus:
 queryLog:
   # TODO: Switch to timescaledb
   type: postgresql
-  target: postgresql://blocky@postgres-rw.postgres.svc:5432/blocky?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/postgresql/ca.crt&charset=utf8mb4&parseTime=True&loc=Local
+  target: postgresql://blocky@postgres-rw.postgres.svc:5432/blocky?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/postgresql/ca.crt
 
 redis:
   address: dragonfly.database.svc:6379
