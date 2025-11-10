@@ -10,9 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components: []
-  dependsOn:
-    - name: barman-cloud-crds
-      namespace: cnpg-system
   healthChecks:
     - apiVersion: postgresql.cnpg.io/v1
       kind: Cluster
