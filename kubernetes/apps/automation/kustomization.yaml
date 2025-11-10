@@ -7,7 +7,7 @@ components:
   - ../../components/common
 resources:
   - ./home-assistant/ks.yaml
-  - ./openwakeword/ks.yaml
-  - ./n8n/ks.yaml
-  - ./piper/ks.yaml
-  - ./whisper/ks.yaml
+#  - ./openwakeword/ks.yaml
+#  - ./n8n/ks.yaml
+#  - ./piper/ks.yaml
+#  - ./whisper/ks.yaml
