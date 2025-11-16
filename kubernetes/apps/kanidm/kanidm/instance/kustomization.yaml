@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./backendtlspolicy.yaml
+  - ./certificate.yaml
+  - ./helmrelease.yaml
+  - ./secret.sops.yaml
+configMapGenerator:
+  - name: kanidm-configmap
+    files:
+      - ./resources/server.toml
+configurations:
+  - ./resources/kustomizeconfig.yaml
