@@ -40,8 +40,8 @@ spec:
     - ../../../../components/volsync
     - ../../../../components/gatus/external
   dependsOn:
-    - name: kaniop
-      namespace: kanidm
+    # - name: kaniop
+    #   namespace: kanidm
     - name: volsync
       namespace: volsync-system
 #  healthChecks:
