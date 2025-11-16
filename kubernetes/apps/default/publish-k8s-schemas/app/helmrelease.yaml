@@ -47,7 +47,7 @@ spec:
           app:
             image:
               repository: ghcr.io/bjw-s-labs/wrangler
-              tag: 4.45.3@sha256:114ccd0d4f0cc0fea201c5bdebb56345d0d8c92d2affb87f2f4834ffef637e29
+              tag: 4.46.0@sha256:49335ef4e3e57c2a23a9ca6cf0dd6e1d61d31c77b2840f292ac0946b0a4e74ea
             envFrom:
               - secretRef:
                   name: publish-k8s-schemas-secret

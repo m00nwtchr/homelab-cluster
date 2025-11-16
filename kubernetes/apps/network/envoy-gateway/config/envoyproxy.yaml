@@ -20,7 +20,7 @@ spec:
       envoyDeployment:
         replicas: 1
         container:
-          image: mirror.gcr.io/envoyproxy/envoy:v1.35.3@sha256:4d496918618a7ebd6c71ae8285e31ebff092f3a0a5ad642d50decf4a54eb2456
+          image: mirror.gcr.io/envoyproxy/envoy:v1.36.2@sha256:4972515dd9a069b44beb43cebba7851596e72a8c61cd7a7c33d8f48efc5280ba
           resources:
             requests:
               cpu: 100m
@@ -55,7 +55,7 @@ spec:
       envoyDeployment:
         replicas: 1
         container:
-          image: mirror.gcr.io/envoyproxy/envoy:v1.35.3@sha256:4d496918618a7ebd6c71ae8285e31ebff092f3a0a5ad642d50decf4a54eb2456
+          image: mirror.gcr.io/envoyproxy/envoy:v1.36.2@sha256:4972515dd9a069b44beb43cebba7851596e72a8c61cd7a7c33d8f48efc5280ba
           resources:
             requests:
               cpu: 100m
@@ -92,7 +92,7 @@ spec:
       envoyDeployment:
         replicas: 1
         container:
-          image: mirror.gcr.io/envoyproxy/envoy:v1.35.3@sha256:4d496918618a7ebd6c71ae8285e31ebff092f3a0a5ad642d50decf4a54eb2456
+          image: mirror.gcr.io/envoyproxy/envoy:v1.36.2@sha256:4972515dd9a069b44beb43cebba7851596e72a8c61cd7a7c33d8f48efc5280ba
           resources:
             requests:
               cpu: 100m

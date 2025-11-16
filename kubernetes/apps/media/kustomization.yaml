@@ -9,7 +9,7 @@ resources:
   - ./autobrr/ks.yaml
   - ./bazarr/ks.yaml
   - ./cross-seed/ks.yaml
-  - ./dispatcharr/ks.yaml
+#  - ./dispatcharr/ks.yaml
   - ./immich/ks.yaml
   - ./jellyfin/ks.yaml
   - ./jellyseerr/ks.yaml

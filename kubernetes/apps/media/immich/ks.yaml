@@ -14,9 +14,6 @@ spec:
     - ../../../../components/database
     - ../../../../components/dragonfly
     - ../../../../components/gatus/guarded
-  dependsOn:
-    - name: barman-cloud-crds
-      namespace: cnpg-system
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease

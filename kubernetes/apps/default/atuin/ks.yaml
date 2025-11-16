@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app dawarich
+  name: &app atuin
   namespace: &namespace default
 spec:
   commonMetadata:
@@ -11,23 +11,12 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/database
-    - ../../../../components/dragonfly
-    - ../../../../components/gatus/guarded
-#  dependsOn:
-#    - name: rook-ceph-cluster
-#      namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/default/dawarich/app
+  path: ./kubernetes/apps/default/atuin/app
   postBuild:
     substitute:
       APP: *app
-      DATABASE_EXTENSIONS: |
-        [
-          { name: postgis },
-          { name: postgis_topology },
-          { name: fuzzystrmatch },
-          { name: postgis_tiger_geocoder }
-        ]
+      NAMESPACE: *namespace
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

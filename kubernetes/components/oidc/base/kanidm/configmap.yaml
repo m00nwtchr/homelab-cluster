@@ -51,3 +51,16 @@ data:
         }
       }
     }
+  default.json: |
+    {
+      "systems": {
+        "oauth2": {
+          "${APP}": {
+            "scopeMaps": {
+              "users": [],
+              "admins": []
+            }
+          }
+        }
+      }
+    }

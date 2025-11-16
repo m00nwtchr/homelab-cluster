@@ -9,7 +9,7 @@ metadata:
 spec:
   instances: 1
 
-  imageName: ghcr.io/cloudnative-pg/postgresql:18.0-standard-trixie@sha256:e49b9c7942d794dea5979a1b9ca2e4bff418ee96e060f67660150b05ea169e28
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.0-standard-trixie@sha256:ffd3687c9c71b74d8a19f24c4c56366f42ee96f7c516ad2bf31fbeec5b0f9747
 
   certificates:
     serverTLSSecret: postgres-server-cert
@@ -48,16 +48,16 @@ spec:
       - hostssl   all all all               cert clientcert=verify-full
     shared_preload_libraries:
       - "vchord.so"
-    # TODO: postgis
+
     extensions:
-      # - name: postgis
-      #   ld_library_path:
-      #     - system
-      #   image:
-      #     reference: ghcr.io/cloudnative-pg/postgis-18-testing:latest@sha256:548adc7601ac7ffaf14051c22e5222f191552ee1e4a03477e7fdcdaee5d05ae0
+      - name: postgis
+        ld_library_path:
+          - system
+        image:
+          reference: ghcr.io/cloudnative-pg/postgis-extension-testing:3.6.0-18-trixie@sha256:ec21540f5799561a9b05ca188fd28ce32852a826f48d80329260940855f5f558
       - name: vchord
         image:
-          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3@sha256:c310ede47f7f82bd257c3e53806d60680d5899c318ca946fb313efad9a90a78e 
+          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3@sha256:c310ede47f7f82bd257c3e53806d60680d5899c318ca946fb313efad9a90a78e
         dynamic_library_path:
           - /usr/lib/postgresql/18/lib
         extension_control_path:
@@ -66,6 +66,12 @@ spec:
   managed:
     roles:
       - name: attic
+        ensure: present
+        login: true
+        superuser: false
+        disablePassword: true
+
+      - name: atuin
         ensure: present
         login: true
         superuser: false
@@ -90,6 +96,12 @@ spec:
         superuser: false
         passwordSecret:
           name: bazarr-postgres
+
+      - name: blocky
+        ensure: present
+        login: true
+        superuser: false
+        disablePassword: true
 
       - name: dawarich
         ensure: present
@@ -116,6 +128,12 @@ spec:
         disablePassword: true
 
       - name: freshrss
+        ensure: present
+        login: true
+        superuser: false
+        disablePassword: true
+
+      - name: grafana-read
         ensure: present
         login: true
         superuser: false
