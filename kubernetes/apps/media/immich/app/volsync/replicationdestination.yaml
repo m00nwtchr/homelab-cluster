@@ -18,7 +18,7 @@ spec:
     cacheCapacity: "5Gi"
     storageClassName: "zfs-vault"
     accessModes: ["ReadWriteOnce"]
-    capacity: "50Gi"
+    capacity: "60Gi"
     moverSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000

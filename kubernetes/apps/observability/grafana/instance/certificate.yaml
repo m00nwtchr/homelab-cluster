@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postgres-grafana-cert
+spec:
+  secretName: postgres-grafana-cert
+  usages:
+    - client auth
+  commonName: grafana-read
+  issuerRef:
+    name: postgres-client-ca-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io

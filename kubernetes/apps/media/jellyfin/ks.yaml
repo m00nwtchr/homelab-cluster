@@ -27,12 +27,21 @@ spec:
       OIDC_EXTRA_CALLBACKS: '["https://jellyfin.m00nlit.dev/sso/OID/r/kanidm"]'
       OIDC_ORIGIN: /sso/OID/start/kanidm
       OIDC_SHORT_USERNAME: "true"
+      OIDC_GROUP: media_users
+      OIDC_CUSTOM_STATE: |
+        {
+          "groups": {
+            "media_users": {
+              "members": ["users"]
+            }
+          }
+        }
       OIDC_CLAIM_MAPS: |
         {
           "roles": {
             "joinType": "array",
             "valuesByGroup": {
-              "users@idm.m00nlit.dev": ["user"],
+              "media_users@idm.m00nlit.dev": ["user"],
               "admins@idm.m00nlit.dev": ["admin"]
             }
           }
