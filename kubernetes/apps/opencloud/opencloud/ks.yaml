@@ -42,7 +42,7 @@ spec:
         {
           "systems": {
             "oauth2": {
-              "openclouddesktop": {
+              "OpenCloudDesktop": {
                 "displayName": "OpenCloud",
                 "originUrl": [
                   "http://localhost",
@@ -74,7 +74,7 @@ spec:
                   }
                 }
               },
-              "opencloudandroid": {
+              "OpenCloudAndroid": {
                 "displayName": "OpenCloud",
                 "originUrl": [
                   "oc://android.opencloud.eu"
@@ -105,7 +105,7 @@ spec:
                   }
                 }
               },
-              "opencloudios": {
+              "OpenCloudIOS": {
                 "displayName": "OpenCloud",
                 "originUrl": [
                   "oc://ios.opencloud.eu"
