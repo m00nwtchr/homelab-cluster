@@ -23,10 +23,10 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: postgres-ca-issuer
+  name: &name postgres-serving-ca
 spec:
   ca:
-    secretName: postgres-ca-secret
+    secretName: *name
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cert-manager.io/certificate_v1.json
 apiVersion: cert-manager.io/v1
@@ -65,7 +65,7 @@ spec:
     labels:
       cnpg.io/reload: ""
   issuerRef:
-    name: postgres-ca-issuer
+    name: postgres-serving-ca
     kind: Issuer
     group: cert-manager.io
   secretName: *name
