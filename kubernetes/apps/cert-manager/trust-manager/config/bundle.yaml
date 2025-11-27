@@ -1,0 +1,17 @@
+---
+apiVersion: trust.cert-manager.io/v1alpha1
+kind: Bundle
+metadata:
+  name: root-ca
+spec:
+  sources:
+  - useDefaultCAs: true
+  - secret:
+      name: "root-ca-secret"
+      key: "tls.crt"
+  target:
+    configMap:
+      key: "ca.crt"
+      metadata:
+        labels:
+          cnpg.io/reload: ""

@@ -84,7 +84,7 @@ gitea:
 deployment:
   env:
     - name: PGSSLROOTCERT
-      value: /var/run/secrets/postgresql/ca.crt
+      value: /var/run/secrets/root-ca/ca.crt
     - name: PGSSLCERT
       value: /var/run/secrets/postgresql/tls.crt
     - name: PGSSLKEY
@@ -114,6 +114,11 @@ extraVolumes:
     secret:
       defaultMode: 0600
       secretName: postgres-forgejo-cert
+  - name: root-ca
+    secret:
+      defaultMode: 0600
+      secretName: root-ca
+
   - name: forgejo-ssh
     secret:
       secretName: forgejo-ssh
@@ -121,6 +126,8 @@ extraVolumes:
 extraInitVolumeMounts:
   - name: postgres-forgejo
     mountPath: "/var/run/secrets/postgresql"
+  - name: root-ca
+    mountPath: "/var/run/secrets/root-ca"
 
 extraContainerVolumeMounts:
   - name: git
@@ -128,6 +135,8 @@ extraContainerVolumeMounts:
 
   - name: postgres-forgejo
     mountPath: "/var/run/secrets/postgresql"
+  - name: root-ca
+    mountPath: "/var/run/secrets/root-ca"
 
   - name: forgejo-ssh
     mountPath: "/data/gitea/ssh/ssh_host_ed25519_key"

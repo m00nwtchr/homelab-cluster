@@ -30,7 +30,7 @@ spec:
               BASE_URL: https://${APP}.${SECRET_DOMAIN}
 
               DB_ENGINE: postgres
-              POSTGRES_URL_OVERRIDE: postgresql://mealie:dummy@postgres-rw.postgres.svc:5432/mealie?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/postgresql/ca.crt
+              POSTGRES_URL_OVERRIDE: postgresql://mealie:dummy@postgres-rw.postgres.svc:5432/mealie?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
 
               ALLOW_PASSWORD_LOGIN: "false"
               OIDC_AUTH_ENABLED: "true"
