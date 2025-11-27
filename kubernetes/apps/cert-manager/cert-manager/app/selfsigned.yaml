@@ -55,4 +55,4 @@ metadata:
   name: cluster-ca
 spec:
   ca:
-    secretName: root-ca-secret
+    secretName: root-ca

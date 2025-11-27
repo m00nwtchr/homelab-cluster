@@ -7,7 +7,7 @@ spec:
   sources:
   - useDefaultCAs: true
   - secret:
-      name: "root-ca-secret"
+      name: "root-ca"
       key: "tls.crt"
   target:
     secret:
