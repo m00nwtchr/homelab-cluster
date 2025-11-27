@@ -1,8 +1,8 @@
 ---
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
-  name: selfsigned-issuer
+  name: selfsigned
 spec:
   selfSigned: { }
 ---
@@ -18,8 +18,8 @@ spec:
     algorithm: ECDSA
     size: 256
   issuerRef:
-    name: selfsigned-issuer
-    kind: Issuer
+    name: selfsigned
+    kind: ClusterIssuer
     group: cert-manager.io
 ---
 apiVersion: cert-manager.io/v1

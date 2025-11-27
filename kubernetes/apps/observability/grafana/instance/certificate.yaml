@@ -10,6 +10,6 @@ spec:
     - client auth
   commonName: grafana-read
   issuerRef:
-    name: postgres-client-ca-issuer
+    name: postgres-client-ca
     kind: ClusterIssuer
     group: cert-manager.io
