@@ -10,7 +10,21 @@ spec:
       name: "root-ca-secret"
       key: "tls.crt"
   target:
-    configMap:
+    secret:
+      key: "ca.crt"
+---
+apiVersion: trust.cert-manager.io/v1alpha1
+kind: Bundle
+metadata:
+  name: postgres-client-ca
+spec:
+  sources:
+  - useDefaultCAs: true
+  - secret:
+      name: postgres-client-ca
+      key: "tls.crt"
+  target:
+    secret:
       key: "ca.crt"
       metadata:
         labels:
