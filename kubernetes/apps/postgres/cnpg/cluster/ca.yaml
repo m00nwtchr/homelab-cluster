@@ -7,17 +7,36 @@ metadata:
 spec:
   isCA: true
   commonName: postgres-ca
-  secretName: *name
-  secretTemplate:
-    labels:
-      cnpg.io/reload: ""
+  dnsNames:
+    - postgres.svc
+    - postgres.svc.cluster.local
+  subject:
+    countries:
+      - PL
+    organizations:
+      - homelab-cluster
+    organizationalUnits:
+      - postgres
+  usages:
+    - cert sign
+    - crl sign
+  nameConstraints:
+    critical: true
+    permitted:
+      dnsDomains:
+        - .postgres.svc.cluster.local
+        - .postgres.svc
+  duration: 8766h # 1 year
   privateKey:
     algorithm: ECDSA
     size: 384
+    encoding: PKCS8
+    rotationPolicy: Always
   issuerRef:
     name: cluster-ca
     kind: ClusterIssuer
     group: cert-manager.io
+  secretName: *name
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cert-manager.io/issuer_v1.json
 apiVersion: cert-manager.io/v1
