@@ -18,7 +18,6 @@ metadata:
   name: postgres-client-ca
 spec:
   sources:
-  - useDefaultCAs: true
   - secret:
       name: postgres-client-ca
       key: "tls.crt"
