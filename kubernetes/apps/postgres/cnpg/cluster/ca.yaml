@@ -36,18 +36,12 @@ metadata:
 spec:
   commonName: postgres
   dnsNames:
-    - postgres-rw
-    - postgres-rw.postgres
     - postgres-rw.postgres.svc
-    - postgres-rw.postgres.svc.cluster.local
-    - postgres-r
-    - postgres-r.postgres
-    - postgres-r.postgres.svc
-    - postgres-r.postgres.svc.cluster.local
-    - postgres-ro
-    - postgres-ro.postgres
     - postgres-ro.postgres.svc
+    - postgres-r.postgres.svc
+    - postgres-rw.postgres.svc.cluster.local
     - postgres-ro.postgres.svc.cluster.local
+    - postgres-r.postgres.svc.cluster.local
   subject:
     countries:
       - PL
