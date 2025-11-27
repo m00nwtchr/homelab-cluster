@@ -2,7 +2,7 @@
 # Format examples:
 #   SQLite:   sqlite:filename.db
 #   Postgres: postgresql://username:password@hostname/dbname
-database: postgresql://${APP}@postgres-rw.postgres.svc/${APP}?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/postgresql/ca.crt
+database: postgresql://${APP}@postgres-rw.postgres.svc/${APP}?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
 # Separate database URL for the crypto database. "default" means use the same database as above.
 crypto_database: default
 # Additional arguments for asyncpg.create_pool() or sqlite3.connect()

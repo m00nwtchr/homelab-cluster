@@ -53,6 +53,6 @@ spec:
       sslCertFile: /var/run/secrets/postgresql/tls.crt
       sslKeyFile: /var/run/secrets/postgresql/tls.key
       sslmode: verify-full
-      sslRootCertFile: /var/run/secrets/postgresql/ca.crt
+      sslRootCertFile: /var/run/secrets/root-ca/ca.crt
     url: postgres-rw.postgres.svc:5432
     user: grafana-read
