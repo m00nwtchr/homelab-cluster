@@ -1,0 +1,36 @@
+---
+apiVersion: renovate-operator.mogenius.com/v1alpha1
+kind: RenovateJob
+metadata:
+  name: renovate
+spec:
+  discoveryFilter: m00n/*
+  extraEnv:
+    RENOVATE_PLATFORM: "gitea"
+    RENOVATE_ENDPOINT: "https://git.${SECRET_DOMAIN}/api/v1"
+    RENOVATE_AUTODISCOVER: "true"
+    RENOVATE_GIT_AUTHOR: "Renovate <renovate@${SECRET_DOMAIN}>"
+    RENOVATE_CONFIG_FILE: "/opt/renovate/config.json"
+    RENOVATE_ALLOW_PLUGINS: "true"
+    # - name: RENOVATE_PLATFORM
+    #   value: gitea
+    # - name: RENOVATE_ENDPOINT
+    #   value: https://git.${SECRET_DOMAIN}/api/v1
+    # - name: RENOVATE_ALLOW_PLUGINS
+    #   value: "true"
+  # volumeMounts:
+  #   - mountPath: /opt/renovate/config.json
+  #     name: config
+  #     subPath: config.json
+  # volumes:
+  #   - name: config
+  #     configMap:
+  #       name: renovate-configmap
+  image: ghcr.io/renovatebot/renovate:42.1.3@sha256:724220885785c57898d5709624eceddb012d8f63ac08a8f718aa77c13ca621bc
+  parallelism: 5
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  schedule: "@hourly"
+  secretRef: renovate-secret
