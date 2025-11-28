@@ -2,12 +2,12 @@
 apiVersion: renovate-operator.mogenius.com/v1alpha1
 kind: RenovateJob
 metadata:
-  name: renovate
+  name: renovate-forgejo
 spec:
   discoveryFilter: m00n/*
   extraEnv:
     - name: RENOVATE_PLATFORM
-      value: gitea
+      value: forgejo
     - name: RENOVATE_ENDPOINT
       value: https://git.${SECRET_DOMAIN}/api/v1
     - name: RENOVATE_GIT_AUTHOR
