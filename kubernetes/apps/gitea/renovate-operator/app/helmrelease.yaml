@@ -28,3 +28,5 @@ spec:
   chartRef:
     kind: OCIRepository
     name: *app
+  values:
+    fullnameOverride: *app

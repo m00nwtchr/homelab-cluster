@@ -18,6 +18,10 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/gitea/renovate-operator/app
   prune: true
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: cluster-secrets
   retryInterval: 2m
   sourceRef:
     kind: GitRepository
@@ -43,11 +47,11 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/gitea/renovate-operator/config
   prune: true
-  retryInterval: 2m
   postBuild:
     substituteFrom:
       - kind: Secret
         name: cluster-secrets
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
