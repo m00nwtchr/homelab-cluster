@@ -30,3 +30,5 @@ spec:
     name: *app
   values:
     fullnameOverride: *app
+    rbac:
+      ownNamespaceOnly: true
