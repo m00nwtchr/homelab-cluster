@@ -5,9 +5,3 @@ kind: Kustomization
 resources:
   - ./renovatejob.yaml
   - ./secret.sops.yaml
-configMapGenerator:
-  - name: renovate-configmap
-    files:
-      - config.json=./resources/config.json5
-generatorOptions:
-  disableNameSuffixHash: true
