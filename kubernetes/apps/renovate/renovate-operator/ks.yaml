@@ -4,7 +4,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app renovate-operator
-  namespace: &namespace gitea
+  namespace: &namespace renovate
 spec:
   commonMetadata:
     labels:
@@ -35,7 +35,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: renovate-operator-config
-  namespace: &namespace gitea
+  namespace: &namespace renovate
 spec:
   commonMetadata:
     labels:
