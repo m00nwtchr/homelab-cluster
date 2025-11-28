@@ -16,7 +16,7 @@ spec:
       name: *app
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/gitea/renovate-operator/app
+  path: ./kubernetes/apps/renovate/renovate-operator/app
   prune: true
   postBuild:
     substituteFrom:
@@ -45,7 +45,7 @@ spec:
     - name: renovate-operator
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/gitea/renovate-operator/config
+  path: ./kubernetes/apps/renovate/renovate-operator/config
   prune: true
   postBuild:
     substituteFrom:
