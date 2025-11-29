@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: livekit/livekit-server
-              tag: v1.9.3@sha256:75484e317a90991f5e7a8edbc2eb1ee92f690e440c5b7d88a2713b5fa70f368a
+              tag: v1.9.4@sha256:b672d1dd8280ba2501c473803538503707ef72e7559fab53276f7729824593ac
             ports:
               - containerPort: 7880
                 name: http
