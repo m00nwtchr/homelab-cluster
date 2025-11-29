@@ -1,89 +1,89 @@
 {
-	$schema: "https://docs.renovatebot.com/renovate-schema.json",
-	packageRules: [
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"packageRules": [
 		{
-			description: "Auto-merge trusted container digests",
-			matchDatasources: [
+			"description": "Auto-merge trusted container digests",
+			"matchDatasources": [
 				"docker"
 			],
-			automerge: true,
-			automergeType: "pr",
-			matchUpdateTypes: [
+			"automerge": true,
+			"automergeType": "pr",
+			"matchUpdateTypes": [
 				"digest"
 			],
-			matchPackageNames: [
+			"matchPackageNames": [
 				"/home-operations/",
-        "/m00nwtchr/"
+				"/m00nwtchr/"
 			],
-			ignoreTests: false
+			"ignoreTests": false
 		},
 		{
-			description: "Auto-merge OCI Charts",
-			matchDatasources: [
+			"description": "Auto-merge OCI Charts",
+			"matchDatasources": [
 				"docker"
 			],
-			automerge: true,
-			automergeType: "pr",
-			matchUpdateTypes: [
+			"automerge": true,
+			"automergeType": "pr",
+			"matchUpdateTypes": [
 				"minor",
 				"patch"
 			],
-			matchPackageNames: [
+			"matchPackageNames": [
 				"/kube-prometheus-stack/",
 				"/grafana/"
 			],
-			ignoreTests: false
+			"ignoreTests": false
 		},
-    {
-      description: "Auto-merge GitHub Actions",
-      matchManagers: [
-        "github-actions"
-      ],
-      automerge: true,
-      automergeType: "branch",
-      matchUpdateTypes: [
-        "minor",
-        "patch",
-        "digest"
-      ],
-      minimumReleaseAge: "3 days",
-      ignoreTests: true
-    },
-    {
-      description: "Auto-merge trusted GitHub Actions",
-      matchManagers: [
-        "github-actions"
-      ],
-      matchPackageNames: [
-        "/^actions\//"
-      ],
-      automerge: true,
-      automergeType: "branch",
-      matchUpdateTypes: [
-        "minor",
-        "patch",
-        "digest"
-      ],
-      minimumReleaseAge: "1 minute",
-      ignoreTests: true
-    },
-    {
-			description: "Auto-merge GitHub Releases",
-			matchDatasources: [
+		{
+			"description": "Auto-merge GitHub Actions",
+			"matchManagers": [
+				"github-actions"
+			],
+			"automerge": true,
+			"automergeType": "branch",
+			"matchUpdateTypes": [
+				"minor",
+				"patch",
+				"digest"
+			],
+			"minimumReleaseAge": "3 days",
+			"ignoreTests": true
+		},
+		{
+			"description": "Auto-merge trusted GitHub Actions",
+			"matchManagers": [
+				"github-actions"
+			],
+			"matchPackageNames": [
+				"/^actions//"
+			],
+			"automerge": true,
+			"automergeType": "branch",
+			"matchUpdateTypes": [
+				"minor",
+				"patch",
+				"digest"
+			],
+			"minimumReleaseAge": "1 minute",
+			"ignoreTests": true
+		},
+		{
+			"description": "Auto-merge GitHub Releases",
+			"matchDatasources": [
 				"github-releases"
 			],
-			automerge: true,
-			automergeType: "branch",
-			matchUpdateTypes: [
+			"automerge": true,
+			"automergeType": "branch",
+			"matchUpdateTypes": [
 				"minor",
 				"patch"
 			],
-			matchPackageNames: [
+			"matchPackageNames": [
 				"/external-dns/",
 				"/gateway-api/",
 				"/prometheus-operator/"
 			],
-			ignoreTests: true
+			"ignoreTests": true
 		}
-	],
+	]
 }
