@@ -90,10 +90,5 @@ spec:
         globalMounts:
           - path: /config/
 
-      tmpfs:
+      tmp:
         type: emptyDir
-        globalMounts:
-          - path: /config/
-            subPath: config
-          - path: /tmp
-            subPath: tmp
