@@ -1,44 +1,44 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  extends: [
-    "config:recommended",
-    "docker:enableMajor",
-    "helpers:pinGitHubActionDigests",
-    "m00n/homelab-cluster//.renovate/autoMerge.json5",
-    "m00n/homelab-cluster//.renovate/customManagers.json5",
-    "m00n/homelab-cluster//.renovate/grafanaDashboards.json5",
-    "m00n/homelab-cluster//.renovate/groups.json5",
-    "m00n/homelab-cluster//.renovate/labels.json5",
-    "m00n/homelab-cluster//.renovate/semanticCommits.json5",
-    ":automergeBranch",
-    ":disableRateLimiting",
-    ":dependencyDashboard",
-    ":semanticCommits",
-    ":timezone(Europe/Warsaw)",
-  ],
-  dependencyDashboardTitle: "Renovate Dashboard 🤖",
-  suppressNotifications: [
-    "prEditedNotification",
-    "prIgnoreNotification",
-  ],
-  ignorePaths: [
-    "**/*.sops.*",
-    "**/resources/**",
-    "**/old/**"
-  ],
-  flux: {
-    managerFilePatterns: [
-      "/(^|/)kubernetes/.+\\.ya?ml$/"
-    ]
-  },
-  "helm-values": {
-    managerFilePatterns: [
-      "/(^|/)kubernetes/.+\\.ya?ml$/"
-    ]
-  },
-  kubernetes: {
-    managerFilePatterns: [
-      "/(^|/)kubernetes/.+\\.ya?ml$/"
-    ]
-  },
+	$schema: "https://docs.renovatebot.com/renovate-schema.json",
+	extends: [
+		"config:recommended",
+		"docker:enableMajor",
+		"helpers:pinGitHubActionDigests",
+		"m00n/homelab-cluster//.renovate/autoMerge.json5",
+		"m00n/homelab-cluster//.renovate/customManagers.json5",
+		"m00n/homelab-cluster//.renovate/grafanaDashboards.json5",
+		"m00n/homelab-cluster//.renovate/groups.json5",
+		"m00n/homelab-cluster//.renovate/labels.json5",
+		"m00n/homelab-cluster//.renovate/semanticCommits.json5",
+		":automergeBranch",
+		":disableRateLimiting",
+		":dependencyDashboard",
+		":semanticCommits",
+		":timezone(Europe/Warsaw)",
+	],
+	dependencyDashboardTitle: "Renovate Dashboard 🤖",
+	suppressNotifications: [
+		"prEditedNotification",
+		"prIgnoreNotification",
+	],
+	ignorePaths: [
+		"**/*.sops.*",
+		"**/resources/**",
+		"**/old/**"
+	],
+	flux: {
+		managerFilePatterns: [
+			"/(^|/)kubernetes/.+\\.ya?ml$/"
+		]
+	},
+	"helm-values": {
+		managerFilePatterns: [
+			"/(^|/)kubernetes/.+\\.ya?ml$/"
+		]
+	},
+	kubernetes: {
+		managerFilePatterns: [
+			"/(^|/)kubernetes/.+\\.ya?ml$/"
+		]
+	},
 }
