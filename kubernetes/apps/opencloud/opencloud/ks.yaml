@@ -11,11 +11,11 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/oidc
-  #    - ../../../../components/volsync
+      - ../../../../components/volsync
     - ../../../../components/gatus/external
-  #  dependsOn:
-  #    - name: volsync
-  #      namespace: volsync-system
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
   interval: 1h
   path: ./kubernetes/apps/opencloud/opencloud/app
   postBuild:
