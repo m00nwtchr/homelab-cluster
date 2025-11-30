@@ -9,7 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components: []
+  components:
+   - ../../../../components/oidc/envoy
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
@@ -19,6 +20,11 @@ spec:
   path: ./kubernetes/apps/renovate/renovate-operator/app
   prune: true
   postBuild:
+    substitute:
+      APP: *app
+      NAMESPACE: *namespace
+      OIDC_DISPLAY_NAME: Renovate
+      OIDC_GROUP: admins
     substituteFrom:
       - kind: Secret
         name: cluster-secrets
