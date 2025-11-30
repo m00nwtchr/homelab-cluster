@@ -57,7 +57,8 @@ spec:
                   "users": [
                     "openid",
                     "profile",
-                    "email"
+                    "email",
+                    "offline_access"
                   ]
                 },
                 "claimMaps": {
@@ -88,7 +89,8 @@ spec:
                   "users": [
                     "openid",
                     "profile",
-                    "email"
+                    "email",
+                    "offline_access"
                   ]
                 },
                 "claimMaps": {
@@ -119,7 +121,8 @@ spec:
                   "users": [
                     "openid",
                     "profile",
-                    "email"
+                    "email",
+                    "offline_access"
                   ]
                 },
                 "claimMaps": {
