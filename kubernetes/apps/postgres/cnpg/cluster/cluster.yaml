@@ -48,6 +48,10 @@ spec:
       - hostssl   all all all               cert clientcert=verify-full
     shared_preload_libraries:
       - "vchord.so"
+      - "timescaledb"
+    parameters:
+      timescaledb.telemetry_level: "off"
+      max_locks_per_transaction: "128"
 
     extensions:
       - name: postgis
@@ -62,6 +66,9 @@ spec:
           - /usr/lib/postgresql/18/lib
         extension_control_path:
           - /usr/share/postgresql/18/
+      - name: timescaledb
+        image:
+          reference: ghcr.io/shusaan/timescaledb-testing:2.23.1-18-trixie@sha256:4709935bed4cce5977bc4b1858a94e2e80f22f0303217163a9e97b8898e33ee2
 
   managed:
     roles:
