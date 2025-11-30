@@ -57,6 +57,7 @@ spec:
               WEB_OPTION_ACCOUNT_EDIT_LINK_HREF: "https://idm.${SECRET_DOMAIN}/ui/profile"
               WEB_OIDC_CLIENT_ID: *app
               PROXY_OIDC_REWRITE_WELLKNOWN: "true"
+              PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none # Needed because Kanidm uses different JWKS keys for different client IDs
               PROXY_USER_OIDC_CLAIM: "sub"
               PROXY_AUTOPROVISION_CLAIM_USERNAME: sub
               PROXY_USER_CS3_CLAIM: username
