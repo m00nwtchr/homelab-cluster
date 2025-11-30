@@ -5,7 +5,7 @@ kind: HTTPRoute
 metadata:
   name: &app ${APP}
 spec:
-  hostnames: ["renovate.${SECRET_DOMAIN}"]
+  hostnames: ["${SUBDOMAIN:=${APP}}.${SECRET_DOMAIN}"]
   parentRefs:
     - name: internal
       namespace: network
