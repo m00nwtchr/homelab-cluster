@@ -104,6 +104,14 @@ spec:
                         "admin"
                       ]
                     }
+                  },
+                  "aud": {
+                    "joinType": "csv",
+                    "valuesByGroup": {
+                      "users": [
+                        "OpenCloudAndroid"
+                      ]
+                    }
                   }
                 }
               },
