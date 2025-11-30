@@ -38,107 +38,107 @@ spec:
             }
           }
         }
-      # OIDC_CUSTOM_STATE: |
-      #   {
-      #     "systems": {
-      #       "oauth2": {
-      #         "OpenCloudDesktop": {
-      #           "displayName": "OpenCloud",
-      #           "originUrl": [
-      #             "http://localhost",
-      #             "http://127.0.0.1"
-      #           ],
-      #           "originLanding": "http://localhost",
-      #           "removeOrphanedClaimMaps": true,
-      #           "public": true,
-      #           "preferShortUsername": true,
-      #           "enableLocalhostRedirects": true,
-      #           "scopeMaps": {
-      #             "users": [
-      #               "openid",
-      #               "profile",
-      #               "email"
-      #             ]
-      #           },
-      #           "claimMaps": {
-      #             "roles": {
-      #               "joinType": "array",
-      #               "valuesByGroup": {
-      #                 "users": [
-      #                   "user"
-      #                 ],
-      #                 "admins": [
-      #                   "admin"
-      #                 ]
-      #               }
-      #             }
-      #           }
-      #         },
-      #         "OpenCloudAndroid": {
-      #           "displayName": "OpenCloud",
-      #           "originUrl": [
-      #             "oc://android.opencloud.eu"
-      #           ],
-      #           "originLanding": "oc://android.opencloud.eu",
-      #           "removeOrphanedClaimMaps": true,
-      #           "public": true,
-      #           "preferShortUsername": true,
-      #           "enableLocalhostRedirects": true,
-      #           "scopeMaps": {
-      #             "users": [
-      #               "openid",
-      #               "profile",
-      #               "email"
-      #             ]
-      #           },
-      #           "claimMaps": {
-      #             "roles": {
-      #               "joinType": "array",
-      #               "valuesByGroup": {
-      #                 "users": [
-      #                   "user"
-      #                 ],
-      #                 "admins": [
-      #                   "admin"
-      #                 ]
-      #               }
-      #             }
-      #           }
-      #         },
-      #         "OpenCloudIOS": {
-      #           "displayName": "OpenCloud",
-      #           "originUrl": [
-      #             "oc://ios.opencloud.eu"
-      #           ],
-      #           "originLanding": "oc://ios.opencloud.eu",
-      #           "removeOrphanedClaimMaps": true,
-      #           "public": true,
-      #           "preferShortUsername": true,
-      #           "enableLocalhostRedirects": true,
-      #           "scopeMaps": {
-      #             "users": [
-      #               "openid",
-      #               "profile",
-      #               "email"
-      #             ]
-      #           },
-      #           "claimMaps": {
-      #             "roles": {
-      #               "joinType": "array",
-      #               "valuesByGroup": {
-      #                 "users": [
-      #                   "user"
-      #                 ],
-      #                 "admins": [
-      #                   "admin"
-      #                 ]
-      #               }
-      #             }
-      #           }
-      #         }
-      #       }
-      #     }
-      #   }
+      OIDC_CUSTOM_STATE: |
+        {
+          "systems": {
+            "oauth2": {
+              "openclouddesktop": {
+                "displayName": "OpenCloud",
+                "originUrl": [
+                  "http://localhost",
+                  "http://127.0.0.1"
+                ],
+                "originLanding": "http://localhost",
+                "removeOrphanedClaimMaps": true,
+                "public": true,
+                "preferShortUsername": true,
+                "enableLocalhostRedirects": true,
+                "scopeMaps": {
+                  "users": [
+                    "openid",
+                    "profile",
+                    "email"
+                  ]
+                },
+                "claimMaps": {
+                  "roles": {
+                    "joinType": "array",
+                    "valuesByGroup": {
+                      "users": [
+                        "user"
+                      ],
+                      "admins": [
+                        "admin"
+                      ]
+                    }
+                  }
+                }
+              },
+              "opencloudandroid": {
+                "displayName": "OpenCloud",
+                "originUrl": [
+                  "oc://android.opencloud.eu"
+                ],
+                "originLanding": "oc://android.opencloud.eu",
+                "removeOrphanedClaimMaps": true,
+                "public": true,
+                "preferShortUsername": true,
+                "enableLocalhostRedirects": true,
+                "scopeMaps": {
+                  "users": [
+                    "openid",
+                    "profile",
+                    "email"
+                  ]
+                },
+                "claimMaps": {
+                  "roles": {
+                    "joinType": "array",
+                    "valuesByGroup": {
+                      "users": [
+                        "user"
+                      ],
+                      "admins": [
+                        "admin"
+                      ]
+                    }
+                  }
+                }
+              },
+              "opencloudios": {
+                "displayName": "OpenCloud",
+                "originUrl": [
+                  "oc://ios.opencloud.eu"
+                ],
+                "originLanding": "oc://ios.opencloud.eu",
+                "removeOrphanedClaimMaps": true,
+                "public": true,
+                "preferShortUsername": true,
+                "enableLocalhostRedirects": true,
+                "scopeMaps": {
+                  "users": [
+                    "openid",
+                    "profile",
+                    "email"
+                  ]
+                },
+                "claimMaps": {
+                  "roles": {
+                    "joinType": "array",
+                    "valuesByGroup": {
+                      "users": [
+                        "user"
+                      ],
+                      "admins": [
+                        "admin"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
