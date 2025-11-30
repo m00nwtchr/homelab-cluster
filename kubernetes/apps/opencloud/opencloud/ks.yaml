@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/oidc
-      - ../../../../components/volsync
+    - ../../../../components/volsync
     - ../../../../components/gatus/external
   dependsOn:
     - name: volsync
