@@ -78,7 +78,9 @@ spec:
               "opencloudandroid": {
                 "displayName": "OpenCloud",
                 "originUrl": [
-                  "oc://android.opencloud.eu"
+                  "oc://android.opencloud.eu",
+                  "https://cloud.m00nlit.dev/oidc-silent-redirect.html",
+                  "https://cloud.m00nlit.dev/oidc-callback.html"
                 ],
                 "originLanding": "oc://android.opencloud.eu",
                 "removeOrphanedClaimMaps": true,

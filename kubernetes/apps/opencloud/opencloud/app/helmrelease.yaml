@@ -53,9 +53,9 @@ spec:
               PROXY_AUTOPROVISION_ACCOUNTS: "true"
               PROXY_ROLE_ASSIGNMENT_DRIVER: "oidc"
 
-              OC_OIDC_ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
+              OC_OIDC_ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/opencloudandroid
               WEB_OPTION_ACCOUNT_EDIT_LINK_HREF: "https://idm.${SECRET_DOMAIN}/ui/profile"
-              WEB_OIDC_CLIENT_ID: *app
+              WEB_OIDC_CLIENT_ID: opencloudandroid
               PROXY_OIDC_REWRITE_WELLKNOWN: "true"
               PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none # Needed because Kanidm uses different JWKS keys for different client IDs
               PROXY_USER_OIDC_CLAIM: "sub"
