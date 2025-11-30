@@ -28,3 +28,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: *app
+  values:
+    env:
+      - name: LISTEN_ADDRESS
+        value: "::"
