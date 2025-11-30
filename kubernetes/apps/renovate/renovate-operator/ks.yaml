@@ -23,6 +23,7 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      SUBDOMAIN: renovate
       OIDC_DISPLAY_NAME: Renovate
       OIDC_GROUP: admins
     substituteFrom:
