@@ -24,12 +24,13 @@ spec:
     kind: OCIRepository
     name: *app
   values:
-    # image: { }
-
     controllers:
       main:
         containers:
           main:
+            image:
+              # renovate: datasource=github-releases depName=immich-app/immich
+              tag: "v2.3.1"
             env:
               DB_URL:
                 valueFrom:
