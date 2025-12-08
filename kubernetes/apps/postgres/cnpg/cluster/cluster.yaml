@@ -251,3 +251,9 @@ spec:
         login: true
         superuser: false
         disablePassword: true
+
+      - name: vikunja
+        ensure: present
+        login: true
+        superuser: false
+        disablePassword: true
