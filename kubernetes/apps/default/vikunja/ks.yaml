@@ -26,6 +26,7 @@ spec:
       VOLSYNC_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: "Vikunja"
       OIDC_CALLBACK: /auth/openid/kanidm
+      OIDC_DISABLE_PKCE: "true"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
