@@ -76,7 +76,7 @@ spec:
               resources:
                 requests:
                   cpu: 500m
-                  memory: 4096M
+                  # memory: 4096M
       persistence:
         cache:
           type: persistentVolumeClaim
