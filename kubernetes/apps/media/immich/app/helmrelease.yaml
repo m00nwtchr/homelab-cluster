@@ -24,7 +24,7 @@ spec:
     kind: OCIRepository
     name: *app
   values:
-    image: { }
+    # image: { }
 
     controllers:
       main:
@@ -47,13 +47,13 @@ spec:
           existingClaim: photos
 
     server:
-      controllers:
-        main:
-          containers:
-            main:
-              image:
-                repository: ghcr.io/immich-app/immich-server
-                tag: v2.2.3@sha256:4504d794123c3f5410cc45bbc61e4d7dbcacec1e1b0cd2e599691430c94e5849
+      # controllers:
+      #   main:
+      #     containers:
+      #       main:
+      #         image:
+      #           repository: ghcr.io/immich-app/immich-server
+      #           tag: v2.2.3@sha256:4504d794123c3f5410cc45bbc61e4d7dbcacec1e1b0cd2e599691430c94e5849
       persistence:
         metadata:
           forceRename: immich-metadata
@@ -65,11 +65,11 @@ spec:
             - path: /data/encoded-video
               subPath: encoded-video
 
-    machine-learning:
-      controllers:
-        main:
-          containers:
-            main:
-              image:
-                repository: ghcr.io/immich-app/immich-machine-learning
-                tag: v2.2.3@sha256:bf339cbb44af6c2ef25d9128e1da51b2bec0cfd524846a83e3017c21bd71ddb4
+    # machine-learning:
+    #   controllers:
+    #     main:
+    #       containers:
+    #         main:
+    #           image:
+    #             repository: ghcr.io/immich-app/immich-machine-learning
+    #             tag: v2.2.3@sha256:bf339cbb44af6c2ef25d9128e1da51b2bec0cfd524846a83e3017c21bd71ddb4
