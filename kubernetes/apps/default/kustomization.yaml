@@ -23,5 +23,6 @@ resources:
   - ./searxng/ks.yaml
   - ./tika/ks.yaml
   - ./vaultwarden/ks.yaml
+  - ./vikunja/ks.yaml
   - ./wks/ks.yaml
   - ./wordpress/ks.yaml
