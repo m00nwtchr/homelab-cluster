@@ -66,11 +66,19 @@ spec:
             - path: /data/encoded-video
               subPath: encoded-video
 
-    # machine-learning:
-    #   controllers:
-    #     main:
-    #       containers:
-    #         main:
-    #           image:
-    #             repository: ghcr.io/immich-app/immich-machine-learning
-    #             tag: v2.2.3@sha256:bf339cbb44af6c2ef25d9128e1da51b2bec0cfd524846a83e3017c21bd71ddb4
+
+    machine-learning:
+      controllers:
+        main:
+          strategy: Recreate
+          containers:
+            main:
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 4096M
+      persistence:
+        cache:
+          type: persistentVolumeClaim
+          size: 10Gi
+          accessMode: ReadWriteOnce
