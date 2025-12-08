@@ -100,7 +100,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${CLUSTER_DOMAIN}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: internal
             namespace: network
