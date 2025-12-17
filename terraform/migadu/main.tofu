@@ -8,8 +8,7 @@ terraform {
 }
 
 variable "domain" {
-  type    = string
-  default = "example.com"
+  type = string
 }
 
 variable "app" {
@@ -17,7 +16,7 @@ variable "app" {
 }
 
 variable "name" {
-  type    = string
+  type = string
 }
 
 resource "random_password" "password" {
