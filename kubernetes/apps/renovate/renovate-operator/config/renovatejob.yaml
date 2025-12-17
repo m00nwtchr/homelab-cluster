@@ -32,3 +32,5 @@ spec:
       memory: 128Mi
   schedule: "@hourly"
   secretRef: renovate-secret
+  webhook:
+    enabled: true
