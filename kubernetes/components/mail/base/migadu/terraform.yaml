@@ -7,11 +7,6 @@ metadata:
 spec:
   interval: 12h
   approvePlan: auto
-  cloud:
-    hostname: app.terraform.io
-    organization: m00n
-    workspaces:
-      name: migadu-${APP}
   path: ./terraform/migadu
   vars:
     - name: app
