@@ -28,6 +28,7 @@ resource "migadu_mailbox" "mailbox" {
   domain_name = var.domain
   local_part  = var.app
   password    = random_password.password.result
+  may_send    = true
 }
 
 output "password" {
