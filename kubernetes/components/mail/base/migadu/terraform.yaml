@@ -5,10 +5,8 @@ kind: Terraform
 metadata:
   name: ${APP}-migadu
 spec:
-  interval: 5m
+  interval: 12h
   approvePlan: auto
-  alwaysCleanupRunnerPod: false
-  storeReadablePlan: human
   vars:
     - name: app
       value: ${APP}
