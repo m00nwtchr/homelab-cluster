@@ -33,4 +33,4 @@ spec:
     spec:
       envFrom:
       - secretRef:
-          name: migadu-token_${APP}
+          name: migadu-token-${APP}
