@@ -32,3 +32,5 @@ spec:
     fullnameOverride: *app
     # rbac:
     #   ownNamespaceOnly: true
+    webhook:
+      enabled: true
