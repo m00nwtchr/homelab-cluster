@@ -13,6 +13,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: ${NAMESPACE}
       MAILBOX_NAME: ${MAILBOX_NAME:=${NAME:=${APP}}}
     substituteFrom:
       - name: cluster-secrets
