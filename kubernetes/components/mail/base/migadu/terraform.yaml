@@ -24,6 +24,10 @@ spec:
     namespace: flux-system
   writeOutputsToSecret:
     name: ${APP}-migadu
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "${NAMESPACE}"
   runnerPodTemplate:
     spec:
       envFrom:
