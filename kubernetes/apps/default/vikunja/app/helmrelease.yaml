@@ -50,7 +50,7 @@ spec:
               VIKUNJA_MAILER_PORT: 465
               VIKUNJA_MAILER_FORCESSL: "true"
               VIKUNJA_MAILER_USERNAME: ${APP}@${SECRET_DOMAIN}
-              VIKUNJA_MAILER_FROMEMAIL: Vikunja <${APP}@${SECRET_DOMAIN}>
+              VIKUNJA_MAILER_FROMEMAIL: ${APP}@${SECRET_DOMAIN}
               VIKUNJA_MAILER_PASSWORD:
                 valueFrom:
                   secretKeyRef:
