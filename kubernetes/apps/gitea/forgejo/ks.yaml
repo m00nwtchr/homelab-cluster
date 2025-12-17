@@ -15,6 +15,7 @@ spec:
     - ../../../../components/database
     - ../../../../components/dragonfly
     - ../../../../components/gatus/external
+    - ../../../../components/mail
   dependsOn:
     - name: volsync
       namespace: volsync-system
@@ -23,9 +24,9 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAME: Forgejo
       NAMESPACE: *namespace
       SUBDOMAIN: git
-      OIDC_DISPLAY_NAME: Forgejo
       OIDC_CALLBACK: /user/oauth2/kanidm/callback
       OIDC_DISABLE_PKCE: "true"
       OIDC_SCOPES: '["openid", "profile", "email", "groups", "ssh_publickeys"]'
