@@ -32,6 +32,9 @@ spec:
     fullnameOverride: *app
     replicaCount: 1
     runner:
+      image:
+        repository: ghcr.io/home-operations/opentofu-runner
+        tag: 1.11.1@sha256:9ac9a95773a06ce16209a45095523975e8847be1410a66ca705e97b8b79c464f
       grpc:
         maxMessageSize: 30
     logLevel: info
