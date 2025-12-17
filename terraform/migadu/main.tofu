@@ -35,3 +35,7 @@ output "password" {
   sensitive = true
   value = random_password.password.result
 }
+
+output "host" {
+  value = "smtp.migadu.com"
+}
