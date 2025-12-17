@@ -5,9 +5,8 @@ kind: Terraform
 metadata:
   name: ${APP}-migadu
 spec:
-  interval: 12h
-  # approvePlan: auto
-  path: ./terraform/migadu
+  interval: 5m
+  approvePlan: auto
   vars:
     - name: app
       value: ${APP}
@@ -18,6 +17,7 @@ spec:
       name: cluster-secrets
       varsKeys:
         - SECRET_DOMAIN:domain
+  path: ./terraform/migadu
   sourceRef:
     kind: GitRepository
     name: flux-system
