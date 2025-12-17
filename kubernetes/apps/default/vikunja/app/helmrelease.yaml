@@ -42,7 +42,11 @@ spec:
               VIKUNJA_KEYVALUE_TYPE: redis
 
               # SMTP
-              VIKUNJA_MAILER_HOST: smtp.${SECRET_DOMAIN}
+              VIKUNJA_MAILER_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-migadu
+                    key: host
               VIKUNJA_MAILER_PORT: 465
               VIKUNJA_MAILER_FORCESSL: "true"
               VIKUNJA_MAILER_USERNAME: *app
