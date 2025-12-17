@@ -37,6 +37,7 @@ spec:
     logLevel: info
     allowBreakTheGlass: false
     allowCrossNamespaceRefs: true
+    usePodSubdomainResolution: true
     clusterDomain: cluster.local
     concurrency: 24
     caCertValidityDuration: 24h
