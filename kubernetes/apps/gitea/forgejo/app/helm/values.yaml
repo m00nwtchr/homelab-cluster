@@ -65,6 +65,7 @@ gitea:
       ENABLE_INTERNAL_SIGNIN: false
       SHOW_REGISTRATION_BUTTON: false
       ENABLE_PASSWORD_SIGNIN_FORM: false
+      ENABLE_NOTIFY_MAIL: true
     openid:
       ENABLE_OPENID_SIGNIN: false
       ENABLE_OPENID_SIGNUP: false
@@ -80,6 +81,20 @@ gitea:
       HOST: redis://dragonfly.database.svc:6379/14?pool_size=100&idle_timeout=180s
     actions:
       ENABLED: true
+    mailer:
+      ENABLED: true
+      FROM: Forgejo <forgejo@${SECRET_DOMAIN}>
+      PROTOCOL: smtps
+      SMTP_ADDR: smtp.migadu.com
+      SMTP_PORT: 465
+      USER: forgejo@${SECRET_DOMAIN}
+
+  additionalConfigFromEnvs:
+    - name: FORGEJO__MAILER__PASSWD
+      valueFrom:
+        secretKeyRef:
+          name: forgejo-migadu
+          key: password
 
 deployment:
   env:
