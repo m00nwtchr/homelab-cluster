@@ -32,10 +32,10 @@ spec:
     nameOverride: *app
     installCRDs: true
 
-    controllers: "tektonconfig,tektonpipeline,tektontrigger"
+    controllers: "tektonconfig"
 
     operator:
-      defaultTargetNamespace: tekton-system
+      autoInstallComponents: false
 
     service:
       createServiceMonitor: true
