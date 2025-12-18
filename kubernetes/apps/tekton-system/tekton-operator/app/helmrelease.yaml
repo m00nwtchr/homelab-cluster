@@ -8,7 +8,7 @@ spec:
   interval: 5m
   url: https://github.com/tektoncd/operator.git
   ref:
-    branch: v0.78.1
+    tag: v0.78.1
   ignore: |-
     # exclude all
     /*
