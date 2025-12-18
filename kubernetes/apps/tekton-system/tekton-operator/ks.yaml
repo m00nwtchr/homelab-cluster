@@ -34,7 +34,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app tekton-instance
+  name: &app tekton-config
   namespace: &namespace tekton-system
 spec:
   targetNamespace: *namespace
@@ -44,7 +44,7 @@ spec:
   components: []
   dependsOn:
     - name: tekton-operator
-  path: ./kubernetes/apps/tekton-system/tekton-operator/instance
+  path: ./kubernetes/apps/tekton-system/tekton-operator/config
   prune: true
   postBuild:
     substituteFrom:
