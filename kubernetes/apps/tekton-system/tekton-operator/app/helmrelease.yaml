@@ -30,9 +30,6 @@ spec:
         name: *app
   values:
     nameOverride: *app
-    installCRDs: true
-
-    controllers: "tektonconfig"
 
     operator:
       autoInstallComponents: false
