@@ -1,0 +1,97 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app crd-patcher
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  interval: 30m
+  values:
+    controllers:
+      *app :
+        pod:
+          restartPolicy: OnFailure
+          securityContext:
+            runAsGroup: 65534
+            runAsNonRoot: true
+            runAsUser: 65534
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/m00nwtchr/crd-patcher
+              tag: master@sha256:9bb6034d6932b85f3e9c55db0f51ddad0679dcf126b409967de769a94026025e
+            # resources:
+            #   requests:
+            #     cpu: 10m
+            #     memory: 128Mi
+            #   limits:
+            #     memory: 1Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 80
+            targetPort: 3000
+
+    # persistence:
+    #   tmpfs:
+    #     type: emptyDir
+    #     advancedMounts:
+    #       publish-k8s-schemas:
+    #         generate-schemas:
+    #           - path: /config/.datree
+    #             subPath: data
+    #           - path: /tmp
+    #             subPath: tmp
+    #         app:
+    #           - path: /config
+    #             subPath: config
+    #           - path: /data
+    #             subPath: data
+
+    serviceAccount:
+      *app : {}
+
+    rbac:
+      roles:
+        *app :
+          type: ClusterRole
+          rules:
+            - apiGroups:
+                - apiextensions.k8s.io
+              resources:
+                - customresourcedefinitions
+                - customresourcedefinitions/status
+              verbs:
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - apiregistration.k8s.io
+              resources:
+                - apiservices
+                - apiservices/status
+              verbs:
+                - get
+                - list
+                - watch
+      bindings:
+        *app :
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: *app
+          subjects:
+            - identifier: *app
