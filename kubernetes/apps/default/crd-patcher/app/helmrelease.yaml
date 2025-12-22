@@ -14,7 +14,6 @@ spec:
     controllers:
       *app :
         pod:
-          restartPolicy: OnFailure
           securityContext:
             runAsGroup: 65534
             runAsNonRoot: true
