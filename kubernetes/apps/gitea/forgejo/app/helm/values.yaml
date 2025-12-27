@@ -9,6 +9,9 @@ httpRoute:
     - name: internal
       namespace: network
       sectionName: https
+  matches:
+    timeouts:
+      request: 300s
 
 image:
   rootless: true
