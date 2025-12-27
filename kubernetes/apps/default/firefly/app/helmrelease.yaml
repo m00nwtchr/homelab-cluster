@@ -49,7 +49,7 @@ spec:
               DB_DATABASE: *app
               DB_USERNAME: *app
               PGSQL_SSL_MODE: verify-full
-              PGSQL_SSL_ROOT_CERT: /var/run/secrets/postgresql/ca.crt
+              PGSQL_SSL_ROOT_CERT: /var/run/secrets/root-ca/ca.crt
               PGSQL_SSL_CERT: /var/run/secrets/postgresql/tls.crt
               PGSQL_SSL_KEY: /var/run/secrets/postgresql/tls.key
 

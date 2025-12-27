@@ -36,7 +36,7 @@ spec:
               DB_HOST: postgres-rw.postgres.svc
               DB_USER: *app
               DB_USE_SSL: "true"
-              DB_SSL_CA_FILE: /var/run/secrets/postgresql/ca.crt
+              DB_SSL_CA_FILE: /var/run/secrets/root-ca/ca.crt
               DB_SSL_CERT_FILE: /var/run/secrets/postgresql/tls.crt
               DB_SSL_KEY_FILE: /var/run/secrets/postgresql/tls.key
 

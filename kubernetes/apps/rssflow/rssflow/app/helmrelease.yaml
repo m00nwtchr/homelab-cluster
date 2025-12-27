@@ -51,7 +51,7 @@ spec:
             env: &svc-env
               RUST_LOG: "info"
               REDIS_URL: redis://dragonfly.database.svc/10
-              POSTGRES_URL: postgresql://rssflow@postgres-rw.postgres.svc/rssflow-websub?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/postgresql/ca.crt
+              POSTGRES_URL: postgresql://rssflow@postgres-rw.postgres.svc/rssflow-websub?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
             probes: *probes
             resources:
               requests:

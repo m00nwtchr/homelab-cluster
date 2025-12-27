@@ -1,0 +1,38 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/gitrepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: tekton-operator
+spec:
+  interval: 5m
+  url: https://github.com/tektoncd/operator.git
+  ref:
+    tag: v0.78.1
+  ignore: |-
+    # exclude all
+    /*
+    # include charts directory
+    !/charts/tekton-operator/
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app tekton-operator
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: charts/tekton-operator/
+      sourceRef:
+        kind: GitRepository
+        name: *app
+  values:
+    nameOverride: *app
+
+    operator:
+      autoInstallComponents: false
+
+    service:
+      createServiceMonitor: true

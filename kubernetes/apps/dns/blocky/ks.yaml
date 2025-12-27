@@ -17,6 +17,10 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      DATABASE_EXTENSIONS: |
+        [
+          { name: timescaledb }
+        ]
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

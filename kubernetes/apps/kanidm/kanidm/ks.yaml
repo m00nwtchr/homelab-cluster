@@ -3,6 +3,33 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: &app kaniop
+  namespace: &namespace kanidm
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  components: []
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
+  interval: 1h
+  path: ./kubernetes/apps/kanidm/kanidm/app
+  prune: true
+  retryInterval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: &app kanidm
   namespace: &namespace kanidm
 spec:
@@ -13,6 +40,8 @@ spec:
     - ../../../../components/volsync
     - ../../../../components/gatus/external
   dependsOn:
+    # - name: kaniop
+    #   namespace: kanidm
     - name: volsync
       namespace: volsync-system
 #  healthChecks:
@@ -21,7 +50,7 @@ spec:
 #      name: *app
 #      namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/kanidm/kanidm/app
+  path: ./kubernetes/apps/kanidm/kanidm/instance
   postBuild:
     substitute:
       APP: *app

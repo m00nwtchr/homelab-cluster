@@ -37,7 +37,7 @@ spec:
               DATABASE_NAME: *app
               DATABASE_USERNAME: *app
 
-              PGSSLROOTCERT: /var/run/secrets/postgresql/ca.crt
+              PGSSLROOTCERT: /var/run/secrets/root-ca/ca.crt
               PGSSLCERT: /var/run/secrets/postgresql/tls.crt
               PGSSLKEY: /var/run/secrets/postgresql/tls.key
               PGSSLMODE: verify-full

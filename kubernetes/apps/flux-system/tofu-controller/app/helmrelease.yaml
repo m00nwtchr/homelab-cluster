@@ -1,0 +1,54 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/ocirepository-source-v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: tofu-controller
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 0.16.0-rc.7
+  url: oci://ghcr.io/flux-iac/charts/tofu-controller
+  # verify:
+  #   provider: cosign
+  #   matchOIDCIdentity:
+  #     - issuer: '^https://token.actions.githubusercontent.com$'
+  #       subject: '^https://github.com/flux-iac/tofu-controller.*$'
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app tofu-controller
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  values:
+    fullnameOverride: *app
+    replicaCount: 1
+    runner:
+      image:
+        repository: ghcr.io/home-operations/opentofu-runner
+        tag: 1.11.1@sha256:9ac9a95773a06ce16209a45095523975e8847be1410a66ca705e97b8b79c464f
+      grpc:
+        maxMessageSize: 30
+    logLevel: info
+    allowBreakTheGlass: false
+    allowCrossNamespaceRefs: true
+    usePodSubdomainResolution: true
+    clusterDomain: cluster.local
+    concurrency: 24
+    caCertValidityDuration: 24h
+    certRotationCheckFrequency: 30m
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 2Gi
+      requests:
+        cpu: 400m
+        memory: 64Mi

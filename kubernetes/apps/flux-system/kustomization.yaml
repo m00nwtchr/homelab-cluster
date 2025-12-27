@@ -7,3 +7,4 @@ components:
   - ../../components/common
 resources:
   - ./flux-operator/ks.yaml
+  - ./tofu-controller/ks.yaml

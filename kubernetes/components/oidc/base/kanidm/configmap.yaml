@@ -44,13 +44,7 @@ data:
       }
     }
   custom.json: |
-    {
-      "systems": {
-        "oauth2": {
-          "${APP}": ${CUSTOM_STATE:=${emptyState}}
-        }
-      }
-    }
+    ${CUSTOM_STATE:=${emptyState}}
   default.json: |
     {
       "systems": {
