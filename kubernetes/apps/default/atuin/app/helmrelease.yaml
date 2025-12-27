@@ -12,7 +12,7 @@ spec:
   interval: 30m
   values:
     controllers:
-      *app:
+      *app :
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -35,7 +35,7 @@ spec:
             env:
               ATUIN_HOST: "::"
               ATUIN_PORT: &port 8888
-#              ATUIN_OPEN_REGISTRATION: true
+              # ATUIN_OPEN_REGISTRATION: true
               ATUIN_DB_URI:
                 valueFrom:
                   secretKeyRef:
