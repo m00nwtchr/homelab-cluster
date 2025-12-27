@@ -5,13 +5,10 @@ metadata:
   name: postgres-${APP}-cert
 spec:
   secretName: postgres-${APP}-cert
-#  secretTemplate:
-#    labels:
-#      cnpg.io/reload: ""
   usages:
     - client auth
   commonName: ${DATABASE_OWNER:=${APP}}
   issuerRef:
-    name: postgres-client-ca-issuer
+    name: postgres-client-ca
     kind: ClusterIssuer
     group: cert-manager.io

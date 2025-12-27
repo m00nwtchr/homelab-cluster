@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: dock.mau.dev/maubot/maubot
-              tag: v0.5.2@sha256:b9f28d08d926a8522da1b220374e7fd50b32b07311c21fc6ca6f0690f9fb5402
+              tag: v0.6.0@sha256:6968ddea1e08aa7f8ac70ac7a706663fe8d7b4d6f96cd7a6bb8548637fb8cd17
             command: [ "python3", "-m", "maubot", "-c", "/data/config.yaml" ]
     #          resources:
     #            requests:

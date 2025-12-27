@@ -68,6 +68,7 @@ gitea:
       ENABLE_INTERNAL_SIGNIN: false
       SHOW_REGISTRATION_BUTTON: false
       ENABLE_PASSWORD_SIGNIN_FORM: false
+      ENABLE_NOTIFY_MAIL: true
     openid:
       ENABLE_OPENID_SIGNIN: false
       ENABLE_OPENID_SIGNUP: false
@@ -83,11 +84,25 @@ gitea:
       HOST: redis://dragonfly.database.svc:6379/14?pool_size=100&idle_timeout=180s
     actions:
       ENABLED: true
+    mailer:
+      ENABLED: true
+      FROM: Forgejo <forgejo@${SECRET_DOMAIN}>
+      PROTOCOL: smtps
+      SMTP_ADDR: smtp.migadu.com
+      SMTP_PORT: 465
+      USER: forgejo@${SECRET_DOMAIN}
+
+  additionalConfigFromEnvs:
+    - name: FORGEJO__MAILER__PASSWD
+      valueFrom:
+        secretKeyRef:
+          name: forgejo-migadu
+          key: password
 
 deployment:
   env:
     - name: PGSSLROOTCERT
-      value: /var/run/secrets/postgresql/ca.crt
+      value: /var/run/secrets/root-ca/ca.crt
     - name: PGSSLCERT
       value: /var/run/secrets/postgresql/tls.crt
     - name: PGSSLKEY
@@ -117,6 +132,11 @@ extraVolumes:
     secret:
       defaultMode: 0600
       secretName: postgres-forgejo-cert
+  - name: root-ca
+    secret:
+      defaultMode: 0600
+      secretName: root-ca
+
   - name: forgejo-ssh
     secret:
       secretName: forgejo-ssh
@@ -124,6 +144,8 @@ extraVolumes:
 extraInitVolumeMounts:
   - name: postgres-forgejo
     mountPath: "/var/run/secrets/postgresql"
+  - name: root-ca
+    mountPath: "/var/run/secrets/root-ca"
 
 extraContainerVolumeMounts:
   - name: git
@@ -131,6 +153,8 @@ extraContainerVolumeMounts:
 
   - name: postgres-forgejo
     mountPath: "/var/run/secrets/postgresql"
+  - name: root-ca
+    mountPath: "/var/run/secrets/root-ca"
 
   - name: forgejo-ssh
     mountPath: "/data/gitea/ssh/ssh_host_ed25519_key"

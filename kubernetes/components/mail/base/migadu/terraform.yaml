@@ -1,0 +1,35 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/infra.contrib.fluxcd.io/terraform_v1alpha2.json
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: ${APP}-migadu
+spec:
+  interval: 12h
+  approvePlan: auto
+  vars:
+    - name: app
+      value: ${APP}
+    - name: name
+      value: ${MAILBOX_NAME}
+  varsFrom:
+    - kind: Secret
+      name: cluster-secrets
+      varsKeys:
+        - SECRET_DOMAIN:domain
+  path: ./terraform/migadu
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  writeOutputsToSecret:
+    name: ${APP}-migadu
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "${NAMESPACE}"
+  runnerPodTemplate:
+    spec:
+      envFrom:
+      - secretRef:
+          name: migadu

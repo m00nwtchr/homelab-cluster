@@ -21,7 +21,7 @@ spec:
       DOMAIN: ${q:="}${DOMAIN}${q:="}
 
       PUBLIC: ${q:="}${OIDC_PUBLIC_CLIENT:=false}${q:="}
-      DISPLAY_NAME: ${OIDC_DISPLAY_NAME:=${APP}}
+      DISPLAY_NAME: ${OIDC_DISPLAY_NAME:=${NAME:=${APP}}}
       CALLBACK: ${OIDC_CALLBACK:=/oauth2/callback}
 
       ORIGIN: ${OIDC_ORIGIN:=/}

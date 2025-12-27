@@ -11,11 +11,11 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/oidc
-  #    - ../../../../components/volsync
+    - ../../../../components/volsync
     - ../../../../components/gatus/external
-  #  dependsOn:
-  #    - name: volsync
-  #      namespace: volsync-system
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
   interval: 1h
   path: ./kubernetes/apps/opencloud/opencloud/app
   postBuild:
@@ -35,6 +35,120 @@ spec:
             "valuesByGroup": {
               "users@idm.m00nlit.dev": ["user"],
               "admins@idm.m00nlit.dev": ["admin"]
+            }
+          }
+        }
+      OIDC_CUSTOM_STATE: |
+        {
+          "systems": {
+            "oauth2": {
+              "openclouddesktop": {
+                "displayName": "OpenCloud",
+                "originUrl": [
+                  "http://localhost",
+                  "http://127.0.0.1"
+                ],
+                "originLanding": "http://localhost",
+                "removeOrphanedClaimMaps": true,
+                "public": true,
+                "preferShortUsername": true,
+                "enableLocalhostRedirects": true,
+                "scopeMaps": {
+                  "users": [
+                    "openid",
+                    "profile",
+                    "email",
+                    "offline_access"
+                  ]
+                },
+                "claimMaps": {
+                  "roles": {
+                    "joinType": "array",
+                    "valuesByGroup": {
+                      "users": [
+                        "user"
+                      ],
+                      "admins": [
+                        "admin"
+                      ]
+                    }
+                  }
+                }
+              },
+              "opencloudandroid": {
+                "displayName": "OpenCloud",
+                "originUrl": [
+                  "oc://android.opencloud.eu",
+                  "https://cloud.m00nlit.dev/oidc-silent-redirect.html",
+                  "https://cloud.m00nlit.dev/oidc-callback.html"
+                ],
+                "originLanding": "oc://android.opencloud.eu",
+                "removeOrphanedClaimMaps": true,
+                "public": true,
+                "preferShortUsername": true,
+                "enableLocalhostRedirects": true,
+                "scopeMaps": {
+                  "users": [
+                    "openid",
+                    "profile",
+                    "email",
+                    "offline_access"
+                  ]
+                },
+                "claimMaps": {
+                  "roles": {
+                    "joinType": "array",
+                    "valuesByGroup": {
+                      "users": [
+                        "user"
+                      ],
+                      "admins": [
+                        "admin"
+                      ]
+                    }
+                  },
+                  "aud": {
+                    "joinType": "csv",
+                    "valuesByGroup": {
+                      "users": [
+                        "OpenCloudAndroid"
+                      ]
+                    }
+                  }
+                }
+              },
+              "opencloudios": {
+                "displayName": "OpenCloud",
+                "originUrl": [
+                  "oc://ios.opencloud.eu"
+                ],
+                "originLanding": "oc://ios.opencloud.eu",
+                "removeOrphanedClaimMaps": true,
+                "public": true,
+                "preferShortUsername": true,
+                "enableLocalhostRedirects": true,
+                "scopeMaps": {
+                  "users": [
+                    "openid",
+                    "profile",
+                    "email",
+                    "offline_access"
+                  ]
+                },
+                "claimMaps": {
+                  "roles": {
+                    "joinType": "array",
+                    "valuesByGroup": {
+                      "users": [
+                        "user"
+                      ],
+                      "admins": [
+                        "admin"
+                      ]
+                    }
+                  }
+                }
+              }
             }
           }
         }

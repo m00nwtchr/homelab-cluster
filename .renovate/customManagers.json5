@@ -1,59 +1,59 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  customManagers: [
-    {
-      customType: "regex",
-      description: "Process annotated dependencies",
-      managerFilePatterns: [
-        "/(^|/).+\\.env$/",
-        "/(^|/).+\\.sh$/",
-        "/(^|/).+\\.ya?ml(?:\\.j2)?$/",
-      ],
-      matchStrings: [
-        // # renovate: datasource=github-releases depName=foo/bar
-        // foobar_version: v1.0.0
-        // # renovate: datasource=docker depName=ghcr.io/foo/bar
-        // FOOBAR_VERSION=v1.0.0
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+(:\\s|=)(&\\S+\\s)?(?<currentValue>\\S+)",
-      ],
-      datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-    },
-    {
-      "customType": "regex",
-      "description": "Apply an explicit forgejo digest field match",
-      "fileMatch": [
-        "forgejo\\.ya?ml"
-      ],
-      "matchStrings": [
-        "(?<depName>forgejo\\/forgejo)\\n(?<indentation>\\s+)tag: (?<currentValue>[^@].*?)\\n\\s+digest: (?<currentDigest>sha256:[a-f0-9]+)"
-      ],
-      "datasourceTemplate": "docker",
-      "packageNameTemplate": "code.forgejo.org/{{depName}}",
-      "autoReplaceStringTemplate": "{{depName}}\n{{indentation}}tag: {{newValue}}\n{{indentation}}digest: {{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}"
-    },
-    {
-      "customType": "regex",
-      "description": "Match and update imageName with tag and digest",
-      "fileMatch": [
-        ".*\\.ya?ml"
-      ],
-      "matchStrings": [
-        "imageName: (?<depName>[^:\\s]+):(?<currentValue>[^@\\s]+)@(?<currentDigest>sha256:[a-f0-9]+)",
-      ],
-      "datasourceTemplate": "docker",
-      "packageNameTemplate": "{{depName}}",
-      "autoReplaceStringTemplate": "imageName: {{depName}}:{{newValue}}@{{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}"
-    },
-    {
-      customType: "regex",
-      description: "Process OCI dependencies",
-      managerFilePatterns: [
-        "/\\.yaml(?:\\.j2)?$/",
-      ],
-      matchStrings: [
-        "oci://(?<depName>[^:]+):(?<currentValue>\\S+)",
-      ],
-      datasourceTemplate: "docker",
-    }
-  ],
+	$schema: "https://docs.renovatebot.com/renovate-schema.json",
+	customManagers: [
+		{
+			customType: "regex",
+			description: "Process annotated dependencies",
+			managerFilePatterns: [
+				"/(^|/).+\\.env$/",
+				"/(^|/).+\\.sh$/",
+				"/(^|/).+\\.ya?ml(?:\\.j2)?$/",
+			],
+			matchStrings: [
+				// # renovate: datasource=github-releases depName=foo/bar
+				// foobar_version: v1.0.0
+				// # renovate: datasource=docker depName=ghcr.io/foo/bar
+				// FOOBAR_VERSION=v1.0.0
+				"datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+(:\\s|=)(&\\S+\\s)?(?<currentValue>\\S+)",
+			],
+			datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+		},
+		{
+			"customType": "regex",
+			"description": "Apply an explicit forgejo digest field match",
+			"fileMatch": [
+				"forgejo\\.ya?ml"
+			],
+			"matchStrings": [
+				"(?<depName>forgejo\\/forgejo)\\n(?<indentation>\\s+)tag: (?<currentValue>[^@].*?)\\n\\s+digest: (?<currentDigest>sha256:[a-f0-9]+)"
+			],
+			"datasourceTemplate": "docker",
+			"packageNameTemplate": "code.forgejo.org/{{depName}}",
+			"autoReplaceStringTemplate": "{{depName}}\n{{indentation}}tag: {{newValue}}\n{{indentation}}digest: {{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}"
+		},
+		{
+			"customType": "regex",
+			"description": "Match and update imageName with tag and digest",
+			"fileMatch": [
+				".*\\.ya?ml"
+			],
+			"matchStrings": [
+				"imageName: (?<depName>[^:\\s]+):(?<currentValue>[^@\\s]+)@(?<currentDigest>sha256:[a-f0-9]+)",
+			],
+			"datasourceTemplate": "docker",
+			"packageNameTemplate": "{{depName}}",
+			"autoReplaceStringTemplate": "imageName: {{depName}}:{{newValue}}@{{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}"
+		},
+		{
+			customType: "regex",
+			description: "Process OCI dependencies",
+			managerFilePatterns: [
+				"/\\.yaml(?:\\.j2)?$/",
+			],
+			matchStrings: [
+				"oci://(?<depName>[^:]+):(?<currentValue>\\S+)",
+			],
+			datasourceTemplate: "docker",
+		}
+	],
 }

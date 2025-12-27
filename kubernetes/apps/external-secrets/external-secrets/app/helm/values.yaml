@@ -9,7 +9,8 @@ webhook:
     enabled: true
     cert:
       issuerRef:
-        name: external-secrets-selfsigned-issuer
+        name: selfsigned
+        kind: ClusterIssuer
   image:
     repository: ghcr.io/external-secrets/external-secrets
   serviceMonitor:

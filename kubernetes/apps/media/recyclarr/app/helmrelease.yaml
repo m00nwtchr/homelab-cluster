@@ -85,10 +85,17 @@ spec:
           - path: /config/recyclarr.yml
             subPath: recyclarr.yaml
 
+      data:
+        existingClaim: *app
+        globalMounts:
+          - path: /config/
+
       tmpfs:
         type: emptyDir
         globalMounts:
-          - path: /config/
-            subPath: config
           - path: /tmp
             subPath: tmp
+          - path: /config/logs
+            subPath: logs
+          - path: /config/repositories
+            subPath: repositories
