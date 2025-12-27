@@ -12,7 +12,7 @@ spec:
     namespace: flux-system
   values:
     controllers:
-      *app:
+      *app :
         containers:
           app:
             image:
@@ -39,6 +39,5 @@ spec:
         ports:
           wyoming:
             port: 10400
-
 #    persistence:
 #      custom: # Use OCI volume for custom models
