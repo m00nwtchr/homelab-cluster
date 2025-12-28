@@ -23,7 +23,7 @@ spec:
           app:
             image:
               repository: ghcr.io/m00nwtchr/crd-patcher
-              tag: master@sha256:6a9ede699237badeafd40df7af9afbd435beceb433aeba48331985cd55a5e209
+              tag: master@sha256:343550991cef7bf7db5e2e720314bdb3e07dc85d6ce528d4674a9d6d1e0238f6
             env:
               NODE_TLS_REJECT_UNAUTHORIZED: 0
             # resources:
