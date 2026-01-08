@@ -4,8 +4,7 @@
   config,
   inputs,
   ...
-}:
-{
+}: {
   # https://devenv.sh/packages/
   packages = with pkgs; [
     git
@@ -32,7 +31,7 @@
   languages = {
     helm = {
       enable = true;
-      plugins = [ "helm-diff" ];
+      plugins = ["helm-diff"];
     };
     opentofu.enable = true;
   };
@@ -40,8 +39,9 @@
   treefmt = {
     enable = true;
     config.programs = {
-      nixfmt.enable = true;
-      yamllint.enable = true;
+      alejandra.enable = true;
+      # yamllint.enable = true;
+      yamlfmt.enable = true;
     };
   };
 
