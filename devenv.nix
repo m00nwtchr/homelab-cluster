@@ -41,7 +41,8 @@
     config.programs = {
       alejandra.enable = true;
       # yamllint.enable = true;
-      yamlfmt.enable = true;
+      # yamlfmt.enable = true;
+      prettier.enable = true;
     };
   };
 
