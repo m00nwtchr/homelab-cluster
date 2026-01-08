@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: forgejo.ellis.link/continuwuation/continuwuity
-              tag: main@sha256:1c28af98c0bbf3e0f44db7048a33ee75f69dff8abe6f272d19e050dc6bf377ad
+              tag: main@sha256:0ec8088e9459ff3190a7f6620b59f45eceb76766685348e3592000837cdf3478
             env:
               CONDUWUIT_CONFIG: "/config/conduit.toml"
               CONDUWUIT_PORT: &port 8008
