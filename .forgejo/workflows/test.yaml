@@ -1,230 +1,229 @@
 on:
-  workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
-  test:
-    name: test
-    runs-on: ubuntu-latest
-    steps:
+    test:
+        name: test
+        runs-on: ubuntu-latest
+        steps:
+            - name: env.CI
+              run: |
+                  set -x
+                  test "$CI" = true
+                  test "$CI" = "${{ env.CI }}"
 
-      - name: env.CI
-        run: |
-          set -x
-          test "$CI" = true
-          test "$CI" = "${{ env.CI }}"
+            - name: FORGEJO_ACTION
+              run: |
+                  set -x
+                  echo "$FORGEJO_ACTION" | grep -E '^[0-9]+$'
+                  test "$FORGEJO_ACTION" = "${{ env.FORGEJO_ACTION }}"
+                  test "$FORGEJO_ACTION" = "${{ github.ACTION }}"
+                  test "$FORGEJO_ACTION" = "${{ forge.ACTION }}"
+                  test "$FORGEJO_ACTION" = "$GITHUB_ACTION"
 
-      - name: FORGEJO_ACTION
-        run: |
-          set -x
-          echo "$FORGEJO_ACTION" | grep -E '^[0-9]+$'
-          test "$FORGEJO_ACTION" = "${{ env.FORGEJO_ACTION }}"
-          test "$FORGEJO_ACTION" = "${{ github.ACTION }}"
-          test "$FORGEJO_ACTION" = "${{ forge.ACTION }}"
-          test "$FORGEJO_ACTION" = "$GITHUB_ACTION"
+            # See also actions/example-local-action/.forgejo/local-action/action.yml
+            - name: FORGEJO_ACTION_PATH
+              run: |
+                  set -x
+                  test -z "$FORGEJO_ACTION_PATH"
+                  test "$FORGEJO_ACTION_PATH" = "${{ env.FORGEJO_ACTION_PATH }}"
+                  test "$FORGEJO_ACTION_PATH" = "${{ github.ACTION_PATH }}"
+                  test "$FORGEJO_ACTION_PATH" = "${{ forge.ACTION_PATH }}"
+                  test "$FORGEJO_ACTION_PATH" = "$GITHUB_ACTION_PATH"
 
-      # See also actions/example-local-action/.forgejo/local-action/action.yml
-      - name: FORGEJO_ACTION_PATH
-        run: |
-          set -x
-          test -z "$FORGEJO_ACTION_PATH"
-          test "$FORGEJO_ACTION_PATH" = "${{ env.FORGEJO_ACTION_PATH }}"
-          test "$FORGEJO_ACTION_PATH" = "${{ github.ACTION_PATH }}"
-          test "$FORGEJO_ACTION_PATH" = "${{ forge.ACTION_PATH }}"
-          test "$FORGEJO_ACTION_PATH" = "$GITHUB_ACTION_PATH"
+            - name: FORGEJO_ACTIONS
+              run: |
+                  set -x
+                  test "$FORGEJO_ACTIONS" = true
+                  test "$FORGEJO_ACTIONS" = "${{ env.FORGEJO_ACTIONS }}"
+                  test "$FORGEJO_ACTIONS" = "$GITHUB_ACTIONS"
 
-      - name: FORGEJO_ACTIONS
-        run: |
-          set -x
-          test "$FORGEJO_ACTIONS" = true
-          test "$FORGEJO_ACTIONS" = "${{ env.FORGEJO_ACTIONS }}"
-          test "$FORGEJO_ACTIONS" = "$GITHUB_ACTIONS"
+            - name: FORGEJO_ACTOR
+              run: |
+                  set -x
+                  test "$FORGEJO_ACTOR"
+                  test "$FORGEJO_ACTOR" = "${{ env.FORGEJO_ACTOR }}"
+                  test "$FORGEJO_ACTOR" = "${{ github.ACTOR }}"
+                  test "$FORGEJO_ACTOR" = "${{ forge.ACTOR }}"
+                  test "$FORGEJO_ACTOR" = "$GITHUB_ACTOR"
 
-      - name: FORGEJO_ACTOR
-        run: |
-          set -x
-          test "$FORGEJO_ACTOR"
-          test "$FORGEJO_ACTOR" = "${{ env.FORGEJO_ACTOR }}"
-          test "$FORGEJO_ACTOR" = "${{ github.ACTOR }}"
-          test "$FORGEJO_ACTOR" = "${{ forge.ACTOR }}"
-          test "$FORGEJO_ACTOR" = "$GITHUB_ACTOR"
+            - name: FORGEJO_API_URL
+              shell: bash
+              run: |
+                  set -x
+                  [[ "$FORGEJO_API_URL" =~ /api/v1$ ]]
+                  test "$FORGEJO_API_URL" = "${{ env.FORGEJO_API_URL }}"
+                  test "$FORGEJO_API_URL" = "${{ github.API_URL }}"
+                  test "$FORGEJO_API_URL" = "${{ forge.API_URL }}"
+                  test "$FORGEJO_API_URL" = "$GITHUB_API_URL"
 
-      - name: FORGEJO_API_URL
-        shell: bash
-        run: |
-          set -x
-          [[ "$FORGEJO_API_URL" =~ /api/v1$ ]]
-          test "$FORGEJO_API_URL" = "${{ env.FORGEJO_API_URL }}"
-          test "$FORGEJO_API_URL" = "${{ github.API_URL }}"
-          test "$FORGEJO_API_URL" = "${{ forge.API_URL }}"
-          test "$FORGEJO_API_URL" = "$GITHUB_API_URL"
+            # See also actions/example-pull-request/.forgejo/workflows/test.yml
+            - name: FORGEJO_BASE_REF
+              run: |
+                  set -x
+                  test -z "$FORGEJO_BASE_REF"
+                  test "$FORGEJO_BASE_REF" = "${{ env.FORGEJO_BASE_REF }}"
+                  test "$FORGEJO_BASE_REF" = "${{ github.BASE_REF }}"
+                  test "$FORGEJO_BASE_REF" = "${{ forge.BASE_REF }}"
+                  test "$FORGEJO_BASE_REF" = "$GITHUB_BASE_REF"
 
-      # See also actions/example-pull-request/.forgejo/workflows/test.yml
-      - name: FORGEJO_BASE_REF
-        run: |
-          set -x
-          test -z "$FORGEJO_BASE_REF"
-          test "$FORGEJO_BASE_REF" = "${{ env.FORGEJO_BASE_REF }}"
-          test "$FORGEJO_BASE_REF" = "${{ github.BASE_REF }}"
-          test "$FORGEJO_BASE_REF" = "${{ forge.BASE_REF }}"
-          test "$FORGEJO_BASE_REF" = "$GITHUB_BASE_REF"
+            # See also actions/example-pull-request/.forgejo/workflows/test.yml
+            - name: FORGEJO_HEAD_REF
+              run: |
+                  set -x
+                  test -z "$FORGEJO_HEAD_REF"
+                  test "$FORGEJO_HEAD_REF" = "${{ env.FORGEJO_HEAD_REF }}"
+                  test "$FORGEJO_HEAD_REF" = "${{ github.HEAD_REF }}"
+                  test "$FORGEJO_HEAD_REF" = "${{ forge.HEAD_REF }}"
+                  test "$FORGEJO_HEAD_REF" = "$GITHUB_HEAD_REF"
 
-      # See also actions/example-pull-request/.forgejo/workflows/test.yml
-      - name: FORGEJO_HEAD_REF
-        run: |
-          set -x
-          test -z "$FORGEJO_HEAD_REF"
-          test "$FORGEJO_HEAD_REF" = "${{ env.FORGEJO_HEAD_REF }}"
-          test "$FORGEJO_HEAD_REF" = "${{ github.HEAD_REF }}"
-          test "$FORGEJO_HEAD_REF" = "${{ forge.HEAD_REF }}"
-          test "$FORGEJO_HEAD_REF" = "$GITHUB_HEAD_REF"
+            - name: FORGEJO_ENV
+              run: |
+                  set -x
+                  test -f "$FORGEJO_ENV"
+                  test "$FORGEJO_ENV" = "${{ env.FORGEJO_ENV }}"
+                  test "$FORGEJO_ENV" = "$GITHUB_ENV"
 
-      - name: FORGEJO_ENV
-        run: |
-          set -x
-          test -f "$FORGEJO_ENV"
-          test "$FORGEJO_ENV" = "${{ env.FORGEJO_ENV }}"
-          test "$FORGEJO_ENV" = "$GITHUB_ENV"
+            - name: FORGEJO_EVENT_NAME
+              run: |
+                  set -x
+                  test "$FORGEJO_EVENT_NAME" = "${{ env.FORGEJO_EVENT_NAME }}"
+                  test "$FORGEJO_EVENT_NAME" = "${{ github.EVENT_NAME }}"
+                  test "$FORGEJO_EVENT_NAME" = "${{ forge.EVENT_NAME }}"
+                  test "$FORGEJO_EVENT_NAME" = "$GITHUB_EVENT_NAME"
 
-      - name: FORGEJO_EVENT_NAME
-        run: |
-          set -x
-          test "$FORGEJO_EVENT_NAME" = "${{ env.FORGEJO_EVENT_NAME }}"
-          test "$FORGEJO_EVENT_NAME" = "${{ github.EVENT_NAME }}"
-          test "$FORGEJO_EVENT_NAME" = "${{ forge.EVENT_NAME }}"
-          test "$FORGEJO_EVENT_NAME" = "$GITHUB_EVENT_NAME"
+            - name: FORGEJO_JOB
+              run: |
+                  set -x
+                  test "$FORGEJO_JOB" = test
+                  test "$FORGEJO_JOB" = "${{ env.FORGEJO_JOB }}"
+                  test "$FORGEJO_JOB" = "${{ github.JOB }}"
+                  test "$FORGEJO_JOB" = "${{ forge.JOB }}"
+                  test "$FORGEJO_JOB" = "$GITHUB_JOB"
 
-      - name: FORGEJO_JOB
-        run: |
-          set -x
-          test "$FORGEJO_JOB" = test
-          test "$FORGEJO_JOB" = "${{ env.FORGEJO_JOB }}"
-          test "$FORGEJO_JOB" = "${{ github.JOB }}"
-          test "$FORGEJO_JOB" = "${{ forge.JOB }}"
-          test "$FORGEJO_JOB" = "$GITHUB_JOB"
+            - name: FORGEJO_OUTPUT
+              run: |
+                  set -x
+                  test -f "$FORGEJO_OUTPUT"
+                  test "$FORGEJO_OUTPUT" = "${{ env.FORGEJO_OUTPUT }}"
+                  test "$FORGEJO_OUTPUT" = "$GITHUB_OUTPUT"
 
-      - name: FORGEJO_OUTPUT
-        run: |
-          set -x
-          test -f "$FORGEJO_OUTPUT"
-          test "$FORGEJO_OUTPUT" = "${{ env.FORGEJO_OUTPUT }}"
-          test "$FORGEJO_OUTPUT" = "$GITHUB_OUTPUT"
+            - name: FORGEJO_PATH
+              run: |
+                  set -x
+                  test -f "$FORGEJO_PATH"
+                  test "$FORGEJO_PATH" = "${{ env.FORGEJO_PATH }}"
+                  test "$FORGEJO_PATH" = "$GITHUB_PATH"
 
-      - name: FORGEJO_PATH
-        run: |
-          set -x
-          test -f "$FORGEJO_PATH"
-          test "$FORGEJO_PATH" = "${{ env.FORGEJO_PATH }}"
-          test "$FORGEJO_PATH" = "$GITHUB_PATH"
+            - name: FORGEJO_REF
+              shell: bash
+              run: |
+                  set -x
+                  [[ "$FORGEJO_REF" =~ ^refs/ ]]
+                  test "$FORGEJO_REF" = "${{ env.FORGEJO_REF }}"
+                  test "$FORGEJO_REF" = "${{ github.REF }}"
+                  test "$FORGEJO_REF" = "${{ forge.REF }}"
+                  test "$FORGEJO_REF" = "$GITHUB_REF"
 
-      - name: FORGEJO_REF
-        shell: bash
-        run: |
-          set -x
-          [[ "$FORGEJO_REF" =~ ^refs/ ]]
-          test "$FORGEJO_REF" = "${{ env.FORGEJO_REF }}"
-          test "$FORGEJO_REF" = "${{ github.REF }}"
-          test "$FORGEJO_REF" = "${{ forge.REF }}"
-          test "$FORGEJO_REF" = "$GITHUB_REF"
+            - name: FORGEJO_REF_NAME
+              shell: bash
+              run: |
+                  set -x
+                  ! [[ "$FORGEJO_REF_NAME" =~ ^refs/ ]]
+                  test "$FORGEJO_REF_NAME" = "${{ env.FORGEJO_REF_NAME }}"
+                  test "$FORGEJO_REF_NAME" = "${{ github.REF_NAME }}"
+                  test "$FORGEJO_REF_NAME" = "${{ forge.REF_NAME }}"
+                  test "$FORGEJO_REF_NAME" = "$GITHUB_REF_NAME"
 
-      - name: FORGEJO_REF_NAME
-        shell: bash
-        run: |
-          set -x
-          ! [[ "$FORGEJO_REF_NAME" =~ ^refs/ ]]
-          test "$FORGEJO_REF_NAME" = "${{ env.FORGEJO_REF_NAME }}"
-          test "$FORGEJO_REF_NAME" = "${{ github.REF_NAME }}"
-          test "$FORGEJO_REF_NAME" = "${{ forge.REF_NAME }}"
-          test "$FORGEJO_REF_NAME" = "$GITHUB_REF_NAME"
+            - name: FORGEJO_REPOSITORY
+              run: |
+                  set -x
+                  test "$FORGEJO_REPOSITORY" = m00n/homelab-cluster
+                  test "$FORGEJO_REPOSITORY" = "${{ env.FORGEJO_REPOSITORY }}"
+                  test "$FORGEJO_REPOSITORY" = "${{ github.REPOSITORY }}"
+                  test "$FORGEJO_REPOSITORY" = "${{ forge.REPOSITORY }}"
+                  test "$FORGEJO_REPOSITORY" = "$GITHUB_REPOSITORY"
 
-      - name: FORGEJO_REPOSITORY
-        run: |
-          set -x
-          test "$FORGEJO_REPOSITORY" = m00n/homelab-cluster
-          test "$FORGEJO_REPOSITORY" = "${{ env.FORGEJO_REPOSITORY }}"
-          test "$FORGEJO_REPOSITORY" = "${{ github.REPOSITORY }}"
-          test "$FORGEJO_REPOSITORY" = "${{ forge.REPOSITORY }}"
-          test "$FORGEJO_REPOSITORY" = "$GITHUB_REPOSITORY"
+            - name: FORGEJO_REPOSITORY_OWNER
+              run: |
+                  set -x
+                  test "$FORGEJO_REPOSITORY_OWNER" = m00n
+                  test "$FORGEJO_REPOSITORY_OWNER" = "${{ env.FORGEJO_REPOSITORY_OWNER }}"
+                  test "$FORGEJO_REPOSITORY_OWNER" = "${{ github.REPOSITORY_OWNER }}"
+                  test "$FORGEJO_REPOSITORY_OWNER" = "${{ forge.REPOSITORY_OWNER }}"
+                  test "$FORGEJO_REPOSITORY_OWNER" = "$GITHUB_REPOSITORY_OWNER"
 
-      - name: FORGEJO_REPOSITORY_OWNER
-        run: |
-          set -x
-          test "$FORGEJO_REPOSITORY_OWNER" = m00n
-          test "$FORGEJO_REPOSITORY_OWNER" = "${{ env.FORGEJO_REPOSITORY_OWNER }}"
-          test "$FORGEJO_REPOSITORY_OWNER" = "${{ github.REPOSITORY_OWNER }}"
-          test "$FORGEJO_REPOSITORY_OWNER" = "${{ forge.REPOSITORY_OWNER }}"
-          test "$FORGEJO_REPOSITORY_OWNER" = "$GITHUB_REPOSITORY_OWNER"
+            - name: FORGEJO_RUN_NUMBER
+              run: |
+                  set -x
+                  echo "$FORGEJO_RUN_NUMBER" | grep -E '^[0-9]+$'
+                  test "$FORGEJO_RUN_NUMBER" = "${{ env.FORGEJO_RUN_NUMBER }}"
+                  test "$FORGEJO_RUN_NUMBER" = "${{ github.RUN_NUMBER }}"
+                  test "$FORGEJO_RUN_NUMBER" = "${{ forge.RUN_NUMBER }}"
+                  test "$FORGEJO_RUN_NUMBER" = "$GITHUB_RUN_NUMBER"
 
-      - name: FORGEJO_RUN_NUMBER
-        run: |
-          set -x
-          echo "$FORGEJO_RUN_NUMBER" | grep -E '^[0-9]+$'
-          test "$FORGEJO_RUN_NUMBER" = "${{ env.FORGEJO_RUN_NUMBER }}"
-          test "$FORGEJO_RUN_NUMBER" = "${{ github.RUN_NUMBER }}"
-          test "$FORGEJO_RUN_NUMBER" = "${{ forge.RUN_NUMBER }}"
-          test "$FORGEJO_RUN_NUMBER" = "$GITHUB_RUN_NUMBER"
+            - name: FORGEJO_SERVER_URL
+              shell: bash
+              run: |
+                  set -x
+                  [[ "$FORGEJO_SERVER_URL" =~ ^http ]]
+                  test "$FORGEJO_SERVER_URL" = "${{ env.FORGEJO_SERVER_URL }}"
+                  test "$FORGEJO_SERVER_URL" = "${{ github.SERVER_URL }}"
+                  test "$FORGEJO_SERVER_URL" = "${{ forge.SERVER_URL }}"
+                  test "$FORGEJO_SERVER_URL" = "$GITHUB_SERVER_URL"
 
-      - name: FORGEJO_SERVER_URL
-        shell: bash
-        run: |
-          set -x
-          [[ "$FORGEJO_SERVER_URL" =~ ^http ]]
-          test "$FORGEJO_SERVER_URL" = "${{ env.FORGEJO_SERVER_URL }}"
-          test "$FORGEJO_SERVER_URL" = "${{ github.SERVER_URL }}"
-          test "$FORGEJO_SERVER_URL" = "${{ forge.SERVER_URL }}"
-          test "$FORGEJO_SERVER_URL" = "$GITHUB_SERVER_URL"
+            - name: FORGEJO_SHA
+              run: |
+                  set -x
+                  test "$FORGEJO_SHA"
+                  test "$FORGEJO_SHA" = "${{ env.FORGEJO_SHA }}"
+                  test "$FORGEJO_SHA" = "${{ github.SHA }}"
+                  test "$FORGEJO_SHA" = "${{ forge.SHA }}"
+                  test "$FORGEJO_SHA" = "$GITHUB_SHA"
 
-      - name: FORGEJO_SHA
-        run: |
-          set -x
-          test "$FORGEJO_SHA"
-          test "$FORGEJO_SHA" = "${{ env.FORGEJO_SHA }}"
-          test "$FORGEJO_SHA" = "${{ github.SHA }}"
-          test "$FORGEJO_SHA" = "${{ forge.SHA }}"
-          test "$FORGEJO_SHA" = "$GITHUB_SHA"
+            - name: FORGEJO_STEP_SUMMARY
+              run: |
+                  set -x
+                  test -f "$FORGEJO_STEP_SUMMARY"
+                  test "$FORGEJO_STEP_SUMMARY" = "${{ env.FORGEJO_STEP_SUMMARY }}"
+                  test "$FORGEJO_STEP_SUMMARY" = "$GITHUB_STEP_SUMMARY"
 
-      - name: FORGEJO_STEP_SUMMARY
-        run: |
-          set -x
-          test -f "$FORGEJO_STEP_SUMMARY"
-          test "$FORGEJO_STEP_SUMMARY" = "${{ env.FORGEJO_STEP_SUMMARY }}"
-          test "$FORGEJO_STEP_SUMMARY" = "$GITHUB_STEP_SUMMARY"
+            # See also actions/example-pull-request/.forgejo/workflows/test.yml
+            - name: FORGEJO_TOKEN
+              run: |
+                  set -x
+                  test "$FORGEJO_TOKEN"
+                  test "$FORGEJO_TOKEN" = "${{ env.FORGEJO_TOKEN }}"
+                  test "$FORGEJO_TOKEN" = "${{ github.TOKEN }}"
+                  test "$FORGEJO_TOKEN" = "${{ forge.TOKEN }}"
+                  test "$FORGEJO_TOKEN" = "$GITHUB_TOKEN"
 
-      # See also actions/example-pull-request/.forgejo/workflows/test.yml
-      - name: FORGEJO_TOKEN
-        run: |
-          set -x
-          test "$FORGEJO_TOKEN"
-          test "$FORGEJO_TOKEN" = "${{ env.FORGEJO_TOKEN }}"
-          test "$FORGEJO_TOKEN" = "${{ github.TOKEN }}"
-          test "$FORGEJO_TOKEN" = "${{ forge.TOKEN }}"
-          test "$FORGEJO_TOKEN" = "$GITHUB_TOKEN"
+            - name: FORGEJO_WORKSPACE
+              run: |
+                  set -x
+                  test -d "$FORGEJO_WORKSPACE"
+                  test "$FORGEJO_WORKSPACE" = "${{ env.FORGEJO_WORKSPACE }}"
+                  test "$FORGEJO_WORKSPACE" = "${{ github.WORKSPACE }}"
+                  test "$FORGEJO_WORKSPACE" = "${{ forge.WORKSPACE }}"
+                  test "$FORGEJO_WORKSPACE" = "$GITHUB_WORKSPACE"
 
-      - name: FORGEJO_WORKSPACE
-        run: |
-          set -x
-          test -d "$FORGEJO_WORKSPACE"
-          test "$FORGEJO_WORKSPACE" = "${{ env.FORGEJO_WORKSPACE }}"
-          test "$FORGEJO_WORKSPACE" = "${{ github.WORKSPACE }}"
-          test "$FORGEJO_WORKSPACE" = "${{ forge.WORKSPACE }}"
-          test "$FORGEJO_WORKSPACE" = "$GITHUB_WORKSPACE"
+            - name: RUNNER_ARCH
+              run: |
+                  set -x
+                  test "$RUNNER_ARCH" = X64
 
-      - name: RUNNER_ARCH
-        run: |
-          set -x
-          test "$RUNNER_ARCH" = X64
+            - name: RUNNER_OS
+              run: |
+                  set -x
+                  test "$RUNNER_OS" = Linux
 
-      - name: RUNNER_OS
-        run: |
-          set -x
-          test "$RUNNER_OS" = Linux
+            # runner 3.3.0 $RUNNER_TOOL_CACHE is not an existing directory
+            # - name: RUNNER_TOOL_CACHE
+            #   run: |
+            #     set -x
+            #     test -d "$RUNNER_TOOL_CACHE"
 
-      # runner 3.3.0 $RUNNER_TOOL_CACHE is not an existing directory
-      # - name: RUNNER_TOOL_CACHE
-      #   run: |
-      #     set -x
-      #     test -d "$RUNNER_TOOL_CACHE"
-
-      - name: RUNNER_TEMP
-        run: |
-          set -x
-          test -d "$RUNNER_TEMP"
+            - name: RUNNER_TEMP
+              run: |
+                  set -x
+                  test -d "$RUNNER_TEMP"

@@ -3,175 +3,175 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app continuwuity
+    name: &app continuwuity
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  values:
-    defaultPodOptions:
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
-
-    controllers:
-      *app :
-        type: statefulset
-        annotations:
-          reloader.stakater.com/auto: "true"
-
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            fsGroup: 1000
-            fsGroupChangePolicy: "OnRootMismatch"
-
-        containers:
-          app:
-            image:
-              repository: forgejo.ellis.link/continuwuation/continuwuity
-              tag: main@sha256:1c28af98c0bbf3e0f44db7048a33ee75f69dff8abe6f272d19e050dc6bf377ad
-            env:
-              CONDUWUIT_CONFIG: "/config/conduit.toml"
-              CONDUWUIT_PORT: &port 8008
-            probes:
-              liveness: &probe
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /_matrix/client/versions
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probe
-            resources:
-              limits:
-                #                cpu: 50M
-                memory: 1Gi
-              requests:
-                cpu: 2
-                memory: 512Mi
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: app-template
+        namespace: flux-system
+    values:
+        defaultPodOptions:
             securityContext:
-              capabilities:
-                drop:
-                  - ALL
+                seccompProfile:
+                    type: RuntimeDefault
 
-    service:
-      app:
-        controller: *app
-        ports:
-          http:
-            port: 80
-            targetPort: *port
+        controllers:
+            *app :
+                type: statefulset
+                annotations:
+                    reloader.stakater.com/auto: "true"
 
-    route:
-      app:
-        hostnames: [ "matrix.${SECRET_DOMAIN}" ]
-        forceRename: *app
-        parentRefs:
-          - name: external
-            namespace: network
-            sectionName: https
-          - name: internal
-            namespace: network
-            sectionName: https
-        rules:
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /
-            backendRefs:
-              - identifier: app
-                port: 80
+                pod:
+                    securityContext:
+                        runAsUser: 1000
+                        runAsGroup: 1000
+                        runAsNonRoot: true
+                        fsGroup: 1000
+                        fsGroupChangePolicy: "OnRootMismatch"
 
-      federation:
-        hostnames: [ "matrix-fed.${SECRET_DOMAIN}" ]
-        annotations:
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
-        parentRefs:
-          - name: cftunnel
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
+                containers:
+                    app:
+                        image:
+                            repository: forgejo.ellis.link/continuwuation/continuwuity
+                            tag: main@sha256:1c28af98c0bbf3e0f44db7048a33ee75f69dff8abe6f272d19e050dc6bf377ad
+                        env:
+                            CONDUWUIT_CONFIG: "/config/conduit.toml"
+                            CONDUWUIT_PORT: &port 8008
+                        probes:
+                            liveness: &probe
+                                enabled: true
+                                custom: true
+                                spec:
+                                    httpGet:
+                                        path: /_matrix/client/versions
+                                        port: *port
+                                    initialDelaySeconds: 0
+                                    periodSeconds: 10
+                                    timeoutSeconds: 1
+                                    failureThreshold: 3
+                            readiness: *probe
+                        resources:
+                            limits:
+                                #                cpu: 50M
+                                memory: 1Gi
+                            requests:
+                                cpu: 2
+                                memory: 512Mi
+                        securityContext:
+                            capabilities:
+                                drop:
+                                    - ALL
 
-      well-known:
-        hostnames: [ "${SECRET_DOMAIN}" ]
-        annotations:
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
-        parentRefs:
-          - name: external
-            namespace: network
-            sectionName: https
-          - name: cftunnel
-            namespace: network
-            sectionName: https
-        rules:
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /.well-known/matrix/
-            backendRefs:
-              - identifier: app
-                port: 80
-#          - matches:
-#              - path:
-#                  type: Exact
-#                  value: /.well-known/matrix/client
-#            backendRefs:
-#              - identifier: app
-#                port: 80
-#            filters:
-#              - type: ExtensionRef
-#                extensionRef:
-#                  group: gateway.envoyproxy.io
-#                  kind: HTTPRouteFilter
-#                  name: well-known-matrix-client
-#              - type: CORS
-#                cors:
-#                  allowOrigins:
-#                    - "https://*"
+        service:
+            app:
+                controller: *app
+                ports:
+                    http:
+                        port: 80
+                        targetPort: *port
 
-    persistence:
-      data:
-        enabled: true
-        type: persistentVolumeClaim
-        existingClaim: *app
+        route:
+            app:
+                hostnames: ["matrix.${SECRET_DOMAIN}"]
+                forceRename: *app
+                parentRefs:
+                    - name: external
+                      namespace: network
+                      sectionName: https
+                    - name: internal
+                      namespace: network
+                      sectionName: https
+                rules:
+                    - matches:
+                          - path:
+                                type: PathPrefix
+                                value: /
+                      backendRefs:
+                          - identifier: app
+                            port: 80
 
-      media:
-        size: 5Gi
-        accessMode: ReadWriteOnce
-        storageClass: zfs-vault
-        suffix: "media"
-        retain: true
-        globalMounts:
-          - path: /data/media
+            federation:
+                hostnames: ["matrix-fed.${SECRET_DOMAIN}"]
+                annotations:
+                    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+                parentRefs:
+                    - name: cftunnel
+                      namespace: network
+                      sectionName: https
+                rules:
+                    - backendRefs:
+                          - identifier: app
+                            port: 80
 
-      backups:
-        size: 5Gi
-        accessMode: ReadWriteOnce
-        suffix: "backups"
-        globalMounts:
-          - path: /backups
+            well-known:
+                hostnames: ["${SECRET_DOMAIN}"]
+                annotations:
+                    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+                parentRefs:
+                    - name: external
+                      namespace: network
+                      sectionName: https
+                    - name: cftunnel
+                      namespace: network
+                      sectionName: https
+                rules:
+                    - matches:
+                          - path:
+                                type: PathPrefix
+                                value: /.well-known/matrix/
+                      backendRefs:
+                          - identifier: app
+                            port: 80
+        #          - matches:
+        #              - path:
+        #                  type: Exact
+        #                  value: /.well-known/matrix/client
+        #            backendRefs:
+        #              - identifier: app
+        #                port: 80
+        #            filters:
+        #              - type: ExtensionRef
+        #                extensionRef:
+        #                  group: gateway.envoyproxy.io
+        #                  kind: HTTPRouteFilter
+        #                  name: well-known-matrix-client
+        #              - type: CORS
+        #                cors:
+        #                  allowOrigins:
+        #                    - "https://*"
 
-      config:
-        type: configMap
-        name: conduit-configmap
-        globalMounts:
-          - path: /config/conduit.toml
-            subPath: conduit.toml
-      token:
-        type: secret
-        name: conduit-registration-secret
-        globalMounts:
-          - path: /config/token
-            subPath: token
+        persistence:
+            data:
+                enabled: true
+                type: persistentVolumeClaim
+                existingClaim: *app
+
+            media:
+                size: 5Gi
+                accessMode: ReadWriteOnce
+                storageClass: zfs-vault
+                suffix: "media"
+                retain: true
+                globalMounts:
+                    - path: /data/media
+
+            backups:
+                size: 5Gi
+                accessMode: ReadWriteOnce
+                suffix: "backups"
+                globalMounts:
+                    - path: /backups
+
+            config:
+                type: configMap
+                name: conduit-configmap
+                globalMounts:
+                    - path: /config/conduit.toml
+                      subPath: conduit.toml
+            token:
+                type: secret
+                name: conduit-registration-secret
+                globalMounts:
+                    - path: /config/token
+                      subPath: token

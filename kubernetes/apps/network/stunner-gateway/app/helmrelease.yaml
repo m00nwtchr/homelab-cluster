@@ -3,45 +3,45 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: stunner
+    name: stunner
 spec:
-  interval: 1h
-  url: https://l7mp.io/stunner
+    interval: 1h
+    url: https://l7mp.io/stunner
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: stunner-gateway
+    name: stunner-gateway
 spec:
-  interval: 1h
-  chart:
-    spec:
-      chart: stunner-gateway-operator
-      version: 1.1.0
-      sourceRef:
-        kind: HelmRepository
-        name: stunner
-#  install:
-#    crds: Skip
-#  upgrade:
-#    crds: Skip
-  values:
-    stunnerGatewayOperator:
-      deployment:
-        container:
-          manager:
-            image:
-              name: mirror.gcr.io/l7mp/stunner-gateway-operator
-      dataplane:
+    interval: 1h
+    chart:
         spec:
-          image:
-            name: mirror.gcr.io/l7mp/stunnerd
-          enableMetricsEndpoint: true
+            chart: stunner-gateway-operator
+            version: 1.1.0
+            sourceRef:
+                kind: HelmRepository
+                name: stunner
+    #  install:
+    #    crds: Skip
+    #  upgrade:
+    #    crds: Skip
+    values:
+        stunnerGatewayOperator:
+            deployment:
+                container:
+                    manager:
+                        image:
+                            name: mirror.gcr.io/l7mp/stunner-gateway-operator
+            dataplane:
+                spec:
+                    image:
+                        name: mirror.gcr.io/l7mp/stunnerd
+                    enableMetricsEndpoint: true
 
-    stunnerAuthService:
-      deployment:
-        container:
-          authService:
-            image:
-              name: mirror.gcr.io/l7mp/stunner-auth-server
+        stunnerAuthService:
+            deployment:
+                container:
+                    authService:
+                        image:
+                            name: mirror.gcr.io/l7mp/stunner-auth-server

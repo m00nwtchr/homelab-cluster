@@ -3,112 +3,112 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app ntfy
+    name: &app ntfy
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  values:
-    controllers:
-      ntfy:
-        containers:
-          app:
-            image:
-              repository: binwiederhier/ntfy
-              tag: v2.15.0@sha256:aa10e84da624f65be107f9317dbf6e212fa812e0ebf62e74d032d0762eccc930
-            #            repository: ghcr.io/vaskozl/ntfy
-            #            tag: 2.11.0@sha256:27b3ee3d5bd5a70d5c339033da4b8f102e91095124a41f1443b1c2a71aeead61
-            args: [ "serve" ]
-            env:
-              TZ: ${TZ}
-              NTFY_LOG_LEVEL: INFO
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /v1/health
-                    port: &port 8080
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-            resources:
-              requests:
-                cpu: 10m
-                memory: 100Mi
-              limits:
-                memory: 100Mi
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: app-template
+        namespace: flux-system
+    values:
+        controllers:
+            ntfy:
+                containers:
+                    app:
+                        image:
+                            repository: binwiederhier/ntfy
+                            tag: v2.15.0@sha256:aa10e84da624f65be107f9317dbf6e212fa812e0ebf62e74d032d0762eccc930
+                        #            repository: ghcr.io/vaskozl/ntfy
+                        #            tag: 2.11.0@sha256:27b3ee3d5bd5a70d5c339033da4b8f102e91095124a41f1443b1c2a71aeead61
+                        args: ["serve"]
+                        env:
+                            TZ: ${TZ}
+                            NTFY_LOG_LEVEL: INFO
+                        probes:
+                            liveness: &probes
+                                enabled: true
+                                custom: true
+                                spec:
+                                    httpGet:
+                                        path: /v1/health
+                                        port: &port 8080
+                                    initialDelaySeconds: 0
+                                    periodSeconds: 10
+                                    timeoutSeconds: 1
+                                    failureThreshold: 3
+                            readiness: *probes
+                        resources:
+                            requests:
+                                cpu: 10m
+                                memory: 100Mi
+                            limits:
+                                memory: 100Mi
+                        securityContext:
+                            allowPrivilegeEscalation: false
+                            capabilities:
+                                drop:
+                                    - ALL
+                            readOnlyRootFilesystem: true
+                statefulset:
+                    podManagementPolicy: Parallel
+                type: statefulset
+
+        defaultPodOptions:
             securityContext:
-              allowPrivilegeEscalation: false
-              capabilities:
-                drop:
-                  - ALL
-              readOnlyRootFilesystem: true
-        statefulset:
-          podManagementPolicy: Parallel
-        type: statefulset
+                fsGroup: 568
+                runAsGroup: 568
+                runAsNonRoot: true
+                runAsUser: 568
+                seccompProfile:
+                    type: RuntimeDefault
 
-    defaultPodOptions:
-      securityContext:
-        fsGroup: 568
-        runAsGroup: 568
-        runAsNonRoot: true
-        runAsUser: 568
-        seccompProfile:
-          type: RuntimeDefault
+        service:
+            app:
+                forceRename: *app
+                controller: *app
+                ports:
+                    http:
+                        port: 80
+                        targetPort: *port
+                    metrics:
+                        port: 9090
 
-    service:
-      app:
-        forceRename: *app
-        controller: *app
-        ports:
-          http:
-            port: 80
-            targetPort: *port
-          metrics:
-            port: 9090
+        route:
+            app:
+                hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+                parentRefs:
+                    - name: external
+                      namespace: network
+                      sectionName: https
+                    - name: internal
+                      namespace: network
+                      sectionName: https
+                rules:
+                    - backendRefs:
+                          - identifier: app
+                            port: 80
 
-    route:
-      app:
-        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
-        parentRefs:
-          - name: external
-            namespace: network
-            sectionName: https
-          - name: internal
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
+        serviceMonitor:
+            app:
+                serviceName: *app
+                endpoints:
+                    - port: metrics
+                      scheme: http
+                      path: /metrics
+                      interval: 1m
+                      scrapeTimeout: 10s
 
-    serviceMonitor:
-      app:
-        serviceName: *app
-        endpoints:
-          - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
+        persistence:
+            config:
+                enabled: true
+                name: ntfy-configmap # overriden by kustomizeconfig
+                type: configMap
+                globalMounts:
+                    - path: /etc/ntfy/server.yml
+                      subPath: server.yaml
 
-    persistence:
-      config:
-        enabled: true
-        name: ntfy-configmap # overriden by kustomizeconfig
-        type: configMap
-        globalMounts:
-          - path: /etc/ntfy/server.yml
-            subPath: server.yaml
+            data:
+                existingClaim: *app
 
-      data:
-        existingClaim: *app
-
-      cache:
-        type: emptyDir
+            cache:
+                type: emptyDir

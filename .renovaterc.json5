@@ -17,28 +17,15 @@
 		":timezone(Europe/Warsaw)",
 	],
 	dependencyDashboardTitle: "Renovate Dashboard 🤖",
-	suppressNotifications: [
-		"prEditedNotification",
-		"prIgnoreNotification",
-	],
-	ignorePaths: [
-		"**/*.sops.*",
-		"**/resources/**",
-		"**/old/**"
-	],
+	suppressNotifications: ["prEditedNotification", "prIgnoreNotification"],
+	ignorePaths: ["**/*.sops.*", "**/resources/**", "**/old/**"],
 	flux: {
-		managerFilePatterns: [
-			"/(^|/)kubernetes/.+\\.ya?ml$/"
-		]
+		managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml$/"],
 	},
 	"helm-values": {
-		managerFilePatterns: [
-			"/(^|/)kubernetes/.+\\.ya?ml$/"
-		]
+		managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml$/"],
 	},
 	kubernetes: {
-		managerFilePatterns: [
-			"/(^|/)kubernetes/.+\\.ya?ml$/"
-		]
+		managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml$/"],
 	},
 }

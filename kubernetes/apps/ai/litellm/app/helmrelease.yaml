@@ -3,133 +3,133 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app litellm
+    name: &app litellm
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  values:
-    defaultPodOptions:
-      securityContext:
-#        runAsNonRoot: true
-#        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
-
-    controllers:
-      *app :
-        strategy: RollingUpdate
-        rollingUpdate:
-          unavailable: 0
-          surge: 1
-
-        containers:
-          app:
-            image:
-              repository: ghcr.io/berriai/litellm
-              tag: v1.79.3-stable@sha256:35a33e3b14c16952262b6d408d4872f77dc18352399f2b134148289397d5419a
-            args:
-              - --host
-              - "::"
-              - --port
-              - "4000"
-              - --config
-              - "/app/config.yaml"
-            env:
-              TZ: "${TZ}"
-              REDIS_HOST: dragonfly.database.svc.cluster.local
-              STORE_MODEL_IN_DB: True
-              USE_PRISMA_MIGRATE: "True"
-              LITELLM_MODE: "PRODUCTION"
-              LITELLM_DONT_SHOW_FEEDBACK_BOX: "True"
-              QDRANT_API_BASE: http://qdrant.ai.svc.cluster.local:6333
-
-              DATABASE_URL:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-postgres"
-                    key: url
-            envFrom:
-              - secretRef:
-                  name: *app
-
-            probes:
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /health/liveliness
-                    port: &port 4000
-                  initialDelaySeconds: 30
-                  periodSeconds: 60
-                  timeoutSeconds: 10
-                  failureThreshold: 3
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /health/readiness
-                    port: *port
-                  initialDelaySeconds: 5
-                  periodSeconds: 5
-                  timeoutSeconds: 5
-                  failureThreshold: 3
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: app-template
+        namespace: flux-system
+    values:
+        defaultPodOptions:
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 1Gi
+                #        runAsNonRoot: true
+                #        runAsUser: 1000
+                runAsGroup: 1000
+                fsGroup: 1000
+                fsGroupChangePolicy: OnRootMismatch
+                seccompProfile: { type: RuntimeDefault }
 
-    service:
-      app:
-        controller: *app
-        ports:
-          http:
-            port: 80
-            targetPort: *port
+        controllers:
+            *app :
+                strategy: RollingUpdate
+                rollingUpdate:
+                    unavailable: 0
+                    surge: 1
 
-    route:
-      main:
-        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
-        parentRefs:
-          - name: internal
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
+                containers:
+                    app:
+                        image:
+                            repository: ghcr.io/berriai/litellm
+                            tag: v1.79.3-stable@sha256:35a33e3b14c16952262b6d408d4872f77dc18352399f2b134148289397d5419a
+                        args:
+                            - --host
+                            - "::"
+                            - --port
+                            - "4000"
+                            - --config
+                            - "/app/config.yaml"
+                        env:
+                            TZ: "${TZ}"
+                            REDIS_HOST: dragonfly.database.svc.cluster.local
+                            STORE_MODEL_IN_DB: True
+                            USE_PRISMA_MIGRATE: "True"
+                            LITELLM_MODE: "PRODUCTION"
+                            LITELLM_DONT_SHOW_FEEDBACK_BOX: "True"
+                            QDRANT_API_BASE: http://qdrant.ai.svc.cluster.local:6333
 
-    persistence:
-      config:
-        type: configMap
-        name: litellm-configmap
-        globalMounts:
-          - path: /app/config.yaml
-            subPath: config.yaml
+                            DATABASE_URL:
+                                valueFrom:
+                                    secretKeyRef:
+                                        name: "{{ .Release.Name }}-postgres"
+                                        key: url
+                        envFrom:
+                            - secretRef:
+                                  name: *app
 
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /.cache
-            subPath: cache
-          - path: /.npm
-            subPath: npm
-          - path: /tmp
-            subPath: tmp
+                        probes:
+                            liveness:
+                                enabled: true
+                                custom: true
+                                spec:
+                                    httpGet:
+                                        path: /health/liveliness
+                                        port: &port 4000
+                                    initialDelaySeconds: 30
+                                    periodSeconds: 60
+                                    timeoutSeconds: 10
+                                    failureThreshold: 3
+                            readiness:
+                                enabled: true
+                                custom: true
+                                spec:
+                                    httpGet:
+                                        path: /health/readiness
+                                        port: *port
+                                    initialDelaySeconds: 5
+                                    periodSeconds: 5
+                                    timeoutSeconds: 5
+                                    failureThreshold: 3
+                        securityContext:
+                            allowPrivilegeEscalation: false
+                            readOnlyRootFilesystem: true
+                            capabilities: { drop: ["ALL"] }
+                        resources:
+                            requests:
+                                cpu: 10m
+                            limits:
+                                memory: 1Gi
 
-      prisma-client:
-        type: emptyDir
-        globalMounts:
-          - path: /usr/local/lib/python3.13/site-packages/prisma
-            subPath: prisma
+        service:
+            app:
+                controller: *app
+                ports:
+                    http:
+                        port: 80
+                        targetPort: *port
+
+        route:
+            main:
+                hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+                parentRefs:
+                    - name: internal
+                      namespace: network
+                      sectionName: https
+                rules:
+                    - backendRefs:
+                          - identifier: app
+                            port: 80
+
+        persistence:
+            config:
+                type: configMap
+                name: litellm-configmap
+                globalMounts:
+                    - path: /app/config.yaml
+                      subPath: config.yaml
+
+            cache:
+                type: emptyDir
+                globalMounts:
+                    - path: /.cache
+                      subPath: cache
+                    - path: /.npm
+                      subPath: npm
+                    - path: /tmp
+                      subPath: tmp
+
+            prisma-client:
+                type: emptyDir
+                globalMounts:
+                    - path: /usr/local/lib/python3.13/site-packages/prisma
+                      subPath: prisma

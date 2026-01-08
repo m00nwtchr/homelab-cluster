@@ -3,28 +3,28 @@
 version: "3"
 
 set:
-  - pipefail
+    - pipefail
 shopt:
-  - globstar
+    - globstar
 
 includes:
-  flux: .taskfiles/flux/Taskfile.yaml
-  k8s: .taskfiles/k8s/Taskfile.yaml
-  k8s-bootstrap: .taskfiles/k8s-bootstrap/Taskfile.yaml
-  kanidm: .taskfiles/kanidm/Taskfile.yaml
-  sops: .taskfiles/sops/Taskfile.yaml
-  talos: .taskfiles/talos/Taskfile.yaml
+    flux: .taskfiles/flux/Taskfile.yaml
+    k8s: .taskfiles/k8s/Taskfile.yaml
+    k8s-bootstrap: .taskfiles/k8s-bootstrap/Taskfile.yaml
+    kanidm: .taskfiles/kanidm/Taskfile.yaml
+    sops: .taskfiles/sops/Taskfile.yaml
+    talos: .taskfiles/talos/Taskfile.yaml
 #  volsync: .taskfiles/volsync/Taskfile.yaml
 
 vars:
-  K8S_DIR: "{{.ROOT_DIR}}/kubernetes"
-  TALOS_DIR: "{{.ROOT_DIR}}/talos"
+    K8S_DIR: "{{.ROOT_DIR}}/kubernetes"
+    TALOS_DIR: "{{.ROOT_DIR}}/talos"
 
 env:
-#  KUBECONFIG: "{{.K8S_DIR}}/kubeconfig"
-  TALOSCONFIG: "{{.TALOS_DIR}}/talosconfig"
+    #  KUBECONFIG: "{{.K8S_DIR}}/kubeconfig"
+    TALOSCONFIG: "{{.TALOS_DIR}}/talosconfig"
 
 tasks:
-  default:
-    silent: true
-    cmd: task --list
+    default:
+        silent: true
+        cmd: task --list

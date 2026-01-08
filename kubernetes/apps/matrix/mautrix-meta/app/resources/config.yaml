@@ -1,116 +1,117 @@
 network:
-  mode: messenger
-  displayname_template: {{ "'{{or .DisplayName .Username \"Unknown user\"}}'" }}
+    mode: messenger
+    displayname_template:
+        { { '''{{or .DisplayName .Username "Unknown user"}}''' } }
 
 bridge:
-  command_prefix: '!meta'
-  personal_filtering_spaces: true
-  private_chat_portal_meta: false
-  async_events: false
-  split_portals: false
-  resend_bridge_info: false
+    command_prefix: "!meta"
+    personal_filtering_spaces: true
+    private_chat_portal_meta: false
+    async_events: false
+    split_portals: false
+    resend_bridge_info: false
 
-  bridge_matrix_leave: false
-  tag_only_on_create: true
-  mute_only_on_create: false
+    bridge_matrix_leave: false
+    tag_only_on_create: true
+    mute_only_on_create: false
 
-  permissions:
-    "*": relay
-    "${SECRET_DOMAIN}": user
-    "@m00n:${SECRET_DOMAIN}": admin
+    permissions:
+        "*": relay
+        "${SECRET_DOMAIN}": user
+        "@m00n:${SECRET_DOMAIN}": admin
 
 database:
-  type: postgres
-  uri: postgres://${APP}@postgres-rw.postgres.svc/${APP}?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
-  max_open_conns: 5
-  max_idle_conns: 1
-  max_conn_idle_time: null
-  max_conn_lifetime: null
+    type: postgres
+    uri: postgres://${APP}@postgres-rw.postgres.svc/${APP}?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
+    max_open_conns: 5
+    max_idle_conns: 1
+    max_conn_idle_time: null
+    max_conn_lifetime: null
 
 homeserver:
-  address: http://continuwuity.matrix.svc
-  domain: "${SECRET_DOMAIN}"
-  status_endpoint:
-  message_send_checkpoint_endpoint:
-  # Does the homeserver support https://github.com/matrix-org/matrix-spec-proposals/pull/2246?
-  async_media: false
-  websocket: false
-  ping_interval_seconds: 0
+    address: http://continuwuity.matrix.svc
+    domain: "${SECRET_DOMAIN}"
+    status_endpoint:
+    message_send_checkpoint_endpoint:
+    # Does the homeserver support https://github.com/matrix-org/matrix-spec-proposals/pull/2246?
+    async_media: false
+    websocket: false
+    ping_interval_seconds: 0
 
 appservice:
-  address: http://${APP}.matrix.svc
-  public_address: "https://${APP}.${SECRET_DOMAIN}"
+    address: http://${APP}.matrix.svc
+    public_address: "https://${APP}.${SECRET_DOMAIN}"
 
-  hostname: "[::]"
-  port: 8000
+    hostname: "[::]"
+    port: 8000
 
-  id: meta
-  bot:
-    username: metabot
-    displayname: Meta bridge bot
-    avatar: mxc://maunium.net/DxpVrwwzPUwaUSazpsjXgcKB
+    id: meta
+    bot:
+        username: metabot
+        displayname: Meta bridge bot
+        avatar: mxc://maunium.net/DxpVrwwzPUwaUSazpsjXgcKB
 
-  ephemeral_events: true
-  async_transactions: false
-  as_token: "{{ .as_token }}"
-  hs_token: "{{ .hs_token }}"
-  username_template: {{ "\"meta_{{.}}\"" }}
+    ephemeral_events: true
+    async_transactions: false
+    as_token: "{{ .as_token }}"
+    hs_token: "{{ .hs_token }}"
+    username_template: { { '"meta_{{.}}"' } }
 
 matrix:
-  message_status_events: false
-  delivery_receipts: false
-  message_error_notices: true
-  sync_direct_chat_list: true
-  federate_rooms: false
-  upload_file_threshold: 5242880
+    message_status_events: false
+    delivery_receipts: false
+    message_error_notices: true
+    sync_direct_chat_list: true
+    federate_rooms: false
+    upload_file_threshold: 5242880
 
 public_media:
-  enabled: false
-  signing_key: "{{ .signing_key }}"
-  expiry: 0
-  hash_length: 32
+    enabled: false
+    signing_key: "{{ .signing_key }}"
+    expiry: 0
+    hash_length: 32
 
 direct_media:
-  enabled: true
-  server_name: "${APP}.${SECRET_DOMAIN}"
-  allow_proxy: true
-  server_key: "{{ .server_key }}"
+    enabled: true
+    server_name: "${APP}.${SECRET_DOMAIN}"
+    allow_proxy: true
+    server_key: "{{ .server_key }}"
 
 # See https://docs.mau.fi/bridges/general/backfill.html for more details.
 backfill:
-  enabled: true
-  max_initial_messages: 50
-  max_catchup_messages: 500
-  unread_hours_threshold: 720
-  threads:
+    enabled: true
     max_initial_messages: 50
+    max_catchup_messages: 500
+    unread_hours_threshold: 720
+    threads:
+        max_initial_messages: 50
 
 double_puppet:
-  # See https://docs.mau.fi/bridges/general/double-puppeting.html for instructions.
-  secrets:
-    "${SECRET_DOMAIN}": "as_token:{{ .double_puppet_token }}"
+    # See https://docs.mau.fi/bridges/general/double-puppeting.html for instructions.
+    secrets:
+        "${SECRET_DOMAIN}": "as_token:{{ .double_puppet_token }}"
 # See https://docs.mau.fi/bridges/general/end-to-bridge-encryption.html for more info.
 encryption:
-  allow: true
-  default: true
-  require: true
-  allow_key_sharing: true
-  pickle_key: "{{ .pickle_key }}"
-  delete_keys:
-    delete_outbound_on_ack: false
-    dont_store_outbound: true
-    ratchet_on_decrypt: true
-    delete_fully_used_on_decrypt: true
-    delete_prev_on_new_session: true
-    delete_on_device_delete: true
-    periodically_delete_expired: true
-    delete_outdated_inbound: true
-  verification_levels:
-    receive: cross-signed-tofu
-    send: cross-signed-tofu
-    share: cross-signed-tofu
+    allow: true
+    default: true
+    require: true
+    allow_key_sharing: true
+    pickle_key: "{{ .pickle_key }}"
+    delete_keys:
+        delete_outbound_on_ack: false
+        dont_store_outbound: true
+        ratchet_on_decrypt: true
+        delete_fully_used_on_decrypt: true
+        delete_prev_on_new_session: true
+        delete_on_device_delete: true
+        periodically_delete_expired: true
+        delete_outdated_inbound: true
+    verification_levels:
+        receive: cross-signed-tofu
+        send: cross-signed-tofu
+        share: cross-signed-tofu
 logging:
-  min_level: info
-  writers:
-    - type: stdout
-      format: pretty-colored
+    min_level: info
+    writers:
+        - type: stdout
+          format: pretty-colored

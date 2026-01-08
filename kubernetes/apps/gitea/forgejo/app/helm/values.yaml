@@ -1,161 +1,161 @@
 ---
 httpRoute:
-  enabled: true
-  hostnames: [ "git.${SECRET_DOMAIN}" ]
-  parentRefs:
-    - name: external
-      namespace: network
-      sectionName: https
-    - name: internal
-      namespace: network
-      sectionName: https
-  matches:
-    timeouts:
-      request: 300s
+    enabled: true
+    hostnames: ["git.${SECRET_DOMAIN}"]
+    parentRefs:
+        - name: external
+          namespace: network
+          sectionName: https
+        - name: internal
+          namespace: network
+          sectionName: https
+    matches:
+        timeouts:
+            request: 300s
 
 image:
-  rootless: true
-  registry: code.forgejo.org
-  repository: forgejo/forgejo
-  tag: 13.0.2-rootless
-  digest: sha256:a704cc203d78a854e0887e08fcbd7a45f9bc2b5fd8551c88b914b044792c4b1b
+    rootless: true
+    registry: code.forgejo.org
+    repository: forgejo/forgejo
+    tag: 13.0.2-rootless
+    digest: sha256:a704cc203d78a854e0887e08fcbd7a45f9bc2b5fd8551c88b914b044792c4b1b
 
 gitea:
-  admin:
-      username: ""
-  #    existingSecret: forgejo-admin-secret
-  #    email: "m00n@example.com"
+    admin:
+        username: ""
+    #    existingSecret: forgejo-admin-secret
+    #    email: "m00n@example.com"
 
-  oauth:
-    - name: kanidm
-      provider: openidConnect
-      existingSecret: kanidm-forgejo-oidc
-      autoDiscoverUrl: "https://idm.${SECRET_DOMAIN}/oauth2/openid/forgejo/.well-known/openid-configuration"
+    oauth:
+        - name: kanidm
+          provider: openidConnect
+          existingSecret: kanidm-forgejo-oidc
+          autoDiscoverUrl: "https://idm.${SECRET_DOMAIN}/oauth2/openid/forgejo/.well-known/openid-configuration"
 
-  config:
-    database:
-      DB_TYPE: postgres
+    config:
+        database:
+            DB_TYPE: postgres
 
-      HOST: postgres-rw.postgres.svc:5432
-      USER: forgejo
-      NAME: forgejo
-      SSL_MODE: verify-full
+            HOST: postgres-rw.postgres.svc:5432
+            USER: forgejo
+            NAME: forgejo
+            SSL_MODE: verify-full
 
-    server:
-      APP_DATA_PATH: /data/gitea
-      ROOT_URL: https://git.${SECRET_DOMAIN}
-      START_SSH_SERVER: true
-      SSH_SERVER_HOST_KEYS: ssh/ssh_host_ed25519_key
-    lfs:
-      PATH: /data/git/lfs
-    repository:
-      ROOT: /data/git/repositories
-    repository.signing:
-      FORMAT: ssh
-      SIGNING_KEY: /data/ssh/id_ecdsa.pub
-      SIGNING_NAME: "Forgejo"
-      SIGNING_EMAIL: "forgejo@${SECRET_DOMAIN}"
+        server:
+            APP_DATA_PATH: /data/gitea
+            ROOT_URL: https://git.${SECRET_DOMAIN}
+            START_SSH_SERVER: true
+            SSH_SERVER_HOST_KEYS: ssh/ssh_host_ed25519_key
+        lfs:
+            PATH: /data/git/lfs
+        repository:
+            ROOT: /data/git/repositories
+        repository.signing:
+            FORMAT: ssh
+            SIGNING_KEY: /data/ssh/id_ecdsa.pub
+            SIGNING_NAME: "Forgejo"
+            SIGNING_EMAIL: "forgejo@${SECRET_DOMAIN}"
 
-      INITIAL_COMMIT: pubkey
-      CRUD_ACTIONS: pubkey, parentsigned
-      WIKI: never
-      MERGES: pubkey, basesigned, commitssigned
-    indexer:
-      ISSUE_INDEXER_TYPE: bleve
-      REPO_INDEXER_ENABLED: true
-    service:
-      ALLOW_ONLY_EXTERNAL_REGISTRATION: true
-      ENABLE_INTERNAL_SIGNIN: false
-      SHOW_REGISTRATION_BUTTON: false
-      ENABLE_PASSWORD_SIGNIN_FORM: false
-      ENABLE_NOTIFY_MAIL: true
-    openid:
-      ENABLE_OPENID_SIGNIN: false
-      ENABLE_OPENID_SIGNUP: false
-    queue:
-      TYPE: redis
-      CONN_STR: redis://dragonfly.database.svc:6379/14?pool_size=100&idle_timeout=180s
-    session:
-      PROVIDER: redis
-      PROVIDER_CONFIG: redis://dragonfly.database.svc:6379/14?pool_size=100&idle_timeout=180s
-    cache:
-      ENABLED: true
-      ADAPTER: redis
-      HOST: redis://dragonfly.database.svc:6379/14?pool_size=100&idle_timeout=180s
-    actions:
-      ENABLED: true
-    mailer:
-      ENABLED: true
-      FROM: Forgejo <forgejo@${SECRET_DOMAIN}>
-      PROTOCOL: smtps
-      SMTP_ADDR: smtp.migadu.com
-      SMTP_PORT: 465
-      USER: forgejo@${SECRET_DOMAIN}
+            INITIAL_COMMIT: pubkey
+            CRUD_ACTIONS: pubkey, parentsigned
+            WIKI: never
+            MERGES: pubkey, basesigned, commitssigned
+        indexer:
+            ISSUE_INDEXER_TYPE: bleve
+            REPO_INDEXER_ENABLED: true
+        service:
+            ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+            ENABLE_INTERNAL_SIGNIN: false
+            SHOW_REGISTRATION_BUTTON: false
+            ENABLE_PASSWORD_SIGNIN_FORM: false
+            ENABLE_NOTIFY_MAIL: true
+        openid:
+            ENABLE_OPENID_SIGNIN: false
+            ENABLE_OPENID_SIGNUP: false
+        queue:
+            TYPE: redis
+            CONN_STR: redis://dragonfly.database.svc:6379/14?pool_size=100&idle_timeout=180s
+        session:
+            PROVIDER: redis
+            PROVIDER_CONFIG: redis://dragonfly.database.svc:6379/14?pool_size=100&idle_timeout=180s
+        cache:
+            ENABLED: true
+            ADAPTER: redis
+            HOST: redis://dragonfly.database.svc:6379/14?pool_size=100&idle_timeout=180s
+        actions:
+            ENABLED: true
+        mailer:
+            ENABLED: true
+            FROM: Forgejo <forgejo@${SECRET_DOMAIN}>
+            PROTOCOL: smtps
+            SMTP_ADDR: smtp.migadu.com
+            SMTP_PORT: 465
+            USER: forgejo@${SECRET_DOMAIN}
 
-  additionalConfigFromEnvs:
-    - name: FORGEJO__MAILER__PASSWD
-      valueFrom:
-        secretKeyRef:
-          name: forgejo-migadu
-          key: password
+    additionalConfigFromEnvs:
+        - name: FORGEJO__MAILER__PASSWD
+          valueFrom:
+              secretKeyRef:
+                  name: forgejo-migadu
+                  key: password
 
 deployment:
-  env:
-    - name: PGSSLROOTCERT
-      value: /var/run/secrets/root-ca/ca.crt
-    - name: PGSSLCERT
-      value: /var/run/secrets/postgresql/tls.crt
-    - name: PGSSLKEY
-      value: /var/run/secrets/postgresql/tls.key
-    - name: SSH_AUTH_SOCK
-      value: /tmp/ssh-tpm-agent.sock
+    env:
+        - name: PGSSLROOTCERT
+          value: /var/run/secrets/root-ca/ca.crt
+        - name: PGSSLCERT
+          value: /var/run/secrets/postgresql/tls.crt
+        - name: PGSSLKEY
+          value: /var/run/secrets/postgresql/tls.key
+        - name: SSH_AUTH_SOCK
+          value: /tmp/ssh-tpm-agent.sock
 
 service:
-  ssh:
-    clusterIP: 2001:cafe:43::ef37
+    ssh:
+        clusterIP: 2001:cafe:43::ef37
 
 valkey-cluster:
-  enabled: false
+    enabled: false
 postgresql-ha:
-  enabled: false
+    enabled: false
 
 persistence:
-  create: false
-  claimName: ${APP}
+    create: false
+    claimName: ${APP}
 
 extraVolumes:
-  - name: git
-    persistentVolumeClaim:
-      claimName: git
+    - name: git
+      persistentVolumeClaim:
+          claimName: git
 
-  - name: postgres-forgejo
-    secret:
-      defaultMode: 0600
-      secretName: postgres-forgejo-cert
-  - name: root-ca
-    secret:
-      defaultMode: 0600
-      secretName: root-ca
+    - name: postgres-forgejo
+      secret:
+          defaultMode: 0600
+          secretName: postgres-forgejo-cert
+    - name: root-ca
+      secret:
+          defaultMode: 0600
+          secretName: root-ca
 
-  - name: forgejo-ssh
-    secret:
-      secretName: forgejo-ssh
+    - name: forgejo-ssh
+      secret:
+          secretName: forgejo-ssh
 
 extraInitVolumeMounts:
-  - name: postgres-forgejo
-    mountPath: "/var/run/secrets/postgresql"
-  - name: root-ca
-    mountPath: "/var/run/secrets/root-ca"
+    - name: postgres-forgejo
+      mountPath: "/var/run/secrets/postgresql"
+    - name: root-ca
+      mountPath: "/var/run/secrets/root-ca"
 
 extraContainerVolumeMounts:
-  - name: git
-    mountPath: "/data/git/"
+    - name: git
+      mountPath: "/data/git/"
 
-  - name: postgres-forgejo
-    mountPath: "/var/run/secrets/postgresql"
-  - name: root-ca
-    mountPath: "/var/run/secrets/root-ca"
+    - name: postgres-forgejo
+      mountPath: "/var/run/secrets/postgresql"
+    - name: root-ca
+      mountPath: "/var/run/secrets/root-ca"
 
-  - name: forgejo-ssh
-    mountPath: "/data/gitea/ssh/ssh_host_ed25519_key"
-    subPath: ssh_host_ed25519_key
+    - name: forgejo-ssh
+      mountPath: "/data/gitea/ssh/ssh_host_ed25519_key"
+      subPath: ssh_host_ed25519_key

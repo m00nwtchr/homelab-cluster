@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    tailscale.com/tailnet-fqdn: "worker.tail096cd8.ts.net"
-#    tailscale.com/proxy-group: "<ProxyGroup name>"
-  name: ts-ollama
+    annotations:
+        tailscale.com/tailnet-fqdn: "worker.tail096cd8.ts.net"
+    #    tailscale.com/proxy-group: "<ProxyGroup name>"
+    name: ts-ollama
 spec:
-  externalName: placeholder # any value - will be overwritten by the operator
-  type: ExternalName
-  ports:
-    - port: 11434
-      protocol: TCP
-      name: http
+    externalName: placeholder # any value - will be overwritten by the operator
+    type: ExternalName
+    ports:
+        - port: 11434
+          protocol: TCP
+          name: http

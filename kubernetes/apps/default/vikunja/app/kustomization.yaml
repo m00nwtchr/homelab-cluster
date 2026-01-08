@@ -3,12 +3,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - externalsecret.yaml
-  - helmrelease.yaml
-  - secret.sops.yaml
+    - externalsecret.yaml
+    - helmrelease.yaml
+    - secret.sops.yaml
 configMapGenerator:
-  - name: vikunja-configmap
-    files:
-      - ./resources/config.yaml
+    - name: vikunja-configmap
+      files:
+          - ./resources/config.yaml
 configurations:
-  - ./resources/kustomizeconfig.yaml
+    - ./resources/kustomizeconfig.yaml

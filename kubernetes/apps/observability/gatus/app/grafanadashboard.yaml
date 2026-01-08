@@ -3,10 +3,10 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: gatus
+    name: gatus
 spec:
-  allowCrossNamespaceImport: true
-  instanceSelector:
-    matchLabels:
-      grafana.internal/instance: grafana
-  url: https://raw.githubusercontent.com/TwiN/gatus/refs/heads/master/.examples/docker-compose-grafana-prometheus/grafana/provisioning/dashboards/gatus.json
+    allowCrossNamespaceImport: true
+    instanceSelector:
+        matchLabels:
+            grafana.internal/instance: grafana
+    url: https://raw.githubusercontent.com/TwiN/gatus/refs/heads/master/.examples/docker-compose-grafana-prometheus/grafana/provisioning/dashboards/gatus.json

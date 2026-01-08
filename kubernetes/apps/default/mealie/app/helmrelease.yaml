@@ -3,110 +3,109 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app mealie
+    name: &app mealie
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  values:
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: app-template
+        namespace: flux-system
+    values:
+        defaultPodOptions:
+            securityContext:
+                runAsUser: 1000
+                runAsGroup: 1000
+                runAsNonRoot: true
+                fsGroup: 1000
+                fsGroupChangePolicy: "OnRootMismatch"
 
-    controllers:
-      *app :
-        type: statefulset
-        containers:
-          app:
-            env:
-              TZ: ${TZ}
-              HOST: "::"
-              BASE_URL: https://${APP}.${SECRET_DOMAIN}
+        controllers:
+            *app :
+                type: statefulset
+                containers:
+                    app:
+                        env:
+                            TZ: ${TZ}
+                            HOST: "::"
+                            BASE_URL: https://${APP}.${SECRET_DOMAIN}
 
-              DB_ENGINE: postgres
-              POSTGRES_URL_OVERRIDE: postgresql://mealie:dummy@postgres-rw.postgres.svc:5432/mealie?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
+                            DB_ENGINE: postgres
+                            POSTGRES_URL_OVERRIDE: postgresql://mealie:dummy@postgres-rw.postgres.svc:5432/mealie?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
 
-              ALLOW_PASSWORD_LOGIN: "false"
-              OIDC_AUTH_ENABLED: "true"
-              OIDC_CONFIGURATION_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
-              OIDC_CLIENT_ID: *app
-              OIDC_CLIENT_SECRET:
-                valueFrom:
-                  secretKeyRef:
-                    name: kanidm-${APP}-oidc
-                    key: client-secret
-              OIDC_USER_GROUP: "users@idm.${SECRET_DOMAIN}"
-              OIDC_ADMIN_GROUP: "admins@idm.${SECRET_DOMAIN}"
-              OIDC_AUTO_REDIRECT: "true"
-              OIDC_SCOPES_OVERRIDE: "openid profile email groups"
+                            ALLOW_PASSWORD_LOGIN: "false"
+                            OIDC_AUTH_ENABLED: "true"
+                            OIDC_CONFIGURATION_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
+                            OIDC_CLIENT_ID: *app
+                            OIDC_CLIENT_SECRET:
+                                valueFrom:
+                                    secretKeyRef:
+                                        name: kanidm-${APP}-oidc
+                                        key: client-secret
+                            OIDC_USER_GROUP: "users@idm.${SECRET_DOMAIN}"
+                            OIDC_ADMIN_GROUP: "admins@idm.${SECRET_DOMAIN}"
+                            OIDC_AUTO_REDIRECT: "true"
+                            OIDC_SCOPES_OVERRIDE: "openid profile email groups"
 
-              OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
-              OPENAI_MODEL: llama3.1:8b
-              OPENAI_ENABLE_IMAGE_SERVICES: false
+                            OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
+                            OPENAI_MODEL: llama3.1:8b
+                            OPENAI_ENABLE_IMAGE_SERVICES: false
 
-              LOG_CONFIG_OVERRIDE: /config/logconf.json
-            envFrom:
-              - secretRef:
-                  name: *app
-            image:
-              repository: ghcr.io/mealie-recipes/mealie
-              tag: v3.5.0@sha256:7f776bbb5457db7f58951c11e3aa881f0167675a78459d7a7f2cd5e42d181fa5
-            #            probes:
-            #              liveness:
-            #                enabled: true
-            #                type: HTTP
-            #              readiness:
-            #                enabled: true
-            #                type: HTTP
-            #              startup:
-            #                enabled: true
-            #                spec:
-            #                  failureThreshold: 30
-            #                  periodSeconds: 5
-            #                type: HTTP
-            resources:
-              requests:
-                memory: 250Mi
-                cpu: 50m
-              limits:
-                memory: 500Mi
+                            LOG_CONFIG_OVERRIDE: /config/logconf.json
+                        envFrom:
+                            - secretRef:
+                                  name: *app
+                        image:
+                            repository: ghcr.io/mealie-recipes/mealie
+                            tag: v3.5.0@sha256:7f776bbb5457db7f58951c11e3aa881f0167675a78459d7a7f2cd5e42d181fa5
+                        #            probes:
+                        #              liveness:
+                        #                enabled: true
+                        #                type: HTTP
+                        #              readiness:
+                        #                enabled: true
+                        #                type: HTTP
+                        #              startup:
+                        #                enabled: true
+                        #                spec:
+                        #                  failureThreshold: 30
+                        #                  periodSeconds: 5
+                        #                type: HTTP
+                        resources:
+                            requests:
+                                memory: 250Mi
+                                cpu: 50m
+                            limits:
+                                memory: 500Mi
 
+        service:
+            app:
+                controller: *app
+                ipFamilies: [IPv4]
+                ports:
+                    http:
+                        port: 80
+                        targetPort: 9000
 
-    service:
-      app:
-        controller: *app
-        ipFamilies: [ IPv4 ]
-        ports:
-          http:
-            port: 80
-            targetPort: 9000
+        route:
+            app:
+                hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+                parentRefs:
+                    - name: external
+                      namespace: network
+                      sectionName: https
+                    - name: internal
+                      namespace: network
+                      sectionName: https
 
-    route:
-      app:
-        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
-        parentRefs:
-          - name: external
-            namespace: network
-            sectionName: https
-          - name: internal
-            namespace: network
-            sectionName: https
+        persistence:
+            config:
+                type: configMap
+                name: mealie-configmap
+                globalMounts:
+                    - path: /config/logconf.json
+                      subPath: logconf.json
 
-    persistence:
-      config:
-        type: configMap
-        name: mealie-configmap
-        globalMounts:
-          - path: /config/logconf.json
-            subPath: logconf.json
-
-      data:
-        existingClaim: *app
-        globalMounts:
-          - path: /app/data
+            data:
+                existingClaim: *app
+                globalMounts:
+                    - path: /app/data

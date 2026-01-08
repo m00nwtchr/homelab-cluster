@@ -3,107 +3,107 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app searxng
+    name: &app searxng
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  values:
-    controllers:
-      *app :
-        strategy: RollingUpdate
-        annotations:
-          reloader.stakater.com/auto: 'true'
-        containers:
-          main:
-            image:
-              repository: ghcr.io/searxng/searxng
-              tag: latest@sha256:13de9d465bd2d9da6a6718f2a57d96e6e5fa3b8aba3c0bec077a5b7e5f24e4e9
-            command:
-              - /usr/local/searxng/.venv/bin/granian
-              - searx.webapp:app
-            env:
-              SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
-              SEARXNG_PORT: &port 8080
-            envFrom:
-              - secretRef:
-                  name: *app
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /stats
-                    port: *port
-                  initialDelaySeconds: 5
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-            resources:
-              requests:
-                cpu: 10m
-                memory: 256Mi
-              limits:
-                memory: 2Gi
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: app-template
+        namespace: flux-system
+    values:
+        controllers:
+            *app :
+                strategy: RollingUpdate
+                annotations:
+                    reloader.stakater.com/auto: "true"
+                containers:
+                    main:
+                        image:
+                            repository: ghcr.io/searxng/searxng
+                            tag: latest@sha256:13de9d465bd2d9da6a6718f2a57d96e6e5fa3b8aba3c0bec077a5b7e5f24e4e9
+                        command:
+                            - /usr/local/searxng/.venv/bin/granian
+                            - searx.webapp:app
+                        env:
+                            SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
+                            SEARXNG_PORT: &port 8080
+                        envFrom:
+                            - secretRef:
+                                  name: *app
+                        probes:
+                            liveness: &probes
+                                enabled: true
+                                custom: true
+                                spec:
+                                    httpGet:
+                                        path: /stats
+                                        port: *port
+                                    initialDelaySeconds: 5
+                                    periodSeconds: 10
+                                    timeoutSeconds: 1
+                                    failureThreshold: 3
+                            readiness: *probes
+                        resources:
+                            requests:
+                                cpu: 10m
+                                memory: 256Mi
+                            limits:
+                                memory: 2Gi
+                        securityContext:
+                            allowPrivilegeEscalation: false
+                            readOnlyRootFilesystem: true
+                            capabilities:
+                                drop:
+                                    - ALL
+
+        defaultPodOptions:
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
+                runAsNonRoot: true
+                runAsUser: 977
+                runAsGroup: 977
 
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 977
-        runAsGroup: 977
+        service:
+            app:
+                ports:
+                    http:
+                        port: 80
+                        targetPort: *port
 
-    service:
-      app:
-        ports:
-          http:
-            port: 80
-            targetPort: *port
+        route:
+            app:
+                hostnames:
+                    - search.${SECRET_DOMAIN}
+                annotations:
+                    gethomepage.dev/enabled: "true"
+                    gethomepage.dev/group: Home
+                    gethomepage.dev/name: SearXNG Search
+                    gethomepage.dev/icon: searxng.svg
+                parentRefs:
+                    - name: external
+                      namespace: network
+                      sectionName: https
+                    - name: internal
+                      namespace: network
+                      sectionName: https
+                rules:
+                    - backendRefs:
+                          - identifier: app
+                            port: 80
 
-    route:
-      app:
-        hostnames:
-          - search.${SECRET_DOMAIN}
-        annotations:
-          gethomepage.dev/enabled: 'true'
-          gethomepage.dev/group: Home
-          gethomepage.dev/name: SearXNG Search
-          gethomepage.dev/icon: searxng.svg
-        parentRefs:
-          - name: external
-            namespace: network
-            sectionName: https
-          - name: internal
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
-
-    persistence:
-      config:
-        type: configMap
-        name: searxng-configmap
-        globalMounts:
-          - path: /etc/searxng/settings.yml
-            subPath: settings.yaml
-          - path: /etc/searxng/limiter.toml
-            subPath: limiter.toml
-      tmpfs:
-        enabled: true
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
-            subPath: tmp
-          - path: /etc/searxng
-            subPath: searxng
+        persistence:
+            config:
+                type: configMap
+                name: searxng-configmap
+                globalMounts:
+                    - path: /etc/searxng/settings.yml
+                      subPath: settings.yaml
+                    - path: /etc/searxng/limiter.toml
+                      subPath: limiter.toml
+            tmpfs:
+                enabled: true
+                type: emptyDir
+                globalMounts:
+                    - path: /tmp
+                      subPath: tmp
+                    - path: /etc/searxng
+                      subPath: searxng

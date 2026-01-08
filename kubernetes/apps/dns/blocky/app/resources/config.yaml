@@ -1,61 +1,61 @@
 upstreams:
-  groups:
-    default:
-      - https://dns.quad9.net/dns-query
-      - https://base.dns.mullvad.net/dns-query
+    groups:
+        default:
+            - https://dns.quad9.net/dns-query
+            - https://base.dns.mullvad.net/dns-query
 
 # optional: definition, which DNS resolver(s) should be used for queries to the domain (with all sub-domains). Multiple resolvers must be separated by a comma
 # Example: Query client.fritz.box will ask DNS server 192.168.178.1. This is necessary for local network, to resolve clients by host name
 conditional:
-  fallbackUpstream: true
-  mapping:
-    ${SECRET_DOMAIN}: tcp+udp:2001:cafe:43::b
+    fallbackUpstream: true
+    mapping:
+        ${SECRET_DOMAIN}: tcp+udp:2001:cafe:43::b
 
 blocking:
-  denylists:
-    hagezi:
-      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/pro.txt
-      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/tif.txt
-      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/doh.txt
-  clientGroupsBlock:
-    default:
-      - hagezi
-    10.42.0.0/16:
-    2001:cafe:42::/56:
+    denylists:
+        hagezi:
+            - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/pro.txt
+            - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/tif.txt
+            - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/doh.txt
+    clientGroupsBlock:
+        default:
+            - hagezi
+        10.42.0.0/16:
+        2001:cafe:42::/56:
 
 caching:
-#  maxItemsCount: 10_000
-  prefetching: true
-  minTime: 60s
+    #  maxItemsCount: 10_000
+    prefetching: true
+    minTime: 60s
 #  prefetchMaxItemsCount: 1_000
 #  cacheTimeNegative: 10s
 
 clientLookup:
-  upstream: 192.168.0.1
+    upstream: 192.168.0.1
 
 prometheus:
-  enable: true
+    enable: true
 
 queryLog:
-  type: timescale
-  target: postgresql://blocky@postgres-rw.postgres.svc:5432/blocky?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
+    type: timescale
+    target: postgresql://blocky@postgres-rw.postgres.svc:5432/blocky?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
 
 redis:
-  address: dragonfly.database.svc:6379
-  database: 9
-  connectionAttempts: 10
-  connectionCooldown: 3s
+    address: dragonfly.database.svc:6379
+    database: 9
+    connectionAttempts: 10
+    connectionCooldown: 3s
 
 bootstrapDns:
-  - upstream: https://dns.quad9.net/dns-query
-    ips:
-      - 2620:fe::fe
-      - 2620:fe::9
-  - upstream: https://base.dns.mullvad.net/dns-query
-    ips:
-      - 194.242.2.4
-      - 2a07:e340::4
+    - upstream: https://dns.quad9.net/dns-query
+      ips:
+          - 2620:fe::fe
+          - 2620:fe::9
+    - upstream: https://base.dns.mullvad.net/dns-query
+      ips:
+          - 194.242.2.4
+          - 2a07:e340::4
 
 ports:
-  dns: 53
-  http: 4000
+    dns: 53
+    http: 4000

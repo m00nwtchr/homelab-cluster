@@ -3,31 +3,31 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: cilium
+    name: cilium
 spec:
-  interval: 10m
-  layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-    operation: copy
-  url: oci://ghcr.io/home-operations/charts-mirror/cilium
-  ref:
-    tag: 1.18.4
-  verify:
-    provider: cosign
-    matchOIDCIdentity:
-      - issuer: '^https://token.actions.githubusercontent.com$'
-        subject: '^https://github.com/home-operations/charts-mirror.*$'
+    interval: 10m
+    layerSelector:
+        mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+        operation: copy
+    url: oci://ghcr.io/home-operations/charts-mirror/cilium
+    ref:
+        tag: 1.18.4
+    verify:
+        provider: cosign
+        matchOIDCIdentity:
+            - issuer: "^https://token.actions.githubusercontent.com$"
+              subject: "^https://github.com/home-operations/charts-mirror.*$"
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app cilium
+    name: &app cilium
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: *app
-  valuesFrom:
-    - kind: ConfigMap
-      name: cilium-values
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: *app
+    valuesFrom:
+        - kind: ConfigMap
+          name: cilium-values

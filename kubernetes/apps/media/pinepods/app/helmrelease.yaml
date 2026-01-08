@@ -3,105 +3,104 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app pinepods
+    name: &app pinepods
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  values:
-    controllers:
-      *app :
-        annotations:
-          reloader.stakater.com/auto: "true"
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: app-template
+        namespace: flux-system
+    values:
+        controllers:
+            *app :
+                annotations:
+                    reloader.stakater.com/auto: "true"
 
-        pod:
-          securityContext:
-#            runAsUser: 2000
-            runAsGroup: 2000
-            fsGroup: 2000
-            fsGroupChangePolicy: "OnRootMismatch"
+                pod:
+                    securityContext:
+                        #            runAsUser: 2000
+                        runAsGroup: 2000
+                        fsGroup: 2000
+                        fsGroupChangePolicy: "OnRootMismatch"
 
-        containers:
-          app:
-            image:
-              repository: madeofpendletonwool/pinepods
-              tag: 0.8.0@sha256:76be7d8245ba82f60e86af4055cae91c573a54f58046a787e85af31649ddf471
-            env:
-              TZ: "${TZ}"
-              PUID: 2000
-              PGID: 2000
-              # Basic Server Info
-              SEARCH_API_URL: 'https://search.pinepods.online/api/search'
-              PEOPLE_API_URL: 'https://people.pinepods.online'
+                containers:
+                    app:
+                        image:
+                            repository: madeofpendletonwool/pinepods
+                            tag: 0.8.0@sha256:76be7d8245ba82f60e86af4055cae91c573a54f58046a787e85af31649ddf471
+                        env:
+                            TZ: "${TZ}"
+                            PUID: 2000
+                            PGID: 2000
+                            # Basic Server Info
+                            SEARCH_API_URL: "https://search.pinepods.online/api/search"
+                            PEOPLE_API_URL: "https://people.pinepods.online"
 
-              VALKEY_HOST: dragonfly.database.svc.cluster.local
+                            VALKEY_HOST: dragonfly.database.svc.cluster.local
 
-              DB_TYPE: postgresql
-              DB_HOST: postgres-rw.postgres.svc.cluster.local
-              DB_PORT: 5432
-              DB_USER: *app
-              DB_NAME: *app
-              DB_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-postgres"
-                    key: password
+                            DB_TYPE: postgresql
+                            DB_HOST: postgres-rw.postgres.svc.cluster.local
+                            DB_PORT: 5432
+                            DB_USER: *app
+                            DB_NAME: *app
+                            DB_PASSWORD:
+                                valueFrom:
+                                    secretKeyRef:
+                                        name: "{{ .Release.Name }}-postgres"
+                                        key: password
 
+                        #            envFrom: *envFrom
+                        #            probes:
+                        #              liveness:
+                        #                enabled: true
+                        #              readiness:
+                        #                enabled: true
+                        #              startup:
+                        #                enabled: true
+                        #                spec:
+                        #                  failureThreshold: 30
+                        #                  periodSeconds: 5
+                        resources:
+                            requests:
+                                cpu: 10m
+                            limits:
+                                memory: 1Gi
 
-            #            envFrom: *envFrom
-#            probes:
-#              liveness:
-#                enabled: true
-#              readiness:
-#                enabled: true
-#              startup:
-#                enabled: true
-#                spec:
-#                  failureThreshold: 30
-#                  periodSeconds: 5
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 1Gi
+        service:
+            app:
+                controller: *app
+                ipFamilies: [IPv4]
+                ports:
+                    http:
+                        port: 80
+                        targetPort: 8040
 
-    service:
-      app:
-        controller: *app
-        ipFamilies: [IPv4]
-        ports:
-          http:
-            port: 80
-            targetPort: 8040
+        route:
+            app:
+                hostnames:
+                    - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+                parentRefs:
+                    - name: internal
+                      namespace: network
+                      sectionName: https
+                rules:
+                    - backendRefs:
+                          - identifier: app
+                            port: 80
 
-    route:
-      app:
-        hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
-        parentRefs:
-          - name: internal
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
+        persistence:
+            config:
+                existingClaim: *app
+                globalMounts:
+                    - path: /opt/pinepods
 
-    persistence:
-      config:
-        existingClaim: *app
-        globalMounts:
-          - path: /opt/pinepods
+            media:
+                existingClaim: media
+                globalMounts:
+                    - path: /opt/pinepods/downloads
+                      subPath: podcasts
 
-      media:
-        existingClaim: media
-        globalMounts:
-          - path: /opt/pinepods/downloads
-            subPath: podcasts
-
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /pinepods/cache
+            cache:
+                type: emptyDir
+                globalMounts:
+                    - path: /pinepods/cache

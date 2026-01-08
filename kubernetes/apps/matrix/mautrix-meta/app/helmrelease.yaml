@@ -3,95 +3,95 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app mautrix-meta
+    name: &app mautrix-meta
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  values:
-    defaultPodOptions:
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
-
-    controllers:
-      main:
-        type: statefulset
-        annotations:
-          reloader.stakater.com/auto: "true"
-
-        pod:
-          securityContext:
-            runAsUser: 1337
-            runAsGroup: 1337
-            runAsNonRoot: true
-            fsGroup: 1337
-            fsGroupChangePolicy: "OnRootMismatch"
-
-        containers:
-          app:
-            image:
-              repository: dock.mau.dev/mautrix/meta
-              tag: v0.2511.0@sha256:1cfaf8bc3ec9aa3ce1aeaddfa7b4e15e8f974cbd077d803db64e49220cc505e5
-            command: [ "/usr/bin/mautrix-meta" ]
-            args: [ "-c", "/config/config.yaml", "--no-update" ]
-            probes:
-              liveness: &probe
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /_matrix/mau/live
-                    port: &port 8000
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness:
-                <<: *probe
-                spec:
-                  httpGet:
-                    path: /_matrix/mau/ready
-                    port: *port
-            resources:
-              limits:
-                # cpu: 50M
-                memory: 256Gi
-              requests:
-                cpu: 50m
-                memory: 128Mi
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: app-template
+        namespace: flux-system
+    values:
+        defaultPodOptions:
             securityContext:
-              capabilities:
-                drop:
-                  - ALL
+                seccompProfile:
+                    type: RuntimeDefault
 
-    service:
-      app:
-        controller: main
-        publishNotReadyAddresses: true
-        ports:
-          http:
-            port: 80
-            targetPort: *port
+        controllers:
+            main:
+                type: statefulset
+                annotations:
+                    reloader.stakater.com/auto: "true"
 
-    route:
-      app:
-        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
-        parentRefs:
-          - name: external
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
+                pod:
+                    securityContext:
+                        runAsUser: 1337
+                        runAsGroup: 1337
+                        runAsNonRoot: true
+                        fsGroup: 1337
+                        fsGroupChangePolicy: "OnRootMismatch"
 
-    persistence:
-      config:
-        type: secret
-        name: mautrix-meta-config
-        globalMounts:
-          - path: /config/config.yaml
-            subPath: config.yaml
+                containers:
+                    app:
+                        image:
+                            repository: dock.mau.dev/mautrix/meta
+                            tag: v0.2511.0@sha256:1cfaf8bc3ec9aa3ce1aeaddfa7b4e15e8f974cbd077d803db64e49220cc505e5
+                        command: ["/usr/bin/mautrix-meta"]
+                        args: ["-c", "/config/config.yaml", "--no-update"]
+                        probes:
+                            liveness: &probe
+                                enabled: true
+                                custom: true
+                                spec:
+                                    httpGet:
+                                        path: /_matrix/mau/live
+                                        port: &port 8000
+                                    initialDelaySeconds: 0
+                                    periodSeconds: 10
+                                    timeoutSeconds: 1
+                                    failureThreshold: 3
+                            readiness:
+                                <<: *probe
+                                spec:
+                                    httpGet:
+                                        path: /_matrix/mau/ready
+                                        port: *port
+                        resources:
+                            limits:
+                                # cpu: 50M
+                                memory: 256Gi
+                            requests:
+                                cpu: 50m
+                                memory: 128Mi
+                        securityContext:
+                            capabilities:
+                                drop:
+                                    - ALL
+
+        service:
+            app:
+                controller: main
+                publishNotReadyAddresses: true
+                ports:
+                    http:
+                        port: 80
+                        targetPort: *port
+
+        route:
+            app:
+                hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+                parentRefs:
+                    - name: external
+                      namespace: network
+                      sectionName: https
+                rules:
+                    - backendRefs:
+                          - identifier: app
+                            port: 80
+
+        persistence:
+            config:
+                type: secret
+                name: mautrix-meta-config
+                globalMounts:
+                    - path: /config/config.yaml
+                      subPath: config.yaml

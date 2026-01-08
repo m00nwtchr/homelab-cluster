@@ -3,133 +3,137 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app home-assistant
+    name: &app home-assistant
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  values:
-    controllers:
-      home-assistant:
-        type: statefulset
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: app-template
+        namespace: flux-system
+    values:
+        controllers:
+            home-assistant:
+                type: statefulset
 
-        annotations:
-          reloader.stakater.com/auto: "true"
+                annotations:
+                    reloader.stakater.com/auto: "true"
 
-        #        pod:
-        #          annotations:
-        #            k8s.v1.cni.cncf.io/networks: |
-        #              [{
-        #                "name":"multus-lan",
-        #                "namespace": "network"
-        #              }]
+                #        pod:
+                #          annotations:
+                #            k8s.v1.cni.cncf.io/networks: |
+                #              [{
+                #                "name":"multus-lan",
+                #                "namespace": "network"
+                #              }]
 
-        containers:
-          app:
-            image:
-              repository: ghcr.io/home-operations/home-assistant
-              tag: 2025.11.2@sha256:ff7eb7c296bb514704804a6d68d67e6858edb4366ee38d1c3089e837230a9172
-            env:
-              TZ: ${TZ}
-              HOME_ASSISTANT__HACS_INSTALL: "true"
-              HASS_OPENID_CLIENT_SECRET:
-                valueFrom:
-                  secretKeyRef:
-                    name: kanidm-${APP}-oidc
-                    key: client-secret
+                containers:
+                    app:
+                        image:
+                            repository: ghcr.io/home-operations/home-assistant
+                            tag: 2025.11.2@sha256:ff7eb7c296bb514704804a6d68d67e6858edb4366ee38d1c3089e837230a9172
+                        env:
+                            TZ: ${TZ}
+                            HOME_ASSISTANT__HACS_INSTALL: "true"
+                            HASS_OPENID_CLIENT_SECRET:
+                                valueFrom:
+                                    secretKeyRef:
+                                        name: kanidm-${APP}-oidc
+                                        key: client-secret
 
-              HASS_RECORDER_DB_URL:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-postgres"
-                    key: url
+                            HASS_RECORDER_DB_URL:
+                                valueFrom:
+                                    secretKeyRef:
+                                        name: "{{ .Release.Name }}-postgres"
+                                        key: url
+                        securityContext:
+                            allowPrivilegeEscalation: false
+                            readOnlyRootFilesystem: true
+                            capabilities: { drop: ["ALL"] }
+                        resources:
+                            requests:
+                                cpu: 10m
+                            limits:
+                                memory: 2Gi
+
+        defaultPodOptions:
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: [ "ALL" ] }
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 2Gi
+                runAsNonRoot: true
+                runAsUser: 1000
+                runAsGroup: 1000
+                fsGroup: 1000
+                fsGroupChangePolicy: OnRootMismatch
 
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
+        service:
+            app:
+                controller: *app
+                ports:
+                    http:
+                        port: 80
+                        targetPort: 8123
 
-    service:
-      app:
-        controller: *app
-        ports:
-          http:
-            port: 80
-            targetPort: 8123
+        serviceMonitor:
+            app:
+                endpoints:
+                    - port: http
+                      scheme: http
+                      path: /api/prometheus
+                      interval: 1m
+                      authorization:
+                          credentials:
+                              name: *app
+                              key: access_token
 
-    serviceMonitor:
-      app:
-        endpoints:
-          - port: http
-            scheme: http
-            path: /api/prometheus
-            interval: 1m
-            authorization:
-              credentials:
-                name: *app
-                key: access_token
+        route:
+            app:
+                hostnames:
+                    [
+                        "{{ .Release.Name }}.${SECRET_DOMAIN}",
+                        "hass.${SECRET_DOMAIN}",
+                    ]
+                #        annotations:
+                #          gethomepage.dev/enabled: "true"
+                #          gethomepage.dev/group: Media
+                #          gethomepage.dev/name: Jellyfin
+                #          gethomepage.dev/icon: jellyfin.svg
+                #          gethomepage.dev/widget.type: jellyfin
+                #          gethomepage.dev/widget.enableBlocks: "true"
+                #          gethomepage.dev/widget.url: "http://jellyfin.media.svc"
+                #          gethomepage.dev/widget.key: "{{ \"{{HOMEPAGE_VAR_JELLYFIN_KEY}}\" }}"
+                parentRefs:
+                    - name: internal
+                      namespace: network
+                      sectionName: https
+                rules:
+                    - backendRefs:
+                          - identifier: app
+                            port: 80
 
-    route:
-      app:
-        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}", "hass.${SECRET_DOMAIN}" ]
-        #        annotations:
-        #          gethomepage.dev/enabled: "true"
-        #          gethomepage.dev/group: Media
-        #          gethomepage.dev/name: Jellyfin
-        #          gethomepage.dev/icon: jellyfin.svg
-        #          gethomepage.dev/widget.type: jellyfin
-        #          gethomepage.dev/widget.enableBlocks: "true"
-        #          gethomepage.dev/widget.url: "http://jellyfin.media.svc"
-        #          gethomepage.dev/widget.key: "{{ \"{{HOMEPAGE_VAR_JELLYFIN_KEY}}\" }}"
-        parentRefs:
-          - name: internal
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
+        persistence:
+            config:
+                type: configMap
+                name: home-assistant-configmap
+                globalMounts:
+                    - path: /config/configuration.yaml
+                      subPath: configuration.yaml
+            data:
+                existingClaim: *app
+                globalMounts:
+                    - path: /config
 
-    persistence:
-      config:
-        type: configMap
-        name: home-assistant-configmap
-        globalMounts:
-          - path: /config/configuration.yaml
-            subPath: configuration.yaml
-      data:
-        existingClaim: *app
-        globalMounts:
-          - path: /config
+            cache:
+                size: 1Gi
+                accessMode: ReadWriteOnce
+                suffix: "cache"
+                globalMounts:
+                    - path: /config/.venv
+                      subPath: venv
 
-      cache:
-        size: 1Gi
-        accessMode: ReadWriteOnce
-        suffix: "cache"
-        globalMounts:
-          - path: /config/.venv
-            subPath: venv
-
-      tmpfs:
-        type: emptyDir
-        globalMounts:
-          - path: /config/logs
-            subPath: logs
-          - path: /config/tts
-            subPath: tts
-          - path: /tmp
-            subPath: tmp
+            tmpfs:
+                type: emptyDir
+                globalMounts:
+                    - path: /config/logs
+                      subPath: logs
+                    - path: /config/tts
+                      subPath: tts
+                    - path: /tmp
+                      subPath: tmp

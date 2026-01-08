@@ -3,82 +3,81 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: immich
+    name: immich
 spec:
-  interval: 5m
-  layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-    operation: copy
-  ref:
-    tag: 0.10.3
-  url: oci://ghcr.io/immich-app/immich-charts/immich
+    interval: 5m
+    layerSelector:
+        mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+        operation: copy
+    ref:
+        tag: 0.10.3
+    url: oci://ghcr.io/immich-app/immich-charts/immich
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app immich
+    name: &app immich
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: *app
-  values:
-    controllers:
-      main:
-        containers:
-          main:
-            image:
-              # renovate: datasource=github-releases depName=immich-app/immich
-              tag: "v2.3.1"
-            env:
-              DB_URL:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-postgres"
-                    key: url
-              REDIS_HOSTNAME: "dragonfly.database.svc"
-              REDIS_DBINDEX: 12
-
-    immich:
-      metrics:
-        enabled: true
-      persistence:
-        library:
-          existingClaim: photos
-
-    server:
-      # controllers:
-      #   main:
-      #     containers:
-      #       main:
-      #         image:
-      #           repository: ghcr.io/immich-app/immich-server
-      #           tag: v2.2.3@sha256:4504d794123c3f5410cc45bbc61e4d7dbcacec1e1b0cd2e599691430c94e5849
-      persistence:
-        metadata:
-          forceRename: immich-metadata
-          size: 30Gi
-          accessMode: ReadWriteOnce
-          globalMounts:
-            - path: /data/thumbs
-              subPath: thumbs
-            - path: /data/encoded-video
-              subPath: encoded-video
-
-
-    machine-learning:
-      controllers:
-        main:
-          strategy: Recreate
-          containers:
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: *app
+    values:
+        controllers:
             main:
-              resources:
-                requests:
-                  cpu: 500m
-                  # memory: 4096M
-      persistence:
-        cache:
-          type: persistentVolumeClaim
-          size: 10Gi
-          accessMode: ReadWriteOnce
+                containers:
+                    main:
+                        image:
+                            # renovate: datasource=github-releases depName=immich-app/immich
+                            tag: "v2.3.1"
+                        env:
+                            DB_URL:
+                                valueFrom:
+                                    secretKeyRef:
+                                        name: "{{ .Release.Name }}-postgres"
+                                        key: url
+                            REDIS_HOSTNAME: "dragonfly.database.svc"
+                            REDIS_DBINDEX: 12
+
+        immich:
+            metrics:
+                enabled: true
+            persistence:
+                library:
+                    existingClaim: photos
+
+        server:
+            # controllers:
+            #   main:
+            #     containers:
+            #       main:
+            #         image:
+            #           repository: ghcr.io/immich-app/immich-server
+            #           tag: v2.2.3@sha256:4504d794123c3f5410cc45bbc61e4d7dbcacec1e1b0cd2e599691430c94e5849
+            persistence:
+                metadata:
+                    forceRename: immich-metadata
+                    size: 30Gi
+                    accessMode: ReadWriteOnce
+                    globalMounts:
+                        - path: /data/thumbs
+                          subPath: thumbs
+                        - path: /data/encoded-video
+                          subPath: encoded-video
+
+        machine-learning:
+            controllers:
+                main:
+                    strategy: Recreate
+                    containers:
+                        main:
+                            resources:
+                                requests:
+                                    cpu: 500m
+                                    # memory: 4096M
+            persistence:
+                cache:
+                    type: persistentVolumeClaim
+                    size: 10Gi
+                    accessMode: ReadWriteOnce
