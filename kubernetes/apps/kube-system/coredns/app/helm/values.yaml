@@ -3,75 +3,75 @@ isClusterService: true
 
 fullnameOverride: coredns
 image:
-    #  repository: mirror.gcr.io/coredns/coredns
-    repository: coredns/coredns
-    tag: 1.13.1@sha256:9b9128672209474da07c91439bf15ed704ae05ad918dd6454e5b6ae14e35fee6
+  #  repository: mirror.gcr.io/coredns/coredns
+  repository: coredns/coredns
+  tag: 1.13.1@sha256:9b9128672209474da07c91439bf15ed704ae05ad918dd6454e5b6ae14e35fee6
 
 serviceAccount:
-    create: true
+  create: true
 
 service:
-    ipFamilyPolicy: "PreferDualStack"
-    clusterIPs:
-        - "2001:cafe:43::a"
-        - 10.43.0.10
+  ipFamilyPolicy: "PreferDualStack"
+  clusterIPs:
+    - "2001:cafe:43::a"
+    - 10.43.0.10
 prometheus:
-    service:
-        enabled: true
-    monitor:
-        enabled: true
+  service:
+    enabled: true
+  monitor:
+    enabled: true
 
 replicaCount: 2
 
 servers:
-    - zones:
-          - zone: .
-            scheme: dns://
-            use_tcp: true
-      port: 53
-      plugins:
-          - name: errors
-          - name: health
-            configBlock: |-
-                lameduck 5s
-          - name: ready
-          - name: rewrite
-            parameters: name substring idm.${SECRET_DOMAIN} external.network.svc.cluster.local
-          - name: kubernetes
-            parameters: cluster.local in-addr.arpa ip6.arpa
-            configBlock: |-
-                pods verified
-                fallthrough in-addr.arpa ip6.arpa
-          - name: autopath
-            parameters: "@kubernetes"
-          - name: forward
-            parameters: . tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001
-            configBlock: |-
-                tls_servername one.one.one.one
-          - name: cache
-            configBlock: |-
-                prefetch 20
-                serve_stale
-          - name: loop
-          - name: reload
-          - name: loadbalance
-          - name: prometheus
-            parameters: :9153
-          - name: log
-            configBlock: |-
-                class error
+  - zones:
+      - zone: .
+        scheme: dns://
+        use_tcp: true
+    port: 53
+    plugins:
+      - name: errors
+      - name: health
+        configBlock: |-
+          lameduck 5s
+      - name: ready
+      - name: rewrite
+        parameters: name substring idm.${SECRET_DOMAIN} external.network.svc.cluster.local
+      - name: kubernetes
+        parameters: cluster.local in-addr.arpa ip6.arpa
+        configBlock: |-
+          pods verified
+          fallthrough in-addr.arpa ip6.arpa
+      - name: autopath
+        parameters: "@kubernetes"
+      - name: forward
+        parameters: . tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001
+        configBlock: |-
+          tls_servername one.one.one.one
+      - name: cache
+        configBlock: |-
+          prefetch 20
+          serve_stale
+      - name: loop
+      - name: reload
+      - name: loadbalance
+      - name: prometheus
+        parameters: :9153
+      - name: log
+        configBlock: |-
+          class error
 
 affinity:
-    nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-                - matchExpressions:
-                      - key: node-role.kubernetes.io/control-plane
-                        operator: Exists
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node-role.kubernetes.io/control-plane
+              operator: Exists
 
 tolerations:
-    - key: CriticalAddonsOnly
-      operator: Exists
-    - key: node-role.kubernetes.io/control-plane
-      operator: Exists
-      effect: NoSchedule
+  - key: CriticalAddonsOnly
+    operator: Exists
+  - key: node-role.kubernetes.io/control-plane
+    operator: Exists
+    effect: NoSchedule

@@ -3,23 +3,23 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-    name: ksgate
+  name: ksgate
 spec:
-    interval: 5m
-    layerSelector:
-        mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-        operation: copy
-    url: oci://ghcr.io/ksgate/charts/ksgate
-    ref:
-        tag: 0.6.2
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  url: oci://ghcr.io/ksgate/charts/ksgate
+  ref:
+    tag: 0.6.2
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: &app ksgate
+  name: &app ksgate
 spec:
-    interval: 30m
-    chartRef:
-        kind: OCIRepository
-        name: *app
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: *app

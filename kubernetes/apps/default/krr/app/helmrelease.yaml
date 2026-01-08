@@ -3,108 +3,108 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: &app krr
+  name: &app krr
 spec:
-    interval: 1h
-    chartRef:
-        kind: OCIRepository
-        name: app-template
-        namespace: flux-system
-    values:
-        controllers:
-            *app :
-                enabled: true
-                type: job
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    controllers:
+      *app :
+        enabled: true
+        type: job
 
-                pod:
-                    restartPolicy: Never
+        pod:
+          restartPolicy: Never
 
-                containers:
-                    app:
-                        image:
-                            repository: robustadev/krr
-                            tag: v1.27.0@sha256:119dffbb022ac4461620251443c30b84cf4b0cade8b088a8c91556e42af9d126
-                            pullPolicy: IfNotPresent
+        containers:
+          app:
+            image:
+              repository: robustadev/krr
+              tag: v1.27.0@sha256:119dffbb022ac4461620251443c30b84cf4b0cade8b088a8c91556e42af9d126
+              pullPolicy: IfNotPresent
 
-                        # /bin/sh -c "python krr.py simple --max-workers 3 --width 2048"
-                        command:
-                            - python
-                            - krr.py
-                            - simple
-                            - --max-workers
-                            - "3"
-                            - --width
-                            - "2048"
+            # /bin/sh -c "python krr.py simple --max-workers 3 --width 2048"
+            command:
+              - python
+              - krr.py
+              - simple
+              - --max-workers
+              - "3"
+              - --width
+              - "2048"
 
-                        probes:
-                            liveness:
-                                enabled: false
-                            readiness:
-                                enabled: false
-                            startup:
-                                enabled: false
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
 
-                        resources:
-                            limits:
-                                memory: 2Gi
-                            requests:
-                                memory: 1Gi
+            resources:
+              limits:
+                memory: 2Gi
+              requests:
+                memory: 1Gi
 
-        serviceAccount:
-            *app : {}
+    serviceAccount:
+      *app : {}
 
-        rbac:
-            roles:
-                *app :
-                    type: ClusterRole
-                    rules:
-                        - apiGroups: [""]
-                          resources:
-                              - configmaps
-                              - daemonsets
-                              - deployments
-                              - namespaces
-                              - pods
-                              - replicasets
-                              - replicationcontrollers
-                              - services
-                          verbs: ["get", "list", "watch"]
-                        - apiGroups: [""]
-                          resources: ["nodes"]
-                          verbs: ["get", "list", "watch"]
-                        - apiGroups: ["apps"]
-                          resources:
-                              - daemonsets
-                              - deployments
-                              - deployments/scale
-                              - replicasets
-                              - replicasets/scale
-                              - statefulsets
-                          verbs: ["get", "list", "watch"]
-                        - apiGroups: ["extensions"]
-                          resources:
-                              - daemonsets
-                              - deployments
-                              - deployments/scale
-                              - ingresses
-                              - replicasets
-                              - replicasets/scale
-                              - replicationcontrollers/scale
-                          verbs: ["get", "list", "watch"]
-                        - apiGroups: ["batch"]
-                          resources:
-                              - cronjobs
-                              - jobs
-                          verbs: ["get", "list", "watch"]
-                        - apiGroups: ["autoscaling"]
-                          resources:
-                              - horizontalpodautoscalers
-                          verbs: ["get", "list", "watch"]
+    rbac:
+      roles:
+        *app :
+          type: ClusterRole
+          rules:
+            - apiGroups: [""]
+              resources:
+                - configmaps
+                - daemonsets
+                - deployments
+                - namespaces
+                - pods
+                - replicasets
+                - replicationcontrollers
+                - services
+              verbs: ["get", "list", "watch"]
+            - apiGroups: [""]
+              resources: ["nodes"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["apps"]
+              resources:
+                - daemonsets
+                - deployments
+                - deployments/scale
+                - replicasets
+                - replicasets/scale
+                - statefulsets
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["extensions"]
+              resources:
+                - daemonsets
+                - deployments
+                - deployments/scale
+                - ingresses
+                - replicasets
+                - replicasets/scale
+                - replicationcontrollers/scale
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["batch"]
+              resources:
+                - cronjobs
+                - jobs
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["autoscaling"]
+              resources:
+                - horizontalpodautoscalers
+              verbs: ["get", "list", "watch"]
 
-            bindings:
-                *app :
-                    type: ClusterRoleBinding
-                    roleRef:
-                        identifier: *app
-                    subjects:
-                        - identifier: *app
+      bindings:
+        *app :
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: *app
+          subjects:
+            - identifier: *app

@@ -3,198 +3,198 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: &app firefly
+  name: &app firefly
 spec:
-    interval: 5m
-    chartRef:
-        kind: OCIRepository
-        name: app-template
-        namespace: flux-system
-    values:
-        controllers:
-            *app :
-                containers:
-                    main:
-                        image:
-                            repository: docker.io/fireflyiii/core
-                            tag: version-6.2.7@sha256:dc78dac2d3db78665e17c89f5075602ec8f7c84d10610a7888e633b83334a340
-                        env: &env
-                            TZ: "${TZ}"
-                            APP_ENV: "production"
-                            APP_DEBUG: "false"
-                            LOG_CHANNEL: "stdout"
-                            APP_LOG_LEVEL: "notice"
-                            AUDIT_LOG_LEVEL: "info"
-                            DEFAULT_LANGUAGE: "en_GB"
-                            DEFAULT_LOCALE: "equal"
-                            #              SITE_OWNER: ""
-                            APP_URL: "https://firefly.${SECRET_DOMAIN}"
-                            TRUSTED_PROXIES: "*"
+  interval: 5m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    controllers:
+      *app :
+        containers:
+          main:
+            image:
+              repository: docker.io/fireflyiii/core
+              tag: version-6.2.7@sha256:dc78dac2d3db78665e17c89f5075602ec8f7c84d10610a7888e633b83334a340
+            env: &env
+              TZ: "${TZ}"
+              APP_ENV: "production"
+              APP_DEBUG: "false"
+              LOG_CHANNEL: "stdout"
+              APP_LOG_LEVEL: "notice"
+              AUDIT_LOG_LEVEL: "info"
+              DEFAULT_LANGUAGE: "en_GB"
+              DEFAULT_LOCALE: "equal"
+              #              SITE_OWNER: ""
+              APP_URL: "https://firefly.${SECRET_DOMAIN}"
+              TRUSTED_PROXIES: "*"
 
-                            COOKIE_PATH: "/"
-                            COOKIE_DOMAIN: "firefly.${SECRET_DOMAIN}"
-                            COOKIE_SECURE: "true"
-                            COOKIE_SAMESITE: "lax"
-                            DISABLE_FRAME_HEADER: "false" # just to be sure
-                            DISABLE_CSP_HEADER: "false" # just to be sure
+              COOKIE_PATH: "/"
+              COOKIE_DOMAIN: "firefly.${SECRET_DOMAIN}"
+              COOKIE_SECURE: "true"
+              COOKIE_SAMESITE: "lax"
+              DISABLE_FRAME_HEADER: "false" # just to be sure
+              DISABLE_CSP_HEADER: "false" # just to be sure
 
-                            TRACKER_SITE_ID: "" # just to be sure
-                            TRACKER_URL: "" # just to be sure
-                            #              AUTHENTICATION_GUARD: "remote_user_guard"
-                            #              AUTHENTICATION_GUARD_HEADER: "HTTP_X_AUTHENTIK_USERNAME" # disabled username change ability for users
-                            #              AUTHENTICATION_GUARD_EMAIL: "HTTP_X_AUTHENTIK_EMAIL" # somehow doesn't work?
-                            DB_CONNECTION: "pgsql"
-                            DB_HOST: "postgres-rw.postgres.svc"
-                            DB_PORT: "5432"
-                            DB_DATABASE: *app
-                            DB_USERNAME: *app
-                            PGSQL_SSL_MODE: verify-full
-                            PGSQL_SSL_ROOT_CERT: /var/run/secrets/root-ca/ca.crt
-                            PGSQL_SSL_CERT: /var/run/secrets/postgresql/tls.crt
-                            PGSQL_SSL_KEY: /var/run/secrets/postgresql/tls.key
+              TRACKER_SITE_ID: "" # just to be sure
+              TRACKER_URL: "" # just to be sure
+              #              AUTHENTICATION_GUARD: "remote_user_guard"
+              #              AUTHENTICATION_GUARD_HEADER: "HTTP_X_AUTHENTIK_USERNAME" # disabled username change ability for users
+              #              AUTHENTICATION_GUARD_EMAIL: "HTTP_X_AUTHENTIK_EMAIL" # somehow doesn't work?
+              DB_CONNECTION: "pgsql"
+              DB_HOST: "postgres-rw.postgres.svc"
+              DB_PORT: "5432"
+              DB_DATABASE: *app
+              DB_USERNAME: *app
+              PGSQL_SSL_MODE: verify-full
+              PGSQL_SSL_ROOT_CERT: /var/run/secrets/root-ca/ca.crt
+              PGSQL_SSL_CERT: /var/run/secrets/postgresql/tls.crt
+              PGSQL_SSL_KEY: /var/run/secrets/postgresql/tls.key
 
-                            CACHE_DRIVER: "redis"
-                            SESSION_DRIVER: "redis"
-                            REDIS_HOST: "dragonfly.database.svc"
-                            REDIS_DB: 7
-                            REDIS_CACHE_DB: 8
+              CACHE_DRIVER: "redis"
+              SESSION_DRIVER: "redis"
+              REDIS_HOST: "dragonfly.database.svc"
+              REDIS_DB: 7
+              REDIS_CACHE_DB: 8
 
-                            SEND_ERROR_MESSAGE: "true"
-                            SEND_REPORT_JOURNALS: "false"
-                            ENABLE_EXCHANGE_RATES: "true"
-                            ENABLE_EXTERNAL_RATES: "true"
-                            ALLOW_WEBHOOKS: "false"
-                            APP_KEY:
-                                valueFrom:
-                                    secretKeyRef:
-                                        name: *app
-                                        key: APP_KEY
-                            STATIC_CRON_TOKEN:
-                                valueFrom:
-                                    secretKeyRef:
-                                        name: *app
-                                        key: CRON_TOKEN
-                        securityContext:
-                            &sc # readOnlyRootFilesystem: true # nginx init stuff
-                            allowPrivilegeEscalation: false
-                            capabilities:
-                                drop: ["ALL"]
-                        resources:
-                            requests:
-                                cpu: "10m"
-                                memory: "100Mi"
-                            limits:
-                                cpu: "1"
-                                memory: "512Mi"
-                        probes:
-                            liveness:
-                                enabled: true
-                            readiness:
-                                enabled: true
-
-            data-importer:
-                containers:
-                    main:
-                        image:
-                            repository: docker.io/fireflyiii/data-importer
-                            tag: version-1.6.1@sha256:40e10f996a7bf72285dd6475c49424a02255fb02437904fe2ee6c44bc07e1bfc
-                        env:
-                            TZ: "${TZ}"
-                            APP_ENV: "production"
-                            APP_DEBUG: "false"
-                            LOG_CHANNEL: "stdout"
-                            FIREFLY_III_URL: http://firefly.default.svc.cluster.local
-                            VANITY_URL: "https://firefly.${SECRET_DOMAIN}"
-                            # FIREFLY_III_CLIENT_ID:
-                            #   valueFrom:
-                            #     secretKeyRef:
-                            #       name: firefly-secrets
-                            #       key: FIREFLY_III_CLIENT_ID
-                        securityContext: *sc
-                        resources:
-                            requests:
-                                cpu: "10m"
-                                memory: "100Mi"
-                            limits:
-                                cpu: "1"
-                                memory: "1Gi"
-                        probes:
-                            liveness:
-                                enabled: true
-                            readiness:
-                                enabled: true
-        service:
-            *app :
-                forceRename: *app
-                controller: *app
-                ports:
-                    http:
-                        port: 80
-                        targetPort: 8080
-                        protocol: HTTP
-                        appProtocol: http
-            data-importer:
-                controller: data-importer
-                ports:
-                    http:
-                        port: 80
-                        targetPort: 8080
-                        protocol: HTTP
-                        appProtocol: http
-
-        route:
-            app:
-                forceRename: *app
-                hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
-                parentRefs:
-                    - name: internal
-                      namespace: network
-                      sectionName: https
-                rules:
-                    - backendRefs:
-                          - identifier: *app
-                            port: 80
-            api:
-                hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
-                parentRefs:
-                    - name: internal
-                      namespace: network
-                      sectionName: https
-                rules:
-                    - matches:
-                          - path:
-                                type: PathPrefix
-                                value: /api
-                      backendRefs:
-                          - identifier: *app
-                            port: 80
-
-        persistence:
-            data:
-                existingClaim: *app
-                advancedMounts:
-                    firefly:
-                        main:
-                            - subPath: data
-                              path: /var/www/html/storage
-                            - subPath: upload
-                              path: /var/www/html/storage/upload
-                    data-importer:
-                        main:
-                            - subPath: importer
-                              path: /var/www/html/storage/uploads
-
-        defaultPodOptions:
-            automountServiceAccountToken: false
-            enableServiceLinks: false
-            hostUsers: false
+              SEND_ERROR_MESSAGE: "true"
+              SEND_REPORT_JOURNALS: "false"
+              ENABLE_EXCHANGE_RATES: "true"
+              ENABLE_EXTERNAL_RATES: "true"
+              ALLOW_WEBHOOKS: "false"
+              APP_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: *app
+                    key: APP_KEY
+              STATIC_CRON_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: *app
+                    key: CRON_TOKEN
             securityContext:
-                runAsNonRoot: true
-                runAsUser: &uid 33
-                runAsGroup: *uid
-                fsGroup: *uid
-                fsGroupChangePolicy: "OnRootMismatch"
-                seccompProfile: { type: "RuntimeDefault" }
+              &sc # readOnlyRootFilesystem: true # nginx init stuff
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop: ["ALL"]
+            resources:
+              requests:
+                cpu: "10m"
+                memory: "100Mi"
+              limits:
+                cpu: "1"
+                memory: "512Mi"
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+
+      data-importer:
+        containers:
+          main:
+            image:
+              repository: docker.io/fireflyiii/data-importer
+              tag: version-1.6.1@sha256:40e10f996a7bf72285dd6475c49424a02255fb02437904fe2ee6c44bc07e1bfc
+            env:
+              TZ: "${TZ}"
+              APP_ENV: "production"
+              APP_DEBUG: "false"
+              LOG_CHANNEL: "stdout"
+              FIREFLY_III_URL: http://firefly.default.svc.cluster.local
+              VANITY_URL: "https://firefly.${SECRET_DOMAIN}"
+              # FIREFLY_III_CLIENT_ID:
+              #   valueFrom:
+              #     secretKeyRef:
+              #       name: firefly-secrets
+              #       key: FIREFLY_III_CLIENT_ID
+            securityContext: *sc
+            resources:
+              requests:
+                cpu: "10m"
+                memory: "100Mi"
+              limits:
+                cpu: "1"
+                memory: "1Gi"
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+    service:
+      *app :
+        forceRename: *app
+        controller: *app
+        ports:
+          http:
+            port: 80
+            targetPort: 8080
+            protocol: HTTP
+            appProtocol: http
+      data-importer:
+        controller: data-importer
+        ports:
+          http:
+            port: 80
+            targetPort: 8080
+            protocol: HTTP
+            appProtocol: http
+
+    route:
+      app:
+        forceRename: *app
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: *app
+                port: 80
+      api:
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: internal
+            namespace: network
+            sectionName: https
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /api
+            backendRefs:
+              - identifier: *app
+                port: 80
+
+    persistence:
+      data:
+        existingClaim: *app
+        advancedMounts:
+          firefly:
+            main:
+              - subPath: data
+                path: /var/www/html/storage
+              - subPath: upload
+                path: /var/www/html/storage/upload
+          data-importer:
+            main:
+              - subPath: importer
+                path: /var/www/html/storage/uploads
+
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      hostUsers: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: &uid 33
+        runAsGroup: *uid
+        fsGroup: *uid
+        fsGroupChangePolicy: "OnRootMismatch"
+        seccompProfile: { type: "RuntimeDefault" }
 #    networkpolicies:
 #      same-ns:
 #        podSelector: { }

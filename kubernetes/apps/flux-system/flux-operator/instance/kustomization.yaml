@@ -3,15 +3,15 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-    - ./helmrelease.yaml
-    - ./httproute.yaml
-    - ./pull.sops.yaml
-    - ./receiver.yaml
-    - ./secret.sops.yaml
+  - ./helmrelease.yaml
+  - ./httproute.yaml
+  - ./pull.sops.yaml
+  - ./receiver.yaml
+  - ./secret.sops.yaml
 secretGenerator:
-    - name: pgp-public-keys
-      files:
-          - ./resources/m00n.asc
-          - ./resources/renovate.asc
+  - name: pgp-public-keys
+    files:
+      - ./resources/m00n.asc
+      - ./resources/renovate.asc
 generatorOptions:
-    disableNameSuffixHash: true
+  disableNameSuffixHash: true

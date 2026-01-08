@@ -3,55 +3,55 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-    name: crowdsec
+  name: crowdsec
 spec:
-    interval: 5m
-    layerSelector:
-        mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-        operation: copy
-    url: oci://ghcr.io/home-operations/charts-mirror/crowdsec
-    ref:
-        tag: 0.20.1
-    verify:
-        provider: cosign
-        matchOIDCIdentity:
-            - issuer: "^https://token.actions.githubusercontent.com$"
-              subject: "^https://github.com/home-operations/charts-mirror.*$"
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  url: oci://ghcr.io/home-operations/charts-mirror/crowdsec
+  ref:
+    tag: 0.20.1
+  verify:
+    provider: cosign
+    matchOIDCIdentity:
+      - issuer: "^https://token.actions.githubusercontent.com$"
+        subject: "^https://github.com/home-operations/charts-mirror.*$"
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: &app crowdsec
+  name: &app crowdsec
 spec:
-    interval: 1h
-    chartRef:
-        kind: OCIRepository
-        name: *app
-    values:
-        container_runtime: containerd
-        lapi:
-            metrics:
-                serviceMonitor:
-                    enabled: true
-            persistentVolume:
-                data:
-                    enabled: false
-                    accessModes:
-                        - ReadWriteOnce
-                    # storageClassName: "cstor-replica-raspberry-pi-pool"
-                    size: 1Gi
-                config:
-                    enabled: true
-                    accessModes:
-                        - ReadWriteOnce
-                    # storageClassName: "cstor-replica-raspberry-pi-pool"
-                    size: 100Mi
-        agent:
-            acquisition:
-                - namespace: nginx-ingress
-                  podName: ingress-nginx-controller-*
-                  program: nginx
-            metrics:
-                serviceMonitor:
-                    enabled: true
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  values:
+    container_runtime: containerd
+    lapi:
+      metrics:
+        serviceMonitor:
+          enabled: true
+      persistentVolume:
+        data:
+          enabled: false
+          accessModes:
+            - ReadWriteOnce
+          # storageClassName: "cstor-replica-raspberry-pi-pool"
+          size: 1Gi
+        config:
+          enabled: true
+          accessModes:
+            - ReadWriteOnce
+          # storageClassName: "cstor-replica-raspberry-pi-pool"
+          size: 100Mi
+    agent:
+      acquisition:
+        - namespace: nginx-ingress
+          podName: ingress-nginx-controller-*
+          program: nginx
+      metrics:
+        serviceMonitor:
+          enabled: true

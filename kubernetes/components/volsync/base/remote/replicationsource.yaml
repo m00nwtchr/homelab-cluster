@@ -3,26 +3,26 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-    name: "${APP}-b2"
+  name: "${APP}-b2"
 spec:
-    sourcePVC: "${VOLSYNC_PVC:=${APP}}"
-    trigger:
-        schedule: "30 0 * * *"
-    restic:
-        unlock: unlock-once
-        copyMethod: "${VOLSYNC_COPYMETHOD:=Snapshot}"
-        pruneIntervalDays: 14
-        repository: "${APP}-volsync-b2-secret"
-        volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=csi-zfs}"
-        cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:=5Gi}"
-        cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:=zfs-spark}"
-        cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}"]
-        storageClassName: "${VOLSYNC_STORAGECLASS:=zfs-spark}"
-        accessModes: ["${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}"]
-        moverSecurityContext:
-            runAsUser: ${VOLSYNC_PUID:=1000}
-            runAsGroup: ${VOLSYNC_PGID:=1000}
-            fsGroup: ${VOLSYNC_PGID:=1000}
-            fsGroupChangePolicy: "OnRootMismatch"
-        retain:
-            daily: 7
+  sourcePVC: "${VOLSYNC_PVC:=${APP}}"
+  trigger:
+    schedule: "30 0 * * *"
+  restic:
+    unlock: unlock-once
+    copyMethod: "${VOLSYNC_COPYMETHOD:=Snapshot}"
+    pruneIntervalDays: 14
+    repository: "${APP}-volsync-b2-secret"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=csi-zfs}"
+    cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:=5Gi}"
+    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:=zfs-spark}"
+    cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}"]
+    storageClassName: "${VOLSYNC_STORAGECLASS:=zfs-spark}"
+    accessModes: ["${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}"]
+    moverSecurityContext:
+      runAsUser: ${VOLSYNC_PUID:=1000}
+      runAsGroup: ${VOLSYNC_PGID:=1000}
+      fsGroup: ${VOLSYNC_PGID:=1000}
+      fsGroupChangePolicy: "OnRootMismatch"
+    retain:
+      daily: 7

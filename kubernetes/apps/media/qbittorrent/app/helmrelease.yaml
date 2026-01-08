@@ -3,221 +3,221 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: &app qbittorrent
+  name: &app qbittorrent
 spec:
-    interval: 1h
-    chartRef:
-        kind: OCIRepository
-        name: app-template
-        namespace: flux-system
-    values:
-        controllers:
-            *app :
-                type: statefulset
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    controllers:
+      *app :
+        type: statefulset
 
-                initContainers:
-                    coredns:
-                        image:
-                            repository: mirror.gcr.io/coredns/coredns
-                            tag: 1.13.1@sha256:9b9128672209474da07c91439bf15ed704ae05ad918dd6454e5b6ae14e35fee6
-                        args:
-                            - -conf
-                            - /etc/coredns/Corefile
-                        restartPolicy: Always
-                    gluetun:
-                        dependsOn:
-                            - coredns
-                        image:
-                            repository: ghcr.io/qdm12/gluetun
-                            tag: v3.40.1@sha256:dc38bac12b40bb935e477f0dbd88adf174001c84b144c86648b25ff5f14ef54a
-                        restartPolicy: Always
-                        env:
-                            DOT: "off"
-                            DNS_ADDRESS: 127.0.0.2
-                            # HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH: &gluetunAuthPath /gluetun/auth.toml
-                            VPN_SERVICE_PROVIDER: protonvpn
-                            VPN_TYPE: wireguard
-                            VPN_INTERFACE: wg0
-                            VPN_PORT_FORWARDING: on
-                            FIREWALL_INPUT_PORTS: "8080,9999" # webui, healthcheck
-                            HEALTH_SERVER_ADDRESS: ":9999"
-                            FIREWALL_OUTBOUND_SUBNETS: 10.42.0.0/24,10.43.0.0/16
-                        envFrom:
-                            - secretRef:
-                                  name: *app
-                        lifecycle:
-                            postStart:
-                                exec:
-                                    command:
-                                        - "/bin/sh"
-                                        - "-c"
-                                        - "(ip rule del table 51820; ip -6 rule del table 51820) || true"
-                        probes:
-                            liveness: &probes
-                                enabled: true
-                                custom: true
-                                spec:
-                                    httpGet:
-                                        path: /check
-                                        port: 9999
-                            readiness: *probes
-                            startup:
-                                enabled: true
-                                custom: true
-                                spec:
-                                    httpGet:
-                                        path: /check
-                                        port: 9999
-                                    initialDelaySeconds: 10
-                        securityContext:
-                            capabilities: { add: ["NET_ADMIN"] }
-                            allowPrivilegeEscalation: false
-                        resources:
-                            limits:
-                                squat.ai/tun: "1"
-
-                containers:
-                    *app :
-                        image:
-                            repository: ghcr.io/home-operations/qbittorrent
-                            tag: 5.1.3@sha256:2feb2c8d188db4de330ca4840c167282e10e3252f4c6d1bce7943c7f46099836
-                        env:
-                            TZ: ${TZ}
-                            QBT_WEBUI_PORT: &port 8080
-                        securityContext: &ctx
-                            runAsNonRoot: true
-                            runAsUser: &uid 2000
-                            runAsGroup: *uid
-                            allowPrivilegeEscalation: false
-                            readOnlyRootFilesystem: true
-                            capabilities: { drop: ["ALL"] }
-                        probes:
-                            liveness:
-                                enabled: true
-                            readiness:
-                                enabled: true
-                            startup:
-                                enabled: true
-                                spec:
-                                    failureThreshold: 30
-                                    periodSeconds: 5
-                        resources:
-                            requests:
-                                cpu: 100m
-                            limits:
-                                memory: 1Gi
-
-                    port-forward:
-                        image:
-                            repository: ghcr.io/bjw-s-labs/gluetun-qb-port-sync
-                            tag: 0.0.4@sha256:6060da1978c5ec8ea1cad56d8538f35b504b1dcb3fc9845f1f69b18d1b36020a
-                        env:
-                            GLUETUN_CONTROL_SERVER_HOST: localhost
-                            GLUETUN_CONTROL_SERVER_PORT: 8000
-                            # GLUETUN_CONTROL_SERVER_API_KEY:
-                            #   valueFrom:
-                            #     secretKeyRef:
-                            #       name: *app
-                            #       key: GLUETUN_CONTROL_SERVER_API_KEY
-                            QBITTORRENT_HOST: localhost
-                            QBITTORRENT_WEBUI_PORT: *port
-                            CRON_ENABLED: true
-                            CRON_SCHEDULE: "*/5 * * * *"
-                            LOG_TIMESTAMP: false
-                        securityContext: *ctx
-
-        defaultPodOptions:
+        initContainers:
+          coredns:
+            image:
+              repository: mirror.gcr.io/coredns/coredns
+              tag: 1.13.1@sha256:9b9128672209474da07c91439bf15ed704ae05ad918dd6454e5b6ae14e35fee6
+            args:
+              - -conf
+              - /etc/coredns/Corefile
+            restartPolicy: Always
+          gluetun:
+            dependsOn:
+              - coredns
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.40.1@sha256:dc38bac12b40bb935e477f0dbd88adf174001c84b144c86648b25ff5f14ef54a
+            restartPolicy: Always
+            env:
+              DOT: "off"
+              DNS_ADDRESS: 127.0.0.2
+              # HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH: &gluetunAuthPath /gluetun/auth.toml
+              VPN_SERVICE_PROVIDER: protonvpn
+              VPN_TYPE: wireguard
+              VPN_INTERFACE: wg0
+              VPN_PORT_FORWARDING: on
+              FIREWALL_INPUT_PORTS: "8080,9999" # webui, healthcheck
+              HEALTH_SERVER_ADDRESS: ":9999"
+              FIREWALL_OUTBOUND_SUBNETS: 10.42.0.0/24,10.43.0.0/16
+            envFrom:
+              - secretRef:
+                  name: *app
+            lifecycle:
+              postStart:
+                exec:
+                  command:
+                    - "/bin/sh"
+                    - "-c"
+                    - "(ip rule del table 51820; ip -6 rule del table 51820) || true"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /check
+                    port: 9999
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /check
+                    port: 9999
+                  initialDelaySeconds: 10
             securityContext:
-                fsGroup: *uid
-                fsGroupChangePolicy: OnRootMismatch
+              capabilities: { add: ["NET_ADMIN"] }
+              allowPrivilegeEscalation: false
+            resources:
+              limits:
+                squat.ai/tun: "1"
 
-        service:
-            app:
-                forceRename: *app
-                primary: true
-                ipFamilyPolicy: PreferDualStack
-                ports:
-                    http:
-                        port: 80
-                        targetPort: *port
+        containers:
+          *app :
+            image:
+              repository: ghcr.io/home-operations/qbittorrent
+              tag: 5.1.3@sha256:2feb2c8d188db4de330ca4840c167282e10e3252f4c6d1bce7943c7f46099836
+            env:
+              TZ: ${TZ}
+              QBT_WEBUI_PORT: &port 8080
+            securityContext: &ctx
+              runAsNonRoot: true
+              runAsUser: &uid 2000
+              runAsGroup: *uid
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 1Gi
 
-        route:
-            app:
-                forceRename: *app
-                hostnames: &host
-                    - qb.${SECRET_DOMAIN}
-                annotations:
-                    gethomepage.dev/enabled: "true"
-                    gethomepage.dev/group: Media
-                    gethomepage.dev/name: qBittorrent
-                    gethomepage.dev/icon: ${APP}.svg
-                    gethomepage.dev/widget.type: *app
-                    gethomepage.dev/widget.url: "http://${APP}.media.svc"
-                    gethomepage.dev/widget.username: '{{ "{{HOMEPAGE_VAR_QBIT_USERNAME}}" }}'
-                    gethomepage.dev/widget.password: '{{ "{{HOMEPAGE_VAR_QBIT_PASSWORD}}" }}'
-                parentRefs:
-                    - name: internal
-                      namespace: network
-                      sectionName: https
+          port-forward:
+            image:
+              repository: ghcr.io/bjw-s-labs/gluetun-qb-port-sync
+              tag: 0.0.4@sha256:6060da1978c5ec8ea1cad56d8538f35b504b1dcb3fc9845f1f69b18d1b36020a
+            env:
+              GLUETUN_CONTROL_SERVER_HOST: localhost
+              GLUETUN_CONTROL_SERVER_PORT: 8000
+              # GLUETUN_CONTROL_SERVER_API_KEY:
+              #   valueFrom:
+              #     secretKeyRef:
+              #       name: *app
+              #       key: GLUETUN_CONTROL_SERVER_API_KEY
+              QBITTORRENT_HOST: localhost
+              QBITTORRENT_WEBUI_PORT: *port
+              CRON_ENABLED: true
+              CRON_SCHEDULE: "*/5 * * * *"
+              LOG_TIMESTAMP: false
+            securityContext: *ctx
 
-            api:
-                hostnames: *host
-                parentRefs:
-                    - name: internal
-                      namespace: network
-                      sectionName: https
-                rules:
-                    - matches:
-                          - path:
-                                type: PathPrefix
-                                value: /api
-                      backendRefs:
-                          - identifier: app
-                            port: 80
+    defaultPodOptions:
+      securityContext:
+        fsGroup: *uid
+        fsGroupChangePolicy: OnRootMismatch
 
-        persistence:
-            config:
-                existingClaim: *app
-                advancedMounts:
-                    *app :
-                        *app :
-                            - path: /config
+    service:
+      app:
+        forceRename: *app
+        primary: true
+        ipFamilyPolicy: PreferDualStack
+        ports:
+          http:
+            port: 80
+            targetPort: *port
 
-            media:
-                existingClaim: media
-                globalMounts:
-                    - path: /mnt/media/downloads
-                      subPath: downloads
+    route:
+      app:
+        forceRename: *app
+        hostnames: &host
+          - qb.${SECRET_DOMAIN}
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Media
+          gethomepage.dev/name: qBittorrent
+          gethomepage.dev/icon: ${APP}.svg
+          gethomepage.dev/widget.type: *app
+          gethomepage.dev/widget.url: "http://${APP}.media.svc"
+          gethomepage.dev/widget.username: '{{ "{{HOMEPAGE_VAR_QBIT_USERNAME}}" }}'
+          gethomepage.dev/widget.password: '{{ "{{HOMEPAGE_VAR_QBIT_PASSWORD}}" }}'
+        parentRefs:
+          - name: internal
+            namespace: network
+            sectionName: https
 
+      api:
+        hostnames: *host
+        parentRefs:
+          - name: internal
+            namespace: network
+            sectionName: https
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /api
+            backendRefs:
+              - identifier: app
+                port: 80
+
+    persistence:
+      config:
+        existingClaim: *app
+        advancedMounts:
+          *app :
+            *app :
+              - path: /config
+
+      media:
+        existingClaim: media
+        globalMounts:
+          - path: /mnt/media/downloads
+            subPath: downloads
+
+      coredns:
+        type: configMap
+        name: qbittorrent-coredns-configmap
+        advancedMounts:
+          *app :
             coredns:
-                type: configMap
-                name: qbittorrent-coredns-configmap
-                advancedMounts:
-                    *app :
-                        coredns:
-                            - path: /etc/coredns/Corefile
-                              subPath: Corefile
+              - path: /etc/coredns/Corefile
+                subPath: Corefile
 
-            # gluetun:
-            #   type: secret
-            #   name: gluetun-secret
-            #   advancedMounts:
-            #     *app :
-            #       gluetun:
-            #         - path: *gluetunAuthPath
-            #           subPath: auth.toml
+      # gluetun:
+      #   type: secret
+      #   name: gluetun-secret
+      #   advancedMounts:
+      #     *app :
+      #       gluetun:
+      #         - path: *gluetunAuthPath
+      #           subPath: auth.toml
 
-            qbrr:
-                type: image
-                image: ghcr.io/buroa/qbrr:0.1.1@sha256:fe4a1d100ba896999253a5122d9c77cc4920779d618c23f765458cb6ec7383ca
-                pullPolicy: IfNotPresent
+      qbrr:
+        type: image
+        image: ghcr.io/buroa/qbrr:0.1.1@sha256:fe4a1d100ba896999253a5122d9c77cc4920779d618c23f765458cb6ec7383ca
+        pullPolicy: IfNotPresent
 
-            tmp:
-                type: emptyDir
+      tmp:
+        type: emptyDir
 
-            empty-config:
-                type: emptyDir
-                advancedMounts:
-                    *app :
-                        port-forward:
-                            - path: /config
+      empty-config:
+        type: emptyDir
+        advancedMounts:
+          *app :
+            port-forward:
+              - path: /config

@@ -3,52 +3,52 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: &app rclone-server
+  name: &app rclone-server
 spec:
-    interval: 1h
-    chartRef:
-        kind: OCIRepository
-        name: app-template
-        namespace: flux-system
-    values:
-        controllers:
-            *app :
-                containers:
-                    app:
-                        image:
-                            repository: docker.io/rclone/rclone
-                            tag: 1.71.2@sha256:3103526c506266a9ecdf064efe99bf3677d92ef6407af124d8c56b4f49cbaa51
-                        args:
-                            - serve
-                            - restic
-                            - -v
-                            - --addr
-                            - :8080
-                            - mega:backups
-                            - --config
-                            - /config/rclone.conf
-                        securityContext:
-                            readOnlyRootFilesystem: true
-                            allowPrivilegeEscalation: false
-                            capabilities:
-                                drop: ["ALL"]
-                        resources:
-                            requests:
-                                cpu: 10m
-                            limits:
-                                memory: 256Mi
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    controllers:
+      *app :
+        containers:
+          app:
+            image:
+              repository: docker.io/rclone/rclone
+              tag: 1.71.2@sha256:3103526c506266a9ecdf064efe99bf3677d92ef6407af124d8c56b4f49cbaa51
+            args:
+              - serve
+              - restic
+              - -v
+              - --addr
+              - :8080
+              - mega:backups
+              - --config
+              - /config/rclone.conf
+            securityContext:
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop: ["ALL"]
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
 
-        service:
-            app:
-                ports:
-                    http:
-                        port: 80
-                        targetPort: 8080
+    service:
+      app:
+        ports:
+          http:
+            port: 80
+            targetPort: 8080
 
-        persistence:
-            config:
-                type: secret
-                name: rclone-config
-                globalMounts:
-                    - path: /config/rclone.conf
-                      subPath: rclone.conf
+    persistence:
+      config:
+        type: secret
+        name: rclone-config
+        globalMounts:
+          - path: /config/rclone.conf
+            subPath: rclone.conf
