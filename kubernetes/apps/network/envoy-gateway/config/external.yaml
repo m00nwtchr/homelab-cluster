@@ -3,53 +3,53 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-    name: &name external
-    annotations:
-        #    metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
-        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-    labels:
-        gateway: external
+  name: &name external
+  annotations:
+    #    metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
+    external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+  labels:
+    gateway: external
 spec:
-    gatewayClassName: envoy
-    #  addresses:
-    #    - type: IPAddress
-    #      value: "2a02:a313:43e4:7080::7dc5"
-    infrastructure:
-        annotations:
-            #      metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
-            external-dns.alpha.kubernetes.io/hostname: "external.${SECRET_DOMAIN}"
-        parametersRef:
-            group: gateway.envoyproxy.io
-            kind: EnvoyProxy
-            name: *name
-    listeners:
-        - name: http
-          protocol: HTTP
-          port: 80
-          allowedRoutes:
-              namespaces:
-                  from: Same
-        - name: https
-          protocol: HTTPS
-          port: 443
-          #      hostname: "*.${SECRET_DOMAIN}"
-          allowedRoutes:
-              namespaces:
-                  from: All
-          tls:
-              mode: Terminate
-              certificateRefs:
-                  - kind: Secret
-                    name: wildcard-${SECRET_DOMAIN/./-}-tls
-        - name: ssh
-          protocol: TCP
-          port: 22
-          allowedRoutes:
-              namespaces:
-                  from: All
-              #        namespaces:
-              #          from: Selector
-              #          selector:
-              #            matchLabels:
-              kinds:
-                  - kind: TCPRoute
+  gatewayClassName: envoy
+  #  addresses:
+  #    - type: IPAddress
+  #      value: "2a02:a313:43e4:7080::7dc5"
+  infrastructure:
+    annotations:
+      #      metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
+      external-dns.alpha.kubernetes.io/hostname: "external.${SECRET_DOMAIN}"
+    parametersRef:
+      group: gateway.envoyproxy.io
+      kind: EnvoyProxy
+      name: *name
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: https
+      protocol: HTTPS
+      port: 443
+      #      hostname: "*.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: wildcard-${SECRET_DOMAIN/./-}-tls
+    - name: ssh
+      protocol: TCP
+      port: 22
+      allowedRoutes:
+        namespaces:
+          from: All
+        #        namespaces:
+        #          from: Selector
+        #          selector:
+        #            matchLabels:
+        kinds:
+          - kind: TCPRoute

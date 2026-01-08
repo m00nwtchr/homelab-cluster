@@ -3,148 +3,148 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: &app homepage
+  name: &app homepage
 spec:
-    interval: 1h
-    chartRef:
-        kind: OCIRepository
-        name: app-template
-        namespace: flux-system
-    values:
-        defaultPodOptions:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    defaultPodOptions:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+
+    controllers:
+      homepage:
+        strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/gethomepage/homepage
+              tag: v1.7.0@sha256:b6ac42c31845ea7c862d71451c16413a6284430d8ff08e16ad791f42718a7c71
+            env:
+              TZ: "${TZ}"
+              #            LOG_LEVEL: debug
+              HOSTNAME: "::"
+              LOG_TARGETS: stdout
+              HOMEPAGE_ALLOWED_HOSTS: &host "home.${SECRET_DOMAIN}"
+              HOMEPAGE_VAR_RADARR_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: radarr-secret
+                    key: api_key
+              HOMEPAGE_VAR_SONARR_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: api_key
+              HOMEPAGE_VAR_PROWLARR_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: prowlarr-secret
+                    key: api_key
+            envFrom:
+              - secretRef:
+                  name: *app
+            resources:
+              requests:
+                cpu: 25m
+                memory: 105M
+              limits:
+                memory: 225M
             securityContext:
-                seccompProfile:
-                    type: RuntimeDefault
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
 
-        controllers:
-            homepage:
-                strategy: Recreate
-                annotations:
-                    reloader.stakater.com/auto: "true"
+    rbac:
+      roles:
+        homepage:
+          type: ClusterRole
+          rules:
+            - apiGroups:
+                - ""
+              resources:
+                - namespaces
+                - pods
+                - nodes
+              verbs:
+                - get
+                - list
+            - apiGroups:
+                - extensions
+                - networking.k8s.io
+                - gateway.networking.k8s.io # GatewayAPI
+                - traefik.io # Traefik
+              resources:
+                - ingresses
+                - httproutes # GatewayAPI HttpRoute
+                - ingressroutes # Traefik IngressRoute
+              verbs:
+                - get
+                - list
+            - apiGroups:
+                - metrics.k8s.io
+              resources:
+                - nodes
+                - pods
+              verbs:
+                - get
+                - list
+            - apiGroups:
+                - apiextensions.k8s.io
+              resources:
+                - customresourcedefinitions/status
+              verbs:
+                - get
+                - list
+      bindings:
+        homepage:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: *app
+          subjects:
+            - identifier: *app
 
-                containers:
-                    app:
-                        image:
-                            repository: ghcr.io/gethomepage/homepage
-                            tag: v1.7.0@sha256:b6ac42c31845ea7c862d71451c16413a6284430d8ff08e16ad791f42718a7c71
-                        env:
-                            TZ: "${TZ}"
-                            #            LOG_LEVEL: debug
-                            HOSTNAME: "::"
-                            LOG_TARGETS: stdout
-                            HOMEPAGE_ALLOWED_HOSTS: &host "home.${SECRET_DOMAIN}"
-                            HOMEPAGE_VAR_RADARR_API_KEY:
-                                valueFrom:
-                                    secretKeyRef:
-                                        name: radarr-secret
-                                        key: api_key
-                            HOMEPAGE_VAR_SONARR_API_KEY:
-                                valueFrom:
-                                    secretKeyRef:
-                                        name: sonarr-secret
-                                        key: api_key
-                            HOMEPAGE_VAR_PROWLARR_API_KEY:
-                                valueFrom:
-                                    secretKeyRef:
-                                        name: prowlarr-secret
-                                        key: api_key
-                        envFrom:
-                            - secretRef:
-                                  name: *app
-                        resources:
-                            requests:
-                                cpu: 25m
-                                memory: 105M
-                            limits:
-                                memory: 225M
-                        securityContext:
-                            allowPrivilegeEscalation: false
-                            capabilities: { drop: ["ALL"] }
+    serviceAccount:
+      homepage: {}
 
-        rbac:
-            roles:
-                homepage:
-                    type: ClusterRole
-                    rules:
-                        - apiGroups:
-                              - ""
-                          resources:
-                              - namespaces
-                              - pods
-                              - nodes
-                          verbs:
-                              - get
-                              - list
-                        - apiGroups:
-                              - extensions
-                              - networking.k8s.io
-                              - gateway.networking.k8s.io # GatewayAPI
-                              - traefik.io # Traefik
-                          resources:
-                              - ingresses
-                              - httproutes # GatewayAPI HttpRoute
-                              - ingressroutes # Traefik IngressRoute
-                          verbs:
-                              - get
-                              - list
-                        - apiGroups:
-                              - metrics.k8s.io
-                          resources:
-                              - nodes
-                              - pods
-                          verbs:
-                              - get
-                              - list
-                        - apiGroups:
-                              - apiextensions.k8s.io
-                          resources:
-                              - customresourcedefinitions/status
-                          verbs:
-                              - get
-                              - list
-            bindings:
-                homepage:
-                    type: ClusterRoleBinding
-                    roleRef:
-                        identifier: *app
-                    subjects:
-                        - identifier: *app
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 80
+            targetPort: 3000
 
-        serviceAccount:
-            homepage: {}
+    route:
+      app:
+        hostnames:
+          - *host
+        parentRefs:
+          - name: internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: homepage
+                port: 80
+            sessionPersistence:
+              sessionName: homepage-session
+              type: Cookie
+              absoluteTimeout: 35m
 
-        service:
-            app:
-                controller: *app
-                ports:
-                    http:
-                        port: 80
-                        targetPort: 3000
-
-        route:
-            app:
-                hostnames:
-                    - *host
-                parentRefs:
-                    - name: internal
-                      namespace: network
-                      sectionName: https
-                rules:
-                    - backendRefs:
-                          - name: homepage
-                            port: 80
-                      sessionPersistence:
-                          sessionName: homepage-session
-                          type: Cookie
-                          absoluteTimeout: 35m
-
-        persistence:
-            config:
-                type: configMap
-                name: homepage-configmap
-                globalMounts:
-                    - path: /app/config/
-    #    cache:
-    #      type: emptyDir
-    #      globalMounts:
-    #        - path: /app/.next/server
+    persistence:
+      config:
+        type: configMap
+        name: homepage-configmap
+        globalMounts:
+          - path: /app/config/
+  #    cache:
+  #      type: emptyDir
+  #      globalMounts:
+  #        - path: /app/.next/server

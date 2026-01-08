@@ -1,12 +1,12 @@
 ---
 devices:
-    - name: tun
-      groups:
-          - count: 1
-            paths:
-                - path: /dev/net/tun
-    - name: tpmrm
-      groups:
-          - count: 1
-            paths:
-                - path: /dev/tpmrm0
+  - name: tun
+    groups:
+      - count: 1
+        paths:
+          - path: /dev/net/tun
+  - name: tpmrm
+    groups:
+      - count: 1
+        paths:
+          - path: /dev/tpmrm0

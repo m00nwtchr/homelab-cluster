@@ -3,120 +3,120 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: &app baikal
+  name: &app baikal
 spec:
-    interval: 1h
-    chartRef:
-        kind: OCIRepository
-        name: app-template
-        namespace: flux-system
-    values:
-        controllers:
-            baikal:
-                pod:
-                    securityContext:
-                        runAsUser: 101
-                        runAsGroup: 101
-                        runAsNonRoot: true
-                        fsGroup: 101
-                        fsGroupChangePolicy: OnRootMismatch
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    controllers:
+      baikal:
+        pod:
+          securityContext:
+            runAsUser: 101
+            runAsGroup: 101
+            runAsNonRoot: true
+            fsGroup: 101
+            fsGroupChangePolicy: OnRootMismatch
 
-                initContainers:
-                    copy-config:
-                        image:
-                            repository: ghcr.io/home-operations/busybox
-                            tag: 1.37.0@sha256:026ed7273270ec08f6902b4ae8334c23b473e5394bec3bbbdbfe580c710d50bc
-                            pullPolicy: IfNotPresent
-                        command:
-                            [
-                                "/bin/sh",
-                                "-c",
-                                "cp /config/baikal.yaml /mnt/ && chown 101:101 /mnt/baikal.yaml",
-                            ]
+        initContainers:
+          copy-config:
+            image:
+              repository: ghcr.io/home-operations/busybox
+              tag: 1.37.0@sha256:026ed7273270ec08f6902b4ae8334c23b473e5394bec3bbbdbfe580c710d50bc
+              pullPolicy: IfNotPresent
+            command:
+              [
+                "/bin/sh",
+                "-c",
+                "cp /config/baikal.yaml /mnt/ && chown 101:101 /mnt/baikal.yaml",
+              ]
 
-                containers:
-                    nginx:
-                        image:
-                            repository: ckulka/baikal
-                            tag: 0.10.1-nginx-php8.2@sha256:30c099b83aa88772b683d0c09fb6fa18ac82df442349fd6342e1df576abb580c
-                        env:
-                            - name: BAIKAL_SKIP_CHOWN
-                              value: "true"
-                    php:
-                        image:
-                            repository: ckulka/baikal
-                            tag: 0.10.1-nginx-php8.2@sha256:30c099b83aa88772b683d0c09fb6fa18ac82df442349fd6342e1df576abb580c
-                        command:
-                            [
-                                "/bin/sh",
-                                "-c",
-                                'find /usr/sbin/ -type f -name "php-fpm*" -exec "{}" "-F" \;',
-                            ]
-                        # securityContext:
+        containers:
+          nginx:
+            image:
+              repository: ckulka/baikal
+              tag: 0.10.1-nginx-php8.2@sha256:30c099b83aa88772b683d0c09fb6fa18ac82df442349fd6342e1df576abb580c
+            env:
+              - name: BAIKAL_SKIP_CHOWN
+                value: "true"
+          php:
+            image:
+              repository: ckulka/baikal
+              tag: 0.10.1-nginx-php8.2@sha256:30c099b83aa88772b683d0c09fb6fa18ac82df442349fd6342e1df576abb580c
+            command:
+              [
+                "/bin/sh",
+                "-c",
+                'find /usr/sbin/ -type f -name "php-fpm*" -exec "{}" "-F" \;',
+              ]
+            # securityContext:
 
-        service:
-            app:
-                controller: *app
-                ports:
-                    http:
-                        port: 80
-                        targetPort: 8080
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 80
+            targetPort: 8080
 
-        route:
-            app:
-                hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
-                parentRefs:
-                    - name: external
-                      namespace: network
-                      sectionName: https
-                    - name: internal
-                      namespace: network
-                      sectionName: https
-                rules:
-                    - backendRefs:
-                          - identifier: app
-                            port: 80
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: external
+            namespace: network
+            sectionName: https
+          - name: internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
 
-        persistence:
-            config:
-                type: secret
-                name: baikal-config
-                defaultMode: 0660
-                advancedMounts:
-                    baikal:
-                        copy-config:
-                            - path: /config/baikal.yaml
-                              subPath: baikal.yaml
+    persistence:
+      config:
+        type: secret
+        name: baikal-config
+        defaultMode: 0660
+        advancedMounts:
+          baikal:
+            copy-config:
+              - path: /config/baikal.yaml
+                subPath: baikal.yaml
+      nginx:
+        type: configMap
+        name: baikal-configmap
+        advancedMounts:
+          baikal:
             nginx:
-                type: configMap
-                name: baikal-configmap
-                advancedMounts:
-                    baikal:
-                        nginx:
-                            - path: /etc/nginx/conf.d/default.conf
-                              subPath: nginx.conf
-                            - path: /docker-entrypoint.d/40-php-fpm.sh
-                              subPath: empty
+              - path: /etc/nginx/conf.d/default.conf
+                subPath: nginx.conf
+              - path: /docker-entrypoint.d/40-php-fpm.sh
+                subPath: empty
 
-            cache:
-                type: emptyDir
-                globalMounts:
-                    - path: /var/run/
-                      subPath: run
-                    - path: /var/log/
-                      subPath: log
-                advancedMounts:
-                    baikal:
-                        nginx:
-                            - path: /var/cache/nginx/
-                              subPath: nginx
-                            - path: /var/log/nginx/
-                              subPath: log/nginx
-                        php:
-                            - path: /run/php/
-                              subPath: run/php
-                            - path: /var/www/baikal/config/
-                              subPath: config
-                        copy-config:
-                            - path: /mnt
-                              subPath: config
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /var/run/
+            subPath: run
+          - path: /var/log/
+            subPath: log
+        advancedMounts:
+          baikal:
+            nginx:
+              - path: /var/cache/nginx/
+                subPath: nginx
+              - path: /var/log/nginx/
+                subPath: log/nginx
+            php:
+              - path: /run/php/
+                subPath: run/php
+              - path: /var/www/baikal/config/
+                subPath: config
+            copy-config:
+              - path: /mnt
+                subPath: config

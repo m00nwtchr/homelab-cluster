@@ -3,58 +3,58 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-    name: garage
+  name: garage
 spec:
-    interval: 5m
-    url: https://git.deuxfleurs.fr/Deuxfleurs/garage.git
-    ref:
-        branch: main-v2
-    ignore: |-
-        # exclude all
-        /*
-        # include charts directory
-        !/script/helm/
+  interval: 5m
+  url: https://git.deuxfleurs.fr/Deuxfleurs/garage.git
+  ref:
+    branch: main-v2
+  ignore: |-
+    # exclude all
+    /*
+    # include charts directory
+    !/script/helm/
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: garage
+  name: garage
 spec:
-    interval: 1h
-    chart:
-        spec:
-            chart: script/helm/garage
-            sourceRef:
-                kind: GitRepository
-                name: garage
-    values:
-        podSecurityContext:
-            fsGroupChangePolicy: "OnRootMismatch"
+  interval: 1h
+  chart:
+    spec:
+      chart: script/helm/garage
+      sourceRef:
+        kind: GitRepository
+        name: garage
+  values:
+    podSecurityContext:
+      fsGroupChangePolicy: "OnRootMismatch"
 
-        garage:
-            replicationFactor: "1"
+    garage:
+      replicationFactor: "1"
 
-            s3:
-                api:
-                    rootDomain: ".s3.${SECRET_DOMAIN}"
-                web:
-                    rootDomain: ".web.${SECRET_DOMAIN}"
+      s3:
+        api:
+          rootDomain: ".s3.${SECRET_DOMAIN}"
+        web:
+          rootDomain: ".web.${SECRET_DOMAIN}"
 
-        persistence:
-            #      meta:
-            #        size: 1Gi
-            meta:
-                existing:
-            data:
-                storageClass: zfs-vault
-                size: 10Gi
+    persistence:
+      #      meta:
+      #        size: 1Gi
+      meta:
+        existing:
+      data:
+        storageClass: zfs-vault
+        size: 10Gi
 
-        deployment:
-            replicaCount: 1
+    deployment:
+      replicaCount: 1
 
-        monitoring:
-            metrics:
-                enabled: true
-                serviceMonitor:
-                    enabled: true
+    monitoring:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true

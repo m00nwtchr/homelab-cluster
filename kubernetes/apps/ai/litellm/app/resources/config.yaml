@@ -1,114 +1,114 @@
 model_list:
-    - model_name: nomic-embed-text
-      litellm_params:
-          model: ollama/nomic-embed-text:latest
-          api_base: "http://ollama.ai.svc.cluster.local"
-      model_info:
-          mode: embedding
+  - model_name: nomic-embed-text
+    litellm_params:
+      model: ollama/nomic-embed-text:latest
+      api_base: "http://ollama.ai.svc.cluster.local"
+    model_info:
+      mode: embedding
 
-    - model_name: all-minilm:22m
-      litellm_params:
-          model: ollama/all-minilm:22m
-          api_base: "http://ollama.ai.svc.cluster.local"
-      model_info:
-          mode: embedding
+  - model_name: all-minilm:22m
+    litellm_params:
+      model: ollama/all-minilm:22m
+      api_base: "http://ollama.ai.svc.cluster.local"
+    model_info:
+      mode: embedding
 
-    - model_name: mxbai-embed-large
-      litellm_params:
-          model: ollama/mxbai-embed-large:latest
-          api_base: "http://ollama.ai.svc.cluster.local"
-      model_info:
-          mode: embedding
+  - model_name: mxbai-embed-large
+    litellm_params:
+      model: ollama/mxbai-embed-large:latest
+      api_base: "http://ollama.ai.svc.cluster.local"
+    model_info:
+      mode: embedding
 
-    - model_name: gemma3:4b
-      litellm_params:
-          model: ollama_chat/gemma3:4b
-          api_base: "http://ollama.ai.svc.cluster.local"
-      model_info:
-          mode: completion
-    - model_name: llava-llama3:8b
-      litellm_params:
-          model: ollama/llava-llama3:8b # Vision models need to use the `ollama` api
-          api_base: "http://ollama.ai.svc.cluster.local"
-      model_info:
-          mode: completion
+  - model_name: gemma3:4b
+    litellm_params:
+      model: ollama_chat/gemma3:4b
+      api_base: "http://ollama.ai.svc.cluster.local"
+    model_info:
+      mode: completion
+  - model_name: llava-llama3:8b
+    litellm_params:
+      model: ollama/llava-llama3:8b # Vision models need to use the `ollama` api
+      api_base: "http://ollama.ai.svc.cluster.local"
+    model_info:
+      mode: completion
 
-    #  - model_name: qwen3:30b-a3b
-    #    litellm_params:
-    #      model: ollama_chat/qwen3:30b-a3b
-    #      api_base: "http://ts-ollama.tailscale.svc:11434"
-    #  - model_name: gemma3:4b
-    #    litellm_params:
-    #      model: ollama_chat/gemma3:4b
-    #      api_base: "http://ts-ollama.tailscale.svc:11434"
-    - model_name: llava-llama3:8b
-      litellm_params:
-          model: ollama/llava-llama3:8b # Vision models need to use the `ollama` api
-          api_base: "http://ts-ollama.tailscale.svc:11434"
-      model_info:
-          mode: completion
+  #  - model_name: qwen3:30b-a3b
+  #    litellm_params:
+  #      model: ollama_chat/qwen3:30b-a3b
+  #      api_base: "http://ts-ollama.tailscale.svc:11434"
+  #  - model_name: gemma3:4b
+  #    litellm_params:
+  #      model: ollama_chat/gemma3:4b
+  #      api_base: "http://ts-ollama.tailscale.svc:11434"
+  - model_name: llava-llama3:8b
+    litellm_params:
+      model: ollama/llava-llama3:8b # Vision models need to use the `ollama` api
+      api_base: "http://ts-ollama.tailscale.svc:11434"
+    model_info:
+      mode: completion
 
-    - model_name: gpt-oss:20b
-      litellm_params:
-          model: groq/openai/gpt-oss-20b
-          api_key: "os.environ/GROQ_API_KEY"
-      model_info:
-          mode: completion
+  - model_name: gpt-oss:20b
+    litellm_params:
+      model: groq/openai/gpt-oss-20b
+      api_key: "os.environ/GROQ_API_KEY"
+    model_info:
+      mode: completion
 
-    - model_name: gpt-oss:120b
-      litellm_params:
-          model: groq/openai/gpt-oss-120b
-          api_key: "os.environ/GROQ_API_KEY"
-      model_info:
-          mode: completion
+  - model_name: gpt-oss:120b
+    litellm_params:
+      model: groq/openai/gpt-oss-120b
+      api_key: "os.environ/GROQ_API_KEY"
+    model_info:
+      mode: completion
 
-    - model_name: llama4-scout:17b-16e
-      litellm_params:
-          model: groq/meta-llama/llama-4-scout-17b-16e-instruct
-          api_key: "os.environ/GROQ_API_KEY"
-      model_info:
-          mode: completion
-    - model_name: llama4-maverick:17b-128e
-      litellm_params:
-          model: groq/meta-llama/llama-4-maverick-17b-128e-instruct
-          api_key: "os.environ/GROQ_API_KEY"
-      model_info:
-          mode: completion
+  - model_name: llama4-scout:17b-16e
+    litellm_params:
+      model: groq/meta-llama/llama-4-scout-17b-16e-instruct
+      api_key: "os.environ/GROQ_API_KEY"
+    model_info:
+      mode: completion
+  - model_name: llama4-maverick:17b-128e
+    litellm_params:
+      model: groq/meta-llama/llama-4-maverick-17b-128e-instruct
+      api_key: "os.environ/GROQ_API_KEY"
+    model_info:
+      mode: completion
 
-    - model_name: llama3.3:70b
-      litellm_params:
-          model: groq/llama-3.3-70b-versatile
-          api_key: "os.environ/GROQ_API_KEY"
-      model_info:
-          mode: completion
+  - model_name: llama3.3:70b
+    litellm_params:
+      model: groq/llama-3.3-70b-versatile
+      api_key: "os.environ/GROQ_API_KEY"
+    model_info:
+      mode: completion
 
-    - model_name: llama3.1:8b
-      litellm_params:
-          model: groq/llama-3.1-8b-instant
-          api_key: "os.environ/GROQ_API_KEY"
-      model_info:
-          mode: completion
+  - model_name: llama3.1:8b
+    litellm_params:
+      model: groq/llama-3.1-8b-instant
+      api_key: "os.environ/GROQ_API_KEY"
+    model_info:
+      mode: completion
 
 general_settings:
-    proxy_batch_write_at: 60 # Batch write spend updates every 60s
-    database_connection_pool_limit: 10 # limit the number of database connections to = MAX Number of DB Connections/Number of instances of litellm proxy (Around 10-20 is good number)
-    use_redis_transaction_buffer: true # HA
+  proxy_batch_write_at: 60 # Batch write spend updates every 60s
+  database_connection_pool_limit: 10 # limit the number of database connections to = MAX Number of DB Connections/Number of instances of litellm proxy (Around 10-20 is good number)
+  use_redis_transaction_buffer: true # HA
 
-    # OPTIONAL Best Practices
-    disable_error_logs: True # turn off writing LLM Exceptions to DB
-    allow_requests_on_db_unavailable: True # Only USE when running LiteLLM on your VPC. Allow requests to still be processed even if the DB is unavailable. We recommend doing this if you're running LiteLLM on VPC that cannot be accessed from the public internet.
+  # OPTIONAL Best Practices
+  disable_error_logs: True # turn off writing LLM Exceptions to DB
+  allow_requests_on_db_unavailable: True # Only USE when running LiteLLM on your VPC. Allow requests to still be processed even if the DB is unavailable. We recommend doing this if you're running LiteLLM on VPC that cannot be accessed from the public internet.
 
 router_settings:
-    routing_strategy: usage-based-routing-v2
-    redis_host: os.environ/REDIS_HOST
+  routing_strategy: usage-based-routing-v2
+  redis_host: os.environ/REDIS_HOST
 
 litellm_settings:
-    #  request_timeout: 600    # raise Timeout error if call takes longer than 600 seconds. Default value is 6000seconds if not set
-    set_verbose: False # Switch off Debug Logging, ensure your logs do not have any debugging on
-    json_logs: true # Get debug logs in json format
-    cache: True
-    cache_params:
-        type: redis
+  #  request_timeout: 600    # raise Timeout error if call takes longer than 600 seconds. Default value is 6000seconds if not set
+  set_verbose: False # Switch off Debug Logging, ensure your logs do not have any debugging on
+  json_logs: true # Get debug logs in json format
+  cache: True
+  cache_params:
+    type: redis
 #    type: qdrant-semantic
 #    qdrant_semantic_cache_embedding_model: nomic-embed-text # set this to a model_name set in model_list
 #    qdrant_collection_name: litellm

@@ -20,7 +20,6 @@ query_over_tcp_only = true
 ip_lookup_strategy = 3
 
 allow_registration = true
-registration_token_file = "/config/token"
 new_user_displayname_suffix = ""
 
 allow_federation = false

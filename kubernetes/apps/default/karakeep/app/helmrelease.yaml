@@ -3,220 +3,220 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: &app karakeep
+  name: &app karakeep
 spec:
-    interval: 30m
-    chartRef:
-        kind: OCIRepository
-        name: app-template
-        namespace: flux-system
-    dependsOn:
-        - name: openebs
-          namespace: openebs-system
-    values:
-        defaultPodOptions:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  dependsOn:
+    - name: openebs
+      namespace: openebs-system
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+
+    controllers:
+      *app :
+        forceRename: *app
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+          k8s.ksgate.org/meili-ready: |
+            {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "name": "karakeep-meilisearch",
+              "expression": "resource.status.readyReplicas >= 1"
+            }
+          k8s.ksgate.org/chrome-ready: |
+            {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "name": "karakeep-chrome",
+              "expression": "resource.status.readyReplicas >= 1"
+            }
+        schedulingGates:
+          - name: k8s.ksgate.org/meili-ready
+          - name: k8s.ksgate.org/chrome-ready
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/karakeep-app/karakeep
+              tag: 0.28.0@sha256:cd2348520ba25bbee64199468cd41758ab325eecd6a3a5c40cd6443a1607f9e9
+            env:
+              HOSTNAME: "::"
+              BROWSER_WEB_URL: http://karakeep-chrome.default.svc.cluster.local:9222
+              CRAWLER_DOWNLOAD_BANNER_IMAGE: true
+              CRAWLER_ENABLE_ADBLOCKER: true
+              CRAWLER_STORE_SCREENSHOT: true
+              DATA_DIR: /data
+              DISABLE_PASSWORD_AUTH: true
+              OAUTH_WELLKNOWN_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
+              OAUTH_CLIENT_ID: *app
+              OAUTH_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: kanidm-${APP}-oidc
+                    key: client-secret
+              OAUTH_PROVIDER_NAME: Kanidm
+              MEILI_ADDR: http://karakeep-meilisearch.default.svc.cluster.local:7700
+              MEILI_MASTER_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: karakeep-secret
+                    key: meilisearch_master_key
+              NEXTAUTH_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: karakeep-secret
+                    key: encryption_key
+              NEXTAUTH_URL: https://${APP}.${SECRET_DOMAIN}
+              DISABLE_NEW_RELEASE_CHECK: true
+              COREPACK_INTEGRITY_KEYS: 0
+              DB_WAL_MODE: true
+
+              OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
+              OPENAI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: karakeep-secret
+                    key: litellm_key
+              #              OLLAMA_BASE_URL: http://ts-ollama.tailscale.svc:11434
+
+              INFERENCE_TEXT_MODEL: llama3.3:70b
+              INFERENCE_IMAGE_MODEL: llava-llama3:8b
+              INFERENCE_CONTEXT_LENGTH: "8192"
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+
+      chrome:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: gcr.io/zenika-hub/alpine-chrome
+              tag: 124@sha256:1a0046448e0bb6c275c88f86e01faf0de62b02ec8572901256ada0a8c08be23f
+            command:
+              - chromium-browser
+            args:
+              - --headless
+              - --no-sandbox
+              - --disable-gpu
+              - --disable-dev-shm-usage
+              - "--remote-debugging-address=0.0.0.0"
+              - --remote-debugging-port=9222
+              - --hide-scrollbars
             securityContext:
-                runAsUser: 1000
-                runAsGroup: 1000
-                runAsNonRoot: true
-                fsGroup: 1000
-                fsGroupChangePolicy: "OnRootMismatch"
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
 
-        controllers:
-            *app :
-                forceRename: *app
-                annotations:
-                    reloader.stakater.com/auto: "true"
+      meilisearch:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values:
+                          - *app
+                      - key: app.kubernetes.io/controller
+                        operator: In
+                        values:
+                          - *app
+                  topologyKey: kubernetes.io/hostname
 
-                    k8s.ksgate.org/meili-ready: |
-                        {
-                          "apiVersion": "apps/v1",
-                          "kind": "Deployment",
-                          "name": "karakeep-meilisearch",
-                          "expression": "resource.status.readyReplicas >= 1"
-                        }
-                    k8s.ksgate.org/chrome-ready: |
-                        {
-                          "apiVersion": "apps/v1",
-                          "kind": "Deployment",
-                          "name": "karakeep-chrome",
-                          "expression": "resource.status.readyReplicas >= 1"
-                        }
-                schedulingGates:
-                    - name: k8s.ksgate.org/meili-ready
-                    - name: k8s.ksgate.org/chrome-ready
+        containers:
+          app:
+            image:
+              repository: mirror.gcr.io/getmeili/meilisearch
+              tag: v1.26.0@sha256:773759814f59214a0971dc8810ae1d85002e92166d99760cd546d5ee8ac37c14
+            args:
+              - /bin/meilisearch
+              - --experimental-dumpless-upgrade
+            env:
+              MEILI_HTTP_ADDR: "[::]:7700"
+              MEILI_NO_ANALYTICS: true
+              MEILI_MASTER_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: karakeep-secret
+                    key: meilisearch_master_key
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 4Gi
 
-                containers:
-                    app:
-                        image:
-                            repository: ghcr.io/karakeep-app/karakeep
-                            tag: 0.28.0@sha256:cd2348520ba25bbee64199468cd41758ab325eecd6a3a5c40cd6443a1607f9e9
-                        env:
-                            HOSTNAME: "::"
-                            BROWSER_WEB_URL: http://karakeep-chrome.default.svc.cluster.local:9222
-                            CRAWLER_DOWNLOAD_BANNER_IMAGE: true
-                            CRAWLER_ENABLE_ADBLOCKER: true
-                            CRAWLER_STORE_SCREENSHOT: true
-                            DATA_DIR: /data
-                            DISABLE_PASSWORD_AUTH: true
-                            OAUTH_WELLKNOWN_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
-                            OAUTH_CLIENT_ID: *app
-                            OAUTH_CLIENT_SECRET:
-                                valueFrom:
-                                    secretKeyRef:
-                                        name: kanidm-${APP}-oidc
-                                        key: client-secret
-                            OAUTH_PROVIDER_NAME: Kanidm
-                            MEILI_ADDR: http://karakeep-meilisearch.default.svc.cluster.local:7700
-                            MEILI_MASTER_KEY:
-                                valueFrom:
-                                    secretKeyRef:
-                                        name: karakeep-secret
-                                        key: meilisearch_master_key
-                            NEXTAUTH_SECRET:
-                                valueFrom:
-                                    secretKeyRef:
-                                        name: karakeep-secret
-                                        key: encryption_key
-                            NEXTAUTH_URL: https://${APP}.${SECRET_DOMAIN}
-                            DISABLE_NEW_RELEASE_CHECK: true
-                            COREPACK_INTEGRITY_KEYS: 0
-                            DB_WAL_MODE: true
+    service:
+      app:
+        forceRename: *app
+        primary: true
+        controller: *app
+        ports:
+          http:
+            port: 80
+            targetPort: 3000
+      chrome:
+        controller: chrome
+        ipFamilies: [IPv4]
+        ports:
+          http:
+            port: 9222
+      meilisearch:
+        controller: meilisearch
+        ports:
+          http:
+            port: 7700
 
-                            OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
-                            OPENAI_API_KEY:
-                                valueFrom:
-                                    secretKeyRef:
-                                        name: karakeep-secret
-                                        key: litellm_key
-                            #              OLLAMA_BASE_URL: http://ts-ollama.tailscale.svc:11434
-
-                            INFERENCE_TEXT_MODEL: llama3.3:70b
-                            INFERENCE_IMAGE_MODEL: llava-llama3:8b
-                            INFERENCE_CONTEXT_LENGTH: "8192"
-                        probes:
-                            liveness:
-                                enabled: true
-                            readiness:
-                                enabled: true
-                        resources:
-                            requests:
-                                cpu: 10m
-                            limits:
-                                memory: 1Gi
-
-            chrome:
-                annotations:
-                    reloader.stakater.com/auto: "true"
-                containers:
-                    app:
-                        image:
-                            repository: gcr.io/zenika-hub/alpine-chrome
-                            tag: 124@sha256:1a0046448e0bb6c275c88f86e01faf0de62b02ec8572901256ada0a8c08be23f
-                        command:
-                            - chromium-browser
-                        args:
-                            - --headless
-                            - --no-sandbox
-                            - --disable-gpu
-                            - --disable-dev-shm-usage
-                            - "--remote-debugging-address=0.0.0.0"
-                            - --remote-debugging-port=9222
-                            - --hide-scrollbars
-                        securityContext:
-                            capabilities:
-                                drop:
-                                    - ALL
-                        resources:
-                            requests:
-                                cpu: 10m
-                            limits:
-                                memory: 1Gi
-
-            meilisearch:
-                annotations:
-                    reloader.stakater.com/auto: "true"
-                pod:
-                    affinity:
-                        podAffinity:
-                            requiredDuringSchedulingIgnoredDuringExecution:
-                                - labelSelector:
-                                      matchExpressions:
-                                          - key: app.kubernetes.io/name
-                                            operator: In
-                                            values:
-                                                - *app
-                                          - key: app.kubernetes.io/controller
-                                            operator: In
-                                            values:
-                                                - *app
-                                  topologyKey: kubernetes.io/hostname
-
-                containers:
-                    app:
-                        image:
-                            repository: mirror.gcr.io/getmeili/meilisearch
-                            tag: v1.26.0@sha256:773759814f59214a0971dc8810ae1d85002e92166d99760cd546d5ee8ac37c14
-                        args:
-                            - /bin/meilisearch
-                            - --experimental-dumpless-upgrade
-                        env:
-                            MEILI_HTTP_ADDR: "[::]:7700"
-                            MEILI_NO_ANALYTICS: true
-                            MEILI_MASTER_KEY:
-                                valueFrom:
-                                    secretKeyRef:
-                                        name: karakeep-secret
-                                        key: meilisearch_master_key
-                        resources:
-                            requests:
-                                cpu: 10m
-                            limits:
-                                memory: 4Gi
-
-        service:
+    persistence:
+      data:
+        existingClaim: *app
+        advancedMounts:
+          karakeep:
             app:
-                forceRename: *app
-                primary: true
-                controller: *app
-                ports:
-                    http:
-                        port: 80
-                        targetPort: 3000
-            chrome:
-                controller: chrome
-                ipFamilies: [IPv4]
-                ports:
-                    http:
-                        port: 9222
-            meilisearch:
-                controller: meilisearch
-                ports:
-                    http:
-                        port: 7700
-
-        persistence:
-            data:
-                existingClaim: *app
-                advancedMounts:
-                    karakeep:
-                        app:
-                            - path: /data
-                              subPath: karakeep
-                    meilisearch:
-                        app:
-                            - path: /meili_data
-                              subPath: meilisearch
-
-        route:
+              - path: /data
+                subPath: karakeep
+          meilisearch:
             app:
-                hostnames:
-                    - "{{ .Release.Name }}.${SECRET_DOMAIN}"
-                parentRefs:
-                    - name: internal
-                      namespace: network
-                      sectionName: https
-                rules:
-                    - backendRefs:
-                          - identifier: app
-                            port: 80
+              - path: /meili_data
+                subPath: meilisearch
+
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80

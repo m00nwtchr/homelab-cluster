@@ -3,126 +3,126 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: &app paperless
+  name: &app paperless
 spec:
-    interval: 1h
-    chartRef:
-        kind: OCIRepository
-        name: app-template
-        namespace: flux-system
-    values:
-        defaultPodOptions:
-            securityContext:
-                #        runAsUser: 1000
-                #        runAsGroup: 1000
-                #        #          runAsNonRoot: true
-                fsGroup: 1000
-                fsGroupChangePolicy: "OnRootMismatch"
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    defaultPodOptions:
+      securityContext:
+        #        runAsUser: 1000
+        #        runAsGroup: 1000
+        #        #          runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
 
-        controllers:
-            *app :
-                type: statefulset
-                statefulset:
-                    podManagementPolicy: Parallel
+    controllers:
+      *app :
+        type: statefulset
+        statefulset:
+          podManagementPolicy: Parallel
 
-                containers:
-                    app:
-                        env:
-                            PAPERLESS_REDIS: redis://dragonfly.database.svc:6379/13
-                            PAPERLESS_DBHOST: postgres-rw.postgres.svc
-                            PAPERLESS_DBSSLMODE: verify-full
-                            PAPERLESS_DBSSLROOTCERT: /var/run/secrets/root-ca/ca.crt
-                            PAPERLESS_DBSSLCERT: /var/run/secrets/postgresql/tls.crt
-                            PAPERLESS_DBSSLKEY: /var/run/secrets/postgresql/tls.key
+        containers:
+          app:
+            env:
+              PAPERLESS_REDIS: redis://dragonfly.database.svc:6379/13
+              PAPERLESS_DBHOST: postgres-rw.postgres.svc
+              PAPERLESS_DBSSLMODE: verify-full
+              PAPERLESS_DBSSLROOTCERT: /var/run/secrets/root-ca/ca.crt
+              PAPERLESS_DBSSLCERT: /var/run/secrets/postgresql/tls.crt
+              PAPERLESS_DBSSLKEY: /var/run/secrets/postgresql/tls.key
 
-                            PAPERLESS_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}
-                            PAPERLESS_ENABLE_HTTP_REMOTE_USER: "true"
+              PAPERLESS_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}
+              PAPERLESS_ENABLE_HTTP_REMOTE_USER: "true"
 
-                            PAPERLESS_OCR_LANGUAGE: pol
-                            PAPERLESS_OCR_LANGUAGES: pol
+              PAPERLESS_OCR_LANGUAGE: pol
+              PAPERLESS_OCR_LANGUAGES: pol
 
-                            PAPERLESS_TIKA_ENABLED: 1
-                            PAPERLESS_TIKA_ENDPOINT: http://tika.default.svc
-                            PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
+              PAPERLESS_TIKA_ENABLED: 1
+              PAPERLESS_TIKA_ENDPOINT: http://tika.default.svc
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
 
-                            PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
-                            PAPERLESS_DISABLE_REGULAR_LOGIN: 1
-                            PAPERLESS_REDIRECT_LOGIN_TO_SSO: 1
-                        envFrom:
-                            - secretRef:
-                                  name: paperless-env
-                        image:
-                            repository: ghcr.io/paperless-ngx/paperless-ngx
-                            tag: 2.19.6@sha256:719a4e4c4314b417646b00e58bfbfbe55e4cb59017a2dec1533e96d8deb66ec1
-                        probes:
-                            liveness:
-                                enabled: true
-                                type: HTTP
-                            readiness:
-                                enabled: true
-                                type: HTTP
-                            startup:
-                                enabled: true
-                                spec:
-                                    failureThreshold: 30
-                                    periodSeconds: 5
-                                type: HTTP
-                        resources:
-                            limits:
-                                memory: 1Gi
-                            requests:
-                                cpu: 40m
-                                memory: 1Gi
+              PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
+              PAPERLESS_DISABLE_REGULAR_LOGIN: 1
+              PAPERLESS_REDIRECT_LOGIN_TO_SSO: 1
+            envFrom:
+              - secretRef:
+                  name: paperless-env
+            image:
+              repository: ghcr.io/paperless-ngx/paperless-ngx
+              tag: 2.19.6@sha256:719a4e4c4314b417646b00e58bfbfbe55e4cb59017a2dec1533e96d8deb66ec1
+            probes:
+              liveness:
+                enabled: true
+                type: HTTP
+              readiness:
+                enabled: true
+                type: HTTP
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+                type: HTTP
+            resources:
+              limits:
+                memory: 1Gi
+              requests:
+                cpu: 40m
+                memory: 1Gi
 
-                    gotenberg:
-                        env:
-                            DISABLE_GOOGLE_CHROME: "1"
-                        image:
-                            repository: docker.io/gotenberg/gotenberg
-                            tag: 8.25.0@sha256:e304e45acee3c400f8ef76afa195c76b1d0eaf0ab6fe9651e305067ab6a1560c
-                        resources:
-                            limits:
-                                memory: 512Mi
-                            requests:
-                                cpu: 10m
-                                memory: 30Mi
+          gotenberg:
+            env:
+              DISABLE_GOOGLE_CHROME: "1"
+            image:
+              repository: docker.io/gotenberg/gotenberg
+              tag: 8.25.0@sha256:e304e45acee3c400f8ef76afa195c76b1d0eaf0ab6fe9651e305067ab6a1560c
+            resources:
+              limits:
+                memory: 512Mi
+              requests:
+                cpu: 10m
+                memory: 30Mi
 
-        service:
-            app:
-                controller: *app
-                ports:
-                    http:
-                        port: 80
-                        targetPort: 8000
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 80
+            targetPort: 8000
 
-        route:
-            app:
-                hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
-                annotations:
-                    gethomepage.dev/enabled: "true"
-                    gethomepage.dev/group: Home
-                    gethomepage.dev/name: Paperless
-                    gethomepage.dev/icon: paperless.svg
-                parentRefs:
-                    - name: internal
-                      namespace: network
-                      sectionName: https
-                rules:
-                    - backendRefs:
-                          - identifier: app
-                            port: 80
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Home
+          gethomepage.dev/name: Paperless
+          gethomepage.dev/icon: paperless.svg
+        parentRefs:
+          - name: internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
 
-        persistence:
-            data:
-                size: 1Gi
-                accessMode: ReadWriteOnce
-                globalMounts:
-                    - path: /usr/src/paperless/data
+    persistence:
+      data:
+        size: 1Gi
+        accessMode: ReadWriteOnce
+        globalMounts:
+          - path: /usr/src/paperless/data
 
-            media:
-                existingClaim: paperless-media
-                globalMounts:
-                    - path: /usr/src/paperless/media
-                      subPath: media
-                    - path: /usr/src/paperless/consume
-                      subPath: consume
+      media:
+        existingClaim: paperless-media
+        globalMounts:
+          - path: /usr/src/paperless/media
+            subPath: media
+          - path: /usr/src/paperless/consume
+            subPath: consume

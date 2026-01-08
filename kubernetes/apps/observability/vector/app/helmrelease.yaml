@@ -3,73 +3,73 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-    name: vector
+  name: vector
 spec:
-    interval: 5m
-    layerSelector:
-        mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-        operation: copy
-    ref:
-        tag: 0.48.0
-    url: oci://ghcr.io/vectordotdev/helm-charts/vector
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 0.48.0
+  url: oci://ghcr.io/vectordotdev/helm-charts/vector
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: &app vector
+  name: &app vector
 spec:
-    interval: 1h
-    chartRef:
-        kind: OCIRepository
-        name: *app
-    values:
-        fullnameOverride: *app
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  values:
+    fullnameOverride: *app
 
-        podMonitor:
-            enabled: true
+    podMonitor:
+      enabled: true
 
-        image:
-            repository: "mirror.gcr.io/timberio/vector"
+    image:
+      repository: "mirror.gcr.io/timberio/vector"
 
-        role: Agent
+    role: Agent
 
-        customConfig:
-            data_dir: /vector-data-dir
-            api:
-                enabled: true
-                address: "[::]:8686"
-                playground: false
-            sources:
-                kubernetes_logs:
-                    type: kubernetes_logs
-                    pod_annotation_fields:
-                        # Disable "pod_ips" as "pod_ip" already includes required info
-                        pod_ips: ""
+    customConfig:
+      data_dir: /vector-data-dir
+      api:
+        enabled: true
+        address: "[::]:8686"
+        playground: false
+      sources:
+        kubernetes_logs:
+          type: kubernetes_logs
+          pod_annotation_fields:
+            # Disable "pod_ips" as "pod_ip" already includes required info
+            pod_ips: ""
 
-            transforms:
-                json_parser:
-                    type: remap
-                    inputs: [kubernetes_logs]
-                    source: |
-                        .message = parse_json(.message) ?? .message
+      transforms:
+        json_parser:
+          type: remap
+          inputs: [kubernetes_logs]
+          source: |
+            .message = parse_json(.message) ?? .message
 
-            sinks:
-                remote_write_0:
-                    type: http
-                    inputs: [json_parser]
-                    uri: "http://vlsingle-vl:9428/insert/jsonline"
-                    encoding:
-                        codec: json
-                    framing:
-                        method: newline_delimited
-                    healthcheck:
-                        enabled: false
-                    request:
-                        headers:
-                            AccountID: "0"
-                            ProjectID: "0"
-                            VL-Stream-Fields: kubernetes.pod_name,kubernetes.container_name,kubernetes.pod_namespace
-                            VL-Msg-Field: message
-                            VL-Time-Field: timestamp
-                    compression: "zstd"
+      sinks:
+        remote_write_0:
+          type: http
+          inputs: [json_parser]
+          uri: "http://vlsingle-vl:9428/insert/jsonline"
+          encoding:
+            codec: json
+          framing:
+            method: newline_delimited
+          healthcheck:
+            enabled: false
+          request:
+            headers:
+              AccountID: "0"
+              ProjectID: "0"
+              VL-Stream-Fields: kubernetes.pod_name,kubernetes.container_name,kubernetes.pod_namespace
+              VL-Msg-Field: message
+              VL-Time-Field: timestamp
+          compression: "zstd"

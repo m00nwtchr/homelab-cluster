@@ -2,46 +2,46 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-    name: generic-cdi-plugin-daemonset
+  name: generic-cdi-plugin-daemonset
 spec:
-    selector:
-        matchLabels:
-            name: generic-cdi-plugin
-    template:
-        metadata:
-            labels:
-                name: generic-cdi-plugin
-                app.kubernetes.io/component: generic-cdi-plugin
-                app.kubernetes.io/name: generic-cdi-plugin
-        spec:
-            containers:
-                - image: ghcr.io/olfillasodikno/generic-cdi-plugin:main@sha256:5399b02c75e7e1ef2f9f4d2ab75e05cfa66fac6e30bd2a8ea1045f8c02bda4ec
-                  name: generic-cdi-plugin
-                  command:
-                      - /generic-cdi-plugin
-                      - /var/run/cdi/nvidia-container-toolkit.json
-                  imagePullPolicy: IfNotPresent
-                  securityContext:
-                      privileged: true
-                  tty: true
-                  volumeMounts:
-                      - name: kubelet
-                        mountPath: /var/lib/kubelet
-                      - name: nvidia-container-toolkit
-                        mountPath: /var/run/cdi/nvidia-container-toolkit.json
-            volumes:
-                - name: kubelet
-                  hostPath:
-                      path: /var/lib/kubelet
-                - name: nvidia-container-toolkit
-                  hostPath:
-                      path: /var/run/cdi/nvidia-container-toolkit.json
-            # affinity:
-            #   nodeAffinity:
-            #     requiredDuringSchedulingIgnoredDuringExecution:
-            #       nodeSelectorTerms:
-            #       - matchExpressions:
-            #         - key: "nixos-nvidia-cdi"
-            #           operator: In
-            #           values:
-            #           - "enabled"
+  selector:
+    matchLabels:
+      name: generic-cdi-plugin
+  template:
+    metadata:
+      labels:
+        name: generic-cdi-plugin
+        app.kubernetes.io/component: generic-cdi-plugin
+        app.kubernetes.io/name: generic-cdi-plugin
+    spec:
+      containers:
+        - image: ghcr.io/olfillasodikno/generic-cdi-plugin:main@sha256:5399b02c75e7e1ef2f9f4d2ab75e05cfa66fac6e30bd2a8ea1045f8c02bda4ec
+          name: generic-cdi-plugin
+          command:
+            - /generic-cdi-plugin
+            - /var/run/cdi/nvidia-container-toolkit.json
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+          tty: true
+          volumeMounts:
+            - name: kubelet
+              mountPath: /var/lib/kubelet
+            - name: nvidia-container-toolkit
+              mountPath: /var/run/cdi/nvidia-container-toolkit.json
+      volumes:
+        - name: kubelet
+          hostPath:
+            path: /var/lib/kubelet
+        - name: nvidia-container-toolkit
+          hostPath:
+            path: /var/run/cdi/nvidia-container-toolkit.json
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: "nixos-nvidia-cdi"
+      #           operator: In
+      #           values:
+      #           - "enabled"

@@ -3,35 +3,35 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-    name: reloader
+  name: reloader
 spec:
-    interval: 5m
-    layerSelector:
-        mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-        operation: copy
-    ref:
-        tag: 2.2.5
-    url: oci://ghcr.io/stakater/charts/reloader
-    verify:
-        provider: cosign
-        matchOIDCIdentity:
-            - issuer: "^https://token.actions.githubusercontent.com$"
-              subject: "^https://github.com/stakater/Reloader.*$"
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 2.2.5
+  url: oci://ghcr.io/stakater/charts/reloader
+  verify:
+    provider: cosign
+    matchOIDCIdentity:
+      - issuer: "^https://token.actions.githubusercontent.com$"
+        subject: "^https://github.com/stakater/Reloader.*$"
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: &app reloader
+  name: &app reloader
 spec:
-    interval: 1h
-    chartRef:
-        kind: OCIRepository
-        name: *app
-    values:
-        fullnameOverride: *app
-        reloader:
-            readOnlyRootFileSystem: true
-            podMonitor:
-                enabled: true
-                namespace: "{{ .Release.Namespace }}"
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  values:
+    fullnameOverride: *app
+    reloader:
+      readOnlyRootFileSystem: true
+      podMonitor:
+        enabled: true
+        namespace: "{{ .Release.Namespace }}"
