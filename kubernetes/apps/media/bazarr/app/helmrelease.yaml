@@ -3,129 +3,129 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app bazarr
+    name: &app bazarr
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  values:
-    controllers:
-      *app :
-        type: statefulset
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: app-template
+        namespace: flux-system
+    values:
+        controllers:
+            *app :
+                type: statefulset
 
-        pod:
-          securityContext:
-            runAsUser: 2000
-            runAsGroup: 2000
-            runAsNonRoot: true
-            fsGroup: 2000
-            fsGroupChangePolicy: "OnRootMismatch"
+                pod:
+                    securityContext:
+                        runAsUser: 2000
+                        runAsGroup: 2000
+                        runAsNonRoot: true
+                        fsGroup: 2000
+                        fsGroupChangePolicy: "OnRootMismatch"
 
-        containers:
-          app:
-            image:
-              repository: ghcr.io/home-operations/bazarr
-              tag: 1.5.3@sha256:2f1c32cb1420b2e56f60cfdf7823737eb501fdb2c13669429d23ab3a02e9ad90
-            env:
-              POSTGRES_ENABLED: true
-              POSTGRES_HOST: postgres-rw.postgres.svc
-              POSTGRES_USERNAME: *app
-              POSTGRES_DATABASE: *app
-              POSTGRES_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-postgres"
-                    key: password
+                containers:
+                    app:
+                        image:
+                            repository: ghcr.io/home-operations/bazarr
+                            tag: 1.5.3@sha256:2f1c32cb1420b2e56f60cfdf7823737eb501fdb2c13669429d23ab3a02e9ad90
+                        env:
+                            POSTGRES_ENABLED: true
+                            POSTGRES_HOST: postgres-rw.postgres.svc
+                            POSTGRES_USERNAME: *app
+                            POSTGRES_DATABASE: *app
+                            POSTGRES_PASSWORD:
+                                valueFrom:
+                                    secretKeyRef:
+                                        name: "{{ .Release.Name }}-postgres"
+                                        key: password
 
-            # envFrom:
-            #   - secretRef:
-            #       name: bazarr-secret
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /health
-                    port: &port 6767
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-            resources:
-              requests:
-                cpu: 15m
-                memory: 256Mi
-              limits:
-                memory: 512Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
+                        # envFrom:
+                        #   - secretRef:
+                        #       name: bazarr-secret
+                        probes:
+                            liveness: &probes
+                                enabled: true
+                                custom: true
+                                spec:
+                                    httpGet:
+                                        path: /health
+                                        port: &port 6767
+                                    initialDelaySeconds: 0
+                                    periodSeconds: 10
+                                    timeoutSeconds: 1
+                                    failureThreshold: 3
+                            readiness: *probes
+                        resources:
+                            requests:
+                                cpu: 15m
+                                memory: 256Mi
+                            limits:
+                                memory: 512Mi
+                        securityContext:
+                            allowPrivilegeEscalation: false
+                            readOnlyRootFilesystem: true
+                            capabilities:
+                                drop:
+                                    - ALL
 
-    service:
-      app:
-        controller: *app
-        ports:
-          http:
-            targetPort: *port
-            port: 80
+        service:
+            app:
+                controller: *app
+                ports:
+                    http:
+                        targetPort: *port
+                        port: 80
 
-    route:
-      app:
-        forceRename: *app
-        hostnames: [ &host "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Media
-          gethomepage.dev/name: Bazarr
-          gethomepage.dev/href: "https://${APP}.svc.${SECRET_DOMAIN}"
-          gethomepage.dev/icon: ${APP}.svg
-          gethomepage.dev/widget.type: *app
-          gethomepage.dev/widget.url: "http://${APP}.media.svc"
-          gethomepage.dev/widget.key: "{{ \"{{HOMEPAGE_VAR_${APP}_API_KEY}}\" }}"
-        parentRefs:
-          - name: internal
-            namespace: network
-            sectionName: https
+        route:
+            app:
+                forceRename: *app
+                hostnames: [&host "{{ .Release.Name }}.${SECRET_DOMAIN}"]
+                annotations:
+                    gethomepage.dev/enabled: "true"
+                    gethomepage.dev/group: Media
+                    gethomepage.dev/name: Bazarr
+                    gethomepage.dev/href: "https://${APP}.svc.${SECRET_DOMAIN}"
+                    gethomepage.dev/icon: ${APP}.svg
+                    gethomepage.dev/widget.type: *app
+                    gethomepage.dev/widget.url: "http://${APP}.media.svc"
+                    gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_${APP}_API_KEY}}" }}'
+                parentRefs:
+                    - name: internal
+                      namespace: network
+                      sectionName: https
 
-      api:
-        hostnames: [ *host ]
-        parentRefs:
-          - name: internal
-            namespace: network
-            sectionName: https
-        rules:
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /api
-            backendRefs:
-              - identifier: app
-                port: 80
-            timeouts:
-              request: "300s"
+            api:
+                hostnames: [*host]
+                parentRefs:
+                    - name: internal
+                      namespace: network
+                      sectionName: https
+                rules:
+                    - matches:
+                          - path:
+                                type: PathPrefix
+                                value: /api
+                      backendRefs:
+                          - identifier: app
+                            port: 80
+                      timeouts:
+                          request: "300s"
 
-    persistence:
-      config:
-        existingClaim: *app
+        persistence:
+            config:
+                existingClaim: *app
 
-      media:
-        existingClaim: media
-        globalMounts:
-          - path: /mnt/media
+            media:
+                existingClaim: media
+                globalMounts:
+                    - path: /mnt/media
 
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
-            subPath: tmp
-          - path: /config/cache
-            subPath: cache
-          - path: /config/log
-            subPath: log
+            cache:
+                type: emptyDir
+                globalMounts:
+                    - path: /tmp
+                      subPath: tmp
+                    - path: /config/cache
+                      subPath: cache
+                    - path: /config/log
+                      subPath: log

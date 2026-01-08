@@ -3,5 +3,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./helmrelease.yaml
-  # - https://github.com/tektoncd/operator/releases/download/v0.78.1/release.yaml
+    - ./helmrelease.yaml
+    # - https://github.com/tektoncd/operator/releases/download/v0.78.1/release.yaml

@@ -3,133 +3,133 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app gatus
+    name: &app gatus
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  values:
-    controllers:
-      *app :
-        annotations:
-          reloader.stakater.com/auto: "true"
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: app-template
+        namespace: flux-system
+    values:
+        controllers:
+            *app :
+                annotations:
+                    reloader.stakater.com/auto: "true"
 
-        initContainers:
-          init-config:
-            image:
-              repository: ghcr.io/home-operations/k8s-sidecar
-              tag: 2.1.2@sha256:d9e169add4e71fd5931a24e11696853f3d804ebc2022cd81f038e7ef22f4d626
-            env:
-              FOLDER: /config
-              LABEL: gatus.io/enabled
-              NAMESPACE: ALL
-              RESOURCE: both
-              UNIQUE_FILENAMES: true
-              METHOD: WATCH
-            restartPolicy: Always
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 128Mi
+                initContainers:
+                    init-config:
+                        image:
+                            repository: ghcr.io/home-operations/k8s-sidecar
+                            tag: 2.1.2@sha256:d9e169add4e71fd5931a24e11696853f3d804ebc2022cd81f038e7ef22f4d626
+                        env:
+                            FOLDER: /config
+                            LABEL: gatus.io/enabled
+                            NAMESPACE: ALL
+                            RESOURCE: both
+                            UNIQUE_FILENAMES: true
+                            METHOD: WATCH
+                        restartPolicy: Always
+                        resources:
+                            requests:
+                                cpu: 10m
+                            limits:
+                                memory: 128Mi
 
-        containers:
-          app:
-            image:
-              repository: ghcr.io/twin/gatus
-              tag: v5.32.0@sha256:d848d9a767f64bb7b972a30b2c8a3cd2818c4d289ddad1032a5941c2d0af5a35
-            env:
-              GATUS_CONFIG_PATH: /config
-              GATUS_DELAY_START_SECONDS: 5
-              GATUS_WEB_PORT: &port 8080
-              GATUS_WEB_ADDRESS: "::"
-              TZ: ${TZ}
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /health
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+                containers:
+                    app:
+                        image:
+                            repository: ghcr.io/twin/gatus
+                            tag: v5.32.0@sha256:d848d9a767f64bb7b972a30b2c8a3cd2818c4d289ddad1032a5941c2d0af5a35
+                        env:
+                            GATUS_CONFIG_PATH: /config
+                            GATUS_DELAY_START_SECONDS: 5
+                            GATUS_WEB_PORT: &port 8080
+                            GATUS_WEB_ADDRESS: "::"
+                            TZ: ${TZ}
+                        probes:
+                            liveness: &probes
+                                enabled: true
+                                custom: true
+                                spec:
+                                    httpGet:
+                                        path: /health
+                                        port: *port
+                                    initialDelaySeconds: 0
+                                    periodSeconds: 10
+                                    timeoutSeconds: 1
+                                    failureThreshold: 3
+                            readiness: *probes
+                        securityContext:
+                            allowPrivilegeEscalation: false
+                            readOnlyRootFilesystem: true
+                            capabilities: { drop: ["ALL"] }
+                        resources:
+                            requests:
+                                cpu: 100m
+                            limits:
+                                memory: 256Mi
+
+        defaultPodOptions:
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: [ "ALL" ] }
-            resources:
-              requests:
-                cpu: 100m
-              limits:
-                memory: 256Mi
+                runAsNonRoot: true
+                runAsUser: 1000
+                runAsGroup: 1000
+                fsGroup: 1000
+                fsGroupChangePolicy: "OnRootMismatch"
 
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
+        service:
+            app:
+                ports:
+                    http:
+                        port: 80
+                        targetPort: *port
 
-    service:
-      app:
-        ports:
-          http:
-            port: 80
-            targetPort: *port
+        serviceMonitor:
+            app:
+                endpoints:
+                    - port: http
 
-    serviceMonitor:
-      app:
-        endpoints:
-          - port: http
+        route:
+            app:
+                hostnames:
+                    - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+                    - "status.${SECRET_DOMAIN}"
+                parentRefs:
+                    - name: internal
+                      namespace: network
+                      sectionName: https
 
-    route:
-      app:
-        hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
-          - "status.${SECRET_DOMAIN}"
-        parentRefs:
-          - name: internal
-            namespace: network
-            sectionName: https
+        rbac:
+            roles:
+                *app :
+                    type: ClusterRole
+                    rules:
+                        - apiGroups:
+                              - ""
+                          resources:
+                              - configmaps
+                              - secrets
+                          verbs:
+                              - get
+                              - watch
+                              - list
+            bindings:
+                *app :
+                    type: ClusterRoleBinding
+                    roleRef:
+                        identifier: *app
+                    subjects:
+                        - identifier: *app
+        serviceAccount:
+            *app : {}
 
-    rbac:
-      roles:
-        *app :
-          type: ClusterRole
-          rules:
-            - apiGroups:
-                - ""
-              resources:
-                - configmaps
-                - secrets
-              verbs:
-                - get
-                - watch
-                - list
-      bindings:
-        *app :
-          type: ClusterRoleBinding
-          roleRef:
-            identifier: *app
-          subjects:
-            - identifier: *app
-    serviceAccount:
-      *app : { }
+        persistence:
+            config:
+                type: emptyDir
 
-    persistence:
-      config:
-        type: emptyDir
-
-      config-file:
-        type: configMap
-        name: gatus-configmap
-        globalMounts:
-          - path: /config/config.yaml
-            subPath: config.yaml
+            config-file:
+                type: configMap
+                name: gatus-configmap
+                globalMounts:
+                    - path: /config/config.yaml
+                      subPath: config.yaml

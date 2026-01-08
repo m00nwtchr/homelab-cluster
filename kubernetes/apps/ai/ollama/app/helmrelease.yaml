@@ -3,72 +3,72 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app ollama
+    name: &app ollama
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  values:
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 2999
-        runAsGroup: 2999
-        fsGroup: 2999
-        fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
-        seccompProfile:
-          type: RuntimeDefault
-
-    controllers:
-      ollama:
-        containers:
-          app:
-            image:
-              repository: ollama/ollama
-              tag: 0.12.11@sha256:3d8a05e3432d50ea57594fabe971e46cc8fe963a0f9f8c40400bd56cd5388e47
-            env:
-              TZ: "${TZ}"
-              OLLAMA_HOST: "::"
-              # OLLAMA_ORIGINS: ""
-              # OLLAMA_KEEP_ALIVE: "24h"
-              # OLLAMA_LOAD_TIMEOUT: "600"
-              OLLAMA_FLASH_ATTENTION: "true"
-              OLLAMA_KV_CACHE_TYPE: q8_0
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: app-template
+        namespace: flux-system
+    values:
+        defaultPodOptions:
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities: { drop: [ "ALL" ] }
-            resources:
-              requests:
-                cpu: 200m
-                memory: 2Gi
+                runAsUser: 2999
+                runAsGroup: 2999
+                fsGroup: 2999
+                fsGroupChangePolicy: "OnRootMismatch"
+                runAsNonRoot: true
+                seccompProfile:
+                    type: RuntimeDefault
 
-    service:
-      app:
-        controller: *app
-        ports:
-          http:
-            port: 80
-            targetPort: 11434
+        controllers:
+            ollama:
+                containers:
+                    app:
+                        image:
+                            repository: ollama/ollama
+                            tag: 0.12.11@sha256:3d8a05e3432d50ea57594fabe971e46cc8fe963a0f9f8c40400bd56cd5388e47
+                        env:
+                            TZ: "${TZ}"
+                            OLLAMA_HOST: "::"
+                            # OLLAMA_ORIGINS: ""
+                            # OLLAMA_KEEP_ALIVE: "24h"
+                            # OLLAMA_LOAD_TIMEOUT: "600"
+                            OLLAMA_FLASH_ATTENTION: "true"
+                            OLLAMA_KV_CACHE_TYPE: q8_0
+                        securityContext:
+                            allowPrivilegeEscalation: false
+                            readOnlyRootFilesystem: false
+                            capabilities: { drop: ["ALL"] }
+                        resources:
+                            requests:
+                                cpu: 200m
+                                memory: 2Gi
 
-    route:
-      main:
-        enabled: true
-        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
-        parentRefs:
-          - name: internal
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
+        service:
+            app:
+                controller: *app
+                ports:
+                    http:
+                        port: 80
+                        targetPort: 11434
 
-    persistence:
-      data:
-        size: 10Gi
-        accessMode: ReadWriteOnce
-        globalMounts:
-          - path: /.ollama
+        route:
+            main:
+                enabled: true
+                hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+                parentRefs:
+                    - name: internal
+                      namespace: network
+                      sectionName: https
+                rules:
+                    - backendRefs:
+                          - identifier: app
+                            port: 80
+
+        persistence:
+            data:
+                size: 10Gi
+                accessMode: ReadWriteOnce
+                globalMounts:
+                    - path: /.ollama

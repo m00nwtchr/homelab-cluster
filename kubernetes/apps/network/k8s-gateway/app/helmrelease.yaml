@@ -3,56 +3,56 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: k8s-gateway
+    name: k8s-gateway
 spec:
-  interval: 1h
-  layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-    operation: copy
-  ref:
-    tag: 3.2.8
-  url: oci://ghcr.io/k8s-gateway/charts/k8s-gateway
+    interval: 1h
+    layerSelector:
+        mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+        operation: copy
+    ref:
+        tag: 3.2.8
+    url: oci://ghcr.io/k8s-gateway/charts/k8s-gateway
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app k8s-gateway
+    name: &app k8s-gateway
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: *app
-  values:
-    fullnameOverride: *app
-    domain: "${SECRET_DOMAIN}"
-    ttl: 1
-    service:
-      type: ClusterIP
-      clusterIP: "2001:cafe:43::b"
-      port: 53
-    watchedResources: [ "HTTPRoute", "Service" ]
-    fallthrough:
-      enabled: true
-    extraZonePlugins:
-      - name: log
-      - name: errors
-      # Serves a /health endpoint on :8080, required for livenessProbe
-      - name: health
-        configBlock: lameduck 5s
-      # Serves a /ready endpoint on :8181, required for readinessProbe
-      - name: ready
-      # Serves a /metrics endpoint on :9153, required for serviceMonitor
-      - name: prometheus
-        parameters: 0.0.0.0:9153
-      - name: forward
-        parameters: ${SECRET_DOMAIN} tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001
-        configBlock: |-
-          tls_servername one.one.one.one
-      - name: forward
-        parameters: ". tls://2620:fe::fe tls://2620:fe::9"
-        configBlock: |-
-          tls_servername dns.quad9.net
-      - name: loop
-      - name: reload
-      - name: loadbalance
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: *app
+    values:
+        fullnameOverride: *app
+        domain: "${SECRET_DOMAIN}"
+        ttl: 1
+        service:
+            type: ClusterIP
+            clusterIP: "2001:cafe:43::b"
+            port: 53
+        watchedResources: ["HTTPRoute", "Service"]
+        fallthrough:
+            enabled: true
+        extraZonePlugins:
+            - name: log
+            - name: errors
+            # Serves a /health endpoint on :8080, required for livenessProbe
+            - name: health
+              configBlock: lameduck 5s
+            # Serves a /ready endpoint on :8181, required for readinessProbe
+            - name: ready
+            # Serves a /metrics endpoint on :9153, required for serviceMonitor
+            - name: prometheus
+              parameters: 0.0.0.0:9153
+            - name: forward
+              parameters: ${SECRET_DOMAIN} tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001
+              configBlock: |-
+                  tls_servername one.one.one.one
+            - name: forward
+              parameters: ". tls://2620:fe::fe tls://2620:fe::9"
+              configBlock: |-
+                  tls_servername dns.quad9.net
+            - name: loop
+            - name: reload
+            - name: loadbalance

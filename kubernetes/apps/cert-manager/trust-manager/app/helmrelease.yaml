@@ -3,35 +3,35 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: trust-manager
+    name: trust-manager
 spec:
-  interval: 5m
-  layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-    operation: copy
-  ref:
-    tag: v0.20.2
-  url: oci://quay.io/jetstack/charts/trust-manager
+    interval: 5m
+    layerSelector:
+        mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+        operation: copy
+    ref:
+        tag: v0.20.2
+    url: oci://quay.io/jetstack/charts/trust-manager
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app trust-manager
+    name: &app trust-manager
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: *app
-  values:
-    secretTargets:
-      enabled: true
-      authorizedSecrets:
-        - root-ca
-        - postgres-client-ca
-    app:
-      webhook:
-        tls:
-          approverPolicy:
-            # enabled: true
-            certManagerNamespace: cert-manager
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: *app
+    values:
+        secretTargets:
+            enabled: true
+            authorizedSecrets:
+                - root-ca
+                - postgres-client-ca
+        app:
+            webhook:
+                tls:
+                    approverPolicy:
+                        # enabled: true
+                        certManagerNamespace: cert-manager

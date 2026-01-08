@@ -3,107 +3,107 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
-  name: internal
+    name: internal
 spec:
-  ipFamily: DualStack
-  backendTLS:
-    ecdhCurves:
-      - X25519
-      - P-256
-      - P-384
-  logging:
-    level:
-      default: info
-  provider:
-    type: Kubernetes
-    kubernetes:
-      envoyDeployment:
-        replicas: 1
-        container:
-          image: mirror.gcr.io/envoyproxy/envoy:v1.36.2@sha256:4972515dd9a069b44beb43cebba7851596e72a8c61cd7a7c33d8f48efc5280ba
-          resources:
-            requests:
-              cpu: 100m
-            limits:
-              memory: 1Gi
-#  shutdown:
-#    drainTimeout: 180s
-  telemetry:
-    metrics:
-      prometheus:
-        compression:
-          type: Gzip
+    ipFamily: DualStack
+    backendTLS:
+        ecdhCurves:
+            - X25519
+            - P-256
+            - P-384
+    logging:
+        level:
+            default: info
+    provider:
+        type: Kubernetes
+        kubernetes:
+            envoyDeployment:
+                replicas: 1
+                container:
+                    image: mirror.gcr.io/envoyproxy/envoy:v1.36.2@sha256:4972515dd9a069b44beb43cebba7851596e72a8c61cd7a7c33d8f48efc5280ba
+                    resources:
+                        requests:
+                            cpu: 100m
+                        limits:
+                            memory: 1Gi
+    #  shutdown:
+    #    drainTimeout: 180s
+    telemetry:
+        metrics:
+            prometheus:
+                compression:
+                    type: Gzip
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/envoyproxy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
-  name: external
+    name: external
 spec:
-  ipFamily: IPv6
-  backendTLS:
-    ecdhCurves:
-      - X25519
-      - P-256
-      - P-384
-  logging:
-    level:
-      default: info
-  provider:
-    type: Kubernetes
-    kubernetes:
-      envoyDeployment:
-        replicas: 1
-        container:
-          image: mirror.gcr.io/envoyproxy/envoy:v1.36.2@sha256:4972515dd9a069b44beb43cebba7851596e72a8c61cd7a7c33d8f48efc5280ba
-          resources:
-            requests:
-              cpu: 100m
-            limits:
-              memory: 1Gi
-      envoyService:
-        loadBalancerClass: "io.cilium/node"
-#  shutdown:
-#    drainTimeout: 180s
-  telemetry:
-    metrics:
-      prometheus:
-        compression:
-          type: Gzip
+    ipFamily: IPv6
+    backendTLS:
+        ecdhCurves:
+            - X25519
+            - P-256
+            - P-384
+    logging:
+        level:
+            default: info
+    provider:
+        type: Kubernetes
+        kubernetes:
+            envoyDeployment:
+                replicas: 1
+                container:
+                    image: mirror.gcr.io/envoyproxy/envoy:v1.36.2@sha256:4972515dd9a069b44beb43cebba7851596e72a8c61cd7a7c33d8f48efc5280ba
+                    resources:
+                        requests:
+                            cpu: 100m
+                        limits:
+                            memory: 1Gi
+            envoyService:
+                loadBalancerClass: "io.cilium/node"
+    #  shutdown:
+    #    drainTimeout: 180s
+    telemetry:
+        metrics:
+            prometheus:
+                compression:
+                    type: Gzip
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/envoyproxy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
-  name: cftunnel
+    name: cftunnel
 spec:
-  ipFamily: IPv6
-  backendTLS:
-    ecdhCurves:
-      - X25519
-      - P-256
-      - P-384
-  logging:
-    level:
-      default: info
-  provider:
-    type: Kubernetes
-    kubernetes:
-      envoyDeployment:
-        replicas: 1
-        container:
-          image: mirror.gcr.io/envoyproxy/envoy:v1.36.2@sha256:4972515dd9a069b44beb43cebba7851596e72a8c61cd7a7c33d8f48efc5280ba
-          resources:
-            requests:
-              cpu: 100m
-            limits:
-              memory: 1Gi
-      envoyService:
-        type: ClusterIP
-  #  shutdown:
-  #    drainTimeout: 180s
-  telemetry:
-    metrics:
-      prometheus:
-        compression:
-          type: Gzip
+    ipFamily: IPv6
+    backendTLS:
+        ecdhCurves:
+            - X25519
+            - P-256
+            - P-384
+    logging:
+        level:
+            default: info
+    provider:
+        type: Kubernetes
+        kubernetes:
+            envoyDeployment:
+                replicas: 1
+                container:
+                    image: mirror.gcr.io/envoyproxy/envoy:v1.36.2@sha256:4972515dd9a069b44beb43cebba7851596e72a8c61cd7a7c33d8f48efc5280ba
+                    resources:
+                        requests:
+                            cpu: 100m
+                        limits:
+                            memory: 1Gi
+            envoyService:
+                type: ClusterIP
+    #  shutdown:
+    #    drainTimeout: 180s
+    telemetry:
+        metrics:
+            prometheus:
+                compression:
+                    type: Gzip

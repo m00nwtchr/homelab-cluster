@@ -3,71 +3,71 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: forgejo
+    name: forgejo
 spec:
-  interval: 5m
-  layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-    operation: copy
-  ref:
-    tag: 15.0.2
-  url: oci://code.forgejo.org/forgejo-helm/forgejo
+    interval: 5m
+    layerSelector:
+        mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+        operation: copy
+    ref:
+        tag: 15.0.2
+    url: oci://code.forgejo.org/forgejo-helm/forgejo
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app forgejo
+    name: &app forgejo
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: *app
-  valuesFrom:
-    - kind: ConfigMap
-      name: forgejo-values
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              version: v1
-              kind: Deployment
-              name: *app
-            patch: |
-              - op: add
-                path: /spec/template/spec/initContainers/-
-                value:
-                  name: generate-ssh-keys
-                  image: &image ghcr.io/m00nwtchr/ssh-tpm-agent:0.8.0@sha256:21679ac2c857da0b5ef2c3c272c5310ebc157473c12fe83f41af8671633b2e10
-                  imagePullPolicy: IfNotPresent
-                  command:
-                    - "sh"
-                    - "-c"
-                    - >
-                      mkdir -p /data/ssh;
-                      if [ ! -f /data/ssh/id_ecdsa.tpm ]; then
-                        /usr/local/bin/ssh-tpm-keygen -t ecdsa -f /data/ssh/id_ecdsa -N "";
-                      fi
-                  volumeMounts:
-                    - mountPath: /data/
-                      name: data
-                  resources:
-                    limits:
-                      memory: 128Mi
-                      squat.ai/tpmrm: 1
-              - op: add
-                path: /spec/template/spec/containers/-
-                value:
-                  name: ssh-tpm-agent
-                  image: *image
-                  imagePullPolicy: IfNotPresent
-                  volumeMounts:
-                    - mountPath: /var/tmp
-                      name: temp
-                    - mountPath: /.ssh
-                      name: git
-                      subPath: ssh
-                  resources:
-                    limits:
-                      memory: 128Mi
-                      squat.ai/tpmrm: 1
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: *app
+    valuesFrom:
+        - kind: ConfigMap
+          name: forgejo-values
+    postRenderers:
+        - kustomize:
+              patches:
+                  - target:
+                        version: v1
+                        kind: Deployment
+                        name: *app
+                    patch: |
+                        - op: add
+                          path: /spec/template/spec/initContainers/-
+                          value:
+                            name: generate-ssh-keys
+                            image: &image ghcr.io/m00nwtchr/ssh-tpm-agent:0.8.0@sha256:21679ac2c857da0b5ef2c3c272c5310ebc157473c12fe83f41af8671633b2e10
+                            imagePullPolicy: IfNotPresent
+                            command:
+                              - "sh"
+                              - "-c"
+                              - >
+                                mkdir -p /data/ssh;
+                                if [ ! -f /data/ssh/id_ecdsa.tpm ]; then
+                                  /usr/local/bin/ssh-tpm-keygen -t ecdsa -f /data/ssh/id_ecdsa -N "";
+                                fi
+                            volumeMounts:
+                              - mountPath: /data/
+                                name: data
+                            resources:
+                              limits:
+                                memory: 128Mi
+                                squat.ai/tpmrm: 1
+                        - op: add
+                          path: /spec/template/spec/containers/-
+                          value:
+                            name: ssh-tpm-agent
+                            image: *image
+                            imagePullPolicy: IfNotPresent
+                            volumeMounts:
+                              - mountPath: /var/tmp
+                                name: temp
+                              - mountPath: /.ssh
+                                name: git
+                                subPath: ssh
+                            resources:
+                              limits:
+                                memory: 128Mi
+                                squat.ai/tpmrm: 1

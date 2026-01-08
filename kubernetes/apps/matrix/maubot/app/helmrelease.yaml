@@ -3,64 +3,71 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app maubot
+    name: &app maubot
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  values:
-    controllers:
-      *app :
-        type: statefulset
-        annotations:
-          reloader.stakater.com/auto: "true"
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: app-template
+        namespace: flux-system
+    values:
+        controllers:
+            *app :
+                type: statefulset
+                annotations:
+                    reloader.stakater.com/auto: "true"
 
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 1337
-            runAsGroup: 1337
-            fsGroup: 1337
-            fsGroupChangePolicy: "OnRootMismatch"
+                pod:
+                    securityContext:
+                        runAsNonRoot: true
+                        runAsUser: 1337
+                        runAsGroup: 1337
+                        fsGroup: 1337
+                        fsGroupChangePolicy: "OnRootMismatch"
 
-        containers:
-          app:
-            image:
-              repository: dock.mau.dev/maubot/maubot
-              tag: v0.6.0@sha256:6968ddea1e08aa7f8ac70ac7a706663fe8d7b4d6f96cd7a6bb8548637fb8cd17
-            command: [ "python3", "-m", "maubot", "-c", "/data/config.yaml" ]
-    #          resources:
-    #            requests:
-    #              cpu: 50m
-    #              memory: 256Mi
+                containers:
+                    app:
+                        image:
+                            repository: dock.mau.dev/maubot/maubot
+                            tag: v0.6.0@sha256:6968ddea1e08aa7f8ac70ac7a706663fe8d7b4d6f96cd7a6bb8548637fb8cd17
+                        command:
+                            [
+                                "python3",
+                                "-m",
+                                "maubot",
+                                "-c",
+                                "/data/config.yaml",
+                            ]
+        #          resources:
+        #            requests:
+        #              cpu: 50m
+        #              memory: 256Mi
 
-    service:
-      app:
-        controller: *app
-        ports:
-          http:
-            port: 80
-            targetPort: 29316
+        service:
+            app:
+                controller: *app
+                ports:
+                    http:
+                        port: 80
+                        targetPort: 29316
 
-    route:
-      app:
-        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
-        parentRefs:
-          - name: internal
-            namespace: network
-            sectionName: https
+        route:
+            app:
+                hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+                parentRefs:
+                    - name: internal
+                      namespace: network
+                      sectionName: https
 
-    persistence:
-      data:
-        type: persistentVolumeClaim
-        size: 1Gi
-        accessMode: ReadWriteOnce
+        persistence:
+            data:
+                type: persistentVolumeClaim
+                size: 1Gi
+                accessMode: ReadWriteOnce
 
-      config:
-        type: configMap
-        name: maubot-configmap
-        globalMounts:
-          - path: /data/config.yaml
-            subPath: config.yaml
+            config:
+                type: configMap
+                name: maubot-configmap
+                globalMounts:
+                    - path: /data/config.yaml
+                      subPath: config.yaml

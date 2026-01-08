@@ -1,130 +1,136 @@
 homeserver:
-  address: http://continuwuity.matrix.svc
-  domain: "${SECRET_DOMAIN}"
-  # Does the homeserver support https://github.com/matrix-org/matrix-spec-proposals/pull/2246?
-  async_media: false
+    address: http://continuwuity.matrix.svc
+    domain: "${SECRET_DOMAIN}"
+    # Does the homeserver support https://github.com/matrix-org/matrix-spec-proposals/pull/2246?
+    async_media: false
 
 appservice:
-  address: http://${APP}.matrix.svc
-  # The hostname and port where this appservice should listen.
-  hostname: "[::]"
-  port: 8000
+    address: http://${APP}.matrix.svc
+    # The hostname and port where this appservice should listen.
+    hostname: "[::]"
+    port: 8000
 
-  database:
-    type: postgres
-    uri: postgres://${APP}@postgres-rw.postgres.svc/${APP}?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
-    max_open_conns: 20
-    max_idle_conns: 2
-    max_conn_idle_time: null
-    max_conn_lifetime: null
+    database:
+        type: postgres
+        uri: postgres://${APP}@postgres-rw.postgres.svc/${APP}?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
+        max_open_conns: 20
+        max_idle_conns: 2
+        max_conn_idle_time: null
+        max_conn_lifetime: null
 
-  id: discord
-  bot:
-    username: discordbot
-    displayname: Discord bridge bot
-    avatar: mxc://maunium.net/nIdEykemnwdisvHbpxflpDlC
+    id: discord
+    bot:
+        username: discordbot
+        displayname: Discord bridge bot
+        avatar: mxc://maunium.net/nIdEykemnwdisvHbpxflpDlC
 
-  ephemeral_events: true
-  async_transactions: false
+    ephemeral_events: true
+    async_transactions: false
 
-  as_token: "{{ .as_token }}"
-  hs_token: "{{ .hs_token }}"
+    as_token: "{{ .as_token }}"
+    hs_token: "{{ .hs_token }}"
 
 bridge:
-  username_template: {{ "\"discord_{{.}}\"" }}
-  displayname_template: {{ "\"{{or .GlobalName .Username}}{{if .Bot}} (bot){{end}}\"" }}
-  channel_name_template: {{ "\"{{if or (eq .Type 3) (eq .Type 4)}}{{.Name}}{{else}}#{{.Name}}{{end}}\"" }}
-  guild_name_template: {{ "\"{{.Name}}\"" }}
-  private_chat_portal_meta: default
+    username_template: { { '"discord_{{.}}"' } }
+    displayname_template:
+        { { '"{{or .GlobalName .Username}}{{if .Bot}} (bot){{end}}"' } }
+    channel_name_template:
+        {
+            {
+                '"{{if or (eq .Type 3) (eq .Type 4)}}{{.Name}}{{else}}#{{.Name}}{{end}}"',
+            },
+        }
+    guild_name_template: { { '"{{.Name}}"' } }
+    private_chat_portal_meta: default
 
-  public_address: null
-  avatar_proxy_key: "{{ .avatar_proxy_key }}"
+    public_address: null
+    avatar_proxy_key: "{{ .avatar_proxy_key }}"
 
-  portal_message_buffer: 128
-  startup_private_channel_create_limit: 5
+    portal_message_buffer: 128
+    startup_private_channel_create_limit: 5
 
-  delivery_receipts: true
-  message_status_events: false
-  message_error_notices: true
-  restricted_rooms: true
-  autojoin_thread_on_open: true
-  embed_fields_as_tables: true
-  mute_channels_on_create: false
-  sync_direct_chat_list: true
-  resend_bridge_info: false
-  custom_emoji_reactions: true
-  delete_portal_on_channel_delete: false
-  delete_guild_on_leave: true
-  federate_rooms: false
-  prefix_webhook_messages: false
-  enable_webhook_avatars: true
-  use_discord_cdn_upload: true
-  cache_media: unencrypted
-  direct_media:
-    enabled: true
-    server_name: ${APP}.${SECRET_DOMAIN}
-    well_known_response:
-    allow_proxy: true
-    server_key: "{{ .server_key }}"
+    delivery_receipts: true
+    message_status_events: false
+    message_error_notices: true
+    restricted_rooms: true
+    autojoin_thread_on_open: true
+    embed_fields_as_tables: true
+    mute_channels_on_create: false
+    sync_direct_chat_list: true
+    resend_bridge_info: false
+    custom_emoji_reactions: true
+    delete_portal_on_channel_delete: false
+    delete_guild_on_leave: true
+    federate_rooms: false
+    prefix_webhook_messages: false
+    enable_webhook_avatars: true
+    use_discord_cdn_upload: true
+    cache_media: unencrypted
+    direct_media:
+        enabled: true
+        server_name: ${APP}.${SECRET_DOMAIN}
+        well_known_response:
+        allow_proxy: true
+        server_key: "{{ .server_key }}"
 
-  animated_sticker:
-    target: webp
-    args:
-      width: 320
-      height: 320
-      fps: 25 # only for webm, webp and gif (2, 5, 10, 20 or 25 recommended)
+    animated_sticker:
+        target: webp
+        args:
+            width: 320
+            height: 320
+            fps: 25 # only for webm, webp and gif (2, 5, 10, 20 or 25 recommended)
 
-  login_shared_secret_map:
-    "${SECRET_DOMAIN}": "as_token:{{ .double_puppet_token }}"
+    login_shared_secret_map:
+        "${SECRET_DOMAIN}": "as_token:{{ .double_puppet_token }}"
 
-  command_prefix: '!discord'
-  management_room_text:
-    welcome: "Hello, I'm a Discord bridge bot."
-    welcome_connected: "Use `help` for help."
-    welcome_unconnected: "Use `help` for help or `login` to log in."
-    additional_help: ""
+    command_prefix: "!discord"
+    management_room_text:
+        welcome: "Hello, I'm a Discord bridge bot."
+        welcome_connected: "Use `help` for help."
+        welcome_unconnected: "Use `help` for help or `login` to log in."
+        additional_help: ""
 
-  backfill:
-    forward_limits:
-      initial:
-        dm: -1
-        channel: 10
-        thread: -1
-      missed:
-        dm: -1
-        channel: 5
-        thread: -1
-    max_guild_members: -1
+    backfill:
+        forward_limits:
+            initial:
+                dm: -1
+                channel: 10
+                thread: -1
+            missed:
+                dm: -1
+                channel: 5
+                thread: -1
+        max_guild_members: -1
 
-  encryption:
-    allow: true
-    default: true
-    appservice: false
-    require: true
-    allow_key_sharing: true
-    plaintext_mentions: false
-    delete_keys:
-      delete_outbound_on_ack: false
-      dont_store_outbound: true
-      ratchet_on_decrypt: true
-      delete_fully_used_on_decrypt: true
-      delete_prev_on_new_session: true
-      delete_on_device_delete: true
-      periodically_delete_expired: true
-      delete_outdated_inbound: true
+    encryption:
+        allow: true
+        default: true
+        appservice: false
+        require: true
+        allow_key_sharing: true
+        plaintext_mentions: false
+        delete_keys:
+            delete_outbound_on_ack: false
+            dont_store_outbound: true
+            ratchet_on_decrypt: true
+            delete_fully_used_on_decrypt: true
+            delete_prev_on_new_session: true
+            delete_on_device_delete: true
+            periodically_delete_expired: true
+            delete_outdated_inbound: true
 
-    verification_levels:
-      receive: cross-signed-tofu
-      send: cross-signed-tofu
-      share: cross-signed-tofu
+        verification_levels:
+            receive: cross-signed-tofu
+            send: cross-signed-tofu
+            share: cross-signed-tofu
 
-  permissions:
-    "*": relay
-    "${SECRET_DOMAIN}": user
-    "@m00n:${SECRET_DOMAIN}": admin
+    permissions:
+        "*": relay
+        "${SECRET_DOMAIN}": user
+        "@m00n:${SECRET_DOMAIN}": admin
 
 logging:
-  min_level: info
-  writers:
-    - type: stdout
-      format: pretty-colored
+    min_level: info
+    writers:
+        - type: stdout
+          format: pretty-colored

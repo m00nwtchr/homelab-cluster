@@ -3,40 +3,40 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app dawarich
-  namespace: &namespace default
+    name: &app dawarich
+    namespace: &namespace default
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/database
-    - ../../../../components/dragonfly
-    - ../../../../components/gatus/guarded
-#  dependsOn:
-#    - name: rook-ceph-cluster
-#      namespace: rook-ceph
-  interval: 1h
-  path: ./kubernetes/apps/default/dawarich/app
-  postBuild:
-    substitute:
-      APP: *app
-      DATABASE_EXTENSIONS: |
-        [
-          { name: postgis },
-          { name: postgis_topology },
-          { name: fuzzystrmatch },
-          { name: postgis_tiger_geocoder }
-        ]
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
-  prune: true
-  retryInterval: 2m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: *namespace
-  timeout: 5m
-  wait: false
+    commonMetadata:
+        labels:
+            app.kubernetes.io/name: *app
+    components:
+        - ../../../../components/database
+        - ../../../../components/dragonfly
+        - ../../../../components/gatus/guarded
+    #  dependsOn:
+    #    - name: rook-ceph-cluster
+    #      namespace: rook-ceph
+    interval: 1h
+    path: ./kubernetes/apps/default/dawarich/app
+    postBuild:
+        substitute:
+            APP: *app
+            DATABASE_EXTENSIONS: |
+                [
+                  { name: postgis },
+                  { name: postgis_topology },
+                  { name: fuzzystrmatch },
+                  { name: postgis_tiger_geocoder }
+                ]
+        substituteFrom:
+            - name: cluster-secrets
+              kind: Secret
+    prune: true
+    retryInterval: 2m
+    sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+    targetNamespace: *namespace
+    timeout: 5m
+    wait: false

@@ -3,63 +3,62 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app wks
+    name: &app wks
 spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  values:
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
+    interval: 1h
+    chartRef:
+        kind: OCIRepository
+        name: app-template
+        namespace: flux-system
+    values:
+        defaultPodOptions:
+            securityContext:
+                runAsUser: 1000
+                runAsGroup: 1000
+                runAsNonRoot: true
+                fsGroup: 1000
+                fsGroupChangePolicy: "OnRootMismatch"
 
-    controllers:
-      *app :
-        strategy: Recreate
-        containers:
-          main:
-            image:
-              repository: ghcr.io/m00nwtchr/runemail-wks
-              tag: master@sha256:92db3664363f50cc228de444856e7e1e3dd4867cfcba52a89fe97527b7940260
-            ports:
-              - containerPort: 3434
+        controllers:
+            *app :
+                strategy: Recreate
+                containers:
+                    main:
+                        image:
+                            repository: ghcr.io/m00nwtchr/runemail-wks
+                            tag: master@sha256:92db3664363f50cc228de444856e7e1e3dd4867cfcba52a89fe97527b7940260
+                        ports:
+                            - containerPort: 3434
 
-    service:
-      app:
-        controller: *app
-        ports:
-          http:
-            port: 80
-            targetPort: 3434
+        service:
+            app:
+                controller: *app
+                ports:
+                    http:
+                        port: 80
+                        targetPort: 3434
 
-    route:
-      app:
-        hostnames: [ "${SECRET_DOMAIN}" ]
-        parentRefs:
-          - name: external
-            namespace: network
-            sectionName: https
-          - name: cftunnel
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
-            matches:
-              - path:
-                  value: /.well-known/openpgpkey/
+        route:
+            app:
+                hostnames: ["${SECRET_DOMAIN}"]
+                parentRefs:
+                    - name: external
+                      namespace: network
+                      sectionName: https
+                    - name: cftunnel
+                      namespace: network
+                      sectionName: https
+                rules:
+                    - backendRefs:
+                          - identifier: app
+                            port: 80
+                      matches:
+                          - path:
+                                value: /.well-known/openpgpkey/
 
-
-    persistence:
-      keys:
-        type: configMap
-        name: wks-keys
-        globalMounts:
-          - path: /keys/
+        persistence:
+            keys:
+                type: configMap
+                name: wks-keys
+                globalMounts:
+                    - path: /keys/

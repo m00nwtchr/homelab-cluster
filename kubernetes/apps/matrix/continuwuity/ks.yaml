@@ -3,34 +3,34 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app continuwuity
-  namespace: &namespace matrix
+    name: &app continuwuity
+    namespace: &namespace matrix
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/volsync/local
-    - ../../../../components/gatus/external
-  dependsOn:
-    - name: volsync
-      namespace: volsync-system
-  interval: 1h
-  path: ./kubernetes/apps/matrix/continuwuity/app
-  postBuild:
-    substitute:
-      APP: *app
-      SUBDOMAIN: matrix
-      VOLSYNC_CAPACITY: 8Gi
-#      VOLSYNC_LOCAL_BUCKET: *app
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
-  prune: true
-  retryInterval: 2m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: *namespace
-  timeout: 5m
+    commonMetadata:
+        labels:
+            app.kubernetes.io/name: *app
+    components:
+        - ../../../../components/volsync/local
+        - ../../../../components/gatus/external
+    dependsOn:
+        - name: volsync
+          namespace: volsync-system
+    interval: 1h
+    path: ./kubernetes/apps/matrix/continuwuity/app
+    postBuild:
+        substitute:
+            APP: *app
+            SUBDOMAIN: matrix
+            VOLSYNC_CAPACITY: 8Gi
+        #      VOLSYNC_LOCAL_BUCKET: *app
+        substituteFrom:
+            - name: cluster-secrets
+              kind: Secret
+    prune: true
+    retryInterval: 2m
+    sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+    targetNamespace: *namespace
+    timeout: 5m

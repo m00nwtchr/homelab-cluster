@@ -1,6 +1,6 @@
 {
-    "yaml.schemas": {
-        "https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json": "file:///c%3A/Users/m00n/Documents/homelab-cluster/kubernetes/apps/media/dispatcharr/app/helmrelease.yaml",
-        "https://schemas.m00nlit.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json": "file:///c%3A/Users/m00n/Documents/homelab-cluster/kubernetes/apps/media/dispatcharr/ks.yaml"
-    }
+	"yaml.schemas": {
+		"https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json": "file:///c%3A/Users/m00n/Documents/homelab-cluster/kubernetes/apps/media/dispatcharr/app/helmrelease.yaml",
+		"https://schemas.m00nlit.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json": "file:///c%3A/Users/m00n/Documents/homelab-cluster/kubernetes/apps/media/dispatcharr/ks.yaml"
+	}
 }

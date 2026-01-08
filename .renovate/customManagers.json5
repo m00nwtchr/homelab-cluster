@@ -19,41 +19,33 @@
 			datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
 		},
 		{
-			"customType": "regex",
-			"description": "Apply an explicit forgejo digest field match",
-			"fileMatch": [
-				"forgejo\\.ya?ml"
+			customType: "regex",
+			description: "Apply an explicit forgejo digest field match",
+			fileMatch: ["forgejo\\.ya?ml"],
+			matchStrings: [
+				"(?<depName>forgejo\\/forgejo)\\n(?<indentation>\\s+)tag: (?<currentValue>[^@].*?)\\n\\s+digest: (?<currentDigest>sha256:[a-f0-9]+)",
 			],
-			"matchStrings": [
-				"(?<depName>forgejo\\/forgejo)\\n(?<indentation>\\s+)tag: (?<currentValue>[^@].*?)\\n\\s+digest: (?<currentDigest>sha256:[a-f0-9]+)"
-			],
-			"datasourceTemplate": "docker",
-			"packageNameTemplate": "code.forgejo.org/{{depName}}",
-			"autoReplaceStringTemplate": "{{depName}}\n{{indentation}}tag: {{newValue}}\n{{indentation}}digest: {{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}"
+			datasourceTemplate: "docker",
+			packageNameTemplate: "code.forgejo.org/{{depName}}",
+			autoReplaceStringTemplate: "{{depName}}\n{{indentation}}tag: {{newValue}}\n{{indentation}}digest: {{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}",
 		},
 		{
-			"customType": "regex",
-			"description": "Match and update imageName with tag and digest",
-			"fileMatch": [
-				".*\\.ya?ml"
-			],
-			"matchStrings": [
+			customType: "regex",
+			description: "Match and update imageName with tag and digest",
+			fileMatch: [".*\\.ya?ml"],
+			matchStrings: [
 				"imageName: (?<depName>[^:\\s]+):(?<currentValue>[^@\\s]+)@(?<currentDigest>sha256:[a-f0-9]+)",
 			],
-			"datasourceTemplate": "docker",
-			"packageNameTemplate": "{{depName}}",
-			"autoReplaceStringTemplate": "imageName: {{depName}}:{{newValue}}@{{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}"
+			datasourceTemplate: "docker",
+			packageNameTemplate: "{{depName}}",
+			autoReplaceStringTemplate: "imageName: {{depName}}:{{newValue}}@{{#if newDigest}}{{{newDigest}}}{{else}}{{{currentDigest}}}{{/if}}",
 		},
 		{
 			customType: "regex",
 			description: "Process OCI dependencies",
-			managerFilePatterns: [
-				"/\\.yaml(?:\\.j2)?$/",
-			],
-			matchStrings: [
-				"oci://(?<depName>[^:]+):(?<currentValue>\\S+)",
-			],
+			managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
+			matchStrings: ["oci://(?<depName>[^:]+):(?<currentValue>\\S+)"],
 			datasourceTemplate: "docker",
-		}
+		},
 	],
 }

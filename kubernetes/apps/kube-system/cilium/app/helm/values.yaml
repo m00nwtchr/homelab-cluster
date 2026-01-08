@@ -2,29 +2,29 @@
 autoDirectNodeRoutes: true
 
 bandwidthManager:
-  bbr: true
-  enabled: true
+    bbr: true
+    enabled: true
 
 bpf:
-  datapathMode: netkit
-  distributedLRU:
-    enabled: true
-#  mapDynamicSizeRatio: 0.08
-  masquerade: true
-  preallocateMaps: true
+    datapathMode: netkit
+    distributedLRU:
+        enabled: true
+    #  mapDynamicSizeRatio: 0.08
+    masquerade: true
+    preallocateMaps: true
 
 bpfClockProbe: true
 
 cgroup:
-  automount:
-    enabled: false
-  hostRoot: /sys/fs/cgroup
+    automount:
+        enabled: false
+    hostRoot: /sys/fs/cgroup
 
 cni:
-  exclusive: true
+    exclusive: true
 
 dashboards:
-  enabled: true
+    enabled: true
 
 devices: enp+
 enableIPv4BIGTCP: true
@@ -32,35 +32,35 @@ enableIPv6BIGTCP: true
 enableIPv6Masquerade: true
 
 endpointRoutes:
-  enabled: true
+    enabled: true
 
 envoy:
-  prometheus:
-    serviceMonitor:
-      enabled: true
-  rollOutPods: true
+    prometheus:
+        serviceMonitor:
+            enabled: true
+    rollOutPods: true
 
 gatewayAPI:
-  enabled: false
-  enableAlpn: true
-  xffNumTrustedHops: 1
+    enabled: false
+    enableAlpn: true
+    xffNumTrustedHops: 1
 
 hubble:
-  enabled: true
-  tls:
-    auto:
-      method: certmanager
-      certManagerIssuerRef:
-        group: cert-manager.io
-        kind: ClusterIssuer
-        name: cluster-ca
-  ui:
     enabled: true
-  relay:
-    enabled: true
+    tls:
+        auto:
+            method: certmanager
+            certManagerIssuerRef:
+                group: cert-manager.io
+                kind: ClusterIssuer
+                name: cluster-ca
+    ui:
+        enabled: true
+    relay:
+        enabled: true
 
 ipam:
-  mode: kubernetes
+    mode: kubernetes
 #  mode: cluster-pool
 #  operator:
 #    clusterPoolIPv4MaskSize: 24
@@ -71,16 +71,16 @@ ipam:
 #      - 2001:cafe:42::/56
 
 ipv4:
-  enabled: true
+    enabled: true
 ipv4NativeRoutingCIDR: "10.42.0.0/16"
 
 ipv6:
-  enabled: true
+    enabled: true
 ipv6NativeRoutingCIDR: "2001:cafe:42::/56"
 
 k8s:
-  requireIPv4PodCIDR: false
-  requireIPv6PodCIDR: true
+    requireIPv4PodCIDR: false
+    requireIPv6PodCIDR: true
 
 k8sServiceHost: "::1"
 k8sServicePort: 6444
@@ -89,62 +89,62 @@ kubeProxyReplacement: true
 #kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 
 l2announcements:
-  enabled: false
+    enabled: false
 
 loadBalancer:
-  algorithm: maglev
-  mode: dsr
+    algorithm: maglev
+    mode: dsr
 
 localRedirectPolicy: true
 
 nodeSelectorLabels: true
 
 nodeIPAM:
-  enabled: true
+    enabled: true
 
 operator:
-  dashboards:
-    enabled: true
-  prometheus:
-    enabled: true
-    serviceMonitor:
-      enabled: true
-  replicas: 1
-  rollOutPods: true
+    dashboards:
+        enabled: true
+    prometheus:
+        enabled: true
+        serviceMonitor:
+            enabled: true
+    replicas: 1
+    rollOutPods: true
 
 policyAuditMode: false
 policyEnforcementMode: default
 
 prometheus:
-  enabled: true
-  serviceMonitor:
     enabled: true
-    trustCRDsExist: true
+    serviceMonitor:
+        enabled: true
+        trustCRDsExist: true
 
 rollOutCiliumPods: true
 routingMode: native
 
 securityContext:
-  capabilities:
-    ciliumAgent:
-      - CHOWN
-      - KILL
-      - NET_ADMIN
-      - NET_RAW
-      - IPC_LOCK
-      - SYS_ADMIN
-      - SYS_RESOURCE
-      - PERFMON
-      - BPF
-      - DAC_OVERRIDE
-      - FOWNER
-      - SETGID
-      - SETUID
-    cleanCiliumState:
-      - NET_ADMIN
-      - SYS_ADMIN
-      - SYS_RESOURCE
+    capabilities:
+        ciliumAgent:
+            - CHOWN
+            - KILL
+            - NET_ADMIN
+            - NET_RAW
+            - IPC_LOCK
+            - SYS_ADMIN
+            - SYS_RESOURCE
+            - PERFMON
+            - BPF
+            - DAC_OVERRIDE
+            - FOWNER
+            - SETGID
+            - SETUID
+        cleanCiliumState:
+            - NET_ADMIN
+            - SYS_ADMIN
+            - SYS_RESOURCE
 
 # Needed for Tailscale operator
 socketLB:
-  hostNamespaceOnly: true
+    hostNamespaceOnly: true

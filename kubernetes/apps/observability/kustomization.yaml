@@ -4,18 +4,18 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: observability
 components:
-  - ../../components/common
+    - ../../components/common
 resources:
-#  - ./blackbox-exporter/ks.yaml
-  - ./gatus/ks.yaml
-  - ./grafana/ks.yaml
-#  - ./keda/ks.yaml
-#  - ./kromgo/ks.yaml
-  - ./kube-prometheus-stack/ks.yaml
-  # - ./loki/ks.yaml
-  - ./promtail/ks.yaml
-#  - ./silence-operator/ks.yaml
-  - ./smartctl-exporter/ks.yaml
-#  - ./unpoller/ks.yaml
-#  - ./vector/ks.yaml
-  - ./victoria-metrics/ks.yaml
+    #  - ./blackbox-exporter/ks.yaml
+    - ./gatus/ks.yaml
+    - ./grafana/ks.yaml
+    #  - ./keda/ks.yaml
+    #  - ./kromgo/ks.yaml
+    - ./kube-prometheus-stack/ks.yaml
+    # - ./loki/ks.yaml
+    - ./promtail/ks.yaml
+    #  - ./silence-operator/ks.yaml
+    - ./smartctl-exporter/ks.yaml
+    #  - ./unpoller/ks.yaml
+    #  - ./vector/ks.yaml
+    - ./victoria-metrics/ks.yaml

@@ -3,93 +3,93 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: https-redirect
-  annotations:
-    external-dns.alpha.kubernetes.io/controller: none
+    name: https-redirect
+    annotations:
+        external-dns.alpha.kubernetes.io/controller: none
 spec:
-  parentRefs:
-    - name: internal
-      namespace: network
-      sectionName: http
-    - name: external
-      namespace: network
-      sectionName: http
-    - name: cftunnel
-      namespace: network
-      sectionName: http
-  rules:
-    - filters:
-        - requestRedirect:
-            scheme: https
-            statusCode: 301
-          type: RequestRedirect
+    parentRefs:
+        - name: internal
+          namespace: network
+          sectionName: http
+        - name: external
+          namespace: network
+          sectionName: http
+        - name: cftunnel
+          namespace: network
+          sectionName: http
+    rules:
+        - filters:
+              - requestRedirect:
+                    scheme: https
+                    statusCode: 301
+                type: RequestRedirect
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: www-redirect
+    name: www-redirect
 spec:
-  parentRefs:
-    - name: internal
-      namespace: network
-      sectionName: https
-    - name: cftunnel
-      namespace: network
-      sectionName: https
-  hostnames: [ "${SECRET_DOMAIN}" ]
-  rules:
-    - filters:
-        - requestRedirect:
-            hostname: "www.${SECRET_DOMAIN}"
-            statusCode: 301
-          type: RequestRedirect
-      matches:
-        - path:
-            type: Exact
-            value: /
+    parentRefs:
+        - name: internal
+          namespace: network
+          sectionName: https
+        - name: cftunnel
+          namespace: network
+          sectionName: https
+    hostnames: ["${SECRET_DOMAIN}"]
+    rules:
+        - filters:
+              - requestRedirect:
+                    hostname: "www.${SECRET_DOMAIN}"
+                    statusCode: 301
+                type: RequestRedirect
+          matches:
+              - path:
+                    type: Exact
+                    value: /
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: robots-txt
+    name: robots-txt
 spec:
-  parentRefs:
-    - name: external
-      namespace: network
-      sectionName: https
-    - name: cftunnel
-      namespace: network
-      sectionName: https
-  hostnames:
-     - "${SECRET_DOMAIN}"
-  rules:
-    - matches:
-        - path:
-            type: Exact
-            value: /robots.txt
-      filters:
-        - type: ResponseHeaderModifier
-          responseHeaderModifier:
-            set:
-              - name: Cache-Control
-                value: public, max-age=600
-        - type: ExtensionRef
-          extensionRef:
-            group: gateway.envoyproxy.io
-            kind: HTTPRouteFilter
-            name: robots-txt-filter
+    parentRefs:
+        - name: external
+          namespace: network
+          sectionName: https
+        - name: cftunnel
+          namespace: network
+          sectionName: https
+    hostnames:
+        - "${SECRET_DOMAIN}"
+    rules:
+        - matches:
+              - path:
+                    type: Exact
+                    value: /robots.txt
+          filters:
+              - type: ResponseHeaderModifier
+                responseHeaderModifier:
+                    set:
+                        - name: Cache-Control
+                          value: public, max-age=600
+              - type: ExtensionRef
+                extensionRef:
+                    group: gateway.envoyproxy.io
+                    kind: HTTPRouteFilter
+                    name: robots-txt-filter
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: HTTPRouteFilter
 metadata:
-  name: robots-txt-filter
+    name: robots-txt-filter
 spec:
-  directResponse:
-    contentType: text/plain
-    statusCode: 200
-    body:
-      type: Inline
-      inline: |
-        User-agent: *
-        Disallow: /
+    directResponse:
+        contentType: text/plain
+        statusCode: 200
+        body:
+            type: Inline
+            inline: |
+                User-agent: *
+                Disallow: /
