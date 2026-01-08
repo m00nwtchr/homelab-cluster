@@ -42,7 +42,7 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: conduit-registration-secret
-                    key: registration_token
+                    key: token
             probes:
               liveness: &probe
                 enabled: true
