@@ -42,10 +42,8 @@ spec:
           rootDomain: ".web.${SECRET_DOMAIN}"
 
     persistence:
-      #      meta:
-      #        size: 1Gi
       meta:
-        existing:
+        existing: meta-garage-0
       data:
         storageClass: zfs-vault
         size: 10Gi
