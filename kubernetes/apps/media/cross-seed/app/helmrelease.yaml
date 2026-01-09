@@ -108,6 +108,9 @@ spec:
         globalMounts:
           - path: /config/
 
+      downloads:
+        existingClaim: downloads
+
       config:
         type: configMap
         name: cross-seed-configmap

@@ -183,6 +183,12 @@ spec:
             *app :
               - path: /config
 
+      downloads:
+        size: 50Gi
+        accessMode: ReadWriteMany
+        storageClass: zfs-rpool
+        forceRename: downloads
+
       media:
         existingClaim: media
         globalMounts:
