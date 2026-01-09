@@ -2,7 +2,7 @@
 clients:
   qb:
     create_tags_upfront: false
-    download_path: /mnt/media/downloads
+    download_path: /downloads
     enabled: true
     filter: default
     type: qbittorrent
