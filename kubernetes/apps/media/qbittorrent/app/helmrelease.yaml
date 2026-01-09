@@ -184,7 +184,7 @@ spec:
               - path: /config
 
       downloads:
-        size: 50Gi
+        size: 100Gi
         accessMode: ReadWriteMany
         storageClass: zfs-rpool
         forceRename: downloads
