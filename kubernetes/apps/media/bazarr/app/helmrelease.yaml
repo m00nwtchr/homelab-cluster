@@ -33,11 +33,12 @@ spec:
               POSTGRES_HOST: postgres-rw.postgres.svc
               POSTGRES_USERNAME: *app
               POSTGRES_DATABASE: *app
-              POSTGRES_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-postgres"
-                    key: password
+              POSTGRES_PASSWORD: *app
+
+              PGSSLROOTCERT: /var/run/secrets/root-ca/ca.crt
+              PGSSLCERT: /var/run/secrets/postgresql/tls.crt
+              PGSSLKEY: /var/run/secrets/postgresql/tls.key
+              PGSSLMODE: verify-full
 
             # envFrom:
             #   - secretRef:

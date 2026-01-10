@@ -12,7 +12,7 @@ spec:
   components:
     - ../../../../components/oidc/envoy
     - ../../../../components/volsync
-    - ../../../../components/database/pass
+    - ../../../../components/database
     - ../../../../components/gatus/guarded
   dependsOn:
     - name: envoy-gateway

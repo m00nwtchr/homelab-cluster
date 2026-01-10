@@ -101,8 +101,7 @@ spec:
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: bazarr-postgres
+        disablePassword: true
 
       - name: blocky
         ensure: present
