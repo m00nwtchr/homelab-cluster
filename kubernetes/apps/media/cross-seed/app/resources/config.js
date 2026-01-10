@@ -16,7 +16,7 @@ module.exports = {
 	action: "inject",
 	apiKey: process.env.CROSS_SEED_API_KEY,
 	linkCategory: "cross-seed",
-	linkDirs: ["/downloads/complete/cross-seed"],
+	linkDirs: ["/mnt/media/downloads/complete/cross-seed"],
 	linkType: "hardlink",
 	// dataDirs: ["/mnt/media/movies", "/mnt/media/tv"],
 	// maxDataDepth: 3,
