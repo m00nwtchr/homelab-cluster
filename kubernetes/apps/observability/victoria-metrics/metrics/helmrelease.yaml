@@ -46,6 +46,8 @@ spec:
         #          name: alertmanager
         #          global:
         #            resolveTimeout: 5m
+        configReloaderExtraArgs:
+          enableTCP6: "true"
         externalURL: https://alertmanager.${SECRET_DOMAIN}
         storage:
           volumeClaimTemplate:
@@ -57,6 +59,8 @@ spec:
     vmalert:
       spec:
         extraArgs:
+          enableTCP6: "true"
+        configReloaderExtraArgs:
           enableTCP6: "true"
 
     vmagent:
