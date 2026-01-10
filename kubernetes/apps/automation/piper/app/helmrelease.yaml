@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: rhasspy/wyoming-piper
-              tag: 1.6.2@sha256:b2963d60fb3e3591894f3b8e899d1c35c2cb4b28513e596874126c68920a7525
+              tag: 2.1.2@sha256:54c511aa81d3b9f1e02216e30d08c948bd0b145f3eea1e7b0461c8c4645e2864
             args:
               - --uri
               - tcp://[::]:10200

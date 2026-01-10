@@ -35,7 +35,7 @@ spec:
           register:
             image:
               repository: code.forgejo.org/forgejo/runner
-              tag: 11.3.1@sha256:287433414b987b89896399683034818db198079053d84ca473aadb06ebad8b9f
+              tag: 12.5.0@sha256:d1fa548c336febeb314afb06da8564e06b66b9514ccd06177cce997830233f31
             command:
               - "sh"
               - "-c"
@@ -60,7 +60,7 @@ spec:
           daemon:
             image:
               repository: docker
-              tag: 29.0.1-dind@sha256:ecac43e78380d9b9d3bd24f0ab42b370f6391a1a06a66065c10a00b9d6d57a3e
+              tag: 29.1.4-dind@sha256:8fda538b5f69cf3fddd85f13ac405c5516c21721617841947885f4f963e88f4a
             securityContext:
               privileged: true
             env:
@@ -69,7 +69,7 @@ spec:
           app:
             image:
               repository: code.forgejo.org/forgejo/runner
-              tag: 11.3.1@sha256:287433414b987b89896399683034818db198079053d84ca473aadb06ebad8b9f
+              tag: 12.5.0@sha256:d1fa548c336febeb314afb06da8564e06b66b9514ccd06177cce997830233f31
             command:
               - "sh"
               - "-c"
