@@ -108,8 +108,8 @@ spec:
         globalMounts:
           - path: /config/
 
-      downloads:
-        existingClaim: downloads
+      # downloads:
+      #   existingClaim: downloads
 
       config:
         type: configMap

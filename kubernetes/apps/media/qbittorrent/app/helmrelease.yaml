@@ -183,11 +183,11 @@ spec:
             *app :
               - path: /config
 
-      downloads:
-        size: 100Gi
-        accessMode: ReadWriteMany
-        storageClass: zfs-rpool
-        forceRename: downloads
+      # downloads:
+      #   size: 100Gi
+      #   accessMode: ReadWriteMany
+      #   storageClass: zfs-rpool
+      #   forceRename: downloads
 
       media:
         existingClaim: media
