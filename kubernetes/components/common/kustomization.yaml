@@ -2,15 +2,25 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
+openapi:
+  path: http://crd-patcher.default.svc/definitions.json?crd=kustomize.toolkit.fluxcd.io.v1.Kustomization&prop=components
 patches:
   - target:
       kind: Kustomization
       version: v1
       group: kustomize.toolkit.fluxcd.io
+    # patch: |-
+    #   - op: add
+    #     path: /spec/components/-
+    #     value: "../../../../components/defaults"
     patch: |-
-      - op: add
-        path: /spec/components/-
-        value: "../../../../components/defaults"
+      apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: not-used
+      spec:
+        components:
+          - ../../../../components/defaults
 resources:
   - ./namespace.yaml
   - ./sops
