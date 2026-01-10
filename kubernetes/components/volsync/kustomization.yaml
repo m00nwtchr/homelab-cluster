@@ -7,4 +7,4 @@ components:
 resources:
   - ./base
   - ./base/local
-  - ./base/remote
+  # - ./base/remote
