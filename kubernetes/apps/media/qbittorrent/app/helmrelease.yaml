@@ -215,7 +215,7 @@ spec:
 
       qbrr:
         type: image
-        image: ghcr.io/buroa/qbrr:0.1.1@sha256:fe4a1d100ba896999253a5122d9c77cc4920779d618c23f765458cb6ec7383ca
+        image: ghcr.io/buroa/qbrr:0.1.3@sha256:b88f45657fd0cbfdf375e6a1e5ba24c8085d14f35116a8631e8b4d4694dd6370
         pullPolicy: IfNotPresent
 
       tmp:
