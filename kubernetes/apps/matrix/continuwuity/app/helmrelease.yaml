@@ -174,9 +174,3 @@ spec:
         globalMounts:
           - path: /config/conduit.toml
             subPath: conduit.toml
-      token:
-        type: secret
-        name: conduit-registration-secret
-        globalMounts:
-          - path: /config/token
-            subPath: token
