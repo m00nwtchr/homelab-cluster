@@ -2,8 +2,8 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-openapi:
-  path: http://crd-patcher.default.svc/definitions.json?crd=helm.toolkit.fluxcd.io.v2.HelmRelease&extraProp=helm.toolkit.fluxcd.io.v2.HelmRelease:spec.values.defaultPodOptions.schedulingGates
+# openapi:
+#   path: http://crd-patcher.default.svc/definitions.json?crd=helm.toolkit.fluxcd.io.v2.HelmRelease&extraProp=helm.toolkit.fluxcd.io.v2.HelmRelease:spec.values.defaultPodOptions.schedulingGates
 patches:
   - target:
       kind: HelmRelease
