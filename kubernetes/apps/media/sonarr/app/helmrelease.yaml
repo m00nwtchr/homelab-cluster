@@ -46,11 +46,11 @@ spec:
               SONARR__POSTGRES__HOST: postgres-rw.postgres.svc
               SONARR__POSTGRES__USER: *app
               SONARR__POSTGRES__MAINDB: *app
-              SONARR__POSTGRES__PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-postgres"
-                    key: password
+              SONARR__POSTGRES__PASSWORD: *app
+              PGSSLROOTCERT: /var/run/secrets/root-ca/ca.crt
+              PGSSLCERT: /var/run/secrets/postgresql/tls.crt
+              PGSSLKEY: /var/run/secrets/postgresql/tls.key
+              PGSSLMODE: verify-full
 
               SONARR__SERVER__PORT: &port 8989
               SONARR__UPDATE__BRANCH: develop

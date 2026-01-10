@@ -43,11 +43,11 @@ spec:
               RADARR__POSTGRES__HOST: postgres-rw.postgres.svc
               RADARR__POSTGRES__USER: *app
               RADARR__POSTGRES__MAINDB: *app
-              RADARR__POSTGRES__PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-postgres"
-                    key: password
+              RADARR__POSTGRES__PASSWORD: *app
+              PGSSLROOTCERT: /var/run/secrets/root-ca/ca.crt
+              PGSSLCERT: /var/run/secrets/postgresql/tls.crt
+              PGSSLKEY: /var/run/secrets/postgresql/tls.key
+              PGSSLMODE: verify-full
 
               RADARR__SERVER__PORT: &port 7878
               RADARR__UPDATE__BRANCH: develop

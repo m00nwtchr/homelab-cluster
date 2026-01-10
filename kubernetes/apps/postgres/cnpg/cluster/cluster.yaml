@@ -222,15 +222,13 @@ spec:
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: prowlarr-postgres
+        disablePassword: true
 
       - name: radarr
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: radarr-postgres
+        disablePassword: true
 
       - name: rssflow
         ensure: present
@@ -242,8 +240,7 @@ spec:
         ensure: present
         login: true
         superuser: false
-        passwordSecret:
-          name: sonarr-postgres
+        disablePassword: true
 
       - name: vaultwarden
         ensure: present
