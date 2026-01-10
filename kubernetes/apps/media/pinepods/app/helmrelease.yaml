@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: madeofpendletonwool/pinepods
-              tag: 0.8.0@sha256:76be7d8245ba82f60e86af4055cae91c573a54f58046a787e85af31649ddf471
+              tag: 0.8.2@sha256:ee412e52e59b6c49f4f852c41db82e9a258563ddc2e31d7c6e7ef824b8abcb70
             env:
               TZ: "${TZ}"
               PUID: 2000

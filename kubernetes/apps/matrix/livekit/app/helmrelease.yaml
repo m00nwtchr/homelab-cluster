@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: livekit/livekit-server
-              tag: v1.9.4@sha256:b672d1dd8280ba2501c473803538503707ef72e7559fab53276f7729824593ac
+              tag: v1.9.10@sha256:5c0dba58997048382e13a2625ad97993c9c4069201d47a745b7bf2564f55794a
             ports:
               - containerPort: 7880
                 name: http
@@ -57,7 +57,7 @@ spec:
           app:
             image:
               repository: ghcr.io/element-hq/lk-jwt-service
-              tag: 0.3.0@sha256:52357326970d3f3e3cf6e9c33766e49cf2665e2cd57842e29a5c298514bd2e58
+              tag: 0.4.0@sha256:aba31cef052cedbf263f5e642dfb49476f779b46d0244d5b9337022033c4b66d
             env:
               LIVEKIT_URL: wss://livekit.${SECRET_DOMAIN}
               LIVEKIT_KEY_FILE: /config/keys.yaml

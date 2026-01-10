@@ -11,7 +11,7 @@ spec:
     operation: copy
   url: oci://ghcr.io/home-operations/charts-mirror/renovate-operator
   ref:
-    tag: 1.7.8
+    tag: 1.10.0
   verify:
     provider: cosign
     matchOIDCIdentity:
