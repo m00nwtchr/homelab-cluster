@@ -63,6 +63,8 @@ spec:
       spec:
         extraArgs:
           enableTCP6: "true"
+        configReloaderExtraArgs:
+          enableTCP6: "true"
 
     vmsingle:
       #      route:
