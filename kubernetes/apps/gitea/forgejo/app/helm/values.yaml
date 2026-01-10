@@ -18,7 +18,7 @@ image:
   registry: code.forgejo.org
   repository: forgejo/forgejo
   tag: 13.0.4-rootless
-  digest: sha256:a704cc203d78a854e0887e08fcbd7a45f9bc2b5fd8551c88b914b044792c4b1b
+  digest: sha256:5ebd7bb1f81fd9948e63d810ebd40830a00f8ca29165ca227105b3f5e4ec40bd
 
 gitea:
   admin:
