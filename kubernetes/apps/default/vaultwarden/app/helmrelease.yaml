@@ -34,9 +34,17 @@ spec:
               SIGNUPS_ALLOWED: false
               INVITATIONS_ALLOWED: false
               WEBSOCKET_ENABLED: true
-              #              SMTP_PORT: 465
-              #              SMTP_FROM: admin@${SECRET_DOMAIN}
-              #              SMTP_SECURITY: force_tls
+
+              SMTP_HOST: smtp.migadu.com
+              SMTP_FROM: &email vaultwarden@${SECRET_DOMAIN}
+              SMTP_USERNAME: *email
+              SMTP_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: vaultwarden-migadu
+                    key: password
+              SMTP_SECURITY: force_tls
+
               ROCKET_ADDRESS: "::"
               ROCKET_PORT: &port 8080
               DATABASE_URL:
