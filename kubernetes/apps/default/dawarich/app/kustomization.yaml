@@ -2,7 +2,5 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-openapi:
-  path: http://crd-patcher.default.svc/definitions.json?crd=helm.toolkit.fluxcd.io.v2.HelmRelease&extraProp=helm.toolkit.fluxcd.io.v2.HelmRelease:spec.values.defaultPodOptions.schedulingGates
 resources:
   - ./helmrelease.yaml
