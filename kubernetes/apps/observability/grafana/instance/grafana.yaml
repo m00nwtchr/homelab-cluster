@@ -85,9 +85,9 @@ spec:
                 defaultMode: 0440
                 secretName: postgres-grafana-cert
             - name: root-ca
-              secret:
+              configMap:
                 defaultMode: 0440
-                secretName: root-ca
+                name: root-ca
   persistentVolumeClaim:
     spec:
       accessModes:
