@@ -9,5 +9,9 @@ configMapGenerator:
     files:
       - ./resources/csp.yaml
       - ./resources/proxy.yaml
+secretGenerator:
+  - name: opencloud-secret
+    files:
+      - opencloud.yaml=./resources/opencloud.sops.yaml
 configurations:
   - resources/kustomizeconfig.yaml

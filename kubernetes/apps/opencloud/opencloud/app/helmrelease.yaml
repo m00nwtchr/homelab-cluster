@@ -191,13 +191,17 @@ spec:
           - path: /etc/opencloud/proxy.yaml
             subPath: proxy.yaml
 
+      secret:
+        type: secret
+        name: opencloud-secret
+        globalMounts:
+          - path: /etc/opencloud/opencloud.yaml
+            subPath: opencloud.yaml
+
       data:
         existingClaim: *app
         globalMounts:
           - path: /var/lib/opencloud
-            subPath: data
-          - path: /etc/opencloud
-            subPath: config
 
       tmpfs:
         type: emptyDir
