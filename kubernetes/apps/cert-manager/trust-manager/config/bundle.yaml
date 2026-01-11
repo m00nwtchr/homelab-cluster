@@ -10,7 +10,7 @@ spec:
         name: "root-ca"
         key: "tls.crt"
   target:
-    secret:
+    configMap:
       key: "ca.crt"
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/trust.cert-manager.io/bundle_v1alpha1.json

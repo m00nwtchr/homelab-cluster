@@ -133,9 +133,9 @@ extraVolumes:
       defaultMode: 0600
       secretName: postgres-forgejo-cert
   - name: root-ca
-    secret:
+    configMap:
       defaultMode: 0600
-      secretName: root-ca
+      name: root-ca
 
   - name: forgejo-ssh
     secret:
