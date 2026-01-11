@@ -52,8 +52,8 @@ hubble:
       method: certmanager
       certManagerIssuerRef:
         group: cert-manager.io
-        kind: ClusterIssuer
-        name: cluster-ca
+        kind: Issuer
+        name: hubble-ca
   ui:
     enabled: true
   relay:
