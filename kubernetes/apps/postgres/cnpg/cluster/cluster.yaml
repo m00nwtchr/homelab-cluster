@@ -24,7 +24,7 @@ spec:
     recovery:
       source: &src source
       recoveryTarget:
-        targetTLI: "latest"
+        targetTLI: "1"
 
   plugins:
     - name: &plugin barman-cloud.cloudnative-pg.io
