@@ -23,6 +23,9 @@ spec:
       dnsDomains:
         - .postgres.svc.cluster.local
         - .postgres.svc
+        - postgres-rw
+        - postgres-ro
+        - postgres-r
   duration: 8766h # 1 year
   privateKey:
     algorithm: ECDSA
