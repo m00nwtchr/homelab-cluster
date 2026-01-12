@@ -47,7 +47,7 @@ spec:
     name: selfsigned
     kind: ClusterIssuer
     group: cert-manager.io
-  secretName: root-ca
+  secretName: cluster-ca-cert
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -55,4 +55,4 @@ metadata:
   name: cluster-ca
 spec:
   ca:
-    secretName: root-ca
+    secretName: cluster-ca-cert
