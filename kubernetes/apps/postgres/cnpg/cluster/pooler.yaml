@@ -45,14 +45,14 @@ spec:
     poolMode: session
 
     authQuery: "SELECT $1, NULL"
-    # serverCASecret:
-    #   name: root-ca
-    # serverTLSSecret:
-    #   name: pooler-client-cert
-    # clientCASecret:
-    #   name: pooler-client-cert
-    # clientTLSSecret:
-    #   name: pooler-server-cert
+    serverCASecret:
+      name: root-ca
+    serverTLSSecret:
+      name: pooler-client-cert
+    clientCASecret:
+      name: pooler-client-cert
+    clientTLSSecret:
+      name: pooler-server-cert
 
     parameters:
       server_tls_protocols: tlsv1.3
@@ -61,6 +61,14 @@ spec:
       client_tls_sslmode: verify-full
       max_client_conn: "1000"
       default_pool_size: "10"
-
-  monitoring:
-    enablePodMonitor: true
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: &name pooler-rw
+spec:
+  selector:
+    matchLabels:
+      cnpg.io/poolerName: *name
+  podMetricsEndpoints:
+    - port: metrics
