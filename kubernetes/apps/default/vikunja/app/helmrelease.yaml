@@ -59,7 +59,7 @@ spec:
 
               # postgres
               VIKUNJA_DATABASE_TYPE: postgres
-              VIKUNJA_DATABASE_HOST: postgres-rw.postgres.svc
+              VIKUNJA_DATABASE_HOST: pooler-rw.postgres.svc
               VIKUNJA_DATABASE_SSLROOTCERT: /var/run/secrets/root-ca/ca.crt
               VIKUNJA_DATABASE_SSLCERT: /var/run/secrets/postgresql/tls.crt
               VIKUNJA_DATABASE_SSLKEY: /var/run/secrets/postgresql/tls.key

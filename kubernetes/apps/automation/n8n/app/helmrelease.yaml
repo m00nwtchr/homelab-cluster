@@ -46,7 +46,7 @@ spec:
               N8N_RUNNERS_ENABLED: true
 
               DB_TYPE: postgresdb
-              DB_POSTGRESDB_HOST: postgres-rw.postgres.svc
+              DB_POSTGRESDB_HOST: pooler-rw.postgres.svc
               DB_POSTGRESDB_DATABASE: *app
               DB_POSTGRESDB_USER: *app
               DB_POSTGRESDB_SSL_CA_FILE: /var/run/secrets/root-ca/ca.crt

@@ -38,7 +38,7 @@ prometheus:
 
 queryLog:
   type: timescale
-  target: postgresql://blocky@postgres-rw.postgres.svc:5432/blocky?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
+  target: postgresql://blocky@pooler-rw.postgres.svc:5432/blocky?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
 
 redis:
   address: dragonfly.database.svc:6379
