@@ -30,7 +30,7 @@ spec:
     labels:
       cnpg.io/reload: ""
   issuerRef:
-    name: postgres-serving-ca
+    name: postgres-server-ca
     kind: Issuer
     group: cert-manager.io
   secretName: *name
@@ -80,7 +80,7 @@ spec:
     labels:
       cnpg.io/reload: ""
   issuerRef:
-    name: postgres-serving-ca
+    name: postgres-server-ca
     kind: Issuer
     group: cert-manager.io
   secretName: *name
