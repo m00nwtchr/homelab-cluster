@@ -29,7 +29,7 @@ spec:
           app:
             env:
               PAPERLESS_REDIS: redis://dragonfly.database.svc:6379/13
-              PAPERLESS_DBHOST: postgres-rw.postgres.svc
+              PAPERLESS_DBHOST: pooler-rw.postgres.svc
               PAPERLESS_DBSSLMODE: verify-full
               PAPERLESS_DBSSLROOTCERT: /var/run/secrets/root-ca/ca.crt
               PAPERLESS_DBSSLCERT: /var/run/secrets/postgresql/tls.crt
