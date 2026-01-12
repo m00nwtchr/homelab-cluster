@@ -39,9 +39,9 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: postgres-client-cert
+  name: &name postgres-client-cert
 spec:
-  secretName: postgres-replication-cert
+  secretName: *name
   secretTemplate:
     labels:
       cnpg.io/reload: ""
