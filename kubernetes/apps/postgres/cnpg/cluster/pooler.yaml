@@ -43,7 +43,22 @@ spec:
   type: rw
   pgbouncer:
     poolMode: session
+
+    authQuery: "SELECT $1, NULL"
+    serverCASecret:
+      name: pooler-client-cert
+    serverTLSSecret:
+      name: pooler-client-cert
+    clientCASecret:
+      name: postgres-client-ca
+    clientTLSSecret:
+      name: pooler-server-cert
+
     parameters:
+      server_tls_protocols: tlsv1.3
+      auth_type: cert
+      server_tls_sslmode: verify-full
+      client_tls_sslmode: verify-full
       max_client_conn: "1000"
       default_pool_size: "10"
 
