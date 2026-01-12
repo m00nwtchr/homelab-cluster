@@ -77,6 +77,12 @@ spec:
 
   managed:
     roles:
+      - name: pooler-rw
+        ensure: present
+        login: true
+        superuser: false
+        disablePassword: true
+
       - name: attic
         ensure: present
         login: true
