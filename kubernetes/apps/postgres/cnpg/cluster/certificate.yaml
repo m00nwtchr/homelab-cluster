@@ -7,6 +7,9 @@ metadata:
 spec:
   commonName: postgres
   dnsNames:
+    - postgres-rw
+    - postgres-ro
+    - postgres-r
     - postgres-rw.postgres.svc
     - postgres-ro.postgres.svc
     - postgres-r.postgres.svc
