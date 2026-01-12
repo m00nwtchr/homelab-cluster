@@ -45,9 +45,7 @@ spec:
 
   postgresql:
     pg_hba:
-      - hostnossl all all 10.42.0.0/16      scram-sha-256
-      - hostnossl all all 2001:cafe:42::/56 scram-sha-256
-      - hostssl   all all all               cert clientcert=verify-full map=pooler-map
+      - hostssl all all all cert clientcert=verify-full map=pooler-map
     pg_ident:
       - pooler-map pooler-rw all
 
@@ -100,13 +98,6 @@ spec:
         login: true
         superuser: false
         disablePassword: true
-
-      - name: baikal
-        ensure: present
-        login: true
-        superuser: false
-        passwordSecret:
-          name: baikal-postgres
 
       - name: bazarr
         ensure: present
@@ -221,13 +212,6 @@ spec:
         login: true
         superuser: false
         disablePassword: true
-
-      - name: pinepods
-        ensure: present
-        login: true
-        superuser: false
-        passwordSecret:
-          name: pinepods-postgres
 
       - name: prowlarr
         ensure: present
