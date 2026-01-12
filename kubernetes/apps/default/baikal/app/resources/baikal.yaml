@@ -19,5 +19,5 @@ database:
   encryption_key: "{{ .encryption_key }}"
   pgsql_host: "pooler-rw.postgres.svc"
   pgsql_dbname: "baikal"
-  pgsql_username: "${APP}"
-  pgsql_password: "{{ .pgsql_password }}"
+  pgsql_username: "baikal"
+  pgsql_password: "baikal"
