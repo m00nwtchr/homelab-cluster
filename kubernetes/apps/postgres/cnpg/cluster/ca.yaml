@@ -24,6 +24,9 @@ spec:
     critical: true
     permitted:
       dnsDomains:
+        - postgres-rw
+        - postgres-ro
+        - postgres-r
         - .postgres.svc.cluster.local
         - .postgres.svc
   duration: 8766h # 1 year
