@@ -45,7 +45,10 @@ spec:
     pg_hba:
       - hostnossl all all 10.42.0.0/16      scram-sha-256
       - hostnossl all all 2001:cafe:42::/56 scram-sha-256
-      - hostssl   all all all               cert clientcert=verify-full
+      - hostssl   all all all               cert clientcert=verify-full map=pooler-map
+    pg_ident:
+      - pooler-map pooler-rw all
+
     shared_preload_libraries:
       - "vchord.so"
       - "timescaledb"
