@@ -15,7 +15,7 @@ spec:
     serverCASecret: postgres-server-cert
     serverTLSSecret: postgres-server-cert
     clientCASecret: postgres-client-cert
-    replicationTLSSecret: postgres-cient-cert
+    replicationTLSSecret: postgres-client-cert
 
   storage:
     size: 8Gi
