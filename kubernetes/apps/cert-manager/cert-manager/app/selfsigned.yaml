@@ -28,6 +28,9 @@ spec:
         - .svc.cluster.local
         - .cluster.local
         - .svc
+        - postgres-rw
+        - postgres-ro
+        - postgres-r
       # Private IP space only
       # ipRanges:
       #   - 10.0.0.0/8
