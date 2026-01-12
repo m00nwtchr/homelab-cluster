@@ -45,14 +45,14 @@ spec:
     poolMode: session
 
     authQuery: "SELECT $1, NULL"
-    serverCASecret:
-      name: root-ca
-    serverTLSSecret:
-      name: pooler-client-cert
-    clientCASecret:
-      name: pooler-client-cert
-    clientTLSSecret:
-      name: pooler-server-cert
+    # serverCASecret:
+    #   name: root-ca
+    # serverTLSSecret:
+    #   name: pooler-client-cert
+    # clientCASecret:
+    #   name: pooler-client-cert
+    # clientTLSSecret:
+    #   name: pooler-server-cert
 
     parameters:
       server_tls_protocols: tlsv1.3
