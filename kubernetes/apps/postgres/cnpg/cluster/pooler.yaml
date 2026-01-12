@@ -55,7 +55,7 @@ spec:
       name: pooler-server-cert
 
     parameters:
-      server_tls_protocols: tlsv1.3
+      # server_tls_protocols: tlsv1.3
       auth_type: cert
       server_tls_sslmode: verify-full
       client_tls_sslmode: verify-full
