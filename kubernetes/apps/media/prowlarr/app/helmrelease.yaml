@@ -56,7 +56,7 @@ spec:
               PROWLARR__AUTH__METHOD: External
               PROWLARR__LOG__ANALYTICSENABLED: "False"
               PROWLARR__LOG__DBENABLED: "False"
-              PROWLARR__POSTGRES__HOST: postgres-rw.postgres.svc
+              PROWLARR__POSTGRES__HOST: pooler-rw.postgres.svc
               PROWLARR__POSTGRES__USER: *app
               PROWLARR__POSTGRES__MAINDB: *app
               PROWLARR__POSTGRES__PASSWORD: *app

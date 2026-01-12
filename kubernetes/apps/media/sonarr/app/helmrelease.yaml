@@ -43,7 +43,7 @@ spec:
               SONARR__LOG__ANALYTICSENABLED: "False"
               SONARR__LOG__DBENABLED: "False"
 
-              SONARR__POSTGRES__HOST: postgres-rw.postgres.svc
+              SONARR__POSTGRES__HOST: pooler-rw.postgres.svc
               SONARR__POSTGRES__USER: *app
               SONARR__POSTGRES__MAINDB: *app
               SONARR__POSTGRES__PASSWORD: *app

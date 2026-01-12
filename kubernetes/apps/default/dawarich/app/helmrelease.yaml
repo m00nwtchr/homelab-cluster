@@ -33,7 +33,7 @@ spec:
               ENABLE_TELEMETRY: false # More on telemetry: https://dawarich.app/docs/tutorials/telemetry
               SELF_HOSTED: "true"
 
-              DATABASE_HOST: postgres-rw.postgres.svc.cluster.local
+              DATABASE_HOST: pooler-rw.postgres.svc.cluster.local
               DATABASE_NAME: *app
               DATABASE_USERNAME: *app
 

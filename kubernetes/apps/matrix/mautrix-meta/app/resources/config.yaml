@@ -22,7 +22,7 @@ bridge:
 
 database:
   type: postgres
-  uri: postgres://${APP}@postgres-rw.postgres.svc/${APP}?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
+  uri: postgres://${APP}@pooler-rw.postgres.svc/${APP}?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
   max_open_conns: 5
   max_idle_conns: 1
   max_conn_idle_time: null
