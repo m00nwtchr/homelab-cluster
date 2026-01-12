@@ -3,7 +3,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: &name postgres-serving-cert
+  name: &name postgres-server-cert
 spec:
   commonName: postgres
   dnsNames:
@@ -39,7 +39,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: postgres-replication-cert
+  name: postgres-client-cert
 spec:
   secretName: postgres-replication-cert
   secretTemplate:
