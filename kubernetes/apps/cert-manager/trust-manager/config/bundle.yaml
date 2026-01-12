@@ -7,10 +7,12 @@ metadata:
 spec:
   sources:
     - secret:
-        name: "root-ca"
+        name: "cluster-ca-cert"
         key: "tls.crt"
   target:
     configMap:
+      key: "ca.crt"
+    secret:
       key: "ca.crt"
 # ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/trust.cert-manager.io/bundle_v1alpha1.json
