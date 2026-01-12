@@ -46,11 +46,11 @@ spec:
 
     authQuery: "SELECT $1, NULL"
     serverCASecret:
-      name: pooler-client-cert
+      name: postgres-client-cert
     serverTLSSecret:
       name: pooler-client-cert
     clientCASecret:
-      name: postgres-client-ca
+      name: pooler-client-cert
     clientTLSSecret:
       name: pooler-server-cert
 
