@@ -36,7 +36,7 @@ gitea:
     database:
       DB_TYPE: postgres
 
-      HOST: postgres-rw.postgres.svc:5432
+      HOST: pooler-rw.postgres.svc:5432
       USER: forgejo
       NAME: forgejo
       SSL_MODE: verify-full
