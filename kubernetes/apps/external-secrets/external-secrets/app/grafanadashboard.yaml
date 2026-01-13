@@ -15,4 +15,3 @@ spec:
   configMapRef:
     name: external-secrets-dashboard
     key: external-secrets.json
-datasourceName: victoriametrics
