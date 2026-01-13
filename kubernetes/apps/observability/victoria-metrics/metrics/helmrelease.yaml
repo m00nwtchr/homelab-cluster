@@ -134,34 +134,69 @@ spec:
       fullnameOverride: kube-state-metrics
 
     kubelet:
-      enabled: true
+      vmScrapes:
+        kubelet:
+          enabled: true
+      vmScrape:
+        spec:
+          port: "10250"
+          relabelConfigs:
+            # This is the same as the chart default, but it explicitly excludes NFD node labels,
+            # and talos extension labels, and some others. These don't really provide any value,
+            # and they cause cardinality to explode.
+            - action: labelmap
+              regex: __meta_kubernetes_node_label_(.+)
+            - action: labeldrop
+              regex: (feature_node|extensions_talos_dev|beta_kubernetes|plan_upgrade_cattle_io|openebs_io|katacontainers_io|topology_rook_io_).*
+            - action: labeldrop
+              regex: .*kubevirt_io.*
+            - action: labeldrop
+              regex: .*home_arpa.*
+            - sourceLabels: [__metrics_path__]
+              targetLabel: metrics_path
+            - targetLabel: job
+              replacement: kubelet
 
     kubeApiServer:
       enabled: true
 
     kubeControllerManager:
-      enabled: true
-      # service:
-      #   selector:
-      #     component: kube-apiserver # Selects controller node IPs
-      vmScrape:
+      service:
+        selector:
+          k8s-app: cilium
+          component: ~
+      vmScrape: &control_plane_scrape_config
         spec:
           endpoints:
             - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
               port: http-metrics
               scheme: https
               tlsConfig:
+                # TODO pin these certs or generate them all from the same root CA.
+                # These appear to be generated for each separate node, and aren't
+                # rooted by the talsecret values.
                 insecureSkipVerify: true
 
     kubeEtcd:
-      enabled: true
       service:
-        port: 2381
+        selector:
+          # This is a workaround for targeting etcd instance on all control planes.
+          # Because etcd does not run in a pod, it cannot be directly targeted via a service.
+          # Instead, the service must select pods that run on the same nodes as the etcd instances,
+          # and also have host networking enabled. The controller manager and scheduler are good
+          # choices because they meet these requirements.
+          k8s-app: cilium
+          component: ~
+        # This port does not require authentication, and only serves metrics. TODO build automation
+        # to pull in the etcd certs via talosctl, which can be called via pods with a Talos service account.
+        # Then the normal, authenticated 2379 port can be used. Or even better, move the root CA out
+        # of the cluster (probably into a HSM), and issue these certs with it.
         targetPort: 2381
       vmScrape:
         spec:
           endpoints:
-            - scheme: http
+            - port: http-metrics
+              scheme: http
 
     kubeScheduler:
       enabled: false
@@ -170,4 +205,4 @@ spec:
       enabled: false
 
     coreDns:
-      enabled: true
+      enabled: false
