@@ -5,7 +5,6 @@ kind: GrafanaDashboard
 metadata:
   name: victoria-logs-single-node
 spec:
-  allowCrossNamespaceImport: true
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
