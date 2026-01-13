@@ -6,7 +6,7 @@ metadata:
   name: etcd-cluster-health
 spec:
   datasources:
-    - datasourceName: victoriametrics
+    - datasourceName: prometheus
       inputName: DS_PROMETHEUS
   instanceSelector:
     matchLabels:
