@@ -1,3 +1,8 @@
 ---
 serviceMonitor:
   create: true
+# reporting:
+#   interval: 30s
+web:
+  networkPolicy:
+    create: false
