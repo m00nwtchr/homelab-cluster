@@ -22,7 +22,7 @@ ip_lookup_strategy = 3
 allow_registration = true
 new_user_displayname_suffix = ""
 
-allow_federation = false
+# allow_federation = false
 trusted_servers = ["codestorm.net", "envs.net"]
 
 # Additional config
