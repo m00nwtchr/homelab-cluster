@@ -161,21 +161,7 @@ spec:
       enabled: true
 
     kubeControllerManager:
-      service:
-        selector:
-          k8s-app: cilium
-          component: ~
-      vmScrape: &control_plane_scrape_config
-        spec:
-          endpoints:
-            - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
-              port: http-metrics
-              scheme: https
-              tlsConfig:
-                # TODO pin these certs or generate them all from the same root CA.
-                # These appear to be generated for each separate node, and aren't
-                # rooted by the talsecret values.
-                insecureSkipVerify: true
+      enabled: false
 
     kubeEtcd:
       service:
