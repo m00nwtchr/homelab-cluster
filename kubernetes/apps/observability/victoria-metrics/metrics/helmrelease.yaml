@@ -70,10 +70,6 @@ spec:
     alertmanager:
       enabled: false
       spec:
-        #        alertmanagerConfiguration:
-        #          name: alertmanager
-        #          global:
-        #            resolveTimeout: 5m
         configReloaderExtraArgs:
           enableTCP6: "true"
         externalURL: https://alertmanager.${SECRET_DOMAIN}
