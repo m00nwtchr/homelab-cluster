@@ -141,9 +141,9 @@ spec:
 
     kubeControllerManager:
       enabled: true
-      service:
-        selector:
-          component: kube-apiserver # Selects controller node IPs
+      # service:
+      #   selector:
+      #     component: kube-apiserver # Selects controller node IPs
       vmScrape:
         spec:
           endpoints:
@@ -156,8 +156,6 @@ spec:
     kubeEtcd:
       enabled: true
       service:
-        selector:
-          component: kube-apiserver # Selects controller node IPs
         port: 2381
         targetPort: 2381
       vmScrape:
