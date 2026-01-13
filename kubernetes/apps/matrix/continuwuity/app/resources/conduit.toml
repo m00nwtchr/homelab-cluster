@@ -23,7 +23,7 @@ allow_registration = true
 new_user_displayname_suffix = ""
 
 # allow_federation = false
-trusted_servers = ["codestorm.net", "envs.net"]
+trusted_servers = ["bi-vibes.com", "codestorm.net"]
 
 # Additional config
 [global.well_known]
