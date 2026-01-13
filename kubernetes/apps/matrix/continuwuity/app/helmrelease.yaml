@@ -114,6 +114,9 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
         parentRefs:
+          - name: internal
+            namespace: network
+            sectionName: https
           - name: external
             namespace: network
             sectionName: https
