@@ -10,8 +10,9 @@ spec:
     matchLabels:
       grafana.internal/instance: grafana
   datasources:
-    - datasourceName: victoriametrics
+    - datasourceName: prometheus
       inputName: DS_PROMETHEUS
   configMapRef:
     name: external-secrets-dashboard
     key: external-secrets.json
+datasourceName: victoriametrics
