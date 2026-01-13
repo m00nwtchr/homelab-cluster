@@ -10,6 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components: []
   path: ./kubernetes/apps/observability/prometheus-operator-crds/app
   prune: false # never should be deleted
   sourceRef:
