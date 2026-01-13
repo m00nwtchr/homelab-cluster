@@ -141,27 +141,9 @@ spec:
 
     kubeControllerManager:
       enabled: true
-      # service:
-      #   selector:
-      #     component: kube-apiserver # Selects controller node IPs
-      vmScrape:
-        spec:
-          endpoints:
-            - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
-              port: http-metrics
-              scheme: https
-              tlsConfig:
-                insecureSkipVerify: true
 
     kubeEtcd:
       enabled: true
-      service:
-        port: 2381
-        targetPort: 2381
-      vmScrape:
-        spec:
-          endpoints:
-            - scheme: http
 
     kubeScheduler:
       enabled: false
