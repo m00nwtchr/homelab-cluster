@@ -180,7 +180,7 @@ spec:
     persistence:
       ssl:
         type: secret
-        name: mqtt-${SECRET_DOMAIN/./-}-tls
+        name: ${APP}-tls
         globalMounts:
           - path: /etc/ssl/vernemq
 

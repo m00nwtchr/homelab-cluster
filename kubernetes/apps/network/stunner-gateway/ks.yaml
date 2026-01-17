@@ -47,6 +47,7 @@ spec:
   path: ./kubernetes/apps/network/stunner-gateway/config
   postBuild:
     substitute:
+      APP: stunner-gateway
       TLS_SUBDOMAIN: turn
     substituteFrom:
       - name: cluster-secrets
