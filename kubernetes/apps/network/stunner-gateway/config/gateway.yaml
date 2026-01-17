@@ -35,4 +35,4 @@ spec:
         mode: Terminate
         certificateRefs:
           - kind: Secret
-            name: turn-${SECRET_DOMAIN/./-}-tls
+            name: ${APP}-tls
