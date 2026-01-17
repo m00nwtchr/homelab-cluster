@@ -39,6 +39,7 @@ spec:
   components:
     - ../../../../components/volsync
     - ../../../../components/gatus/external
+    - ../../../../components/tls
   dependsOn:
     # - name: kaniop
     #   namespace: kanidm
