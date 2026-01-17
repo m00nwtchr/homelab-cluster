@@ -36,7 +36,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components: []
+  components:
+    - ../../../../components/tls
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
@@ -45,6 +46,8 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/network/stunner-gateway/config
   postBuild:
+    substitute:
+      TLS_SUBDOMAIN: turn
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

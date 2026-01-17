@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/oidc/envoy
+    - ../../../../components/tls
   interval: 1h
   retryInterval: 2m
   path: ./kubernetes/apps/database/vernemq/app
@@ -25,6 +26,7 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      TLS_SUBDOMAIN: mqtt
       OIDC_DISPLAY_NAME: VerneMQ
       OIDC_GROUP: admins
       OIDC_SCOPES: '["openid", "profile"]'
