@@ -165,6 +165,12 @@ spec:
         superuser: false
         disablePassword: true
 
+      - name: lidarr
+        ensure: present
+        login: true
+        superuser: false
+        disablePassword: true
+
       - name: litellm
         ensure: present
         login: true
