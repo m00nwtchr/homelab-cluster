@@ -11,6 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/volsync
     - ../../../../components/oidc
     - ../../../../components/gatus/guarded
   interval: 30m
