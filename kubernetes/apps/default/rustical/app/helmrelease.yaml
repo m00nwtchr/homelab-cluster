@@ -58,10 +58,9 @@ spec:
                 type: HTTP
             resources:
               requests:
-                memory: 250Mi
                 cpu: 50m
               limits:
-                memory: 500Mi
+                memory: 64Mi
 
     service:
       app:
