@@ -1,7 +1,7 @@
 id: heisenbridge
 url: http://heisenbridge.matrix.svc
-as_token: { { .as_token } }
-hs_token: { { .hs_token } }
+as_token: "{{ .as_token }}"
+hs_token: "{{ .hs_token }}"
 rate_limited: false
 sender_localpart: heisenbridge
 namespaces:
@@ -13,4 +13,4 @@ namespaces:
   aliases: []
   rooms: []
 heisenbridge:
-  media_url: https://matrix.${SECRET_DOMAIN}
+  media_url: "https://matrix.${SECRET_DOMAIN}"
