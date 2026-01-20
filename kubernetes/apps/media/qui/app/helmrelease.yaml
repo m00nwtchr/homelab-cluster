@@ -91,5 +91,4 @@ spec:
       media:
         existingClaim: media
         globalMounts:
-          - path: /mnt/media
-            readOnly: true
+          - path: /mnt/media/
