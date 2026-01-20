@@ -1,0 +1,146 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app lidarr
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    controllers:
+      *app :
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          securityContext:
+            fsGroup: 2000
+            fsGroupChangePolicy: OnRootMismatch
+            runAsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/lidarr
+              tag: 3.1.2.4902@sha256:dab0e07502a34436fc50c3e789388f0a29f8cbf681fb7a02ed703ad7c368a22c
+            env:
+              LIDARR__APP__INSTANCENAME: Lidarr
+              LIDARR__LOG__LEVEL: info
+
+              LIDARR__AUTH__APIKEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-secret
+                    key: api_key
+              LIDARR__AUTH__METHOD: External
+              LIDARR__LOG__ANALYTICSENABLED: "False"
+              LIDARR__LOG__DBENABLED: "False"
+
+              LIDARR__POSTGRES__HOST: pooler-rw.postgres.svc
+              LIDARR__POSTGRES__USER: *app
+              LIDARR__POSTGRES__MAINDB: *app
+              LIDARR__POSTGRES__PASSWORD: *app
+              PGSSLROOTCERT: /var/run/secrets/root-ca/ca.crt
+              PGSSLCERT: /var/run/secrets/postgresql/tls.crt
+              PGSSLKEY: /var/run/secrets/postgresql/tls.key
+              PGSSLMODE: verify-full
+
+              LIDARR__SERVER_PORT: &port 8686
+              LIDARR__UPDATE__BRANCH: develop
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+
+            resources:
+              requests:
+                cpu: 20m
+                memory: 384Mi
+              limits:
+                memory: 2Gi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: ["ALL"]
+
+    service:
+      app:
+        ipFamilyPolicy: PreferDualStack
+        ports:
+          http:
+            port: 80
+            targetPort: *port
+
+    route:
+      app:
+        forceRename: *app
+        hostnames: [&host "{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Media
+          gethomepage.dev/name: Lidarr
+          gethomepage.dev/icon: ${APP}.svg
+          gethomepage.dev/widget.type: *app
+          gethomepage.dev/widget.url: "http://${APP}.media.svc"
+          gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_${APP}_API_KEY}}" }}'
+        parentRefs:
+          - name: internal
+            namespace: network
+            sectionName: https
+
+      api:
+        hostnames: [*host]
+        parentRefs:
+          - name: internal
+            namespace: network
+            sectionName: https
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /api
+            backendRefs:
+              - identifier: app
+                port: 80
+            timeouts:
+              request: "300s"
+
+    persistence:
+      config:
+        size: 1Gi
+        accessMode: ReadWriteOnce
+
+      # downloads:
+      #   existingClaim: downloads
+
+      media:
+        existingClaim: media
+        globalMounts:
+          - path: /mnt/media
+
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
+          - path: /config/logs
+            subPath: logs
