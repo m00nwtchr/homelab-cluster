@@ -35,8 +35,10 @@ servers:
         configBlock: |-
           lameduck 5s
       - name: ready
+      # - name: rewrite
+      #   parameters: name substring idm.${SECRET_DOMAIN} external.network.svc.cluster.local
       - name: rewrite
-        parameters: name substring idm.${SECRET_DOMAIN} external.network.svc.cluster.local
+        parameters: name substring idm.${SECRET_DOMAIN} kanidm.kanidm.svc.cluster.local
       - name: kubernetes
         parameters: cluster.local in-addr.arpa ip6.arpa
         configBlock: |-
