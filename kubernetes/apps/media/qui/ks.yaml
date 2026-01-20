@@ -15,7 +15,7 @@ spec:
     - ../../../../components/gatus/guarded
   interval: 30m
   timeout: 5m
-  path: "./kubernetes/apps/media/quit/app"
+  path: "./kubernetes/apps/media/qui/app"
   prune: true
   sourceRef:
     kind: GitRepository
