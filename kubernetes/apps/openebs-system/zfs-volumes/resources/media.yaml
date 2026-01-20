@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - cluster.local/data-protection
 spec:
-  capacity: "10995116277760"
+  capacity: "13194139533312"
   compression: "lz4"
   dedup: "off"
   fsType: zfs
@@ -25,7 +25,7 @@ spec:
   accessModes:
     - ReadWriteMany
   capacity:
-    storage: 10Ti
+    storage: 12Ti
   csi:
     driver: zfs.csi.openebs.io
     fsType: zfs
