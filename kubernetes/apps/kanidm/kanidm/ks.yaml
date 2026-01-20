@@ -56,6 +56,7 @@ spec:
     substitute:
       APP: *app
       SUBDOMAIN: idm
+      TLS_KEY_SIZE: "256"
       VOLSYNC_PUID: "999"
       VOLSYNC_PGID: "999"
     substituteFrom:
