@@ -17,7 +17,7 @@ spec:
     - name: envoy-gateway
       namespace: network
   interval: 1h
-  path: ./kubernetes/apps/media/sonarr/app
+  path: ./kubernetes/apps/media/lidarr/app
   postBuild:
     substitute:
       APP: *app
