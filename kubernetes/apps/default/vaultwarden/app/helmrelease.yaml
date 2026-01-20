@@ -54,7 +54,7 @@ spec:
                     key: url
 
               SSO_ENABLED: true
-              SSO_ONLY: true
+              # SSO_ONLY: true
               SSO_AUTHORITY: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
               SSO_CLIENT_ID: *app
               SSO_CLIENT_SECRET:
