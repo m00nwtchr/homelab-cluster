@@ -11,7 +11,7 @@ spec:
     kind: ClusterIssuer
   privateKey:
     algorithm: ECDSA
-    size: 384
+    size: ${TLS_KEY_SIZE:=384}
     rotationPolicy: Always
   duration: 160h
   usages: ["digital signature"]
