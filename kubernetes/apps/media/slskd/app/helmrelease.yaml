@@ -91,7 +91,7 @@ spec:
               SLSKD_NO_AUTH: true
               SLSKD_NO_HTTPS: true
               SLSKD_NO_VERSION_CHECK: true
-              SLSKD_SLSK_LISTEN_PORT: &soulseekPort 50429
+              SLSKD_SLSK_LISTEN_PORT: &soulseekPort 51983
               SLSKD_REMOTE_CONFIGURATION: "true"
             envFrom:
               - secretRef:
