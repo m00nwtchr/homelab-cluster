@@ -34,7 +34,7 @@ spec:
     runner:
       image:
         repository: ghcr.io/home-operations/opentofu-runner
-        tag: 1.11.3@sha256:8e1ae8d223b986ca784f3ed1d5ed520c33b7c379484f6f3be6d89012c115f223
+        tag: 1.11.4@sha256:1c6d8936baba67057b36bd2635b9b9909c9d6f0a5a633892c24aa8ab6a6a5b25
       grpc:
         maxMessageSize: 30
     logLevel: info
