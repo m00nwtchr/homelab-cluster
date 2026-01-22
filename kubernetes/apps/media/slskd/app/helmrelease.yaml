@@ -44,6 +44,7 @@ spec:
               FIREWALL_INPUT_PORTS: "8080,9999" # webui, healthcheck
               HEALTH_SERVER_ADDRESS: ":9999"
               FIREWALL_OUTBOUND_SUBNETS: 10.42.0.0/24,10.43.0.0/16
+              VPN_PORT_FORWARDING_UP_COMMAND: /bin/sh -c 'sed "s/^([[:space:]]listenPort:)./\1 $(cat /gluetun/forwarded_port)/" /config/slskd.yaml > /tmp/slskd.yaml && chown 2000:2000 /tmp/slskd.yaml'
             envFrom:
               - secretRef:
                   name: qbittorrent
@@ -86,13 +87,12 @@ spec:
             env:
               DOTNET_BUNDLE_EXTRACT_BASE_DIR: /tmp/.net
               TZ: "${TZ}"
+              SLSKD_CONFIG: /tmp/slskd.yaml
               SLSKD_APP_DIR: /config
               SLSKD_HTTP_PORT: &port 8080
               SLSKD_NO_AUTH: true
               SLSKD_NO_HTTPS: true
               SLSKD_NO_VERSION_CHECK: true
-              SLSKD_SLSK_LISTEN_PORT: &soulseekPort 51983
-              SLSKD_REMOTE_CONFIGURATION: "true"
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -145,16 +145,6 @@ spec:
             port: 80
             targetPort: *port
 
-      soulseek:
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 192.168.69.127
-        externalTrafficPolicy: Local
-        ports:
-          soulseek-tcp:
-            port: *soulseekPort
-            protocol: TCP
-
     route:
       app:
         hostnames:
@@ -170,7 +160,9 @@ spec:
     configMaps:
       config:
         data:
-          slskd.yml: |-
+          slskd.yaml: |-
+            soulseek:
+              listenPort: 50429
             directories:
               downloads: /mnt/media/downloads/soulseek/complete
               incomplete: /mnt/media/downloads/soulseek/incomplete
@@ -190,8 +182,8 @@ spec:
         type: configMap
         identifier: config
         globalMounts:
-          - path: /config/slskd.yml
-            subPath: slskd.yml
+          - path: /config/slskd.yaml
+            subPath: slskd.yaml
 
       media:
         existingClaim: media
