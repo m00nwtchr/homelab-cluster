@@ -44,7 +44,7 @@ spec:
               FIREWALL_INPUT_PORTS: "8080,9999" # webui, healthcheck
               HEALTH_SERVER_ADDRESS: ":9999"
               FIREWALL_OUTBOUND_SUBNETS: 10.42.0.0/24,10.43.0.0/16
-              VPN_PORT_FORWARDING_UP_COMMAND: /bin/sh -c 'sed -E "s/^([[:space:]]*listenPort:).*/\1 ${PORT}/" /config/slskd.yaml > /tmp/slskd.yaml && chown 2000:2000 /tmp/slskd.yaml'
+              VPN_PORT_FORWARDING_UP_COMMAND: /config/update-port.sh
             envFrom:
               - secretRef:
                   name: qbittorrent
@@ -176,14 +176,66 @@ spec:
                 - \.ini$
                 - Thumbs.db$
                 - \.DS_Store$
+          update-port.sh: |-
+            #!/bin/sh
+            set -eu
+
+            : "${PORT:?PORT environment variable is required}"
+
+            IN="/config/slskd.yaml"
+            OUT="/tmp/slskd.yaml"
+
+            # Basic sanity check: numeric port, valid range.
+            case "$PORT" in
+            	''|*[!0-9]*)
+            		echo "ERROR: PORT must be an integer, got: $PORT" >&2
+            		exit 2
+            		;;
+            esac
+            if [ "$PORT" -lt 1 ] || [ "$PORT" -gt 65535 ]; then
+            	echo "ERROR: PORT must be in range 1..65535, got: $PORT" >&2
+            	exit 2
+            fi
+
+            if [ ! -r "$IN" ]; then
+            	echo "ERROR: input config not readable: $IN" >&2
+            	exit 1
+            fi
+
+            tmp="$(mktemp "${OUT}.XXXXXX")"
+            cleanup() { rm -f "$tmp"; }
+            trap cleanup EXIT INT TERM
+
+            # Replace the whole listenPort line, keeping indentation and key.
+            # If no listenPort line exists, we fail loudly (otherwise you'd think it worked).
+            sed -E "s/^([[:space:]]*listenPort:).*/\1 ${PORT}/" "$IN" > "$tmp"
+
+            if ! grep -Eq '^[[:space:]]*listenPort:[[:space:]]*[0-9]+' "$tmp"; then
+            	echo "ERROR: listenPort: key not found or not updated in $IN" >&2
+            	exit 3
+            fi
+
+            # Make it the target file atomically.
+            mv -f "$tmp" "$OUT"
+            trap - EXIT INT TERM
+
+            # Match the ownership expected by the app container.
+            chown 2000:2000 "$OUT"
+
+            echo "Updated listenPort to $PORT in $OUT"
 
     persistence:
       config-file:
         type: configMap
         identifier: config
-        globalMounts:
-          - path: /config/slskd.yaml
-            subPath: slskd.yaml
+        defaultMode: 0550
+        advancedMounts:
+          *app :
+            gluetun:
+              - path: /config/slskd.yaml
+                subPath: slskd.yaml
+              - path: /config/update-port.sh
+                subPath: update-port.sh
 
       media:
         existingClaim: media
