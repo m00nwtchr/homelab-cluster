@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/storage.k8s.io/storageclass_v1.json
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -12,6 +13,7 @@ parameters:
   shared: "yes"
 provisioner: zfs.csi.openebs.io
 ---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/storage.k8s.io/storageclass_v1.json
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -25,6 +27,7 @@ parameters:
   shared: "yes"
 provisioner: zfs.csi.openebs.io
 ---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/storage.k8s.io/storageclass_v1.json
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:

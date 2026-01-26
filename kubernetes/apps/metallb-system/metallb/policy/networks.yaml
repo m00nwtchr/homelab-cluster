@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/metallb.io/ipaddresspool_v1beta1.json
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
@@ -7,6 +8,7 @@ spec:
   addresses:
     - 2a02:a313:43e4:7080::200/120
 ---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/metallb.io/ipaddresspool_v1beta1.json
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
@@ -16,6 +18,7 @@ spec:
     - fd42:78a5:2c09::200/120
     - 192.168.0.192/26
 ---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/metallb.io/ipaddresspool_v1beta1.json
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
@@ -26,6 +29,7 @@ spec:
     - fd42:78a5:2c09::53/128
   autoAssign: false
 ---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/metallb.io/l2advertisement_v1beta1.json
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
