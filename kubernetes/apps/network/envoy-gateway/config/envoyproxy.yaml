@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/envoyproxy_v1alpha1.json
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.envoyproxy.io/envoyproxy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
@@ -34,7 +34,7 @@ spec:
         compression:
           type: Gzip
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/envoyproxy_v1alpha1.json
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.envoyproxy.io/envoyproxy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
@@ -71,7 +71,7 @@ spec:
         compression:
           type: Gzip
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/envoyproxy_v1alpha1.json
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.envoyproxy.io/envoyproxy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:

@@ -62,6 +62,7 @@ spec:
       max_client_conn: "1000"
       default_pool_size: "10"
 ---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/monitoring.coreos.com/podmonitor_v1.json
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
