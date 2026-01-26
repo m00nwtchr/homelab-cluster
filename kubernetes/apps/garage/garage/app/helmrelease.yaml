@@ -43,7 +43,7 @@ spec:
 
     persistence:
       meta:
-        existing: *app
+        size: 1Gi
       data:
         storageClass: zfs-vault
         size: 10Gi
