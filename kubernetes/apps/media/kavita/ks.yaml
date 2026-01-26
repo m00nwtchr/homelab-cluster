@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app kavita
+  namespace: &namespace media
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
+    - ../../../../components/oidc
+    - ../../../../components/gatus/guarded
+  interval: 1h
+  path: ./kubernetes/apps/media/kavita/app
+  postBuild:
+    substitute:
+      APP: *app
+      NAMESPACE: *namespace
+      VOLSYNC_CAPACITY: 1Gi
+      OIDC_DISPLAY_NAME: Kavita
+      OIDC_CALLBACK: /signin-oidc
+      OIDC_SHORT_USERNAME: "true"
+      # OIDC_DISABLE_PKCE: "true"
+      OIDC_GROUP: media_users
+      OIDC_CLAIM_MAPS: |
+        {
+          "roles": {
+            "joinType": "array",
+            "valuesByGroup": {
+              "media_users": ["Login"],
+              "admins": ["Admin"]
+            }
+          }
+        }
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  prune: true
+  retryInterval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false
