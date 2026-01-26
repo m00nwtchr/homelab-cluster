@@ -21,7 +21,6 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_PVC: meta-garage-0
       VOLSYNC_CAPACITY: 1Gi
     substituteFrom:
       - name: cluster-secrets

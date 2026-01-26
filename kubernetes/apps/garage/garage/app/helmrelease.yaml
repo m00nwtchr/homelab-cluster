@@ -19,7 +19,7 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: garage
+  name: &app garage
 spec:
   interval: 1h
   chart:
@@ -43,7 +43,7 @@ spec:
 
     persistence:
       meta:
-        existing: meta-garage-0
+        existing: *app
       data:
         storageClass: zfs-vault
         size: 10Gi
