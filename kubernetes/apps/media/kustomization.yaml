@@ -13,6 +13,7 @@ resources:
   - ./immich/ks.yaml
   - ./jellyfin/ks.yaml
   - ./jellyseerr/ks.yaml
+  - ./kavita/ks.yaml
   - ./lidarr/ks.yaml
   # - ./pinepods/ks.yaml
   - ./prowlarr/ks.yaml
