@@ -25,9 +25,9 @@ spec:
             resources:
               requests:
                 cpu: 15m
-                memory: 300Mi
+                # memory: 300Mi
               limits:
-                memory: 1Gi
+                # memory: 1Gi
 
     service:
       app:
@@ -44,10 +44,6 @@ spec:
             namespace: network
           - name: internal
             namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 80
 
     persistence:
       config:
