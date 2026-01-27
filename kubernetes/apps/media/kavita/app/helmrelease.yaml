@@ -44,6 +44,10 @@ spec:
             namespace: network
           - name: internal
             namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
 
     persistence:
       config:
