@@ -6,6 +6,7 @@ namespace: default
 components:
   - ../../components/common
 resources:
+  - ./anubis/ks.yaml
   - ./attic/ks.yaml
   - ./atuin/ks.yaml
   - ./baikal/ks.yaml
