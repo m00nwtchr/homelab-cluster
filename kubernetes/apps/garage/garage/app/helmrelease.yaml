@@ -46,7 +46,7 @@ spec:
         size: 1Gi
       data:
         storageClass: zfs-vault
-        size: 10Gi
+        size: 80Gi
 
     deployment:
       replicaCount: 1
