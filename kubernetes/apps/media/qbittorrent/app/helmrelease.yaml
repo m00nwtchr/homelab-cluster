@@ -13,8 +13,6 @@ spec:
   values:
     controllers:
       *app :
-        type: statefulset
-
         strategy: Recreate
 
         initContainers:
