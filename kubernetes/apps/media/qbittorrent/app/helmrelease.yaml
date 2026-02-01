@@ -53,22 +53,19 @@ spec:
                     - "-c"
                     - "(ip rule del table 51820; ip -6 rule del table 51820) || true"
             probes:
-              liveness: &probes
+              liveness: &probe
                 enabled: true
                 custom: true
-                spec:
-                  httpGet:
-                    path: /check
-                    port: 9999
-              readiness: *probes
+                spec: &probeSpec
+                  exec:
+                    command: ["/gluetun-entrypoint", "healthcheck"]
+              readiness: *probe
               startup:
-                enabled: true
-                custom: true
+                <<: *probe
                 spec:
-                  httpGet:
-                    path: /check
-                    port: 9999
-                  initialDelaySeconds: 10
+                  <<: *probeSpec
+                  failureThreshold: 30
+                  periodSeconds: 5
             securityContext:
               capabilities: { add: ["NET_ADMIN"] }
               allowPrivilegeEscalation: false
