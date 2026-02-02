@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/m00nwtchr/rssflow
-              tag: master@sha256:41c2c6e64aa185670ff9832ec81e821d8328ed888929ae10055304412e3ba653
+              tag: master@sha256:004b18a6b63a83e88b08fa1c8f6eaca1d608dc17f96ac313466f9e7b41b50cad
             env:
               RUST_LOG: "info"
               REDIS_URL: redis://dragonfly.database.svc/10
