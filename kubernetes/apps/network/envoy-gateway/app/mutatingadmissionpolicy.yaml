@@ -6,6 +6,10 @@ metadata:
   name: envoy-gateway-priorityclass
 spec:
   policyName: envoy-gateway-priorityclass
+  matchResources:
+    namespaceSelector:
+      matchLabels:
+        kubernetes.io/metadata.name: network
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/admissionregistration.k8s.io/mutatingadmissionpolicy_v1alpha1.json
 apiVersion: admissionregistration.k8s.io/v1alpha1
@@ -32,7 +36,7 @@ spec:
     - name: has-envoy-managed-by-labels
       expression: >-
         object.metadata.labels["app.kubernetes.io/managed-by"] == "envoy-gateway"
-  failurePolicy: Fail
+  failurePolicy: Ignore
   reinvocationPolicy: IfNeeded
   mutations:
     - patchType: JSONPatch
