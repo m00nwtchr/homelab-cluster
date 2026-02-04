@@ -3,16 +3,17 @@
 apiVersion: toolhive.stacklok.dev/v1alpha1
 kind: MCPServer
 metadata:
-  name: searxng
+  name: &name karakeep
 spec:
-  # Temporary local image until dockyard PR merges:
-  # https://github.com/stacklok/dockyard/pull/362
-  image: ghcr.io/rcdailey/mcp-searxng:0.8.0@sha256:5f4359be5f43b3bb77daabc60884dcd8c1d05a3c0b761ad78730da8453a660a2
+  image: ghcr.io/karakeep-app/karakeep-mcp:latest@sha256:7ec8e44c08af30581007d320b0bc116c0138b710823bfd6bc9b515b350e7f1c5
   transport: stdio
   groupRef: mcp-tools
   env:
-    - name: SEARXNG_URL
-      value: http://searxng.default.svc.cluster.local
+    - name: KARAKEEP_API_ADDR
+      value: http://karakeep.default.svc.cluster.local
+  secrets:
+    - name: *name
+      key: KARAKEEP_API_KEY
   resources:
     limits:
       cpu: 200m
