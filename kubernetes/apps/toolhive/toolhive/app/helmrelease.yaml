@@ -1,0 +1,31 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: toolhive-operator
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 0.5.28
+  url: oci://ghcr.io/stacklok/toolhive/toolhive-operator
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app toolhive-operator
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  interval: 1h
+  values:
+    operator:
+      replicaCount: 1
+      # TODO: Remove after upstream fixes SPDY EOF issue (PR #3183 incomplete)
+      # https://github.com/stacklok/toolhive/issues/3179
+      # toolhiveRunnerImage: ghcr.io/rcdailey/toolhive:fix-spdy-eof-3183
