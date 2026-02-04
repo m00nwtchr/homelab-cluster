@@ -33,8 +33,10 @@ spec:
               - python
               - krr.py
               - simple
+              - -f
+              - json
               - --fileoutput
-              - /data/krr.csv
+              - /data/krr.json
 
             # resources:
             #   limits:
