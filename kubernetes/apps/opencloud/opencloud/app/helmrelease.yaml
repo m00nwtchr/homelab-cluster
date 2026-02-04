@@ -77,10 +77,10 @@ spec:
                 enabled: true
             resources:
               requests:
-                cpu: 50m
-                memory: 128Mi
+                cpu: 10m
+                memory: 100Mi
               limits:
-                memory: 1Gi
+                memory: 100Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -92,6 +92,12 @@ spec:
             image:
               repository: ghcr.io/2bros-group/opencloud-oidc-webfinger-proxy
               tag: v1.0.0@sha256:40dfe5aa1f716ca82870734d1e75d9727c5366ac5f97a1d1196cd5e4e38a457b
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 100Mi
             env:
               PORT: "9201"
               UPSTREAM_URL: https://cloud.${SECRET_DOMAIN}

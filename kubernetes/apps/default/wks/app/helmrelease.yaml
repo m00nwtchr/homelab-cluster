@@ -27,6 +27,12 @@ spec:
             image:
               repository: ghcr.io/m00nwtchr/runemail-wks
               tag: master@sha256:92db3664363f50cc228de444856e7e1e3dd4867cfcba52a89fe97527b7940260
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 100Mi
             ports:
               - containerPort: 3434
 

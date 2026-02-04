@@ -24,8 +24,9 @@ spec:
               TZ: America/Edmonton
             resources:
               requests:
-                cpu: 15m
+                cpu: 214m
                 # memory: 300Mi
+                memory: 2358Mi
               limits:
                 # memory: 1Gi
 

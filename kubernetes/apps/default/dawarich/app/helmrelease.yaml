@@ -43,10 +43,10 @@ spec:
               PGSSLMODE: verify-full
             resources:
               requests:
-                memory: "1Gi"
-                cpu: "250m"
+                memory: "368Mi"
+                cpu: "10m"
               limits:
-                memory: "3Gi"
+                memory: "368Mi"
             command:
               - "web-entrypoint.sh"
             args:
@@ -59,10 +59,10 @@ spec:
               - "bundle exec sidekiq"
             resources:
               requests:
-                memory: "1Gi"
-                cpu: "250m"
+                memory: "327Mi"
+                cpu: "10m"
               limits:
-                memory: "3Gi"
+                memory: "327Mi"
 
     service:
       app:

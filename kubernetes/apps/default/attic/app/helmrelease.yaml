@@ -27,6 +27,12 @@ spec:
               repository: ghcr.io/zhaofengli/attic
               tag: main@sha256:18574aba70fc89d2b695273fbe2e7b2f8ad7e8e786b4cc535124fbe14bada1d0
 
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 100Mi
             env:
               ATTIC_SERVER_DATABASE_URL:
                 valueFrom:

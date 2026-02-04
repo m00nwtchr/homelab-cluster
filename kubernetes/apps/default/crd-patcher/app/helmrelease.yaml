@@ -24,6 +24,12 @@ spec:
             image:
               repository: ghcr.io/m00nwtchr/crd-patcher
               tag: master@sha256:edb98f6927e0a1c27771dbdaadabd51f40cc339e1d837ccbc276c6f4e7c32b39
+            resources:
+              requests:
+                cpu: 10m
+                memory: 278Mi
+              limits:
+                memory: 278Mi
             env:
               NODE_TLS_REJECT_UNAUTHORIZED: 0
             # resources:

@@ -47,9 +47,11 @@ spec:
               readiness: *probe
             resources:
               requests:
-                cpu: 50m
-                memory: 50Mi
+                cpu: 10m
+                memory: 100Mi
 
+              limits:
+                memory: 100Mi
       websub:
         containers:
           app: &container
@@ -63,9 +65,11 @@ spec:
             probes: *probes
             resources:
               requests:
-                cpu: 50m
-                memory: 50Mi
+                cpu: 10m
+                memory: 100Mi
 
+              limits:
+                memory: 100Mi
       fetch:
         pod: &node-pod
           labels:
