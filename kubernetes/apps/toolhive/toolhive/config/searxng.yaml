@@ -1,0 +1,22 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/toolhive.stacklok.dev/mcpserver_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: searxng
+spec:
+  # Temporary local image until dockyard PR merges:
+  # https://github.com/stacklok/dockyard/pull/362
+  image: ghcr.io/rcdailey/mcp-searxng:0.8.0
+  transport: stdio
+  groupRef: mcp-tools
+  env:
+    - name: SEARXNG_URL
+      value: http://searxng.default.svc.cluster.local
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi

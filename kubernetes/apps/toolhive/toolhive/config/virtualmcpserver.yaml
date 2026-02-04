@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/toolhive.stacklok.dev/virtualmcpserver_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: VirtualMCPServer
+metadata:
+  name: tools-gateway
+spec:
+  config:
+    groupRef: mcp-tools
+    aggregation:
+      conflictResolution: prefix
+      conflictResolutionConfig:
+        prefixFormat: "{workload}_"
+  incomingAuth:
+    type: anonymous
+  outgoingAuth:
+    source: discovered
