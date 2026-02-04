@@ -3,7 +3,7 @@
 apiVersion: toolhive.stacklok.dev/v1alpha1
 kind: MCPServer
 metadata:
-  name: searxng
+  name: &name searxng
 spec:
   # Temporary local image until dockyard PR merges:
   # https://github.com/stacklok/dockyard/pull/362
@@ -13,6 +13,8 @@ spec:
   env:
     - name: SEARXNG_URL
       value: http://searxng.default.svc.cluster.local
+  toolConfigRef:
+    name: *name
   resources:
     limits:
       cpu: 200m
@@ -20,3 +22,13 @@ spec:
     requests:
       cpu: 50m
       memory: 128Mi
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/toolhive.stacklok.dev/mcptoolconfig_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPToolConfig
+metadata:
+  name: searxng
+spec:
+  toolsOverride:
+    searxng_web_search:
+      name: web_search
