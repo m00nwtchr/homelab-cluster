@@ -21,7 +21,7 @@ spec:
             env:
               BIND: ":8080"
               METRICS_BIND: ":9090"
-              POLICY_FNAME: /config/policy.yaml
+              POLICY_FNAME: /config/botPolicy.yaml
               DIFFICULTY: "4"
               ED25519_PRIVATE_KEY_HEX:
                 valueFrom:

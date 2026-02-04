@@ -6,7 +6,7 @@ resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
 configMapGenerator:
-  - name: kanidm-configmap
+  - name: anubis-configmap
     files:
       - ./resources/botPolicy.yaml
 configurations:
