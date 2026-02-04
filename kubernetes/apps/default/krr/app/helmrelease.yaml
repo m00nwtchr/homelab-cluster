@@ -13,8 +13,11 @@ spec:
   values:
     controllers:
       *app :
-        enabled: true
-        type: job
+        type: cronjob
+
+        cronjob:
+          schedule: "0 0 * * 1"
+          concurrencyPolicy: Replace
 
         pod:
           restartPolicy: Never
@@ -26,29 +29,22 @@ spec:
               tag: v1.28.0@sha256:b82c4fd9b37ebcf7ee7b826f7bfe4e04f1b320a517d601d48b723d8563729e94
               pullPolicy: IfNotPresent
 
-            # /bin/sh -c "python krr.py simple --max-workers 3 --width 2048"
             command:
               - python
               - krr.py
               - simple
-              - --max-workers
-              - "3"
-              - --width
-              - "2048"
-
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
+              - --fileoutput /data/krr.csv
 
             # resources:
             #   limits:
             #     memory: 2Gi
             #   requests:
             #     memory: 1Gi
+
+    persistence:
+      data:
+        size: 1Gi
+        accessMode: ReadWriteOnce
 
     serviceAccount:
       *app : {}
