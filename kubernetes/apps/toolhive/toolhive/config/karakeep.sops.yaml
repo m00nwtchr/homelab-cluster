@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://kubernetesjsonschema.dev/v1.18.1-standalone-strict/secret-v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: karakeep
+stringData:
+  KARAKEEP_API_KEY: ENC[AES256_GCM,data:5eQsyNPSPqUyFYT7ORlVfBj17grysqYw+Q4/Gh7vCWPGl17BimEI6o/kviIrr840z7Z/3x8jq4PA,iv:IuPBonCeaJoslfAmZwkBS4tRDk70nMgoiGuHLTXQF2M=,tag:T9X99K3282739XNgX7OeIQ==,type:str]
+sops:
+  age:
+    - recipient: age1689ww93cs2fkv3np57388eyepd789kk3zu47vyx67u8sc48vlprq9qafje
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSByVDI1U1dMOEFyb2tXVXYr
+        Mnh1ZDZmRUlQWXRKaUJXdjhYVmpvZ0FkUHpnCndSbVpyby9ZVERaQXc0ZllBa1dy
+        RHh1QmhnZzJyT0Jxd1ZOVlVCZ1F3YkUKLS0tIFZwNitXUDk3YnQ1Rm1tZ0E5bjJu
+        Szl5enFiNm4xNW1tbDYyTUlxQUZ0djQKS+sH5u+LsX4Armk9ltM0hV26hWkze5aK
+        4B5B8gpwjc9OQMEXsGqZdHc70LNNvoV2bL82MaGkwELHxOnkoiiiiQ==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2026-02-04T04:38:47Z"
+  mac: ENC[AES256_GCM,data:AZ/Swg70mFGsJtOCojtON3dC4l4SUYPy5Dwh9EPAq2x7nx/CO6cFx53Fzes30cxvAQsv5EdkUovO2HYjsNlIC+pmL8GKfKJQ8o0cW7WciEJ15EU77PL86Jvt5DUaA2P74Tb8IcPoTzn0oOCRJEKsjJv0wJUh3CdYlB36ydxGfFg=,iv:aEusRbultvGxO70tvFlKv3LVA91/Pb0iaieIaoX4nbA=,tag:cgiswC1ZuEygdFv75Qjkzg==,type:str]
+  pgp:
+    - created_at: "2025-06-15T15:33:55Z"
+      enc: |-
+        -----BEGIN PGP MESSAGE-----
+
+        hF4DC0EwVK2S0BUSAQdAOuMYTROy4rnQzA8puaM/2nJ9vAZxpc7ZLnH6pIZdtmww
+        Pu7AArkzUmd43oNPz+5OPQZ4KeNNgOyyP08VTHJFUK+GjSg6I22feCiHClE7WnSj
+        0l4BlEEUwh0+xBy6Bum0xYCphBbFB+VGcWnuxRV93N9Pwcs3ALi7aGxLKVSM+cz5
+        JVcAquAbz0FHv6ql1jDAp1oc4mo8shD+TcUqJptghEGDrsp5n96H/wZuK4Nf5WIG
+        =zxTx
+        -----END PGP MESSAGE-----
+      fp: F846C93BF4BEAB99D98D29B2DF3CEC6BF015D41D
+  encrypted_regex: ^(data|stringData)$
+  mac_only_encrypted: true
+  version: 3.11.0
