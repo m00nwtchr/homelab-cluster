@@ -37,6 +37,12 @@ spec:
             image:
               repository: ckulka/baikal
               tag: 0.10.1-nginx-php8.2@sha256:30c099b83aa88772b683d0c09fb6fa18ac82df442349fd6342e1df576abb580c
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 100Mi
             env:
               - name: BAIKAL_SKIP_CHOWN
                 value: "true"
@@ -44,6 +50,12 @@ spec:
             image:
               repository: ckulka/baikal
               tag: 0.10.1-nginx-php8.2@sha256:30c099b83aa88772b683d0c09fb6fa18ac82df442349fd6342e1df576abb580c
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 100Mi
             command:
               - "/bin/sh"
               - "-c"

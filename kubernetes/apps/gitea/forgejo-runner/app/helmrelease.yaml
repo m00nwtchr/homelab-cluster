@@ -62,6 +62,12 @@ spec:
             image:
               repository: docker
               tag: 29.1.5-dind@sha256:3a33fc81fa4d38360f490f5b900e9846f725db45bb1d9b1fe02d849bd42a5cf2
+            resources:
+              requests:
+                cpu: 10m
+                memory: 194Mi
+              limits:
+                memory: 194Mi
             securityContext:
               privileged: true
             env:
@@ -71,6 +77,12 @@ spec:
             image:
               repository: code.forgejo.org/forgejo/runner
               tag: 12.5.3@sha256:f81b095e785a9b09f7765b24382ec11fd884ceffc058b5eeecd111703a118bc0
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 100Mi
             command:
               - "sh"
               - "-c"

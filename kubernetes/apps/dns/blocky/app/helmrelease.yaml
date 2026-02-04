@@ -39,10 +39,10 @@ spec:
             resources:
               limits:
                 cpu: 1
-                memory: 420Mi
+                memory: 458Mi
               requests:
-                cpu: 50m
-                memory: 250Mi
+                cpu: 10m
+                memory: 458Mi
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:

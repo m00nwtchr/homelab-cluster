@@ -56,14 +56,14 @@ spec:
                     - "-c"
                     - "(ip rule del table 51820; ip -6 rule del table 51820) || true"
             probes:
-              liveness: &probes
+              liveness: &gProbes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /check
                     port: 9999
-              readiness: *probes
+              readiness: *gProbes
               startup:
                 enabled: true
                 custom: true
@@ -118,10 +118,10 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 10m
-                memory: 128Mi
+                cpu: 27m
+                memory: 223Mi
               limits:
-                memory: 1Gi
+                memory: 223Mi
 
         statefulset:
           volumeClaimTemplates:

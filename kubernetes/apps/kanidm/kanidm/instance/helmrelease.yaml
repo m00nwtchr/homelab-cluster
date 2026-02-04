@@ -75,7 +75,7 @@ spec:
                 memory: 100Mi
               requests:
                 cpu: 10m
-                memory: 50Mi
+                memory: 100Mi
             securityContext:
               capabilities:
                 drop:
@@ -94,6 +94,12 @@ spec:
             image:
               repository: ghcr.io/m00nwtchr/kanidm-provision
               tag: 1.3.0@sha256:7d7488f26e80f6b8ff6222fec614d7ae3334f40ba97e04913dbef043bea4f004
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 100Mi
             env:
               KANIDM_INSTANCE: "https://idm.${SECRET_DOMAIN}"
               KANIDM_TOKEN:
