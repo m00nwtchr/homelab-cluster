@@ -75,6 +75,7 @@ spec:
         forceRename: *app
         controller: *app
         type: LoadBalancer
+        loadBalancerClass: io.cilium/l2-announcer
         ipFamilyPolicy: PreferDualStack
         annotations:
           lbipam.cilium.io/ips: "fd42:78a5:2c09::53,192.168.0.53"
