@@ -5,5 +5,5 @@ kind: Kustomization
 namespace: metallb-system
 components:
   - ../../components/common
-resources:
-  - ./metallb/ks.yaml
+# resources:
+# - ./metallb/ks.yaml
