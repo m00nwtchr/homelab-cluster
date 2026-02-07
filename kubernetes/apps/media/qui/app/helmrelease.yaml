@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/autobrr/qui
-              tag: develop@sha256:586a21973a8c59256290652527c73d0f9a87b939105ffbf0a4f8942eb4fe8551
+              tag: develop@sha256:8f5f1e0f1d52fbcfd5fb49d1abe8d96fff6c5ba23ae3fb47aeb1326776c8b920
             env:
               TZ: "${TZ}"
               QUI__HOST: "[::]"
