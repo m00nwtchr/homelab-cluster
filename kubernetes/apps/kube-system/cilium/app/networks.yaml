@@ -17,16 +17,19 @@ spec:
   blocks:
     - cidr: fd42:78a5:2c09::200/120
     - cidr: 192.168.0.192/26
-# ---
-# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cilium.io/ciliumloadbalancerippool_v2alpha1.json
-# apiVersion: cilium.io/v2alpha1
-# kind: CiliumLoadBalancerIPPool
-# metadata:
-#   name: reserved
-# spec:
-#   blocks:
-#     - cidr: 192.168.0.53/32
-#     - cidr: fd42:78a5:2c09::53/128
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cilium.io/ciliumloadbalancerippool_v2alpha1.json
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: dns
+spec:
+  blocks:
+    - cidr: 192.168.0.53/32
+    - cidr: fd42:78a5:2c09::53/128
+  serviceSelector:
+    matchLabels:
+      io.kubernetes.service.namespace: dns
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cilium.io/ciliuml2announcementpolicy_v2alpha1.json
 apiVersion: cilium.io/v2alpha1
