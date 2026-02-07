@@ -5,7 +5,6 @@ kind: Gateway
 metadata:
   name: stunner
   annotations:
-    #    metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
     external-dns.alpha.kubernetes.io/target: "turn.${SECRET_DOMAIN}"
     stunner.l7mp.io/enable-mixed-protocol-lb: "true"
     stunner.l7mp.io/external-traffic-policy: local
@@ -16,7 +15,7 @@ spec:
   #      value: "2a02:a313:43e4:7080::7dc5"
   infrastructure:
     annotations:
-      #      metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
+      # lbipam.cilium.io/ips: *ip
       external-dns.alpha.kubernetes.io/hostname: "turn.${SECRET_DOMAIN}"
   listeners:
     - name: udp
