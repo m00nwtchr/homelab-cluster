@@ -102,8 +102,8 @@ spec:
               requests:
                 cpu: 34m
                 memory: 286Mi
-              limits:
-                memory: 286Mi
+              # limits:
+              #   memory: 286Mi
 
           port-forward:
             image:
