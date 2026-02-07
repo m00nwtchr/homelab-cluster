@@ -126,7 +126,7 @@ spec:
         sessionAffinity: ClientIP # vernemq docs note that hopping between pods causes a significate data replication/sync cost
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "mqtt.${SECRET_DOMAIN}."
-        #          lbipam.cilium.io/ips: 192.168.20.8, ::ffff:192.168.20.8
+          lbipam.cilium.io/ips: fd42:78a5:2c09::242
         ports: &ports
           mqtt:
             port: 1883
