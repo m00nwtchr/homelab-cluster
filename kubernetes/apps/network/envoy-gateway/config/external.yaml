@@ -10,12 +10,9 @@ metadata:
     gateway: external
 spec:
   gatewayClassName: envoy
-  addresses:
-    - type: IPAddress
-      value: &ip "2a02:a313:43e4:7080::7dc5"
   infrastructure:
     annotations:
-      lbipam.cilium.io/ips: *ip
+      lbipam.cilium.io/ips: "2a02:a313:43e4:7080::7dc5"
       external-dns.alpha.kubernetes.io/hostname: "external.${SECRET_DOMAIN}"
     parametersRef:
       group: gateway.envoyproxy.io

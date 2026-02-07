@@ -8,11 +8,6 @@ metadata:
     external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
 spec:
   gatewayClassName: envoy
-  addresses:
-    - type: IPAddress
-      value: "fd42:78a5:2c09::200"
-    - type: IPAddress
-      value: "192.168.0.192"
   infrastructure:
     annotations:
       lbipam.cilium.io/ips: "fd42:78a5:2c09::200,192.168.0.192"
