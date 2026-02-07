@@ -5,18 +5,17 @@ kind: Gateway
 metadata:
   name: &name external
   annotations:
-    #    metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
     external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
   labels:
     gateway: external
 spec:
   gatewayClassName: envoy
-  #  addresses:
-  #    - type: IPAddress
-  #      value: "2a02:a313:43e4:7080::7dc5"
+  addresses:
+    - type: IPAddress
+      value: &ip "2a02:a313:43e4:7080::7dc5"
   infrastructure:
     annotations:
-      #      metallb.io/loadBalancerIPs: '2a02:a313:43e4:7080::200'
+      lbipam.cilium.io/ips: *ip
       external-dns.alpha.kubernetes.io/hostname: "external.${SECRET_DOMAIN}"
     parametersRef:
       group: gateway.envoyproxy.io
