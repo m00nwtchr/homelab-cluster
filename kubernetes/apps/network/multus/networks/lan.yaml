@@ -12,7 +12,7 @@ spec:
       "plugins": [
         {
           "type": "macvlan",
-          "master": "enp5s0",
+          "master": "lan0",
           "mode": "bridge",
           "ipam": {
             "type": "host-local",
