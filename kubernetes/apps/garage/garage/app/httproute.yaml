@@ -17,3 +17,5 @@ spec:
         - name: garage
           namespace: garage
           port: 3900
+      timeouts:
+        request: "300s"
