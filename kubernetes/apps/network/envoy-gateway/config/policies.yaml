@@ -13,6 +13,8 @@ spec:
       brotli: {}
     - type: Gzip
       gzip: {}
+    - type: Zstd
+      zstd: {}
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.envoyproxy.io/clienttrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
