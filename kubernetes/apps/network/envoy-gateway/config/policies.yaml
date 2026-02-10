@@ -3,7 +3,7 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: BackendTrafficPolicy
 metadata:
-  name: envoy
+  name: envoy-compression
 spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
@@ -16,9 +16,9 @@ spec:
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
 metadata:
-  name: envoy
+  name: envoy-tls
 spec:
-  #  http3: {}
+  # http3: {}
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
