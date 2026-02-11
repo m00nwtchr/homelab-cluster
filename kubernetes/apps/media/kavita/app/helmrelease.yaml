@@ -21,12 +21,12 @@ spec:
               repository: ghcr.io/kareadita/kavita
               tag: 0.8.9@sha256:1f2acae7466d022f037ea09f7989eb7c487f916b881174c7a6de33dbfa8acb39
             env:
-              TZ: America/Edmonton
+              TZ: "${TZ}"
             resources:
               requests:
                 cpu: 214m
-                # memory: 300Mi
-                memory: 2358Mi
+                memory: 300Mi
+                # memory: 2358Mi
               limits:
                 # memory: 1Gi
 
