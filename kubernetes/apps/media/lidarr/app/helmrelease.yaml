@@ -31,7 +31,7 @@ spec:
               # repository: ghcr.io/home-operations/lidarr
               # tag: 3.1.2.4902@sha256:dab0e07502a34436fc50c3e789388f0a29f8cbf681fb7a02ed703ad7c368a22c
               repository: ghcr.io/linuxserver/lidarr
-              tag: 3.1.2-nightly@sha256:21aec279552ea35deaf86b4fbb68876d9a4f5cf53cefd6b0c667889153c778db
+              tag: 3.1.2-nightly@sha256:bcad2fdb95a60cf3e634a37ec833a54f8dc5346fe9e8d8963b44ba35bb78c9cd
             env:
               LIDARR__APP__INSTANCENAME: Lidarr
               LIDARR__LOG__LEVEL: info
