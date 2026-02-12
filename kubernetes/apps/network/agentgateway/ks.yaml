@@ -1,0 +1,31 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: agentgateway-gateway
+  namespace: &namespace network
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &app agentgateway
+  components: []
+  dependsOn:
+    - name: cert-manager
+      namespace: cert-manager
+    - name: *app
+      namespace: *namespace
+  interval: 1h
+  path: ./kubernetes/apps/network/agentgateway/gateway
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  prune: true
+  retryInterval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m

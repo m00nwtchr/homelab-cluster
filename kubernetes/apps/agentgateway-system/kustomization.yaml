@@ -2,13 +2,8 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: network
+namespace: agentgateway-system
 components:
   - ../../components/common
 resources:
   - ./agentgateway/ks.yaml
-  - ./cloudflare-dns/ks.yaml
-  - ./cloudflare-tunnel/ks.yaml
-  - ./envoy-gateway/ks.yaml
-  - ./k8s-gateway/ks.yaml
-#  - ./stunner-gateway/ks.yaml
