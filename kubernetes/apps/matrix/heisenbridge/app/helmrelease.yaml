@@ -37,7 +37,7 @@ spec:
     service:
       app:
         controller: *app
-        clusterIP: None
+        # clusterIP: None
         ports:
           http:
             port: 80
