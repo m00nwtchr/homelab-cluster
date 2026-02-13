@@ -20,13 +20,10 @@ spec:
               tag: 1.15.4@sha256:4648b0987d37ea9f398e93940bafb32b4f0fa0ff1a7611af993a35ea4debc03f
               pullPolicy: IfNotPresent
             args:
-              [
-                "-c=/etc/config.yaml",
-                "-l=::",
-                "-p=9898",
-                "http://continuwuity.matrix.svc",
-                "-vv",
-              ]
+              - "-c=/etc/config.yaml"
+              - "-l=::"
+              - "-p=9898"
+              - "http://continuwuity.matrix.svc"
             resources:
               requests:
                 cpu: 10m
