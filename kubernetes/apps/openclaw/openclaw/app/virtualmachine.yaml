@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kubevirt.io/virtualmachine_v1.json
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: &app openclaw
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: *app
+    spec:
+      domain:
+        cpu:
+          cores: 2
+        resources:
+          requests:
+            memory: 2Gi
+        devices:
+          rng: {}
+          disks:
+            - name: rootdisk
+              disk:
+                bus: virtio
+            - name: installcd
+              cdrom:
+                bus: sata
+          interfaces:
+            - name: default
+              masquerade: {}
+      networks:
+        - name: default
+          pod: {}
+      volumes:
+        - name: rootdisk
+          dataVolume:
+            name: openclaw-rootdisk
+        - name: installcd
+          dataVolume:
+            name: nixos-iso-25-11
