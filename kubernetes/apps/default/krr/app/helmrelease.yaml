@@ -34,7 +34,8 @@ spec:
               - simple
               - --allow_hpa
               - --use_oomkill_data
-              - --max-workers 3
+              - --max-workers
+              - "3"
               - -f
               - json
               - --fileoutput
