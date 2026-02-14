@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cdi.kubevirt.io/datavolume_v1beta1.json
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: nixos-iso-25-11
+spec:
+  source:
+    http:
+      url: "https://channels.nixos.org/nixos-25.11/latest-nixos-minimal-x86_64-linux.iso"
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 2Gi
+    storageClassName: zfs-spark-block
+    volumeMode: Filesystem
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cdi.kubevirt.io/datavolume_v1beta1.json
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: openclaw-rootdisk
+spec:
+  source:
+    blank: {}
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 40Gi
+    storageClassName: zfs-spark-block
+    volumeMode: Filesystem
