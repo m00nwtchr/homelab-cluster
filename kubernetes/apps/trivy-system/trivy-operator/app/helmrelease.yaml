@@ -28,12 +28,22 @@ spec:
       enabled: true
     trivy:
       ignoreUnfixed: true
+      server:
+        # krr: controller=trivy-server container=trivy-server
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+            # ephemeral-storage: "2Gi"
+          limits:
+            cpu: 1
+            memory: 1Gi
     service:
       headless: false
     operator:
       builtInTrivyServer: true
 
-    # krr: controller=trivy-server container=trivy-server
+    # krr: controller=trivy-operator container=trivy-operator
     resources:
       requests:
         cpu: 100m
