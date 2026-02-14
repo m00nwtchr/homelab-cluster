@@ -51,7 +51,7 @@ spec:
           app:
             image:
               repository: ghcr.io/m00nwtchr/auto-krr
-              tag: latest@sha256:1727d44a62623f1704e42871fbaee438505a7db96ecc27687d70087d2315e6ee
+              tag: latest@sha256:8d506df9d4d365c7584233cca471afe4ac9e781c55901c14d686cf139fa16a77
               pullPolicy: IfNotPresent
             env:
               KRR_JSON: /data/krr.json
