@@ -67,7 +67,7 @@ spec:
                   failureThreshold: 30
                   periodSeconds: 5
             securityContext:
-              capabilities: { add: ["NET_ADMIN"] }
+              capabilities: {add: ["NET_ADMIN"]}
               allowPrivilegeEscalation: false
             resources:
               limits:
@@ -87,7 +87,7 @@ spec:
               runAsGroup: *uid
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             probes:
               liveness:
                 enabled: true
@@ -100,11 +100,13 @@ spec:
                   periodSeconds: 5
             resources:
               requests:
-                cpu: 34m
-                memory: 286Mi
+                cpu: 9829m
+                memory: 703Mi
               # limits:
               #   memory: 286Mi
 
+              limits:
+                memory: 703Mi
           port-forward:
             image:
               repository: ghcr.io/bjw-s-labs/gluetun-qb-port-sync
