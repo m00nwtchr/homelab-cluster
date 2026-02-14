@@ -1,7 +1,7 @@
 ---
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kubevirt.io/virtualmachineinstance_v1.json
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kubevirt.io/virtualmachine_v1.json
 apiVersion: kubevirt.io/v1
-kind: VirtualMachineInstance
+kind: VirtualMachine
 metadata:
   name: &app openclaw
 spec:
