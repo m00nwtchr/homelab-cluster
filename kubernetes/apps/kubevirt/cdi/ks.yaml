@@ -1,0 +1,46 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app cdi
+  namespace: &namespace kubevirt
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  components: []
+  interval: 1h
+  path: ./kubernetes/apps/kubevirt/cdi/app
+  prune: true
+  retryInterval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cdi-config
+  namespace: &namespace kubevirt
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &app kubevirt
+  components: []
+  dependsOn:
+    - name: *app
+      namespace: *namespace
+  interval: 1h
+  path: "./kubernetes/apps/kubevirt/cdi/config"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
