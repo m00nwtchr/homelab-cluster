@@ -9,7 +9,7 @@ spec:
   template:
     metadata:
       labels:
-        kubevirt.io/domain: *app
+        kubevirt.io/vm: *app
     spec:
       domain:
         cpu:
