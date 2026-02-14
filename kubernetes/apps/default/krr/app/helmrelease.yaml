@@ -22,17 +22,19 @@ spec:
         pod:
           restartPolicy: Never
 
-        containers:
-          app:
+        initContainers:
+          krr:
             image:
               repository: robustadev/krr
               tag: v1.28.0@sha256:b82c4fd9b37ebcf7ee7b826f7bfe4e04f1b320a517d601d48b723d8563729e94
               pullPolicy: IfNotPresent
-
             command:
               - python
               - krr.py
               - simple
+              - --allow_hpa
+              - --use_oomkill_data
+              - --max-workers 3
               - -f
               - json
               - --fileoutput
@@ -44,10 +46,27 @@ spec:
             #   requests:
             #     memory: 1Gi
 
+        containers:
+          app:
+            image:
+              repository: ghcr.io/m00nwtchr/auto-krr
+              tag: latest@sha256:1727d44a62623f1704e42871fbaee438505a7db96ecc27687d70087d2315e6ee
+              pullPolicy: IfNotPresent
+            env:
+              KRR_JSON: /data/krr.json
+              REPO: /repo
+              REPO_URL: https://git.m00nlit.dev/m00n/homelab-cluster.git
+              WRITE: "1"
+              PR: "1"
+            envFrom:
+              - secretRef:
+                  name: *app
+
     persistence:
       data:
-        size: 1Gi
-        accessMode: ReadWriteOnce
+        type: emptyDir
+      repo:
+        type: emptyDir
 
     serviceAccount:
       *app : {}
