@@ -30,7 +30,7 @@ metadata:
 spec:
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &app kubevirt
+      app.kubernetes.io/name: &app cdi
   components: []
   dependsOn:
     - name: *app
