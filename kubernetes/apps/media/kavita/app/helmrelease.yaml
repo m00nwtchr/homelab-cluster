@@ -24,8 +24,8 @@ spec:
               TZ: "${TZ}"
             resources:
               requests:
-                cpu: 214m
-                memory: 300Mi
+                cpu: 10m
+                memory: 492Mi
                 # memory: 2358Mi
               limits:
                 # memory: 1Gi
