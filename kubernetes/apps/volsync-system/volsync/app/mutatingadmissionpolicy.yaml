@@ -91,7 +91,7 @@ spec:
       expression: >-
         !object.spec.template.spec.volumes.exists(item, item.name == "rclone")
 
-  failurePolicy: Fail
+  failurePolicy: Ignore
   reinvocationPolicy: IfNeeded
   mutations:
     - patchType: JSONPatch
