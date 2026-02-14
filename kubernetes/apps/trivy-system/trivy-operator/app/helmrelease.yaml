@@ -32,12 +32,12 @@ spec:
         # krr: controller=trivy-server container=trivy-server
         resources:
           requests:
-            cpu: 200m
-            memory: 512Mi
+            cpu: 17m
+            memory: 432Mi
             # ephemeral-storage: "2Gi"
           limits:
             cpu: 1
-            memory: 1Gi
+            memory: 432Mi
             # ephemeral-storage: "2Gi"
     service:
       headless: false
@@ -47,5 +47,5 @@ spec:
     # krr: controller=trivy-operator container=trivy-operator
     resources:
       requests:
-        cpu: 100m
+        cpu: 15m
         memory: 128Mi
