@@ -51,6 +51,14 @@ spec:
     deployment:
       replicaCount: 1
 
+    resources:
+      limits:
+        cpu: 100m
+        memory: 1024Mi
+      requests:
+        cpu: 100m
+        memory: 512Mi
+
     monitoring:
       metrics:
         enabled: true
