@@ -48,13 +48,15 @@ spec:
           existingClaim: photos
 
     server:
-      # controllers:
-      #   main:
-      #     containers:
-      #       main:
-      #         image:
-      #           repository: ghcr.io/immich-app/immich-server
-      #           tag: v2.2.3@sha256:4504d794123c3f5410cc45bbc61e4d7dbcacec1e1b0cd2e599691430c94e5849
+      controllers:
+        main:
+          containers:
+            main:
+              # krr: controller=immich-machine-learning container=main
+              resources:
+                requests:
+                  cpu: 1
+
       persistence:
         metadata:
           forceRename: immich-metadata
@@ -72,10 +74,12 @@ spec:
           strategy: Recreate
           containers:
             main:
+              # krr: controller=immich-machine-learning container=main
               resources:
                 requests:
                   cpu: 500m
                   # memory: 4096M
+
       persistence:
         cache:
           type: persistentVolumeClaim
