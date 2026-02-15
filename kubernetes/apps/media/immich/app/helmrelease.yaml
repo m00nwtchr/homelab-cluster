@@ -52,7 +52,7 @@ spec:
         main:
           containers:
             main:
-              # krr: controller=immich-machine-learning container=main
+              # krr: controller=immich-server container=main
               resources:
                 requests:
                   cpu: 1
