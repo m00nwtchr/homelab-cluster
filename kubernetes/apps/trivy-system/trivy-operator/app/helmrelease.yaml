@@ -26,7 +26,19 @@ spec:
   values:
     serviceMonitor:
       enabled: true
+
+    operator:
+      scanJobsConcurrentLimit: 3
+      scanJobTTL: 300s
+      scanJobTimeout: 20m
+      builtInTrivyServer: true
+      vulnerabilityScannerScanOnlyCurrentRevisions: true
+      configAuditScannerScanOnlyCurrentRevisions: true
+      annotations:
+        reloader.stakater.com/auto: "true"
+
     trivy:
+      slow: true
       ignoreUnfixed: true
       server:
         # krr: controller=trivy-server container=trivy-server
@@ -39,10 +51,9 @@ spec:
             cpu: 1
             memory: 432Mi
             # ephemeral-storage: "2Gi"
-    service:
-      headless: false
-    operator:
-      builtInTrivyServer: true
+
+    trivyOperator:
+      skipResourceByLabels: "app.kubernetes.io/created-by=volsync"
 
     # krr: controller=trivy-operator container=trivy-operator
     resources:
