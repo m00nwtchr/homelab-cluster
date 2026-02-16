@@ -15,6 +15,18 @@ spec:
       value: http://searxng.default.svc.cluster.local
   toolConfigRef:
     name: *name
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          # krr: controller=searxng container=mcp
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
   # krr: controller=searxng container=toolhive
   resources:
     limits:
