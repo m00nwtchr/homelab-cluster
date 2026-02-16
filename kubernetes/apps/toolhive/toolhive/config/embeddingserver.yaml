@@ -12,3 +12,7 @@ spec:
       value: "::"
   # krr: controller=embedding container=embedding
   resources:
+    limits:
+      memory: 1Gi
+    requests:
+      memory: 100Mi
