@@ -16,6 +16,7 @@ spec:
       key: KARAKEEP_API_KEY
   toolConfigRef:
     name: *name
+  # krr: controller=karakeep container=toolhive
   resources:
     limits:
       cpu: 200m
