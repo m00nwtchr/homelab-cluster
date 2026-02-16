@@ -32,6 +32,9 @@ trusted_servers = ["bi-vibes.com", "codestorm.net"]
 [global.well_known]
 client = "https://matrix.${SECRET_DOMAIN}"
 server = "matrix-fed.${SECRET_DOMAIN}:443"
+rtc_focus_server_urls = [
+    { type = "livekit", livekit_service_url = "https://livekit.${SECRET_DOMAIN}" },
+]
 
 #support_page =
 #support_role =
