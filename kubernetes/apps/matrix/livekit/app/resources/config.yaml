@@ -8,8 +8,8 @@ rtc:
   tcp_port: 7881
   port_range_start: 50000
   port_range_end: 60000
-  stun_servers:
-    - turn.${SECRET_DOMAIN}:3478
+  # stun_servers:
+  #   - turn.${SECRET_DOMAIN}:3478
   turn_servers:
     - host: turn.${SECRET_DOMAIN}
       port: 3478
