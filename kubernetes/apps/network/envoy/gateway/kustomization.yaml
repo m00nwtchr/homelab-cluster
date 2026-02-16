@@ -7,6 +7,7 @@ resources:
   - ./cftunnel.yaml
   - ./envoyproxy.yaml
   - ./external.yaml
+  - ./gatewayclass.yaml
   - ./internal.yaml
   - ./mutatingadmissionpolicy.yaml
   - ./podmonitor.yaml
