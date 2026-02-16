@@ -31,7 +31,10 @@ spec:
 
     resources:
       requests:
+        cpu: 10m
+        memory: 100Mi
       limits:
+        memory: 100Mi
 # # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 # apiVersion: helm.toolkit.fluxcd.io/v2
 # kind: HelmRelease
