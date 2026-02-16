@@ -23,8 +23,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: *app
-  install:
-    skipCRDs: true
+  # install:
+  #   skipCRDs: true
   values:
     deployment:
       priorityClassName: envoy-gateway-priority
