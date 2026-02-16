@@ -16,6 +16,18 @@ spec:
       key: KARAKEEP_API_KEY
   toolConfigRef:
     name: *name
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          # krr: controller=karakeep container=mcp
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
   # krr: controller=karakeep container=toolhive
   resources:
     limits:
