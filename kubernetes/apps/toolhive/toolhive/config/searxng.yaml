@@ -15,6 +15,7 @@ spec:
       value: http://searxng.default.svc.cluster.local
   toolConfigRef:
     name: *name
+  # krr: controller=searxng container=toolhive
   resources:
     limits:
       cpu: 200m
