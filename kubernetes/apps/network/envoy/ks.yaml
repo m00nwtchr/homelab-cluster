@@ -14,7 +14,7 @@ spec:
     - name: cert-manager
       namespace: cert-manager
     - name: envoy-gateway
-      namespace: enovy-gateway-system
+      namespace: envoy-gateway-system
   interval: 1h
   path: ./kubernetes/apps/network/envoy/gateway
   postBuild:
