@@ -12,7 +12,7 @@ spec:
   gatewayClassName: stunner
   infrastructure:
     annotations:
-      lbipam.cilium.io/ips: "2a02:a313:43e4:7080::7dc5"
+      lbipam.cilium.io/sharing-key: external
       external-dns.alpha.kubernetes.io/hostname: "turn.${SECRET_DOMAIN}"
   listeners:
     - name: udp
