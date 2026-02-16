@@ -13,30 +13,27 @@ spec:
   values:
     controllers:
       *app :
-        #        pod:
-        #          hostNetwork: true
-
         containers:
           app:
             image:
               repository: livekit/livekit-server
               tag: v1.9.11@sha256:289262ffae8b827f45186331aa315d08ed275eb30f9b0add337ec57948e44ca1
-            ports:
-              - containerPort: 7880
-                name: http
-                protocol: TCP
-              - containerPort: 7881
-                hostPort: 7881
-                name: rtc-tcp
-                protocol: TCP
-              #              - containerPort: 443
-              #                hostPort: 443
-              #                name: turn-tls
-              #                protocol: TCP
-              - containerPort: 3478
-                hostPort: 3478
-                name: turn-udp
-                protocol: UDP
+            # ports:
+            #   - containerPort: 7880
+            #     name: http
+            #     protocol: TCP
+            #   - containerPort: 7881
+            #     hostPort: 7881
+            #     name: rtc-tcp
+            #     protocol: TCP
+            #   #              - containerPort: 443
+            #   #                hostPort: 443
+            #   #                name: turn-tls
+            #   #                protocol: TCP
+            #   - containerPort: 3478
+            #     hostPort: 3478
+            #     name: turn-udp
+            #     protocol: UDP
             env:
               LIVEKIT_CONFIG:
                 valueFrom:
@@ -63,8 +60,7 @@ spec:
               LIVEKIT_KEY_FILE: /config/keys.yaml
               LIVEKIT_FULL_ACCESS_HOMESERVERS: "${SECRET_DOMAIN}"
             probes:
-              liveness: &probes
-                enabled: true
+              liveness: *probes
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
