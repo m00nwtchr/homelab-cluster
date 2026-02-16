@@ -13,6 +13,7 @@ spec:
   # krr: controller=embedding container=embedding
   resources:
     limits:
-      memory: 1Gi
+      memory: 347Mi
     requests:
-      memory: 100Mi
+      memory: 347Mi
+      cpu: 10m
