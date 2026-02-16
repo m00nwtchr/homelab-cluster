@@ -86,6 +86,8 @@ spec:
       app:
         forceRename: *app
         controller: *app
+        ipFamilies:
+          - IPv4
         ports:
           http:
             port: 80
