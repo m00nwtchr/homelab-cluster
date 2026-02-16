@@ -9,6 +9,7 @@ metadata:
     stunner.l7mp.io/enable-mixed-protocol-lb: "true"
     stunner.l7mp.io/external-traffic-policy: local
     lbipam.cilium.io/sharing-key: external
+    lbipam.cilium.io/ips: 2a02:a313:43e4:7080::7dc5
     external-dns.alpha.kubernetes.io/hostname: "turn.${SECRET_DOMAIN}"
 spec:
   gatewayClassName: stunner
