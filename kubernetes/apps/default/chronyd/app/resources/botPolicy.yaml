@@ -1,0 +1,10 @@
+bots:
+  - import: (data)/meta/default-config.yaml
+
+openGraph:
+  enabled: true
+  ttl: 24h
+
+status_codes:
+  CHALLENGE: 200
+  DENY: 403
