@@ -131,6 +131,12 @@ spec:
               - path:
                   type: PathPrefix
                   value: /sfu
+              - path:
+                  type: PathPrefix
+                  value: /healthz
+              - path:
+                  type: PathPrefix
+                  value: /get_token
             backendRefs:
               - name: livekit-jwt
                 port: 80
