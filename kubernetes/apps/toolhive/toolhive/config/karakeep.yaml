@@ -24,10 +24,10 @@ spec:
           resources:
             limits:
               cpu: "500m"
-              memory: "512Mi"
+              memory: "100Mi"
             requests:
-              cpu: "100m"
-              memory: "128Mi"
+              cpu: "10m"
+              memory: "100Mi"
   # krr: controller=karakeep container=toolhive
   resources:
     limits:

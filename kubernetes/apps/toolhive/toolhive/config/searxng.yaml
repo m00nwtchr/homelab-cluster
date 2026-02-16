@@ -23,9 +23,9 @@ spec:
           resources:
             limits:
               cpu: "500m"
-              memory: "512Mi"
+              memory: "128Mi"
             requests:
-              cpu: "100m"
+              cpu: "10m"
               memory: "128Mi"
   # krr: controller=searxng container=toolhive
   resources:
