@@ -52,7 +52,7 @@ spec:
         main:
           containers:
             main:
-              # krr: controller=immich-server container=main
+              # krr: controller=server container=main
               resources:
                 requests:
                   cpu: 1
@@ -74,7 +74,7 @@ spec:
           strategy: Recreate
           containers:
             main:
-              # krr: controller=immich-machine-learning container=main
+              # krr: controller=machine-learning container=main
               resources:
                 requests:
                   cpu: 500m
