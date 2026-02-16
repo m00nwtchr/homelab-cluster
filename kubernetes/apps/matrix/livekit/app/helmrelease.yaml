@@ -133,7 +133,7 @@ spec:
           - matches:
               - path:
                   type: PathPrefix
-                  value: /sfu
+                  value: /sfu/get
               - path:
                   type: PathPrefix
                   value: /healthz
