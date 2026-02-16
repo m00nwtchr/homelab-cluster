@@ -10,11 +10,11 @@ spec:
     labels:
       app.kubernetes.io/name: envoy-gateway
   components: []
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
+  # healthChecks:
+  #   - apiVersion: helm.toolkit.fluxcd.io/v2
+  #     kind: HelmRelease
+  #     name: *app
+  #     namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/envoy-gateway-system/envoy-gateway/crds
   prune: true
@@ -37,9 +37,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components: []
-  dependsOn:
-    - name: envoy-gateway-crds
-      namespace: *namespace
+  # dependsOn:
+  #   - name: envoy-gateway-crds
+  #     namespace: *namespace
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
