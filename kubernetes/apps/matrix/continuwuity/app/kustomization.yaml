@@ -11,5 +11,5 @@ configMapGenerator:
   - name: conduit-configmap
     files:
       - resources/conduit.toml
-generatorOptions:
-  disableNameSuffixHash: true
+configurations:
+  - ./resources/kustomizeconfig.yaml
