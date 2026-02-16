@@ -3,36 +3,30 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: envoy-gateway
+  name: envoy-gateway-crds
 spec:
   interval: 15m
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 1.7.0
-  url: oci://docker.io/envoyproxy/gateway-helm
+    tag: v1.7.0
+  url: oci://docker.io/envoyproxy/gateway-crds-helm
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app envoy-gateway
+  name: &app envoy-gateway-crds
 spec:
-  interval: 5m
+  interval: 30m
   chartRef:
     kind: OCIRepository
     name: *app
   values:
-    deployment:
-      priorityClassName: envoy-gateway-priority
-
-    config:
+    crds:
+      gatewayAPI:
+        enabled: true
+        channel: experimental
       envoyGateway:
-        provider:
-          type: Kubernetes
-          kubernetes:
-            deploy:
-              type: GatewayNamespace
-    global:
-      imageRegistry: mirror.gcr.io
+        enabled: true
