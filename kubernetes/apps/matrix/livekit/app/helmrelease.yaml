@@ -18,6 +18,16 @@ spec:
             image:
               repository: livekit/livekit-server
               tag: v1.9.11@sha256:289262ffae8b827f45186331aa315d08ed275eb30f9b0add337ec57948e44ca1
+            command: ["sh", "-ec"]
+            args:
+              - |
+                IPV4="$(echo "$POD_IPS" | tr ',' '\n' | grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$' | head -n1)"
+                if [ -z "$IPV4" ]; then
+                  echo "ERROR: no IPv4 found in POD_IPS=$POD_IPS" >&2
+                  exit 1
+                fi
+                export LIVEKIT_NODE_IP="$IPV4"
+                exec /livekit-server --config /config/config.yaml
             # ports:
             #   - containerPort: 7880
             #     name: http
@@ -35,6 +45,12 @@ spec:
             #     name: turn-udp
             #     protocol: UDP
             env:
+              POD_IPS:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.podIPs
+              LIVEKIT_NODE_IP:
+                value: ""
               LIVEKIT_CONFIG:
                 valueFrom:
                   configMapKeyRef:
