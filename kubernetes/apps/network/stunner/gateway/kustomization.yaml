@@ -7,5 +7,6 @@ resources:
   - gateway.yaml
   # - internal.yaml
   - mutatingadmissionpolicy.yaml
+  - secret.sops.yaml
   - podmonitor.yaml
   - tlsroute.yaml

@@ -31,7 +31,6 @@ forbidden_remote_server_names = ["matrix.org"]
 forbidden_remote_room_directory_server_names = ["matrix.org"]
 url_preview_domain_explicit_denylist = ["matrix.org"]
 
-
 # Additional config
 [global.well_known]
 client = "https://matrix.${SECRET_DOMAIN}"

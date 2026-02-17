@@ -18,13 +18,11 @@ rtc:
     - host: turn.${SECRET_DOMAIN}
       port: 443
       protocol: tls
-      username: user-1
-      credential: pass-1
+      secret: "{{ .secret }}"
     # - host: turn.${SECRET_DOMAIN}
     #   port: 3478
     #   protocol: udp
-    #   username: user-1
-    #   credential: pass-1
+    #   secret: "{{ .secret }}"
   use_external_ip: false
   enable_loopback_candidate: false
 
