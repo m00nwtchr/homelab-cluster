@@ -10,7 +10,7 @@ spec:
       sectionName: tls
     - name: external
       sectionName: tls
-  hostnames: ["turn.${SECRET_DOMAIN}"]
+  hostnames: ["turns.${SECRET_DOMAIN}"]
   rules:
     - backendRefs:
         - name: stunner
