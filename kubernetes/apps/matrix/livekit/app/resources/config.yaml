@@ -12,8 +12,8 @@ rtc:
   ips:
     includes:
       - 10.42.0.0/16
-  # stun_servers:
-  #   - turn.${SECRET_DOMAIN}:3478
+  stun_servers:
+    - turn.${SECRET_DOMAIN}:3478
   turn_servers:
     - host: turn.${SECRET_DOMAIN}
       port: 5349
