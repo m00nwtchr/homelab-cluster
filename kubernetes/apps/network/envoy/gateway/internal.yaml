@@ -26,7 +26,7 @@ spec:
     - name: https
       protocol: HTTPS
       port: 443
-      #      hostname: "*.${SECRET_DOMAIN}"
+      hostname: "*.${SECRET_DOMAIN}"
       allowedRoutes:
         namespaces:
           from: All
@@ -34,10 +34,10 @@ spec:
         certificateRefs:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
-    - name: tls
+    - name: turns
       protocol: TLS
       port: 443
-      hostname: "*.${SECRET_DOMAIN}"
+      hostname: "turns.${SECRET_DOMAIN}"
       allowedRoutes:
         namespaces:
           from: Same
