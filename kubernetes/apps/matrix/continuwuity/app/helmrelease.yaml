@@ -96,7 +96,7 @@ spec:
               - identifier: app
                 port: 80
             timeouts:
-              request: "30s"
+              request: "0s"
 
       federation:
         hostnames: ["matrix-fed.${SECRET_DOMAIN}"]
