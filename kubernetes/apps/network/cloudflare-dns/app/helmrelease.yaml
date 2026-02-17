@@ -44,7 +44,7 @@ spec:
       - --gateway-label-filter=gateway==external
     triggerLoopOnEvent: true
     policy: sync
-    sources: ["crd", "gateway-httproute", "service"]
+    sources: ["crd", "gateway-httproute", "gateway-tlsroute", "service"]
     txtPrefix: k8s.
     txtOwnerId: default
     domainFilters: ["${SECRET_DOMAIN}"]
