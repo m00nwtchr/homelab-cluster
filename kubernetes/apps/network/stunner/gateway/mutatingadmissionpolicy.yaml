@@ -44,3 +44,12 @@ spec:
               value: "http://stunner-config-discovery.stunner-system.svc:13478"
             }
           ]
+    - patchType: JSONPatch
+      jsonPatch:
+        expression: >-
+          [
+            JSONPatch{
+              op: "replace", path: "/spec/template/spec/containers/0/env/0/value",
+              value: "0.0.0.0"
+            }
+          ]
