@@ -40,16 +40,19 @@ spec:
         expression: >-
           [
             JSONPatch{
-              op: "replace", path: "/spec/template/spec/containers/0/env/4/value",
-              value: "http://stunner-config-discovery.stunner-system.svc:13478"
-            }
-          ]
-    - patchType: JSONPatch
-      jsonPatch:
-        expression: >-
-          [
+              op: "replace",
+              path: "/spec/template/spec/containers/0/env/4",
+              value: {
+                "name": "STUNNER_CONFIG_ORIGIN",
+                "value": "http://stunner-config-discovery.stunner-system.svc:13478"
+              }
+            },
             JSONPatch{
-              op: "replace", path: "/spec/template/spec/containers/0/env/0/value",
-              value: "0.0.0.0"
+              op: "replace",
+              path: "/spec/template/spec/containers/0/env/0",
+              value: {
+                "name": "STUNNER_ADDR",
+                "value": "0.0.0.0"
+              }
             }
           ]
