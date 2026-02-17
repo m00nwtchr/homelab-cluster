@@ -53,8 +53,8 @@ spec:
               #   value: ""
               LIVEKIT_CONFIG:
                 valueFrom:
-                  configMapKeyRef:
-                    name: livekit-configmap
+                  secretKeyRef:
+                    name: livekit-config
                     key: config.yaml
 
             probes:
