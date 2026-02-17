@@ -11,6 +11,7 @@ spec:
   infrastructure:
     annotations:
       lbipam.cilium.io/ips: "fd42:78a5:2c09::200,192.168.0.192"
+      lbipam.cilium.io/sharing-key: "internal"
       external-dns.alpha.kubernetes.io/hostname: "internal.${SECRET_DOMAIN}"
     parametersRef:
       group: gateway.envoyproxy.io
