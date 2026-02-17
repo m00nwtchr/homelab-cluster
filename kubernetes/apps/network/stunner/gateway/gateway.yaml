@@ -5,7 +5,6 @@ kind: Gateway
 metadata:
   name: stunner
   annotations:
-    external-dns.alpha.kubernetes.io/target: "turn.${SECRET_DOMAIN}"
     stunner.l7mp.io/enable-mixed-protocol-lb: "true"
     stunner.l7mp.io/external-traffic-policy: local
     lbipam.cilium.io/sharing-key: external
