@@ -22,7 +22,6 @@ spec:
   ipFamilyPolicy: SingleStack
   ports:
     - name: udp
-      nodePort: 30409
       port: 3478
       protocol: UDP
       targetPort: 3478
