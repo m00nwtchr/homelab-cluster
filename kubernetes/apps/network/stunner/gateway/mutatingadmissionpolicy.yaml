@@ -52,7 +52,7 @@ spec:
               path: "/spec/template/spec/containers/0/env/0",
               value: {
                 "name": "STUNNER_ADDR",
-                "value": "0.0.0.0"
+                "value": "10.43.169.173"
               }
             }
           ]
