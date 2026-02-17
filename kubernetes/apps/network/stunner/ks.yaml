@@ -21,7 +21,7 @@ spec:
   postBuild:
     substitute:
       APP: stunner-gateway
-      TLS_SUBDOMAIN: turn
+      TLS_SUBDOMAIN: turns
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
