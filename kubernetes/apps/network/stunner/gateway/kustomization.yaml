@@ -7,3 +7,4 @@ resources:
   - gatewayclass.yaml
   - mutatingadmissionpolicy.yaml
   - podmonitor.yaml
+  - tlsroute.yaml
