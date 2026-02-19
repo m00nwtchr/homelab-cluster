@@ -61,6 +61,12 @@ spec:
               liveness: &probes
                 enabled: true
               readiness: *probes
+            resources:
+              requests:
+                cpu: 18m
+                memory: 154Mi
+              limits:
+                memory: 154Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -78,6 +84,12 @@ spec:
             probes:
               liveness: *probes
               readiness: *probes
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 100Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
