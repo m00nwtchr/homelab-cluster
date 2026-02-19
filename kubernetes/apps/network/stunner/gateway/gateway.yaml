@@ -5,18 +5,14 @@ kind: Gateway
 metadata:
   name: stunner
   annotations:
-    external-dns.alpha.kubernetes.io/target: "turn.${SECRET_DOMAIN}"
     stunner.l7mp.io/enable-mixed-protocol-lb: "true"
-    stunner.l7mp.io/external-traffic-policy: local
+    # stunner.l7mp.io/external-traffic-policy: local
+    stunner.l7mp.io/service-type: ClusterIP
+    # lbipam.cilium.io/sharing-key: external
+    # lbipam.cilium.io/ips: 2a02:a313:43e4:7080::7dc5,fd42:78a5:2c09::200,192.168.0.192
+    # external-dns.alpha.kubernetes.io/hostname: "turn2.${SECRET_DOMAIN}"
 spec:
   gatewayClassName: stunner
-  #  addresses:
-  #    - type: IPAddress
-  #      value: "2a02:a313:43e4:7080::7dc5"
-  infrastructure:
-    annotations:
-      # lbipam.cilium.io/ips: *ip
-      external-dns.alpha.kubernetes.io/hostname: "turn.${SECRET_DOMAIN}"
   listeners:
     - name: udp
       port: 3478

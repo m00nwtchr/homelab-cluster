@@ -8,7 +8,6 @@ spec:
   parentRefs:
     - name: stunner
       namespace: network
-      sectionName: udp
   rules:
     - backendRefs:
         - name: livekit

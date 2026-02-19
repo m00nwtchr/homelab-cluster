@@ -1,0 +1,57 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app chronyd
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    controllers:
+      *app :
+        containers:
+          app:
+            image:
+              repository: ghcr.io/dockur/chrony
+              tag: 4.8@sha256:abb365176d8be9f1b91a3b2676b51954df703be27db2e0166a4c31dd229977de
+            env:
+              ENABLE_NTS: "true"
+              NTP_SERVERS: "0.ke.experimental.ntspooltest.org,1.ke.experimental.ntspooltest.org,2.ke.experimental.ntspooltest.org,3.ke.experimental.ntspooltest.org"
+            # probes:
+            #   liveness:
+            #     enabled: true
+            #     type: HTTP
+            #   readiness:
+            #     enabled: true
+            #     type: HTTP
+            #   startup:
+            #     enabled: true
+            #     type: HTTP
+            # resources:
+            #   limits:
+            #     cpu: 750m
+            #     memory: 256Mi
+            #   requests:
+            #     cpu: 250m
+            #     memory: 256Mi
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              seccompProfile:
+                type: RuntimeDefault
+
+    service:
+      app:
+        controller: *app
+        ports:
+          ntp:
+            port: 123

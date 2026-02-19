@@ -3,15 +3,18 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: &name internal
+  name: &name external
   annotations:
-    external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
+    external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+  labels:
+    gateway: external
 spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      lbipam.cilium.io/ips: "fd42:78a5:2c09::200,192.168.0.192"
-      external-dns.alpha.kubernetes.io/hostname: "internal.${SECRET_DOMAIN}"
+      # lbipam.cilium.io/ips: "2a02:a313:43e4:7080::7dc5" # Using Cilium NodeIPAM
+      lbipam.cilium.io/sharing-key: "external"
+      external-dns.alpha.kubernetes.io/hostname: "external.${SECRET_DOMAIN}"
     parametersRef:
       group: gateway.envoyproxy.io
       kind: EnvoyProxy
@@ -26,14 +29,26 @@ spec:
     - name: https
       protocol: HTTPS
       port: 443
-      #      hostname: "*.${SECRET_DOMAIN}"
+      # hostname: "*.${SECRET_DOMAIN}"
       allowedRoutes:
         namespaces:
           from: All
       tls:
+        mode: Terminate
         certificateRefs:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
+    - name: tls
+      protocol: TLS
+      port: 443
+      hostname: "turn.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: Same
+        kinds:
+          - kind: TLSRoute
+      tls:
+        mode: Passthrough
     - name: ssh
       protocol: TCP
       port: 22
