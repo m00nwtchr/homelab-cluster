@@ -26,7 +26,7 @@ cni:
 dashboards:
   enabled: true
 
-devices: lan0
+devices: lan0 tailscale0
 enableIPv4BIGTCP: true
 enableIPv6BIGTCP: true
 enableIPv6Masquerade: true

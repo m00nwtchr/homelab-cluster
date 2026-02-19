@@ -3,32 +3,38 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: agentgateway
+  name: envoy-gateway
 spec:
   interval: 15m
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: v2.2.0
-  url: oci://ghcr.io/kgateway-dev/charts/agentgateway
+    tag: 1.7.0
+  url: oci://docker.io/envoyproxy/gateway-helm
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app agentgateway
+  name: &app envoy-gateway
 spec:
   interval: 5m
   chartRef:
     kind: OCIRepository
     name: *app
+  # install:
+  #   skipCRDs: true
   values:
-    controller:
+    deployment:
       priorityClassName: envoy-gateway-priority
 
-      extraEnv:
-        KGW_ENABLE_GATEWAY_API_EXPERIMENTAL_FEATURES: true
-
-    inferenceExtension:
-      enabled: true
+    config:
+      envoyGateway:
+        provider:
+          type: Kubernetes
+          kubernetes:
+            deploy:
+              type: GatewayNamespace
+    global:
+      imageRegistry: mirror.gcr.io

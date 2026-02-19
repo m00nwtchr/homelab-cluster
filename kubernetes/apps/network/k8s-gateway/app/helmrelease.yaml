@@ -31,7 +31,7 @@ spec:
       type: ClusterIP
       clusterIP: "2001:cafe:43::b"
       port: 53
-    watchedResources: ["HTTPRoute", "Service"]
+    watchedResources: ["HTTPRoute", "TLSRoute", "Service"]
     fallthrough:
       enabled: true
     extraZonePlugins:

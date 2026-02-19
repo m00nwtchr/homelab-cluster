@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/tlsroute_v1alpha3.json
+apiVersion: gateway.networking.k8s.io/v1alpha3
+kind: TLSRoute
+metadata:
+  name: stunner-turn-tls
+spec:
+  parentRefs:
+    - name: internal
+    - name: external
+  hostnames: ["turn.${SECRET_DOMAIN}"]
+  rules:
+    - backendRefs:
+        - name: stunner
+          port: 5349

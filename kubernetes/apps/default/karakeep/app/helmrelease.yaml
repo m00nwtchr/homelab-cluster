@@ -25,26 +25,30 @@ spec:
     controllers:
       *app :
         forceRename: *app
+
         annotations:
           reloader.stakater.com/auto: "true"
 
-          k8s.ksgate.org/meili-ready: |
-            {
-              "apiVersion": "apps/v1",
-              "kind": "Deployment",
-              "name": "karakeep-meilisearch",
-              "expression": "resource.status.readyReplicas >= 1"
-            }
-          k8s.ksgate.org/chrome-ready: |
-            {
-              "apiVersion": "apps/v1",
-              "kind": "Deployment",
-              "name": "karakeep-chrome",
-              "expression": "resource.status.readyReplicas >= 1"
-            }
-        schedulingGates:
-          - name: k8s.ksgate.org/meili-ready
-          - name: k8s.ksgate.org/chrome-ready
+        pod:
+          annotations:
+            k8s.ksgate.org/meili-ready: |
+              {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "name": "karakeep-meilisearch",
+                "expression": "resource.status.readyReplicas >= 1"
+              }
+            k8s.ksgate.org/chrome-ready: |
+              {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "name": "karakeep-chrome",
+                "expression": "resource.status.readyReplicas >= 1"
+              }
+
+          schedulingGates:
+            - name: k8s.ksgate.org/meili-ready
+            - name: k8s.ksgate.org/chrome-ready
 
         containers:
           app:

@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: agentgateway
+  name: agentgateway-crds
 spec:
   interval: 15m
   layerSelector:
@@ -11,24 +11,15 @@ spec:
     operation: copy
   ref:
     tag: v2.2.0
-  url: oci://ghcr.io/kgateway-dev/charts/agentgateway
+  url: oci://ghcr.io/kgateway-dev/charts/agentgateway-crds
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app agentgateway
+  name: &app agentgateway-crds
 spec:
-  interval: 5m
+  interval: 30m
   chartRef:
     kind: OCIRepository
     name: *app
-  values:
-    controller:
-      priorityClassName: envoy-gateway-priority
-
-      extraEnv:
-        KGW_ENABLE_GATEWAY_API_EXPERIMENTAL_FEATURES: true
-
-    inferenceExtension:
-      enabled: true

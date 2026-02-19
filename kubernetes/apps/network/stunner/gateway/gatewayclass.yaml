@@ -7,9 +7,9 @@ metadata:
 spec:
   logLevel: "all:DEBUG,turn:INFO"
   realm: stunner.l7mp.io
-  authType: static
-  userName: "user-1"
-  password: "pass-1"
+  authRef:
+    name: stunner-auth
+    namespace: network
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/gatewayclass_v1.json
 apiVersion: gateway.networking.k8s.io/v1
