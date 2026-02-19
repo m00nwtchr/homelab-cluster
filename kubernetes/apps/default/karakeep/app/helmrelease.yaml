@@ -135,9 +135,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 248Mi
+                memory: 240Mi
               limits:
-                memory: 248Mi
+                memory: 240Mi
 
       meilisearch:
         annotations:
@@ -177,9 +177,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 242Mi
+                memory: 303Mi
               limits:
-                memory: 242Mi
+                memory: 303Mi
 
     service:
       app:

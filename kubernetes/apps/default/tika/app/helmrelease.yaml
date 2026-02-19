@@ -29,10 +29,10 @@ spec:
 
             resources:
               limits:
-                memory: 251Mi
+                memory: 314Mi
               requests:
                 cpu: 10m
-                memory: 251Mi
+                memory: 314Mi
 
     service:
       app:
