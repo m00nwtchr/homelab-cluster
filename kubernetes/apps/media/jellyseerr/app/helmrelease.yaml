@@ -59,14 +59,14 @@ spec:
             #              readiness: *probes
             resources:
               requests:
-                cpu: 13m
-                memory: 374Mi # TODO
+                cpu: 12m
+                memory: 383Mi # TODO
               limits:
-                memory: 374Mi
+                memory: 383Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
 
     defaultPodOptions:
       hostUsers: false

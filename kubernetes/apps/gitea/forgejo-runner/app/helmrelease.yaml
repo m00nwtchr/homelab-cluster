@@ -65,9 +65,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 183Mi
+                memory: 194Mi
               limits:
-                memory: 183Mi
+                memory: 194Mi
             securityContext:
               privileged: true
             env:
