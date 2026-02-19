@@ -28,6 +28,7 @@ spec:
                 memory: 492Mi
                 # memory: 2358Mi
               limits:
+                memory: 492Mi
                 # memory: 1Gi
 
     service:
