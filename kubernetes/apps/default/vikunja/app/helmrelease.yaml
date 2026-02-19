@@ -83,13 +83,13 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
-                cpu: 100m
-                memory: 20Mi
+                cpu: 10m
+                memory: 188Mi
               limits:
-                memory: 150Mi
+                memory: 188Mi
 
         pod:
           securityContext:

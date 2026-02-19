@@ -58,5 +58,7 @@ spec:
     # krr: controller=trivy-operator container=trivy-operator
     resources:
       requests:
-        cpu: 15m
-        memory: 128Mi
+        cpu: 32m
+        memory: 1520Mi
+      limits:
+        memory: 1520Mi
