@@ -48,13 +48,13 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
-                memory: 539Mi
+                memory: 542Mi
               limits:
-                memory: 539Mi
+                memory: 542Mi
 
     defaultPodOptions:
       securityContext:
@@ -86,7 +86,8 @@ spec:
 
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}", "hass.${SECRET_DOMAIN}"]
+        hostnames:
+          ["{{ .Release.Name }}.${SECRET_DOMAIN}", "hass.${SECRET_DOMAIN}"]
         #        annotations:
         #          gethomepage.dev/enabled: "true"
         #          gethomepage.dev/group: Media
