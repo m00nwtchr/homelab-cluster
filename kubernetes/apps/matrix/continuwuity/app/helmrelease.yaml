@@ -58,11 +58,11 @@ spec:
               readiness: *probe
             resources:
               limits:
-                #                cpu: 50M
-                memory: 1842Mi
+                cpu: 3
+                memory: 512Mi
               requests:
-                cpu: 308m
-                memory: 1842Mi
+                cpu: 10m
+                memory: 512Mi
             securityContext:
               capabilities:
                 drop:
