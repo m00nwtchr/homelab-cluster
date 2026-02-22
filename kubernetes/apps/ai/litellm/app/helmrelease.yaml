@@ -42,7 +42,7 @@ spec:
             env:
               TZ: "${TZ}"
               REDIS_HOST: dragonfly.database.svc.cluster.local
-              STORE_MODEL_IN_DB: true
+              STORE_MODEL_IN_DB: "True"
               USE_PRISMA_MIGRATE: "True"
               LITELLM_MODE: "PRODUCTION"
               LITELLM_DONT_SHOW_FEEDBACK_BOX: "True"
