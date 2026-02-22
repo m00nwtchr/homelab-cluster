@@ -51,6 +51,8 @@ spec:
     deployment:
       replicaCount: 1
 
+    priorityClassName: garage-priority
+
     resources:
       limits:
         cpu: 100m
