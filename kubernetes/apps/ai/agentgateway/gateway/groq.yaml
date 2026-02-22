@@ -19,10 +19,10 @@ spec:
       sni: api.groq.com
     ai:
       routes:
-        "/v1/chat/completions": "completions"
-        "/v1/embeddings": "passthrough"
-        "/v1/models": "passthrough"
-        "*": "passthrough"
+        "/v1/chat/completions": Completions
+        "/v1/embeddings": Embeddings
+        "/v1/models": Models
+        "*": Passthrough
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
