@@ -38,11 +38,11 @@ spec:
             env:
               CONDUWUIT_CONFIG: "/config/conduit.toml"
               CONDUWUIT_PORT: &port 8008
-              CONDUWUIT_REGISTRATION_TOKEN:
-                valueFrom:
-                  secretKeyRef:
-                    name: conduit-registration-secret
-                    key: token
+              # CONDUWUIT_REGISTRATION_TOKEN:
+              #   valueFrom:
+              #     secretKeyRef:
+              #       name: conduit-registration-secret
+              #       key: token
             probes:
               liveness: &probe
                 enabled: true

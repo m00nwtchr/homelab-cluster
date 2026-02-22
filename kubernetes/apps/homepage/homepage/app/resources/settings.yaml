@@ -1,2 +1,0 @@
-providers:
-  pihole: "{{HOMEPAGE_VAR_PIHOLE_KEY}}"
