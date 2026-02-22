@@ -1,0 +1,43 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/agentgateway.dev/agentgatewaybackend_v1alpha1.json
+apiVersion: agentgateway.dev/v1alpha1
+kind: AgentgatewayBackend
+metadata:
+  name: groq
+spec:
+  ai:
+    provider:
+      openai: {}
+      host: api.groq.com
+      port: 443
+      path: /openai/v1/chat/completions
+  policies:
+    auth:
+      secretRef:
+        name: groq-secret
+    tls:
+      sni: api.groq.com
+    ai:
+      routes:
+        "/v1/chat/completions": "completions"
+        "/v1/embeddings": "passthrough"
+        "/v1/models": "passthrough"
+        "*": "passthrough"
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: groq
+spec:
+  parentRefs:
+    - name: agentgateway
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /groq
+      backendRefs:
+        - name: groq
+          group: agentgateway.dev
+          kind: AgentgatewayBackend
