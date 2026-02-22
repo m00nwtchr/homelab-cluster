@@ -17,6 +17,5 @@ resources:
   # - ./nvidia-device-plugin/ks.yaml
   - ./reloader/ks.yaml
   - ./reflector/ks.yaml
-  - ./sealed-secrets/ks.yaml
   - ./snapshot-controller/ks.yaml
 #  - ./spegel/ks.yaml

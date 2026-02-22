@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - gatus.yaml
   - helmrelease.yaml
-  - sealedsecret.yaml
   - secretstore.yaml
 configMapGenerator:
   - name: conduit-configmap
