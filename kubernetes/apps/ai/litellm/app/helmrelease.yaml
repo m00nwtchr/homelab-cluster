@@ -133,4 +133,3 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /usr/local/lib/python3.13/site-packages/prisma
-            subPath: prisma
