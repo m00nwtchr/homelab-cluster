@@ -15,9 +15,9 @@ spec:
       securityContext:
         #        runAsNonRoot: true
         #        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
+        # runAsGroup: 1000
+        # fsGroup: 1000
+        # fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
 
     controllers:
@@ -82,7 +82,7 @@ spec:
                   failureThreshold: 3
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -118,17 +118,17 @@ spec:
       #     - path: /app/config.yaml
       #       subPath: config.yaml
 
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /.cache
-            subPath: cache
-          - path: /.npm
-            subPath: npm
-          - path: /tmp
-            subPath: tmp
+      # cache:
+      #   type: emptyDir
+      #   globalMounts:
+      #     - path: /.cache
+      #       subPath: cache
+      #     - path: /.npm
+      #       subPath: npm
+      #     - path: /tmp
+      #       subPath: tmp
 
-      prisma-client:
-        type: emptyDir
-        globalMounts:
-          - path: /usr/local/lib/python3.13/site-packages/prisma
+      # prisma-client:
+      #   type: emptyDir
+      #   globalMounts:
+      #     - path: /usr/local/lib/python3.13/site-packages/prisma
