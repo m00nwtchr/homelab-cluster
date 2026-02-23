@@ -9,6 +9,11 @@ spec:
   usages:
     - client auth
   commonName: ${DATABASE_OWNER:=${APP}}
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    encoding: PKCS8
+    rotationPolicy: Always
   issuerRef:
     name: postgres-client-ca
     kind: ClusterIssuer
