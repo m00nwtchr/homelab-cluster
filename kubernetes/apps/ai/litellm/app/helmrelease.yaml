@@ -42,7 +42,7 @@ spec:
             env:
               TZ: "${TZ}"
               REDIS_HOST: dragonfly.database.svc.cluster.local
-              STORE_MODEL_IN_DB: "True"
+              STORE_MODEL_IN_DB: True
               USE_PRISMA_MIGRATE: "True"
               LITELLM_MODE: "PRODUCTION"
               LITELLM_DONT_SHOW_FEEDBACK_BOX: "True"
@@ -87,9 +87,8 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 512Mi
               limits:
-                memory: 512Mi
+                memory: 1Gi
 
     service:
       app:
