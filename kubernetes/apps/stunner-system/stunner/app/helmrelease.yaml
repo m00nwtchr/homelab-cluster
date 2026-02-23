@@ -1,12 +1,26 @@
+# ---
+# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/source.toolkit.fluxcd.io/helmrepository_v1.json
+# apiVersion: source.toolkit.fluxcd.io/v1
+# kind: HelmRepository
+# metadata:
+#   name: stunner
+# spec:
+#   interval: 1h
+#   url: https://l7mp.io/stunner
 ---
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/source.toolkit.fluxcd.io/helmrepository_v1.json
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+kind: OCIRepository
 metadata:
   name: stunner
 spec:
-  interval: 1h
-  url: https://l7mp.io/stunner
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 1.1.0
+  url: oci://ghcr.io/m00nwtchr/charts/stunner
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -15,13 +29,16 @@ metadata:
   name: &app stunner
 spec:
   interval: 5m
-  chart:
-    spec:
-      chart: stunner
-      version: 1.1.0
-      sourceRef:
-        kind: HelmRepository
-        name: *app
+  # chart:
+  #   spec:
+  #     chart: stunner
+  #     version: 1.1.0
+  #     sourceRef:
+  #       kind: HelmRepository
+  #       name: *app
+  chartRef:
+    kind: OCIRepository
+    name: *app
   install:
     skipCRDs: true
   values:

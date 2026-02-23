@@ -41,14 +41,6 @@ spec:
           [
             JSONPatch{
               op: "replace",
-              path: "/spec/template/spec/containers/0/env/4",
-              value: {
-                "name": "STUNNER_CONFIG_ORIGIN",
-                "value": "http://stunner-config-discovery.stunner-system.svc:13478"
-              }
-            },
-            JSONPatch{
-              op: "replace",
               path: "/spec/template/spec/containers/0/env/0",
               value: {
                 "name": "STUNNER_ADDR",
