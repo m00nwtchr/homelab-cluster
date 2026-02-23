@@ -9,11 +9,6 @@ spec:
     labels:
       app.kubernetes.io/name: gateway-api
   components: []
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: kube-system
   interval: 1h
   path: "./kubernetes/apps/kube-system/gateway-api/crds"
   prune: true

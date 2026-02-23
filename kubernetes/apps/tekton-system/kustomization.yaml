@@ -5,5 +5,5 @@ kind: Kustomization
 namespace: tekton-system
 components:
   - ../../components/common
-resources:
-  - ./tekton-operator/ks.yaml
+# resources:
+# - ./tekton-operator/ks.yaml

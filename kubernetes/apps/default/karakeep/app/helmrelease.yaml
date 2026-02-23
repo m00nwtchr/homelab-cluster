@@ -93,7 +93,6 @@ spec:
                   secretKeyRef:
                     name: karakeep-secret
                     key: litellm_key
-              #              OLLAMA_BASE_URL: http://ts-ollama.tailscale.svc:11434
 
               INFERENCE_TEXT_MODEL: llama3.3:70b
               INFERENCE_IMAGE_MODEL: llava-llama3:8b
@@ -106,7 +105,7 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 951Mi
+                memory: 512Mi
               limits:
                 memory: 951Mi
 
