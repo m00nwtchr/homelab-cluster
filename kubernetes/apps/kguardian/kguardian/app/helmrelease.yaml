@@ -3,23 +3,37 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: gateway-api-crds
+  name: kguardian
 spec:
   interval: 15m
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 1.4.0
-  url: oci://ghcr.io/wiremind/wiremind-helm-charts/gateway-api-crds
+    tag: 1.8.3
+  url: oci://ghcr.io/kguardian-dev/charts/kguardian
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app gateway-api-crds
+  name: &app kguardian
 spec:
   chartRef:
     kind: OCIRepository
     name: *app
   interval: 30m
+  values:
+    broker:
+      resources:
+        limits:
+          memory: 1Gi
+        requests:
+          memory: 256Mi
+    controller:
+      excludedNamespaces:
+        - kguardian
+    database:
+      resources:
+        limits:
+          cpu: 6
