@@ -16,7 +16,7 @@ spec:
           cores: 2
         resources:
           requests:
-            memory: 2Gi
+            memory: 1Gi
         devices:
           rng: {}
           disks:
