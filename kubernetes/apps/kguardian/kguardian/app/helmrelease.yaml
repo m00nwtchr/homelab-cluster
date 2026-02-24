@@ -12,6 +12,7 @@ spec:
   ref:
     tag: 1.8.3
   url: oci://ghcr.io/kguardian-dev/charts/kguardian
+  # Not signed
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2

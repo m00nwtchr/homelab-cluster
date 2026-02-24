@@ -12,6 +12,7 @@ spec:
   ref:
     tag: v1.7.0
   url: oci://docker.io/envoyproxy/gateway-crds-helm
+  # Not signed
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
