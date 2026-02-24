@@ -26,6 +26,8 @@ spec:
               cpu: 100m
             limits:
               memory: 1Gi
+      envoyService:
+        externalTrafficPolicy: Cluster # For cilium ip sharing with stunner service
   #  shutdown:
   #    drainTimeout: 180s
   telemetry:
