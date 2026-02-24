@@ -5,8 +5,8 @@ kind: Kustomization
 resources:
   - gatewayclass.yaml
   - gateway.yaml
-  # - internal.yaml
   - mutatingadmissionpolicy.yaml
   - secret.sops.yaml
   - podmonitor.yaml
-  - tlsroute.yaml
+  - service.yaml
+  # - tlsroute.yaml
