@@ -13,12 +13,13 @@ httpRoute:
     timeouts:
       request: 300s
 
+# https://codeberg.org/forgejo/-/packages/container/forgejo/14.0.2
 image:
   rootless: true
   registry: code.forgejo.org
   repository: forgejo/forgejo
-  tag: 14.0.1-rootless
-  digest: sha256:5ebd7bb1f81fd9948e63d810ebd40830a00f8ca29165ca227105b3f5e4ec40bd
+  tag: 14.0.2-rootless
+  digest: sha256:5552c9e25f353760420b8ac7a7f0f0a788ff571bbfd8e2c1e93503d3e2e1b87a
 
 gitea:
   admin:
