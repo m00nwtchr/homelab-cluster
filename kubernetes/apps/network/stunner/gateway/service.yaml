@@ -13,7 +13,7 @@ metadata:
     stunner.l7mp.io/related-gateway-namespace: network
   name: stunner-lb-internal
 spec:
-  externalTrafficPolicy: Local
+  externalTrafficPolicy: Cluster
   internalTrafficPolicy: Cluster
   ipFamilies: [IPv4]
   ports:
