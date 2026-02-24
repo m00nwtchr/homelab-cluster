@@ -67,7 +67,7 @@ spec:
                   failureThreshold: 30
                   periodSeconds: 5
             securityContext:
-              capabilities: {add: ["NET_ADMIN"]}
+              capabilities: { add: ["NET_ADMIN"] }
               allowPrivilegeEscalation: false
             resources:
               limits:
@@ -87,7 +87,7 @@ spec:
               runAsGroup: *uid
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
             probes:
               liveness:
                 enabled: true
