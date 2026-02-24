@@ -12,17 +12,17 @@ rtc:
   ips:
     includes:
       - 10.42.0.0/16
-  # stun_servers:
-  #   - turn.${SECRET_DOMAIN}:3478
+  stun_servers:
+    - turn.${SECRET_DOMAIN}:3478
   turn_servers:
-    - host: turn.${SECRET_DOMAIN}
-      port: 443
-      protocol: tls
-      secret: "{{ .secret }}"
     # - host: turn.${SECRET_DOMAIN}
-    #   port: 3478
-    #   protocol: udp
+    #   port: 5349
+    #   protocol: tls
     #   secret: "{{ .secret }}"
+    - host: turn.${SECRET_DOMAIN}
+      port: 3478
+      protocol: udp
+      secret: "{{ .secret }}"
   use_external_ip: false
   enable_loopback_candidate: false
 
