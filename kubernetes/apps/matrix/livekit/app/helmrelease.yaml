@@ -13,6 +13,9 @@ spec:
   values:
     controllers:
       *app :
+        annotations:
+          reloader.stakater.com/auto: "true"
+
         containers:
           app:
             image:
