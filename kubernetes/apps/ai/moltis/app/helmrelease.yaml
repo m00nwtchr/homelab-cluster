@@ -21,16 +21,19 @@ spec:
       *app :
         type: statefulset
 
-        containers:
+        initContainers:
           daemon:
             image:
               repository: docker
               tag: 29.1.5-dind@sha256:3a33fc81fa4d38360f490f5b900e9846f725db45bb1d9b1fe02d849bd42a5cf2
+            restartPolicy: Always
             securityContext:
               privileged: true
             env:
               - name: DOCKER_TLS_CERTDIR
                 value: /certs
+
+        containers:
           app:
             image:
               repository: ghcr.io/moltis-org/moltis
