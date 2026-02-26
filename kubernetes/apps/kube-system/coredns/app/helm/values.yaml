@@ -25,15 +25,6 @@ replicaCount: 2
 
 servers:
   - zones:
-      - zone: ts.net
-    port: 53
-    plugins:
-      - name: errors
-      - name: cache
-        parameters: 30
-      - name: forward
-        parameters: . 2001:cafe:43::75
-  - zones:
       - zone: .
         scheme: dns://
         use_tcp: true
@@ -44,6 +35,11 @@ servers:
         configBlock: |-
           lameduck 5s
       - name: ready
+      - name: rewrite
+        parameters: name regex (.*\.tail096cd8\.ts\.net)\..* {1}.
+      - name: forward
+        parameters: tail096cd8.ts.net 2001:cafe:43::75
+
       # - name: rewrite
       #   parameters: name substring idm.${SECRET_DOMAIN} external.network.svc.cluster.local
       - name: rewrite
