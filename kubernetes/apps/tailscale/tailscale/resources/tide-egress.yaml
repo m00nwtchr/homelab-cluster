@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    tailscale.com/tailnet-fqdn: "tide.tail096cd8.ts.net"
+  name: tide
+spec:
+  externalName: placeholder # any value - will be overwritten by the operator
+  type: ExternalName
+  ports:
+    - port: 1234
+      protocol: TCP
+      name: http
