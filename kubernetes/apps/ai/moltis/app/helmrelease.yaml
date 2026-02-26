@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/moltis-org/moltis
-              tag: 0.9.9@sha256:0c0ccc62f520b15bd4e73077e59a8acc76fb6a289a14407a71fb9d1983583114
+              tag: 0.9.10@sha256:a514e97cefbd827e6efadfa3c6aed0d5e3adb6b151c0dfe08e6f22f6e0211dbd
             args:
               - --bind
               - "[::]"
