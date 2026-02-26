@@ -37,7 +37,7 @@ spec:
               tag: 0.9.9@sha256:0c0ccc62f520b15bd4e73077e59a8acc76fb6a289a14407a71fb9d1983583114
             args:
               - --bind
-              - "::"
+              - "[::]"
               - --port
               - "13131"
               - --no-tls
