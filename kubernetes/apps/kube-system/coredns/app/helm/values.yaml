@@ -25,6 +25,15 @@ replicaCount: 2
 
 servers:
   - zones:
+      - zone: ts.net
+    port: 53
+    plugins:
+      - name: errors
+      - name: cache
+        parameters: 30
+      - name: forward
+        parameters: . 2001:cafe:43::75
+  - zones:
       - zone: .
         scheme: dns://
         use_tcp: true

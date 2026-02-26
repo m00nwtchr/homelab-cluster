@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/tailscale.com/dnsconfig_v1alpha1.json
+apiVersion: tailscale.com/v1alpha1
+kind: DNSConfig
+metadata:
+  name: ts-dns
+spec:
+  nameserver:
+    image:
+      repo: tailscale/k8s-nameserver
+      tag: unstable
+    service:
+      clusterIP: 2001:cafe:43::75
