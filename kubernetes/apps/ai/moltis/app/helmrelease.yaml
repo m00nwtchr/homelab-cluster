@@ -32,6 +32,34 @@ spec:
             env:
               - name: DOCKER_TLS_CERTDIR
                 value: /certs
+            probes:
+              startup:
+                enabled: true
+                custom: true
+                spec: &probeSpec
+                  exec:
+                    command: ["docker", "info"]
+                  periodSeconds: 2
+                  timeoutSeconds: 3
+                  failureThreshold: 60
+
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  <<: *probeSpec
+                  periodSeconds: 5
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  <<: *probeSpec
+                  periodSeconds: 20
+                  timeoutSeconds: 3
+                  failureThreshold: 3
 
         containers:
           app:
@@ -54,7 +82,7 @@ spec:
               MOLTIS_WEBAUTHN_RP_ID: "{{ .Release.Name }}.${SECRET_DOMAIN}"
               MOLTIS_WEBAUTHN_ORIGIN: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
 
-              DOCHER_HOST: tcp://localhost:2376
+              DOCKER_HOST: tcp://localhost:2376
               DOCKER_CERT_PATH: /certs/client
               DOCKER_TLS_VERIFY: "1"
             envFrom:
