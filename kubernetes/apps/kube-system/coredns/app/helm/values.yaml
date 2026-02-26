@@ -36,7 +36,10 @@ servers:
           lameduck 5s
       - name: ready
       - name: rewrite
-        parameters: name regex (.*\.tail096cd8\.ts\.net)\..* {1}.
+        parameters: stop
+        configBlock: |-
+          name regex (.*\.tail096cd8\.ts\.net)\..*\.cluster\.local\. {1}.
+          answer auto
       - name: forward
         parameters: tail096cd8.ts.net 2001:cafe:43::75
 
