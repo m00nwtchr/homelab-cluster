@@ -9,9 +9,3 @@ resources:
   - ./postgres.yaml
   - ./secret.sops.yaml
   - ./selfsigned.yaml
-configMapGenerator:
-  - name: cert-manager-values
-    files:
-      - ./helm/values.yaml
-configurations:
-  - ./helm/kustomizeconfig.yaml

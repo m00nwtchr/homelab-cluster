@@ -1,0 +1,39 @@
+{{- $ns := .Release.Namespace -}}
+{{- $name := .Release.Name -}}
+{{- $base := printf "../../kubernetes/apps/%s" $ns -}}
+{{- $fallback := printf "%s/%s/app/helmrelease.yaml" $base $name -}}
+
+{{- /* suffix = last segment, prefix = everything before it (or full name if no dash) */ -}}
+{{- $parts := splitList "-" $name -}}
+{{- $suffix := last $parts -}}
+{{- $prefix := $name -}}
+{{- if gt (len $parts) 1 -}}
+	{{- $prefix = join "-" (initial $parts) -}}
+{{- end -}}
+
+{{- $script := printf `
+set -euo pipefail
+shopt -s nullglob
+
+base=%q
+prefix=%q
+suffix=%q
+fallback=%q
+
+candidates=( "$base"/"$prefix"*/"$suffix"/helmrelease.yaml )
+
+if (( ${#candidates[@]} > 0 )); then
+	path="${candidates[0]}"
+else
+	path="$fallback"
+fi
+
+if [[ ! -f "$path" ]]; then
+	echo "helmfile: values source file not found: $path" >&2
+	exit 1
+fi
+
+yq -y 'select(.kind=="HelmRelease") | .spec.values // {}' "$path"
+` $base $prefix $suffix $fallback -}}
+
+{{- exec "bash" (list "-c" $script) -}}
