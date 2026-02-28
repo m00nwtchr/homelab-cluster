@@ -1,0 +1,4 @@
+{{- $path := printf "../../kubernetes/apps/%s/%s/app/helmrelease.yaml" .Release.Namespace .Release.Name -}}
+{{- $out := exec "bash" (list "-lc" (printf "yq -y 'select(.kind==\"HelmRelease\") | .spec.values // {}' %q" $path)) -}}
+{{- $out -}}
+

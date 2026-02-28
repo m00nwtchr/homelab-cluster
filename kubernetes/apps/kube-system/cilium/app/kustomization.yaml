@@ -8,9 +8,3 @@ resources:
   - ./networks.yaml
   - ./firewall.yaml
   - ./issuer.yaml
-configMapGenerator:
-  - name: cilium-values
-    files:
-      - ./helm/values.yaml
-configurations:
-  - ./helm/kustomizeconfig.yaml
