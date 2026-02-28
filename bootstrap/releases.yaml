@@ -1,0 +1,8 @@
+valuesTemplate: ./templates/values.yaml.gotmpl
+
+items:
+  - kube-system/cilium
+  - kube-system/coredns
+  - cert-manager/cert-manager
+  - flux-system/flux-operator
+  - flux-system/flux-operator/instance
