@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile
+
+helmDefaults:
+  cleanupOnFail: true
+  wait: true
+  waitForJobs: true
+
+{{- $cfg := fromYaml (readFile "./releases.yaml") -}}
+{{- $ctx := dict "Values" $cfg -}}
+{{ tpl (readFile "./templates/releases.gotmpl") $ctx }}
