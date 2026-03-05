@@ -47,17 +47,17 @@ spec:
               tag: 26.3.0@sha256:eb8bc26f53025e07e464594c12d77c52c4b95840c8dadd9b95c4f0c4660f8ad2
             env:
               ACTUAL_PORT: &httpPort 5006
-              ACTUAL_OPENID_DISCOVERY_URL: "https://idm.${SECRET_DOMAIN}/oauth2/openid/{{ .Release.Name }}/.well-known/openid-configuration"
-              ACTUAL_OPENID_CLIENT_ID: *app
-              ACTUAL_OPENID_CLIENT_SECRET:
-                valueFrom:
-                  secretKeyRef:
-                    name: "kanidm-{{ .Release.Name }}-oidc"
-                    key: client-secret
-              ACTUAL_OPENID_SERVER_HOSTNAME: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
-              ACTUAL_OPENID_ENFORCE: "false"
-              ACTUAL_TOKEN_EXPIRATION: "openid-provider"
-              ACTUAL_USER_CREATION_MODE: "login"
+              # ACTUAL_OPENID_DISCOVERY_URL: "https://idm.${SECRET_DOMAIN}/oauth2/openid/{{ .Release.Name }}/.well-known/openid-configuration"
+              # ACTUAL_OPENID_CLIENT_ID: *app
+              # ACTUAL_OPENID_CLIENT_SECRET:
+              #   valueFrom:
+              #     secretKeyRef:
+              #       name: "kanidm-{{ .Release.Name }}-oidc"
+              #       key: client-secret
+              # ACTUAL_OPENID_SERVER_HOSTNAME: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+              # ACTUAL_OPENID_ENFORCE: "false"
+              # ACTUAL_TOKEN_EXPIRATION: "openid-provider"
+              # ACTUAL_USER_CREATION_MODE: "login"
             probes:
               liveness:
                 enabled: true
