@@ -98,7 +98,11 @@ spec:
         managed:
           roles: <<- $users := list ->>
             <<- range $in := (values inputs) ->>
-            <<-   $users = append $users (get $in "user") ->>
+            <<-   if kindIs "string" $in ->>
+            <<-     $users = append $users $in ->>
+            <<-   else if kindIs "map" $in ->>
+            <<-     $users = append $users (get $in "user") ->>
+            <<-   end ->>
             <<- end ->>
             <<- $users = $users | compact | uniq | sortAlpha ->>
 
@@ -112,4 +116,5 @@ spec:
             "disablePassword" true
             ) ->>
             <<- end ->>
+
             <<- toYaml $roles | nindent 10 ->>
