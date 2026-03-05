@@ -24,6 +24,7 @@ spec:
       NAMESPACE: *namespace
       OIDC_DISPLAY_NAME: "Actual"
       OIDC_CALLBACK: /openid/callback
+      OIDC_LEGACY_CRYPTO: "true"
       OIDC_SHORT_USERNAME: "true"
     substituteFrom:
       - name: cluster-secrets
