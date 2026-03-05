@@ -26,6 +26,7 @@ spec:
       kind: Cluster
       metadata:
         name: *name
+        namespace: postgres
         # annotations:
         #   cnpg.io/skipEmptyWalArchiveCheck: enabled
       spec:
