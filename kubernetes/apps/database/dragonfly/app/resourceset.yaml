@@ -8,6 +8,8 @@ metadata:
     fluxcd.controlplane.io/reconcileEvery: "30m"
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:
+  inputStrategy:
+    name: Permute
   commonMetadata:
     labels:
       app.kubernetes.io/name: dragonfly
