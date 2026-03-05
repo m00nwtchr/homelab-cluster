@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - dragonfly.yaml
   - podmonitor.yaml
+  - resourceset.yaml
