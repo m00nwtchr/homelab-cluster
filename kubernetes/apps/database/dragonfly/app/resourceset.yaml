@@ -1,9 +1,8 @@
----
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/fluxcd.controlplane.io/resourceset_v1.json
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
 metadata:
-  name: &name dragonfly-acl
+  name: dragonfly-acls
   annotations:
     fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "30m"
@@ -18,15 +17,35 @@ spec:
       selector:
         matchLabels:
           dragonflydb.io/acl: "true"
-  resources:
-    - apiVersion: v1
-      kind: Secret
-      metadata:
+  resourcesTemplate: |
+    apiVersion: external-secrets.io/v1
+    kind: ExternalSecret
+    metadata:
+      name: &name dragonfly-acls
+      namespace: database
+    spec:
+      refreshPolicy: OnChange
+      target:
         name: *name
-        namespace: database
-      spec:
-        stringData:
-          acl.conf: |
-            <<- range $user := inputs.users >>
-            ACL SETUSER $user NAMESPACE:$user.name ON ><< randAlphaNum 32 >> +@all ~*
-            <<- end >>
+        creationPolicy: Owner
+        template:
+          engineVersion: v2
+          type: Opaque
+          data:
+            acl.conf: |
+              <<- range $u := inputs.users >>
+              ACL SETUSER << $u >> NAMESPACE:<< $u >> ON >{{ index . "password_<< $u >>" }} +@all ~*
+              <<- end >>
+
+      dataFrom:
+        <<- range $u := inputs.users >>
+        - sourceRef:
+            generatorRef:
+              apiVersion: generators.external-secrets.io/v1alpha1
+              kind: ClusterGenerator
+              name: pw
+          rewrite:
+            - regexp:
+                source: "^password$"
+                target: "password_<< $u >>"
+        <<- end >>
