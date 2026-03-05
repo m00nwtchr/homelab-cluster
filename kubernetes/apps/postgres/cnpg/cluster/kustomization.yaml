@@ -8,6 +8,7 @@ resources:
   - cluster.yaml
   - objectstore.yaml
   - pooler.yaml
+  - resourceset.yaml
   - scheduledbackup.yaml
   - secret.sops.yaml
   - secretstore.yaml
