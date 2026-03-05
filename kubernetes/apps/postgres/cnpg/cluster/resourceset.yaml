@@ -63,9 +63,6 @@ spec:
         #         barmanObjectName: *store
         #         serverName: postgres
 
-        monitoring:
-          enablePodMonitor: true
-
         postgresql:
           pg_hba:
             - hostssl all all all cert clientcert=verify-full map=pooler-map
