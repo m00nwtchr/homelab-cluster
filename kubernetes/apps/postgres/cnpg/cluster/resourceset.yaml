@@ -122,4 +122,4 @@ spec:
                 )) >>
             <<- end >>
 
-            <<- toYaml $roles | nindent 12 >>
+            <<- toYaml $roles | nindent 10 >>
