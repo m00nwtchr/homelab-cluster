@@ -1,0 +1,32 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/fluxcd.controlplane.io/resourceset_v1.json
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: &name dragonfly-acl
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: dragonfly
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      selector:
+        matchLabels:
+          dragonflydb.io/acl: "true"
+  resources:
+    - apiVersion: v1
+      kind: Secret
+      metadata:
+        name: *name
+        namespace: database
+      spec:
+        stringData:
+          acl.conf: |
+            <<- range $user := inputs.users >>
+            ACL SETUSER $user NAMESPACE:$user.name ON ><< randAlphaNum 32 >> +@all ~*
+            <<- end >>
