@@ -7,6 +7,8 @@ metadata:
   annotations:
     fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "5m"
+  labels:
+    dragonflydb.io/acl: "true"
 spec:
   type: Static
   defaultValues:
