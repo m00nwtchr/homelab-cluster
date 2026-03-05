@@ -20,6 +20,17 @@ spec:
         matchLabels:
           dragonflydb.io/acl: "true"
   resourcesTemplate: |
+    ---
+    <<- $users := list >>
+    <<- range $k, $in := inputs >>
+    <<- $ul := list >>
+    <<- if kindIs "map" $in >>
+    <<-   $ul = default (list) (index $in "users") >>
+    <<- else if or (kindIs "slice" $in) (kindIs "array" $in) >>
+    <<-   $ul = $in >>
+    <<- end >>
+    <<- $users = concat $users $ul >>
+    <<- end >>
     apiVersion: external-secrets.io/v1
     kind: ExternalSecret
     metadata:
@@ -35,12 +46,12 @@ spec:
           type: Opaque
           data:
             acl.conf: |
-              <<- range $u := inputs.users >>
+              <<- range $u := $users >>
               ACL SETUSER << $u >> NAMESPACE:<< $u >> ON >{{ index . "password_<< $u >>" }} +@all ~*
               <<- end >>
 
       dataFrom:
-        <<- range $u := inputs.users >>
+        <<- range $u := $users >>
         - sourceRef:
             generatorRef:
               apiVersion: generators.external-secrets.io/v1alpha1
