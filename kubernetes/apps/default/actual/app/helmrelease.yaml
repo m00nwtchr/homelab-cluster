@@ -24,6 +24,23 @@ spec:
             runAsUser: 2000
 
         containers:
+          # actual-flow:
+          #   image:
+          #     repository: ghcr.io/actualbudget/actual
+          #     tag: 26.3.0@sha256:eb8bc26f53025e07e464594c12d77c52c4b95840c8dadd9b95c4f0c4660f8ad2
+          #   env:
+          #     ACTUAL_PORT: &httpPort 5006
+          #     ACTUAL_OPENID_DISCOVERY_URL: "https://idm.${SECRET_DOMAIN}/oauth2/openid/{{ .Release.Name }}/.well-known/openid-configuration"
+          #     ACTUAL_OPENID_CLIENT_ID: *app
+          #     ACTUAL_OPENID_CLIENT_SECRET:
+          #       valueFrom:
+          #         secretKeyRef:
+          #           name: "kanidm-{{ .Release.Name }}-oidc"
+          #           key: client-secret
+          #     ACTUAL_OPENID_SERVER_HOSTNAME: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+          #     ACTUAL_OPENID_ENFORCE: "false"
+          #     ACTUAL_TOKEN_EXPIRATION: "openid-provider"
+          #     ACTUAL_USER_CREATION_MODE: "login"
           app:
             image:
               repository: ghcr.io/actualbudget/actual
@@ -38,7 +55,7 @@ spec:
                     name: "kanidm-{{ .Release.Name }}-oidc"
                     key: client-secret
               ACTUAL_OPENID_SERVER_HOSTNAME: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
-              ACTUAL_OPENID_ENFORCE: "true"
+              ACTUAL_OPENID_ENFORCE: "false"
               ACTUAL_TOKEN_EXPIRATION: "openid-provider"
               ACTUAL_USER_CREATION_MODE: "login"
             probes:
