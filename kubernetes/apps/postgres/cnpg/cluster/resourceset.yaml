@@ -97,7 +97,8 @@ spec:
                 reference: ghcr.io/shusaan/timescaledb-testing:2.23.1-18-trixie@sha256:4709935bed4cce5977bc4b1858a94e2e80f22f0303217163a9e97b8898e33ee2
 
         managed:
-          roles: <<- $users := list >>
+          roles:
+            <<- $users := list >>
             <<- range $in := (values inputs) >>
             <<-   if kindIs "string" $in >>
             <<-     $users = concat $users (list $in) >>
@@ -113,12 +114,12 @@ spec:
             <<- $roles := list >>
             <<- range $u := $users >>
             <<-   $roles = concat $roles (list (dict
-            "name" $u
-            "ensure" "present"
-            "login" true
-            "superuser" false
-            "disablePassword" true
-            )) >>
+                  "name" $u
+                  "ensure" "present"
+                  "login" true
+                  "superuser" false
+                  "disablePassword" true
+                )) >>
             <<- end >>
 
             <<- toYaml $roles | nindent 12 >>
