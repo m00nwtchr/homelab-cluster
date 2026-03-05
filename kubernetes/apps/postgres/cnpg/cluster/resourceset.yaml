@@ -2,7 +2,7 @@
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
 metadata:
-  name: &name postgres-test
+  name: postgres-test
   annotations:
     fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "30m"
@@ -12,7 +12,8 @@ spec:
     name: Permute
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *name
+      app.kubernetes.io/name: postgres-test
+
   inputs:
     - user: pooler-rw
   inputsFrom:
@@ -21,105 +22,83 @@ spec:
       selector:
         matchLabels:
           postgresql.cnpg.io/role: "true"
-  resources:
-    - apiVersion: postgresql.cnpg.io/v1
-      kind: Cluster
-      metadata:
-        name: *name
-        namespace: postgres
-        # annotations:
-        #   cnpg.io/skipEmptyWalArchiveCheck: enabled
-      spec:
-        instances: 1
 
-        imageName: ghcr.io/cloudnative-pg/postgresql:18.1-standard-trixie@sha256:ec0c0d60f9462b49f4c6f2403fd680ac43a063fc793f5d570a21a3cea8e627b5
+  resourcesTemplate: |
+    apiVersion: postgresql.cnpg.io/v1
+    kind: Cluster
+    metadata:
+      name: postgres-test
+      namespace: postgres
+    spec:
+      instances: 1
 
-        certificates:
-          serverCASecret: postgres-server-cert
-          serverTLSSecret: postgres-server-cert
-          clientCASecret: postgres-client-ca
-          replicationTLSSecret: postgres-client-cert
+      imageName: ghcr.io/cloudnative-pg/postgresql:18.1-standard-trixie@sha256:ec0c0d60f9462b49f4c6f2403fd680ac43a063fc793f5d570a21a3cea8e627b5
 
-        storage:
-          size: 8Gi
+      certificates:
+        serverCASecret: postgres-server-cert
+        serverTLSSecret: postgres-server-cert
+        clientCASecret: postgres-client-ca
+        replicationTLSSecret: postgres-client-cert
 
-        # bootstrap:
-        #   recovery:
-        #     source: &src source
-        #     recoveryTarget:
-        #       targetTLI: "1"
+      storage:
+        size: 8Gi
 
-        # plugins:
-        #   - name: &plugin barman-cloud.cloudnative-pg.io
-        #     isWALArchiver: true
-        #     parameters:
-        #       barmanObjectName: &store garage-store
+      monitoring:
+        enablePodMonitor: true
 
-        # externalClusters:
-        #   - name: *src
-        #     plugin:
-        #       name: *plugin
-        #       parameters:
-        #         barmanObjectName: *store
-        #         serverName: postgres
+      postgresql:
+        pg_hba:
+          - hostssl all all all cert clientcert=verify-full map=pooler-map
+        pg_ident:
+          - pooler-map pooler-rw all
 
-        monitoring:
-          enablePodMonitor: true
+        shared_preload_libraries:
+          - "vchord.so"
+          - "timescaledb"
+        parameters:
+          timescaledb.telemetry_level: "off"
+          max_locks_per_transaction: "128"
 
-        postgresql:
-          pg_hba:
-            - hostssl all all all cert clientcert=verify-full map=pooler-map
-          pg_ident:
-            - pooler-map pooler-rw all
+        extensions:
+          - name: postgis
+            ld_library_path:
+              - system
+            image:
+              reference: ghcr.io/cloudnative-pg/postgis-extension-testing:3.6.0-18-trixie@sha256:ec21540f5799561a9b05ca188fd28ce32852a826f48d80329260940855f5f558
+          - name: vchord
+            image:
+              reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3@sha256:c310ede47f7f82bd257c3e53806d60680d5899c318ca946fb313efad9a90a78e
+            dynamic_library_path:
+              - /usr/lib/postgresql/18/lib
+            extension_control_path:
+              - /usr/share/postgresql/18/
+          - name: timescaledb
+            image:
+              reference: ghcr.io/shusaan/timescaledb-testing:2.23.1-18-trixie@sha256:4709935bed4cce5977bc4b1858a94e2e80f22f0303217163a9e97b8898e33ee2
 
-          shared_preload_libraries:
-            - "vchord.so"
-            - "timescaledb"
-          parameters:
-            timescaledb.telemetry_level: "off"
-            max_locks_per_transaction: "128"
+      managed:
+        roles:
+    <<- $users := list >>
+    <<- range $in := (values inputs) >>
+    <<-   if kindIs "string" $in >>
+    <<-     $users = concat $users (list $in) >>
+    <<-   else if kindIs "map" $in >>
+    <<-     $u := index $in "user" >>
+    <<-     if $u >>
+    <<-       $users = concat $users (list $u) >>
+    <<-     end >>
+    <<-   end >>
+    <<- end >>
+    <<- $users = $users | compact | uniq | sortAlpha >>
 
-          extensions:
-            - name: postgis
-              ld_library_path:
-                - system
-              image:
-                reference: ghcr.io/cloudnative-pg/postgis-extension-testing:3.6.0-18-trixie@sha256:ec21540f5799561a9b05ca188fd28ce32852a826f48d80329260940855f5f558
-            - name: vchord
-              image:
-                reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3@sha256:c310ede47f7f82bd257c3e53806d60680d5899c318ca946fb313efad9a90a78e
-              dynamic_library_path:
-                - /usr/lib/postgresql/18/lib
-              extension_control_path:
-                - /usr/share/postgresql/18/
-            - name: timescaledb
-              image:
-                reference: ghcr.io/shusaan/timescaledb-testing:2.23.1-18-trixie@sha256:4709935bed4cce5977bc4b1858a94e2e80f22f0303217163a9e97b8898e33ee2
-
-        managed:
-          roles:
-            <<- $users := list >>
-            <<- range $in := (values inputs) >>
-            <<-   if kindIs "string" $in >>
-            <<-     $users = concat $users (list $in) >>
-            <<-   else if kindIs "map" $in >>
-            <<-     $u := index $in "user" >>
-            <<-     if $u >>
-            <<-       $users = concat $users (list $u) >>
-            <<-     end >>
-            <<-   end >>
-            <<- end >>
-            <<- $users = $users | compact | uniq | sortAlpha >>
-
-            <<- $roles := list >>
-            <<- range $u := $users >>
-            <<-   $roles = concat $roles (list (dict
-                  "name" $u
-                  "ensure" "present"
-                  "login" true
-                  "superuser" false
-                  "disablePassword" true
-                )) >>
-            <<- end >>
-
-            <<- toYaml $roles | nindent 10 >>
+    <<- $roles := list >>
+    <<- range $u := $users >>
+    <<-   $roles = concat $roles (list (dict
+            "name" $u
+            "ensure" "present"
+            "login" true
+            "superuser" false
+            "disablePassword" true
+          )) >>
+    <<- end >>
+    <<- toYaml $roles | nindent 10 >>
