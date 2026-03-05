@@ -63,6 +63,9 @@ spec:
         #         barmanObjectName: *store
         #         serverName: postgres
 
+        monitoring:
+          enablePodMonitor: true
+
         postgresql:
           pg_hba:
             - hostssl all all all cert clientcert=verify-full map=pooler-map
@@ -94,25 +97,28 @@ spec:
                 reference: ghcr.io/shusaan/timescaledb-testing:2.23.1-18-trixie@sha256:4709935bed4cce5977bc4b1858a94e2e80f22f0303217163a9e97b8898e33ee2
 
         managed:
-          roles: <<- $users := list ->>
-            <<- range $in := (values inputs) ->>
-            <<-   if kindIs "string" $in ->>
-            <<-     $users = append $users $in ->>
-            <<-   else if kindIs "map" $in ->>
-            <<-     $users = append $users (get $in "user") ->>
-            <<-   end ->>
-            <<- end ->>
-            <<- $users = $users | compact | uniq | sortAlpha ->>
+          roles: <<- $users := list >>
+            <<- range $in := (values inputs) >>
+            <<-   if kindIs "string" $in >>
+            <<-     $users = concat $users (list $in) >>
+            <<-   else if kindIs "map" $in >>
+            <<-     $u := index $in "user" >>
+            <<-     if $u >>
+            <<-       $users = concat $users (list $u) >>
+            <<-     end >>
+            <<-   end >>
+            <<- end >>
+            <<- $users = $users | compact | uniq | sortAlpha >>
 
-            <<- $roles := list ->>
-            <<- range $u := $users ->>
-            <<-   $roles = append $roles (dict
+            <<- $roles := list >>
+            <<- range $u := $users >>
+            <<-   $roles = concat $roles (list (dict
             "name" $u
             "ensure" "present"
             "login" true
             "superuser" false
             "disablePassword" true
-            ) ->>
-            <<- end ->>
+            )) >>
+            <<- end >>
 
-            <<- toYaml $roles | nindent 10 ->>
+            <<- toYaml $roles | nindent 12 >>
