@@ -102,10 +102,8 @@ spec:
       managed:
         roles:
           <<- $roleNames := list >>
-          <<- range $in := (values inputs) >>
-          <<-   if kindIs "string" $in >>
-          <<-     $roleNames = concat $roleNames (list $in) >>
-          <<-   else if kindIs "map" $in >>
+          <<- range $k, $in := inputs >>
+          <<-   if kindIs "map" $in >>
           <<-     $r := index $in "role" >>
           <<-     if $r >>
           <<-       $roleNames = concat $roleNames (list $r) >>
