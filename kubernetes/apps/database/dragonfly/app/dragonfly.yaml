@@ -6,6 +6,7 @@ metadata:
   name: dragonfly
 spec:
   replicas: 1
+  image: ghcr.io/dragonflydb/dragonfly:v1.37.0@sha256:84b1009aee0b68327758bce8e99ed514f782d713353acc46caf5738feaa481d6
   args:
     - "--bind=::"
     - "--admin_bind=::"
