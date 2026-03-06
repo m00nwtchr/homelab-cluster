@@ -26,6 +26,7 @@ patches:
                     group: apps
                     version: v1
                     kind: Deployment
+                    labelSelector: 'm00nlit.dev/no-dragonfly-stunnel!=true'
                   patch: |-
                     apiVersion: apps/v1
                     kind: Deployment
@@ -76,6 +77,7 @@ patches:
                     group: apps
                     version: v1
                     kind: StatefulSet
+                    labelSelector: 'm00nlit.dev/no-dragonfly-stunnel!=true'
                   patch: |-
                     apiVersion: apps/v1
                     kind: StatefulSet

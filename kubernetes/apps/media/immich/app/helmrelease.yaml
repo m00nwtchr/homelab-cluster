@@ -74,6 +74,10 @@ spec:
       controllers:
         main:
           strategy: Recreate
+
+          labels:
+            m00nlit.dev/no-dragonfly-stunnel: "true"
+
           containers:
             main:
               # krr: controller=machine-learning container=main
