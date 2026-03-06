@@ -13,6 +13,11 @@ spec:
   values:
     controllers:
       *app :
+        pod:
+          securityContext:
+            fsGroup: 65532
+            fsGroupChangePolicy: OnRootMismatch
+
         containers:
           app: &bapp
             image:
@@ -22,11 +27,7 @@ spec:
               # RAILS_ENV: production
               RAILS_ENV: development
               TIME_ZONE: "${TZ}"
-              REDIS_URL:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-dragonfly"
-                    key: url
+              REDIS_URL: redis://localhost:6379
               APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}"
               APPLICATION_PROTOCOL: http
               MIN_MINUTES_SPENT_IN_CITY: 60

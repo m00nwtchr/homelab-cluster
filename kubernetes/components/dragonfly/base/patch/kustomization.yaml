@@ -43,30 +43,24 @@ patches:
             dragonfly-stunnel:
               type: configMap
               name: "dragonfly-{{ .Release.Name }}-stunnel"
-              advancedMounts:
-                ${APP}:
-                  dragonfly-stunnel:
-                    - path: /etc/stunnel/stunnel.conf
-                      subPath: stunnel.conf
-                      readOnly: true
+              globalMounts:
+                - path: /etc/stunnel/stunnel.conf
+                  subPath: stunnel.conf
+                  readOnly: true
 
             dragonfly-certs:
               type: secret
               name: "dragonfly-{{ .Release.Name }}-cert"
               defaultMode: 0440
-              advancedMounts:
-                ${APP}:
-                  dragonfly-stunnel:
-                    - path: /var/run/secrets/dragonfly
-                      readOnly: true
+              globalMounts:
+                - path: /var/run/secrets/dragonfly
+                  readOnly: true
             root-ca:
               type: configMap
               name: root-ca
               defaultMode: 0440
-              advancedMounts:
-                ${APP}:
-                  dragonfly-stunnel:
-                    - path: /var/run/secrets/dragonfly
-                      readOnly: true
+              globalMounts:
+                - path: /var/run/secrets/root-ca
+
 resources:
   - ./stunnel.yaml
