@@ -37,12 +37,12 @@ spec:
       memory: 512Mi
 
   authentication:
-    passwordFromSecret:
-      key: client-secret
-      name: kanidm-vernemq-oidc
-  #   clientCaCertSecret:
-  #     name: dragonfly-client-ca
-  #     key: ca.crt
+    # passwordFromSecret:
+    #   key: client-secret
+    #   name: kanidm-vernemq-oidc
+    clientCaCertSecret:
+      name: dragonfly-client-ca
+      key: ca.crt
 
   tlsSecretRef:
     name: dragonfly-server-cert
