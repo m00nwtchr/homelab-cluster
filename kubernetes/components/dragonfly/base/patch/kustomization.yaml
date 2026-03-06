@@ -44,3 +44,9 @@ patches:
               defaultMode: 0440
               globalMounts:
                 - path: /var/run/secrets/dragonfly
+            root-ca:
+              type: configMap
+              name: root-ca
+              defaultMode: 0440
+              globalMounts:
+                - path: /var/run/secrets/root-ca
