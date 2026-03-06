@@ -80,6 +80,9 @@ spec:
               readOnlyRootFilesystem: true
 
       jwt:
+        labels:
+          m00nlit.dev/no-dragonfly-stunnel: "true"
+
         containers:
           app:
             image:
