@@ -101,27 +101,28 @@ spec:
 
       managed:
         roles:
-    <<- $roles := list >>
-    <<- range $in := (values inputs) >>
-    <<-   if kindIs "string" $in >>
-    <<-     $roles = concat $roles (list $in) >>
-    <<-   else if kindIs "map" $in >>
-    <<-     $u := index $in "role" >>
-    <<-     if $u >>
-    <<-       $roles = concat $roles (list $u) >>
-    <<-     end >>
-    <<-   end >>
-    <<- end >>
-    <<- $roles = $roles | compact | uniq | sortAlpha >>
+          <<- $roleNames := list >>
+          <<- range $in := (values inputs) >>
+          <<-   if kindIs "string" $in >>
+          <<-     $roleNames = concat $roleNames (list $in) >>
+          <<-   else if kindIs "map" $in >>
+          <<-     $r := index $in "role" >>
+          <<-     if $r >>
+          <<-       $roleNames = concat $roleNames (list $r) >>
+          <<-     end >>
+          <<-   end >>
+          <<- end >>
+          <<- $roleNames = $roleNames | compact | uniq | sortAlpha >>
 
-    <<- $roles := list >>
-    <<- range $u := $roles >>
-    <<-   $roles = concat $roles (list (dict
-            "name" $u
-            "ensure" "present"
-            "login" true
-            "superuser" false
-            "disablePassword" true
-          )) >>
-    <<- end >>
-    <<- toYaml $roles | nindent 10 >>
+          <<- $roleObjs := list >>
+          <<- range $r := $roleNames >>
+          <<-   $roleObjs = concat $roleObjs (list (dict
+                "name" $r
+                "ensure" "present"
+                "login" true
+                "superuser" false
+                "disablePassword" true
+              )) >>
+          <<- end >>
+
+          <<- toYaml $roleObjs | nindent 10 >>
