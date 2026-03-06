@@ -37,16 +37,52 @@ patches:
               - name: k8s.ksgate.org/dragonfly-ready
               - name: k8s.ksgate.org/dragonfly-service
 
+          controllers:
+            ${APP}:
+              containers:
+                dragonfly-stunnel:
+                  image:
+                    repository: chainguard/stunnel
+                    tag: latest@sha256:95931468f1958f3db553daffecb9e2d59d876baee59bf3298125608dfe885d03
+                  args:
+                    - /etc/stunnel/stunnel.conf
+                  securityContext:
+                    allowPrivilegeEscalation: false
+                    readOnlyRootFilesystem: true
+                    capabilities:
+                      drop:
+                        - ALL
+                    seccompProfile:
+                      type: RuntimeDefault
+
           persistence:
+            dragonfly-stunnel:
+              type: configMap
+              name: "dragonfly-{{ .Release.Name }}-stunnel"
+              advancedMounts:
+                ${APP}:
+                  dragonfly-stunnel:
+                    - path: /etc/stunnel/stunnel.conf
+                      subPath: stunnel.conf
+                      readOnly: true
+
             dragonfly-certs:
               type: secret
               name: "dragonfly-{{ .Release.Name }}-cert"
               defaultMode: 0440
-              globalMounts:
-                - path: /var/run/secrets/dragonfly
+              advancedMounts:
+                ${APP}:
+                  dragonfly-stunnel:
+                    - path: /var/run/secrets/dragonfly
+                      readOnly: true
             root-ca:
               type: configMap
               name: root-ca
               defaultMode: 0440
-              globalMounts:
-                - path: /var/run/secrets/root-ca
+              advancedMounts:
+                ${APP}:
+                  dragonfly-stunnel:
+                    - path: /var/run/secrets/dragonfly
+                      readOnly: true
+resources:
+  - ./stunnel.yaml
