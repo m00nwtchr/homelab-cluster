@@ -1,0 +1,34 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+# openapi:
+#   path: http://crd-patcher.default.svc/definitions.json?crd=helm.toolkit.fluxcd.io.v2.HelmRelease&extraProp=helm.toolkit.fluxcd.io.v2.HelmRelease:spec.values.defaultPodOptions.schedulingGates
+configMapGenerator:
+  - name: dragonfly-stunnel
+    files:
+      - ./stunnel.conf
+configurations:
+  - ./kustomizeconfig.yaml
+patches:
+  - target:
+      kind: HelmRelease
+      group: helm.toolkit.fluxcd.io
+      version: v2
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: not-used
+        labels:
+          m00nlit.dev/inject-dragonfly-stunnel: "true"
+      spec:
+        values:
+          persistence:
+            dragonfly-stunnel:
+              type: configMap
+              name: dragonfly-stunnel
+              globalMounts:
+                - path: /etc/stunnel/stunnel.conf
+                  subPath: stunnel.conf
+                  readOnly: true
