@@ -41,9 +41,9 @@ spec:
         - notification-controller
       sync:
         kind: GitRepository
-        url: https://github.com/m00nwtchr/homelab-cluster.git
-        # url: "ssh://git@forgejo-ssh.gitea.svc.cluster.local/m00n/homelab-cluster.git"
-        # pullSecret: deploy-key
+        # url: https://github.com/m00nwtchr/homelab-cluster.git
+        url: "ssh://git@forgejo-ssh.gitea.svc.cluster.local/m00n/homelab-cluster.git"
+        pullSecret: deploy-key
         ref: "refs/heads/master"
         path: kubernetes/flux/cluster
         interval: 1h
