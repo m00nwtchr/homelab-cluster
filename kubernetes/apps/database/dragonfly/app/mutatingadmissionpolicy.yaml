@@ -27,8 +27,14 @@ spec:
       expression: >
         (
           "main" in object.spec.values.controllers
-            ? !("dragonfly-stunnel" in object.spec.values.controllers["main"])
-            : !("dragonfly-stunnel" in object.spec.values.controllers[object.metadata.name])
+            ? (
+                has(object.spec.values.controllers["main"].containers) &&
+                "dragonfly-stunnel" in object.spec.values.controllers["main"].containers
+              ) == false
+            : (
+                has(object.spec.values.controllers[object.metadata.name].containers) &&
+                "dragonfly-stunnel" in object.spec.values.controllers[object.metadata.name].containers
+              ) == false
         )
   mutations:
     - patchType: JSONPatch
@@ -39,16 +45,16 @@ spec:
               op: "add",
               path:
                 "main" in object.spec.values.controllers
-                  ? "/spec/values/controllers/main/dragonfly-stunnel"
-                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/dragonfly-stunnel",
+                  ? "/spec/values/controllers/main/containers/dragonfly-stunnel"
+                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/containers/dragonfly-stunnel",
               value: {}
             },
             JSONPatch{
               op: "add",
               path:
                 "main" in object.spec.values.controllers
-                  ? "/spec/values/controllers/main/dragonfly-stunnel/image"
-                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/dragonfly-stunnel/image",
+                  ? "/spec/values/controllers/main/containers/dragonfly-stunnel/image"
+                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/containers/dragonfly-stunnel/image",
               value: {
                 "repository": "chainguard/stunnel",
                 "tag": "latest@sha256:95931468f1958f3db553daffecb9e2d59d876baee59bf3298125608dfe885d03"
@@ -58,8 +64,8 @@ spec:
               op: "add",
               path:
                 "main" in object.spec.values.controllers
-                  ? "/spec/values/controllers/main/dragonfly-stunnel/args"
-                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/dragonfly-stunnel/args",
+                  ? "/spec/values/controllers/main/containers/dragonfly-stunnel/args"
+                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/containers/dragonfly-stunnel/args",
               value: [
                 "/etc/stunnel/stunnel.conf"
               ]
@@ -68,40 +74,40 @@ spec:
               op: "add",
               path:
                 "main" in object.spec.values.controllers
-                  ? "/spec/values/controllers/main/dragonfly-stunnel/securityContext"
-                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/dragonfly-stunnel/securityContext",
+                  ? "/spec/values/controllers/main/containers/dragonfly-stunnel/securityContext"
+                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/containers/dragonfly-stunnel/securityContext",
               value: {}
             },
             JSONPatch{
               op: "add",
               path:
                 "main" in object.spec.values.controllers
-                  ? "/spec/values/controllers/main/dragonfly-stunnel/securityContext/allowPrivilegeEscalation"
-                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/dragonfly-stunnel/securityContext/allowPrivilegeEscalation",
+                  ? "/spec/values/controllers/main/containers/dragonfly-stunnel/securityContext/allowPrivilegeEscalation"
+                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/containers/dragonfly-stunnel/securityContext/allowPrivilegeEscalation",
               value: false
             },
             JSONPatch{
               op: "add",
               path:
                 "main" in object.spec.values.controllers
-                  ? "/spec/values/controllers/main/dragonfly-stunnel/securityContext/readOnlyRootFilesystem"
-                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/dragonfly-stunnel/securityContext/readOnlyRootFilesystem",
+                  ? "/spec/values/controllers/main/containers/dragonfly-stunnel/securityContext/readOnlyRootFilesystem"
+                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/containers/dragonfly-stunnel/securityContext/readOnlyRootFilesystem",
               value: true
             },
             JSONPatch{
               op: "add",
               path:
                 "main" in object.spec.values.controllers
-                  ? "/spec/values/controllers/main/dragonfly-stunnel/securityContext/capabilities"
-                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/dragonfly-stunnel/securityContext/capabilities",
+                  ? "/spec/values/controllers/main/containers/dragonfly-stunnel/securityContext/capabilities"
+                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/containers/dragonfly-stunnel/securityContext/capabilities",
               value: {}
             },
             JSONPatch{
               op: "add",
               path:
                 "main" in object.spec.values.controllers
-                  ? "/spec/values/controllers/main/dragonfly-stunnel/securityContext/capabilities/drop"
-                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/dragonfly-stunnel/securityContext/capabilities/drop",
+                  ? "/spec/values/controllers/main/containers/dragonfly-stunnel/securityContext/capabilities/drop"
+                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/containers/dragonfly-stunnel/securityContext/capabilities/drop",
               value: [
                 "ALL"
               ]
@@ -110,16 +116,16 @@ spec:
               op: "add",
               path:
                 "main" in object.spec.values.controllers
-                  ? "/spec/values/controllers/main/dragonfly-stunnel/securityContext/seccompProfile"
-                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/dragonfly-stunnel/securityContext/seccompProfile",
+                  ? "/spec/values/controllers/main/containers/dragonfly-stunnel/securityContext/seccompProfile"
+                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/containers/dragonfly-stunnel/securityContext/seccompProfile",
               value: {}
             },
             JSONPatch{
               op: "add",
               path:
                 "main" in object.spec.values.controllers
-                  ? "/spec/values/controllers/main/dragonfly-stunnel/securityContext/seccompProfile/type"
-                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/dragonfly-stunnel/securityContext/seccompProfile/type",
+                  ? "/spec/values/controllers/main/containers/dragonfly-stunnel/securityContext/seccompProfile/type"
+                  : "/spec/values/controllers/" + jsonpatch.escapeKey(object.metadata.name) + "/containers/dragonfly-stunnel/securityContext/seccompProfile/type",
               value: "RuntimeDefault"
             }
           ]
