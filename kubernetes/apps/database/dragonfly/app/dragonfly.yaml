@@ -41,5 +41,5 @@ spec:
   #     name: dragonfly-client-ca
   #     key: ca.crt
 
-  # tlsSecretRef:
-  #   name: dragonfly-server-cert
+  tlsSecretRef:
+    name: dragonfly-server-cert
