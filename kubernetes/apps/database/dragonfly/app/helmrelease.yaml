@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: ghcr.io/m00nwtchr/dfguard
-              tag: rolling
+              tag: 0.1.1@sha256:3a346bc0e6ca9add83d394e3442eee264934c41dd44e599a9a6713f8e337d227
             args:
               - --listen
               - "[::]:6380"
