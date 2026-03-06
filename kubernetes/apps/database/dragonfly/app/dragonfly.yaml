@@ -16,9 +16,6 @@ spec:
     - --lock_on_hashtags
     - --default_lua_flags=allow-undeclared-keys
 
-  labels:
-    role: master # Bug when replicas=1
-
   aclFromSecret:
     key: acl.conf
     name: dragonfly-acls
@@ -37,9 +34,6 @@ spec:
       memory: 512Mi
 
   authentication:
-    # passwordFromSecret:
-    #   key: client-secret
-    #   name: kanidm-vernemq-oidc
     clientCaCertSecret:
       name: dragonfly-client-ca
       key: ca.crt
