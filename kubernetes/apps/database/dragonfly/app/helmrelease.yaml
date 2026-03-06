@@ -19,7 +19,7 @@ spec:
         runAsGroup: 65532
         fsGroup: 65532
     controllers:
-      dfguard:
+      *app :
         containers:
           app:
             image:
