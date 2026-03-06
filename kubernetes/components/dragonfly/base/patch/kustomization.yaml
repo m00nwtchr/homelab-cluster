@@ -4,6 +4,12 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 # openapi:
 #   path: http://crd-patcher.default.svc/definitions.json?crd=helm.toolkit.fluxcd.io.v2.HelmRelease&extraProp=helm.toolkit.fluxcd.io.v2.HelmRelease:spec.values.defaultPodOptions.schedulingGates
+configMapGenerator:
+  - name: dragonfly-stunnel
+    files:
+      - ./stunnel.conf
+configurations:
+  - ./kustomizeconfig.yaml
 patches:
   - target:
       kind: HelmRelease
@@ -42,7 +48,7 @@ patches:
           persistence:
             dragonfly-stunnel:
               type: configMap
-              name: "dragonfly-{{ .Release.Name }}-stunnel"
+              name: dragonfly-stunnel
               globalMounts:
                 - path: /etc/stunnel/stunnel.conf
                   subPath: stunnel.conf
@@ -61,6 +67,3 @@ patches:
               defaultMode: 0440
               globalMounts:
                 - path: /var/run/secrets/root-ca
-
-resources:
-  - ./stunnel.yaml
