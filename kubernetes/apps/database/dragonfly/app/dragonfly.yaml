@@ -15,14 +15,12 @@ spec:
     - --lock_on_hashtags
     - --default_lua_flags=allow-undeclared-keys
 
-  resources:
-    requests:
-      cpu: 100m
-    limits:
-      memory: 512Mi
-
   labels:
     role: master # Bug when replicas=1
+
+  aclFromSecret:
+    key: acl.conf
+    name: dragonfly-acls
 
   env:
     - name: MAX_MEMORY
@@ -30,3 +28,17 @@ spec:
         resourceFieldRef:
           resource: limits.memory
           divisor: 1Mi
+
+  resources:
+    requests:
+      cpu: 100m
+    limits:
+      memory: 512Mi
+
+  authentication:
+    clientCaCertSecret:
+      name: dragonfly-client-ca
+      key: ca.crt
+
+  tlsSecretRef:
+    name: dragonfly-server-cert
