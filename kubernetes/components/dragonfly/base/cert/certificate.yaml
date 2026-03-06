@@ -8,8 +8,13 @@ spec:
   secretName: dragonfly-${APP}-cert
   usages:
     - client auth
-  commonName: ${REDIS_OWNER:=${APP}}
+  commonName: ${DATABASE_OWNER:=${APP}}
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    encoding: PKCS8
+    rotationPolicy: Always
   issuerRef:
-    name: dragonfly-client-ca-issuer
+    name: dfguard-client-ca
     kind: ClusterIssuer
     group: cert-manager.io
