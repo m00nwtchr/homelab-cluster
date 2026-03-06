@@ -27,10 +27,10 @@ spec:
     apiVersion: postgresql.cnpg.io/v1
     kind: Cluster
     metadata:
-      name: postgres
+      name: postgres-test
       namespace: postgres
       annotations:
-        cnpg.io/skipEmptyWalArchiveCheck: enabled
+        # cnpg.io/skipEmptyWalArchiveCheck: enabled
         kustomize.toolkit.fluxcd.io/prune: disabled
     spec:
       instances: 1
@@ -46,25 +46,25 @@ spec:
       storage:
         size: 8Gi
 
-      bootstrap:
-        recovery:
-          source: &src source
-          recoveryTarget:
-            targetTLI: "1"
+      # bootstrap:
+      #   recovery:
+      #     source: &src source
+      #     recoveryTarget:
+      #       targetTLI: "1"
 
-      plugins:
-        - name: &plugin barman-cloud.cloudnative-pg.io
-          isWALArchiver: true
-          parameters:
-            barmanObjectName: &store garage-store
+      # plugins:
+      #   - name: &plugin barman-cloud.cloudnative-pg.io
+      #     isWALArchiver: true
+      #     parameters:
+      #       barmanObjectName: &store garage-store
 
-      externalClusters:
-        - name: *src
-          plugin:
-            name: *plugin
-            parameters:
-              barmanObjectName: *store
-              serverName: postgres
+      # externalClusters:
+      #   - name: *src
+      #     plugin:
+      #       name: *plugin
+      #       parameters:
+      #         barmanObjectName: *store
+      #         serverName: postgres
 
       monitoring:
         enablePodMonitor: true
