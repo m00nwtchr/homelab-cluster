@@ -8,4 +8,5 @@ resources:
   - helmrelease.yaml
   - issuer.yaml
   - podmonitor.yaml
+  - mutatingadmissionpolicy.yaml
   - resourceset.yaml
