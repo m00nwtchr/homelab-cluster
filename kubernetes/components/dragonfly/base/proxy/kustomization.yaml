@@ -2,14 +2,12 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-# openapi:
-#   path: http://crd-patcher.default.svc/definitions.json?crd=helm.toolkit.fluxcd.io.v2.HelmRelease&extraProp=helm.toolkit.fluxcd.io.v2.HelmRelease:spec.values.defaultPodOptions.schedulingGates
 configMapGenerator:
   - name: dragonfly-stunnel
     files:
       - ./stunnel.conf
-configurations:
-  - ./kustomizeconfig.yaml
+    options:
+      disableNameSuffixHash: true
 patches:
   - target:
       kind: HelmRelease
@@ -20,15 +18,106 @@ patches:
       kind: HelmRelease
       metadata:
         name: not-used
-        labels:
-          m00nlit.dev/inject-dragonfly-stunnel: "true"
       spec:
-        values:
-          persistence:
-            dragonfly-stunnel:
-              type: configMap
-              name: dragonfly-stunnel
-              globalMounts:
-                - path: /etc/stunnel/stunnel.conf
-                  subPath: stunnel.conf
-                  readOnly: true
+        postRenderers:
+          - kustomize:
+              patches:
+                - target:
+                    group: apps
+                    version: v1
+                    kind: Deployment
+                  patch: |-
+                    apiVersion: apps/v1
+                    kind: Deployment
+                    metadata:
+                      name: ignored
+                    spec:
+                      template:
+                        spec:
+                          volumes:
+                            - name: dragonfly-stunnel
+                              configMap:
+                                name: dragonfly-stunnel
+                            - name: dragonfly-certs
+                              secret:
+                                secretName: dragonfly-${APP}-cert
+                                defaultMode: 0440
+                            - name: root-ca
+                              configMap:
+                                name: root-ca
+                                defaultMode: 0440
+
+                          containers:
+                            - name: dragonfly-stunnel
+                              image: cgr.dev/chainguard/stunnel:latest@sha256:95931468f1958f3db553daffecb9e2d59d876baee59bf3298125608dfe885d03
+                              args:
+                                - /etc/stunnel/stunnel.conf
+                              volumeMounts:
+                                - name: dragonfly-stunnel
+                                  mountPath: /etc/stunnel/stunnel.conf
+                                  subPath: stunnel.conf
+                                  readOnly: true
+                                - name: dragonfly-certs
+                                  mountPath: /var/run/secrets/dragonfly
+                                  readOnly: true
+                                - name: root-ca
+                                  mountPath: /var/run/secrets/root-ca
+                                  readOnly: true
+                              securityContext:
+                                allowPrivilegeEscalation: false
+                                readOnlyRootFilesystem: true
+                                capabilities:
+                                  drop:
+                                    - ALL
+                                seccompProfile:
+                                  type: RuntimeDefault
+
+                - target:
+                    group: apps
+                    version: v1
+                    kind: StatefulSet
+                  patch: |-
+                    apiVersion: apps/v1
+                    kind: StatefulSet
+                    metadata:
+                      name: ignored
+                    spec:
+                      template:
+                        spec:
+                          volumes:
+                            - name: dragonfly-stunnel
+                              configMap:
+                                name: dragonfly-stunnel
+                            - name: dragonfly-certs
+                              secret:
+                                secretName: dragonfly-${APP}-cert
+                                defaultMode: 0440
+                            - name: root-ca
+                              configMap:
+                                name: root-ca
+                                defaultMode: 0440
+
+                          containers:
+                            - name: dragonfly-stunnel
+                              image: cgr.dev/chainguard/stunnel:latest@sha256:95931468f1958f3db553daffecb9e2d59d876baee59bf3298125608dfe885d03
+                              args:
+                                - /etc/stunnel/stunnel.conf
+                              volumeMounts:
+                                - name: dragonfly-stunnel
+                                  mountPath: /etc/stunnel/stunnel.conf
+                                  subPath: stunnel.conf
+                                  readOnly: true
+                                - name: dragonfly-certs
+                                  mountPath: /var/run/secrets/dragonfly
+                                  readOnly: true
+                                - name: root-ca
+                                  mountPath: /var/run/secrets/root-ca
+                                  readOnly: true
+                              securityContext:
+                                allowPrivilegeEscalation: false
+                                readOnlyRootFilesystem: true
+                                capabilities:
+                                  drop:
+                                    - ALL
+                                seccompProfile:
+                                  type: RuntimeDefault
