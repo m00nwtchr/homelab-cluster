@@ -8,7 +8,8 @@ spec:
   secretName: dragonfly-${APP}-cert
   usages:
     - client auth
-  commonName: ${DATABASE_OWNER:=${APP}}
+  dnsNames:
+    - ${DATABASE_OWNER:=${APP}}
   privateKey:
     algorithm: ECDSA
     size: 384
