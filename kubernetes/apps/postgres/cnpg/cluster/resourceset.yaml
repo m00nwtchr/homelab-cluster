@@ -2,7 +2,7 @@
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
 metadata:
-  name: postgres-test
+  name: &name postgres
   annotations:
     fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "30m"
@@ -12,23 +12,26 @@ spec:
     name: Permute
   commonMetadata:
     labels:
-      app.kubernetes.io/name: postgres-test
-
+      app.kubernetes.io/name: *name
+    annotations:
+      fluxcd.controlplane.io/prune: disabled
   inputs:
-    - user: pooler-rw
+    - role: pooler-rw
   inputsFrom:
     - apiVersion: fluxcd.controlplane.io/v1
       kind: ResourceSetInputProvider
       selector:
         matchLabels:
           postgresql.cnpg.io/role: "true"
-
   resourcesTemplate: |
     apiVersion: postgresql.cnpg.io/v1
     kind: Cluster
     metadata:
-      name: postgres-test
+      name: postgres
       namespace: postgres
+      annotations:
+        cnpg.io/skipEmptyWalArchiveCheck: enabled
+        kustomize.toolkit.fluxcd.io/prune: disabled
     spec:
       instances: 1
 
@@ -42,6 +45,26 @@ spec:
 
       storage:
         size: 8Gi
+
+      bootstrap:
+        recovery:
+          source: &src source
+          recoveryTarget:
+            targetTLI: "1"
+
+      plugins:
+        - name: &plugin barman-cloud.cloudnative-pg.io
+          isWALArchiver: true
+          parameters:
+            barmanObjectName: &store garage-store
+
+      externalClusters:
+        - name: *src
+          plugin:
+            name: *plugin
+            parameters:
+              barmanObjectName: *store
+              serverName: postgres
 
       monitoring:
         enablePodMonitor: true
@@ -78,21 +101,21 @@ spec:
 
       managed:
         roles:
-    <<- $users := list >>
+    <<- $roles := list >>
     <<- range $in := (values inputs) >>
     <<-   if kindIs "string" $in >>
-    <<-     $users = concat $users (list $in) >>
+    <<-     $roles = concat $roles (list $in) >>
     <<-   else if kindIs "map" $in >>
-    <<-     $u := index $in "user" >>
+    <<-     $u := index $in "role" >>
     <<-     if $u >>
-    <<-       $users = concat $users (list $u) >>
+    <<-       $roles = concat $roles (list $u) >>
     <<-     end >>
     <<-   end >>
     <<- end >>
-    <<- $users = $users | compact | uniq | sortAlpha >>
+    <<- $roles = $roles | compact | uniq | sortAlpha >>
 
     <<- $roles := list >>
-    <<- range $u := $users >>
+    <<- range $u := $roles >>
     <<-   $roles = concat $roles (list (dict
             "name" $u
             "ensure" "present"
