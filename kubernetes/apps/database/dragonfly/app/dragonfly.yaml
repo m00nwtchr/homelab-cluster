@@ -36,7 +36,10 @@ spec:
     limits:
       memory: 512Mi
 
-  # authentication:
+  authentication:
+    passwordFromSecret:
+      key: client-secret
+      name: kanidm-vernemq-oidc
   #   clientCaCertSecret:
   #     name: dragonfly-client-ca
   #     key: ca.crt
