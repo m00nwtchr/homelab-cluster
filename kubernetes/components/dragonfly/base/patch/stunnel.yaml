@@ -11,7 +11,8 @@ data:
     [redis-mtls]
     accept = 0.0.0.0:6379
     connect = dfguard.database.svc:6379
+    checkHost = dfguard.database.svc
     cert = /var/run/secrets/dragonfly/tls.crt
     key = /var/run/secrets/dragonfly/tls.key
     CAfile = /var/run/secrets/root-ca/ca.crt
-    verify = 2
+    verify = 4
