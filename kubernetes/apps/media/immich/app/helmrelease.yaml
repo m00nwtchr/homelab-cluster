@@ -37,8 +37,7 @@ spec:
                   secretKeyRef:
                     name: "{{ .Release.Name }}-postgres"
                     key: url
-              REDIS_HOSTNAME: "dragonfly.database.svc"
-              REDIS_DBINDEX: 12
+              REDIS_HOSTNAME: "localhost"
 
     immich:
       metrics:
