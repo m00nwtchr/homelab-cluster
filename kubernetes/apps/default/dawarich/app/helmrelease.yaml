@@ -22,7 +22,11 @@ spec:
               # RAILS_ENV: production
               RAILS_ENV: development
               TIME_ZONE: "${TZ}"
-              REDIS_URL: redis://dragonfly.database.svc
+              REDIS_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-dragonfly"
+                    key: url
               APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}"
               APPLICATION_PROTOCOL: http
               MIN_MINUTES_SPENT_IN_CITY: 60
