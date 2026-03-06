@@ -37,11 +37,10 @@ patches:
               - name: k8s.ksgate.org/dragonfly-ready
               - name: k8s.ksgate.org/dragonfly-service
 
-# asd:
-#           persistence:
-#             postgres-certs:
-#               type: secret
-#               name: "postgres-{{ .Release.Name }}-cert"
-#               defaultMode: 0440
-#               globalMounts:
-#                 - path: /var/run/secrets/postgresql
+          persistence:
+            dragonfly-certs:
+              type: secret
+              name: "dragonfly-{{ .Release.Name }}-cert"
+              defaultMode: 0440
+              globalMounts:
+                - path: /var/run/secrets/dragonfly

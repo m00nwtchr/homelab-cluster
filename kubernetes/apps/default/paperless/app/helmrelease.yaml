@@ -28,7 +28,11 @@ spec:
         containers:
           app:
             env:
-              PAPERLESS_REDIS: redis://dragonfly.database.svc:6379/13
+              PAPERLESS_REDIS:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-dragonfly"
+                    key: url
               PAPERLESS_DBHOST: pooler-rw.postgres.svc.cluster.local
               PGSSLROOTCERT: /var/run/secrets/root-ca/ca.crt
               PGSSLCERT: /var/run/secrets/postgresql/tls.crt
