@@ -28,7 +28,7 @@ spec:
               tag: master@sha256:004b18a6b63a83e88b08fa1c8f6eaca1d608dc17f96ac313466f9e7b41b50cad
             env:
               RUST_LOG: "info"
-              REDIS_URL: redis://dragonfly.database.svc/10
+              REDIS_URL: redis://localhost/10
               POSTGRES_URL:
                 valueFrom:
                   secretKeyRef:
@@ -60,7 +60,7 @@ spec:
               tag: master@sha256:d8f3fe953d9814afbc2a4022a006accc808d2c19a8d677fac1f79901a82624b9
             env: &svc-env
               RUST_LOG: "info"
-              REDIS_URL: redis://dragonfly.database.svc/10
+              REDIS_URL: redis://localhost/10
               POSTGRES_URL: postgresql://rssflow@pooler-rw.postgres.svc/rssflow-websub?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
             probes: *probes
             resources:
