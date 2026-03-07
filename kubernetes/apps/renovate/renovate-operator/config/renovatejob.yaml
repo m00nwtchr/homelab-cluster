@@ -5,14 +5,16 @@ kind: RenovateJob
 metadata:
   name: renovate-forgejo
 spec:
+  schedule: "@hourly"
   discoveryFilter: m00n/*
+  image: ghcr.io/renovatebot/renovate:43.59@sha256:38d2e54e1dafc61c58cb231bca4cb4b0bea7bbc7236589abd56be55eeaee62aa
+  secretRef: renovate-secret
+  provider:
+    name: forgejo
+    endpoint: https://git.${SECRET_DOMAIN}/api/v1
   extraEnv:
     - name: LOG_LEVEL
       value: debug
-    - name: RENOVATE_PLATFORM
-      value: forgejo
-    - name: RENOVATE_ENDPOINT
-      value: https://git.${SECRET_DOMAIN}/api/v1
     - name: RENOVATE_GIT_AUTHOR
       value: "Renovate <renovate@${SECRET_DOMAIN}>"
     - name: RENOVATE_ONBOARDING_CONFIG
@@ -25,13 +27,10 @@ spec:
         }
     - name: RENOVATE_ALLOW_PLUGINS
       value: "true"
-  image: ghcr.io/renovatebot/renovate:43.59@sha256:38d2e54e1dafc61c58cb231bca4cb4b0bea7bbc7236589abd56be55eeaee62aa
   parallelism: 5
   resources:
     requests:
       cpu: 100m
       memory: 128Mi
-  schedule: "@hourly"
-  secretRef: renovate-secret
   webhook:
     enabled: true
