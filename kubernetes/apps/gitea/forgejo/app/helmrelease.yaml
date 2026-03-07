@@ -23,51 +23,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: *app
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              version: v1
-              kind: Deployment
-              name: *app
-            patch: |
-              - op: add
-                path: /spec/template/spec/initContainers/-
-                value:
-                  name: generate-ssh-keys
-                  image: &image ghcr.io/m00nwtchr/ssh-tpm-agent:0.8.0@sha256:21679ac2c857da0b5ef2c3c272c5310ebc157473c12fe83f41af8671633b2e10
-                  imagePullPolicy: IfNotPresent
-                  command:
-                    - "sh"
-                    - "-c"
-                    - >
-                      mkdir -p /data/ssh;
-                      if [ ! -f /data/ssh/id_ecdsa.tpm ]; then
-                        /usr/local/bin/ssh-tpm-keygen -t ecdsa -f /data/ssh/id_ecdsa -N "";
-                      fi
-                  volumeMounts:
-                    - mountPath: /data/
-                      name: data
-                  resources:
-                    limits:
-                      memory: 128Mi
-                      squat.ai/tpmrm: 1
-              - op: add
-                path: /spec/template/spec/containers/-
-                value:
-                  name: ssh-tpm-agent
-                  image: *image
-                  imagePullPolicy: IfNotPresent
-                  volumeMounts:
-                    - mountPath: /var/tmp
-                      name: temp
-                    - mountPath: /.ssh
-                      name: git
-                      subPath: ssh
-                  resources:
-                    limits:
-                      memory: 128Mi
-                      squat.ai/tpmrm: 1
   values:
     httpRoute:
       enabled: true
@@ -230,3 +185,97 @@ spec:
       - name: forgejo-ssh
         mountPath: "/data/gitea/ssh/ssh_host_ed25519_key"
         subPath: ssh_host_ed25519_key
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: v1
+              kind: Deployment
+              name: *app
+            patch: |-
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: ignored
+              spec:
+                template:
+                  spec:
+                    volumes:
+                      - name: dragonfly-stunnel
+                        configMap:
+                          name: dragonfly-stunnel
+                      - name: dragonfly-certs
+                        secret:
+                          secretName: dragonfly-forgejo-cert
+                          defaultMode: 0440
+                      - name: root-ca
+                        configMap:
+                          name: root-ca
+                          defaultMode: 0440
+
+                    containers:
+                      - name: dragonfly-stunnel
+                        image: cgr.dev/chainguard/stunnel:latest@sha256:95931468f1958f3db553daffecb9e2d59d876baee59bf3298125608dfe885d03
+                        args:
+                          - /etc/stunnel/stunnel.conf
+                        volumeMounts:
+                          - name: dragonfly-stunnel
+                            mountPath: /etc/stunnel/stunnel.conf
+                            subPath: stunnel.conf
+                            readOnly: true
+                          - name: dragonfly-certs
+                            mountPath: /var/run/secrets/dragonfly
+                            readOnly: true
+                          - name: root-ca
+                            mountPath: /var/run/secrets/root-ca
+                            readOnly: true
+                        securityContext:
+                          allowPrivilegeEscalation: false
+                          readOnlyRootFilesystem: true
+                          capabilities:
+                            drop:
+                              - ALL
+                          seccompProfile:
+                            type: RuntimeDefault
+          - target:
+              version: v1
+              kind: Deployment
+              name: *app
+            patch: |
+              - op: add
+                path: /spec/template/spec/initContainers/-
+                value:
+                  name: generate-ssh-keys
+                  image: &image ghcr.io/m00nwtchr/ssh-tpm-agent:0.8.0@sha256:21679ac2c857da0b5ef2c3c272c5310ebc157473c12fe83f41af8671633b2e10
+                  imagePullPolicy: IfNotPresent
+                  command:
+                    - "sh"
+                    - "-c"
+                    - >
+                      mkdir -p /data/ssh;
+                      if [ ! -f /data/ssh/id_ecdsa.tpm ]; then
+                        /usr/local/bin/ssh-tpm-keygen -t ecdsa -f /data/ssh/id_ecdsa -N "";
+                      fi
+                  volumeMounts:
+                    - mountPath: /data/
+                      name: data
+                  resources:
+                    limits:
+                      memory: 128Mi
+                      squat.ai/tpmrm: 1
+              - op: add
+                path: /spec/template/spec/containers/-
+                value:
+                  name: ssh-tpm-agent
+                  image: *image
+                  imagePullPolicy: IfNotPresent
+                  volumeMounts:
+                    - mountPath: /var/tmp
+                      name: temp
+                    - mountPath: /.ssh
+                      name: git
+                      subPath: ssh
+                  resources:
+                    limits:
+                      memory: 128Mi
+                      squat.ai/tpmrm: 1

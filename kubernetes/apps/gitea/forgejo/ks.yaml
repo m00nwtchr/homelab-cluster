@@ -13,7 +13,7 @@ spec:
     - ../../../../components/oidc
     - ../../../../components/volsync
     - ../../../../components/database
-    - ../../../../components/dragonfly
+    - ../../../../components/dragonfly/manual
     - ../../../../components/gatus/external
     - ../../../../components/mail
   dependsOn:
