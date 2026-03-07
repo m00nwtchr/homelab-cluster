@@ -49,6 +49,11 @@ spec:
     server:
       controllers:
         main:
+          pod:
+            securityContext:
+              fsGroup: 1000
+              fsGroupChangePolicy: OnRootMismatch
+
           containers:
             main:
               # krr: controller=server container=main
