@@ -25,7 +25,7 @@ spec:
         }
     - name: RENOVATE_ALLOW_PLUGINS
       value: "true"
-  image: ghcr.io/renovatebot/renovate:42.88.2@sha256:3b4bd96f86ee0d978cff83d68bab741f9e44c6651ad190d94becbff4ceaef04b
+  image: ghcr.io/renovatebot/renovate:43.59@sha256:38d2e54e1dafc61c58cb231bca4cb4b0bea7bbc7236589abd56be55eeaee62aa
   parallelism: 5
   resources:
     requests:
