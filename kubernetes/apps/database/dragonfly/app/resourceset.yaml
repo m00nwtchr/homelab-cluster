@@ -47,7 +47,7 @@ spec:
           data:
             acl.conf: |
               <<- range $u := $users >>
-              ACL SETUSER << $u >> NAMESPACE:<< $u >> resetkeys resetchannels -@ALL ON >{{ index . "password_<< $u >>" }} ~* &* +@ALL -@ADMIN -@DANGEROUS +INFO
+              USER << $u >> NAMESPACE:<< $u >> resetkeys resetchannels -@ALL ON >{{ index . "password_<< $u >>" }} ~* &* +@ALL -@ADMIN -@DANGEROUS +INFO
               <<- end >>
 
       dataFrom:
