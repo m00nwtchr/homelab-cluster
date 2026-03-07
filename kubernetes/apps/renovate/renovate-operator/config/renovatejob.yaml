@@ -25,8 +25,17 @@ spec:
             'config:recommended'
           ]
         }
+    - name: RENOVATE_BASE_DIR
+      value: /data
     - name: RENOVATE_ALLOW_PLUGINS
       value: "true"
+  extraVolumes:
+    - name: renovate-data
+      persistentVolumeClaim:
+        claimName: renovate-data
+  extraVolumeMounts:
+    - name: renovate-data
+      mountPath: /data
   parallelism: 5
   resources:
     requests:
