@@ -5,7 +5,7 @@ kind: MCPServer
 metadata:
   name: &name karakeep
 spec:
-  image: ghcr.io/karakeep-app/karakeep-mcp:latest@sha256:b0a241f030c3cd1bb55a17f5811ab44f645e0563160bfe4b2af565cd66b8e1ff
+  image: ghcr.io/karakeep-app/karakeep-mcp:latest@sha256:573225f83b4c7e727d16024721beef5850ad5f80156db6e4337f8113cab99d11
   transport: stdio
   groupRef: mcp-tools
   env:
