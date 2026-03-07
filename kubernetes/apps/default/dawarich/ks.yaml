@@ -12,6 +12,7 @@ spec:
   components:
     - ../../../../components/database
     - ../../../../components/dragonfly
+    - ../../../../components/oidc
     - ../../../../components/gatus/guarded
   #  dependsOn:
   #    - name: rook-ceph-cluster
@@ -21,6 +22,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
       DATABASE_EXTENSIONS: |
         [
           { name: postgis },
@@ -28,6 +30,9 @@ spec:
           { name: fuzzystrmatch },
           { name: postgis_tiger_geocoder }
         ]
+      OIDC_DISPLAY_NAME: "Dawarich"
+      OIDC_CALLBACK: /users/auth/openid_connect/callback
+      OIDC_DISABLE_PKCE: "true"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

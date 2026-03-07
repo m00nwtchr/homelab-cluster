@@ -38,6 +38,16 @@ spec:
               ENABLE_TELEMETRY: false # More on telemetry: https://dawarich.app/docs/tutorials/telemetry
               SELF_HOSTED: "true"
 
+              OIDC_CLIENT_ID: *app
+              OIDC_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: "kanidm-{{ .Release.Name }}-oidc"
+                    key: client-secret
+              OIDC_ISSUER: "https://idm.${SECRET_DOMAIN}/oauth2/openid/{{ .Release.Name }}"
+              OIDC_REDIRECT_URI: https://{{ .Release.Name }}.${SECRET_DOMAIN}/users/auth/openid_connect/callback
+              OIDC_PROVIDER_NAME: Kanidm
+
               DATABASE_HOST: pooler-rw.postgres.svc.cluster.local
               DATABASE_NAME: *app
               DATABASE_USERNAME: *app
