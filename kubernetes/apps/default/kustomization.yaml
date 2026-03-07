@@ -11,7 +11,7 @@ resources:
   - ./attic/ks.yaml
   - ./atuin/ks.yaml
   - ./baikal/ks.yaml
-  - ./crd-patcher/ks.yaml
+  # - ./crd-patcher/ks.yaml
   - ./dawarich/ks.yaml
   #  - ./firefly/ks.yaml
   - ./freshrss/ks.yaml
