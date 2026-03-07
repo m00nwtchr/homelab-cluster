@@ -23,7 +23,7 @@ spec:
           app:
             image:
               repository: ghcr.io/m00nwtchr/crd-patcher
-              tag: master@sha256:654b2f23b91d0d17c9c05fd19960f2d8c72deee58a04027cbb3cf333d02a9894
+              tag: master@sha256:15ba7d562b2792d34c6ebe000c922401800e297d407e3dacaf7cad00fda2317d
             resources:
               requests:
                 cpu: 10m
