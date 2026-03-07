@@ -1,31 +1,94 @@
 ---
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/fluxcd.controlplane.io/resourceset_v1.json
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
 metadata:
-  name: &app cnpg-cluster
-  namespace: &namespace postgres
+  name: &name postgres
+  namespace: postgres
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:
+  inputStrategy:
+    name: Permute
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
-  components: []
-  healthChecks:
-    - apiVersion: postgresql.cnpg.io/v1
-      kind: Cluster
-      name: postgres
-      namespace: postgres
-  interval: 1h
-  path: ./kubernetes/apps/postgres/cnpg/cluster
-  postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
-  prune: true
-  retryInterval: 2m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: *namespace
-  timeout: 5m
+      app.kubernetes.io/name: *name
+    annotations:
+      fluxcd.controlplane.io/prune: disabled
+  inputs:
+    - role: pooler-rw
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      selector:
+        matchLabels:
+          postgresql.cnpg.io/role: "true"
+  resourcesTemplate: |
+    apiVersion: kustomize.toolkit.fluxcd.io/v1
+    kind: Kustomization
+    metadata:
+      name: &app cnpg-cluster
+      namespace: &namespace postgres
+    spec:
+      commonMetadata:
+        labels:
+          app.kubernetes.io/name: *app
+      components:
+        - ../../../../components/defaults
+      healthChecks:
+        - apiVersion: postgresql.cnpg.io/v1
+          kind: Cluster
+          name: postgres
+          namespace: postgres
+      interval: 1h
+      path: ./kubernetes/apps/postgres/cnpg/cluster
+      postBuild:
+        substituteFrom:
+          - name: cluster-secrets
+            kind: Secret
+      prune: true
+      retryInterval: 2m
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      targetNamespace: *namespace
+      timeout: 5m
+      patches:
+        - target:
+            kind: Cluster
+            group: postgresql.cnpg.io
+            version: v1
+          patch: |-
+            apiVersion: postgresql.cnpg.io/v1
+            kind: Cluster
+            metadata:
+              name: not-used
+            spec:
+              managed:
+                roles:
+                  <<- $roleNames := list >>
+                  <<- range $k, $in := inputs >>
+                  <<-   if kindIs "map" $in >>
+                  <<-     $r := index $in "role" >>
+                  <<-     if $r >>
+                  <<-       $roleNames = concat $roleNames (list $r) >>
+                  <<-     end >>
+                  <<-   end >>
+                  <<- end >>
+                  <<- $roleNames = $roleNames | compact | uniq | sortAlpha >>
+
+                  <<- $roleObjs := list >>
+                  <<- range $r := $roleNames >>
+                  <<-   $roleObjs = concat $roleObjs (list (dict
+                        "name" $r
+                        "ensure" "present"
+                        "login" true
+                        "superuser" false
+                        "disablePassword" true
+                      )) >>
+                  <<- end >>
+
+                  <<- toYaml $roleObjs | nindent 18 >>

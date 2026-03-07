@@ -5,10 +5,9 @@ kind: Kustomization
 resources:
   - ca.yaml
   - certificate.yaml
-  # - cluster.yaml
+  - cluster.yaml
   - objectstore.yaml
   - pooler.yaml
-  - resourceset.yaml
   - scheduledbackup.yaml
   - secret.sops.yaml
   - secretstore.yaml
