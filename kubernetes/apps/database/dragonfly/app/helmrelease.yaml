@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: ghcr.io/m00nwtchr/dfguard
-              tag: 0.1.1@sha256:3a346bc0e6ca9add83d394e3442eee264934c41dd44e599a9a6713f8e337d227
+              tag: 0.2.1@sha256:184edcaa827260fa9ad354f9c5d618902d4e43ee834d4b1ed2c91aa4dfe5091f
             args:
               - --listen
               - "[::]:6379"
