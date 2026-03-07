@@ -50,8 +50,6 @@ spec:
               requests:
                 memory: "368Mi"
                 cpu: "10m"
-              limits:
-                memory: "368Mi"
             command:
               - "web-entrypoint.sh"
             args:
@@ -66,8 +64,6 @@ spec:
               requests:
                 memory: "327Mi"
                 cpu: "10m"
-              limits:
-                memory: "327Mi"
 
     service:
       app:
