@@ -86,6 +86,8 @@ spec:
 
       filter:
         pod: *node-pod
+        labels: &labels
+          m00nlit.dev/no-dragonfly-stunnel: "true"
         containers:
           app:
             <<: *container
@@ -98,6 +100,7 @@ spec:
 
       replace:
         pod: *node-pod
+        labels: *labels
         containers:
           app:
             <<: *container
@@ -122,6 +125,7 @@ spec:
 
       sanitize:
         pod: *node-pod
+        labels: *labels
         containers:
           app:
             <<: *container
