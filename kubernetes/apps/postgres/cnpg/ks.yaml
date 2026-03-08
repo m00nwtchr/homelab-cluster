@@ -3,8 +3,7 @@
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
 metadata:
-  name: &name postgres
-  namespace: postgres
+  name: cnpg-cluster
   annotations:
     fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "30m"
@@ -12,11 +11,6 @@ metadata:
 spec:
   inputStrategy:
     name: Permute
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *name
-    annotations:
-      fluxcd.controlplane.io/prune: disabled
   inputs:
     - role: pooler-rw
   inputsFrom:
