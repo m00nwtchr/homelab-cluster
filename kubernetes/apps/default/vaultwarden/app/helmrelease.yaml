@@ -22,7 +22,7 @@ spec:
             runAsGroup: 1000
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
-            seccompProfile: { type: RuntimeDefault }
+            seccompProfile: {type: RuntimeDefault}
         containers:
           app:
             image:
@@ -68,13 +68,13 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 10m
-                memory: 100Mi
+                memory: 125Mi
               limits:
-                memory: 100Mi
+                memory: 125Mi
     service:
       app:
         controller: *app

@@ -15,7 +15,7 @@ spec:
       securityContext:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
+        seccompProfile: {type: RuntimeDefault}
 
     controllers:
       *app :
@@ -101,13 +101,19 @@ spec:
                   timeoutSeconds: 10
                   failureThreshold: 3
               readiness: *probe
+            resources:
+              requests:
+                cpu: 10m
+                memory: 1087Mi
+              limits:
+                memory: 1087Mi
             securityContext:
               runAsNonRoot: true
               runAsUser: 1000
               runAsGroup: 1000
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
 
     service:
       app:

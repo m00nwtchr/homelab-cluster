@@ -73,10 +73,10 @@ spec:
                 type: HTTP
             resources:
               limits:
-                memory: 1Gi
+                memory: 849Mi
               requests:
-                cpu: 40m
-                memory: 1Gi
+                cpu: 10m
+                memory: 849Mi
 
           gotenberg:
             env:

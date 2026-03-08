@@ -30,9 +30,11 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 512Mi
+                memory: 2470Mi
               # limits:
               # memory: 102Mi
+              limits:
+                memory: 2470Mi
             env:
               ATTIC_SERVER_DATABASE_URL:
                 valueFrom:

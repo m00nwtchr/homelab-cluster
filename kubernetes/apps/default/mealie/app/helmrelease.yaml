@@ -76,10 +76,10 @@ spec:
             #                type: HTTP
             resources:
               requests:
-                memory: 250Mi
-                cpu: 50m
+                memory: 319Mi
+                cpu: 10m
               limits:
-                memory: 500Mi
+                memory: 319Mi
 
     service:
       app:
