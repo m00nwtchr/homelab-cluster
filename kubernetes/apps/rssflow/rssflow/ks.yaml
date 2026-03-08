@@ -50,6 +50,7 @@ spec:
     substitute:
       APP: *app
       OWNER: rssflow
+      EXTENSIONS: "[]"
   healthChecks:
     - name: postgres-rssflow-websub
       namespace: *namespace
