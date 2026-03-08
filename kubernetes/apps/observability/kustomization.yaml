@@ -6,7 +6,7 @@ namespace: observability
 components:
   - ../../components/common
 resources:
-  - ./gatus/ks.yaml
+  # - ./gatus/ks.yaml
   - ./grafana/ks.yaml
   - ./prometheus-operator-crds/ks.yaml
   - ./promtail/ks.yaml
