@@ -49,6 +49,8 @@ spec:
               repository: ghcr.io/recyclarr/recyclarr
               tag: 8.4.0@sha256:cf1afc960655fb7a4b2b84eba851df95407e57efb71eed8d0a173254b48d8335
             env:
+              RECYCLARR_DATA_DIR: /data
+              RECYCLARR_CONFIG_DIR: /config
               SONARR_API_KEY:
                 valueFrom:
                   secretKeyRef:
@@ -59,7 +61,7 @@ spec:
                   secretKeyRef:
                     name: radarr-secret
                     key: api_key
-            args: ["sync"]
+            args: ["sync", "-c", "/recyclarr.yaml"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -82,7 +84,7 @@ spec:
         type: configMap
         name: recyclarr-configmap
         globalMounts:
-          - path: /config/recyclarr.yml
+          - path: /recyclarr.yaml
             subPath: recyclarr.yaml
 
       data:
@@ -95,7 +97,4 @@ spec:
         globalMounts:
           - path: /tmp
             subPath: tmp
-          - path: /config/logs
-            subPath: logs
-          - path: /config/repositories
-            subPath: repositories
+          - path: /data/
