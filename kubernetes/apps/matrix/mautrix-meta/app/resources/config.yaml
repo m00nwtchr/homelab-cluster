@@ -1,7 +1,6 @@
 network:
   mode: messenger
-  displayname_template:
-    { { '''{{or .DisplayName .Username "Unknown user"}}''' } }
+  displayname_template: '{{ "{{or .DisplayName .Username \"Unknown user\"}}" }}'
 
 bridge:
   command_prefix: "!meta"
@@ -55,7 +54,7 @@ appservice:
   async_transactions: false
   as_token: "{{ .as_token }}"
   hs_token: "{{ .hs_token }}"
-  username_template: { { '"meta_{{.}}"' } }
+  username_template: '{{ "meta_{{.}}" }}'
 
 matrix:
   message_status_events: false
