@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: livekit/livekit-server
-              tag: v1.9.11@sha256:289262ffae8b827f45186331aa315d08ed275eb30f9b0add337ec57948e44ca1
+              tag: v1.9.12@sha256:2c13cbf2edcbf13ea7b20d05c10b394d04d8fb3fe358269cff845a90b4de9576
             # command: ["sh", "-ec"]
             # args:
             #   - |
