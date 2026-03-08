@@ -6,7 +6,7 @@ sonarr:
     api_key: !env_var SONARR_API_KEY
 
     media_naming:
-      series: jellyfin-imdb
+      series: jellyfin-tvdb
       season: default
       episodes:
         rename: true
