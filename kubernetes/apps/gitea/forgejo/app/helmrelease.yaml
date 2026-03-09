@@ -215,7 +215,7 @@ spec:
 
                     containers:
                       - name: dragonfly-stunnel
-                        image: cgr.dev/chainguard/stunnel:latest@sha256:95931468f1958f3db553daffecb9e2d59d876baee59bf3298125608dfe885d03
+                        image: cgr.dev/chainguard/stunnel:latest@sha256:c573ad23a5b7a8294d8d64d08deb4f6c05b0d8f39e0ce49fd635986057b2d870
                         args:
                           - /etc/stunnel/stunnel.conf
                         volumeMounts:
