@@ -11,7 +11,7 @@ spec:
     operation: copy
   url: oci://ghcr.io/mogenius/helm-charts/renovate-operator
   ref:
-    tag: 2.21.5
+    tag: 3.1.0
   verify:
     provider: cosign
     matchOIDCIdentity:
