@@ -27,6 +27,10 @@ spec:
         }
     - name: RENOVATE_BASE_DIR
       value: /data
+    - name: RENOVATE_REPOSITORY_CACHE
+      value: "enabled"
+    - name: RENOVATE_REDIS_URL
+      value: redis://localhost:6379
     - name: RENOVATE_ALLOW_PLUGINS
       value: "true"
     - name: RENOVATE_BRANCH_PREFIX

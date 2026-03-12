@@ -1,0 +1,100 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/admissionregistration.k8s.io/mutatingadmissionpolicybinding_v1alpha1.json
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: MutatingAdmissionPolicyBinding
+metadata:
+  name: renovate-job-stunnel
+spec:
+  policyName: renovate-job-stunnel
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/admissionregistration.k8s.io/mutatingadmissionpolicy_v1alpha1.json
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: MutatingAdmissionPolicy
+metadata:
+  name: renovate-job-stunnel
+  namespace: renovate
+spec:
+  matchConstraints:
+    resourceRules:
+      - apiGroups: ["batch"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["jobs"]
+  matchConditions:
+    - name: has-renovate-job-name-prefix
+      expression: >
+        object.metadata.name.startsWith("renovate-")
+    - name: has-renovate-labels
+      expression: >
+        object.metadata.labels["renovate-operator.mogenius.com/job-type"] == "executor"
+  failurePolicy: Ignore
+  reinvocationPolicy: IfNeeded
+  mutations:
+    - patchType: ApplyConfiguration
+      applyConfiguration:
+        expression: >
+          Object{
+            spec: Object.spec{
+              template: Object.spec.template{
+                spec: Object.spec.template.spec{
+                  volumes: [
+                    Object.spec.template.spec.volumes{
+                      name: "dragonfly-stunnel",
+                      configMap: Object.spec.template.spec.volumes.configMap{
+                        name: "dragonfly-stunnel"
+                      }
+                    },
+                    Object.spec.template.spec.volumes{
+                      name: "dragonfly-certs",
+                      secret: Object.spec.template.spec.volumes.secret{
+                        secretName: "dragonfly-renovate-cert",
+                        defaultMode: 288
+                      }
+                    },
+                    Object.spec.template.spec.volumes{
+                      name: "root-ca",
+                      configMap: Object.spec.template.spec.volumes.configMap{
+                        name: "root-ca",
+                        defaultMode: 288
+                      }
+                    }
+                  ],
+                  containers: [
+                    Object.spec.template.spec.containers{
+                      name: "dragonfly-stunnel",
+                      image: "cgr.dev/chainguard/stunnel:latest@sha256:c573ad23a5b7a8294d8d64d08deb4f6c05b0d8f39e0ce49fd635986057b2d870",
+                      args: ["/etc/stunnel/stunnel.conf"],
+                      volumeMounts: [
+                        Object.spec.template.spec.containers.volumeMounts{
+                          name: "dragonfly-stunnel",
+                          mountPath: "/etc/stunnel/stunnel.conf",
+                          subPath: "stunnel.conf",
+                          readOnly: true
+                        },
+                        Object.spec.template.spec.containers.volumeMounts{
+                          name: "dragonfly-certs",
+                          mountPath: "/var/run/secrets/dragonfly",
+                          readOnly: true
+                        },
+                        Object.spec.template.spec.containers.volumeMounts{
+                          name: "root-ca",
+                          mountPath: "/var/run/secrets/root-ca",
+                          readOnly: true
+                        }
+                      ],
+                      securityContext: Object.spec.template.spec.containers.securityContext{
+                        allowPrivilegeEscalation: false,
+                        readOnlyRootFilesystem: true,
+                        capabilities: Object.spec.template.spec.containers.securityContext.capabilities{
+                          drop: ["ALL"]
+                        },
+                        seccompProfile: Object.spec.template.spec.containers.securityContext.seccompProfile{
+                          type: "RuntimeDefault"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
