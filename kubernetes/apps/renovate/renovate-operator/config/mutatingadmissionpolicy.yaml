@@ -12,7 +12,6 @@ apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: MutatingAdmissionPolicy
 metadata:
   name: renovate-job-stunnel
-  namespace: renovate
 spec:
   matchConstraints:
     resourceRules:
@@ -21,58 +20,66 @@ spec:
         operations: ["CREATE", "UPDATE"]
         resources: ["jobs"]
   matchConditions:
-    - name: has-renovate-job-name-prefix
+    - name: has-renovate-job-generate-name-prefix
       expression: >
-        object.metadata.name.startsWith("renovate-")
+        has(object.metadata.generateName) &&
+        object.metadata.generateName.startsWith("renovate-")
     - name: has-renovate-labels
       expression: >
+        has(object.metadata.labels) &&
         object.metadata.labels["renovate-operator.mogenius.com/job-type"] == "executor"
+    - name: missing-dragonfly-stunnel-container
+      expression: >
+        !has(object.spec.template.spec.containers) ||
+        !object.spec.template.spec.containers.exists(c, c.name == "dragonfly-stunnel")
+    - name: has-volumes-array
+      expression: >
+        has(object.spec.template.spec.volumes)
+    - name: has-containers-array
+      expression: >
+        has(object.spec.template.spec.containers)
   failurePolicy: Fail
   reinvocationPolicy: IfNeeded
   mutations:
-    - patchType: ApplyConfiguration
-      applyConfiguration:
+    - patchType: JSONPatch
+      jsonPatch:
         expression: >
-          Object{
-            spec: Object.spec{
-              template: Object.spec.template{
-                spec: Object.spec.template.spec{
-                  containers: [
-                    Object.spec.template.spec.containers{
-                      name: "dragonfly-stunnel",
-                      image: "cgr.dev/chainguard/stunnel:latest@sha256:c573ad23a5b7a8294d8d64d08deb4f6c05b0d8f39e0ce49fd635986057b2d870",
-                      args: ["/etc/stunnel/stunnel.conf"],
-                      volumeMounts: [
-                        Object.spec.template.spec.containers.volumeMounts{
-                          name: "dragonfly-stunnel",
-                          mountPath: "/etc/stunnel/stunnel.conf",
-                          subPath: "stunnel.conf",
-                          readOnly: true
-                        },
-                        Object.spec.template.spec.containers.volumeMounts{
-                          name: "dragonfly-certs",
-                          mountPath: "/var/run/secrets/dragonfly",
-                          readOnly: true
-                        },
-                        Object.spec.template.spec.containers.volumeMounts{
-                          name: "root-ca",
-                          mountPath: "/var/run/secrets/root-ca",
-                          readOnly: true
-                        }
-                      ],
-                      securityContext: Object.spec.template.spec.containers.securityContext{
-                        allowPrivilegeEscalation: false,
-                        readOnlyRootFilesystem: true,
-                        capabilities: Object.spec.template.spec.containers.securityContext.capabilities{
-                          drop: ["ALL"]
-                        },
-                        seccompProfile: Object.spec.template.spec.containers.securityContext.seccompProfile{
-                          type: "RuntimeDefault"
-                        }
-                      }
-                    }
-                  ]
+          [
+            JSONPatch{
+              op: "add",
+              path: "/spec/template/spec/containers/-",
+              value: Object.spec.template.spec.containers{
+                name: "dragonfly-stunnel",
+                image: "cgr.dev/chainguard/stunnel:latest@sha256:c573ad23a5b7a8294d8d64d08deb4f6c05b0d8f39e0ce49fd635986057b2d870",
+                args: ["/etc/stunnel/stunnel.conf"],
+                volumeMounts: [
+                  Object.spec.template.spec.containers.volumeMounts{
+                    name: "dragonfly-stunnel",
+                    mountPath: "/etc/stunnel/stunnel.conf",
+                    subPath: "stunnel.conf",
+                    readOnly: true
+                  },
+                  Object.spec.template.spec.containers.volumeMounts{
+                    name: "dragonfly-certs",
+                    mountPath: "/var/run/secrets/dragonfly",
+                    readOnly: true
+                  },
+                  Object.spec.template.spec.containers.volumeMounts{
+                    name: "root-ca",
+                    mountPath: "/var/run/secrets/root-ca",
+                    readOnly: true
+                  }
+                ],
+                securityContext: Object.spec.template.spec.containers.securityContext{
+                  allowPrivilegeEscalation: false,
+                  readOnlyRootFilesystem: true,
+                  capabilities: Object.spec.template.spec.containers.securityContext.capabilities{
+                    drop: ["ALL"]
+                  },
+                  seccompProfile: Object.spec.template.spec.containers.securityContext.seccompProfile{
+                    type: "RuntimeDefault"
+                  }
                 }
               }
             }
-          }
+          ]
