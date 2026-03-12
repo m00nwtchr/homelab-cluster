@@ -27,7 +27,7 @@ spec:
     - name: has-renovate-labels
       expression: >
         object.metadata.labels["renovate-operator.mogenius.com/job-type"] == "executor"
-  failurePolicy: Ignore
+  failurePolicy: Fail
   reinvocationPolicy: IfNeeded
   mutations:
     - patchType: ApplyConfiguration
