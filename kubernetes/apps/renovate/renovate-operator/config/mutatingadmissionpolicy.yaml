@@ -37,28 +37,6 @@ spec:
             spec: Object.spec{
               template: Object.spec.template{
                 spec: Object.spec.template.spec{
-                  volumes: [
-                    Object.spec.template.spec.volumes{
-                      name: "dragonfly-stunnel",
-                      configMap: Object.spec.template.spec.volumes.configMap{
-                        name: "dragonfly-stunnel"
-                      }
-                    },
-                    Object.spec.template.spec.volumes{
-                      name: "dragonfly-certs",
-                      secret: Object.spec.template.spec.volumes.secret{
-                        secretName: "dragonfly-renovate-cert",
-                        defaultMode: 288
-                      }
-                    },
-                    Object.spec.template.spec.volumes{
-                      name: "root-ca",
-                      configMap: Object.spec.template.spec.volumes.configMap{
-                        name: "root-ca",
-                        defaultMode: 288
-                      }
-                    }
-                  ],
                   containers: [
                     Object.spec.template.spec.containers{
                       name: "dragonfly-stunnel",

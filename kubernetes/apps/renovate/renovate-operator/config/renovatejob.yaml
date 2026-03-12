@@ -39,6 +39,17 @@ spec:
     - name: renovate-data
       persistentVolumeClaim:
         claimName: renovate-data
+    - name: dragonfly-stunnel
+      configMap:
+        name: dragonfly-stunnel
+    - name: dragonfly-certs
+      secret:
+        secretName: dragonfly-renovate-cert
+        defaultMode: 288
+    - name: root-ca
+      configMap:
+        name: root-ca
+        defaultMode: 288
   extraVolumeMounts:
     - name: renovate-data
       mountPath: /data
