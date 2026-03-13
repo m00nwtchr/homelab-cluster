@@ -98,7 +98,7 @@ jobs:
       - name: Add Comment
         if: ${{ steps.diff.outputs.diff != '' }}
         continue-on-error: true
-        uses: https://github.com/mshick/add-pr-comment@b8f338c590a895d50bcbfa6c5859251edc8952fc # v2.8.2
+        uses: https://github.com/mshick/add-pr-comment@3b5edaaa32fd0272ba44e0eb2d9070b55110e0b9 # v3.1.0
         with:
           message-id: "${{ forge.event.pull_request.number }}/kubernetes/${{ matrix.resources }}"
           message-failure: Diff was not successful
