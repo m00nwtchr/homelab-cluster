@@ -41,11 +41,11 @@ spec:
                     key: url
 
               # SFTPGO_DATA_PROVIDER__PRE_LOGIN_HOOK: /scripts/pre-login-hook.sh
-              SFTPGO_TELEMETRY__BIND_ADDRESS: "::"
+              SFTPGO_TELEMETRY__BIND_ADDRESS: "[::]"
               SFTPGO_TELEMETRY__BIND_PORT: 8081
-              SFTPGO_SFTPD__BINDINGS__0__ADDRESS: "::"
+              SFTPGO_SFTPD__BINDINGS__0__ADDRESS: "[::]"
               SFTPGO_SFTPD__BINDINGS__0__PORT: 2022
-              SFTPGO_HTTPD__BINDINGS__0__ADDRESS: "::"
+              SFTPGO_HTTPD__BINDINGS__0__ADDRESS: "[::]"
               SFTPGO_HTTPD__BINDINGS__0__PORT: 8080
               SFTPGO_HTTPD__BINDINGS__0__OIDC__CONFIG_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
               SFTPGO_HTTPD__BINDINGS__0__OIDC__REDIRECT_BASE_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}
