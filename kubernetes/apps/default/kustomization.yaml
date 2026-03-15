@@ -24,6 +24,7 @@ resources:
   - ./publish-k8s-schemas/ks.yaml
   - ./rustical/ks.yaml
   - ./searxng/ks.yaml
+  - ./sftpgo/ks.yaml
   - ./tika/ks.yaml
   - ./vaultwarden/ks.yaml
   - ./vikunja/ks.yaml
