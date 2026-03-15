@@ -123,7 +123,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: 8080
+                port: 80
     persistence:
       config:
         existingClaim: sftpgo
