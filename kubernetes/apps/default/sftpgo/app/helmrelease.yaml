@@ -34,11 +34,11 @@ spec:
               tag: v2.7.1@sha256:26095be794616b5ce1cd08a24244dae7c1eda18073c482f58a8d1948237240b0
             env:
               SFTPGO_DATA_PROVIDER__DRIVER: postgresql
-              SFTPGO_DATA_PROVIDER__HOST: pooler-rw.postgres.svc.cluster.local
-              PGSSLROOTCERT: /var/run/secrets/root-ca/ca.crt
-              PGSSLCERT: /var/run/secrets/postgresql/tls.crt
-              PGSSLKEY: /var/run/secrets/postgresql/tls.key
-              PGSSLMODE: verify-full
+              SFTPGO_DATA_PROVIDER__CONNECTION_STRING:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
 
               # SFTPGO_DATA_PROVIDER__PRE_LOGIN_HOOK: /scripts/pre-login-hook.sh
               SFTPGO_TELEMETRY__BIND_ADDRESS: "::"
