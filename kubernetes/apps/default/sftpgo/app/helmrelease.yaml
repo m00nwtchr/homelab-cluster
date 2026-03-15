@@ -106,7 +106,7 @@ spec:
           # lbipam.cilium.io/ips: 192.168.69.133,fd5d:a293:f321:69::133
         ports:
           sftp:
-            port: 22
+            port: 2022
             targetPort: 2022
             protocol: TCP
 
