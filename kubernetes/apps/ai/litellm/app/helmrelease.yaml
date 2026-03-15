@@ -18,7 +18,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
+        seccompProfile: {type: RuntimeDefault}
 
     controllers:
       *app :
@@ -42,7 +42,7 @@ spec:
             env:
               TZ: "${TZ}"
               REDIS_HOST: dragonfly.database.svc.cluster.local
-              STORE_MODEL_IN_DB: True
+              STORE_MODEL_IN_DB: true
               USE_PRISMA_MIGRATE: "True"
               LITELLM_MODE: "PRODUCTION"
               LITELLM_DONT_SHOW_FEEDBACK_BOX: "True"
@@ -83,12 +83,13 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 10m
+                memory: 807Mi
               limits:
-                memory: 1Gi
+                memory: 807Mi
 
     service:
       app:

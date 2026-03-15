@@ -65,9 +65,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 194Mi
+                memory: 152Mi
               limits:
-                memory: 194Mi
+                memory: 152Mi
             securityContext:
               privileged: true
             env:
@@ -80,9 +80,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 100Mi
+                memory: 125Mi
               limits:
-                memory: 100Mi
+                memory: 125Mi
             command:
               - "sh"
               - "-c"

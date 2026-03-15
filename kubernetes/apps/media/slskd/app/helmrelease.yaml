@@ -73,7 +73,7 @@ spec:
                     port: 9999
                   initialDelaySeconds: 10
             securityContext:
-              capabilities: { add: ["NET_ADMIN"] }
+              capabilities: {add: ["NET_ADMIN"]}
               allowPrivilegeEscalation: false
             resources:
               limits:
@@ -115,13 +115,13 @@ spec:
               runAsGroup: 2000
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
-                cpu: 27m
-                memory: 223Mi
+                cpu: 19m
+                memory: 218Mi
               limits:
-                memory: 223Mi
+                memory: 218Mi
 
         statefulset:
           volumeClaimTemplates:

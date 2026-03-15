@@ -68,10 +68,10 @@ spec:
               # krr: controller=grafana-deployment container=grafana
               resources:
                 limits:
-                  memory: 261Mi
+                  memory: 223Mi
                 requests:
-                  cpu: 41m
-                  memory: 261Mi
+                  cpu: 43m
+                  memory: 223Mi
               volumeMounts:
                 - name: postgres-certs
                   mountPath: /var/run/secrets/postgresql
