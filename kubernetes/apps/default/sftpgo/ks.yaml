@@ -26,6 +26,7 @@ spec:
       VOLSYNC_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: "SFTPGo"
       OIDC_CALLBACK: /web/oidc/redirect
+      OIDC_DISABLE_PKCE: "true" # PKCE is only supported in Enterprise, bruh
       # OIDC_LEGACY_CRYPTO: "true"
       # OIDC_SHORT_USERNAME: "true"
     substituteFrom:
