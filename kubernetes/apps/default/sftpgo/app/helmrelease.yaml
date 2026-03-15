@@ -91,23 +91,24 @@ spec:
         forceRename: *app
         ports:
           http:
-            port: 8080
+            port: 80
+            targetPort: 8080
           metrics:
             port: *metricsPort
 
-      # sftp:
-      #   controller: sftpgo
-      #   type: LoadBalancer
-      #   ipFamilies: [IPv4, IPv6]
-      #   ipFamilyPolicy: PreferDualStack
-      #   annotations:
-      #     external-dns.alpha.kubernetes.io/hostname: sftp.goyangi.io
-      #     lbipam.cilium.io/ips: 192.168.69.133,fd5d:a293:f321:69::133
-      #   ports:
-      #     sftp:
-      #       port: 22
-      #       targetPort: 2022
-      #       protocol: TCP
+      sftp:
+        type: LoadBalancer
+        ipFamilies: [IPv4, IPv6]
+        ipFamilyPolicy: PreferDualStack
+        loadBalancerClass: "io.cilium/node"
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: sftp.${SECRET_DOMAIN}
+          # lbipam.cilium.io/ips: 192.168.69.133,fd5d:a293:f321:69::133
+        ports:
+          sftp:
+            port: 22
+            targetPort: 2022
+            protocol: TCP
 
     route:
       app:
@@ -124,10 +125,11 @@ spec:
               - identifier: app
                 port: 8080
     persistence:
-      # config:
-      #   existingClaim: sftpgo
-      #   globalMounts:
-      #     - path: /var/lib/sftpgo
+      config:
+        existingClaim: sftpgo
+        globalMounts:
+          - path: /var/lib/sftpgo
+
       # data:
       #   type: nfs
       #   server: nas.internal
