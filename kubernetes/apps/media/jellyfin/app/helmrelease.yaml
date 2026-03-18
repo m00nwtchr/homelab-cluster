@@ -111,6 +111,8 @@ spec:
               - path:
                   type: PathPrefix
                   value: /metrics
+            timeouts:
+              request: "300s"
 
     persistence:
       config:
