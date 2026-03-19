@@ -24,6 +24,11 @@ spec:
             env:
               TZ: ${TZ}
               NTFY_LOG_LEVEL: INFO
+              NTFY_DATABASE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
             probes:
               liveness: &probes
                 enabled: true
@@ -106,9 +111,6 @@ spec:
         globalMounts:
           - path: /etc/ntfy/server.yml
             subPath: server.yaml
-
-      data:
-        existingClaim: *app
 
       cache:
         type: emptyDir
