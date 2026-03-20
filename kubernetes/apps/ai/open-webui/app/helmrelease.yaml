@@ -23,13 +23,12 @@ spec:
             env:
               ENABLE_OPENAI_API: True
               ENABLE_OLLAMA_API: False
-              OPENAI_API_BASE_URL: http://litellm.ai.svc.cluster.local
+              OPENAI_API_BASE_URL: https://tide.tail096cd8.ts.net:1234/v1
               OLLAMA_BASE_URL: http://ollama.ai.svc
 
               # Vector
               VECTOR_DB: qdrant
               QDRANT_URI: http://qdrant.ai.svc
-              ENABLE_QDRANT_MULTITENANCY_MODE: "True"
 
               # Image Generation
               #              ENABLE_IMAGE_GENERATION: True
@@ -45,10 +44,10 @@ spec:
               # Search
               ENABLE_WEB_SEARCH: True
               WEB_SEARCH_ENGINE: searxng
-              SEARXNG_QUERY_URL: http://searxng.default.svc:8080/search?q=<query>
+              SEARXNG_QUERY_URL: http://searxng.default.svc/search?q=<query>
 
               # Websocket / Session Store
-              REDIS_URL: "redis://dragonfly.database.svc.cluster.local:6379/8"
+              REDIS_URL: "redis://localhost:6379"
 
               # Auth
               OAUTH_CLIENT_ID: *app

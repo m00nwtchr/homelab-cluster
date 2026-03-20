@@ -10,5 +10,5 @@ resources:
   - ./litellm/ks.yaml
   - ./moltis/ks.yaml
   - ./ollama/ks.yaml
-  #  - ./open-webui/ks.yaml
+  - ./open-webui/ks.yaml
   - ./qdrant/ks.yaml
