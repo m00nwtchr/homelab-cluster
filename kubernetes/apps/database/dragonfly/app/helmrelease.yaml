@@ -24,35 +24,21 @@ spec:
           app:
             image:
               repository: ghcr.io/m00nwtchr/dfguard
-              tag: 0.2.2@sha256:1bdae5bd9114cc766d3191393e863883088e66bd60510c314828e9643e789ef5
-            args:
-              - --listen
-              - "[::]:6379"
-              - --upstream
-              - dragonfly.database.svc:6379
-              - --acl
-              - /config/acl.conf
-              - --server-cert
-              - /tls/server/tls.crt
-              - --server-key
-              - /tls/server/tls.key
-              - --server-ca
-              - /tls/client/ca.crt
-              - --upstream-cert
-              - /tls/dragonfly/tls.crt
-              - --upstream-key
-              - /tls/dragonfly/tls.key
-              - --upstream-ca
-              - /tls/ca/ca.crt
+              tag: 0.2.6@sha256:2b5a21252b81a4436a72bed0a3f37d38674d147bb0cf6c9428462026fce76d39
+            env:
+              DFGUARD_UPSTREAM: dragonfly.database.svc:6379
+              DFGUARD_METRICS_LISTEN: "[::]:9464"
             probes:
               liveness:
                 enabled: true
-                type: TCP
-                port: &port 6379
+                type: HTTP
+                path: /livez
+                port: &metricsPort 9464
               readiness:
                 enabled: true
-                type: TCP
-                port: *port
+                type: HTTP
+                path: /readyz
+                port: *metricsPort
             resources:
               requests:
                 cpu: 50m
@@ -73,7 +59,9 @@ spec:
         controller: *app
         ports:
           redis:
-            port: *port
+            port: 6379
+          metrics:
+            port: *metricsPort
 
     persistence:
       acl:
