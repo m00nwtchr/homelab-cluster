@@ -5,7 +5,8 @@ auth:
     enabled: true
     redirecturl: https://vikunja.${CLUSTER_DOMAIN}/auth/openid
     providers:
-      - name: Kanidm
+      kanidm:
+        name: Kanidm
         authurl: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
         clientid: "${APP}"
         clientsecret: "{{ .client_secret }}"
