@@ -27,6 +27,12 @@ spec:
               tag: 0.2.6@sha256:2b5a21252b81a4436a72bed0a3f37d38674d147bb0cf6c9428462026fce76d39
             env:
               DFGUARD_UPSTREAM: dragonfly.database.svc:6379
+              DFGUARD_SERVER_CERT: /tls/server/tls.crt
+              DFGUARD_SERVER_KEY: /tls/server/tls.key
+              DFGUARD_SERVER_CA: /tls/client/ca.crt
+              DFGUARD_UPSTREAM_CERT: /tls/dragonfly/tls.crt
+              DFGUARD_UPSTREAM_KEY: /tls/dragonfly/tls.key
+              DFGUARD_UPSTREAM_CA: /tls/ca/ca.crt
               DFGUARD_METRICS_LISTEN: "[::]:9464"
             probes:
               liveness:
