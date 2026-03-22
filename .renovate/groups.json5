@@ -111,5 +111,32 @@
 				commitMessageTopic: "{{{groupName}}} group",
 			},
 		},
+		{
+			description: "Toolhive Group",
+			groupName: "Toolhive",
+			matchDatasources: ["docker", "github-tags"],
+			matchPackageNames: ["/toolhive/"],
+			group: {
+				commitMessageTopic: "{{{groupName}}} group",
+			},
+		},
+		{
+			description: "Envoy Proxy Group",
+			groupName: "Envoy",
+			matchDatasources: ["docker", "github-tags"],
+			matchPackageNames: ["/envoyproxy/"],
+			group: {
+				commitMessageTopic: "{{{groupName}}} group",
+			},
+		},
+		{
+			description: "Agentgateway Group",
+			groupName: "Agentgateway",
+			matchDatasources: ["docker", "github-tags"],
+			matchPackageNames: ["/kgateway-dev/charts/agentgateway"],
+			group: {
+				commitMessageTopic: "{{{groupName}}} group",
+			},
+		},
 	],
 }
