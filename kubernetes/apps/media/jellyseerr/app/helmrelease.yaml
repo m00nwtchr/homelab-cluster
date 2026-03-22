@@ -60,9 +60,9 @@ spec:
             resources:
               requests:
                 cpu: 20m
-                memory: 376Mi # TODO
+                memory: 402Mi # TODO
               limits:
-                memory: 376Mi
+                memory: 402Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

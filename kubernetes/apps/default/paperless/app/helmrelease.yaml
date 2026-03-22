@@ -73,10 +73,10 @@ spec:
                 type: HTTP
             resources:
               limits:
-                memory: 849Mi
+                memory: 711Mi
               requests:
                 cpu: 10m
-                memory: 849Mi
+                memory: 711Mi
 
           gotenberg:
             env:
@@ -86,10 +86,10 @@ spec:
               tag: 8.27.0@sha256:d71ab8c13b6bd47c7bc81195082005dfb17eaa75e8b1fadd347a64ee66ed98d5
             resources:
               limits:
-                memory: 142Mi
+                memory: 100Mi
               requests:
                 cpu: 10m
-                memory: 142Mi
+                memory: 100Mi
 
     service:
       app:

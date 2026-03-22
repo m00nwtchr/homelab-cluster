@@ -100,13 +100,13 @@ spec:
                   periodSeconds: 5
             resources:
               requests:
-                cpu: 99m
-                memory: 594Mi
+                cpu: 124m
+                memory: 671Mi
               # limits:
               #   memory: 286Mi
 
               limits:
-                memory: 594Mi
+                memory: 671Mi
           port-forward:
             image:
               repository: ghcr.io/bjw-s-labs/gluetun-qb-port-sync

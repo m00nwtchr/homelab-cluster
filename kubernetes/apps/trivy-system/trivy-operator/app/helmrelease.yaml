@@ -44,12 +44,12 @@ spec:
         # krr: controller=trivy-server container=trivy-server
         resources:
           requests:
-            cpu: 10m
-            memory: 219Mi
+            cpu: 11m
+            memory: 212Mi
             # ephemeral-storage: "2Gi"
           limits:
             cpu: 1
-            memory: 219Mi
+            memory: 212Mi
             # ephemeral-storage: "2Gi"
 
     trivyOperator:
@@ -59,6 +59,6 @@ spec:
     resources:
       requests:
         cpu: 14m
-        memory: 1617Mi
+        memory: 1631Mi
       limits:
-        memory: 1617Mi
+        memory: 1631Mi

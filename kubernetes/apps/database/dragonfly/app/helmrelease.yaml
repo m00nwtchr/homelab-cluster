@@ -47,7 +47,7 @@ spec:
                 port: *metricsPort
             resources:
               requests:
-                cpu: 249m
+                cpu: 239m
                 memory: 160Mi
               limits:
                 cpu: 200m

@@ -56,12 +56,12 @@ spec:
                 enabled: false
             resources:
               requests:
-                cpu: 1015m
-                memory: 1524Mi
+                cpu: 1039m
+                memory: 2113Mi
               limits:
                 # nvidia.com/gpu: 1
                 nvidia.com/gpu-all: "1"
-                memory: 1524Mi
+                memory: 2113Mi
 
     service:
       app:

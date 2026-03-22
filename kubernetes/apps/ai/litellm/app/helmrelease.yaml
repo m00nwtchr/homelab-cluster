@@ -87,9 +87,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 807Mi
+                memory: 940Mi
               limits:
-                memory: 807Mi
+                memory: 940Mi
 
     service:
       app:
