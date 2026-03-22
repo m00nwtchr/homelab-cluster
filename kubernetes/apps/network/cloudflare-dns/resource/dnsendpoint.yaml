@@ -9,9 +9,9 @@ spec:
     - dnsName: external.${SECRET_DOMAIN}
       recordType: AAAA
       targets: ["2a02:a313:43e4:7080::7dc5"]
-    - dnsName: external.${SECRET_DOMAIN}
-      recordType: A
-      targets: ["150.230.150.181"]
+    # - dnsName: external.${SECRET_DOMAIN}
+    #   recordType: A
+    #   targets: ["150.230.150.181"]
 
     - dnsName: cftunnel.${SECRET_DOMAIN}
       recordType: CNAME
