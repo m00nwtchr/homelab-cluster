@@ -20,6 +20,7 @@ spec:
         replicas: 2
 
         pod:
+          runtimeClassName: kata
           securityContext:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
