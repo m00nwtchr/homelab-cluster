@@ -1,10 +1,9 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: forgejo-runner-secret
+  name: forgejo-keda-secret
 stringData:
-  RUNNER_NAME: ENC[AES256_GCM,data:hsRq63e0Q0CXp1m4Ums=,iv:tOy1QfJ18xxyZMTySSXR9jemq/wQf8JP/exoQyAEBzE=,tag:Dk/NBycImg3Lj4IKBgSdCw==,type:str]
-  RUNNER_TOKEN: ENC[AES256_GCM,data:XB9YmZmI0cTCEZTMtDXGF/7Cp7DyK/IAi1XZrox6mB3CQAWHA1lrWg==,iv:nYudAtNARwb3DcrjY3b384pv0CKf2rHdplEFOyGVYQw=,tag:oWWWiMvSgKfaxBPhTwxQiA==,type:str]
+  SCALER_TOKEN: ENC[AES256_GCM,data:7HeGVzpOEjsVdw1m8+SU4q5a+YzGJnHCONlZC3fUskEAHVpQXs7xAA==,iv:RrOSYTTSFeXrPctWYijhgA/fckdghKr85UTmuKQ5Z4w=,tag:6dBUsImqgwHSQ0NT4dpQ7g==,type:str]
 sops:
   age:
     - recipient: age1689ww93cs2fkv3np57388eyepd789kk3zu47vyx67u8sc48vlprq9qafje
@@ -16,8 +15,8 @@ sops:
         SCtFeWJ0bHFFckczaklHUVJpSVpWQzAKAUI6+DE3TugGIRnGo8qCt8wl4ubGotc7
         cqlAFMJjIyHkOufNZbq7Bq2/Ex4nwq0wq5f8FbAQB9O+sB71stuIew==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-27T12:16:57Z"
-  mac: ENC[AES256_GCM,data:m9gPnn5rBgzSwmLv4oa4rNgI5ko0fNnQNxgBIUdJrM6pXVgMnRvIyDpo0hwGMqbJqhLC40Hvng9u+iWin3tQedgaGsLE4LeTbqmGlnKO3jF/CPZ6XzyiKxNFiCG86PgyN4vb+XKLa4nNA3foKih/9FvssPJEm4Jd+WaqlPpXul8=,iv:IzlQKnnLfrOjE0fdt5728vSGNzRF6tNd0Kvzol2P/z4=,tag:RfuH/GOuaq2qGN7Zpf8Ojg==,type:str]
+  lastmodified: "2026-03-27T12:16:48Z"
+  mac: ENC[AES256_GCM,data:vCaj/ilfKp14gt7uLhHrY/LM2DvZbvR9ZiGVxaVhwNvndIDmHv8DuW7greH4Cy5e0+PXVoLIZkFy3k2NfEqwh6g7tdaMsQpqm9ZBIU/ej4AIV7Dcfe71yucXx1jkj1lH6IM3AODgni/E5+AUXu0zG/wAk9+MylP1DZGDZPWPDs0=,iv:e4bxLoxU5RDDooZAxym1YicM3rd6US2LDP1w2mNWy7o=,tag:eMDzqFecRZTVFnBxpJwZNg==,type:str]
   pgp:
     - created_at: "2025-06-19T02:12:25Z"
       enc: |-
