@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/operator.victoriametrics.com/vtsingle_v1.json
+apiVersion: operator.victoriametrics.com/v1
+kind: VTSingle
+metadata:
+  name: vt
+spec:
+  extraArgs:
+    enableTCP6: "true"
+  retentionPeriod: 30d
+  retentionMaxDiskSpaceUsageBytes: 20GB
+  storage:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 50Gi
