@@ -20,7 +20,7 @@ spec:
         replicas: 2
 
         pod:
-          runtimeClassName: kata
+          # runtimeClassName: kata # kata doesn't support cilium netkit mode yet - https://github.com/kata-containers/kata-containers/issues/12159
           securityContext:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
