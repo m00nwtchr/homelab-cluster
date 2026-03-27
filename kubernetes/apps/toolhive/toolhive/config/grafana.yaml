@@ -13,7 +13,8 @@ spec:
       value: http://grafana-service.observability.svc.cluster.local:3000
   secrets:
     - name: grafana-mcp
-      key: GRAFANA_SERVICE_ACCOUNT_TOKEN
+      key: token
+      targetEnvName: GRAFANA_SERVICE_ACCOUNT_TOKEN
   podTemplateSpec:
     spec:
       containers:
