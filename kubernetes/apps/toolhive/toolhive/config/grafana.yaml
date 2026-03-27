@@ -1,0 +1,38 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/toolhive.stacklok.dev/mcpserver_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: &name grafana
+spec:
+  image: grafana/mcp-grafana:latest@sha256:9382d0c8b14443a987bd210d7b3013f759348dedc079484909c7276d3a5c5ef1
+  transport: stdio
+  groupRef: mcp-tools
+  env:
+    - name: GRAFANA_URL
+      value: http://grafana-service.observability.svc.cluster.local:3000
+  secrets:
+    - name: grafana-mcp
+      key: GRAFANA_SERVICE_ACCOUNT_TOKEN
+  toolConfigRef:
+    name: *name
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          # krr: controller=grafana container=mcp
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "110Mi"
+            requests:
+              cpu: "10m"
+              memory: "110Mi"
+  # krr: controller=grafana container=toolhive
+  resources:
+    limits:
+      cpu: 200m
+      memory: 100Mi
+    requests:
+      cpu: 10m
+      memory: 100Mi
