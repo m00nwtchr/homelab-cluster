@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/keda.sh/triggerauthentication_v1alpha1.json
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: forgejo-runner-creds
+spec:
+  secretTargetRef:
+    - parameter: token
+      name: forgejo-runner-secret
+      key: SCALER_TOKEN
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/keda.sh/scaledobject_v1alpha1.json
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: &name forgejo-runner
+spec:
+  scaleTargetRef:
+    kind: StatefulSet
+    name: *name
+  minReplicaCount: 0
+  maxReplicaCount: 20
+  pollingInterval: 30
+  triggers:
+    - type: forgejo-runner
+      metadata:
+        name: "runner"
+        address: "http://forgejo-http.gitea.svc.cluster.local:3000/"
+        global: "true"
+        labels: "ubuntu-latest"
+      authenticationRef:
+        name: forgejo-runner-creds
