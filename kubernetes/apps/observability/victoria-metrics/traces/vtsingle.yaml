@@ -8,7 +8,7 @@ spec:
   extraArgs:
     enableTCP6: "true"
     otlpGRPCListenAddr: ":4317"
-    otlpGRPC.tls: false
+    otlpGRPC.tls: "false"
   retentionPeriod: 30d
   retentionMaxDiskSpaceUsageBytes: 20GB
   storage:
