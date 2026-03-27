@@ -11,6 +11,13 @@ spec:
     otlpGRPC.tls: "false"
   retentionPeriod: 30d
   retentionMaxDiskSpaceUsageBytes: 20GB
+  serviceSpec:
+    spec:
+      ports:
+        - name: grpc
+          port: 4317
+          protocol: TCP
+          targetPort: 4317
   storage:
     accessModes:
       - ReadWriteOnce
