@@ -24,6 +24,7 @@ spec:
       debug: {}
       otlp:
         endpoint: vtsingle-vt.observability.svc.cluster.local.:4317
+        compression: zstd
         tls:
           insecure: true
           # cert_file: file.cert
