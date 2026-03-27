@@ -94,6 +94,7 @@ spec:
           maxLabelsPerTimeseries: "40"
           search.maxUniqueTimeseries: "600000"
           search.minStalenessInterval: 5m
+          opentelemetry.usePrometheusNaming: "true"
         replicaCount: 1
         retentionPeriod: 30d
         storage:
