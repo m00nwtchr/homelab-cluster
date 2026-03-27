@@ -20,6 +20,10 @@ spec:
         fsGroup: 65532
     controllers:
       *app :
+        pod:
+          annotations:
+            instrumentation.opentelemetry.io/inject-sdk: "observability/instrumentation"
+
         containers:
           app:
             image:
