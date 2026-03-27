@@ -23,7 +23,7 @@ spec:
     exporters:
       debug: {}
       otlp:
-        endpoint: vtsingle-vt.observability.svc.cluster.local.:4317
+        endpoint: vtsingle-vt-otel.observability.svc.cluster.local.:4317
         compression: zstd
         tls:
           insecure: true
