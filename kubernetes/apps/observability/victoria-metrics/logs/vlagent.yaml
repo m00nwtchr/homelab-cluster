@@ -9,5 +9,7 @@ spec:
     enableTCP6: "true"
   extraArgs:
     enableTCP6: "true"
+  k8sCollector:
+    enabled: true
   remoteWrite:
     - url: http://vlsingle-vl.observability.svc.cluster.local.:9428/internal/insert
