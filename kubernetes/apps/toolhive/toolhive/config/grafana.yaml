@@ -14,8 +14,6 @@ spec:
   secrets:
     - name: grafana-mcp
       key: GRAFANA_SERVICE_ACCOUNT_TOKEN
-  toolConfigRef:
-    name: *name
   podTemplateSpec:
     spec:
       containers:
