@@ -12,6 +12,8 @@ spec:
   retentionPeriod: 30d
   retentionMaxDiskSpaceUsageBytes: 20GB
   serviceSpec:
+    metadata:
+      name: vtsingle-vt-otel
     spec:
       ports:
         - name: grpc
