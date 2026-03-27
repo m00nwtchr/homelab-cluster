@@ -1,0 +1,37 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/opentelemetry.io/opentelemetrycollector_v1beta1.json
+apiVersion: opentelemetry.io/v1beta1
+kind: OpenTelemetryCollector
+metadata:
+  name: otel
+spec:
+  config:
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: "[::]:4317"
+          http:
+            endpoint: "[::]:4318"
+
+    processors:
+      memory_limiter:
+        check_interval: 1s
+        limit_percentage: 75
+        spike_limit_percentage: 15
+
+    exporters:
+      debug: {}
+      otlp:
+        endpoint: vtsingle-vt.observability.svc.cluster.local.:4317
+        tls:
+          insecure: true
+          # cert_file: file.cert
+          # key_file: file.key
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [memory_limiter]
+          exporters: [debug, otlp]
