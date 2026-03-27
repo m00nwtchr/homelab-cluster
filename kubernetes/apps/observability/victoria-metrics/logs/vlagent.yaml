@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/operator.victoriametrics.com/vlagent_v1.json
+apiVersion: operator.victoriametrics.com/v1
+kind: VLAgent
+metadata:
+  name: vl
+spec:
+  configReloaderExtraArgs:
+    enableTCP6: "true"
+  extraArgs:
+    enableTCP6: "true"
+  remoteWrite:
+    - url: http://vlsingle-vl.observability.svc.cluster.local.:9428/internal/insert
