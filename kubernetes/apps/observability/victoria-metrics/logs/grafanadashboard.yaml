@@ -11,6 +11,4 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  configMapRef:
-    name: victoria-logs-victorialogs-single-node
-    key: victorialogs-single-node.json
+  url: https://grafana.com/api/dashboards/22084/revisions/11/download
