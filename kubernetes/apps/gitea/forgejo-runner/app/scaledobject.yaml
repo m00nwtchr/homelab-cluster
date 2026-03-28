@@ -20,7 +20,7 @@ spec:
     kind: StatefulSet
     name: *name
   minReplicaCount: 0
-  maxReplicaCount: 20
+  maxReplicaCount: 2
   pollingInterval: 30
   triggers:
     - type: forgejo-runner
