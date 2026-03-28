@@ -5,8 +5,15 @@ kind: Kustomization
 resources:
   - certificate.yaml
   - dragonfly.yaml
+  - grafanadashboard.yaml
   - helmrelease.yaml
   - issuer.yaml
   - podmonitor.yaml
   # - mutatingadmissionpolicy.yaml
   - resourceset.yaml
+configMapGenerator:
+  - name: dfguard-dashboard
+    files:
+      - ./resources/dashboard.json
+configurations:
+  - ./resources/kustomizeconfig.yaml
