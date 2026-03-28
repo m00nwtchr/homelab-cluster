@@ -20,3 +20,25 @@ spec:
         - ports:
             - port: "6379"
               protocol: TCP
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: &app dfguard
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: *app
+      app.kubernetes.io/instance: *app
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: database
+            app: dragonfly
+            app.kubernetes.io/name: dragonfly
+            app.kubernetes.io/part-of: dragonfly
+      toPorts:
+        - ports:
+            - port: "6379"
+              protocol: TCP
