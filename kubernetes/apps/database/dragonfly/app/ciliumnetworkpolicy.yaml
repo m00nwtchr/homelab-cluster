@@ -1,0 +1,22 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: &app dragonfly
+spec:
+  endpointSelector:
+    matchLabels:
+      app: *app
+      app.kubernetes.io/name: *app
+      app.kubernetes.io/part-of: *app
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: database
+            app.kubernetes.io/name: dfguard
+            app.kubernetes.io/instance: dfguard
+      toPorts:
+        - ports:
+            - port: "6379"
+              protocol: TCP
