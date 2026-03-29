@@ -24,9 +24,11 @@ spec:
           resources:
             limits:
               cpu: "500m"
+              memory: 100Mi
             requests:
               cpu: "10m"
   # krr: controller=grafana container=toolhive
+              memory: 100Mi
   resources:
     limits:
       cpu: 200m

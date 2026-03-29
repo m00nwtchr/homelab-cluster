@@ -58,10 +58,10 @@ spec:
               readiness: *probes
             resources:
               requests:
-                cpu: 60m
-                memory: 303Mi
+                cpu: 20m
+                memory: 379Mi
               limits:
-                memory: 303Mi
+                memory: 379Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

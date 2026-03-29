@@ -65,10 +65,10 @@ spec:
               tag: 29.3.0-dind@sha256:1ba18449911d01f477a3fc104123c85d677addc60701b14b3fcb5381f9c4a537
             resources:
               requests:
-                cpu: 10m
-                memory: 194Mi
+                cpu: 471m
+                memory: 147Mi
               limits:
-                memory: 194Mi
+                memory: 147Mi
             securityContext:
               privileged: true
             env:
@@ -80,7 +80,7 @@ spec:
               tag: 12.7.1@sha256:5699199f389299e529867e88deec61d5619987d088cc9e120e2145d4afda8b3e
             resources:
               requests:
-                cpu: 10m
+                cpu: 183m
                 memory: 100Mi
               limits:
                 memory: 100Mi
