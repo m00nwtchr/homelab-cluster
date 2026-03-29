@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kind.x-k8s.io/cluster_v1alpha4.json
+# kind-bootstrap.yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: limen
+
+networking:
+  kubeProxyMode: "nftables"
+  disableDefaultCNI: false
+  podSubnet: "10.244.0.0/16"
+  serviceSubnet: "10.96.0.0/16"
+
+nodes:
+  - role: control-plane
+    extraMounts:
+      - hostPath: /run/user/1000/podman/podman.sock
+        containerPath: /var/run/docker.sock

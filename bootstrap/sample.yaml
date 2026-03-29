@@ -1,0 +1,144 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cluster.x-k8s.io/cluster_v1beta1.json
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: ${CLUSTER_NAME}
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+        - 10.45.0.0/16
+    serviceDomain: cluster.local
+    services:
+      cidrBlocks:
+        - 10.46.0.0/16
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1beta2
+    kind: KThreesControlPlane
+    name: ${CLUSTER_NAME}-control-plane
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    kind: MicrovmCluster
+    name: ${CLUSTER_NAME}
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cluster.x-k8s.io/machinedeployment_v1beta1.json
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachineDeployment
+metadata:
+  name: ${CLUSTER_NAME}-md-0
+spec:
+  clusterName: ${CLUSTER_NAME}
+  replicas: ${WORKER_MACHINE_COUNT}
+  selector:
+    matchLabels:
+      cluster.x-k8s.io/cluster-name: ${CLUSTER_NAME}
+      cluster.x-k8s.io/deployment-name: ${CLUSTER_NAME}-md-0
+  template:
+    metadata:
+      labels:
+        cluster.x-k8s.io/deployment-name: ${CLUSTER_NAME}-md-0
+    spec:
+      clusterName: ${CLUSTER_NAME}
+      version: ${KUBERNETES_VERSION}
+      bootstrap:
+        configRef:
+          name: ${CLUSTER_NAME}-md-0
+          apiVersion: bootstrap.cluster.x-k8s.io/v1beta2
+          kind: KThreesConfigTemplate
+      infrastructureRef:
+        name: "${CLUSTER_NAME}-md-0"
+        apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+        kind: MicrovmMachineTemplate
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/controlplane.cluster.x-k8s.io/kthreescontrolplane_v1beta2.json
+apiVersion: controlplane.cluster.x-k8s.io/v1beta2
+kind: KThreesControlPlane
+metadata:
+  name: ${CLUSTER_NAME}-control-plane
+spec:
+  kthreesConfigSpec:
+    serverConfig:
+      tlsSan:
+        - 0.0.0.0
+  machineTemplate:
+    infrastructureRef:
+      apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+      kind: DockerMachineTemplate
+      name: ${CLUSTER_NAME}-control-plane
+  replicas: ${CONTROL_PLANE_MACHINE_COUNT}
+  version: ${KUBERNETES_VERSION}
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/infrastructure.cluster.x-k8s.io/microvmcluster_v1alpha1.json
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: MicrovmCluster
+metadata:
+  name: "${CLUSTER_NAME}"
+spec:
+  controlPlaneEndpoint:
+    host: "${CONTROL_PLANE_VIP}"
+    port: 6443
+  placement:
+    staticPool:
+      hosts:
+        - endpoint: "${HOST_ENDPOINT:=127.0.0.1:9090}"
+          controlplaneAllowed: true
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/infrastructure.cluster.x-k8s.io/microvmmachinetemplate_v1alpha1.json
+kind: MicrovmMachineTemplate
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+metadata:
+  name: "${CLUSTER_NAME}-control-plane"
+spec:
+  template:
+    spec:
+      vcpu: 2
+      memoryMb: 2048
+      rootVolume:
+        id: root
+        image: "${MVM_ROOT_IMAGE:=ghcr.io/liquidmetal-dev/capmvm-kubernetes:1.23.5}"
+      kernel:
+        filename: "boot/vmlinux"
+        image: "${MVM_KERNEL_IMAGE:=ghcr.io/liquidmetal-dev/kernel-bin:5.10.77}"
+      volumes:
+        - id: modules
+          image: "${MVM_KERNEL_MODULES_IMAGE:=ghcr.io/liquidmetal-dev/kernel-modules:5.10.77}"
+          mountPoint: /lib/modules/5.10.77
+      kernelCmdline: {}
+      networkInterfaces:
+        - guestDeviceName: "eth1"
+          type: "macvtap"
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/infrastructure.cluster.x-k8s.io/microvmmachinetemplate_v1alpha1.json
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: MicrovmMachineTemplate
+metadata:
+  name: "${CLUSTER_NAME}-md-0"
+spec:
+  template:
+    spec:
+      vcpu: 2
+      memoryMb: 2048
+      rootVolume:
+        id: root
+        image: "${MVM_ROOT_IMAGE:=ghcr.io/liquidmetal-dev/capmvm-kubernetes:1.23.5}"
+      kernel:
+        filename: "boot/vmlinux"
+        image: "${MVM_KERNEL_IMAGE:=ghcr.io/liquidmetal-dev/kernel-bin:5.10.77}"
+      volumes:
+        - id: modules
+          image: "${MVM_KERNEL_MODULES_IMAGE:=ghcr.io/liquidmetal-dev/kernel-modules:5.10.77}"
+          mountPoint: /lib/modules/5.10.77
+      kernelCmdline: {}
+      networkInterfaces:
+        - guestDeviceName: "eth1"
+          type: "macvtap"
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/bootstrap.cluster.x-k8s.io/kthreesconfigtemplate_v1beta2.json
+apiVersion: bootstrap.cluster.x-k8s.io/v1beta2
+kind: KThreesConfigTemplate
+metadata:
+  name: ${CLUSTER_NAME}-md-0
+spec:
+  template:
+    spec: null

@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/k3d.io/simple_v1alpha5.json
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+image: docker.io/rancher/k3s:v1.32.5-k3s1
+options:
+  k3s:
+    extraArgs:
+      - arg: "--kubelet-arg=feature-gates=KubeletInUserNamespace=true"
+        nodeFilters:
+          - server:*
+          - agent:*
