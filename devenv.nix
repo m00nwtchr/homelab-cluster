@@ -12,14 +12,21 @@
     kubectl
     kubelogin-oidc
     talosctl
+    kind
+    k3d
+    clusterctl
+
+    gum
 
     helmfile
     kubeseal
 
     cilium-cli
+    hubble
     fluxcd
 
     go-task
+    just
     sops
 
     jq # JSON parser (handy for `kubectl` output)
