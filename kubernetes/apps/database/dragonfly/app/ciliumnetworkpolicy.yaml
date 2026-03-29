@@ -20,6 +20,16 @@ spec:
         - ports:
             - port: "6379"
               protocol: TCP
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: database
+            app.kubernetes.io/name: dragonfly
+            app.kubernetes.io/part-of: dragonfly
+            role: replica
+      toPorts:
+        - ports:
+            - port: "9999"
+              protocol: TCP
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cilium.io/ciliumnetworkpolicy_v2.json
 apiVersion: cilium.io/v2
