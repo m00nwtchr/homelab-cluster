@@ -56,12 +56,12 @@ spec:
               - op: add
                 path: /spec/namespaceSelector/matchExpressions/0/values/-
                 value: gitea # runners with dind sidecars
-          # - target:
-          #     group: policies.kubewarden.io
-          #     version: v1
-          #     kind: ClusterAdmissionPolicy
-          #     name: drop-capabilities # temp: allow NET_ADMIN in media namespace
-          #   patch: |-
-          #     - op: add
-          #       path: /spec/namespaceSelector/matchExpressions/0/values/-
-          #       value: media
+          - target:
+              group: policies.kubewarden.io
+              version: v1
+              kind: ClusterAdmissionPolicy
+              name: drop-capabilities # temp: allow NET_ADMIN in media namespace
+            patch: |-
+              - op: add
+                path: /spec/namespaceSelector/matchExpressions/0/values/-
+                value: media
