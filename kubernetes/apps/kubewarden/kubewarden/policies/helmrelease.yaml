@@ -40,3 +40,42 @@ spec:
         - openebs-system
         - kubevirt
       #   - tailscale
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              group: policies.kubewarden.io
+              version: v1
+              kind: ClusterAdmissionPolicy
+              name: do-not-run-as-root
+            patch: |-
+              - op: add
+                path: /spec/objectSelector
+                value:
+                  matchExpressions:
+                    - key: kubewarden.io/do-not-run-as-root
+                      operator: DoesNotExist
+          - target:
+              group: policies.kubewarden.io
+              version: v1
+              kind: ClusterAdmissionPolicy
+              name: do-not-share-host-paths
+            patch: |-
+              - op: add
+                path: /spec/objectSelector
+                value:
+                  matchExpressions:
+                    - key: kubewarden.io/do-not-share-host-paths
+                      operator: DoesNotExist
+          - target:
+              group: policies.kubewarden.io
+              version: v1
+              kind: ClusterAdmissionPolicy
+              name: no-privileged-pod
+            patch: |-
+              - op: add
+                path: /spec/objectSelector
+                value:
+                  matchExpressions:
+                    - key: kubewarden.io/no-privileged-pod
+                      operator: DoesNotExist
