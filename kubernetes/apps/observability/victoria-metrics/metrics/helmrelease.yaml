@@ -126,7 +126,7 @@ spec:
         scrapeInterval: 20s
 
     prometheus-node-exporter:
-      enabled: true
+      enabled: false
       fullnameOverride: node-exporter
 
     kube-state-metrics:
