@@ -7,3 +7,10 @@ components:
   - ../../components/common
 resources:
   - ./rssflow/ks.yaml
+patches:
+  - target:
+      kind: Namespace
+    patch: |-
+      - op: add
+        path: /metadata/annotations/instrumentation.opentelemetry.io~1inject-sdk
+        value: observability/instrumentation
