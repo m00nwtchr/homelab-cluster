@@ -36,3 +36,7 @@ spec:
 
     recommendedPolicies:
       enabled: true
+      skipAdditionalNamespaces:
+        - openebs-system
+        - kubevirt
+      #   - tailscale
