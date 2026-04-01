@@ -36,7 +36,7 @@ spec:
 
     recommendedPolicies:
       enabled: true
-
+      defaultPolicyMode: "protect"
       skipAdditionalNamespaces:
         - openebs-system
         - kubevirt
@@ -55,7 +55,7 @@ spec:
                 value: tailscale
               - op: add
                 path: /spec/namespaceSelector/matchExpressions/0/values/-
-                value: gitea
+                value: gitea # runners with dind sidecars
           # - target:
           #     group: policies.kubewarden.io
           #     version: v1
