@@ -28,3 +28,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: *app
+  values:
+    policyServer:
+      env:
+        - name: KUBEWARDEN_BIND_ADDRESS
+          value: "[::]"
