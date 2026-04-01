@@ -33,3 +33,6 @@ spec:
       env:
         - name: KUBEWARDEN_BIND_ADDRESS
           value: "[::]"
+
+    recommendedPolicies:
+      enabled: true
