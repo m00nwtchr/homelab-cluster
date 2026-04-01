@@ -23,8 +23,9 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/0xerr0r/blocky
-              tag: v0.29.0@sha256:a6d99f323d3036a99a3767a52ad612f4d8f3f31167492bfc14d4ea57b24cdfd0
+              # repository: ghcr.io/0xerr0r/blocky # https://github.com/0xERR0R/blocky/issues/1461
+              repository: ghcr.io/m00nwtchr/blocky # custom built image to allow running without caps
+              tag: 0.29.0@sha256:a5c6ebc08d3758d672d00b87dcf17b36562c1eb3417279c69e1e4dd3423137ec
             probes:
               liveness: &probe
                 enabled: true
@@ -34,6 +35,8 @@ spec:
                     command:
                       - /app/blocky
                       - healthcheck
+                      - -p
+                      - "5353"
               startup: *probe
               readiness: *probe
             resources:
@@ -46,8 +49,6 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
-                add:
-                  - NET_BIND_SERVICE
                 drop:
                   - ALL
               readOnlyRootFilesystem: true
@@ -85,9 +86,11 @@ spec:
             targetPort: 4000
           dns-tcp:
             port: 53
+            targetPort: 5353
             protocol: TCP
           dns-udp:
             port: 53
+            targetPort: 5353
             protocol: UDP
 
       internal:

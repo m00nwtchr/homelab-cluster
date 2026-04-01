@@ -56,5 +56,5 @@ bootstrapDns:
       - 2a07:e340::4
 
 ports:
-  dns: 53
+  dns: 5353
   http: 4000
