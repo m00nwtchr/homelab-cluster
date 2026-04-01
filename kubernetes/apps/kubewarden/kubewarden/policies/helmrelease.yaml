@@ -60,8 +60,23 @@ spec:
               group: policies.kubewarden.io
               version: v1
               kind: ClusterAdmissionPolicy
-              name: drop-capabilities # temp: allow NET_ADMIN in media namespace
+              name: drop-capabilities
             patch: |-
               - op: add
                 path: /spec/namespaceSelector/matchExpressions/0/values/-
-                value: media
+                value: media # gluetun
+          - target:
+              group: policies.kubewarden.io
+              version: v1
+              kind: ClusterAdmissionPolicy
+              name: do-not-run-as-root
+            patch: |-
+              - op: add
+                path: /spec/namespaceSelector/matchExpressions/0/values/-
+                value: media # gluetun
+              - op: add
+                path: /spec/namespaceSelector/matchExpressions/0/values/-
+                value: observability # something with victoriametrics
+              - op: add
+                path: /spec/namespaceSelector/matchExpressions/0/values/-
+                value: trivy-system # https://github.com/aquasecurity/trivy/pull/10134
