@@ -36,47 +36,32 @@ spec:
 
     recommendedPolicies:
       enabled: true
+
       skipAdditionalNamespaces:
         - openebs-system
         - kubevirt
         - observability-privileged
-      #   - tailscale
-  # postRenderers:
-  #   - kustomize:
-  #       patches:
-  #         - target:
-  #             group: policies.kubewarden.io
-  #             version: v1
-  #             kind: ClusterAdmissionPolicy
-  #             name: do-not-run-as-root
-  #           patch: |-
-  #             - op: add
-  #               path: /spec/objectSelector
-  #               value:
-  #                 matchExpressions:
-  #                   - key: kubewarden.io/do-not-run-as-root
-  #                     operator: DoesNotExist
-  #         - target:
-  #             group: policies.kubewarden.io
-  #             version: v1
-  #             kind: ClusterAdmissionPolicy
-  #             name: do-not-share-host-paths
-  #           patch: |-
-  #             - op: add
-  #               path: /spec/objectSelector
-  #               value:
-  #                 matchExpressions:
-  #                   - key: kubewarden.io/do-not-share-host-paths
-  #                     operator: DoesNotExist
-  #         - target:
-  #             group: policies.kubewarden.io
-  #             version: v1
-  #             kind: ClusterAdmissionPolicy
-  #             name: no-privileged-pod
-  #           patch: |-
-  #             - op: add
-  #               path: /spec/objectSelector
-  #               value:
-  #                 matchExpressions:
-  #                   - key: kubewarden.io/no-privileged-pod
-  #                     operator: DoesNotExist
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              group: policies.kubewarden.io
+              version: v1
+              kind: ClusterAdmissionPolicy
+              name: no-privileged-pod
+            patch: |-
+              - op: add
+                path: /spec/namespaceSelector/matchExpressions/0/values/-
+                value: tailscale
+              - op: add
+                path: /spec/namespaceSelector/matchExpressions/0/values/-
+                value: gitea
+          # - target:
+          #     group: policies.kubewarden.io
+          #     version: v1
+          #     kind: ClusterAdmissionPolicy
+          #     name: drop-capabilities # temp: allow NET_ADMIN in media namespace
+          #   patch: |-
+          #     - op: add
+          #       path: /spec/namespaceSelector/matchExpressions/0/values/-
+          #       value: media
