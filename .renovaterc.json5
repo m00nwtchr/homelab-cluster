@@ -7,7 +7,7 @@
 		"helpers:pinGitHubActionDigests",
 		"m00n/homelab-cluster//.renovate/autoMerge.json5",
 		"m00n/homelab-cluster//.renovate/customManagers.json5",
-		"m00n/homelab-cluster//.renovate/grafanaDashboards.json5",
+		"m00n/homelab-cluster//.renovate/grafana.json5",
 		"m00n/homelab-cluster//.renovate/groups.json5",
 		"m00n/homelab-cluster//.renovate/labels.json5",
 		"m00n/homelab-cluster//.renovate/semanticCommits.json5",
