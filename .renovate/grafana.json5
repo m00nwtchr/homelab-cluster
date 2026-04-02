@@ -11,8 +11,9 @@
 		"grafana-plugins": {
 			defaultRegistryUrlTemplate: "https://grafana.com/api/plugins/{{packageName}}",
 			format: "json",
-			transformTemplates: [ // overcomplicated only because i insisted on actually translating the schema lol
-				'{"releases":[$merge([{"version":$string(version),"releaseTimestamp":updatedAt,"sourceUrl":repositoryUrl ? repositoryUrl : url},$exists(packages.any.sha256) ? {"digest":packages.any.sha256} : {}])],"sourceUrl":repositoryUrl ? repositoryUrl : url}'
+			transformTemplates: [
+				// overcomplicated only because i insisted on actually translating the schema lol
+				'{"releases":[$merge([{"version":$string(version),"releaseTimestamp":updatedAt,"sourceUrl":repositoryUrl ? repositoryUrl : url},$exists(packages.any.sha256) ? {"digest":packages.any.sha256} : {}])],"sourceUrl":repositoryUrl ? repositoryUrl : url}',
 			],
 		},
 	},
@@ -30,14 +31,16 @@
 		{
 			description: "Process Grafana plugins",
 			customType: "regex",
-			managerFilePatterns: ["/grafanadashboard\\.yaml(?:\\.j2)?$/", "/grafanadatasource\\.yaml(?:\\.j2)?$/"],
+			managerFilePatterns: [
+				"/grafanadashboard\\.yaml(?:\\.j2)?$/",
+				"/grafanadatasource\\.yaml(?:\\.j2)?$/",
+			],
 			matchStrings: [
-				"-\\s*name:\\s*(?<depName>[^\\s]+)\\s*\\n\\s*version:\\s*(?<currentValue>[^\\s]+)"
+				"-\\s*name:\\s*(?<depName>[^\\s]+)\\s*\\n\\s*version:\\s*(?<currentValue>[^\\s]+)",
 			],
 			datasourceTemplate: "custom.grafana-plugins",
 			versioningTemplate: "semver-coerced",
 		},
-
 	],
 	packageRules: [
 		{
@@ -54,15 +57,18 @@
 		},
 		{
 			addLabels: ["renovate/grafana-plugin"],
-			automerge: true,
-			automergeType: "branch",
 			commitMessageExtra: "({{currentVersion}} ➔ {{newVersion}})",
 			commitMessageTopic: "plugin {{packageName}}",
-			ignoreTests: true,
 			matchDatasources: ["custom.grafana-plugins"],
-			matchUpdateTypes: ["major"],
 			semanticCommitScope: "grafana-plugins",
 			semanticCommitType: "chore",
+		},
+		{
+			automerge: true,
+			automergeType: "branch",
+			ignoreTests: true,
+			matchDatasources: ["custom.grafana-plugins"],
+			matchUpdateTypes: ["minor", "patch"],
 		},
 	],
 }
