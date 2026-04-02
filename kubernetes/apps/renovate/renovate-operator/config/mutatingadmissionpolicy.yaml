@@ -30,53 +30,62 @@ spec:
         object.metadata.labels["renovate-operator.mogenius.com/job-type"] == "executor"
     - name: missing-dragonfly-stunnel-container
       expression: >
-        !has(object.spec.template.spec.containers) ||
-        !object.spec.template.spec.containers.exists(c, c.name == "dragonfly-stunnel")
+        !has(object.spec.template.spec.initContainers) ||
+        !object.spec.template.spec.initContainers.exists(c, c.name == "dragonfly-stunnel")
     - name: has-volumes-array
       expression: >
         has(object.spec.template.spec.volumes)
-    - name: has-containers-array
-      expression: >
-        has(object.spec.template.spec.containers)
   failurePolicy: Fail
   reinvocationPolicy: IfNeeded
   mutations:
     - patchType: JSONPatch
       jsonPatch:
         expression: >
+          (
+            !has(object.spec.template.spec.initContainers)
+            ? [
+                JSONPatch{
+                  op: "add",
+                  path: "/spec/template/spec/initContainers",
+                  value: []
+                }
+              ]
+            : []
+          ) +
           [
             JSONPatch{
               op: "add",
-              path: "/spec/template/spec/containers/-",
-              value: Object.spec.template.spec.containers{
+              path: "/spec/template/spec/initContainers/-",
+              value: Object.spec.template.spec.initContainers{
                 name: "dragonfly-stunnel",
                 image: "cgr.dev/chainguard/stunnel:latest@sha256:c573ad23a5b7a8294d8d64d08deb4f6c05b0d8f39e0ce49fd635986057b2d870",
+                restartPolicy: "Always",
                 args: ["/etc/stunnel/stunnel.conf"],
                 volumeMounts: [
-                  Object.spec.template.spec.containers.volumeMounts{
+                  Object.spec.template.spec.initContainers.volumeMounts{
                     name: "dragonfly-stunnel",
                     mountPath: "/etc/stunnel/stunnel.conf",
                     subPath: "stunnel.conf",
                     readOnly: true
                   },
-                  Object.spec.template.spec.containers.volumeMounts{
+                  Object.spec.template.spec.initContainers.volumeMounts{
                     name: "dragonfly-certs",
                     mountPath: "/var/run/secrets/dragonfly",
                     readOnly: true
                   },
-                  Object.spec.template.spec.containers.volumeMounts{
+                  Object.spec.template.spec.initContainers.volumeMounts{
                     name: "root-ca",
                     mountPath: "/var/run/secrets/root-ca",
                     readOnly: true
                   }
                 ],
-                securityContext: Object.spec.template.spec.containers.securityContext{
+                securityContext: Object.spec.template.spec.initContainers.securityContext{
                   allowPrivilegeEscalation: false,
                   readOnlyRootFilesystem: true,
-                  capabilities: Object.spec.template.spec.containers.securityContext.capabilities{
+                  capabilities: Object.spec.template.spec.initContainers.securityContext.capabilities{
                     drop: ["ALL"]
                   },
-                  seccompProfile: Object.spec.template.spec.containers.securityContext.seccompProfile{
+                  seccompProfile: Object.spec.template.spec.initContainers.securityContext.seccompProfile{
                     type: "RuntimeDefault"
                   }
                 }
