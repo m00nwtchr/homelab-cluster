@@ -11,7 +11,18 @@ spec:
     enableTCP6: "true"
   k8sCollector:
     enabled: true
-    excludeFilter: "kubernetes.pod_name:=%{HOSTNAME}"
+    excludeFilter: |-
+      kubernetes.pod_name:="%{HOSTNAME}" OR (
+        "kubernetes.pod_annotations.logging.vlagent.io/exclude-main":="true" AND (
+          (
+            "kubernetes.pod_annotations.logging.vlagent.io/main-container":* AND
+            kubernetes.container_name:eq_field("kubernetes.pod_annotations.logging.vlagent.io/main-container")
+          ) OR (
+            !"kubernetes.pod_annotations.logging.vlagent.io/main-container":* AND
+            kubernetes.container_name:="app"
+          )
+        )
+      )
   extraEnv:
     - name: HOSTNAME
       valueFrom:
