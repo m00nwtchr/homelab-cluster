@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2026.3.2@sha256:7d5095b0c431b830f1fa0e3a8940cea6a601ce181fea1c426d8a3c94ad5aa845
+              tag: 2026.4.0@sha256:30d97fac471d8374a8e8371df83285f22924175800a7a73a94ed71bb7eb161f7
             env:
               TZ: ${TZ}
               HOME_ASSISTANT__HACS_INSTALL: "true"
