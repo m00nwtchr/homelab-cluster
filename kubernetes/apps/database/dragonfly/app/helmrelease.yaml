@@ -23,6 +23,7 @@ spec:
         pod:
           annotations:
             instrumentation.opentelemetry.io/inject-sdk: "observability/instrumentation"
+            logging.vlagent.io/exclude-main: "true"
 
         containers:
           app:
