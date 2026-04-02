@@ -4,6 +4,7 @@ apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDatasource
 metadata:
   name: &name prometheus
+  uid: 9b5c4385-3947-4fc8-bc9d-054d0a3b2ce1
 spec:
   instanceSelector:
     matchLabels:
