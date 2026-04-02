@@ -4,6 +4,7 @@ apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDatasource
 metadata:
   name: victorialogs
+  uid: d0d4e696-242f-4d5d-b44c-6c002efaee85
 spec:
   instanceSelector:
     matchLabels:

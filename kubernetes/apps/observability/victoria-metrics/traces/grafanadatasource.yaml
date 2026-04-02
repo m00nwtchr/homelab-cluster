@@ -14,4 +14,8 @@ spec:
     access: proxy
     jsonData:
       maxLines: 250
+      tracesToLogsV2:
+        datasourceUid: "d0d4e696-242f-4d5d-b44c-6c002efaee85"
+      tracesToMetrics:
+        datasourceUid: "9b5c4385-3947-4fc8-bc9d-054d0a3b2ce1"
     url: http://vtsingle-vt.observability.svc.cluster.local:10428/select/jaeger
