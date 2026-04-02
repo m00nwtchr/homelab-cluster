@@ -11,5 +11,11 @@ spec:
     enableTCP6: "true"
   k8sCollector:
     enabled: true
+    excludeFilter: "kubernetes.pod_name:=%{HOSTNAME}"
+  extraEnv:
+    - name: HOSTNAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
   remoteWrite:
     - url: http://vlsingle-vl.observability.svc.cluster.local.:9428/internal/insert
