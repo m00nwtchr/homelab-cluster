@@ -1,6 +1,6 @@
 ---
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/admissionregistration.k8s.io/mutatingadmissionpolicybinding_v1alpha1.json
-apiVersion: admissionregistration.k8s.io/v1alpha1
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/admissionregistration.k8s.io/mutatingadmissionpolicybinding_v1beta1.json
+apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingAdmissionPolicyBinding
 metadata:
   name: envoy-gateway-priorityclass
@@ -11,8 +11,8 @@ spec:
       matchLabels:
         kubernetes.io/metadata.name: network
 ---
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/admissionregistration.k8s.io/mutatingadmissionpolicy_v1alpha1.json
-apiVersion: admissionregistration.k8s.io/v1alpha1
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/admissionregistration.k8s.io/mutatingadmissionpolicy_v1beta1.json
+apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingAdmissionPolicy
 metadata:
   name: envoy-gateway-priorityclass
