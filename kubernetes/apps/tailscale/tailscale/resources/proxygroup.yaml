@@ -14,25 +14,28 @@ apiVersion: tailscale.com/v1alpha1
 kind: ProxyClass
 metadata:
   name: ts-proxy
-spec:
+spec: {}
   # metrics:
   #   enable: true
   #   serviceMonitor:
   #     enable: true
-  statefulSet:
-    pod:
-      tailscaleContainer:
-        resources:
-          limits:
-            squat.ai/tun: "1"
-        securityContext:
-          runAsUser: 65534
-          runAsGroup: 65534
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - ALL
-            add:
-              - NET_ADMIN
-              - NET_RAW
+  # statefulSet:
+  #   pod:
+  #     securityContext:
+  #       fsGroup: 65534
+  #       fsGroupChangePolicy: OnRootMismatch
+  #     tailscaleContainer:
+  #       resources:
+  #         limits:
+  #           squat.ai/tun: "1"
+  #       securityContext:
+  #         runAsUser: 65534
+  #         runAsGroup: 65534
+  #         runAsNonRoot: true
+  #         allowPrivilegeEscalation: false
+  #         capabilities:
+  #           drop:
+  #             - ALL
+  #           add:
+  #             - NET_ADMIN
+  #             - NET_RAW
