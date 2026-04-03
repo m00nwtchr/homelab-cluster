@@ -59,6 +59,9 @@ spec:
               PGSSLCERT: /var/run/secrets/postgresql/tls.crt
               PGSSLKEY: /var/run/secrets/postgresql/tls.key
               PGSSLMODE: verify-full
+            envFrom:
+              - secretRef:
+                  name: *app
             resources:
               requests:
                 memory: "368Mi"
