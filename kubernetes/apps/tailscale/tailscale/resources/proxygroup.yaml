@@ -15,10 +15,10 @@ kind: ProxyClass
 metadata:
   name: ts-proxy
 spec:
-  metrics:
-    enable: true
-    serviceMonitor:
-      enable: true
+  # metrics:
+  #   enable: true
+  #   serviceMonitor:
+  #     enable: true
   statefulSet:
     pod:
       tailscaleContainer:
