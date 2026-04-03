@@ -40,3 +40,6 @@ spec:
     proxyConfig:
       image:
         repository: ghcr.io/tailscale/tailscale
+    valuesFrom:
+      - kind: Secret
+        name: tailscale-operator-values
