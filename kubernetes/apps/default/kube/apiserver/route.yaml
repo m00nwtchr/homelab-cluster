@@ -34,6 +34,9 @@ spec:
         - path:
             type: PathPrefix
             value: /.well-known/openid-configuration
+        - path:
+            type: PathPrefix
+            value: /openid/v1/jwks
       backendRefs:
         - name: kubernetes
           namespace: default
