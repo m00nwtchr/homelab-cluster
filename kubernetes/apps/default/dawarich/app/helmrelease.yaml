@@ -67,6 +67,9 @@ spec:
               - "web-entrypoint.sh"
             args:
               - "bin/rails server -p 3000 -b ::"
+            securityContext:
+              capabilities:
+                drop: ["ALL"]
           sidekick:
             <<: *bapp
             command:
@@ -77,6 +80,9 @@ spec:
               requests:
                 memory: "327Mi"
                 cpu: "10m"
+            securityContext:
+              capabilities:
+                drop: ["ALL"]
 
     service:
       app:
