@@ -67,6 +67,21 @@ spec:
             port: 80
             targetPort: 8080
 
+    route:
+      main:
+        parentRefs:
+          - name: external
+            namespace: network
+            sectionName: https
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /.within.website/
+            backendRefs:
+              - identifier: app
+                port: 80
+
     persistence:
       config:
         type: configMap
