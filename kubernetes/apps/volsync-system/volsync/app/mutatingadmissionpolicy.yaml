@@ -49,16 +49,16 @@ spec:
             }
           ]
 ---
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/admissionregistration.k8s.io/mutatingadmissionpolicybinding_v1alpha1.json
-apiVersion: admissionregistration.k8s.io/v1alpha1
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/admissionregistration.k8s.io/mutatingadmissionpolicybinding_v1beta1.json
+apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingAdmissionPolicyBinding
 metadata:
   name: volsync-mover-rclone
 spec:
   policyName: volsync-mover-rclone
 ---
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/admissionregistration.k8s.io/mutatingadmissionpolicy_v1alpha1.json
-apiVersion: admissionregistration.k8s.io/v1alpha1
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/admissionregistration.k8s.io/mutatingadmissionpolicy_v1beta1.json
+apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingAdmissionPolicy
 metadata:
   name: volsync-mover-rclone
