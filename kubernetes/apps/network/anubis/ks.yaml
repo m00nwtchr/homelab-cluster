@@ -15,7 +15,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   interval: 1h
-  path: ./kubernetes/apps/default/anubis/app
+  path: ./kubernetes/apps/network/anubis/app
   postBuild:
     substitute:
       APP: *app
