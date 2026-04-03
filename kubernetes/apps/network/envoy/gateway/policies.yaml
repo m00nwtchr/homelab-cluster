@@ -51,3 +51,7 @@ spec:
       backendRefs:
         - name: anubis
           port: 80
+    headersToExtAuth:
+      - X-Forwarded-For
+      - X-Forwarded-Proto
+      - X-Real-Ip
