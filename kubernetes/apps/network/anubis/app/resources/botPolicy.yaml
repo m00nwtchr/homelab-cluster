@@ -3,6 +3,10 @@ bots:
   - name: asd
     action: CHALLENGE
     path_regex: ^.*
+  - name: allow-anubis
+    action: ALLOW
+    headers_regex:
+      Host: ^anubis.${SECRET_DOMAIN}$
 
 openGraph:
   enabled: true
