@@ -1,15 +1,15 @@
 bots:
   - import: (data)/meta/default-config.yaml
-  - name: asd
-    action: CHALLENGE
-    path_regex: ^.*
   - name: allow-anubis
     action: ALLOW
     headers_regex:
       Host: ^anubis.${SECRET_DOMAIN}$
+  - name: asd
+    action: CHALLENGE
+    path_regex: ^.*
 
 openGraph:
-  enabled: true
+  enabled: false
   considerHost: true
   ttl: 24h
 
