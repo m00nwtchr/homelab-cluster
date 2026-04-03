@@ -4,6 +4,7 @@ kind: Service
 metadata:
   annotations:
     tailscale.com/tailnet-fqdn: "tide.tail096cd8.ts.net"
+    tailscale.com/proxy-class: "ts-proxy"
   name: tide
 spec:
   externalName: placeholder # any value - will be overwritten by the operator
