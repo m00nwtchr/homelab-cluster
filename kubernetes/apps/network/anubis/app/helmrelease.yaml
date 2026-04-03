@@ -30,6 +30,7 @@ spec:
                     key: ED25519_PRIVATE_KEY_HEX
               SERVE_ROBOTS_TXT: "true"
               REDIRECT_DOMAINS: "*.${SECRET_DOMAIN}"
+              TARGET: " "
             probes:
               liveness:
                 enabled: true
