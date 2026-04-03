@@ -76,7 +76,13 @@ spec:
           # - name: rewrite
           #   parameters: name substring idm.${SECRET_DOMAIN} external.network.svc.cluster.local
           - name: rewrite
-            parameters: name substring idm.${SECRET_DOMAIN} kanidm.kanidm.svc.cluster.local
+            parameters: stop
+            configBlock: |-
+              name exact idm.${SECRET_DOMAIN}. kanidm.kanidm.svc.cluster.local.
+              answer auto
+              name regex ^${SECRET_DOMAIN//./\\.}\..*\.cluster\.local\.$ kanidm.kanidm.svc.cluster.local.
+              answer auto
+
           - name: kubernetes
             parameters: cluster.local in-addr.arpa ip6.arpa
             configBlock: |-
