@@ -113,6 +113,7 @@ spec:
         annotations:
           tailscale.com/hostname: *app
           tailscale.com/proxy-group: ingress-proxy
+          tailscale.com/tags: "tag:dns"
         ports: *ports
 
     serviceMonitor:
