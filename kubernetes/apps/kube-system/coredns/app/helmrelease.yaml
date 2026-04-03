@@ -73,12 +73,16 @@ spec:
           - name: forward
             parameters: tail096cd8.ts.net 2001:cafe:43::75
 
+          - name: rewrite
+            parameters: stop
+            configBlock: |-
+              name exact idm.${SECRET_DOMAIN}. kanidm.kanidm.svc.cluster.local.
+
           # - name: rewrite
           #   parameters: name substring idm.${SECRET_DOMAIN} external.network.svc.cluster.local
           - name: rewrite
             parameters: stop
             configBlock: |-
-              name exact idm.${SECRET_DOMAIN}. kanidm.kanidm.svc.cluster.local.
               name regex ^${SECRET_DOMAIN//./\\.}\..*\.cluster\.local\.$ kanidm.kanidm.svc.cluster.local.
               answer auto
 
