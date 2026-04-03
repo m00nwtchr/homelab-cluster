@@ -6,6 +6,7 @@ namespace: network
 components:
   - ../../components/common
 resources:
+  - ./anubis/ks.yaml
   - ./cloudflare-dns/ks.yaml
   - ./cloudflare-tunnel/ks.yaml
   - ./envoy/ks.yaml
