@@ -26,6 +26,9 @@ spec:
           limits:
             squat.ai/tun: "1"
         securityContext:
+          runAsUser: 65534
+          runAsGroup: 65534
+          runAsNonRoot: true
           allowPrivilegeEscalation: false
           capabilities:
             drop:
