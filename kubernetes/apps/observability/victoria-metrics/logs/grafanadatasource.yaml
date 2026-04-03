@@ -18,4 +18,4 @@ spec:
     url: http://vlsingle-vl.observability.svc.cluster.local:9428
   plugins:
     - name: victoriametrics-logs-datasource
-      version: 0.21.1
+      version: 0.26.3
