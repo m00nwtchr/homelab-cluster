@@ -83,3 +83,6 @@ spec:
               - op: add
                 path: /spec/namespaceSelector/matchExpressions/0/values/-
                 value: trivy-system # https://github.com/aquasecurity/trivy/pull/10134
+              - op: add
+                path: /spec/namespaceSelector/matchExpressions/0/values/-
+                value: tailscale # sysctls
