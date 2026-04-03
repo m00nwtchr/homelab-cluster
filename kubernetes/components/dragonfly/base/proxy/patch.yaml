@@ -33,9 +33,10 @@ spec:
                           name: root-ca
                           defaultMode: 0440
 
-                    containers:
+                    initContainers:
                       - name: dragonfly-stunnel
                         image: cgr.dev/chainguard/stunnel:latest@sha256:c573ad23a5b7a8294d8d64d08deb4f6c05b0d8f39e0ce49fd635986057b2d870
+                        restartPolicy: Always
                         args:
                           - /etc/stunnel/stunnel.conf
                         volumeMounts:
@@ -84,9 +85,10 @@ spec:
                           name: root-ca
                           defaultMode: 0440
 
-                    containers:
+                    initContainers:
                       - name: dragonfly-stunnel
                         image: cgr.dev/chainguard/stunnel:latest@sha256:c573ad23a5b7a8294d8d64d08deb4f6c05b0d8f39e0ce49fd635986057b2d870
+                        restartPolicy: Always
                         args:
                           - /etc/stunnel/stunnel.conf
                         volumeMounts:
