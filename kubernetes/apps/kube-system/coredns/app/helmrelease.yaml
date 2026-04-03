@@ -79,7 +79,6 @@ spec:
             parameters: stop
             configBlock: |-
               name exact idm.${SECRET_DOMAIN}. kanidm.kanidm.svc.cluster.local.
-              answer auto
               name regex ^${SECRET_DOMAIN//./\\.}\..*\.cluster\.local\.$ kanidm.kanidm.svc.cluster.local.
               answer auto
 
