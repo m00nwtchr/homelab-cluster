@@ -1,8 +1,12 @@
 bots:
   - import: (data)/meta/default-config.yaml
+  - name: asd
+    action: CHALLENGE
+    path_regex: ^.*
 
 openGraph:
   enabled: true
+  considerHost: true
   ttl: 24h
 
 status_codes:
