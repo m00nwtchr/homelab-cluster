@@ -2,7 +2,7 @@
 devices:
   - name: tun
     groups:
-      - count: 2
+      - count: 1000
         paths:
           - path: /dev/net/tun
   - name: tpmrm

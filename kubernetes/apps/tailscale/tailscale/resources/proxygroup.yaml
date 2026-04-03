@@ -7,3 +7,29 @@ metadata:
 spec:
   type: ingress
   replicas: 2
+  proxyClass: ts-proxy
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/tailscale.com/proxyclass_v1alpha1.json
+apiVersion: tailscale.com/v1alpha1
+kind: ProxyClass
+metadata:
+  name: ts-proxy
+spec:
+  metrics:
+    enable: true
+    serviceMonitor:
+      enable: true
+  statefulSet:
+    pod:
+      tailscaleContainer:
+        resources:
+          limits:
+            squat.ai/tun: "1"
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+            add:
+              - NET_ADMIN
+              - NET_RAW
