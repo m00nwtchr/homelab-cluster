@@ -43,3 +43,27 @@ spec:
   valuesFrom:
     - kind: Secret
       name: tailscale-operator-values
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: v1
+              kind: Deployment
+              name: operator
+            patch: |-
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: ignored
+              spec:
+                template:
+                  spec:
+                    volumes:
+                      - name: config
+                        emptyDir:
+
+                    containers:
+                      - name: operator
+                        volumeMounts:
+                          - name: config
+                            mountPath: /.config
