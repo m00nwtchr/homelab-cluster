@@ -21,6 +21,11 @@ spec:
             env:
               BIND: ":8080"
               METRICS_BIND: ":9090"
+              TARGET: " "
+              REDIRECT_DOMAINS: "*.${SECRET_DOMAIN}"
+              PUBLIC_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+              COOKIE_DOMAIN: "${SECRET_DOMAIN}"
+
               POLICY_FNAME: /config/botPolicy.yaml
               DIFFICULTY: "4"
               ED25519_PRIVATE_KEY_HEX:
@@ -29,8 +34,6 @@ spec:
                     name: anubis-key
                     key: ED25519_PRIVATE_KEY_HEX
               SERVE_ROBOTS_TXT: "true"
-              REDIRECT_DOMAINS: "*.${SECRET_DOMAIN}"
-              TARGET: " "
             probes:
               liveness:
                 enabled: true
@@ -69,18 +72,11 @@ spec:
 
     route:
       main:
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
         parentRefs:
           - name: external
             namespace: network
             sectionName: https
-        rules:
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /.within.website/
-            backendRefs:
-              - identifier: app
-                port: 80
 
     persistence:
       config:
