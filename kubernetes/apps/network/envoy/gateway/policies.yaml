@@ -39,8 +39,8 @@ spec:
       set:
         - name: X-Real-Ip
           value: "%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%"
-        - name: X-Forwarded-Proto
-          value: "https"
+        # - name: X-Forwarded-Proto
+        #   value: "https"
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
@@ -54,7 +54,7 @@ spec:
       name: external
   extAuth:
     http:
-      path: /x/cmd/anubis/api/check
+      path: /.within.website/x/cmd/anubis/api/check
       backendRefs:
         - name: anubis
           port: 80
