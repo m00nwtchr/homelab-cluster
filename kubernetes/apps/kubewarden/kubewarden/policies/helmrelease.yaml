@@ -65,6 +65,9 @@ spec:
               - op: add
                 path: /spec/namespaceSelector/matchExpressions/0/values/-
                 value: media # gluetun
+              - op: add
+                path: /spec/namespaceSelector/matchExpressions/0/values/-
+                value: tailscale # NET_ADMIN, NET_RAW
           - target:
               group: policies.kubewarden.io
               version: v1
