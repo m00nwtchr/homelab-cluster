@@ -56,6 +56,9 @@ spec:
               - op: add
                 path: /spec/namespaceSelector/matchExpressions/0/values/-
                 value: gitea # runners with dind sidecars
+              - op: add
+                path: /spec/namespaceSelector/matchExpressions/0/values/-
+                value: tailscale # smh
           - target:
               group: policies.kubewarden.io
               version: v1
