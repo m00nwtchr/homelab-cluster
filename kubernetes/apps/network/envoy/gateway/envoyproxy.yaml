@@ -56,8 +56,17 @@ spec:
     kubernetes:
       envoyDeployment:
         replicas: 1
+        pod:
+          volumes:
+            - name: geoip-db
+              persistentVolumeClaim:
+                claimName: geoip-db
         container:
           image: mirror.gcr.io/envoyproxy/envoy:v1.37.0@sha256:d9b4a70739d92b3e28cd407f106b0e90d55df453d7d87773efd22b4429777fe8
+          volumeMounts:
+            - name: geoip-db
+              mountPath: /etc/envoy/geoip
+              readOnly: true
           resources:
             requests:
               cpu: 100m
@@ -67,6 +76,13 @@ spec:
         loadBalancerClass: "io.cilium/node"
   #  shutdown:
   #    drainTimeout: 180s
+  # geoIP:
+  #   provider:
+  #     type: MaxMind
+  #     maxMind:
+  #       anonymousIpDbSource:
+  #         local:
+  #           path: /etc/envoy/geoip/GeoIP2-Anonymous-IP-Test.mmdb
   telemetry:
     metrics:
       prometheus:
