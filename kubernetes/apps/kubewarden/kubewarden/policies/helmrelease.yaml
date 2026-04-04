@@ -52,31 +52,16 @@ spec:
             patch: |-
               - op: add
                 path: /spec/namespaceSelector/matchExpressions/0/values/-
-                value: tailscale
-              - op: add
-                path: /spec/namespaceSelector/matchExpressions/0/values/-
-                value: gitea # runners with dind sidecars
-              - op: add
-                path: /spec/namespaceSelector/matchExpressions/0/values/-
-                value: tailscale # smh
-          - target:
-              group: policies.kubewarden.io
-              version: v1
-              kind: ClusterAdmissionPolicy
-              name: drop-capabilities
-            patch: |-
-              - op: add
-                path: /spec/namespaceSelector/matchExpressions/0/values/-
-                value: media # gluetun
-              - op: add
-                path: /spec/namespaceSelector/matchExpressions/0/values/-
-                value: tailscale # NET_ADMIN, NET_RAW
+                value: gitea
           - target:
               group: policies.kubewarden.io
               version: v1
               kind: ClusterAdmissionPolicy
               name: do-not-run-as-root
             patch: |-
+              - op: replace
+                path: /spec/mutating
+                value: false
               - op: add
                 path: /spec/namespaceSelector/matchExpressions/0/values/-
                 value: media # gluetun
@@ -92,3 +77,27 @@ spec:
               - op: add
                 path: /spec/namespaceSelector/matchExpressions/0/values/-
                 value: gitea
+          - target:
+              group: policies.kubewarden.io
+              version: v1
+              kind: ClusterAdmissionPolicy
+              name: no-privilege-escalation
+            patch: |-
+              - op: replace
+                path: /spec/mutating
+                value: false
+          - target:
+              group: policies.kubewarden.io
+              version: v1
+              kind: ClusterAdmissionPolicy
+              name: drop-capabilities
+            patch: |-
+              - op: replace
+                path: /spec/mutating
+                value: false
+              - op: add
+                path: /spec/namespaceSelector/matchExpressions/0/values/-
+                value: media # gluetun
+              - op: add
+                path: /spec/namespaceSelector/matchExpressions/0/values/-
+                value: tailscale # NET_ADMIN, NET_RAW
