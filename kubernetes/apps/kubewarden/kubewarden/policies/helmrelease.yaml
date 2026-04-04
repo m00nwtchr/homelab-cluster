@@ -89,3 +89,6 @@ spec:
               - op: add
                 path: /spec/namespaceSelector/matchExpressions/0/values/-
                 value: tailscale # sysctls
+              - op: add
+                path: /spec/namespaceSelector/matchExpressions/0/values/-
+                value: gitea
