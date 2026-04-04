@@ -16,49 +16,12 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
 
-        pod:
-          securityContext:
-            fsGroup: 65532
-            fsGroupChangePolicy: OnRootMismatch
-
         containers:
           app:
             image:
               repository: livekit/livekit-server
               tag: v1.9.12@sha256:2c13cbf2edcbf13ea7b20d05c10b394d04d8fb3fe358269cff845a90b4de9576
-            # command: ["sh", "-ec"]
-            # args:
-            #   - |
-            #     IPV4="$(echo "$POD_IPS" | tr ',' '\n' | grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$' | head -n1)"
-            #     if [ -z "$IPV4" ]; then
-            #       echo "ERROR: no IPv4 found in POD_IPS=$POD_IPS" >&2
-            #       exit 1
-            #     fi
-            #     export LIVEKIT_NODE_IP="$IPV4"
-            #     exec /livekit-server --config /config/config.yaml
-            # ports:
-            #   - containerPort: 7880
-            #     name: http
-            #     protocol: TCP
-            #   - containerPort: 7881
-            #     hostPort: 7881
-            #     name: rtc-tcp
-            #     protocol: TCP
-            #   #              - containerPort: 443
-            #   #                hostPort: 443
-            #   #                name: turn-tls
-            #   #                protocol: TCP
-            #   - containerPort: 3478
-            #     hostPort: 3478
-            #     name: turn-udp
-            #     protocol: UDP
             env:
-              # POD_IPS:
-              #   valueFrom:
-              #     fieldRef:
-              #       fieldPath: status.podIPs
-              # LIVEKIT_NODE_IP:
-              #   value: ""
               LIVEKIT_CONFIG:
                 valueFrom:
                   secretKeyRef:
@@ -78,6 +41,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
 
       jwt:
         labels:
@@ -104,22 +68,15 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
 
-    #              capabilities: { drop: [ "ALL" ] }
-    #            resources:
-    #              requests:
-    #                cpu: 100m
-    #                memory: 1Gi
-    #              limits:
-    #                memory: 1Gi
-
-    #    defaultPodOptions:
-    #      securityContext:
-    #        runAsNonRoot: true
-    #        runAsUser: 2000
-    #        runAsGroup: 2000
-    #        fsGroup: 2000
-    #        fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 2000
+        runAsGroup: 2000
+        fsGroup: 2000
+        fsGroupChangePolicy: OnRootMismatch
 
     service:
       app:
