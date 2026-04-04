@@ -34,9 +34,22 @@ spec:
         - name: internal
           namespace: network
           sectionName: https
+      backendRefs:
+        - name: forgejo-anubis
+          port: 80
       matches:
         timeouts:
           request: 300s
+
+    tcpRoute:
+      enabled: true
+      parentRefs:
+        - name: external
+          namespace: network
+          sectionName: ssh
+        - name: internal
+          namespace: network
+          sectionName: ssh
 
     # https://codeberg.org/forgejo/-/packages/container/forgejo/14.0.2
     image:

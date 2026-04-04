@@ -16,6 +16,7 @@ spec:
     - ../../../../components/dragonfly/manual
     - ../../../../components/gatus/external
     - ../../../../components/mail
+    - ../../../../components/anubis
   dependsOn:
     - name: volsync
       namespace: volsync-system
@@ -32,6 +33,7 @@ spec:
       OIDC_SCOPES: '["openid", "profile", "email", "groups", "ssh_publickeys"]'
       OIDC_CLIENT_ID_KEY: key
       OIDC_CLIENT_SECRET_KEY: secret
+      ANUBIS_TARGET: http://forgejo-http:3000
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
