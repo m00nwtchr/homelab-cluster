@@ -53,6 +53,7 @@ spec:
 
     persistence:
       geoip-db:
+        forceRename: geoip-db
         size: 1Gi
         accessMode: ReadWriteOnce
         globalMounts:
