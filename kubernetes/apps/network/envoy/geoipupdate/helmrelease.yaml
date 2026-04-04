@@ -1,0 +1,59 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app geoipupdate
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  interval: 30m
+  values:
+    controllers:
+      *app :
+        type: cronjob
+        cronjob:
+          # backoffLimit: 0
+          concurrencyPolicy: "Replace"
+          # failedJobsHistory: 1
+          schedule: "24 7 * * 0,4"
+          # successfulJobsHistory: 0
+        pod:
+          restartPolicy: OnFailure
+          securityContext:
+            runAsGroup: 65534
+            runAsNonRoot: true
+            runAsUser: 65534
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/maxmind/geoipupdate
+              tag: v7.1.1@sha256:faecdca22579730ab0b7dea5aa9af350bb3c93cb9d39845c173639ead30346d2
+            env:
+              GEOIPUPDATE_EDITION_IDS: "GeoLite2-Country"
+              GEOIPUPDATE_PRESERVE_FILE_TIMES: 1
+            envFrom:
+              - secretRef:
+                  name: *app
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 100Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    persistence:
+      geoip-db:
+        size: 1Gi
+        accessMode: ReadWriteOnce
+        globalMounts:
+          - path: /usr/share/GeoIP
