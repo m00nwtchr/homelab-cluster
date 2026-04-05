@@ -89,12 +89,12 @@ spec:
           - name: rewrite
             parameters: stop
             configBlock: |-
-              name exact git.${SECRET_DOMAIN}. forgejo-http.gitea.svc.cluster.local.
+              name exact git.${SECRET_DOMAIN}. internal.network.svc.cluster.local.
 
           - name: rewrite
             parameters: stop
             configBlock: |-
-              name regex ^git\.${SECRET_DOMAIN//./\\.}\..*\.cluster\.local\.$ forgejo-http.gitea.svc.cluster.local.
+              name regex ^git\.${SECRET_DOMAIN//./\\.}\..*\.cluster\.local\.$ internal.network.svc.cluster.local.
               answer auto
 
           - name: kubernetes
