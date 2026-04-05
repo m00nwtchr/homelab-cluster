@@ -51,4 +51,11 @@ spec:
   tlsSecretRef:
     name: dragonfly-server-cert
 
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 65543
+    runAsGroup: 65543
+    fsGroup: 65543
+    fsGroupChangePolicy: OnRootMismatch
+
   networkPolicyEnabled: false # see ciliumnetworkpolicy
