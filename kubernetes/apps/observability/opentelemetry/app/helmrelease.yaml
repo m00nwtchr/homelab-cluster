@@ -17,7 +17,7 @@ spec:
   chart:
     spec:
       chart: *app
-      version: 0.106.0
+      version: 0.109.0
       sourceRef:
         kind: HelmRepository
         name: opentelemetry
