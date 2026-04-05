@@ -23,10 +23,10 @@ spec:
         pod:
           restartPolicy: OnFailure
           securityContext:
-            runAsUser: 65534
-            runAsGroup: 65534
+            runAsUser: 65532
+            runAsGroup: 65532
             runAsNonRoot: true
-            fsGroup: 65543
+            fsGroup: 65532
             fsGroupChangePolicy: OnRootMismatch
 
         containers:
