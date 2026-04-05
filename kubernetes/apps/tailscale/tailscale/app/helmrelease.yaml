@@ -34,8 +34,8 @@ spec:
         repository: ghcr.io/tailscale/k8s-operator
         pullPolicy: IfNotPresent
       securityContext:
-        runAsUser: 65534
-        runAsGroup: 65534
+        runAsUser: 65532
+        runAsGroup: 65532
         runAsNonRoot: true
     proxyConfig:
       image:

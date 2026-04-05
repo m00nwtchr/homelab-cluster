@@ -15,9 +15,9 @@ spec:
       *app :
         pod:
           securityContext:
-            runAsGroup: 65534
+            runAsGroup: 65532
             runAsNonRoot: true
-            runAsUser: 65534
+            runAsUser: 65532
 
         containers:
           app:

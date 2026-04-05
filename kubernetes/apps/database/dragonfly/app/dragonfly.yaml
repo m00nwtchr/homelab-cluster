@@ -53,9 +53,9 @@ spec:
 
   podSecurityContext:
     runAsNonRoot: true
-    runAsUser: 65543
-    runAsGroup: 65543
-    fsGroup: 65543
+    runAsUser: 65532
+    runAsGroup: 65532
+    fsGroup: 65532
     fsGroupChangePolicy: OnRootMismatch
 
   networkPolicyEnabled: false # see ciliumnetworkpolicy
