@@ -83,7 +83,18 @@ spec:
           - name: rewrite
             parameters: stop
             configBlock: |-
-              name regex ^${SECRET_DOMAIN//./\\.}\..*\.cluster\.local\.$ kanidm.kanidm.svc.cluster.local.
+              name regex ^idm\.${SECRET_DOMAIN//./\\.}\..*\.cluster\.local\.$ kanidm.kanidm.svc.cluster.local.
+              answer auto
+
+          - name: rewrite
+            parameters: stop
+            configBlock: |-
+              name exact git.${SECRET_DOMAIN}. forgejo-http.gitea.svc.cluster.local.
+
+          - name: rewrite
+            parameters: stop
+            configBlock: |-
+              name regex ^git\.${SECRET_DOMAIN//./\\.}\..*\.cluster\.local\.$ forgejo-http.gitea.svc.cluster.local.
               answer auto
 
           - name: kubernetes
