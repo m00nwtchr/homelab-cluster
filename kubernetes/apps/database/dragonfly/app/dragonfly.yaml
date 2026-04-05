@@ -50,3 +50,5 @@ spec:
 
   tlsSecretRef:
     name: dragonfly-server-cert
+
+  networkPolicyEnabled: false # see ciliumnetworkpolicy

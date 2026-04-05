@@ -26,6 +26,12 @@ spec:
             app.kubernetes.io/name: dragonfly
             app.kubernetes.io/part-of: dragonfly
             role: replica
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: dragonfly-system
+            control-plane: controller-manager
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: observability
+            app.kubernetes.io/name: vmagent
       toPorts:
         - ports:
             - port: "9999"
