@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/autobrr/autobrr
-              tag: v1.72.1@sha256:89e5e266ae415b4979ddc303cfa80c9bd90fd5be26290ebd8b4757fdc47d7523
+              tag: v1.75.1@sha256:712cf8ffa11eba28e286d632dc8ad6b17fb6d754573848a07ec91043eb03d87e
             env:
               TZ: ${TZ}
               AUTOBRR__CHECK_FOR_UPDATES: "false"
