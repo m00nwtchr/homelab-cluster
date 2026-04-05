@@ -58,3 +58,6 @@ spec:
         accessMode: ReadWriteOnce
         globalMounts:
           - path: /usr/share/GeoIP
+
+      tmp:
+        type: emptyDir
