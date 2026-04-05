@@ -1,8 +1,12 @@
 name: opencode-review-renovate
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+  # pull_request:
+  #   types: [opened, synchronize, reopened, ready_for_review]
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
 
 concurrency:
   group: renovate-review-${{ forgejo.event.pull_request.number }}
@@ -10,7 +14,10 @@ concurrency:
 
 jobs:
   review:
-    if: forgejo.event.pull_request.user.login == 'Renovate'
+    if: |
+      contains(github.event.comment.body, '/oc') ||
+      contains(github.event.comment.body, '/opencode')
+    # if: forgejo.event.pull_request.user.login == 'Renovate'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -26,7 +33,6 @@ jobs:
 
       - uses: anomalyco/opencode/github@latest
         env:
-          # ZAI_API_KEY: ${{ secrets.ZAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           model: opencode/minimax-m2.5-free
