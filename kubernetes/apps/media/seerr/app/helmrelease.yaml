@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app jellyseerr
+  name: &app seerr
 spec:
   interval: 1h
   chartRef:
@@ -18,8 +18,8 @@ spec:
         containers:
           app:
             image:
-              repository: mirror.gcr.io/fallenbagel/jellyseerr
-              tag: preview-OIDC@sha256:9f3195998306da6548fc3b2420d114dda64a6e904f41e911168788fb410a7972
+              repository: ghcr.io/seerr-team/seerr
+              tag: preview-new-oidc@sha256:a14a9c326881fdce70b00df3fc095f5b5b128f5552677f677cd3788e757fb4e6
             env:
               LOG_LEVEL: info
               PORT: &port 8080

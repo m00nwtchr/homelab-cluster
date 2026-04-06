@@ -12,7 +12,6 @@ resources:
   #  - ./dispatcharr/ks.yaml
   - ./immich/ks.yaml
   - ./jellyfin/ks.yaml
-  - ./jellyseerr/ks.yaml
   - ./kavita/ks.yaml
   - ./lidarr/ks.yaml
   # - ./pinepods/ks.yaml
@@ -21,6 +20,7 @@ resources:
   - ./qui/ks.yaml
   - ./radarr/ks.yaml
   - ./recyclarr/ks.yaml
+  - ./seerr/ks.yaml
   - ./shelfmark/ks.yaml
   - ./slskd/ks.yaml
   - ./sonarr/ks.yaml

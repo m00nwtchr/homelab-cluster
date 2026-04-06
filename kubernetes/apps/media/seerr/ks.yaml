@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app jellyseerr
+  name: &app seerr
   namespace: &namespace media
 spec:
   commonMetadata:
@@ -15,14 +15,14 @@ spec:
     - ../../../../components/oidc
     - ../../../../components/gatus/guarded
   interval: 1h
-  path: ./kubernetes/apps/media/jellyseerr/app
+  path: ./kubernetes/apps/media/seerr/app
   postBuild:
     substitute:
       APP: *app
       NAMESPACE: *namespace
       SUBDOMAIN: requests
       VOLSYNC_CAPACITY: 1Gi
-      OIDC_DISPLAY_NAME: Jellyseer
+      OIDC_DISPLAY_NAME: Seerr
       OIDC_CALLBACK: /login?provider=kanidm&callback=true
       OIDC_SHORT_USERNAME: "true"
       OIDC_DISABLE_PKCE: "true"
