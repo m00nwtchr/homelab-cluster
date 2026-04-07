@@ -1,0 +1,77 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/source.toolkit.fluxcd.io/helmrepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: infisical
+spec:
+  interval: 1h
+  url: https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts/
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app infisical
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: *app
+      version: 0.4.2
+      sourceRef:
+        kind: HelmRepository
+        name: *app
+  values:
+    infisical:
+      image:
+        repository: infisical/infisical
+        tag: "v0.159.8@sha256:84d8788880ba3ac3da7320819e78f12ca690dbdeee52b866150e71330e83e010"
+        pullPolicy: IfNotPresent
+      replicaCount: 2
+
+      extraEnv:
+        - name: DB_CONNECTION_URI
+          valueFrom:
+            secretKeyRef:
+              name: "infisical-postgres"
+              key: url
+        - name: REDIS_URL
+          value: redis://localhost:6379
+        - name: SITE_URL
+          value: "infisical.${SECRET_DOMAIN}"
+
+    postgresql:
+      enabled: false
+    redis:
+      enabled: false
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              group: apps
+              version: v1
+              kind: Deployment
+              name: infisical-backend
+            patch: |
+              - op: add
+                path: /spec/template/spec/securityContext
+                value:
+                  runAsNonRoot: true
+                  runAsUser: 65532
+                  runAsGroup: 65532
+                  fsGroup: 65532
+                  fsGroupChangePolicy: OnRootMismatch
+                  seccompProfile:
+                    type: RuntimeDefault
+
+              - op: add
+                path: /spec/template/spec/containers/0/securityContext
+                value:
+                  allowPrivilegeEscalation: false
+                  readOnlyRootFilesystem: true
+                  capabilities:
+                    drop:
+                      - ALL
+                  seccompProfile:
+                    type: RuntimeDefault
