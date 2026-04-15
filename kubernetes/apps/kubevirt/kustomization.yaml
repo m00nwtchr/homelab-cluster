@@ -5,6 +5,6 @@ kind: Kustomization
 namespace: kubevirt
 components:
   - ../../components/common
-# resources:
-#   - ./cdi/ks.yaml
-#   - ./kubevirt/ks.yaml
+resources:
+  - ./cdi/ks.yaml
+  - ./kubevirt/ks.yaml
