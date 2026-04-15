@@ -4,7 +4,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname multus
-  namespace: &namespace network
+  namespace: &namespace kube-system
 spec:
   targetNamespace: *namespace
   commonMetadata:
@@ -13,7 +13,7 @@ spec:
   components: []
   interval: 30m
   timeout: 5m
-  path: "./kubernetes/apps/network/multus/app"
+  path: "./kubernetes/apps/kube-system/multus/app"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -26,7 +26,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &appname multus-networks
-  namespace: &namespace network
+  namespace: &namespace kube-system
 spec:
   targetNamespace: *namespace
   commonMetadata:
@@ -35,7 +35,7 @@ spec:
   components: []
   interval: 30m
   timeout: 5m
-  path: "./kubernetes/apps/network/multus/networks"
+  path: "./kubernetes/apps/kube-system/multus/networks"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -44,4 +44,4 @@ spec:
   wait: true
   dependsOn:
     - name: multus
-      namespace: network
+      namespace: kube-system
