@@ -25,7 +25,7 @@ spec:
     name: *app
   values:
     httpRoute:
-      enabled: true
+      enabled: false
       hostnames: ["git.${SECRET_DOMAIN}"]
       parentRefs:
         - name: external
