@@ -24,6 +24,7 @@ spec:
           interfaces:
             - name: default
               masquerade: {}
+              macAddress: "52:54:00:12:34:56"
         resources:
           requests:
             memory: 64M
