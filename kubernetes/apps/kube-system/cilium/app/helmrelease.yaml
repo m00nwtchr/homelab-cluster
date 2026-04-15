@@ -46,7 +46,7 @@ spec:
       hostRoot: /sys/fs/cgroup
 
     cni:
-      exclusive: true
+      exclusive: false
 
     dashboards:
       enabled: true
