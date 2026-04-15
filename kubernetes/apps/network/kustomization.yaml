@@ -11,5 +11,4 @@ resources:
   - ./cloudflare-tunnel/ks.yaml
   - ./envoy/ks.yaml
   - ./k8s-gateway/ks.yaml
-  - ./multus/ks.yaml
   - ./stunner/ks.yaml
