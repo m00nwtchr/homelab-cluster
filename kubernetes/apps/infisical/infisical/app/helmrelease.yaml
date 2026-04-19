@@ -45,6 +45,8 @@ spec:
         name: *app
   values:
     infisical:
+      fullnameOverride: *app
+
       image:
         repository: infisical/infisical
         tag: "v0.159.8@sha256:84d8788880ba3ac3da7320819e78f12ca690dbdeee52b866150e71330e83e010"
@@ -79,7 +81,7 @@ spec:
               group: apps
               version: v1
               kind: Deployment
-              name: infisical-backend
+              name: *app
             patch: |
               - op: add
                 path: /spec/template/spec/securityContext
@@ -106,6 +108,7 @@ spec:
               group: apps
               version: v1
               kind: Deployment
+              name: *app
             patch: |-
               apiVersion: apps/v1
               kind: Deployment
