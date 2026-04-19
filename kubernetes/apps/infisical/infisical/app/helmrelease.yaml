@@ -117,6 +117,39 @@ spec:
               spec:
                 template:
                   spec:
+                    containers:
+                      name: infisical-standalone-infisical
+                      volumeMounts:
+                        - name: postgres-certs
+                          mountPath: /var/run/secrets/postgres
+                          readOnly: true
+                    volumes:
+                      - name: postgres-certs
+                        csi:
+                          driver: csi.cert-manager.io
+                          readOnly: true
+                          volumeAttributes:
+                            csi.cert-manager.io/issuer-name: postgres-client-ca
+                            csi.cert-manager.io/issuer-kind: ClusterIssuer
+                            csi.cert-manager.io/key-algorithm: ECDSA
+                            csi.cert-manager.io/key-size: "384"
+                            csi.cert-manager.io/key-encoding: PKCS8
+                            csi.cert-manager.io/key-usages: client auth
+                            csi.cert-manager.io/common-name: forgejo
+                            csi.cert-manager.io/dns-names: $${POD_NAME}.$${POD_NAMESPACE}.svc.cluster.local
+          - target:
+              group: apps
+              version: v1
+              kind: Deployment
+              name: *app
+            patch: |-
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: ignored
+              spec:
+                template:
+                  spec:
                     volumes:
                       - name: dragonfly-stunnel
                         configMap:
