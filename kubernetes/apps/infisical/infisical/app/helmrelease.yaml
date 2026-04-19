@@ -75,3 +75,53 @@ spec:
                       - ALL
                   seccompProfile:
                     type: RuntimeDefault
+          - target:
+              group: apps
+              version: v1
+              kind: Deployment
+            patch: |-
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: ignored
+              spec:
+                template:
+                  spec:
+                    volumes:
+                      - name: dragonfly-stunnel
+                        configMap:
+                          name: dragonfly-stunnel
+                      - name: dragonfly-certs
+                        secret:
+                          secretName: dragonfly-${APP}-cert
+                          defaultMode: 0440
+                      - name: root-ca
+                        configMap:
+                          name: root-ca
+                          defaultMode: 0440
+
+                    initContainers:
+                      - name: dragonfly-stunnel
+                        image: cgr.dev/chainguard/stunnel:latest@sha256:bd75c58ee97c9139081a177509734b2aa1beaead0afe784d9d74741eb5a44451
+                        restartPolicy: Always
+                        args:
+                          - /etc/stunnel/stunnel.conf
+                        volumeMounts:
+                          - name: dragonfly-stunnel
+                            mountPath: /etc/stunnel/stunnel.conf
+                            subPath: stunnel.conf
+                            readOnly: true
+                          - name: dragonfly-certs
+                            mountPath: /var/run/secrets/dragonfly
+                            readOnly: true
+                          - name: root-ca
+                            mountPath: /var/run/secrets/root-ca
+                            readOnly: true
+                        securityContext:
+                          allowPrivilegeEscalation: false
+                          readOnlyRootFilesystem: true
+                          capabilities:
+                            drop:
+                              - ALL
+                          seccompProfile:
+                            type: RuntimeDefault
