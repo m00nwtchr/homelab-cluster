@@ -54,6 +54,8 @@ spec:
       replicaCount: 2
 
       extraEnv:
+        - name: HOST
+          value: "::"
         - name: DB_CONNECTION_URI
           valueFrom:
             secretKeyRef:
