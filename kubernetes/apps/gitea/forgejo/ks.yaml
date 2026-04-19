@@ -12,7 +12,7 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/volsync
-    - ../../../../components/database
+    - ../../../../components/database/manual
     - ../../../../components/dragonfly/manual
     - ../../../../components/gatus/external
     - ../../../../components/mail
