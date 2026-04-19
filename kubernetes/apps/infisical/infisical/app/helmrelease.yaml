@@ -128,13 +128,18 @@ spec:
               spec:
                 template:
                   spec:
-                    containers:
-                      name: infisical-standalone-infisical
-                      volumeMounts:
-                        - name: postgres-certs
-                          mountPath: /var/run/secrets/postgres
-                          readOnly: true
                     volumes:
+                      - name: dragonfly-stunnel
+                        configMap:
+                          name: dragonfly-stunnel
+                      - name: dragonfly-certs
+                        secret:
+                          secretName: dragonfly-${APP}-cert
+                          defaultMode: 0440
+                      - name: root-ca
+                        configMap:
+                          name: root-ca
+                          defaultMode: 0440
                       - name: postgres-certs
                         csi:
                           driver: csi.cert-manager.io
@@ -148,31 +153,13 @@ spec:
                             csi.cert-manager.io/key-usages: client auth
                             csi.cert-manager.io/common-name: forgejo
                             csi.cert-manager.io/dns-names: $${POD_NAME}.$${POD_NAMESPACE}.svc.cluster.local
-          - target:
-              group: apps
-              version: v1
-              kind: Deployment
-              name: *app
-            patch: |-
-              apiVersion: apps/v1
-              kind: Deployment
-              metadata:
-                name: ignored
-              spec:
-                template:
-                  spec:
-                    volumes:
-                      - name: dragonfly-stunnel
-                        configMap:
-                          name: dragonfly-stunnel
-                      - name: dragonfly-certs
-                        secret:
-                          secretName: dragonfly-${APP}-cert
-                          defaultMode: 0440
-                      - name: root-ca
-                        configMap:
-                          name: root-ca
-                          defaultMode: 0440
+
+                    containers:
+                      name: infisical-standalone-infisical
+                      volumeMounts:
+                        - name: postgres-certs
+                          mountPath: /var/run/secrets/postgres
+                          readOnly: true
 
                     initContainers:
                       - name: dragonfly-stunnel
