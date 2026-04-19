@@ -43,8 +43,14 @@ spec:
 
     postgresql:
       enabled: false
+    mongodb:
+      enabled: false
     redis:
       enabled: false
+    ingress:
+      enabled: false
+      nginx:
+        enabled: false
   postRenderers:
     - kustomize:
         patches:
