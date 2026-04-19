@@ -68,8 +68,6 @@ spec:
 
     postgresql:
       enabled: false
-    mongodb:
-      enabled: false
     redis:
       enabled: false
     ingress:
