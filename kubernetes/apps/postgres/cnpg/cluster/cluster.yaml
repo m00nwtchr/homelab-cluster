@@ -64,11 +64,11 @@ spec:
         ld_library_path:
           - system
         image:
-          reference: ghcr.io/cloudnative-pg/postgis-extension:3.6.2-18-trixie #@sha256:f68b1f6ad6a72ff042d36cd32fdbc31e5fcdab0fe55e9d4c9226c1c8edf12c9a
+          reference: ghcr.io/cloudnative-pg/postgis-extension:3.6.2-18-trixie@sha256:f68b1f6ad6a72ff042d36cd32fdbc31e5fcdab0fe55e9d4c9226c1c8edf12c9a
 
       - name: vchord
         image:
-          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3 #@sha256:c310ede47f7f82bd257c3e53806d60680d5899c318ca946fb313efad9a90a78e
+          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3@sha256:c310ede47f7f82bd257c3e53806d60680d5899c318ca946fb313efad9a90a78e
         dynamic_library_path:
           - /usr/lib/postgresql/18/lib
         extension_control_path:
@@ -76,7 +76,7 @@ spec:
 
       - name: timescaledb
         image:
-          reference: ghcr.io/shusaan/timescaledb-testing:2.24.0-18-trixie #@sha256:dae25c2dde06455214ac5553b51d3ef2d48fe84795c2cfa48c51c6e15877044e
+          reference: ghcr.io/shusaan/timescaledb-testing:2.24.0-18-trixie@sha256:dae25c2dde06455214ac5553b51d3ef2d48fe84795c2cfa48c51c6e15877044e
 
       # - name: pgcron
       #   image:
