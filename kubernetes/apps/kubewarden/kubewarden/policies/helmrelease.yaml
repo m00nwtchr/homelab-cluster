@@ -92,3 +92,6 @@ spec:
               - op: add
                 path: /spec/namespaceSelector/matchExpressions/0/values/-
                 value: gitea
+              - op: add
+                path: /spec/namespaceSelector/matchExpressions/0/values/-
+                value: default
