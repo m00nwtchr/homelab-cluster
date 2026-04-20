@@ -75,12 +75,12 @@ spec:
               MEILI_MASTER_KEY:
                 valueFrom:
                   secretKeyRef:
-                    name: karakeep-secret
+                    name: *app
                     key: meilisearch_master_key
               NEXTAUTH_SECRET:
                 valueFrom:
                   secretKeyRef:
-                    name: karakeep-secret
+                    name: *app
                     key: encryption_key
               NEXTAUTH_URL: https://${APP}.${SECRET_DOMAIN}
               DISABLE_NEW_RELEASE_CHECK: true
@@ -91,7 +91,7 @@ spec:
               OPENAI_API_KEY:
                 valueFrom:
                   secretKeyRef:
-                    name: karakeep-secret
+                    name: *app
                     key: litellm_key
 
               INFERENCE_TEXT_MODEL: llama3.3:70b
@@ -171,7 +171,7 @@ spec:
               MEILI_MASTER_KEY:
                 valueFrom:
                   secretKeyRef:
-                    name: karakeep-secret
+                    name: *app
                     key: meilisearch_master_key
             resources:
               requests:
