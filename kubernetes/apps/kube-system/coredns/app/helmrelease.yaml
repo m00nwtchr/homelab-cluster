@@ -108,6 +108,17 @@ spec:
               name regex ^k8s\.${SECRET_DOMAIN//./\\.}\..*\.cluster\.local\.$ internal.network.svc.cluster.local.
               answer auto
 
+          - name: rewrite
+            parameters: stop
+            configBlock: |-
+              name exact infisical.${SECRET_DOMAIN}. internal.network.svc.cluster.local.
+
+          - name: rewrite
+            parameters: stop
+            configBlock: |-
+              name regex ^infisical\.${SECRET_DOMAIN//./\\.}\..*\.cluster\.local\.$ internal.network.svc.cluster.local.
+              answer auto
+
           - name: kubernetes
             parameters: cluster.local in-addr.arpa ip6.arpa
             configBlock: |-
