@@ -9,6 +9,9 @@ spec:
     http:
       url: https://fastly.mirror.pkgbuild.com/images/v20260415.515674/Arch-Linux-x86_64-cloudimg.qcow2
   storage:
+    accessModes:
+      - ReadWriteOnce
+    volumeMode: Block
     resources:
       requests:
         storage: 30Gi
