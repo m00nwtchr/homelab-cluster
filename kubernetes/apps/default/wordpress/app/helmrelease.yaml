@@ -10,8 +10,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 29.1.1
-    digest: sha256:7523872699c0e63fda9db0070e044ce76df4b7ed66ebe61bfef429ac168f144f
+    tag: 30.0.11
   url: oci://registry-1.docker.io/bitnamicharts/wordpress
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
