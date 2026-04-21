@@ -83,25 +83,42 @@ spec:
             readOnly: true
 
       tls:
-        type: secret
-        name: dfguard-server-cert
+        type: custom
         globalMounts:
           - path: /tls/server
             readOnly: true
+        volumeSpec:
+          csi:
+            driver: csi.cert-manager.io
+            readOnly: true
+            volumeAttributes:
+              csi.cert-manager.io/issuer-name: database-server-ca
+              csi.cert-manager.io/issuer-kind: Issuer
+              csi.cert-manager.io/key-algorithm: Ed25519
+              csi.cert-manager.io/key-usages: server auth
+              csi.cert-manager.io/dns-names: dfguard.$${POD_NAMESPACE}.svc.cluster.local,$${POD_NAME}.$${POD_NAMESPACE}.svc.cluster.local
+      dragonfly-cert:
+        type: custom
+        globalMounts:
+          - path: /tls/dragonfly
+            readOnly: true
+        volumeSpec:
+          csi:
+            driver: csi.cert-manager.io
+            readOnly: true
+            volumeAttributes:
+              csi.cert-manager.io/issuer-name: dragonfly-client-ca
+              csi.cert-manager.io/issuer-kind: Issuer
+              csi.cert-manager.io/key-algorithm: Ed25519
+              csi.cert-manager.io/key-usages: client auth
+              csi.cert-manager.io/dns-names: $${POD_NAME}.$${POD_NAMESPACE}.svc.cluster.local
+
       client-ca:
         type: secret
         name: dfguard-client-ca
         globalMounts:
           - path: /tls/client
             readOnly: true
-
-      dragonfly-cert:
-        type: secret
-        name: dfguard-client-cert
-        globalMounts:
-          - path: /tls/dragonfly
-            readOnly: true
-
       root-ca:
         type: configMap
         name: root-ca
