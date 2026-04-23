@@ -7,7 +7,7 @@ metadata:
 allowVolumeExpansion: true
 parameters:
   compression: "zstd"
-  dedup: "on"
+  dedup: "off"
   fstype: "zfs"
   poolname: "vault/storage"
   shared: "yes"
@@ -21,7 +21,7 @@ metadata:
 allowVolumeExpansion: true
 parameters:
   compression: "zstd"
-  dedup: "on"
+  dedup: "off"
   fstype: "zfs"
   poolname: "rpool/storage"
   shared: "yes"
@@ -37,7 +37,7 @@ metadata:
 allowVolumeExpansion: true
 parameters:
   compression: "zstd"
-  dedup: "on"
+  dedup: "off"
   fstype: "zfs"
   poolname: "spark"
   shared: "yes"
