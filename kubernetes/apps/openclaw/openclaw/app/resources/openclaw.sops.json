@@ -23,12 +23,6 @@
 			"mode": "ENC[AES256_GCM,data:SYQfF1Y=,iv:/RurCVH3KPVQXgkWGFywN7elwV6ywtzTVCTzBiKmQ/o=,tag:0rvKor9OY5HdnjAZn8reFA==,type:str]",
 			"token": "ENC[AES256_GCM,data:9ZJ3f/dR4Ob8+nGukQYbjhyb5f/xdKRAVJ8qz0o30CtqwsAefix7a6V52/MAv9Lj,iv:hrilGfIAMylxUwRTDvxDYzgCzNilr8F4Khe3tLlkgg4=,tag:IKznlMLgiaCobW7zIFomGg==,type:str]"
 		},
-		"port": "ENC[AES256_GCM,data:SE31pLg=,iv:K25/GgtzkJQgMzHXhFgwsuT2VFhl9N9nwVdulVWjQRI=,tag:nNyjgxN8B9sX2yE5aTaAIA==,type:float]",
-		"bind": "ENC[AES256_GCM,data:Z0Hx8spDryg=,iv:LscWQyhfNVGr6rOUeT79YvzkMhWvt3cCYT7UtGG0SoE=,tag:lZx/GA6M7/iNGZpLHgOv5w==,type:str]",
-		"tailscale": {
-			"mode": "ENC[AES256_GCM,data:PPh5hJM=,iv:HOT3IdTjVS2boiirPMxq1aJ+b7T+nPZiSjc2kPyy+Vc=,tag:1HHMyEL99N5rBf9w/Jimlw==,type:str]",
-			"resetOnExit": "ENC[AES256_GCM,data:PWFCtwA=,iv:1ohytlpPhVrB3h4JNG9dLa6Csp92H/NaDu00V2FaXmo=,tag:apAjWMLy2TaJpGjY8N2t5Q==,type:bool]"
-		},
 		"controlUi": {
 			"allowInsecureAuth": "ENC[AES256_GCM,data:2YOdQw==,iv:cnVvu74VvQ8dH60JEvHKiKXNzgJts2IdMmSKZ1U2TpY=,tag:1r9LWXkcJIkkRntEtjAMHg==,type:bool]",
 			"allowedOrigins": [
@@ -205,8 +199,8 @@
 				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHYyttK1hNa3NsOUVVY3Vi\nUk8ycGZGK25lUUxrNzNOdWhJUjJER3EvYndJClVMTERjY0FmaEhFSmhFL3lrK2tR\nd2RHd3NPeXI0MCtFNHVKQlo1YklTMk0KLS0tIDNocFhGcmVlZUZFK3QxQWhxM0dQ\nSUN0bFg2VUIyV053SUVldkU3anIzQ00KKowv+CVZwa+wQ8k73x0o8WO4DkyG+urX\nmrjK6dx1VZ08PnWMihra1NSSA57gn6uNxAGBVO/M8KGt+58HZHb+UA==\n-----END AGE ENCRYPTED FILE-----\n"
 			}
 		],
-		"lastmodified": "2026-04-24T14:10:09Z",
-		"mac": "ENC[AES256_GCM,data:fzsNBsQNePMB2YeURCudXEfADpgP+RrfpxevXLZLPy3Q9E4aNtUw4O9Eg2VA1AUxVue1UTfHJFo0U2l7TGVJ+AO4awIsSrtyNlix6hmsJDK5wuJqcKLrGehsMbZyW0wIsgeqOfcQBlvXDITRCFNaeidqk9LsbR1Dxr/jUavPOP8=,iv:6wZd/Thgt7+daZeVZk2R2ZztH1eU7ir8+58C1nYUWAg=,tag:8AOp94KF1RI3O027P5r+eQ==,type:str]",
+		"lastmodified": "2026-04-24T14:11:03Z",
+		"mac": "ENC[AES256_GCM,data:d346qtci5WwcqcQlh489sgNTJjT4phVY0gPrqGoHhPQsyAQJJ49OaW0iDTJtt/Id6jR1Wc100Hww3nT1YWb7PSCTl/jBZfjhW67Jp6Ne62Zrwjc2yII5U/RC78gmxyXz5Ef64dJgiE6MQlYFzuwoKV46iQiLFVqcILm3JcXbE3I=,iv:Qv+iXAeBPLWib8zP8WzBd7zXVB2o3FyyOFuDAx1fFo4=,tag:cH+6JUMLBAbqJUk5LzH7KA==,type:str]",
 		"pgp": [
 			{
 				"created_at": "2026-04-24T13:23:54Z",
