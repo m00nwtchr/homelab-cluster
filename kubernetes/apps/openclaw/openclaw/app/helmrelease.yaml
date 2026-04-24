@@ -428,6 +428,7 @@ spec:
         # annotations:
         #   lbipam.cilium.io/ips: 10.69.10.41
         # externalTrafficPolicy: Cluster
+        ipFamilies: [IPv4]
         ports:
           http:
             port: *port
