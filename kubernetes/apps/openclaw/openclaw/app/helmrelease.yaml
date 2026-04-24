@@ -162,8 +162,6 @@ spec:
             envFrom:
               - secretRef:
                   name: openclaw
-              - secretRef:
-                  name: openclaw-actual
             resources:
               requests:
                 cpu: 1
@@ -369,8 +367,8 @@ spec:
             - apiGroups: [""]
               resources: ["pods"]
               verbs: ["delete"]
-        # Namespace-scoped exec + deploy patch — llm namespace only
-        openclaw-exec-deploy-llm:
+        # Namespace-scoped exec + deploy patch — openclaw namespace only
+        openclaw-exec-deploy-openclaw:
           type: Role
           rules:
             - apiGroups: [""]
@@ -395,15 +393,15 @@ spec:
           subjects:
             - identifier: openclaw
               serviceAccount: openclaw
-        # Namespace-scoped binding for exec+deploy — llm namespace only
-        openclaw-exec-deploy-llm:
+        # Namespace-scoped binding for exec+deploy — openclaw namespace only
+        openclaw-exec-deploy-openclaw:
           type: RoleBinding
           roleRef:
-            identifier: openclaw-exec-deploy-llm
+            identifier: openclaw-exec-deploy-openclaw
           subjects:
             - identifier: openclaw
               serviceAccount: openclaw
-              namespace: llm
+              namespace: openclaw
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
