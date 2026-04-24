@@ -8,7 +8,7 @@ components:
 resources:
   # - ./agentgateway/ks.yaml
   - ./litellm/ks.yaml
-  - ./moltis/ks.yaml
+  # - ./moltis/ks.yaml
   - ./ollama/ks.yaml
   - ./open-webui/ks.yaml
   - ./qdrant/ks.yaml
