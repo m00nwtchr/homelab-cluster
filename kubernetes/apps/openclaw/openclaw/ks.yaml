@@ -9,10 +9,11 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components: []
-  dependsOn:
-    - name: kubevirt
-      namespace: kubevirt
+  components:
+    - ../../../../components/volsync
+  # dependsOn:
+  #   - name: kubevirt
+  #     namespace: kubevirt
   postBuild:
     substitute:
       APP: *app
