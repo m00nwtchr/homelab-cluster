@@ -37,6 +37,8 @@ spec:
 
                 echo "Starting tool installation..."
 
+                curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
                 # Install gh CLI if not present on PVC
                 if [ ! -f /home/node/.local/bin/gh ]; then
                   echo "Installing gh CLI..."
