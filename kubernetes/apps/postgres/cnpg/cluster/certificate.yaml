@@ -66,6 +66,8 @@ spec:
   dnsNames:
     - pooler-rw.postgres.svc
     - pooler-rw.postgres.svc.cluster.local
+    - pooler-rw-se.postgres.svc
+    - pooler-rw-se.postgres.svc.cluster.local
   subject:
     countries:
       - PL
