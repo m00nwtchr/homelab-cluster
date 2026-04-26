@@ -1,40 +1,52 @@
-# ---
-# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/postgresql.cnpg.io/pooler_v1.json
-# apiVersion: postgresql.cnpg.io/v1
-# kind: Pooler
-# metadata:
-#   name: pooler-rw
-# spec:
-#   cluster:
-#     name: postgres
-
-#   instances: 1
-#   type: rw
-#   pgbouncer:
-#     poolMode: transaction
-#     parameters:
-#       max_client_conn: "1000"
-#       default_pool_size: "5"
-#       reserve_pool_size: "2"
-
-#       max_db_connections: "60"
-#       max_user_connections: "20"
-
-#       # timeouts / hygiene
-#       server_idle_timeout: "300" # close idle server conns after 5m
-#       server_login_retry: "5"
-#       query_wait_timeout: "5" # drop queued client if no server in 5s
-
-#       application_name_add_host: "1" # helps tracing through the pool
-
-#   monitoring:
-#     enablePodMonitor: true
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/postgresql.cnpg.io/pooler_v1.json
 apiVersion: postgresql.cnpg.io/v1
 kind: Pooler
 metadata:
   name: pooler-rw
+spec:
+  cluster:
+    name: postgres
+
+  instances: 1
+  type: rw
+  pgbouncer:
+    poolMode: transaction
+
+    authQuery: "SELECT $1, NULL"
+    serverCASecret:
+      name: root-ca
+    serverTLSSecret:
+      name: pooler-client-cert
+    clientCASecret:
+      name: pooler-client-cert
+    clientTLSSecret:
+      name: pooler-server-cert
+
+    parameters:
+      auth_type: cert
+      server_tls_sslmode: verify-full
+      client_tls_sslmode: verify-full
+
+      max_client_conn: "1000"
+      default_pool_size: "12"
+      reserve_pool_size: "5"
+
+      max_db_connections: "60"
+      max_user_connections: "20"
+
+      # timeouts / hygiene
+      server_idle_timeout: "300" # close idle server conns after 5m
+      server_login_retry: "5"
+      query_wait_timeout: "30" # drop queued client if no server in 30s
+
+      application_name_add_host: "1" # helps tracing through the pool
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/postgresql.cnpg.io/pooler_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Pooler
+metadata:
+  name: pooler-rw-se
 spec:
   cluster:
     name: postgres
@@ -59,14 +71,38 @@ spec:
       auth_type: cert
       server_tls_sslmode: verify-full
       client_tls_sslmode: verify-full
+
       max_client_conn: "1000"
-      default_pool_size: "10"
+      default_pool_size: "12"
+      reserve_pool_size: "5"
+
+      max_db_connections: "60"
+      max_user_connections: "20"
+
+      # timeouts / hygiene
+      server_idle_timeout: "300" # close idle server conns after 5m
+      server_login_retry: "5"
+      query_wait_timeout: "30" # drop queued client if no server in 30s
+
+      application_name_add_host: "1" # helps tracing through the pool
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/monitoring.coreos.com/podmonitor_v1.json
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
   name: &name pooler-rw
+spec:
+  selector:
+    matchLabels:
+      cnpg.io/poolerName: *name
+  podMetricsEndpoints:
+    - port: metrics
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/monitoring.coreos.com/podmonitor_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: &name pooler-rw-se
 spec:
   selector:
     matchLabels:
