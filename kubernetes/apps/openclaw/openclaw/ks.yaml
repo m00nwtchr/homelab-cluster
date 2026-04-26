@@ -17,6 +17,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      VOLSYNC_CAPACITY: 10Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
