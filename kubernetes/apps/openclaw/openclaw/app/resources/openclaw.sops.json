@@ -147,8 +147,38 @@
 					}
 				}
 			},
+			"memory-wiki": {
+				"enabled": "ENC[AES256_GCM,data:fY1JEA==,iv:9dNDSib3TlymuV3qqC5Ulvofvh4LLFqgNnJe2XMunJ8=,tag:dsvReUssq5D+M/Fqb3SfiQ==,type:bool]",
+				"config": {
+					"vaultMode": "ENC[AES256_GCM,data:9cARbIDo,iv:e/tW5TpJtO8tk8t2u+eoGzHVOFTDQkBf7d0asVy2aN4=,tag:LSesVbw8FB0CMIRWGnNt7w==,type:str]",
+					"vault": {
+						"path": "ENC[AES256_GCM,data:O6SPBPT+PCZENoJPbj9O/HPK1aXmC7x/9oNE/Ic6,iv:i3r5RCCpLjHZpUvRsI4Lp0wTUoCBUe7r4f829pIz+sg=,tag:pr5qdR6+8S6NHN5yG406gQ==,type:str]",
+						"renderMode": "ENC[AES256_GCM,data:X7syhDg5,iv:d4LFa3W22hokLGLlBkLJZIFqDC5w28+Fx8NeAWAY/z8=,tag:kdY3S3h/xJ2PyTeyTYxlvQ==,type:str]"
+					},
+					"bridge": {
+						"enabled": "ENC[AES256_GCM,data:gtbb2Q==,iv:6n1IXUiQ2eIZYiF96y5ZVPdmM/d0yLqosVVM5j/areI=,tag:XS4Bm6nOOcgkBJCUauTfQg==,type:bool]",
+						"readMemoryArtifacts": "ENC[AES256_GCM,data:bGAnIg==,iv:ptqwh8AGT509IwjLfhLw7Egv6iY5PljAh1cioDhaqAY=,tag:S9QxfL0nmJf5YbY7w4qX9g==,type:bool]",
+						"indexDreamReports": "ENC[AES256_GCM,data:EVBJDA==,iv:xhShmfMUEl6FZkg4z4S+F8Q6FTQs4shxefv9zs6P3Es=,tag:g1ei+a6VeG3m7I+92eUpCQ==,type:bool]",
+						"indexDailyNotes": "ENC[AES256_GCM,data:Jaym6w==,iv:sjbjjYrPu0PeHQxIz51fTpKyi0lxJsITswm9aFHIfXY=,tag:gpFmltNsF5oLtcZCFDpyAw==,type:bool]",
+						"indexMemoryRoot": "ENC[AES256_GCM,data:42dakw==,iv:mVaQ8IhW718lUero/XQsCc1hKMz7xTRlVB9VlcoT8f8=,tag:kEUTiKLHKR1e1/F19TUv1A==,type:bool]",
+						"followMemoryEvents": "ENC[AES256_GCM,data:xbeqhw==,iv:lLxMW6/7NQGRSLLbBo/oi7wj8S0ID3iTQM1z4BVLPjY=,tag:D9kvw6NQrgZg0PNQFEQUmg==,type:bool]"
+					},
+					"search": {
+						"backend": "ENC[AES256_GCM,data:Dc0w8DOd,iv:yQVNJJltWsXH795/mivvl/Q2KM5rNYx4B+aA/K+jreQ=,tag:UUh1I5fSJRAZb/2UF/L1Mg==,type:str]",
+						"corpus": "ENC[AES256_GCM,data:LNvk,iv:pCjgZiEQjuEr2rPpnFuWw+l8ePJzcopDVqUEtKI8aAA=,tag:Cu8ZMZuy3IsE4AD52H+Qzg==,type:str]"
+					},
+					"render": {
+						"preserveHumanBlocks": "ENC[AES256_GCM,data:mPnRow==,iv:RV1ZsoDLax6ubRv9dHGG0yDhxOqoFEvoMZDremCetq8=,tag:elMnZKF5EDq/g9rkxT7gaA==,type:bool]",
+						"createBacklinks": "ENC[AES256_GCM,data:ydZsng==,iv:6gcoi0Fm0q/omwyjh9RYC5agR4tq3zvK5PeWYIsRZNs=,tag:6fez1aYgdh6PJCLAJWuVbg==,type:bool]",
+						"createDashboards": "ENC[AES256_GCM,data:LW1MEA==,iv:XQv8NFheasSqv97Cj6lbgAK9rKarwcuF6E1WJmdg4XE=,tag:yJki/mmIFDnjELjBKaY21w==,type:bool]"
+					}
+				}
+			},
+			"browser": {
+				"enabled": "ENC[AES256_GCM,data:BtWGeA==,iv:SgNSs9OoOsCnqb8cfKvCd6sg9B3csGJuI4O7dByb0NA=,tag:da2r94rjQhFv3Wd7eiFxMw==,type:bool]"
+			},
 			"lossless-claw": {
-				"enable": "ENC[AES256_GCM,data:q0hywg==,iv:ED74Rdk02/pi/sCDB5aiDaawi8hfh5HhWf5WMH3ASdI=,tag:84v+YRxodDz/bvLK0i9z3g==,type:bool]",
+				"enabled": "ENC[AES256_GCM,data:UTYrsQ==,iv:aZVMZvyMOuElm2KIg5G9dOVzsNhd9sOvYfqSD/YavXw=,tag:yf/GmYx4blfCdgk4Im2nLA==,type:bool]",
 				"config": {
 					"freshTailCount": "ENC[AES256_GCM,data:agY=,iv:otBgv43Xp20JxSLNV4Kvfl4xMcLtlpSKWE1SvrBZPDs=,tag:yXMq76Nj+8nhYikLoPQ25g==,type:float]",
 					"contextThreshold": "ENC[AES256_GCM,data:YJwDUg==,iv:eUFgvk/KAug9AYjIS+zpA7wBGDOKLH+BAlJ/o/dVZws=,tag:9ir96Q4edtrKAhZ2joFHPw==,type:float]"
@@ -211,8 +241,8 @@
 				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHYyttK1hNa3NsOUVVY3Vi\nUk8ycGZGK25lUUxrNzNOdWhJUjJER3EvYndJClVMTERjY0FmaEhFSmhFL3lrK2tR\nd2RHd3NPeXI0MCtFNHVKQlo1YklTMk0KLS0tIDNocFhGcmVlZUZFK3QxQWhxM0dQ\nSUN0bFg2VUIyV053SUVldkU3anIzQ00KKowv+CVZwa+wQ8k73x0o8WO4DkyG+urX\nmrjK6dx1VZ08PnWMihra1NSSA57gn6uNxAGBVO/M8KGt+58HZHb+UA==\n-----END AGE ENCRYPTED FILE-----\n"
 			}
 		],
-		"lastmodified": "2026-04-26T03:29:50Z",
-		"mac": "ENC[AES256_GCM,data:3B+XfSrzHOwFjCFPgnClkWs426JnU6l6u74GzL2+gEB3eoH7VoP4xeUiDqPnLnitn5NIIw2m0p+1jS4XINVkc9zeVsztUZ8DUxyvHymvkeF63hBnsYR/od8XKdmhtLha+y/3nzMSgzMMRVHYvGJzMEb3KoZFny17ug5k1bAoe+o=,iv:r8V0aYnK+fTy0d4qGOaunecIkPxB8mYfMOS0NVKsJ9o=,tag:r3+4h5PC3bjh7rPpn5uMfg==,type:str]",
+		"lastmodified": "2026-04-26T03:38:55Z",
+		"mac": "ENC[AES256_GCM,data:EOlwu8HuZOuHeRdypEiOh8y/UjYUJI3/w98M8b7Cj2o75SmJ4DDUdODNnYuCWaH5sjsbBqzWj+q7Cj0kHf6vutGHAVopLQIWh/xpwCoyU0fLSnfFaJ006mULQe80bzX2BVHVqC3flFIxczsX/ezF6eJbtUQzwsq+uuJ4UpfF6ms=,iv:lc+h7tNSUaQNokmwqCh9CtUV3q6eF4ViFJ/GvGpbVkI=,tag:M1CBUXnVQwPgnH5eVkk2Gw==,type:str]",
 		"pgp": [
 			{
 				"created_at": "2026-04-24T13:23:54Z",
