@@ -1,0 +1,45 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: &name ${NAMESPACE}-server-ca
+spec:
+  isCA: true
+  commonName: ${NAMESPACE}-ca
+  subject:
+    countries:
+      - PL
+    organizations:
+      - homelab-cluster
+    organizationalUnits:
+      - ${NAMESPACE}
+  usages:
+    - cert sign
+    - crl sign
+  nameConstraints:
+    critical: true
+    permitted:
+      dnsDomains:
+        - .${NAMESPACE}.svc.cluster.local
+        - .${NAMESPACE}.svc
+  duration: 8766h # 1 year
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    encoding: PKCS8
+    rotationPolicy: Always
+  issuerRef:
+    name: cluster-ca
+    kind: ClusterIssuer
+    group: cert-manager.io
+  secretName: *name
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cert-manager.io/issuer_v1.json
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: &name ${NAMESPACE}-server-ca
+spec:
+  ca:
+    secretName: *name

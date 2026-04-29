@@ -71,10 +71,13 @@ spec:
             namespace: flux-system
         interval: 1h
         path: ./kubernetes/apps/<< inputs.namespace >>
-        targetNamespace: << inputs.namespace >>
         prune: true
+        postBuild:
+          substitute:
+            NAMESPACE: << inputs.namespace >>
         sourceRef:
           kind: GitRepository
           name: flux-system
           namespace: flux-system
+        targetNamespace: << inputs.namespace >>
         wait: false
