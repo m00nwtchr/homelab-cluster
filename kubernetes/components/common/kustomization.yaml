@@ -24,4 +24,5 @@ patches:
     #     components:
     #       - ../../../../components/defaults
 resources:
+  - ./ca.yaml
   - ./namespace.yaml
