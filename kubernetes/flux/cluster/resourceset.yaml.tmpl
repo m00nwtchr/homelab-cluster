@@ -1,0 +1,40 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/fluxcd.controlplane.io/resourceset_v1.json
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: cluster-apps
+  namespace: flux-system
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "5m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/created-by: flux-operator
+  inputs:
+GENERATED_INPUTS_MARKER
+  resources:
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1
+      kind: Kustomization
+      metadata:
+        name: << inputs.namespace >>-apps
+        namespace: flux-system
+      spec:
+        components:
+          - ../../components/common
+        decryption:
+          provider: sops
+        dependsOn:
+          - name: cluster-meta
+            namespace: flux-system
+        interval: 1h
+        path: ./kubernetes/apps/<< inputs.namespace >>
+        targetNamespace: << inputs.namespace >>
+        prune: true
+        sourceRef:
+          kind: GitRepository
+          name: flux-system
+          namespace: flux-system
+        wait: false
