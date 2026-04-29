@@ -24,6 +24,7 @@
     cilium-cli
     hubble
     fluxcd
+    kubevirt
 
     go-task
     just
@@ -65,6 +66,16 @@
       extraPackages = with pkgs.python3Packages; [
         ruamel-yaml
         jmespath
+      ];
+    };
+    k8s-namespace-inputs = {
+      enable = true;
+      description = "Generate ResourceSetInputProvider from kubernetes/apps/*/ directories";
+      entry = "python hooks/generate-namespace-rsip.py";
+      types = ["yaml"];
+      language = "python";
+      extraPackages = with pkgs.python3Packages; [
+        ruamel-yaml
       ];
     };
   };
