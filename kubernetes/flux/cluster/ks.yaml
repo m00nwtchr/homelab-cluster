@@ -19,37 +19,37 @@ spec:
   # Flux repositories under this need flux-system hardcoded as namespace for Renovate lookups
   targetNamespace: *namespace
   wait: true
----
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: cluster-apps
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: cluster-meta
-      namespace: flux-system
-  decryption:
-    provider: sops
-  interval: 1h
-  path: ./kubernetes/apps
-  prune: true
-  retryInterval: 2m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  timeout: 5m
-  wait: false
-  patches:
-    - # Enable Sops decryption on all child Kustomizations
-      target:
-        kind: Kustomization
-        version: v1
-        group: kustomize.toolkit.fluxcd.io
-      patch: |-
-        - op: add
-          path: /spec/decryption
-          value:
-            provider: sops
+# ---
+# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: cluster-apps
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: cluster-meta
+#       namespace: flux-system
+#   decryption:
+#     provider: sops
+#   interval: 1h
+#   path: ./kubernetes/apps
+#   prune: true
+#   retryInterval: 2m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#     namespace: flux-system
+#   timeout: 5m
+#   wait: false
+#   patches:
+#     - # Enable Sops decryption on all child Kustomizations
+#       target:
+#         kind: Kustomization
+#         version: v1
+#         group: kustomize.toolkit.fluxcd.io
+#       patch: |-
+#         - op: add
+#           path: /spec/decryption
+#           value:
+#             provider: sops
