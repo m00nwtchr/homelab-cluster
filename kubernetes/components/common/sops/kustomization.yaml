@@ -7,7 +7,7 @@ resources:
 patches:
   - target:
       group: kustomize.toolkit.fluxcd.io
-      kind: kustomization
+      kind: Kustomization
       version: v1
     patch: |-
       - op: add
