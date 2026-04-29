@@ -4,6 +4,8 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 # openapi:
 #   path: http://crd-patcher.default.svc/definitions.json?crd=kustomize.toolkit.fluxcd.io.v1.Kustomization&prop=components
+components:
+  - ./sops
 patches:
   - target:
       kind: Kustomization
@@ -23,4 +25,3 @@ patches:
     #       - ../../../../components/defaults
 resources:
   - ./namespace.yaml
-  - ./sops
