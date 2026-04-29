@@ -13,12 +13,48 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/created-by: flux-operator
-  inputsFrom:
-    - apiVersion: fluxcd.controlplane.io/v1
-      kind: ResourceSetInputProvider
-      selector:
-        matchLabels:
-          app.kubernetes.io/name: cluster-apps-namespaces-inputs
+  inputs:
+    - namespace: agentgateway-system
+    - namespace: ai
+    - namespace: automation
+    - namespace: cert-manager
+    - namespace: cnpg-system
+    - namespace: crowdsec
+    - namespace: database
+    - namespace: default
+    - namespace: dns
+    - namespace: dragonfly-system
+    - namespace: envoy-gateway-system
+    - namespace: external-secrets
+    - namespace: fediverse
+    - namespace: flux-system
+    - namespace: garage
+    - namespace: gitea
+    - namespace: infisical
+    - namespace: kanidm
+    - namespace: keda
+    - namespace: kguardian
+    - namespace: kube-system
+    - namespace: kubevirt
+    - namespace: kubewarden
+    - namespace: matrix
+    - namespace: media
+    - namespace: network
+    - namespace: observability
+    - namespace: observability-privileged
+    - namespace: openclaw
+    - namespace: opencloud
+    - namespace: openebs-system
+    - namespace: postgres
+    - namespace: renovate
+    - namespace: rssflow
+    - namespace: stunner-system
+    - namespace: tailscale
+    - namespace: tekton-system
+    - namespace: toolhive
+    - namespace: tor
+    - namespace: trivy-system
+    - namespace: volsync-system
   resources:
     - apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
@@ -26,27 +62,19 @@ spec:
         name: << inputs.namespace >>-apps
         namespace: flux-system
       spec:
+        components:
+          - ../../components/common
+        decryption:
+          provider: sops
         dependsOn:
           - name: cluster-meta
             namespace: flux-system
-        decryption:
-          provider: sops
         interval: 1h
         path: ./kubernetes/apps/<< inputs.namespace >>
+        targetNamespace: << inputs.namespace >>
         prune: true
         sourceRef:
           kind: GitRepository
           name: flux-system
           namespace: flux-system
         wait: false
-        patches:
-          - # enable sops decryption on all child kustomizations
-            target:
-              kind: kustomization
-              version: v1
-              group: kustomize.toolkit.fluxcd.io
-            patch: |-
-              - op: add
-                path: /spec/decryption
-                value:
-                  provider: sops

@@ -68,15 +68,12 @@
         jmespath
       ];
     };
-    k8s-namespace-inputs = {
+    generate-cluster-apps-rs = {
       enable = true;
-      description = "Generate ResourceSetInputProvider from kubernetes/apps/*/ directories";
-      entry = "python hooks/generate-namespace-rsip.py";
+      description = "Generate ResourceSet from kubernetes/apps/*/ directories";
+      entry = "python hooks/generate-cluster-apps-rs.py";
       types = ["yaml"];
       language = "python";
-      extraPackages = with pkgs.python3Packages; [
-        ruamel-yaml
-      ];
     };
   };
 }
