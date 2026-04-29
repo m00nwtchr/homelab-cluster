@@ -65,6 +65,8 @@ spec:
           value: redis://localhost:6379
         - name: SITE_URL
           value: "https://infisical.${SECRET_DOMAIN}"
+        - name: ALLOW_INTERNAL_IP_CONNECTIONS
+          value: "true"
 
     postgresql:
       enabled: false
