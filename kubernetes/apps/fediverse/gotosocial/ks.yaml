@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app gotosocial
+  namespace: &namespace fediverse
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/oidc
+    - ../../../../components/volsync
+    - ../../../../components/database
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+  interval: 1h
+  path: ./kubernetes/apps/fediverse/gotosocial/app
+  postBuild:
+    substitute:
+      APP: *app
+      NAMESPACE: *namespace
+      SUBDOMAIN: gts
+      VOLSYNC_CAPACITY: 10Gi
+      OIDC_DISPLAY_NAME: GoToSocial
+      OIDC_CALLBACK: /auth/callback
+      OIDC_DISABLE_PKCE: "true"
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  prune: true
+  retryInterval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false
