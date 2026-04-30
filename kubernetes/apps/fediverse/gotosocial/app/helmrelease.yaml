@@ -1,0 +1,121 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app gotosocial
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  interval: 30m
+  values:
+    controllers:
+      *app :
+        type: deployment
+        pod:
+          annotations:
+            logging.vlagent.io/exclude-main: "true"
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+
+        containers:
+          main:
+            image:
+              repository: docker.io/superseriousbusiness/gotosocial
+              tag: 0.21.2@sha256:53106462f352c23c25a32d4bd5c03eb3c2198f2d2549ff1e7d5ef6deb7f44961
+            env:
+              TZ: ${TZ}
+              GTS_HOST: gts.${MAIN_DOMAIN}
+              GTS_ACCOUNT_DOMAIN: ${MAIN_DOMAIN}
+              GTS_STORAGE_LOCAL_BASE_PATH: /storage
+              GTS_SEMAPHORE_URL: https://phanpy.${MAIN_DOMAIN}
+              GTS_LANDING_PAGE_USER: "m00n"
+              GTS_METRICS_ENABLED: "true"
+              GTS_TRUSTED_PROXIES: "127.0.0.1/32,::1,2001:cafe:42::/56"
+              # GTS_ADVANCED_RATE_LIMIT_EXCEPTIONS: "192.168.1.0/24"
+              GTS_ACCOUNTS_ALLOW_CUSTOM_CSS: "true"
+              GTS_OIDC_ENABLED: "true"
+              GTS_OIDC_IDP_NAME: "Kanidm"
+              GTS_OIDC_ISSUER: "https://idm.${SECRET_DOMAIN}/oauth2/openid/{{ .Release.Name }}"
+              GTS_OIDC_SCOPES: "openid,email,profile,groups"
+              GTS_OIDC_LINK_EXISTING: "true"
+              GTS_OIDC_ADMIN_GROUPS: "admins@idm.${SECRET_DOMAIN}"
+              GTS_OIDC_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: "kanidm-{{ .Release.Name }}-oidc"
+                    key: client-id
+              GTS_OIDC_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: "kanidm-{{ .Release.Name }}-oidc"
+                    key: client-secret
+              GTS_DB_TYPE: postgres
+              GTS_DB_POSTGRES_CONNECTION_STRING:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: [ALL] }
+
+    persistence:
+      storage:
+        existingClaim: *app
+        globalMounts:
+          - subPath: data
+            path: /storage
+      tmpfs:
+        type: emptyDir
+        sizeLimit: 1Gi
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
+    service:
+      app:
+        ports:
+          http:
+            port: 80
+            targetPort: 8080
+          metrics:
+            port: 9464
+
+    route:
+      app:
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+        hostnames:
+          - gts.${MAIN_DOMAIN}
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
+            filters:
+              - cors:
+                  allowHeaders:
+                    - "*"
+                  allowMethods:
+                    - "*"
+                  allowOrigins:
+                    - "*"
+                  maxAge: 86400
+                type: CORS
+    serviceMonitor:
+      app:
+        endpoints:
+          - port: metrics
+            interval: 30s
+            path: /metrics
