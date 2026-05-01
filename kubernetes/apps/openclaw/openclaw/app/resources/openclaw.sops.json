@@ -151,6 +151,12 @@
 				"bootstrap-extra-files": {
 					"enabled": "ENC[AES256_GCM,data:VBRQKw==,iv:AUNf/zqgVrJn9bJVYPGI9XiG8/0Yns49Bglg6RM6CSI=,tag:+2XGrb7eXwIgF4t3dVBiyQ==,type:bool]"
 				},
+				"session-memory": {
+					"enabled": "ENC[AES256_GCM,data:qX2p5jE=,iv:jNCLqpywIehNstmzK5pEHitorvzmPhwWUd8lOObG48s=,tag:Ef66DafiE2wcUBu56JRjDw==,type:bool]"
+				},
+				"command-logger": {
+					"enabled": "ENC[AES256_GCM,data:zOTTESY=,iv:z7wppQYS1Mrc9XIpIUjcUvyrDZ4C6DlX5D9qcmGPV9Y=,tag:nqgS9/rewK/4lkjEPDI/Ww==,type:bool]"
+				},
 				"moon-phase": {
 					"enabled": "ENC[AES256_GCM,data:zpFV/Q==,iv:8kKawgOZlurtUuaG6wcD5qKq07B1ABKZf5nHm9RsoCw=,tag:0J6j8Ygjkk7trz5szurczg==,type:bool]"
 				}
@@ -367,8 +373,8 @@
 				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHYyttK1hNa3NsOUVVY3Vi\nUk8ycGZGK25lUUxrNzNOdWhJUjJER3EvYndJClVMTERjY0FmaEhFSmhFL3lrK2tR\nd2RHd3NPeXI0MCtFNHVKQlo1YklTMk0KLS0tIDNocFhGcmVlZUZFK3QxQWhxM0dQ\nSUN0bFg2VUIyV053SUVldkU3anIzQ00KKowv+CVZwa+wQ8k73x0o8WO4DkyG+urX\nmrjK6dx1VZ08PnWMihra1NSSA57gn6uNxAGBVO/M8KGt+58HZHb+UA==\n-----END AGE ENCRYPTED FILE-----\n"
 			}
 		],
-		"lastmodified": "2026-05-01T02:46:09Z",
-		"mac": "ENC[AES256_GCM,data:NJdzzBjcB1SH0X0WnPPYT3a7svXeHV0EUZbKQLSsovBoYIVZF1pqKTO3wNyTMlNRrmkZhYppI3GgjThiBXdoeEYSavLt3t0GP9fGFjSGG6gy+K1jYjKbWkKRKuJbCYjd7ZM2p+HC9tOVAG8MKoAxygQxE6qmN1wN1eT4ck4EdXg=,iv:br1aJ/e7AzBAiJkHfH7ZM8HBlQQqKqp9z8gNZ6Mn+AE=,tag:Hnw+Uc54cKS8QerezsdQiA==,type:str]",
+		"lastmodified": "2026-05-01T02:49:42Z",
+		"mac": "ENC[AES256_GCM,data:yLAWYhkHiDvWvM5UJhxB37CFGWs9KRxBaMKwjFomU6T2GAyQMjx4jGrzK1Rg8NJ3EvEV2sdcipkkXiI9uLpzHerBsS4VsIyOA6EezxR2QoNheDJzfMw7LpBwEIVg0v85FNLIzllKM3sbujvjS/g2ymm0IPRzZBecLuPUYOdN+xQ=,iv:HnatubL3i6yZrA/azefd8/tK1y78kRIgnhUneEtwMI4=,tag:9Nm1gDeV5EvPLXKcyD+a1g==,type:str]",
 		"pgp": [
 			{
 				"created_at": "2026-04-24T13:23:54Z",
