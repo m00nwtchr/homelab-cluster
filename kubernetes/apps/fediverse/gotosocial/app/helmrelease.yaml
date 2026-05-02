@@ -12,11 +12,13 @@ spec:
   interval: 30m
   values:
     controllers:
+      defaultPodOptions:
+        annotations:
+          logging.vlagent.io/exclude-main: "true"
+
       *app :
         type: deployment
         pod:
-          annotations:
-            logging.vlagent.io/exclude-main: "true"
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
