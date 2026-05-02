@@ -18,7 +18,6 @@ spec:
 
     controllers:
       *app :
-        type: deployment
         pod:
           securityContext:
             runAsUser: 1000
@@ -99,7 +98,7 @@ spec:
     route:
       app:
         parentRefs:
-          - name: envoy-external
+          - name: cftunnel
             namespace: network
         hostnames:
           - gts.${MAIN_DOMAIN}
