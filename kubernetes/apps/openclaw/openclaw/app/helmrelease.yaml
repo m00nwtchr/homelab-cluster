@@ -225,8 +225,13 @@ spec:
                 memory: 1Gi
 
     persistence:
-      config:
+      data:
         existingClaim: *app
+        globalMounts:
+          - path: /home/node/.openclaw
+      home:
+        size: 5Gi
+        accessMode: ReadWriteOnce
         globalMounts:
           - path: *homepath
       # data:
@@ -235,7 +240,7 @@ spec:
       # images:
       #   globalMounts:
       #   - path: /home/node/.openclaw/workspace/images
-      openclaw-config:
+      config:
         type: secret
         name: "openclaw-config"
         defaultMode: 0400
