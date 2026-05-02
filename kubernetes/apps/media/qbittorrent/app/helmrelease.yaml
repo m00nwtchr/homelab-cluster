@@ -112,7 +112,7 @@ spec:
               tag: 0.0.4@sha256:14ce24f2e054abf06f695f35c8c33612e49d6d0fe80a33896403d85b09a9d329
             resources:
               requests:
-                cpu: 10m
+                # cpu: 10m
                 memory: 100Mi
               limits:
                 memory: 100Mi
