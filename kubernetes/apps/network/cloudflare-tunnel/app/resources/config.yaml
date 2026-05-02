@@ -7,12 +7,18 @@ originRequest:
   originServerName: "cftunnel.${SECRET_DOMAIN}"
 
 ingress:
-  - hostname: "voltkonekt.pl"
+  - hostname: "${MAIN_DOMAIN}"
     service: &svc https://cftunnel.network.svc.cluster.local
-  - hostname: "*.voltkonekt.pl"
+  - hostname: "*.${MAIN_DOMAIN}"
     service: *svc
+
   - hostname: "${SECRET_DOMAIN}"
     service: *svc
   - hostname: "*.${SECRET_DOMAIN}"
+    service: *svc
+
+  - hostname: "voltkonekt.pl"
+    service: *svc
+  - hostname: "*.voltkonekt.pl"
     service: *svc
   - service: http_status:404
