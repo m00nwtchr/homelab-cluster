@@ -96,7 +96,7 @@ spec:
           app:
             image:
               repository: ghcr.io/m00nwtchr/kanidm-provision
-              tag: main@sha256:8b63c7262a6bdf50f503b2dd92483d61f44563f1b9fc14ff41a231f8b03e1b2a
+              tag: main@sha256:bc6b74f818661d369c98b9f3414bf31421450e888455405a4a7a112b5d6f2614
             resources:
               requests:
                 cpu: 10m
@@ -110,6 +110,7 @@ spec:
                   secretKeyRef:
                     name: kanidm-token
                     key: token
+              KANIDM_NAMESPACE: kanidm
             securityContext:
               capabilities:
                 drop:
