@@ -35,7 +35,7 @@ spec:
       - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
-            name: &secret cloudflare-secret
+            name: *app
             key: api-token
     extraArgs:
       - --cloudflare-dns-records-per-page=1000
@@ -51,4 +51,4 @@ spec:
     serviceMonitor:
       enabled: true
     podAnnotations:
-      secret.reloader.stakater.com/reload: *secret
+      secret.reloader.stakater.com/reload: *app
