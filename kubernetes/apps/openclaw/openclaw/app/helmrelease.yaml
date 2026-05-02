@@ -230,6 +230,7 @@ spec:
         globalMounts:
           - path: /home/node/.openclaw
       home:
+        forceRename: "openclaw-home"
         size: 5Gi
         accessMode: ReadWriteOnce
         globalMounts:
