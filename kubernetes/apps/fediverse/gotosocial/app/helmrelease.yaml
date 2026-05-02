@@ -35,6 +35,7 @@ spec:
               TZ: ${TZ}
               GTS_HOST: gts.${MAIN_DOMAIN}
               GTS_ACCOUNT_DOMAIN: ${MAIN_DOMAIN}
+              GTS_BIND_ADDRESS: "::"
               GTS_STORAGE_LOCAL_BASE_PATH: /storage
               GTS_SEMAPHORE_URL: https://phanpy.${MAIN_DOMAIN}
               GTS_LANDING_PAGE_USER: "m00n"
