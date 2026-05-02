@@ -11,11 +11,11 @@ spec:
     namespace: flux-system
   interval: 30m
   values:
-    controllers:
-      defaultPodOptions:
-        annotations:
-          logging.vlagent.io/exclude-main: "true"
+    defaultPodOptions:
+      annotations:
+        logging.vlagent.io/exclude-main: "true"
 
+    controllers:
       *app :
         type: deployment
         pod:
