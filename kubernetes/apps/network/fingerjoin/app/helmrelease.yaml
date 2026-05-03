@@ -38,7 +38,10 @@ spec:
           - ${SECRET_DOMAIN}
           - ${MAIN_DOMAIN}
         rules:
-          - matches:
+          - backendRefs:
+              - identifier: main
+                port: 80
+            matches:
               - path:
                   type: Exact
                   value: /.well-known/webfinger
