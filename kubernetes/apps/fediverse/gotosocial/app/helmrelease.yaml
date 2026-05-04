@@ -116,6 +116,26 @@ spec:
             #         - "*"
             #       maxAge: 86400
             #     type: CORS
+      well-known:
+        parentRefs:
+          - name: cftunnel
+            namespace: network
+        hostnames: ["${MAIN_DOMAIN}"]
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
+            matches:
+              - path:
+                  type: Exact
+                  value: /.well-known/webfinger
+              - path:
+                  type: Exact
+                  value: /.well-known/nodeinfo
+              - path:
+                  type: Exact
+                  value: /.well-known/host-meta
+
     serviceMonitor:
       app:
         endpoints:
