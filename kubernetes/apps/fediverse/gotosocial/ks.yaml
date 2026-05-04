@@ -23,7 +23,7 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       SUBDOMAIN: gts
-      DOMAIN: gts.${MAIN_DOMAIN}
+      DOMAIN: gts.naktis.eu
       VOLSYNC_CAPACITY: 10Gi
       OIDC_DISPLAY_NAME: GoToSocial
       OIDC_CALLBACK: /auth/callback
