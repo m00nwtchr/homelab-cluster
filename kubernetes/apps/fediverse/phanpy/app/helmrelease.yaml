@@ -20,7 +20,7 @@ spec:
               tag: 2026.01.31.8b98d5a@sha256:dc40489af8056ff6aa3c390913f06346504a1f2a91297d503f4310a3b4bd43ee
             env:
               PHANPY_WEBSITE: "{{ .Release.Name }}.${MAIN_DOMAIN}"
-              PHANPY_DEFAULT_INSTANCE: "gts.${MAIN_DOMAIN}"
+              PHANPY_DEFAULT_INSTANCE: "${MAIN_DOMAIN}"
             resources:
               requests:
                 cpu: 10m
