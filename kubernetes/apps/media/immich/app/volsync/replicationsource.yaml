@@ -3,7 +3,7 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: "photos-mega"
+  name: "photos-b2"
 spec:
   sourcePVC: "photos"
   trigger:
@@ -11,7 +11,7 @@ spec:
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 14
-    repository: "photos-volsync-mega-secret"
+    repository: "photos-volsync-b2-secret"
     volumeSnapshotClassName: "csi-zfs"
     cacheCapacity: "5Gi"
     cacheStorageClassName: "zfs-spark"
