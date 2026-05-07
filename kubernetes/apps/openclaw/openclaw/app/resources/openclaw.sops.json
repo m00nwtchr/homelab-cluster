@@ -391,17 +391,6 @@
 				"channel": "ENC[AES256_GCM,data:+Dm4cZiz,iv:S+RsShRScVGD35S50cLfhIUWLgySBvw5agF1/En7Iok=,tag:q5UcMKCaDd6eXLX8F+S8MA==,type:str]",
 				"accountId": "ENC[AES256_GCM,data:yzBPirPzpg==,iv:BRJOa6WkP5roaAmm0Gpg0VfOGuGQLarARzQyTCl2EiM=,tag:crNkGd7MsuRt/PpaibllBQ==,type:str]"
 			}
-		},
-		{
-			"agentId": "ENC[AES256_GCM,data:CcWviA==,iv:OxtyJ/MEZE0jDC/aI3dJaPhADtOviqmx5soDNouhkaQ=,tag:OnzyEmUN7AXP3XedfrC3mA==,type:str]",
-			"match": {
-				"channel": "ENC[AES256_GCM,data:+Dm4cZiz,iv:S+RsShRScVGD35S50cLfhIUWLgySBvw5agF1/En7Iok=,tag:q5UcMKCaDd6eXLX8F+S8MA==,type:str]",
-				"accountId": "ENC[AES256_GCM,data:yzBPirPzpg==,iv:BRJOa6WkP5roaAmm0Gpg0VfOGuGQLarARzQyTCl2EiM=,tag:crNkGd7MsuRt/PpaibllBQ==,type:str]",
-				"peer": {
-					"kind": "ENC[AES256_GCM,data:s5uxLw==,iv:DJPE5J9+TSTeTlu+6wmiRUdE9JIpiKBLRD5jIhj5jjk=,tag:cHburBDYOc9C3nP1ZvBjqA==,type:str]",
-					"id": "ENC[AES256_GCM,data:j4kyTFcugvqf2F4lj9f/4Jarc0h2a/Z/ue1/cqtBLg==,iv:ITak0jSC5S/v0e0HvsyxfrxVdtzankPRonCUrFBQm5M=,tag:D12/ZuSpH5rdxMf1RYorPw==,type:str]"
-				}
-			}
 		}
 	],
 	"sops": {
@@ -411,8 +400,8 @@
 				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHYyttK1hNa3NsOUVVY3Vi\nUk8ycGZGK25lUUxrNzNOdWhJUjJER3EvYndJClVMTERjY0FmaEhFSmhFL3lrK2tR\nd2RHd3NPeXI0MCtFNHVKQlo1YklTMk0KLS0tIDNocFhGcmVlZUZFK3QxQWhxM0dQ\nSUN0bFg2VUIyV053SUVldkU3anIzQ00KKowv+CVZwa+wQ8k73x0o8WO4DkyG+urX\nmrjK6dx1VZ08PnWMihra1NSSA57gn6uNxAGBVO/M8KGt+58HZHb+UA==\n-----END AGE ENCRYPTED FILE-----\n"
 			}
 		],
-		"lastmodified": "2026-05-07T10:16:19Z",
-		"mac": "ENC[AES256_GCM,data:xWBdejXYLgS2FsGlPvhZ8UsgB1etaF8vFJxIegUaHBkYbveLdUCW6vx1/4yK3v1uFVIPm4H2qxDn381qO2VYOyn4y3WaQylE0lYwc67R+UPC3BEBrQkemP0YwLSqnFUPhQAwIoqXkjM8/dxikmew8Q9IMPBylnLugUolGtgKK+I=,iv:7QBjINxXpW5Q4iIQwwqOd9Qu1EnfgUj5dTh7pE7kXos=,tag:Q9RFBhVpXABQbMmFt5n1Sw==,type:str]",
+		"lastmodified": "2026-05-07T10:18:54Z",
+		"mac": "ENC[AES256_GCM,data:yh2ntcRx4e2V5eF6emanId2SCcXOO8UgNG8tHYLw3cfiUdqf26PU94JMuz9lH1B0uwNQKyCHjUQk5wfRZqGwP8WCZ7sMSM84NDINlYjtiPbkwehLU05u9SpD3DtCe2IqHcaTZ/zqFN2OODof1Ay2sFiKArG4bkmoy5FBlEF96kM=,iv:Do9Z1nP1w+z1+9nK9jBgpmKQUrW/n9kvA78r8VKPJ9g=,tag:koZ4mDirF4xKzwfbADvjsQ==,type:str]",
 		"pgp": [
 			{
 				"created_at": "2026-04-24T13:23:54Z",
