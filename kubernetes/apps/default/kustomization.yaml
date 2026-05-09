@@ -16,6 +16,7 @@ resources:
   - ./krr/ks.yaml
   - ./kube/ks.yaml
   - ./mealie/ks.yaml
+  - ./miniflux/ks.yaml
   - ./ntfy/ks.yaml
   - ./paperless/ks.yaml
   - ./publish-k8s-schemas/ks.yaml
