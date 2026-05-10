@@ -10,6 +10,7 @@ conditional:
   fallbackUpstream: true
   mapping:
     ${SECRET_DOMAIN}: tcp+udp:2001:cafe:43::b
+    ${MAIN_DOMAIN}: tcp+udp:2001:cafe:43::b
 
 blocking:
   denylists:
