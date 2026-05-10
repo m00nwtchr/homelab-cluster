@@ -30,7 +30,7 @@ spec:
     name: *app
   values:
     fullnameOverride: *app
-    domain: "${SECRET_DOMAIN}"
+    domain: "${SECRET_DOMAIN} ${MAIN_DOMAIN}"
     ttl: 1
     service:
       type: ClusterIP
@@ -52,6 +52,10 @@ spec:
         parameters: 0.0.0.0:9153
       - name: forward
         parameters: ${SECRET_DOMAIN} tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001
+        configBlock: |-
+          tls_servername one.one.one.one
+      - name: forward
+        parameters: ${MAIN_DOMAIN} tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001
         configBlock: |-
           tls_servername one.one.one.one
       - name: forward
