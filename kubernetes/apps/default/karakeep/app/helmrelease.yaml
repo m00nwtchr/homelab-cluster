@@ -224,6 +224,15 @@ spec:
 
       tmp:
         type: emptyDir
+
+      cache:
+        type: emptyDir
+        advancedMounts:
+          *app :
+            app:
+              - path: /app/apps/web/.next/cache
+                subPath: cache
+
       run:
         type: emptyDir
         advancedMounts:
