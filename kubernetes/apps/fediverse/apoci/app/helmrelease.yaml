@@ -1,0 +1,102 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app apoci
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  interval: 30m
+  values:
+    controllers:
+      *app :
+        containers:
+          app:
+            image:
+              repository: git.erwanleboucher.dev/eleboucher/apoci
+              tag: 0.0.29@sha256:2e0e984a8b9745f009ffb2f9224673c52bb0e492b0e26c9cd43b15cc5379937e
+            env:
+              APOCI_ACCOUNT_DOMAIN: ${MAIN_DOMAIN}
+              APOCI_DATA_DIR: /data
+              APOCI_DB_DRIVER: postgres
+              APOCI_ENDPOINT: https://registry.${MAIN_DOMAIN}
+              APOCI_FEDERATION_AUTO_ACCEPT: mutual
+              APOCI_DB_DSN:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
+            envFrom:
+              - secretRef:
+                  name: apoci
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+            securityContext:
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: 80
+            targetPort: &port 5000
+
+    route:
+      app:
+        hostnames:
+          - "registry.${MAIN_DOMAIN}"
+        parentRefs:
+          - name: cftunnel
+            namespace: network
+      webfinger:
+        hostnames: ["${MAIN_DOMAIN}"]
+        rules:
+          - matches:
+              - path:
+                  type: Exact
+                  value: /.well-known/webfinger
+                queryParams:
+                  - name: resource
+                    type: RegularExpression
+                    value: ".*registry@.*"
+            filters:
+              - type: URLRewrite
+                urlRewrite:
+                  hostname: registry.${MAIN_DOMAIN}
+            backendRefs:
+              - identifier: app
+                port: 80
+        parentRefs:
+          - name: internal
+            namespace: network
+          - name: cftunnel
+            namespace: network
+
+    persistence:
+      data:
+        accessMode: ReadWriteOnce
+        size: 15Gi
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
