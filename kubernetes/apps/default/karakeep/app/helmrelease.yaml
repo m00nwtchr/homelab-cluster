@@ -88,16 +88,16 @@ spec:
               COREPACK_INTEGRITY_KEYS: 0
               DB_WAL_MODE: true
 
-              OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
+              OPENAI_BASE_URL: https://api.minimax.io/v1
               OPENAI_API_KEY:
                 valueFrom:
                   secretKeyRef:
                     name: *app
-                    key: litellm_key
+                    key: minimax_key
 
-              INFERENCE_TEXT_MODEL: llama3.3:70b
-              INFERENCE_IMAGE_MODEL: llava-llama3:8b
-              INFERENCE_CONTEXT_LENGTH: "8192"
+              INFERENCE_TEXT_MODEL: MiniMax-M2.7
+              # INFERENCE_IMAGE_MODEL: llava-llama3:8b
+              INFERENCE_CONTEXT_LENGTH: "204800"
 
               S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
               S6_READ_ONLY_ROOT: 1
