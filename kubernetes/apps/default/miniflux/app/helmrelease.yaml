@@ -33,10 +33,11 @@ spec:
             env:
               BASE_URL: "https://{{ .Release.Name }}.${MAIN_DOMAIN}"
               DATABASE_URL:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-postgres"
-                    key: url
+                postgresql://miniflux@pooler-rw-se.postgres.svc:5432/miniflux?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
+                # valueFrom:
+                #   secretKeyRef:
+                #     name: "{{ .Release.Name }}-postgres"
+                #     key: url
 
               # CREATE_ADMIN: "1"
               # DEBUG: "1"
