@@ -36,4 +36,4 @@ spec:
               name: cloudflare-secret
               key: api-token
         selector:
-          dnsZones: ["${SECRET_DOMAIN}"]
+          dnsZones: ["${SECRET_DOMAIN}", "${MAIN_DOMAIN}"]
