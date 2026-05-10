@@ -67,6 +67,8 @@ spec:
         parentRefs:
           - name: cftunnel
             namespace: network
+          - name: internal
+            namespace: network
       webfinger:
         hostnames: ["${MAIN_DOMAIN}"]
         rules:
