@@ -58,6 +58,10 @@ spec:
                     key: client-secret
               OAUTH2_REDIRECT_URL: https://{{ .Release.Name }}.${MAIN_DOMAIN}/oauth2/oidc/callback
               OAUTH2_OIDC_DISCOVERY_ENDPOINT: https://idm.${SECRET_DOMAIN}/oauth2/openid/{{ .Release.Name }}
+              OAUTH2_OIDC_PROVIDER_NAME: "Kanidm"
+
+              OAUTH2_USER_CREATION: "1"
+              DISABLE_LOCAL_AUTH: "1"
 
               # INTEGRATION_ALLOW_PRIVATE_NETWORKS: "true"
               LISTEN_ADDR: "[::]:8080"
