@@ -23,6 +23,9 @@ blocking:
       - hagezi
     10.42.0.0/16:
     2001:cafe:42::/56:
+  loading:
+    downloads:
+      timeout: "5m"
 
 caching:
   #  maxItemsCount: 10_000
