@@ -76,7 +76,7 @@ spec:
 
       - name: timescaledb
         image:
-          reference: ghcr.io/shusaan/timescaledb-testing:2.24.0-18-trixie@sha256:dae25c2dde06455214ac5553b51d3ef2d48fe84795c2cfa48c51c6e15877044e
+          reference: ghcr.io/m00nwtchr/timescaledb:2.27.0@sha256:b9f684aa3c25756dbffa2e0c3c70da6a449e25138ca1a793a8bd607fdaa99ef1
 
       # - name: pgcron
       #   image:
