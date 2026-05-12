@@ -43,3 +43,11 @@ spec:
     rthooks:
       enabled: true
       interface: oci-hooks
+    tetragon:
+      prometheus:
+        serviceMonitor:
+          enabled: true
+    tetragonOperator:
+      prometheus:
+        serviceMonitor:
+          enabled: true
