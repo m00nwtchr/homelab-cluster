@@ -51,7 +51,7 @@ spec:
           app:
             image:
               repository: ghcr.io/element-hq/lk-jwt-service
-              tag: 0.4.2@sha256:e9174b17c7b0048dba3899e50e2c3a6df8ec97657267a7cefa704076b89d3f96
+              tag: 0.4.4@sha256:9c715697c6f7c1f538f2ee41b7b59b04a8d06bf790a7cc8c8517ccac8d28813d
             env:
               LIVEKIT_URL: wss://livekit.${SECRET_DOMAIN}
               LIVEKIT_KEY_FILE: /config/keys.yaml
