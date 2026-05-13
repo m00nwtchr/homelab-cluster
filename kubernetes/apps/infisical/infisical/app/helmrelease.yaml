@@ -17,7 +17,7 @@ spec:
   interval: 5m
   url: https://github.com/Infisical/infisical.git
   ref:
-    tag: v0.159.8
+    tag: v0.159.28
   ignore: |-
     # exclude all
     /*
