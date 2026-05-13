@@ -57,7 +57,7 @@ container:
   # Whether to use privileged mode or not when launching task containers (privileged mode is required for Docker-in-Docker).
   privileged: false
   # And other options to be used when the container is started (eg, --add-host=my.forgejo.url:host-gateway).
-  options: -v /certs/client:/certs/client
+  options: -v /certs/client:/certs/client -u 1000:0
   # The parent directory of a job's working directory.
   # If it's empty, /workspace will be used.
   workdir_parent:
