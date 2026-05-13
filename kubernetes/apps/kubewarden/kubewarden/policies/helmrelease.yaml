@@ -10,7 +10,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 3.11.1
+    tag: 3.13.0
   url: oci://ghcr.io/kubewarden/charts/kubewarden-defaults
   verify:
     provider: cosign
