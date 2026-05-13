@@ -24,10 +24,10 @@ spec:
       expression: >
         has(object.metadata.generateName) &&
         object.metadata.generateName.startsWith("renovate-")
-    - name: has-renovate-labels
-      expression: >
-        has(object.metadata.labels) &&
-        object.metadata.labels["renovate-operator.mogenius.com/job-type"] == "executor"
+    # - name: has-renovate-labels
+    #   expression: >
+    #     has(object.metadata.labels) &&
+    #     object.metadata.labels["renovate-operator.mogenius.com/job-type"] == "executor"
     - name: missing-dragonfly-stunnel-container
       expression: >
         !has(object.spec.template.spec.initContainers) ||
