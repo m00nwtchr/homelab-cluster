@@ -32,6 +32,14 @@ spec:
                 - path: /data
               accessMode: "ReadWriteOnce"
               size: 1Gi
+            - name: actions
+              globalMounts:
+                - path: /data/.cache
+                  subPath: cache
+                - path: /var/lib/docker
+                  subPath: docker
+              accessMode: "ReadWriteOnce"
+              size: 5Gi
 
         initContainers:
           register:
