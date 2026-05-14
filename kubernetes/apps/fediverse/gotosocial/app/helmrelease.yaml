@@ -98,6 +98,8 @@ spec:
     route:
       app:
         parentRefs:
+          - name: internal
+            namespace: network
           - name: cftunnel
             namespace: network
         hostnames:
@@ -118,6 +120,8 @@ spec:
             #     type: CORS
       well-known:
         parentRefs:
+          - name: internal
+            namespace: network
           - name: cftunnel
             namespace: network
         hostnames: ["${MAIN_DOMAIN}"]
