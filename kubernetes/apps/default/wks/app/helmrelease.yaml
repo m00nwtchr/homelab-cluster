@@ -84,7 +84,6 @@ apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: HTTPRouteFilter
 metadata:
   name: wks-openpgpkey-200
-  namespace: default
 spec:
   directResponse:
     statusCode: 200
