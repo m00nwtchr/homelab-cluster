@@ -40,11 +40,7 @@ spec:
               AUTOBRR__PORT: &port 7474
               AUTOBRR__LOG_LEVEL: DEBUG
 
-              AUTOBRR__DATABASE_DSN:
-                valueFrom:
-                  secretKeyRef:
-                    name: "{{ .Release.Name }}-postgres"
-                    key: url
+              AUTOBRR__DATABASE_DSN: postgresql://autobrr@pooler-rw-se.postgres.svc:5432/autobrr?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
 
               AUTOBRR__OIDC_ENABLED: true
               AUTOBRR__OIDC_ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/
