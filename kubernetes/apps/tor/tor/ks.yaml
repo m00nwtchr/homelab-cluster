@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app tor-controller
+  name: &app tor-operator
   namespace: &namespace tor
 spec:
   commonMetadata:
@@ -42,7 +42,7 @@ spec:
       app.kubernetes.io/name: *app
   components: []
   dependsOn:
-    - name: tor-controller
+    - name: tor-operator
       namespace: tor
   healthChecks:
     - apiVersion: tor.k8s.torproject.org/v1alpha2
