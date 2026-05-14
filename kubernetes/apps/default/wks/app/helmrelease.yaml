@@ -48,7 +48,7 @@ spec:
       app:
         hostnames: ["${SECRET_DOMAIN}", "${MAIN_DOMAIN}"]
         parentRefs:
-          - name: external
+          - name: internal
             namespace: network
             sectionName: https
           - name: cftunnel
