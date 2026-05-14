@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/tor.agabani.co.uk/torproxy_v1.json
+apiVersion: tor.agabani.co.uk/v1
+kind: TorProxy
+metadata:
+  name: tor-proxy
+spec:
+  deployment:
+    replicas: 2
+  service:
+    ports:
+      - name: socks
+        port: 9050
+        protocol: SOCKS
+  torrc:
+    template: |
+      SocksPolicy accept 2001:cafe:42::/56,accept 10.42.0.0/16
+      MapAddress palladium.libera.chat libera75jm6of4wxpxt4aynol3xjmbtxgfyjpu34ss4d7r7q2v5zrpyd.onion
+      MapAddress irc.oftc.net oftcnet6xg6roj6d7id4y4cu6dchysacqj2ldgea73qzdagufflqxrid.onion
