@@ -3,7 +3,7 @@
 apiVersion: tor.agabani.co.uk/v1
 kind: TorProxy
 metadata:
-  name: tor-proxy
+  name: proxy
 spec:
   deployment:
     replicas: 2
