@@ -59,7 +59,10 @@ spec:
               # krr: controller=server container=main
               resources:
                 requests:
-                  cpu: 11m
+                  cpu: 12m
+                  memory: 1369Mi
+                limits:
+                  memory: 1369Mi
       persistence:
         metadata:
           forceRename: immich-metadata
@@ -85,6 +88,9 @@ spec:
               resources:
                 requests:
                   cpu: 10m
+                  memory: 1514Mi
+                limits:
+                  memory: 1514Mi
       persistence:
         cache:
           type: persistentVolumeClaim

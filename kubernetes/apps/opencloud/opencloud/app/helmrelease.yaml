@@ -28,8 +28,7 @@ spec:
             image:
               repository: opencloudeu/opencloud-rolling
               tag: 6.2.0@sha256:77bd4ebc5c5d27bd6da8a5b077e3b3b18f07dc538a25597b6ed0bcc76198ecbe
-            command:
-              ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
+            command: ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
             env:
               OC_INSECURE: true
               OC_URL: https://cloud.${SECRET_DOMAIN}
@@ -78,9 +77,11 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 100Mi
+                memory: 206Mi
               # limits:
               #   memory: 512Mi
+              limits:
+                memory: 206Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

@@ -39,13 +39,13 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
-                cpu: 10m
-                memory: 100Mi
+                cpu: 749m
+                memory: 11464Mi
               limits:
-                memory: 10Gi
+                memory: 11464Mi
     service:
       app:
         controller: *app
