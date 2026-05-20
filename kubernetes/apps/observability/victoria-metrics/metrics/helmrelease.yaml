@@ -37,6 +37,9 @@ spec:
         dnsDomain: cluster.local.
     nameOverride: *app
 
+    crds:
+      enabled: false
+
     victoria-metrics-operator:
       enabled: false
 
@@ -60,32 +63,27 @@ spec:
               dashboards: null
               grafana.internal/instance: grafana
 
-    grafana:
-      enabled: false
-
     defaultRules:
       create: true
 
     alertmanager:
-      enabled: false
+      enabled: true
       spec:
         configReloaderExtraArgs:
           enableTCP6: "true"
         externalURL: https://alertmanager.${SECRET_DOMAIN}
-        storage:
-          volumeClaimTemplate:
-            spec:
-              resources:
-                requests:
-                  storage: 1Gi
+        disableNamespaceMatcher: true
 
     vmalert:
-      enabled: false
+      enabled: true
       spec:
         extraArgs:
           enableTCP6: "true"
         configReloaderExtraArgs:
           enableTCP6: "true"
+
+    grafana:
+      enabled: false
 
     vmsingle:
       spec:
@@ -96,7 +94,7 @@ spec:
           search.minStalenessInterval: 5m
           opentelemetry.usePrometheusNaming: "true"
         replicaCount: 1
-        retentionPeriod: 30d
+        retentionPeriod: 6w
         storage:
           accessModes:
             - ReadWriteOnce
@@ -108,9 +106,8 @@ spec:
         resources:
           limits:
             memory: 2Gi
-            cpu: 1
           requests:
-            cpu: 100m
+            cpu: 500m
 
     vmagent:
       spec:
@@ -120,14 +117,15 @@ spec:
           enableTCP6: "true"
         resources:
           limits:
-            cpu: 2000m
+            cpu: 1
             memory: 1Gi
+          requests:
+            cpu: 150m
         selectAllByDefault: true
         scrapeInterval: 20s
 
     prometheus-node-exporter:
       enabled: false
-      fullnameOverride: node-exporter
 
     kube-state-metrics:
       enabled: true
@@ -139,7 +137,6 @@ spec:
           enabled: true
       vmScrape:
         spec:
-          port: "10250"
           relabelConfigs:
             # This is the same as the chart default, but it explicitly excludes NFD node labels,
             # and talos extension labels, and some others. These don't really provide any value,
@@ -161,7 +158,19 @@ spec:
       enabled: true
 
     kubeControllerManager:
-      enabled: false
+      enabled: true
+      service:
+        selector:
+          k8s-app: cilium
+          component: ~
+      vmScrape:
+        spec:
+          endpoints:
+            - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+              port: http-metrics
+              scheme: https
+              tlsConfig:
+                insecureSkipVerify: true
 
     kubeEtcd:
       service:
@@ -177,6 +186,7 @@ spec:
         # to pull in the etcd certs via talosctl, which can be called via pods with a Talos service account.
         # Then the normal, authenticated 2379 port can be used. Or even better, move the root CA out
         # of the cluster (probably into a HSM), and issue these certs with it.
+        port: 2381
         targetPort: 2381
       vmScrape:
         spec:
@@ -192,3 +202,25 @@ spec:
 
     coreDns:
       enabled: false
+
+    extraRules:
+      dockerhub-rules:
+        groups:
+          - name: dockerhub
+            rules:
+              - alert: DockerhubRateLimitRisk
+                annotations:
+                  summary: Kubernetes cluster Dockerhub rate limit risk
+                expr: count(time() - container_last_seen{image=~"(docker.io).*",container!=""} < 30) > 100
+                labels:
+                  severity: critical
+      oom-rules:
+        groups:
+          - name: oom
+            rules:
+              - alert: OomKilled
+                annotations:
+                  summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
+                expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
+                labels:
+                  severity: critical
