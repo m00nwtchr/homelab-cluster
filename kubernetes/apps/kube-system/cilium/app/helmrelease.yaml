@@ -117,8 +117,9 @@ spec:
       enabled: true
 
     loadBalancer:
+      acceleration: best-effort
       algorithm: maglev
-      mode: dsr
+      mode: hybrid
 
     localRedirectPolicy: true
 
