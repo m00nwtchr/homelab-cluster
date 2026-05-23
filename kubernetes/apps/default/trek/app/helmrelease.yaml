@@ -56,13 +56,15 @@ spec:
               OIDC_DISPLAY_NAME: Kanidm
               OIDC_ISSUER: "https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}"
               OIDC_CLIENT_ID:
-                secretKeyRef:
-                  name: "kanidm-{{ .Release.Name }}-oidc"
-                  key: client-id
+                valueFrom:
+                  secretKeyRef:
+                    name: "kanidm-{{ .Release.Name }}-oidc"
+                    key: client-id
               OIDC_CLIENT_SECRET:
-                secretKeyRef:
-                  name: "kanidm-{{ .Release.Name }}-oidc"
-                  key: client-secret
+                valueFrom:
+                  secretKeyRef:
+                    name: "kanidm-{{ .Release.Name }}-oidc"
+                    key: client-secret
 
               # SMTP_HOST: smtp-relay.cluster-infra
               # SMTP_PORT: 25
