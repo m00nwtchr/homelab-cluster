@@ -35,6 +35,9 @@ GENERATED_INPUTS_MARKER
         postBuild:
           substitute:
             NAMESPACE: << inputs.namespace >>
+          substituteFrom:
+            - name: cluster-secrets
+              kind: Secret
         sourceRef:
           kind: GitRepository
           name: flux-system

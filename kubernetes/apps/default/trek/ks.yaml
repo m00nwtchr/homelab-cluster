@@ -23,6 +23,7 @@ spec:
       DOMAIN: trek.${MAIN_DOMAIN}
       OIDC_DISPLAY_NAME: trek
       OIDC_CALLBACK: /api/auth/oidc/callback
+      OIDC_DISABLE_PKCE: "true"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
