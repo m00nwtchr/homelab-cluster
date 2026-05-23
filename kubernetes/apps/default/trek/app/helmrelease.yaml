@@ -28,7 +28,7 @@ spec:
             seccompProfile: { type: RuntimeDefault }
 
         containers:
-          trek:
+          app:
             image:
               repository: mirror.gcr.io/mauriceboe/trek
               tag: 3.0.21@sha256:79f88110b76980b261b81d1313ec82ee393149d97ae672e87a83e0b158e361a0
@@ -42,11 +42,11 @@ spec:
               ADMIN_EMAIL: m00n@${MAIN_DOMAIN}
               ADMIN_PASSWORD:
                 secretKeyRef:
-                  name: trek
+                  name: *app
                   key: ADMIN_PASSWORD
               ENCRYPTION_KEY:
                 secretKeyRef:
-                  name: trek
+                  name: *app
                   key: ENCRYPTION_KEY
 
               OIDC_ONLY: true
