@@ -20,6 +20,9 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      DOMAIN: trek.${MAIN_DOMAIN}
+      OIDC_DISPLAY_NAME: trek
+      OIDC_CALLBACK: /api/auth/oidc/callback
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
