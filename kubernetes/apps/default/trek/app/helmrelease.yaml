@@ -34,16 +34,13 @@ spec:
               tag: 3.0.21@sha256:79f88110b76980b261b81d1313ec82ee393149d97ae672e87a83e0b158e361a0
             args: ["node", "--import", "tsx", "src/index.ts"]
             env:
-              ALLOW_INTERNAL_NETWORK: true
-              # LOG_LEVEL: debug
               APP_URL: https://{{ .Release.Name }}.${MAIN_DOMAIN}
               ALLOWED_ORIGINS: https://{{ .Release.Name }}.${MAIN_DOMAIN}
+              ALLOW_INTERNAL_NETWORK: true
               TRUST_PROXY: true
-              ADMIN_EMAIL: m00n@${MAIN_DOMAIN}
-              ADMIN_PASSWORD:
-                secretKeyRef:
-                  name: *app
-                  key: ADMIN_PASSWORD
+              FORCE_HTTPS: true
+              TZ: "${TZ}"
+
               ENCRYPTION_KEY:
                 secretKeyRef:
                   name: *app
@@ -68,7 +65,7 @@ spec:
 
               # SMTP_HOST: smtp-relay.cluster-infra
               # SMTP_PORT: 25
-              # SMTP_FROM: TREK <bot@${SECRET_DOMAIN}>
+              # SMTP_FROM: TREK <trek@${MAIN_DOMAIN}>
             probes:
               readiness: &probes
                 enabled: true
