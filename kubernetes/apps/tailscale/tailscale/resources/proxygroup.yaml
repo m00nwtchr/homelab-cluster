@@ -14,11 +14,16 @@ apiVersion: tailscale.com/v1alpha1
 kind: ProxyClass
 metadata:
   name: ts-proxy
-spec: {}
+spec:
   # metrics:
   #   enable: true
   #   serviceMonitor:
   #     enable: true
+  staticEndpoints:
+    nodePort:
+      ports:
+        - port: 31667
+          endPort: 31680
   # statefulSet:
   #   pod:
   #     securityContext:

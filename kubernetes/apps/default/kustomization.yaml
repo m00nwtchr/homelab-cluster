@@ -24,6 +24,7 @@ resources:
   - ./searxng/ks.yaml
   - ./sftpgo/ks.yaml
   - ./tika/ks.yaml
+  - ./trek/ks.yaml
   - ./vaultwarden/ks.yaml
   - ./vikunja/ks.yaml
   - ./wks/ks.yaml
