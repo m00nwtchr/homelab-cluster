@@ -48,7 +48,7 @@ spec:
 
               OIDC_ONLY: true
               OIDC_ADMIN_CLAIM: groups
-              OIDC_ADMIN_VALUE: admins
+              OIDC_ADMIN_VALUE: admins@idm.${SECRET_DOMAIN}
               OIDC_SCOPE: openid email profile groups
               OIDC_DISPLAY_NAME: Kanidm
               OIDC_ISSUER: "https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}"
