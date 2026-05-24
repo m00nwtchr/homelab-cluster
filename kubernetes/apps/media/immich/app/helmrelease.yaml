@@ -59,7 +59,7 @@ spec:
               # krr: controller=server container=main
               resources:
                 requests:
-                  cpu: 12m
+                  cpu: 20m
                   memory: 1369Mi
                 limits:
                   memory: 1369Mi
@@ -88,9 +88,9 @@ spec:
               resources:
                 requests:
                   cpu: 10m
-                  memory: 1514Mi
+                  memory: 1422Mi
                 limits:
-                  memory: 1514Mi
+                  memory: 1422Mi
       persistence:
         cache:
           type: persistentVolumeClaim

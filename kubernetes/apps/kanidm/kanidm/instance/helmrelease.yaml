@@ -75,10 +75,10 @@ spec:
             resources:
               limits:
                 cpu: 50M
-                memory: 109Mi
+                memory: 114Mi
               requests:
                 cpu: 10m
-                memory: 109Mi
+                memory: 114Mi
             securityContext:
               capabilities:
                 drop:

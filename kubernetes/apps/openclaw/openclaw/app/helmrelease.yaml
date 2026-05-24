@@ -167,11 +167,11 @@ spec:
                   name: openclaw
             resources:
               requests:
-                cpu: 1252m
-                memory: 3196Mi
+                cpu: 1117m
+                memory: 3528Mi
               limits:
                 cpu: 10
-                memory: 3196Mi
+                memory: 3528Mi
           chrome:
             image:
               repository: zenika/alpine-chrome
@@ -193,7 +193,7 @@ spec:
               TZ: *tz
             resources:
               requests:
-                cpu: 30m
+                cpu: 21m
                 memory: 280Mi
               limits:
                 cpu: 1000m
@@ -208,9 +208,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 281Mi
+                memory: 144Mi
               limits:
-                memory: 281Mi
+                memory: 144Mi
 
     persistence:
       data:

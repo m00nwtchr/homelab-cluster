@@ -76,12 +76,12 @@ spec:
                 enabled: true
             resources:
               requests:
-                cpu: 10m
-                memory: 206Mi
+                cpu: 21m
+                memory: 164Mi
               # limits:
               #   memory: 512Mi
               limits:
-                memory: 206Mi
+                memory: 164Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

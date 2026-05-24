@@ -70,9 +70,9 @@ spec:
                 cpu: 10m
               # limits:
               #   memory: 512Mi
-                memory: 589Mi
+                memory: 618Mi
               limits:
-                memory: 589Mi
+                memory: 618Mi
             securityContext:
               allowPrivilegeEscalation: false
               capabilities: {drop: [ALL]}
