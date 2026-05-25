@@ -10,3 +10,4 @@ resources:
   - ./envoy/ks.yaml
   - ./k8s-gateway/ks.yaml
   - ./stunner/ks.yaml
+  - ./towonel/ks.yaml
