@@ -6,7 +6,7 @@ metadata:
   name: &name cftunnel
   annotations:
     external-dns.alpha.kubernetes.io/target: "cftunnel.${MAIN_DOMAIN}"
-    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
   labels:
     gateway: external
 spec:
