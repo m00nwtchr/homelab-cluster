@@ -5,14 +5,14 @@ kind: Gateway
 metadata:
   name: &name cftunnel
   annotations:
-    external-dns.alpha.kubernetes.io/target: "cftunnel.${SECRET_DOMAIN}"
+    external-dns.alpha.kubernetes.io/target: "cftunnel.${MAIN_DOMAIN}"
   labels:
     gateway: external
 spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: "cftunnel.${SECRET_DOMAIN}"
+      external-dns.alpha.kubernetes.io/hostname: "cftunnel.${MAIN_DOMAIN}"
     parametersRef:
       group: gateway.envoyproxy.io
       kind: EnvoyProxy
