@@ -13,15 +13,15 @@ spec:
     #   recordType: A
     #   targets: ["150.230.150.181"]
 
-    # - dnsName: cftunnel.${SECRET_DOMAIN}
-    #   recordType: CNAME
-    #   targets: ["441fc81d-5800-4fb7-adb7-6e2ec19dc6dc.cfargotunnel.com"]
-    #   providerSpecific:
-    #     - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
-    #       value: "true"
-    # - dnsName: ${SECRET_DOMAIN}
-    #   recordType: CNAME
-    #   targets: ["cftunnel.${SECRET_DOMAIN}"]
+    - dnsName: cftunnel.${SECRET_DOMAIN}
+      recordType: CNAME
+      targets: ["441fc81d-5800-4fb7-adb7-6e2ec19dc6dc.cfargotunnel.com"]
+      providerSpecific:
+        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
+          value: "true"
+    - dnsName: ${SECRET_DOMAIN}
+      recordType: CNAME
+      targets: ["cftunnel.${SECRET_DOMAIN}"]
     #   providerSpecific:
     #     - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
     #       value: "true"
@@ -39,15 +39,15 @@ spec:
     #   recordType: A
     #   targets: ["150.230.150.181"]
 
-    # - dnsName: cftunnel.${MAIN_DOMAIN}
-    #   recordType: CNAME
-    #   targets: ["441fc81d-5800-4fb7-adb7-6e2ec19dc6dc.cfargotunnel.com"]
-    #   providerSpecific:
-    #     - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
-    #       value: "true"
-    # - dnsName: ${MAIN_DOMAIN}
-    #   recordType: CNAME
-    #   targets: ["cftunnel.${MAIN_DOMAIN}"]
-    #   providerSpecific:
-    #     - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
-    #       value: "true"
+    - dnsName: cftunnel.${MAIN_DOMAIN}
+      recordType: CNAME
+      targets: ["441fc81d-5800-4fb7-adb7-6e2ec19dc6dc.cfargotunnel.com"]
+      providerSpecific:
+        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
+          value: "true"
+    - dnsName: ${MAIN_DOMAIN}
+      recordType: CNAME
+      targets: ["cftunnel.${MAIN_DOMAIN}"]
+      providerSpecific:
+        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
+          value: "true"
