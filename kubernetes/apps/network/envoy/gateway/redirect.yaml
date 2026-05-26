@@ -37,7 +37,7 @@ spec:
     - name: cftunnel
       namespace: network
       sectionName: https
-  hostnames: ["${SECRET_DOMAIN}"]
+  hostnames: ["${MAIN_DOMAIN}", "${SECRET_DOMAIN}"]
   rules:
     - filters:
         - requestRedirect:
@@ -56,14 +56,10 @@ metadata:
   name: robots-txt
 spec:
   parentRefs:
-    - name: external
-      namespace: network
-      sectionName: https
     - name: cftunnel
       namespace: network
       sectionName: https
-  hostnames:
-    - "${SECRET_DOMAIN}"
+  hostnames: ["${MAIN_DOMAIN}", "${SECRET_DOMAIN}"]
   rules:
     - matches:
         - path:
