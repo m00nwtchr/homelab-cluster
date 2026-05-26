@@ -1,11 +1,11 @@
-# ---
-# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/externaldns.k8s.io/dnsendpoint_v1alpha1.json
-# apiVersion: externaldns.k8s.io/v1alpha1
-# kind: DNSEndpoint
-# metadata:
-#   name: towonel
-# spec:
-#   endpoints:
-#     - dnsName: cftunnel.${MAIN_DOMAIN}
-#       recordType: CNAME
-#       targets: ["edge-eu.towonel.dev"]
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/externaldns.k8s.io/dnsendpoint_v1alpha1.json
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: towonel
+spec:
+  endpoints:
+    - dnsName: tunnel.${MAIN_DOMAIN}
+      recordType: CNAME
+      targets: ["edge-eu.towonel.dev"]
