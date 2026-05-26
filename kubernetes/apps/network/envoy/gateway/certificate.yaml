@@ -20,3 +20,23 @@ spec:
     - "*.${SECRET_DOMAIN}"
     - "${MAIN_DOMAIN}"
     - "*.${MAIN_DOMAIN}"
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-${MAIN_DOMAIN/./-}
+spec:
+  secretName: wildcard-${MAIN_DOMAIN/./-}-tls
+  issuerRef:
+    name: letsencrypt-production-shortlived
+    kind: ClusterIssuer
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    rotationPolicy: Always
+  duration: 160h
+  usages: ["digital signature"]
+  dnsNames:
+    - "${MAIN_DOMAIN}"
+    - "*.${MAIN_DOMAIN}"
