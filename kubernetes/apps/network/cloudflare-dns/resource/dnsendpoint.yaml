@@ -18,14 +18,14 @@ spec:
 
     - dnsName: ${MAIN_DOMAIN}
       recordType: CNAME
-      targets: ["cftunnel.${MAIN_DOMAIN}"]
+      targets: ["tunnel.${MAIN_DOMAIN}"]
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
-          value: "true"
+          value: "false"
 
     - dnsName: ${SECRET_DOMAIN}
       recordType: CNAME
-      targets: ["cftunnel.${MAIN_DOMAIN}"]
+      targets: ["tunnel.${MAIN_DOMAIN}"]
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
-          value: "true"
+          value: "false"
