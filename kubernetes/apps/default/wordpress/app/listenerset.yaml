@@ -23,3 +23,93 @@ spec:
       hostname: voltkonekt.pl
       port: 80
       protocol: HTTP
+---
+
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: https-redirect
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: none
+spec:
+  parentRefs:
+    - name: internal
+      namespace: network
+      sectionName: http
+    - name: external
+      namespace: network
+      sectionName: http
+    - name: tunnel
+      namespace: network
+      sectionName: http
+  rules:
+    - filters:
+        - requestRedirect:
+            scheme: https
+            statusCode: 301
+          type: RequestRedirect
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: www-redirect-vk
+spec:
+  parentRefs:
+    - name: tunnel
+      namespace: network
+  hostnames: ["www.voltkonekt.pl"]
+  rules:
+    - filters:
+        - requestRedirect:
+            hostname: "voltkonekt.pl"
+            statusCode: 301
+          type: RequestRedirect
+      matches:
+        - path:
+            type: Exact
+            value: /
+# ---
+# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/httproute_v1.json
+# apiVersion: gateway.networking.k8s.io/v1
+# kind: HTTPRoute
+# metadata:
+#   name: robots-txt
+# spec:
+#   parentRefs:
+#     - name: tunnel
+#       namespace: network
+#   hostnames: ["${MAIN_DOMAIN}", "${SECRET_DOMAIN}"]
+#   rules:
+#     - matches:
+#         - path:
+#             type: Exact
+#             value: /robots.txt
+#       filters:
+#         - type: ResponseHeaderModifier
+#           responseHeaderModifier:
+#             set:
+#               - name: Cache-Control
+#                 value: public, max-age=600
+#         - type: ExtensionRef
+#           extensionRef:
+#             group: gateway.envoyproxy.io
+#             kind: HTTPRouteFilter
+#             name: robots-txt-filter
+# ---
+# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.envoyproxy.io/httproutefilter_v1alpha1.json
+# apiVersion: gateway.envoyproxy.io/v1alpha1
+# kind: HTTPRouteFilter
+# metadata:
+#   name: robots-txt-filter
+# spec:
+#   directResponse:
+#     contentType: text/plain
+#     statusCode: 200
+#     body:
+#       type: Inline
+#       inline: |
+#         User-agent: *
+#         Disallow: /
