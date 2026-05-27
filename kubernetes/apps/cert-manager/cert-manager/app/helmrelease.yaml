@@ -33,3 +33,9 @@ spec:
       enabled: true
       servicemonitor:
         enabled: true
+
+    config:
+      enableGatewayAPI: true
+      enableGatewayAPIListenerSet: true
+      featureGates:
+        ListenerSets: true
