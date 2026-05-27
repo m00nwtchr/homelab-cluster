@@ -8,6 +8,9 @@ metadata:
     external-dns.alpha.kubernetes.io/target: "internal.${MAIN_DOMAIN}"
 spec:
   gatewayClassName: envoy
+  allowedListeners:
+    namespaces:
+      from: All
   infrastructure:
     annotations:
       lbipam.cilium.io/ips: "fd42:78a5:2c09::200,192.168.0.192"
@@ -37,14 +40,3 @@ spec:
             name: wildcard-${MAIN_DOMAIN/./-}-tls
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
-    - name: ssh
-      protocol: TCP
-      port: 22
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              kubernetes.io/metadata.name: gitea
-        kinds:
-          - kind: TCPRoute

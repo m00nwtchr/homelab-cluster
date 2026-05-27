@@ -42,11 +42,11 @@ spec:
     tcpRoute:
       enabled: true
       parentRefs:
-        - name: external
-          namespace: network
+        - kind: ListenerSet
+          name: external
           sectionName: ssh
-        - name: internal
-          namespace: network
+        - kind: ListenerSet
+          name: internal
           sectionName: ssh
 
     # https://codeberg.org/forgejo/-/packages/container/forgejo/14.0.2
