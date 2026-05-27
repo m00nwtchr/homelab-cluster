@@ -32,7 +32,7 @@ spec:
     route:
       main:
         parentRefs:
-          - name: cftunnel
+          - name: tunnel
             namespace: network
         hostnames:
           - ${SECRET_DOMAIN}

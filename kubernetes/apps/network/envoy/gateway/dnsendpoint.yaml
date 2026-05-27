@@ -9,23 +9,10 @@ spec:
     - dnsName: external.${MAIN_DOMAIN}
       recordType: AAAA
       targets: ["2a02:a313:43e4:7080::7dc5"]
-    - dnsName: cftunnel.${MAIN_DOMAIN}
-      recordType: CNAME
-      targets: ["441fc81d-5800-4fb7-adb7-6e2ec19dc6dc.cfargotunnel.com"]
-      providerSpecific:
-        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
-          value: "true"
 
     - dnsName: ${MAIN_DOMAIN}
       recordType: CNAME
       targets: ["tunnel.${MAIN_DOMAIN}"]
-      providerSpecific:
-        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
-          value: "false"
-
     - dnsName: ${SECRET_DOMAIN}
       recordType: CNAME
       targets: ["tunnel.${MAIN_DOMAIN}"]
-      providerSpecific:
-        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
-          value: "false"

@@ -14,7 +14,7 @@ spec:
     - name: external
       namespace: network
       sectionName: http
-    - name: cftunnel
+    - name: tunnel
       namespace: network
       sectionName: http
   rules:
@@ -34,7 +34,7 @@ spec:
     - name: internal
       namespace: network
       sectionName: https
-    - name: cftunnel
+    - name: tunnel
       namespace: network
       sectionName: https
   hostnames: ["${MAIN_DOMAIN}", "${SECRET_DOMAIN}"]
@@ -56,7 +56,7 @@ metadata:
   name: robots-txt
 spec:
   parentRefs:
-    - name: cftunnel
+    - name: tunnel
       namespace: network
       sectionName: https
   hostnames: ["${MAIN_DOMAIN}", "${SECRET_DOMAIN}"]

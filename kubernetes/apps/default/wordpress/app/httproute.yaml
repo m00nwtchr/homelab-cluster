@@ -8,7 +8,7 @@ spec:
   hostnames:
     - "voltkonekt.pl"
   parentRefs:
-    - name: cftunnel
+    - name: tunnel
       namespace: network
       sectionName: https
   rules:
