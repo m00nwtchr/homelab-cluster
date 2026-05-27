@@ -51,7 +51,7 @@ spec:
               OIDC_REDIRECT_URI: https://{{ .Release.Name }}.${SECRET_DOMAIN}/users/auth/openid_connect/callback
               OIDC_PROVIDER_NAME: Kanidm
 
-              DATABASE_HOST: pooler-rw.postgres.svc.cluster.local
+              DATABASE_HOST: pooler-rw-se.postgres.svc.cluster.local
               DATABASE_NAME: *app
               DATABASE_USERNAME: *app
 
