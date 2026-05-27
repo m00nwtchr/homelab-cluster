@@ -80,7 +80,7 @@ spec:
       app:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
         parentRefs:
-          - name: external
+          - name: tunnel
             namespace: network
         rules:
           - backendRefs:
