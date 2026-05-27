@@ -132,7 +132,7 @@ spec:
         #        kind: TLSRoute
         hostnames: ["idm.${SECRET_DOMAIN}"]
         parentRefs:
-          - name: external
+          - name: tunnel
             namespace: network
             sectionName: https
           - name: internal
