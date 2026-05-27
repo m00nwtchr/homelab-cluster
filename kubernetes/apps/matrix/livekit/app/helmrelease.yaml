@@ -53,7 +53,7 @@ spec:
               repository: ghcr.io/element-hq/lk-jwt-service
               tag: 0.4.4@sha256:9c715697c6f7c1f538f2ee41b7b59b04a8d06bf790a7cc8c8517ccac8d28813d
             env:
-              LIVEKIT_URL: wss://livekit.${SECRET_DOMAIN}
+              LIVEKIT_URL: wss://livekit.${MAIN_DOMAIN}
               LIVEKIT_KEY_FILE: /config/keys.yaml
               LIVEKIT_FULL_ACCESS_HOMESERVERS: "${SECRET_DOMAIN}"
             probes:
@@ -112,9 +112,9 @@ spec:
 
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        hostnames: ["{{ .Release.Name }}.${MAIN_DOMAIN}"]
         parentRefs:
-          - name: external
+          - name: tunnel
             namespace: network
           - name: internal
             namespace: network
