@@ -96,10 +96,8 @@ spec:
         parentRefs:
           - name: external
             namespace: network
-            sectionName: https
           - name: internal
             namespace: network
-            sectionName: https
 
     persistence:
       config:

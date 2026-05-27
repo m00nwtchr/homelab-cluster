@@ -82,7 +82,6 @@ spec:
         parentRefs:
           - name: internal
             namespace: network
-            sectionName: https
 
       webhook:
         hostnames:
@@ -90,7 +89,6 @@ spec:
         parentRefs:
           - name: external
             namespace: network
-            sectionName: https
         rules:
           - matches:
               - path:

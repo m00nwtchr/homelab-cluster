@@ -12,7 +12,6 @@ spec:
       kind: Gateway
       name: internal
       namespace: network
-      sectionName: https
   rules:
     - backendRefs:
         - name: vmcp-tools-gateway

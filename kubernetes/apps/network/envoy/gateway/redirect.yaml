@@ -33,10 +33,8 @@ spec:
   parentRefs:
     - name: internal
       namespace: network
-      sectionName: https
     - name: tunnel
       namespace: network
-      sectionName: https
   hostnames: ["${MAIN_DOMAIN}", "${SECRET_DOMAIN}"]
   rules:
     - filters:
@@ -58,7 +56,6 @@ spec:
   parentRefs:
     - name: tunnel
       namespace: network
-      sectionName: https
   hostnames: ["${MAIN_DOMAIN}", "${SECRET_DOMAIN}"]
   rules:
     - matches:

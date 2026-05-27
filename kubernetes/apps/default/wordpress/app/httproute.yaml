@@ -10,7 +10,6 @@ spec:
   parentRefs:
     - name: tunnel
       namespace: network
-      sectionName: https
   rules:
     - backendRefs:
         - name: wordpress
