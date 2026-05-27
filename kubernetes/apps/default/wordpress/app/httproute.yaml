@@ -3,13 +3,12 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: voltkonekt-wordpresss
+  name: &app voltkonekt
 spec:
-  hostnames:
-    - "voltkonekt.pl"
+  hostnames: ["voltkonekt.pl"]
   parentRefs:
-    - name: tunnel
-      namespace: network
+    - name: *app
+      kind: ListenerSet
   rules:
     - backendRefs:
         - name: wordpress
