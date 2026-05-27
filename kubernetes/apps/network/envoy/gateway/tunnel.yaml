@@ -23,9 +23,10 @@ spec:
       allowedRoutes:
         namespaces:
           from: Same
-    - name: https
+    - name: https-${MAIN_DOMAIN/./-}-wildcard
       protocol: HTTPS
       port: 443
+      hostname: "*.${MAIN_DOMAIN}"
       allowedRoutes:
         namespaces:
           from: All
@@ -34,8 +35,54 @@ spec:
         certificateRefs:
           - kind: Secret
             name: wildcard-${MAIN_DOMAIN/./-}-tls
+    - name: https-${MAIN_DOMAIN/./-}
+      protocol: HTTPS
+      port: 443
+      hostname: "${MAIN_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: wildcard-${MAIN_DOMAIN/./-}-tls
+    - name: https-${SECRET_DOMAIN/./-}-wildcard
+      protocol: HTTPS
+      port: 443
+      hostname: "*.${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
+    - name: https-${SECRET_DOMAIN/./-}
+      protocol: HTTPS
+      port: 443
+      hostname: "${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: wildcard-${SECRET_DOMAIN/./-}-tls
+    - name: https-vk
+      protocol: HTTPS
+      port: 443
+      hostname: "voltkonekt.pl"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: wildcard-${MAIN_DOMAIN/./-}-tls
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.envoyproxy.io/clienttrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
