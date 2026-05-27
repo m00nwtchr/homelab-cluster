@@ -33,7 +33,7 @@ spec:
               repository: codeberg.org/towonel/towonel-agent
               tag: 0.1.10
             env:
-              RUST_LOG: debug
+              RUST_LOG: info
               TOWONEL_AGENT_SERVICES: |
                 [
                   {"hostname":"${MAIN_DOMAIN}","origin":"tunnel.network.svc.cluster.local.:443"},
