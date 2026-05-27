@@ -118,7 +118,7 @@ spec:
       app:
         hostnames: ["cloud.${SECRET_DOMAIN}"]
         parentRefs:
-          - name: external
+          - name: tunnel
             namespace: network
           - name: internal
             namespace: network
