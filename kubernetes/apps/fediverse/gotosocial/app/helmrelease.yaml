@@ -104,8 +104,6 @@ spec:
             namespace: network
         hostnames:
           - gts.${MAIN_DOMAIN}
-        annotations:
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
         rules:
           - backendRefs:
               - identifier: app
