@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./httproute.yaml
+  - ./listenerset.yaml
   - ./pvc.yaml
   - ./rbac.yaml
   - ./secret.sops.yaml
