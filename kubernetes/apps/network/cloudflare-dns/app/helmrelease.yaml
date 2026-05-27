@@ -47,7 +47,7 @@ spec:
     sources: ["crd", "gateway-httproute", "gateway-tlsroute", "service"]
     txtPrefix: k8s.
     txtOwnerId: default
-    domainFilters: ["${SECRET_DOMAIN}", "${MAIN_DOMAIN}"]
+    domainFilters: ["${SECRET_DOMAIN}", "${MAIN_DOMAIN}", "voltkonekt.pl"]
     serviceMonitor:
       enabled: true
     podAnnotations:

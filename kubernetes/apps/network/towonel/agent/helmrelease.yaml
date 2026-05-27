@@ -40,7 +40,7 @@ spec:
                   {"hostname":"${SECRET_DOMAIN}","origin":"tunnel.network.svc.cluster.local.:443"},
                   {"hostname":"*.${MAIN_DOMAIN}","origin":"tunnel.network.svc.cluster.local.:443"},
                   {"hostname":"*.${SECRET_DOMAIN}","origin":"tunnel.network.svc.cluster.local.:443"},
-                  {"hostname":"voltkonekt.pl","origin":"tunnel.network.svc.cluster.local.:443", "tls_mode": { "mode": "terminate" } }
+                  {"hostname":"voltkonekt.pl","origin":"tunnel.network.svc.cluster.local.:443" }
                 ]
               # TOWONEL_AGENT_TCP_SERVICES: |
               #   [
