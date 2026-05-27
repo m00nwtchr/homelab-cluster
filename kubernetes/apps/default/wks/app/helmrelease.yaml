@@ -50,10 +50,8 @@ spec:
         parentRefs:
           - name: internal
             namespace: network
-            sectionName: https
           - name: tunnel
             namespace: network
-            sectionName: https
         rules:
           - matches:
               - path:

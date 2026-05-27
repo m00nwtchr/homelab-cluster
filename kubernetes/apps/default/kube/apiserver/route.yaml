@@ -8,7 +8,6 @@ spec:
   parentRefs:
     - name: internal
       namespace: network
-      sectionName: https
   hostnames:
     - "k8s.${SECRET_DOMAIN}"
   rules:
@@ -26,7 +25,6 @@ spec:
   parentRefs:
     - name: external
       namespace: network
-      sectionName: https
   hostnames:
     - "k8s.${SECRET_DOMAIN}"
   rules:

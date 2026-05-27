@@ -13,42 +13,32 @@ spec:
   values:
     controllers:
       *app :
-        strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           main:
             image:
-              repository: ghcr.io/searxng/searxng
-              tag: latest@sha256:4da2820fd56920bf05303183b2f3a8c8cce18fcbcd88526cae31bc039b2d4dd1
+              repository: zedeus/nitter
+              tag: latest@sha256:3d079f53357ed550fea5e76d873cd463e15a4d65f394c4a6233478cd768c7c7a
             command:
               - /usr/local/searxng/.venv/bin/granian
               - searx.webapp:app
-            env:
-              SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
-              SEARXNG_PORT: &port 8080
             envFrom:
               - secretRef:
                   name: *app
             probes:
-              liveness: &probes
+              liveness: &probe
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /stats
-                    port: *port
-                  initialDelaySeconds: 5
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-            resources:
-              requests:
-                cpu: 10m
-                memory: 172Mi
-              limits:
-                memory: 172Mi
+                    path: /Jack/status/20
+                    port: &port 8080
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 2
+              readiness: *probe
+            resources: {}
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -59,9 +49,9 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 977
-        runAsGroup: 977
-        fsGroup: 977
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
         fsGroupChangePolicy: OnRootMismatch
 
     service:
@@ -73,18 +63,11 @@ spec:
 
     route:
       app:
-        hostnames:
-          - search.${SECRET_DOMAIN}
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Home
-          gethomepage.dev/name: SearXNG Search
-          gethomepage.dev/icon: searxng.svg
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
         parentRefs:
-          - name: external
-            namespace: network
           - name: internal
             namespace: network
+            sectionName: https
         rules:
           - backendRefs:
               - identifier: app

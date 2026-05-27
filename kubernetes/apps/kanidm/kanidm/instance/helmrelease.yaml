@@ -134,10 +134,8 @@ spec:
         parentRefs:
           - name: tunnel
             namespace: network
-            sectionName: https
           - name: internal
             namespace: network
-            sectionName: https
         rules:
           - backendRefs:
               - identifier: app

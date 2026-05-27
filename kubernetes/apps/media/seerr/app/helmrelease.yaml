@@ -108,7 +108,6 @@ spec:
           #            sectionName: https
           - name: internal
             namespace: network
-            sectionName: https
 
     service:
       app:
