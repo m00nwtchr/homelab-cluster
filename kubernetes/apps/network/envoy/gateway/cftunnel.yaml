@@ -45,8 +45,8 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
       name: cftunnel
-  # proxyProtocol:
-  #   optional: true
+  proxyProtocol:
+    optional: true
   tls:
     minVersion: "1.2"
     alpnProtocols:
