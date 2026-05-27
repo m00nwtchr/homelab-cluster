@@ -11,6 +11,9 @@ metadata:
     gateway: external
 spec:
   gatewayClassName: envoy
+  allowedListeners:
+    namespaces:
+      from: All
   infrastructure:
     parametersRef:
       group: gateway.envoyproxy.io
