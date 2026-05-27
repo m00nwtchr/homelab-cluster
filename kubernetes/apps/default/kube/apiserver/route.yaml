@@ -23,7 +23,7 @@ metadata:
   name: kube-oidc-discovery
 spec:
   parentRefs:
-    - name: external
+    - name: tunnel
       namespace: network
   hostnames:
     - "k8s.${SECRET_DOMAIN}"

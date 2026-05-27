@@ -8,7 +8,7 @@ spec:
   hostnames:
     - photos.${SECRET_DOMAIN}
   parentRefs:
-    - name: external
+    - name: tunnel
       namespace: network
     - name: internal
       namespace: network

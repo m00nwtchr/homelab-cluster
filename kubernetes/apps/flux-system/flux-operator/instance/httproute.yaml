@@ -7,7 +7,7 @@ metadata:
 spec:
   hostnames: ["flux-webhook.${SECRET_DOMAIN}"]
   parentRefs:
-    - name: external
+    - name: tunnel
       namespace: network
   rules:
     - backendRefs:

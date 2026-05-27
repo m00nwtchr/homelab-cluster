@@ -9,4 +9,3 @@ resources:
   - secret.sops.yaml
   - podmonitor.yaml
   - service.yaml
-  # - tlsroute.yaml
