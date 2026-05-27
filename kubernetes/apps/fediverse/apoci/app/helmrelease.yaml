@@ -64,8 +64,6 @@ spec:
       app:
         hostnames:
           - "registry.${MAIN_DOMAIN}"
-        annotations:
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
         parentRefs:
           - name: tunnel
             namespace: network
