@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   # - ./anubis/ks.yaml
   - ./cloudflare-dns/ks.yaml
-  - ./cloudflare-tunnel/ks.yaml
   # - ./fingerjoin/ks.yaml
   - ./envoy/ks.yaml
   - ./k8s-gateway/ks.yaml
