@@ -38,7 +38,7 @@ server = "matrix-fed.${SECRET_DOMAIN}:443"
 
 [global.matrix_rtc]
 foci = [
-    { type = "livekit", livekit_service_url = "https://livekit.${SECRET_DOMAIN}" },
+    { type = "livekit", livekit_service_url = "https://livekit.${MAIN_DOMAIN}" },
 ]
 
 #support_page =
