@@ -35,7 +35,9 @@ url_preview_domain_explicit_denylist = ["matrix.org"]
 [global.well_known]
 client = "https://matrix.${SECRET_DOMAIN}"
 server = "matrix-fed.${SECRET_DOMAIN}:443"
-rtc_focus_server_urls = [
+
+[global.matrix_rtc]
+foci = [
     { type = "livekit", livekit_service_url = "https://livekit.${SECRET_DOMAIN}" },
 ]
 
