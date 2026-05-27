@@ -96,10 +96,8 @@ spec:
     route:
       main:
         hostnames: ["{{ .Release.Name }}.${MAIN_DOMAIN}"]
-        annotations:
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
         parentRefs:
-          - name: cftunnel
+          - name: tunnel
             namespace: network
           - name: internal
             namespace: network

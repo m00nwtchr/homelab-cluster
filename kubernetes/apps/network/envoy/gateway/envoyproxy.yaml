@@ -93,7 +93,7 @@ spec:
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
-  name: cftunnel
+  name: tunnel
 spec:
   ipFamily: IPv6
   backendTLS:

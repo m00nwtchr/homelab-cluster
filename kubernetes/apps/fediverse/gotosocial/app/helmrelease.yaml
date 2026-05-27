@@ -100,7 +100,7 @@ spec:
         parentRefs:
           - name: internal
             namespace: network
-          - name: cftunnel
+          - name: tunnel
             namespace: network
         hostnames:
           - gts.${MAIN_DOMAIN}
@@ -124,7 +124,7 @@ spec:
         parentRefs:
           - name: internal
             namespace: network
-          - name: cftunnel
+          - name: tunnel
             namespace: network
         hostnames: ["${MAIN_DOMAIN}"]
         rules:

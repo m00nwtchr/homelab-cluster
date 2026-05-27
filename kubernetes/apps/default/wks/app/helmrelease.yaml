@@ -51,7 +51,7 @@ spec:
           - name: internal
             namespace: network
             sectionName: https
-          - name: cftunnel
+          - name: tunnel
             namespace: network
             sectionName: https
         rules:

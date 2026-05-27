@@ -103,7 +103,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
         parentRefs:
-          - name: cftunnel
+          - name: tunnel
             namespace: network
             sectionName: https
         rules:
@@ -121,7 +121,7 @@ spec:
           - name: internal
             namespace: network
             sectionName: https
-          - name: cftunnel
+          - name: tunnel
             namespace: network
             sectionName: https
         rules:
