@@ -14,12 +14,6 @@ metadata:
 spec:
   gatewayClassName: stunner
   listeners:
-    - name: udp
-      port: 3478
-      protocol: TURN-UDP
-      allowedRoutes:
-        namespaces:
-          from: All
     - name: tls
       port: 5349
       protocol: TURN-TLS
@@ -31,3 +25,9 @@ spec:
         certificateRefs:
           - kind: Secret
             name: ${APP}-tls
+    - name: udp
+      port: 3478
+      protocol: TURN-UDP
+      allowedRoutes:
+        namespaces:
+          from: All
