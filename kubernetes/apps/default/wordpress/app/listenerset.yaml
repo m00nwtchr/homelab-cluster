@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/listenerset_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: ListenerSet
+metadata:
+  name: voltkonekt
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production-shortlived
+spec:
+  parentRef:
+    name: tunnel
+    namespace: network
+  listeners:
+    - name: https
+      hostname: voltkonekt.pl
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: voltkonekt-tls
+    - name: http
+      hostname: voltkonekt.pl
+      port: 80
+      protocol: HTTP
