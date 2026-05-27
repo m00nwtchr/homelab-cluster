@@ -18,8 +18,6 @@ spec:
   dnsNames:
     - "${SECRET_DOMAIN}"
     - "*.${SECRET_DOMAIN}"
-    - "${MAIN_DOMAIN}"
-    - "*.${MAIN_DOMAIN}"
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cert-manager.io/certificate_v1.json
 apiVersion: cert-manager.io/v1

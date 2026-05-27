@@ -37,6 +37,8 @@ spec:
         mode: Terminate
         certificateRefs:
           - kind: Secret
+            name: wildcard-${MAIN_DOMAIN/./-}-tls
+          - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
     - name: ssh
       protocol: TCP

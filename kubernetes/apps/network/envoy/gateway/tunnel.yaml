@@ -33,6 +33,8 @@ spec:
         mode: Terminate
         certificateRefs:
           - kind: Secret
+            name: wildcard-${MAIN_DOMAIN/./-}-tls
+          - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.envoyproxy.io/clienttrafficpolicy_v1alpha1.json
