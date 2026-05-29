@@ -9,3 +9,4 @@ resources:
   - mutatingadmissionpolicy.yaml
   - secret.sops.yaml
   - podmonitor.yaml
+  - service.yaml
