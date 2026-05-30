@@ -37,7 +37,8 @@ spec:
                   secretKeyRef:
                     name: "{{ .Release.Name }}-postgres"
                     key: url
-              REDIS_HOSTNAME: "localhost"
+              # REDIS_HOSTNAME: "localhost"
+              REDIS_HOSTNAME: immich-dragonfly.media.svc.cluster.local
 
     immich:
       metrics:
@@ -76,8 +77,8 @@ spec:
         main:
           strategy: Recreate
 
-          labels:
-            m00nlit.dev/no-dragonfly-stunnel: "true"
+          # labels:
+          #   m00nlit.dev/no-dragonfly-stunnel: "true"
 
           containers:
             main:
