@@ -222,9 +222,6 @@ spec:
                 template:
                   spec:
                     volumes:
-                      - name: dragonfly-stunnel
-                        configMap:
-                          name: dragonfly-stunnel
                       - name: dragonfly-certs
                         csi:
                           driver: csi.cert-manager.io
@@ -243,16 +240,22 @@ spec:
                           defaultMode: 0440
 
                     initContainers:
-                      - name: dragonfly-stunnel
-                        image: cgr.dev/chainguard/stunnel:latest@sha256:bd75c58ee97c9139081a177509734b2aa1beaead0afe784d9d74741eb5a44451
+                      - name: dragonfly-tunnel
                         restartPolicy: Always
-                        args:
-                          - /etc/stunnel/stunnel.conf
+                        image: ghcr.io/m00nwtchr/dfguard:rolling
+                        args: ["tunnel"]
+                        env:
+                          - name: DFGUARD_TUNNEL_CERT
+                            value: /var/run/secrets/dragonfly/tls.crt
+                          - name: DFGUARD_TUNNEL_KEY
+                            value: /var/run/secrets/dragonfly/tls.key
+                          - name: DFGUARD_TUNNEL_CA
+                            value: /var/run/secrets/root-ca/ca.crt
+                          - name: DFGUARD_TUNNEL_UPSTREAM
+                            value: dfguard.database.svc.cluster.local.:6379
+                          - name: DFGUARD_TUNNEL_TCP_NODELAY
+                            value: "true"
                         volumeMounts:
-                          - name: dragonfly-stunnel
-                            mountPath: /etc/stunnel/stunnel.conf
-                            subPath: stunnel.conf
-                            readOnly: true
                           - name: dragonfly-certs
                             mountPath: /var/run/secrets/dragonfly
                             readOnly: true
