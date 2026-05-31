@@ -32,8 +32,7 @@ spec:
 
             env:
               BASE_URL: "https://{{ .Release.Name }}.${MAIN_DOMAIN}"
-              DATABASE_URL:
-                postgresql://miniflux@pooler-rw-se.postgres.svc:5432/miniflux?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
+              DATABASE_URL: postgresql://miniflux@pooler-rw-se.postgres.svc:5432/miniflux?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
                 # valueFrom:
                 #   secretKeyRef:
                 #     name: "{{ .Release.Name }}-postgres"
@@ -76,7 +75,7 @@ spec:
                 cpu: 10m
                 memory: 100Mi
               limits:
-                memory: 400Mi
+                memory: 100Mi
 
             probes:
               liveness: &probes

@@ -70,9 +70,12 @@ spec:
                 cpu: 10m
               # limits:
               #   memory: 512Mi
+                memory: 658Mi
+              limits:
+                memory: 658Mi
             securityContext:
               allowPrivilegeEscalation: false
-              capabilities: { drop: [ALL] }
+              capabilities: {drop: [ALL]}
 
     persistence:
       storage:

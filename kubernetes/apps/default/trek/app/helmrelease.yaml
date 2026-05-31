@@ -25,7 +25,7 @@ spec:
             fsGroup: 65532
             fsGroupChangePolicy: OnRootMismatch
             runAsNonRoot: true
-            seccompProfile: { type: RuntimeDefault }
+            seccompProfile: {type: RuntimeDefault}
 
         containers:
           app:
@@ -77,15 +77,15 @@ spec:
               liveness: *probes
             resources:
               requests:
-                cpu: 12m
-                memory: 128M
+                cpu: 10m
+                memory: 411Mi
               limits:
-                memory: 512M
+                memory: 411Mi
             securityContext:
               runAsNonRoot: true
               allowPrivilegeEscalation: false
-              seccompProfile: { type: RuntimeDefault }
-              capabilities: { drop: ["ALL"] }
+              seccompProfile: {type: RuntimeDefault}
+              capabilities: {drop: ["ALL"]}
 
     service:
       main:
