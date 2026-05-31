@@ -27,6 +27,7 @@ spec:
             env:
               TZ: ${TZ}
               HOST: "::"
+              API_HOST: "*"
               BASE_URL: https://${APP}.${SECRET_DOMAIN}
 
               DB_ENGINE: postgres
@@ -61,19 +62,15 @@ spec:
             image:
               repository: ghcr.io/mealie-recipes/mealie
               tag: v3.17.0@sha256:d570139f1891346131d02f8e4d1853100ae4846474958ca6c68cfe1648058467
-            #            probes:
-            #              liveness:
-            #                enabled: true
-            #                type: HTTP
-            #              readiness:
-            #                enabled: true
-            #                type: HTTP
-            #              startup:
-            #                enabled: true
-            #                spec:
-            #                  failureThreshold: 30
-            #                  periodSeconds: 5
-            #                type: HTTP
+            probes:
+              liveness: &probe
+                enabled: true
+                type: HTTP
+                spec:
+                  httpGet:
+                    port: &port 9000
+                    path: /api/app/about
+              readiness: *probe
             resources:
               requests:
                 memory: 250Mi
@@ -83,12 +80,10 @@ spec:
 
     service:
       app:
-        controller: *app
-        ipFamilies: [IPv4]
         ports:
           http:
             port: 80
-            targetPort: 9000
+            targetPort: *port
 
     route:
       app:
