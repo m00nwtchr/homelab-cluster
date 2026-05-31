@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/http.keda.sh/interceptorroute_v1beta1.json
+apiVersion: http.keda.sh/v1beta1
+kind: InterceptorRoute
+metadata:
+  name: &app ${APP}
+spec:
+  target:
+    service: *app
+    port: ${PORT:=80}
+  rules:
+    - hosts:
+        ["${OVERRIDE_DOMAIN:=${SUBDOMAIN:=${APP}}.${DOMAIN:=${SECRET_DOMAIN}}}"]
+  scalingMetric:
+    concurrency:
+      targetValue: 100
