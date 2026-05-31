@@ -98,6 +98,8 @@ spec:
         #          gethomepage.dev/widget.url: "http://jellyfin.media.svc"
         #          gethomepage.dev/widget.key: "{{ \"{{HOMEPAGE_VAR_JELLYFIN_KEY}}\" }}"
         parentRefs:
+          - name: tunnel
+            namespace: network
           - name: internal
             namespace: network
         rules:
