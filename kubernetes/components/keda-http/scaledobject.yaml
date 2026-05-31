@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/keda.sh/scaledobject_v1alpha1.json
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: &app ${APP}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: ${CONTROLLER:=Deployment}
+    name: *app
+  minReplicaCount: ${KEDA_MIN_COUNT:=0}
+  maxReplicaCount: ${KEDA_MAX_COUNT:=1}
+  cooldownPeriod: ${KEDA_SCALEDOWN:=180}
+  triggers:
+    - type: external-push
+      metadata:
+        scalerAddress: keda-add-ons-http-external-scaler.keda.svc.cluster.local.:9090
+        interceptorRoute: *app
