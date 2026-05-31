@@ -20,7 +20,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      DOMAIN: voltkonekt.pl
+      OVERRIDE_DOMAIN: voltkonekt.pl
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

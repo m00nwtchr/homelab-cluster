@@ -16,4 +16,6 @@ spec:
   duration: 160h
   usages: ["digital signature"]
   dnsNames:
-    - "${DOMAIN:=${TLS_SUBDOMAIN:=${SUBDOMAIN:=${APP}}}.${SECRET_DOMAIN}}"
+    [
+      "${OVERRIDE_DOMAIN:=${TLS_SUBDOMAIN:=${SUBDOMAIN:=${APP}}}.${DOMAIN:=${SECRET_DOMAIN}}}",
+    ]

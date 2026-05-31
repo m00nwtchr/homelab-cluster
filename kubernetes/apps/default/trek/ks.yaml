@@ -20,7 +20,7 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
-      DOMAIN: trek.${MAIN_DOMAIN}
+      DOMAIN: ${MAIN_DOMAIN}
       OIDC_DISPLAY_NAME: trek
       OIDC_CALLBACK: /api/auth/oidc/callback
       OIDC_DISABLE_PKCE: "true"

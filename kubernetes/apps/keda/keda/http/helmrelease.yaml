@@ -28,18 +28,3 @@ spec:
     kind: OCIRepository
     name: *app
   interval: 1h
-  # values:
-  #   enableServiceLinks: false
-  #   prometheus:
-  #     metricServer:
-  #       enabled: true
-  #       serviceMonitor:
-  #         enabled: true
-  #     operator:
-  #       enabled: true
-  #       serviceMonitor:
-  #         enabled: true
-  #     webhooks:
-  #       enabled: true
-  #       serviceMonitor:
-  #         enabled: true
