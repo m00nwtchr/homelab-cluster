@@ -17,12 +17,14 @@ spec:
     - ../../../../components/database
     - ../../../../components/dragonfly/noproxy
     - ../../../../components/gatus/guarded
+    - ../../../../components/keda-http
   interval: 1h
   path: ./kubernetes/apps/default/paperless/app
   postBuild:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      CONTROLLER: StatefulSet
       VOLSYNC_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: "Paperless"
       OIDC_CALLBACK: /accounts/oidc/kanidm/login/callback/
