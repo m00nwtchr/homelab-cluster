@@ -29,7 +29,11 @@ spec:
               repository: opencloudeu/opencloud-rolling
               tag: 7.0.0@sha256:ecc240e0df7802e6e6517762009890a3aa36e566d9e6309b80ee2f3dd040e235
             command:
-              ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
+              [
+                "/bin/sh",
+                "-c",
+                "opencloud init --diff || true; opencloud server",
+              ]
             env:
               OC_INSECURE: true
               OC_URL: https://cloud.${SECRET_DOMAIN}
