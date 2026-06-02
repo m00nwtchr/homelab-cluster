@@ -68,6 +68,12 @@ spec:
 
     alertmanager:
       enabled: true
+      route:
+        enabled: true
+        parentRefs:
+          - name: internal
+            namespace: network
+        hostnames: ["alertmanager.${SECRET_DOMAIN}"]
       spec:
         configReloaderExtraArgs:
           enableTCP6: "true"
