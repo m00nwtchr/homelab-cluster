@@ -117,6 +117,10 @@ spec:
 
     vmagent:
       spec:
+        globalScrapeMetricRelabelConfigs: &relabel-config
+          - action: labeldrop
+            regex: ((?:extensions_talos|feature_node).*)
+        inlineRelabelConfig: *relabel-config
         extraArgs:
           enableTCP6: "true"
         configReloaderExtraArgs:
