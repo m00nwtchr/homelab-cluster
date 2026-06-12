@@ -79,7 +79,7 @@ spec:
               DISABLE_GOOGLE_CHROME: "1"
             image:
               repository: docker.io/gotenberg/gotenberg
-              tag: 8.32.0@sha256:a40c5a46b79d812ce2f5e139278163142a054050bfd1e5f162da36d3d11c7138
+              tag: 8.34.0@sha256:67097317623a503ba2a6a7e9ae8db6929a1f7e1bbd88077bacf2d325fbdab923
             resources:
               limits:
                 memory: 142Mi
