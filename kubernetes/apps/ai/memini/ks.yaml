@@ -17,6 +17,11 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      DATABASE_EXTENSIONS: |
+        [
+          { name: vector },
+          { name: vchord }
+        ]
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/model_v1alpha1.json
+apiVersion: inference.llmkube.dev/v1alpha1
+kind: Model
+metadata:
+  name: all-minilm-l6-v2
+spec:
+  source: https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/model.safetensors
+  format: safetensors
+  hardware:
+    accelerator: cpu
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/inferenceservice_v1alpha1.json
+apiVersion: inference.llmkube.dev/v1alpha1
+kind: InferenceService
+metadata:
+  name: embeddings
+spec:
+  modelRef: all-minilm-l6-v2
+  replicas: 0
+  resources:
+    cpu: "10m"
+    memory: 1Gi
+  endpoint:
+    port: 8080
+    type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: embeddings-proxy
+spec:
+  type: ExternalName
+  externalName: keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local
+  ports:
+    - port: 8080
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/keda.sh/scaledobject_v1alpha1.json
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: &app embeddings
+spec:
+  scaleTargetRef:
+    apiVersion: inference.llmkube.dev/v1alpha1
+    kind: InferenceService
+    name: *app
+  minReplicaCount: 0
+  maxReplicaCount: 1
+  cooldownPeriod: 600
+  triggers:
+    - type: external-push
+      metadata:
+        scalerAddress: keda-add-ons-http-external-scaler.keda.svc.cluster.local.:9090
+        interceptorRoute: *app
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/http.keda.sh/interceptorroute_v1beta1.json
+apiVersion: http.keda.sh/v1beta1
+kind: InterceptorRoute
+metadata:
+  name: &app embeddings
+spec:
+  target:
+    service: *app
+    port: 8080
+  rules:
+    - hosts: ["embeddings-proxy.ai.svc.cluster.local"]
+  scalingMetric:
+    concurrency:
+      targetValue: 100
