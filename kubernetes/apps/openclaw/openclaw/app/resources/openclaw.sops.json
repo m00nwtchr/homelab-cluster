@@ -356,7 +356,6 @@
 			}
 		},
 		"slots": {
-			"memory": "ENC[AES256_GCM,data:6Q4ID3Z+,iv:H7A0WJTvEQ61MydbZIWKeLpMXiw7+/v2LBmB8BOW+Xs=,tag:XK20vbLC+iRnea3eGNlNIw==,type:str]",
 			"contextEngine": "ENC[AES256_GCM,data:9mub2oTY43jtaaDTOQ==,iv:wiBFwg4xw8V4pVJ5jV52FzUop12sP8BZoN6uVBWNerc=,tag:cIOpK3uMPD6Hk7sqeLwJyw==,type:str]"
 		}
 	},
@@ -411,8 +410,8 @@
 				"recipient": "age1689ww93cs2fkv3np57388eyepd789kk3zu47vyx67u8sc48vlprq9qafje"
 			}
 		],
-		"lastmodified": "2026-06-14T22:04:53Z",
-		"mac": "ENC[AES256_GCM,data:wF8hCGLmTvFENHKcYqo9GpLyxIQ9Py2kF9qY4Flouv4fovABTOueegGsqdqjvzNlVOxUToTbHYMvbgsHnJ+rLUAUAmYNrenj7TTIStLacxOVLs0e9/xcXjYLbij8LuTw1mEh+sVhKLmBsQ5iQCsoLFYVxnVX+F4UnobjcIWw9Uk=,iv:Y9wx03FhIVyOKcqI3d8jSkZU3BbNR9KtjL0mLIc8kRk=,tag:Q34FjQCGeAR/Zwk/C3alcQ==,type:str]",
+		"lastmodified": "2026-06-14T23:02:44Z",
+		"mac": "ENC[AES256_GCM,data:7tNCZE9ohDLfNheRt/3fhRVpTekGK9iWA4BZe5RyH+S5pjfOMXVsU7gCltq/q5yLu475tuMY2hTweA+KgyHDxA5ZB9kdPipPLEFVB4sjWuPHy8MjhDgh/yVy0H4fvdbMbL94dHgJV8FPJhNFZiay5DgHY7IYBMAt1bzZQjWCC8o=,iv:RTiyHJZBphS3V8gauGIWg4tqWZ9qylZZjPxkzdqbtbo=,tag:k/1VTO6xIYoyM836q9YH0g==,type:str]",
 		"pgp": [
 			{
 				"created_at": "2026-04-24T13:23:54Z",
