@@ -25,9 +25,9 @@ spec:
           reloader.stakater.com/auto: "true"
         initContainers:
           install-tools:
-            image:
+            image: &img
               repository: ghcr.io/openclaw/openclaw
-              tag: 2026.4.22@sha256:639fc648f1e2cb9137cd2d4513038e3b5efdebc94a6bd7fbef42c908005945f4
+              tag: 2026.6.6@sha256:4826ca6157377e93463786d5c16852e34eede9f4bd4be55e3773cdc509762857
             command:
               - /bin/sh
               - -c
@@ -37,7 +37,7 @@ spec:
 
                 echo "Starting tool installation..."
 
-                curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+                # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
                 # Install gh CLI if not present on PVC
                 if [ ! -f /home/node/.local/bin/gh ]; then
@@ -136,13 +136,23 @@ spec:
                   failureThreshold: 3
         containers:
           app:
-            image:
-              repository: ghcr.io/openclaw/openclaw
-              tag: 2026.4.22@sha256:639fc648f1e2cb9137cd2d4513038e3b5efdebc94a6bd7fbef42c908005945f4
+            image: *img
             command:
               - /bin/sh
               - -c
               - |
+                # Install the memini memory plugin from ClawHub, version-guarded:
+                # only fetches when the pinned version differs from what's on the
+                # persistent volume, so normal restarts stay offline.
+                # renovate: datasource=github-tags depName=eleboucher/memini
+                MEMINI_PLUGIN_VERSION=0.2.11
+                if [ "$(cat "$HOME/.openclaw/extensions/memini/.clawver" 2>/dev/null)" != "$MEMINI_PLUGIN_VERSION" ]; then
+                  if node dist/index.js plugins install "clawhub:@eleboucher/memini@$MEMINI_PLUGIN_VERSION" --pin --force; then
+                    printf '%s' "$MEMINI_PLUGIN_VERSION" > "$HOME/.openclaw/extensions/memini/.clawver"
+                  else
+                    echo "WARN: memini plugin install failed; starting with whatever is present"
+                  fi
+                fi
                 # Start gateway
                 exec node dist/index.js gateway --bind lan
             env:
