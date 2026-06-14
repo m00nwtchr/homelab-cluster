@@ -5,8 +5,10 @@ kind: Model
 metadata:
   name: all-minilm-l6-v2
 spec:
-  source: https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/model.safetensors
-  format: safetensors
+  # source: https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/model.safetensors
+  source: https://huggingface.co/second-state/All-MiniLM-L6-v2-Embedding-GGUF/resolve/main/all-MiniLM-L6-v2-ggml-model-f16.gguf
+  format: gguf
+  quantization: F16
   hardware:
     accelerator: cpu
 ---
@@ -17,10 +19,20 @@ metadata:
   name: embeddings
 spec:
   modelRef: all-minilm-l6-v2
+  image: ghcr.io/ggml-org/llama.cpp:server
   replicas: 0
+  priority: batch
+  parallelSlots: 8
+
+  contextSize: 32768
+  uBatchSize: 2048
+  extraArgs:
+    - "--embeddings"
+
   resources:
-    cpu: "10m"
+    cpu: 500m
     memory: 1Gi
+
   endpoint:
     port: 8080
     type: ClusterIP
