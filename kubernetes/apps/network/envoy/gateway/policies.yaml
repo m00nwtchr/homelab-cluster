@@ -33,6 +33,9 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
       name: internal
+  path:
+    disableMergeSlashes: true
+    escapedSlashesAction: KeepUnchanged
   tls:
     minVersion: "1.2"
     alpnProtocols:
