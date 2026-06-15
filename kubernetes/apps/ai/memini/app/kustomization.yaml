@@ -3,5 +3,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  # - ./embeddings.yaml
+  # - ./embeddings.yam
+  - ./externalsecret.yaml
   - ./helmrelease.yaml
+  # - ./qwen35-9b.yaml

@@ -39,6 +39,14 @@ spec:
                   secretKeyRef:
                     name: memini
                     key: MEMINI_API_KEY
+              MEMINI_LLM_BASE_URL: https://api.minimax.io/anthropic
+              MEMINI_LLM_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    key: MINIMAX_API_KEY
+                    name: memini-minimax
+              MEMINI_LLM_API: anthropic
+              MEMINI_LLM_MODEL: MiniMax-M2.7
             probes:
               liveness: &probes
                 enabled: true
