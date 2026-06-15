@@ -28,7 +28,8 @@ spec:
             image: &image
               repository: opencloudeu/opencloud-rolling
               tag: 7.1.0@sha256:0bb29038affb1b58655bb8d4fd3dc78b26fb7c0c7e994bda72e6e4e58e6e54b3
-            command: ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
+            command:
+              ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
             env:
               OC_EXCLUDE_RUN_SERVICES: idp
 
@@ -148,7 +149,6 @@ spec:
               COLLABORATION_HTTP_ADDR: "0.0.0.0:9300"
               MICRO_REGISTRY: "nats-js-kv"
               MICRO_REGISTRY_ADDRESS: "opencloud.opencloud.svc.cluster.local:9233"
-              # COLLABORATION_WOPI_SRC: http://opencloud-wopi:9300
               COLLABORATION_WOPI_SRC: "https://wopi.${MAIN_DOMAIN}"
               COLLABORATION_APP_NAME: "CollaboraOnline"
               COLLABORATION_APP_PRODUCT: "Collabora"
