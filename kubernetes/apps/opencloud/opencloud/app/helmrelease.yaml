@@ -16,7 +16,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
-          securityContext:
+          securityContext: &podCtx
             runAsUser: 1000
             runAsGroup: 1000
             runAsNonRoot: true
@@ -25,31 +25,59 @@ spec:
 
         containers:
           app:
-            image:
+            image: &image
               repository: opencloudeu/opencloud-rolling
-              tag: 7.0.0@sha256:ecc240e0df7802e6e6517762009890a3aa36e566d9e6309b80ee2f3dd040e235
-            command:
-              ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
+              tag: 7.1.0@sha256:0bb29038affb1b58655bb8d4fd3dc78b26fb7c0c7e994bda72e6e4e58e6e54b3
+            command: ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
             env:
-              OC_INSECURE: true
-              OC_URL: https://cloud.${SECRET_DOMAIN}
               OC_EXCLUDE_RUN_SERVICES: idp
 
+              OC_URL: &ocUrl https://cloud.${SECRET_DOMAIN}
+              OC_LOG_LEVEL: info
+              OC_LOG_COLOR: false
+              OC_LOG_PRETTY: false
+
               PROXY_TLS: false
+              OC_INSECURE: false
+
+              # email server (if configured)
+              # NOTIFICATIONS_SMTP_HOST: "${SMTP_HOST}"
+              # NOTIFICATIONS_SMTP_PORT: "${SMTP_PORT}"
+              # NOTIFICATIONS_SMTP_SENDER: "${SMTP_SENDER:-OpenCloud Notifications <notifications@cloud.opencloud.test>}"
+              # NOTIFICATIONS_SMTP_USERNAME: "${SMTP_USERNAME}"
+              # NOTIFICATIONS_SMTP_PASSWORD: "${SMTP_PASSWORD}"
+              # NOTIFICATIONS_SMTP_INSECURE: "${SMTP_INSECURE:-false}"
+              # NOTIFICATIONS_SMTP_AUTHENTICATION: "${SMTP_AUTHENTICATION}"
+              # NOTIFICATIONS_SMTP_ENCRYPTION: "${SMTP_TRANSPORT_ENCRYPTION:-none}"
+              FRONTEND_ARCHIVER_MAX_SIZE: "10000000000"
+              FRONTEND_CHECK_FOR_UPDATES: "true"
               PROXY_CSP_CONFIG_FILE_LOCATION: /etc/opencloud/csp.yaml
 
-              GATEWAY_GRPC_ADDR: 0.0.0.0:9142
-              OC_ENABLE_OCM: false
+              # control the password enforcement and policy for public shares
+              OC_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: true
+              OC_SHARING_PUBLIC_WRITEABLE_SHARE_MUST_HAVE_PASSWORD: true
+              OC_PASSWORD_POLICY_DISABLED: false
+              OC_PASSWORD_POLICY_MIN_CHARACTERS: 8
+              OC_PASSWORD_POLICY_MIN_LOWERCASE_CHARACTERS: 1
+              OC_PASSWORD_POLICY_MIN_UPPERCASE_CHARACTERS: 1
+              OC_PASSWORD_POLICY_MIN_DIGITS: 1
+              OC_PASSWORD_POLICY_MIN_SPECIAL_CHARACTERS: 1
 
-              #              OC_LDAP_URI: ldaps://idm.${SECRET_DOMAIN}
-              #              OC_LDAP_SERVER_WRITE_ENABLED: "false"
-              #              OC_LDAP_BIND_DN: cn=anonymous,dc=idm,dc=m00nlit,dc=dev
-              ##              OC_LDAP_BIND_PASSWORD: admin-password
-              #              OC_LDAP_USER_BASE_DN: dc=idm,dc=m00nlit,dc=dev
-              #              OC_LDAP_USER_SCHEMA_ID: uuid
-              #              OC_LDAP_DISABLE_USER_MECHANISM: none
-              #              OC_LDAP_GROUP_BASE_DN: dc=idm,dc=m00nlit,dc=dev
-              #              OC_LDAP_GROUP_SCHEMA_ID: uuid
+              # OC_LDAP_URI: ldaps://idm.${SECRET_DOMAIN}
+              # OC_LDAP_SERVER_WRITE_ENABLED: "false"
+              # OC_LDAP_BIND_DN: cn=anonymous,dc=idm,dc=m00nlit,dc=dev
+              # OC_LDAP_BIND_PASSWORD: admin-password
+              # OC_LDAP_USER_BASE_DN: dc=idm,dc=m00nlit,dc=dev
+              # OC_LDAP_USER_SCHEMA_ID: uuid
+              # OC_LDAP_DISABLE_USER_MECHANISM: none
+              # OC_LDAP_GROUP_BASE_DN: dc=idm,dc=m00nlit,dc=dev
+              # OC_LDAP_GROUP_SCHEMA_ID: uuid
+
+              COLLABORA_DOMAIN: "collabora.${MAIN_DOMAIN}"
+              NATS_NATS_HOST: "::"
+              GATEWAY_GRPC_ADDR: "0.0.0.0:9142"
+              FRONTEND_APP_HANDLER_SECURE_VIEW_APP_ADDR: "eu.opencloud.api.collaboration"
+              GRAPH_AVAILABLE_ROLES: "b1e2218d-eef8-4d4c-b82d-0f1a1b48f3b5,a8d5fe5e-96e3-418d-825b-534dbdf22b99,fb6c3e19-e378-47e5-b277-9732f9de6e21,58c63c02-1d89-4572-916a-870abc5a1b7d,2d00ce52-1fc2-4dbc-8b95-a73b73395f5a,1c996275-f1c9-4e71-abdf-a42f6495e960,312c0871-5ef7-4b3a-85b6-0e4074c64049,aa97fe03-7980-45ac-9e50-b325749fd7e6"
 
               PROXY_AUTOPROVISION_ACCOUNTS: "true"
               PROXY_ROLE_ASSIGNMENT_DRIVER: "oidc"
@@ -81,7 +109,7 @@ spec:
                 memory: 100Mi
               # limits:
               #   memory: 512Mi
-            securityContext:
+            securityContext: &ctx
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
@@ -105,16 +133,80 @@ spec:
               HREF_REPLACEMENT: *href
               DEFAULT_SUFFIX: opencloud
 
+      wopi:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext: *podCtx
+
+        containers:
+          app:
+            image: *image
+            command: ["/bin/sh", "-c", "opencloud collaboration server"]
+            env:
+              COLLABORATION_GRPC_ADDR: "0.0.0.0:9301"
+              COLLABORATION_HTTP_ADDR: "0.0.0.0:9300"
+              MICRO_REGISTRY: "nats-js-kv"
+              MICRO_REGISTRY_ADDRESS: "opencloud.opencloud.svc.cluster.local:9233"
+              # COLLABORATION_WOPI_SRC: http://opencloud-wopi:9300
+              COLLABORATION_WOPI_SRC: "https://wopi.${MAIN_DOMAIN}"
+              COLLABORATION_APP_NAME: "CollaboraOnline"
+              COLLABORATION_APP_PRODUCT: "Collabora"
+              COLLABORATION_APP_ADDR: https://collabora.${MAIN_DOMAIN}
+              COLLABORATION_APP_ICON: https://collabora.${MAIN_DOMAIN}/favicon.ico
+              COLLABORATION_APP_INSECURE: true
+              COLLABORATION_CS3API_DATAGATEWAY_INSECURE: true
+              COLLABORATION_LOG_LEVEL: info
+              OC_URL: *ocUrl
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              # limits:
+              #   memory: 512Mi
+            securityContext: *ctx
+
     service:
       app:
+        forceRename: *app
+        controller: *app
         ports:
           http:
             port: 80
             targetPort: 9200
+          nats:
+            port: 9233
           webfinger:
             port: 9201
 
+      wopi:
+        controller: wopi
+        ipFamilies: [IPv4]
+        ports:
+          http:
+            port: 80
+            targetPort: 9300
+          grpc:
+            port: 9301
+
     route:
+      collaboration:
+        hostnames: ["wopi.${MAIN_DOMAIN}"]
+        parentRefs:
+          - name: tunnel
+            namespace: network
+          - name: internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: wopi
+                port: 80
+
       app:
         hostnames: ["cloud.${SECRET_DOMAIN}"]
         parentRefs:
