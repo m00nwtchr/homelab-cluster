@@ -3,12 +3,11 @@
 apiVersion: inference.llmkube.dev/v1alpha1
 kind: Model
 metadata:
-  name: all-minilm-l6-v2
+  name: octen-embedding
 spec:
-  # source: https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/model.safetensors
-  source: https://huggingface.co/second-state/All-MiniLM-L6-v2-Embedding-GGUF/resolve/main/all-MiniLM-L6-v2-ggml-model-f16.gguf
+  source: https://huggingface.co/mradermacher/Octen-Embedding-0.6B-GGUF/resolve/main/Octen-Embedding-0.6B.Q8_0.gguf
   format: gguf
-  quantization: F16
+  quantization: Q8_0
   hardware:
     accelerator: cpu
 ---
@@ -16,22 +15,38 @@ spec:
 apiVersion: inference.llmkube.dev/v1alpha1
 kind: InferenceService
 metadata:
-  name: embeddings
+  name: embed
 spec:
-  modelRef: all-minilm-l6-v2
+  modelRef: &model octen-embedding
   image: ghcr.io/ggml-org/llama.cpp:server
   replicas: 0
+
   priority: batch
-  parallelSlots: 8
-
-  contextSize: 32768
-  uBatchSize: 2048
+  contextSize: &ctx 1024 # Max is 32768
+  batchSize: *ctx
+  uBatchSize: *ctx
+  # batchSize: 16384
+  # uBatchSize: 16384
+  parallelSlots: 1
   extraArgs:
-    - "--embeddings"
+    - --alias
+    - *model
+    - --embeddings
+    - --pooling
+    - last
+    - --cont-batching
+    - --threads
+    - "6"
+    - --threads-batch
+    - "12"
+    # - --metrics
+    # - --no-mmap
+    - --host
+    - "::"
 
-  resources:
-    cpu: 500m
-    memory: 1Gi
+  # resources:
+  #   cpu: 500m
+  #   memory: 1Gi
 
   endpoint:
     port: 8080
@@ -40,7 +55,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: embeddings-proxy
+  name: embed-proxy
 spec:
   type: ExternalName
   externalName: keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local
@@ -51,7 +66,7 @@ spec:
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: &app embeddings
+  name: &app embed
 spec:
   scaleTargetRef:
     apiVersion: inference.llmkube.dev/v1alpha1
@@ -70,13 +85,13 @@ spec:
 apiVersion: http.keda.sh/v1beta1
 kind: InterceptorRoute
 metadata:
-  name: &app embeddings
+  name: &app embed
 spec:
   target:
     service: *app
     port: 8080
   rules:
-    - hosts: ["embeddings-proxy.ai.svc.cluster.local"]
+    - hosts: ["embed-proxy.ai.svc.cluster.local"]
   scalingMetric:
     concurrency:
       targetValue: 100
