@@ -7,3 +7,4 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   # - ./qwen35-9b.yaml
+  - ./rerank.yaml
