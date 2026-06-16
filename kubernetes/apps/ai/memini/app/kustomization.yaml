@@ -6,4 +6,4 @@ resources:
   # - ./embeddings.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  # - ./rerank.yaml
+  - ./rerank.yaml
