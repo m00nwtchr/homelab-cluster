@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: dock.mau.dev/mautrix/meta
-              tag: v0.2605.0@sha256:1149d7df4b329ae936cb80db82687061e67dcc6c720892a6e540dbef70984f9a
+              tag: v0.2606.0@sha256:4f96dfc41fcbd6ef9d5e59e84244df87f86a0cff987e937754cd2ea3cc91d2f1
             command: ["/usr/bin/mautrix-meta"]
             args: ["-c", "/config/config.yaml", "--no-update"]
             probes:
