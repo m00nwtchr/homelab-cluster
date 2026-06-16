@@ -21,7 +21,7 @@ spec:
           app:
             image:
               repository: git.erwanleboucher.dev/eleboucher/memini
-              tag: 0.3.2@sha256:fef91d3d846fdcf90e013b1eaf5782af6a6a16bdb427d0e351c14909b480b2d0
+              tag: 0.3.8@sha256:dadc362b14e941994cc0f33cf883f0bfd6fd824a2c9d78b4b008170feab23fdf
             env:
               MEMINI_HTTP_ADDR: ":8080"
               MEMINI_LOG_FORMAT: json
@@ -31,7 +31,6 @@ spec:
               MEMINI_EMBED_DIMS: "384"
 
               MEMINI_WRITE_DEDUP_MIN_SCORE: 0.9
-
 
               MEMINI_POSTGRES_DSN:
                 valueFrom:
