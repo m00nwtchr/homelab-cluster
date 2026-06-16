@@ -29,6 +29,10 @@ spec:
               MEMINI_EMBED_BASE_URL: http://text-embeddings-inference.ai.svc.cluster.local:8080/v1
               MEMINI_EMBED_MODEL: all-MiniLM-L6-v2
               MEMINI_EMBED_DIMS: "384"
+
+              MEMINI_WRITE_DEDUP_MIN_SCORE: 0.9
+
+
               MEMINI_POSTGRES_DSN:
                 valueFrom:
                   secretKeyRef:
@@ -47,8 +51,8 @@ spec:
                     name: memini-minimax
               MEMINI_LLM_API: anthropic
               MEMINI_LLM_MODEL: MiniMax-M2.7
-              # MEMINI_RERANK: http://rerank-proxy.ai.svc.cluster.local:8080/v1
-              # MEMINI_RERANK_MODEL: qwen3-reranker
+              MEMINI_RERANK: http://rerank-proxy.ai.svc.cluster.local:8080/v1
+              MEMINI_RERANK_MODEL: qwen3-reranker
               # MEMINI_RERANK_TOP_N: 10
               # MEMINI_RERANK_TIMEOUT: 3s
             probes:
