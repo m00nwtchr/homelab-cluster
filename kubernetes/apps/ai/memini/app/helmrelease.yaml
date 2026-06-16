@@ -54,7 +54,7 @@ spec:
               MEMINI_RERANK: http://rerank-proxy.ai.svc.cluster.local:8080/v1
               MEMINI_RERANK_MODEL: qwen3-reranker
               # MEMINI_RERANK_TOP_N: 10
-              # MEMINI_RERANK_TIMEOUT: 3s
+              MEMINI_RERANK_TIMEOUT: 100s
             probes:
               liveness: &probes
                 enabled: true
