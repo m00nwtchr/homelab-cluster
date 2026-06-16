@@ -26,12 +26,12 @@ spec:
               MEMINI_HTTP_ADDR: ":8080"
               MEMINI_LOG_FORMAT: json
               MEMINI_BACKEND: postgres
-              MEMINI_EMBED_BASE_URL: http://text-embeddings-inference.ai.svc.cluster.local:8080/v1
-              MEMINI_EMBED_MODEL: all-MiniLM-L6-v2
-              MEMINI_EMBED_DIMS: "384"
+              MEMINI_EMBED_BASE_URL: http://embed-proxy.ai.svc.cluster.local:8080/v1
+              MEMINI_EMBED_MODEL: octen-embedding
+              MEMINI_EMBED_DIMS: "1024"
 
+              MEMINI_DEFAULT_NAMESPACE: default
               MEMINI_WRITE_DEDUP_MIN_SCORE: 0.9
-
 
               MEMINI_POSTGRES_DSN:
                 valueFrom:
