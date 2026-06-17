@@ -1,0 +1,186 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app hermes
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  interval: 15m
+  dependsOn: []
+  values:
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 10000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+
+    controllers:
+      *app :
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init:
+            image:
+              repository: docker.io/library/alpine
+              tag: "3.24"
+            command:
+              - sh
+              - -c
+              - |
+                set -euo pipefail
+                cp /tmp/config.yaml /opt/data/config.yaml
+                chown 10000:10000 /opt/data/config.yaml
+                # Install the memini memory-provider plugin from the upstream
+                # standalone mirror eleboucher/memini-hermes (a release-synced
+                # copy of integrations/hermes/plugin/memini — the blessed
+                # owner/repo form). Pinned to a commit, guarded by a .ref
+                # marker so normal restarts stay offline and it only refetches
+                # when the pin changes. The mirror is untagged, so bump this
+                # SHA by hand (revisit once eleboucher/memini cuts a tagged
+                # release carrying the handle_tool_call **kwargs fix, then
+                # renovate github-tags can track it again).
+                MEMINI_PLUGIN_REF=c36842f6e2fa4a5e89f689d78d6d2daa2bf73219
+                PLUGIN_DIR=/opt/data/plugins/memini
+                if [ "$(cat "$PLUGIN_DIR/.ref" 2>/dev/null)" != "$MEMINI_PLUGIN_REF" ]; then
+                  BASE="https://raw.githubusercontent.com/eleboucher/memini-hermes/$MEMINI_PLUGIN_REF"
+                  if wget -qO /tmp/memini-init.py "$BASE/__init__.py" && wget -qO /tmp/memini-plugin.yaml "$BASE/plugin.yaml"; then
+                    rm -rf "$PLUGIN_DIR"
+                    mkdir -p "$PLUGIN_DIR"
+                    mv /tmp/memini-init.py "$PLUGIN_DIR/__init__.py"
+                    mv /tmp/memini-plugin.yaml "$PLUGIN_DIR/plugin.yaml"
+                    printf '%s' "$MEMINI_PLUGIN_REF" > "$PLUGIN_DIR/.ref"
+                    chown -R 10000:10000 "$PLUGIN_DIR"
+                  else
+                    echo "WARN: memini plugin fetch failed; starting with whatever is present"
+                  fi
+                fi
+        containers:
+          app:
+            image: &image
+              repository: nousresearch/hermes-agent
+              tag: v2026.6.5@sha256:9ad3b04ec916ea2c2da22358fd43b024c788d74073210695af88bfc2e63869b4
+            args: ["gateway", "run", "--no-supervise"]
+            env:
+              MEMINI_URL: http://memini.ai.svc.cluster.local:8080
+              MEMINI_NAMESPACE: hermes-ash
+              HERMES_HOME: /opt/data
+              HOME: /opt/data
+              TZ: &tz ${TZ}
+            envFrom:
+              - secretRef:
+                  name: hermes
+            resources:
+              requests:
+                cpu: 500m
+                memory: 1Gi
+              limits:
+                memory: 2Gi
+            ports:
+              - containerPort: &port 8642
+                name: http
+                protocol: TCP
+          dashboard:
+            image: *image
+            env:
+              TZ: *tz
+              GATEWAY_HEALTH_URL: http://localhost:8642
+            args:
+              - dashboard
+              - --host
+              - "::"
+              - --insecure
+            resources:
+              requests:
+                cpu: 500m
+                memory: 512Mi
+              limits:
+                memory: 1Gi
+            ports:
+              - containerPort: &dashboardPort 9119
+                name: http
+                protocol: TCP
+          codeserver:
+            image:
+              repository: ghcr.io/coder/code-server
+              tag: 4.124.2@sha256:726c75e330d99c9e6545ff1208042ccc3d97465cf24cdb48b304d111a43cd441
+            env:
+              TZ: *tz
+            args:
+              - "--auth"
+              - "none"
+              - "--user-data-dir"
+              - "/home/node/.vscode"
+              - "--extensions-dir"
+              - "/home/node/.vscode"
+              - "--port"
+              - "12321"
+              - "/opt/data"
+            ports:
+              - containerPort: &codeserverPort 12321
+                name: codeserver
+                protocol: TCP
+            resources:
+              requests:
+                cpu: 10m
+                memory: 512Mi
+              limits:
+                memory: 1Gi
+    service:
+      app:
+        ports:
+          http:
+            port: 80
+            targetPort: *port
+          codeserver:
+            port: *codeserverPort
+      dashboard:
+        ports:
+          http:
+            port: 80
+            targetPort: *dashboardPort
+
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.${MAIN_DOMAIN}"]
+        parentRefs:
+          - name: internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: dashboard
+                port: http
+
+      codeserver:
+        hostnames: ["{{ .Release.Name }}-code.${MAIN_DOMAIN}"]
+        parentRefs:
+          - name: internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: codeserver
+
+    persistence:
+      data:
+        existingClaim: *app
+        globalMounts:
+          - path: /opt/data
+
+      config:
+        type: configMap
+        name: "hermes-config"
+        defaultMode: 0755
+        globalMounts:
+          - path: /tmp/config.yaml
+            subPath: config.yaml
+
+      # gallery:
+      #   type: nfs
+      #   server: voyager.internal
+      #   path: /mnt/daena/comfyui/output
+      #   globalMounts:
+      #     - path: /mnt/gallery
