@@ -1,0 +1,71 @@
+_config_version: 27
+model:
+  default: MiniMax-M3
+  provider: minimax
+# fallback_providers:
+#   - provider: litellm
+#     model: dsv4f
+#   - provider: litellm
+#     model: self-hosted
+#   - provider: litellm
+#     model: go-kimi-k2.6
+# providers:
+#   minimax:
+#     base_url: https://api.minimax.io/anthropic
+#     api_mode: anthropic_messages
+#     api_key: $${MINIMAX_API_KEY}
+toolsets:
+  - hermes-cli
+terminal:
+  backend: local
+  cwd: /opt/data/workspace
+  timeout: 180
+  persistent_shell: true
+memory:
+  provider: memini
+  auto_migrate: true
+compression:
+  enabled: true
+  threshold: 0.50
+  target_ratio: 0.20
+  protect_last_n: 20
+agent:
+  max_turns: 90
+  gateway_timeout: 1800
+  restart_drain_timeout: 60
+  api_max_retries: 2
+  reasoning_effort: medium
+streaming:
+  enabled: false
+security:
+  redact_secrets: true
+privacy:
+  redact_pii: true
+platform_toolsets:
+  cli:
+    - hermes-cli
+  matrix:
+    - hermes-matrix
+# mcp_servers:
+#   toolhive:
+#     url: http://vmcp-mcp-gateway-internal.llm:4483/mcp
+# auxiliary:
+#   vision:
+#     provider: minimax
+#     model: MiniMax-M3
+#   compression:
+#     provider: minimax
+#     model: MiniMax-M2.7
+#     timeout: 180
+#   web_extract:
+#     provider: minimax
+#     model: MiniMax-M2.7
+#     timeout: 120
+#   approval:
+#     provider: minimax
+#     model: MiniMax-M2.7
+#     timeout: 60
+#   session_search:
+#     provider: minimax
+#     model: MiniMax-M2.7
+#     timeout: 120
