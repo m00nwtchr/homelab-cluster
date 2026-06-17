@@ -5,9 +5,11 @@ kind: Model
 metadata:
   name: octen-embedding
 spec:
-  source: https://huggingface.co/mradermacher/Octen-Embedding-0.6B-GGUF/resolve/main/Octen-Embedding-0.6B.Q8_0.gguf
+  # source: https://huggingface.co/mradermacher/Octen-Embedding-0.6B-GGUF/resolve/main/Octen-Embedding-0.6B.Q8_0.gguf
+  source: https://huggingface.co/mradermacher/Octen-Embedding-0.6B-i1-GGUF/resolve/main/Octen-Embedding-0.6B.i1-Q4_K_M.gguf
   format: gguf
-  quantization: Q8_0
+  # quantization: Q8_0
+  quantization: i1-Q4_K_M
   hardware:
     accelerator: cpu
 ---
@@ -22,12 +24,12 @@ spec:
   replicas: 0
 
   priority: batch
-  contextSize: &ctx 1024 # Max is 32768
-  batchSize: *ctx
-  uBatchSize: *ctx
+  contextSize: &ctx 2048 # Max is 32768
+  batchSize: 1024
+  uBatchSize: 1024
   # batchSize: 16384
   # uBatchSize: 16384
-  parallelSlots: 1
+  parallelSlots: 2
   extraArgs:
     - --alias
     - *model
