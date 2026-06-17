@@ -5,9 +5,11 @@ kind: Model
 metadata:
   name: qwen3-reranker
 spec:
-  source: https://huggingface.co/ggml-org/Qwen3-Reranker-0.6B-Q8_0-GGUF/resolve/main/qwen3-reranker-0.6b-q8_0.gguf
+  # source: https://huggingface.co/ggml-org/Qwen3-Reranker-0.6B-Q8_0-GGUF/resolve/main/qwen3-reranker-0.6b-q8_0.gguf
+  source: https://huggingface.co/mradermacher/Qwen3-Reranker-0.6B-GGUF/resolve/main/Qwen3-Reranker-0.6B.Q4_K_M.gguf
   format: gguf
-  quantization: Q8_0
+  # quantization: Q8_0
+  quantization: Q4_K_M
   hardware:
     accelerator: cpu
 ---
