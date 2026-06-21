@@ -5,9 +5,9 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-secretGenerator:
+configMapGenerator:
   - name: openclaw-config
     files:
-      - openclaw.json=./resources/openclaw.sops.json
+      - ./resources/openclaw.json
 configurations:
   - ./resources/kustomizeconfig.yaml

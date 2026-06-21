@@ -23,124 +23,16 @@ spec:
       *app :
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          install-tools:
-            image: &img
+        containers:
+          app:
+            image:
               repository: ghcr.io/openclaw/openclaw
               tag: 2026.6.6@sha256:4826ca6157377e93463786d5c16852e34eede9f4bd4be55e3773cdc509762857
             command:
               - /bin/sh
               - -c
               - |
-                set -e
-                mkdir -p /home/node/.local/bin /home/node/.local/go
-
-                echo "Starting tool installation..."
-
-                # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
-                # Install gh CLI if not present on PVC
-                if [ ! -f /home/node/.local/bin/gh ]; then
-                  echo "Installing gh CLI..."
-                  cd /tmp
-                  curl -fsSL https://github.com/cli/cli/releases/download/v2.61.0/gh_2.61.0_linux_amd64.tar.gz -o gh.tar.gz
-                  tar xzf gh.tar.gz
-                  cp gh_2.61.0_linux_amd64/bin/gh /home/node/.local/bin/
-                  rm -rf gh.tar.gz gh_2.61.0_linux_amd64
-                fi
-
-                if [ ! -f /home/node/.local/bin/openclaw ]; then
-                # Set up openclawbot CLI symlink
-                  echo "Installing creating symlink..."
-                  ln -s /app/openclaw.mjs /home/node/.local/bin/openclaw
-                fi
-
-                # Install Go if not present on PVC
-                if [ ! -f /home/node/.local/go/bin/go ]; then
-                  echo "Installing Go..."
-                  cd /tmp
-                  curl -fsSL https://go.dev/dl/go1.23.5.linux-amd64.tar.gz -o go.tar.gz
-                  tar xzf go.tar.gz
-                  mv go /home/node/.local/
-                  rm -rf go.tar.gz
-                fi
-
-                # Install Homebrew if not present on PVC
-                if [ ! -f /home/node/.local/homebrew/bin/brew ]; then
-                  echo "Installing Homebrew..."
-                  export HOMEBREW_PREFIX=/home/node/.local/homebrew
-                  export HOMEBREW_CELLAR=/home/node/.local/homebrew/Cellar
-                  export HOMEBREW_REPOSITORY=/home/node/.local/homebrew
-                  mkdir -p $HOMEBREW_PREFIX
-                  cd /tmp
-                  git clone --depth 1 https://github.com/Homebrew/brew $HOMEBREW_PREFIX
-                fi
-
-                # Check if pip is available (either standalone or via python3 -m pip)
-                set +e # Don't fail on pip errors
-                if command -v pip3 >/dev/null 2>&1 || command -v pip >/dev/null 2>&1 || python3 -m pip --version >/dev/null 2>&1; then
-                  echo "pip is available"
-                else
-                  echo "Installing pip..."
-                  cd /tmp
-                  curl -fsSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-                  python3 get-pip.py --user --no-warn-script-location --break-system-packages || \
-                  python3 get-pip.py --user --no-warn-script-location || \
-                  echo "pip install skipped (use python3 -m pip instead)"
-                  rm -f get-pip.py
-                fi
-                set -e # Re-enable error checking
-
-                echo "Tool installation complete"
-
-                # Ensure config directory exists
-                mkdir -p /home/node/.openclaw
-                echo "Init container completed successfully"
-          daemon:
-            image:
-              repository: docker
-              tag: 29.4.3-dind@sha256:685b91dca8eab7de1dce1c303dbb7a763e4082d6a60db10968adf3295fbd2495
-            restartPolicy: Always
-            env:
-              DOCKER_TLS_CERTDIR: /certs
-            securityContext:
-              privileged: true
-              runAsUser: 0
-              runAsGroup: 0
-              allowPrivilegeEscalation: true
-            probes:
-              startup:
-                enabled: true
-                custom: true
-                spec: &dockerProbe
-                  exec:
-                    command: ["docker", "info"]
-                  periodSeconds: 2
-                  timeoutSeconds: 3
-                  failureThreshold: 60
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  <<: *dockerProbe
-                  periodSeconds: 5
-                  timeoutSeconds: 3
-                  failureThreshold: 3
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  <<: *dockerProbe
-                  periodSeconds: 20
-                  timeoutSeconds: 3
-                  failureThreshold: 3
-        containers:
-          app:
-            image: *img
-            command:
-              - /bin/sh
-              - -c
-              - |
+                cp /tmp/openclaw.json /home/node/.openclaw/openclaw.json
                 # Install the memini memory plugin from ClawHub, version-guarded:
                 # only fetches when the pinned version differs from what's on the
                 # persistent volume, so normal restarts stay offline.
@@ -158,14 +50,8 @@ spec:
             env:
               OPENCLAW_LOG_LEVEL: debug
               BROWSER_WS_ENDPOINT: "ws://localhost:9222"
-              DOCKER_HOST: "tcp://localhost:2376"
-              DOCKER_CERT_PATH: /certs/client
-              DOCKER_TLS_VERIFY: "1"
               GOPATH: /home/node/go
               HOME: &homepath /home/node
-              HOMEBREW_CELLAR: /home/node/.local/homebrew/Cellar
-              HOMEBREW_PREFIX: /home/node/.local/homebrew
-              HOMEBREW_REPOSITORY: /home/node/.local/homebrew
               OPENCLAW_GATEWAY_PORT: &port 18789
               OPENCLAW_EXTENSION_API_PATH: /app/dist/extensionAPI.js
               PATH: /home/node/.local/bin:/home/node/.local/go/bin:/home/node/.local/homebrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -182,34 +68,7 @@ spec:
               limits:
                 cpu: 10
                 memory: 16Gi
-          chrome:
-            image:
-              repository: zenika/alpine-chrome
-              tag: with-node
-            command:
-              - chromium-browser
-              - --headless=new
-              - --disable-gpu
-              - --remote-debugging-address=0.0.0.0
-              - --remote-debugging-port=9222
-              - --no-sandbox
-              - --disable-dev-shm-usage
-                # Stealth flags to reduce bot detection
-              - --disable-blink-features=AutomationControlled
-              - --user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64)
-                AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0
-                Safari/537.36
-                # Allow WebSocket connections from any origin
-              - --remote-allow-origins=*
-            env:
-              TZ: *tz
-            resources:
-              requests:
-                cpu: 100m
-                memory: 256Mi
-              limits:
-                cpu: 1000m
-                memory: 1Gi
+
           codeserver:
             image:
               repository: ghcr.io/coder/code-server
@@ -245,28 +104,14 @@ spec:
         accessMode: ReadWriteOnce
         globalMounts:
           - path: *homepath
-      # data:
-      #   globalMounts:
-      #   - path: /data
-      # images:
-      #   globalMounts:
-      #   - path: /home/node/.openclaw/workspace/images
+
       config:
-        type: secret
+        type: configMap
         name: "openclaw-config"
         defaultMode: 0400
         globalMounts:
-          - path: /home/node/.openclaw/openclaw.json
+          - path: /tmp/openclaw.json
             subPath: openclaw.json
-
-      next-cache:
-        type: emptyDir
-        globalMounts:
-          - path: /app/.next/cache
-      tmp:
-        type: emptyDir
-      certs:
-        type: emptyDir
 
     rbac:
       roles:
