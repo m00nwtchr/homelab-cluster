@@ -1,15 +1,27 @@
+# ---
+# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/model_v1alpha1.json
+# apiVersion: inference.llmkube.dev/v1alpha1
+# kind: Model
+# metadata:
+#   name: octen-embedding
+# spec:
+#   # source: https://huggingface.co/mradermacher/Octen-Embedding-0.6B-GGUF/resolve/main/Octen-Embedding-0.6B.Q8_0.gguf
+#   source: https://huggingface.co/mradermacher/Octen-Embedding-0.6B-i1-GGUF/resolve/main/Octen-Embedding-0.6B.i1-Q4_K_M.gguf
+#   format: gguf
+#   # quantization: Q8_0
+#   quantization: i1-Q4_K_M
+#   hardware:
+#     accelerator: cpu
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/model_v1alpha1.json
 apiVersion: inference.llmkube.dev/v1alpha1
 kind: Model
 metadata:
-  name: octen-embedding
+  name: jina-embeddings-v5-text-nano-retrieval
 spec:
-  # source: https://huggingface.co/mradermacher/Octen-Embedding-0.6B-GGUF/resolve/main/Octen-Embedding-0.6B.Q8_0.gguf
-  source: https://huggingface.co/mradermacher/Octen-Embedding-0.6B-i1-GGUF/resolve/main/Octen-Embedding-0.6B.i1-Q4_K_M.gguf
+  source: https://huggingface.co/jinaai/jina-embeddings-v5-text-nano-retrieval/resolve/main/v5-nano-retrieval-Q8_0.gguf
   format: gguf
-  # quantization: Q8_0
-  quantization: i1-Q4_K_M
+  quantization: Q8_0
   hardware:
     accelerator: cpu
 ---
@@ -19,14 +31,14 @@ kind: InferenceService
 metadata:
   name: embed
 spec:
-  modelRef: &model octen-embedding
+  modelRef: &model jina-embeddings-v5-text-nano-retrieval
   image: ghcr.io/ggml-org/llama.cpp:server
   replicas: 0
 
   priority: batch
-  contextSize: &ctx 2048 # Max is 32768
-  batchSize: 1024
-  uBatchSize: 1024
+  contextSize: &ctx 8192 # Max is 32768
+  batchSize: 4096
+  uBatchSize: 4096
   # batchSize: 16384
   # uBatchSize: 16384
   parallelSlots: 2
