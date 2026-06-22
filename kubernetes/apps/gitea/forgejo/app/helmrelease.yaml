@@ -134,6 +134,10 @@ spec:
           SMTP_PORT: 465
           USER: forgejo@${SECRET_DOMAIN}
 
+      additionalConfigSources:
+        - secret:
+            secretName: forgejo-secret
+
       additionalConfigFromEnvs:
         - name: FORGEJO__MAILER__PASSWD
           valueFrom:
@@ -151,9 +155,6 @@ spec:
           value: /var/run/secrets/postgresql/tls.key
         - name: INFISICAL_SERVER_URL
           value: https://infisical.${SECRET_DOMAIN}
-      envFrom:
-        - secretRef:
-            name: forgejo-secret
 
     service:
       ssh:
