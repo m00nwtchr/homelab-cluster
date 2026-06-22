@@ -35,6 +35,7 @@ spec:
       OIDC_CLIENT_ID_KEY: key
       OIDC_CLIENT_SECRET_KEY: secret
       ANUBIS_TARGET: http://forgejo-http:3000
+      SECRET_NAME: forgejo-secret
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
