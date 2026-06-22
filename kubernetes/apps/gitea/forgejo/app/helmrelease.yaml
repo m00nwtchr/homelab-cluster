@@ -134,9 +134,9 @@ spec:
           SMTP_PORT: 465
           USER: forgejo@${SECRET_DOMAIN}
 
-      additionalConfigSources:
-        - secret:
-            secretName: forgejo-secret
+      # additionalConfigSources:
+      #   - secret:
+      #       secretName: forgejo-secret
 
       additionalConfigFromEnvs:
         - name: FORGEJO__MAILER__PASSWD
@@ -227,6 +227,17 @@ spec:
   postRenderers:
     - kustomize:
         patches:
+          - target:
+              group: apps
+              version: v1
+              kind: Deployment
+              name: *app
+            patch: |
+              - op: add
+                path: /spec/template/spec/containers/0/envFrom
+                value:
+                  - secretRef:
+                      name: forgejo-secret
           - target:
               version: v1
               kind: Deployment
