@@ -17,6 +17,7 @@ spec:
     - ../../../../components/gatus/external
     - ../../../../components/mail
     - ../../../../components/anubis
+    - ../../../../components/secret
   dependsOn:
     - name: volsync
       namespace: volsync-system
