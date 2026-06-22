@@ -25,7 +25,7 @@ spec:
           app: &bapp
             image:
               repository: mirror.gcr.io/freikin/dawarich
-              tag: 1.7.7@sha256:f7eea22def731ef98f0644b191c477917790bb0e5449b0014bac2f349ce178a7
+              tag: 1.9.1@sha256:8cf6ed2414df9aad8a104b04de9070921e63190cdb96b76e39ebd3e94317dcc0
             env:
               RAILS_ENV: production
               # RAILS_ENV: development
