@@ -57,6 +57,11 @@ spec:
       tag: 14.0.2-rootless
       digest: sha256:5552c9e25f353760420b8ac7a7f0f0a788ff571bbfd8e2c1e93503d3e2e1b87a
 
+    # initPreScript: |
+    #   curl -L -o libinfisical-pkcs11.tar.gz \
+    #     https://github.com/Infisical/infisical-pkcs-11/releases/latest/download/libinfisical-pkcs11-linux-amd64.so.tar.gz
+    #   tar -xzf libinfisical-pkcs11.tar.gz
+
     gitea:
       admin:
         username: ""
@@ -144,8 +149,11 @@ spec:
           value: /var/run/secrets/postgresql/tls.crt
         - name: PGSSLKEY
           value: /var/run/secrets/postgresql/tls.key
-        - name: SSH_AUTH_SOCK
-          value: /tmp/ssh-tpm-agent.sock
+        - name: INFISICAL_SERVER_URL
+          value: https://infisical.${SECRET_DOMAIN}
+      envFrom:
+        - secretRef:
+            name: forgejo
 
     service:
       ssh:
@@ -161,6 +169,9 @@ spec:
       claimName: ${APP}
 
     extraVolumes:
+      - name: pkcs
+        emptyDir: {}
+
       - name: git
         persistentVolumeClaim:
           claimName: git
@@ -189,12 +200,18 @@ spec:
           secretName: forgejo-ssh
 
     extraInitVolumeMounts:
+      - name: pkcs
+        mountPath: "/usr/local/lib"
+
       - name: postgres-forgejo
         mountPath: "/var/run/secrets/postgresql"
       - name: root-ca
         mountPath: "/var/run/secrets/root-ca"
 
     extraContainerVolumeMounts:
+      - name: pkcs
+        mountPath: "/usr/local/lib"
+
       - name: git
         mountPath: "/data/git/"
 
@@ -270,45 +287,3 @@ spec:
                               - ALL
                           seccompProfile:
                             type: RuntimeDefault
-          - target:
-              version: v1
-              kind: Deployment
-              name: *app
-            patch: |
-              - op: add
-                path: /spec/template/spec/initContainers/-
-                value:
-                  name: generate-ssh-keys
-                  image: &image ghcr.io/m00nwtchr/ssh-tpm-agent:0.8.0@sha256:21679ac2c857da0b5ef2c3c272c5310ebc157473c12fe83f41af8671633b2e10
-                  imagePullPolicy: IfNotPresent
-                  command:
-                    - "sh"
-                    - "-c"
-                    - >
-                      mkdir -p /data/ssh;
-                      if [ ! -f /data/ssh/id_ecdsa.tpm ]; then
-                        /usr/local/bin/ssh-tpm-keygen -t ecdsa -f /data/ssh/id_ecdsa -N "";
-                      fi
-                  volumeMounts:
-                    - mountPath: /data/
-                      name: data
-                  resources:
-                    limits:
-                      memory: 128Mi
-                      squat.ai/tpmrm: 1
-              - op: add
-                path: /spec/template/spec/containers/-
-                value:
-                  name: ssh-tpm-agent
-                  image: *image
-                  imagePullPolicy: IfNotPresent
-                  volumeMounts:
-                    - mountPath: /var/tmp
-                      name: temp
-                    - mountPath: /.ssh
-                      name: git
-                      subPath: ssh
-                  resources:
-                    limits:
-                      memory: 128Mi
-                      squat.ai/tpmrm: 1
