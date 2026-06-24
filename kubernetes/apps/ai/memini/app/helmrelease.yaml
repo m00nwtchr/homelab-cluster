@@ -21,7 +21,7 @@ spec:
           app:
             image:
               repository: git.erwanleboucher.dev/eleboucher/memini
-              tag: 0.4.13@sha256:550a462ef4bce609273dfca091b4f0ad8e65be4043cb48f256b7305c3467a1c0
+              tag: 0.4.17@sha256:f96c7059515851cea983d2537e7d9c1ff168f6bfc203d32ef03036964a2feee2
             env:
               MEMINI_HTTP_ADDR: ":8080"
               MEMINI_LOG_FORMAT: json
@@ -30,8 +30,8 @@ spec:
               MEMINI_EMBED_MODEL: jina-embeddings-v5-text-nano-retrieval
               MEMINI_EMBED_DIMS: "768"
 
-              MEMINI_EMBED_QUERY_PREFIX: "Instruct: Given a user message, retrieve relevant past memories\nQuery: "
-              MEMINI_RECALL_MIN_SEMANTIC_SCORE: "0.46"
+              # MEMINI_EMBED_QUERY_PREFIX: "Instruct: Given a user message, retrieve relevant past memories\nQuery: "
+              # MEMINI_RECALL_MIN_SEMANTIC_SCORE: "0.46"
 
               MEMINI_DEFAULT_NAMESPACE: default
               MEMINI_WRITE_DEDUP_MIN_SCORE: 0.9

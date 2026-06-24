@@ -8,8 +8,7 @@ spec:
   parentRefs:
     - name: internal
       namespace: network
-  hostnames:
-    - "k8s.${SECRET_DOMAIN}"
+  hostnames: ["k8s.${SECRET_DOMAIN}"]
   rules:
     - backendRefs:
         - name: kubernetes
@@ -25,8 +24,7 @@ spec:
   parentRefs:
     - name: tunnel
       namespace: network
-  hostnames:
-    - "k8s.${SECRET_DOMAIN}"
+  hostnames: ["k8s.${SECRET_DOMAIN}"]
   rules:
     - matches:
         - path:
