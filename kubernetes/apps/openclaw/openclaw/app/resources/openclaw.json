@@ -100,7 +100,7 @@
 		}
 	},
 	"tools": {
-		"profile": "coding",
+		"profile": "full",
 		"web": {
 			"search": {
 				"provider": "brave",
@@ -187,6 +187,15 @@
 		}
 	},
 	"plugins": {
+		"allow": [
+			"brave",
+			"matrix",
+			"memini",
+			"minimax",
+			"lossless-claw",
+			"browser",
+			"memory-wiki"
+		],
 		"entries": {
 			"brave": {
 				"enabled": true,
