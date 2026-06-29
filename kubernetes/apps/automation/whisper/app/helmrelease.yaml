@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: rhasspy/wyoming-whisper
-              tag: 3.1.0@sha256:9501d2659eee83b6eead98d53842193e5fed011eda6c5b1c3ad36f3146b28fed
+              tag: 3.3.1@sha256:258956d1508a042ae52ceca04da85f6e74e7fab81676e3678619b8047e88c721
             args:
               - --uri
               - tcp://[::]:10300
