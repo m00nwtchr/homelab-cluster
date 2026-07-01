@@ -19,7 +19,7 @@ spec:
           main:
             image:
               repository: zedeus/nitter
-              tag: latest@sha256:3d079f53357ed550fea5e76d873cd463e15a4d65f394c4a6233478cd768c7c7a
+              tag: latest@sha256:bf65978ef93c2dc29116e0f3573de2d0399f7393d0c65ce5db157f256e360929
             command:
               - /usr/local/searxng/.venv/bin/granian
               - searx.webapp:app
