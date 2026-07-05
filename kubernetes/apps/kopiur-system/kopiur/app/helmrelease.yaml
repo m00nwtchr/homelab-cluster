@@ -42,7 +42,7 @@ spec:
     installScope: cluster
     metrics:
       serviceMonitor:
-        enabled: true
+        enabled: false
       prometheusRule:
         enabled: true
     podSecurityContext:
@@ -56,3 +56,7 @@ spec:
       listenAddr: "[::]:8443"
       certManager:
         enabled: true
+    observability:
+      otlp:
+        enabled: true
+        endpoint: "http://otel-collector.observability.svc.cluster.local.:4317"
