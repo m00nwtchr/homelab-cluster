@@ -16,5 +16,8 @@ configMapGenerator:
   - name: dfguard-dashboard
     files:
       - ./resources/dashboard.json
+    options:
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
 configurations:
   - ./resources/kustomizeconfig.yaml
