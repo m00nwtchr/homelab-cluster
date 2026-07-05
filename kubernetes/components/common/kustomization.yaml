@@ -15,6 +15,9 @@ patches:
       - op: add
         path: /spec/components/-
         value: "../../../../components/defaults"
+      - op: add
+        path: /spec/targetNamespace
+        value: "${NAMESPACE}"
     # patch: |-
     #   apiVersion: kustomize.toolkit.fluxcd.io/v1
     #   kind: Kustomization
