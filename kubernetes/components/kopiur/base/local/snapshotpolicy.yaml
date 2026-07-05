@@ -24,3 +24,6 @@ spec:
       schedule:
         cron: H 3 * * *
   volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=csi-zfs}
+  mover:
+    inheritSecurityContextFrom:
+      pvcConsumer: {}
