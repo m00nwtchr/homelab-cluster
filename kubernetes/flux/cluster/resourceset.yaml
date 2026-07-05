@@ -35,6 +35,7 @@ spec:
     - namespace: kanidm
     - namespace: keda
     - namespace: kguardian
+    - namespace: kopiur-system
     - namespace: kube-system
     - namespace: kubevirt
     - namespace: kubewarden

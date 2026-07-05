@@ -1,0 +1,76 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kopiur.home-operations.com/clusterrepository_v1alpha1.json
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: ClusterRepository
+metadata:
+  name: garage
+spec:
+  allowedNamespaces:
+    all: true
+  backend:
+    s3:
+      auth:
+        secretRef:
+          name: kopiur-garage-secret
+      bucket: kopia
+      endpoint: http://garage.garage.svc.cluster.local:3900
+      region: garage
+      tls:
+        disableTls: true
+  encryption:
+    passwordSecretRef:
+      name: kopiur-garage-secret
+      key: KOPIA_PASSWORD
+  moverDefaults:
+    cache:
+      capacity: 1Mi
+      mode: Ephemeral
+      storageClassName: zfs-spark
+    podSecurityContext:
+      fsGroup: 65532
+      fsGroupChangePolicy: OnRootMismatch
+    scratch:
+      capacity: 1Mi
+      storageClassName: zfs-spark
+    securityContext:
+      runAsUser: 65532
+      runAsGroup: 65532
+    ttlSecondsAfterFinished: 300
+  scheduleDefaults:
+    timezone: Europe/Warsaw
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kopiur.home-operations.com/clusterrepository_v1alpha1.json
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: ClusterRepository
+metadata:
+  name: b2
+spec:
+  allowedNamespaces:
+    all: true
+  backend:
+    b2:
+      auth:
+        secretRef:
+          name: kopiur-b2-secret
+      bucket: kopia
+  encryption:
+    passwordSecretRef:
+      name: kopiur-b2-secret
+      key: KOPIA_PASSWORD
+  moverDefaults:
+    cache:
+      capacity: 1Mi
+      mode: Ephemeral
+      storageClassName: zfs-spark
+    podSecurityContext:
+      fsGroup: 65532
+      fsGroupChangePolicy: OnRootMismatch
+    scratch:
+      capacity: 1Mi
+      storageClassName: zfs-spark
+    securityContext:
+      runAsUser: 65532
+      runAsGroup: 65532
+    ttlSecondsAfterFinished: 300
+  scheduleDefaults:
+    timezone: Europe/Warsaw
