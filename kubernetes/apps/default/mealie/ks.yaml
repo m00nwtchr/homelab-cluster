@@ -12,12 +12,15 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/volsync
+    - ../../../../components/kopiur
     - ../../../../components/database
     - ../../../../components/gatus/guarded
     - ../../../../components/keda-http
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 1h
   path: ./kubernetes/apps/default/mealie/app
   postBuild:
@@ -26,6 +29,7 @@ spec:
       NAMESPACE: *namespace
       CONTROLLER: StatefulSet
       VOLSYNC_CAPACITY: 1Gi
+      KOPIUR_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: "Mealie"
       OIDC_CALLBACK: /login
       OIDC_LEGACY_CRYPTO: "true"

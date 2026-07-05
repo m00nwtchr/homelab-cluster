@@ -12,10 +12,13 @@ spec:
   components:
     - ../../../../components/oidc/envoy
     - ../../../../components/volsync
+    - ../../../../components/kopiur
     - ../../../../components/gatus/guarded
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
     - name: envoy-gateway
       namespace: network
   interval: 1h
@@ -25,6 +28,7 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
+      KOPIUR_CAPACITY: 1Gi
       SUBDOMAIN: qb
       OIDC_DISPLAY_NAME: qBittorrent
       OIDC_GROUP: admins

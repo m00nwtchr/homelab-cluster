@@ -12,6 +12,7 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/volsync
+    - ../../../../components/kopiur
     - ../../../../components/database/manual
     - ../../../../components/dragonfly/manual
     - ../../../../components/gatus/external
@@ -21,6 +22,8 @@ spec:
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 1h
   path: ./kubernetes/apps/gitea/forgejo/app
   postBuild:

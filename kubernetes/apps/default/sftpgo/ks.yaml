@@ -12,11 +12,14 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/volsync
+    - ../../../../components/kopiur
     - ../../../../components/database
     # - ../../../../components/gatus/guarded
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 1h
   path: ./kubernetes/apps/default/sftpgo/app
   postBuild:
@@ -24,6 +27,7 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
+      KOPIUR_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: "SFTPGo"
       OIDC_CALLBACK: /web/oidc/redirect
       OIDC_DISABLE_PKCE: "true" # PKCE is only supported in Enterprise, bruh

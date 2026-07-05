@@ -12,9 +12,12 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
+    - ../../../../components/kopiur
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 30m
   timeout: 5m
   path: "./kubernetes/apps/media/cross-seed/app"

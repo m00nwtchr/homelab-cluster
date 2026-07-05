@@ -12,10 +12,13 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/volsync
+    - ../../../../components/kopiur
     - ../../../../components/gatus/guarded
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 1h
   path: ./kubernetes/apps/default/actual/app
   postBuild:

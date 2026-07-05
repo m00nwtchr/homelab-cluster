@@ -12,12 +12,15 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/volsync
+    - ../../../../components/kopiur
     - ../../../../components/database
     - ../../../../components/dragonfly
     - ../../../../components/mail
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 1h
   path: ./kubernetes/apps/default/vikunja/app
   postBuild:
@@ -26,6 +29,7 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
+      KOPIUR_CAPACITY: 1Gi
       OIDC_CALLBACK: /auth/openid/kanidm
       OIDC_DISABLE_PKCE: "true"
     substituteFrom:

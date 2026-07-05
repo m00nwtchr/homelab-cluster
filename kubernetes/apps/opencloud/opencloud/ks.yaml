@@ -17,6 +17,8 @@ spec:
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 1h
   path: ./kubernetes/apps/opencloud/opencloud/app
   postBuild:

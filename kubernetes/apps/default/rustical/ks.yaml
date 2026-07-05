@@ -12,10 +12,13 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/volsync
+    - ../../../../components/kopiur
     - ../../../../components/gatus/guarded
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 1h
   path: ./kubernetes/apps/default/rustical/app
   postBuild:
@@ -23,6 +26,7 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 1Gi
+      KOPIUR_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: RustiCal
       OIDC_CALLBACK: /frontend/login/oidc/callback
       OIDC_SHORT_USERNAME: "true"

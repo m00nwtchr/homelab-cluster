@@ -13,9 +13,12 @@ spec:
   components:
     - ../../../../components/database
     - ../../../../components/volsync
+    - ../../../../components/kopiur
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 30m
   timeout: 5m
   path: "./kubernetes/apps/media/dispatcharr/app"

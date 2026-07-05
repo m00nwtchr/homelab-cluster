@@ -13,6 +13,7 @@ spec:
     - ../../../../components/oidc
     # - ../../../../components/database
     - ../../../../components/volsync
+    - ../../../../components/kopiur
     - ../../../../components/secret
   interval: 1h
   path: ./kubernetes/apps/default/trek/app

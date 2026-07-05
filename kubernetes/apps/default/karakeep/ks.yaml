@@ -13,6 +13,7 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/volsync
+    - ../../../../components/kopiur
     - ../../../../components/gatus/guarded
   interval: 30m
   timeout: 5m
@@ -26,11 +27,14 @@ spec:
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   postBuild:
     substitute:
       APP: *app
       NAMESPACE: *namespace
       VOLSYNC_ACCESSMODES: ReadWriteMany
+      KOPIUR_ACCESSMODES: ReadWriteMany
       OIDC_CALLBACK: /api/auth/callback/custom
       OIDC_LEGACY_CRYPTO: "true"
     substituteFrom:

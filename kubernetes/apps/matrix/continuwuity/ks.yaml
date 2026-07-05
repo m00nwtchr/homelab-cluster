@@ -11,10 +11,13 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync/local
+    - ../../../../components/kopiur/local
     - ../../../../components/gatus/external
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 1h
   path: ./kubernetes/apps/matrix/continuwuity/app
   postBuild:
@@ -22,6 +25,7 @@ spec:
       APP: *app
       SUBDOMAIN: matrix
       VOLSYNC_CAPACITY: 8Gi
+      KOPIUR_CAPACITY: 8Gi
     #      VOLSYNC_LOCAL_BUCKET: *app
     substituteFrom:
       - name: cluster-secrets
