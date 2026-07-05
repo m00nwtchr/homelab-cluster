@@ -32,6 +32,7 @@ spec:
         limits:
           memory: 2Gi
       streamingLists: true
+      listenAddr: "[::]:8081"
     grafanaDashboard:
       enabled: true
       grafanaOperator:
@@ -52,5 +53,6 @@ spec:
       fsGroupChangePolicy: OnRootMismatch
     webhook:
       replicaCount: 2
+      listenAddr: "[::]:8443"
       certManager:
         enabled: true
