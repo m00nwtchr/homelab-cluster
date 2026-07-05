@@ -13,7 +13,7 @@ spec:
         secretRef:
           name: kopiur-garage-secret
       bucket: kopia
-      endpoint: http://garage.garage.svc.cluster.local:3900
+      endpoint: garage.garage.svc.cluster.local:3900
       region: garage
       tls:
         disableTls: true
