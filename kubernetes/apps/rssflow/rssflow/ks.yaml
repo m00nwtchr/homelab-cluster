@@ -51,6 +51,7 @@ spec:
       APP: *app
       OWNER: rssflow
       EXTENSIONS: "[]"
+      emptyArray: "[]"
   healthChecks:
     - name: postgres-rssflow-websub
       namespace: *namespace
