@@ -61,14 +61,12 @@ spec:
       key: KOPIA_PASSWORD
   moverDefaults:
     cache:
-      capacity: 1Mi
       mode: Ephemeral
       storageClassName: zfs-spark
     podSecurityContext:
       fsGroup: 65532
       fsGroupChangePolicy: OnRootMismatch
     scratch:
-      capacity: 1Mi
       storageClassName: zfs-spark
     securityContext:
       runAsUser: 65532
