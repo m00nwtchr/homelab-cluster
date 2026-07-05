@@ -20,6 +20,7 @@ spec:
   encryption:
     passwordSecretRef:
       name: kopiur-garage-secret
+      namespace: kopiur-system
       key: KOPIA_PASSWORD
   moverDefaults:
     cache:
@@ -56,6 +57,7 @@ spec:
   encryption:
     passwordSecretRef:
       name: kopiur-b2-secret
+      namespace: kopiur-system
       key: KOPIA_PASSWORD
   moverDefaults:
     cache:
