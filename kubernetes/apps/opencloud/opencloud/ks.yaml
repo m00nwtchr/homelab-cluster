@@ -12,6 +12,7 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/volsync
+    - ../../../../components/kopiur
     - ../../../../components/gatus/external
   dependsOn:
     - name: volsync
