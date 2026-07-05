@@ -11,6 +11,8 @@ spec:
   retention:
     keepDaily: 7
     keepHourly: 24
+  compression:
+    compressor: "zstd"
   sources:
     - pvc:
         name: ${APP}
