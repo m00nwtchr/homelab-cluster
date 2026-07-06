@@ -154,37 +154,57 @@ MAX_OUTPUT_TOKENS = 250
 TOOL_CHOICE = "auto"
 
 [dialectic.levels.minimal.model_config]
-transport = "openai"
-model = "gpt-5.4-mini"
+transport = "anthropic"
+model = "MiniMax-M2.7"
+
+[dialectic.levels.minimal.model_config.overrides]
+base_url = "https://api.minimax.io/anthropic"
+api_key_env = "MINIMAX_API_KEY"
 
 [dialectic.levels.low]
 MAX_TOOL_ITERATIONS = 5
 TOOL_CHOICE = "auto"
 
 [dialectic.levels.low.model_config]
-transport = "openai"
-model = "gpt-5.4-mini"
+transport = "anthropic"
+model = "MiniMax-M2.7"
+
+[dialectic.levels.low.model_config.overrides]
+base_url = "https://api.minimax.io/anthropic"
+api_key_env = "MINIMAX_API_KEY"
 
 [dialectic.levels.medium]
 MAX_TOOL_ITERATIONS = 2
 
 [dialectic.levels.medium.model_config]
-transport = "openai"
-model = "gpt-5.4-mini"
+transport = "anthropic"
+model = "MiniMax-M2.7"
+
+[dialectic.levels.medium.model_config.overrides]
+base_url = "https://api.minimax.io/anthropic"
+api_key_env = "MINIMAX_API_KEY"
 
 [dialectic.levels.high]
 MAX_TOOL_ITERATIONS = 4
 
 [dialectic.levels.high.model_config]
-transport = "openai"
-model = "gpt-5.4-mini"
+transport = "anthropic"
+model = "MiniMax-M2.7"
+
+[dialectic.levels.high.model_config.overrides]
+base_url = "https://api.minimax.io/anthropic"
+api_key_env = "MINIMAX_API_KEY"
 
 [dialectic.levels.max]
 MAX_TOOL_ITERATIONS = 10
 
 [dialectic.levels.max.model_config]
-transport = "openai"
-model = "gpt-5.4-mini"
+transport = "anthropic"
+model = "MiniMax-M2.7"
+
+[dialectic.levels.max.model_config.overrides]
+base_url = "https://api.minimax.io/anthropic"
+api_key_env = "MINIMAX_API_KEY"
 
 # [dialectic.levels.max.model_config.fallback]
 # transport = "gemini"
