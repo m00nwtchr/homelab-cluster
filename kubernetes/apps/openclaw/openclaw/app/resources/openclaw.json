@@ -190,11 +190,12 @@
 		"allow": [
 			"brave",
 			"matrix",
-			"memini",
 			"minimax",
 			"lossless-claw",
 			"browser",
-			"memory-wiki"
+			"memory-wiki",
+			"memory-core",
+			"openclaw-honcho"
 		],
 		"entries": {
 			"brave": {
@@ -339,10 +340,14 @@
 					"skip_system_turns": true,
 					"expose_tools": true
 				}
+			},
+			"openclaw-honcho": {
+				"config": {
+					"baseUrl": "http://honcho.ai.svc.cluster.local"
+				}
 			}
 		},
 		"slots": {
-			"memory": "memini",
 			"contextEngine": "lossless-claw"
 		}
 	},
