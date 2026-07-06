@@ -22,6 +22,17 @@ spec:
             image:
               repository: ghcr.io/plastic-labs/honcho
               tag: v3.0.11@sha256:423dc96fd3034408d66e5381c184c9ea824610acdb5581898dd00b0b1ab096d6
+            command:
+              - /bin/sh
+              - -c
+              - |
+                set -e
+
+                echo "Running database migrations..."
+                /app/.venv/bin/python scripts/provision_db.py
+
+                echo "Starting API server..."
+                exec /app/.venv/bin/fastapi run --host "::" src/main.py
             env:
               DB_CONNECTION_URI: postgresql+psycopg://honcho@pooler-rw.postgres.svc:5432/honcho?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
             probes:
@@ -55,8 +66,8 @@ spec:
               requests:
                 cpu: 25m
                 memory: 64Mi
-              limits:
-                memory: 256Mi
+              # limits:
+              # memory: 256Mi
         pod:
           securityContext:
             runAsNonRoot: true
