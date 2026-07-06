@@ -87,3 +87,6 @@ spec:
         globalMounts:
           - path: /app/config.toml
             subPath: config.toml
+
+      tmp:
+        type: emptyDir
