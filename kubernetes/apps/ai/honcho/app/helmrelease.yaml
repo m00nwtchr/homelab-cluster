@@ -12,13 +12,9 @@ spec:
   interval: 30m
   values:
     controllers:
-      *app :
-        strategy: RollingUpdate
-        annotations:
-          reloader.stakater.com/auto: "true"
-
+      *app : &ct
         containers:
-          app:
+          app: &ctA
             image:
               repository: ghcr.io/plastic-labs/honcho
               tag: v3.0.11@sha256:423dc96fd3034408d66e5381c184c9ea824610acdb5581898dd00b0b1ab096d6
@@ -80,8 +76,23 @@ spec:
             fsGroup: 65532
             fsGroupChangePolicy: OnRootMismatch
 
+      deriver:
+        <<: *ct
+        containers:
+          app:
+            <<: *ctA
+            command: ["/app/.venv/bin/python", "-m", "src.deriver"]
+            probes: {}
+            resources:
+              requests:
+                cpu: 25m
+                memory: 64Mi
+              # limits:
+              # memory: 256Mi
+
     service:
       app:
+        controller: *app
         ports:
           http:
             port: 80
