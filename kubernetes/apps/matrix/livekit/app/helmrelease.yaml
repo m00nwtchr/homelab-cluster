@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: livekit/livekit-server
-              tag: v1.12.0@sha256:b617bb3363f13e880a82164692d842681276bc6eed7da46092f9ddb22017b927
+              tag: v1.13.3@sha256:483b8b7b5b0654f91f1e8bdc7b46fcd37fd9911612ecf627f97e3185a89825bd
             env:
               LIVEKIT_CONFIG:
                 valueFrom:
