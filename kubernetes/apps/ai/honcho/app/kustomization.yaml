@@ -1,0 +1,23 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./helmrelease.yaml
+configMapGenerator:
+  - name: honcho-configmap
+    files:
+      - ./resources/config.toml
+configurations:
+  - ./resources/kustomizeconfig.yaml
+patches:
+  - target:
+      group: external-secrets.io
+      version: v1
+      kind: ExternalSecret
+    patch: |-
+      - op: add
+        path: /spec/dataFrom/-
+        value:
+          find:
+            path: "/minimax"
