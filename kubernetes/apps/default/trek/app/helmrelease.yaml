@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: mirror.gcr.io/mauriceboe/trek
-              tag: 3.0.21@sha256:79f88110b76980b261b81d1313ec82ee393149d97ae672e87a83e0b158e361a0
+              tag: 3.2.1@sha256:4487220f57870b83856f5d3f3ba7a80725df73f76036c37fe425e1e9168b45f7
             args: ["node", "--import", "tsx", "src/index.ts"]
             env:
               APP_URL: https://{{ .Release.Name }}.${MAIN_DOMAIN}
