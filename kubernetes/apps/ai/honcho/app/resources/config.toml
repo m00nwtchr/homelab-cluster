@@ -76,7 +76,7 @@ model = "jina-embeddings-v5-text-nano-retrieval"
 
 # Optional module-level endpoint overrides
 # [embedding.model_config.overrides]
-base_url = "http://embed-proxy.ai.svc.cluster.local./v1"
+base_url = "http://embed-proxy.ai.svc.cluster.local/v1"
 # api_key_env = "EMBEDDING_CUSTOM_API_KEY"
 
 # Deriver settings
