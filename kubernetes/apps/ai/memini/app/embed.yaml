@@ -32,16 +32,19 @@ metadata:
   name: embed
 spec:
   modelRef: &model jina-embeddings-v5-text-nano-retrieval
-  image: ghcr.io/ggml-org/llama.cpp:server
+  image: ghcr.io/ggml-org/llama.cpp:server@sha256:abb2f86d66c42ba6cca7590b48669c8152c1f94fc1356d97aed187cfc5a974b4
   replicas: 0
 
   priority: batch
   contextSize: &ctx 8192 # Max is 32768
   batchSize: 8192
   uBatchSize: 8192
-  # batchSize: 16384
-  # uBatchSize: 16384
   parallelSlots: 1
+
+  flashAttention: true
+  cacheTypeK: q8_0
+  cacheTypeV: q8_0
+
   extraArgs:
     - --alias
     - *model
@@ -52,9 +55,7 @@ spec:
     - --threads
     - "6"
     - --threads-batch
-    - "12"
-    # - --metrics
-    # - --no-mmap
+    - "6"
     - --host
     - "::"
 
