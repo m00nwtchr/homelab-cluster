@@ -348,6 +348,7 @@
 			}
 		},
 		"slots": {
+			"memory": "openclaw-honcho",
 			"contextEngine": "lossless-claw"
 		}
 	},
