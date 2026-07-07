@@ -37,8 +37,8 @@ spec:
 
   priority: batch
   contextSize: &ctx 8192 # Max is 32768
-  batchSize: 4096
-  uBatchSize: 4096
+  batchSize: 8192
+  uBatchSize: 8192
   # batchSize: 16384
   # uBatchSize: 16384
   parallelSlots: 1
