@@ -41,7 +41,7 @@ spec:
   uBatchSize: 4096
   # batchSize: 16384
   # uBatchSize: 16384
-  parallelSlots: 2
+  parallelSlots: 1
   extraArgs:
     - --alias
     - *model
