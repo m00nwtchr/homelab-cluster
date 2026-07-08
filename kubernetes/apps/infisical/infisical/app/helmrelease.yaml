@@ -50,7 +50,7 @@ spec:
 
       image:
         repository: infisical/infisical
-        tag: "v0.161.3@sha256:257e9e4269e081448bea0c94f72631f040e6a792bd3f2e4a6cef096effa66b29"
+        tag: "v0.162.2@sha256:5ca5206f7c645d83f5438c909c2f01e347d3d15f106974f79c36c7e79bc807e7"
         pullPolicy: IfNotPresent
       replicaCount: 2
 
