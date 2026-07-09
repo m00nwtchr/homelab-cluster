@@ -32,7 +32,7 @@ metadata:
   name: embed
 spec:
   modelRef: &model jina-embeddings-v5-text-nano-retrieval
-  image: ghcr.io/ggml-org/llama.cpp:server@sha256:abb2f86d66c42ba6cca7590b48669c8152c1f94fc1356d97aed187cfc5a974b4
+  image: ghcr.io/ggml-org/llama.cpp:server@sha256:295dc9897fa8a643e4a513fbcaada51d3b8db4b0afa4fda7aeae2386757de58b
   replicas: 0
 
   priority: batch
