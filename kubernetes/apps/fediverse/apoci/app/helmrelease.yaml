@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: git.erwanleboucher.dev/eleboucher/apoci
-              tag: 0.0.35@sha256:ca53cdb98cca7b065ba9d892b7fe45218a52af74aa0d06a92512abb33cf0303b
+              tag: 0.0.55@sha256:4d8e1ec15db4a74fb3e68e9e44350e1db46c2ba3a43d3c0ea6239a9fa6ad1e20
             env:
               APOCI_ACCOUNT_DOMAIN: ${MAIN_DOMAIN}
               APOCI_DATA_DIR: /data
