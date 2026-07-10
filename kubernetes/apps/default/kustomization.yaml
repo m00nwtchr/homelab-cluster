@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   # - ./actual/ks.yaml
   # - ./anubis/ks.yaml
-  - ./attic/ks.yaml
+  # - ./attic/ks.yaml
   - ./atuin/ks.yaml
   # - ./baikal/ks.yaml
   # - ./crd-patcher/ks.yaml
@@ -22,7 +22,7 @@ resources:
   - ./publish-k8s-schemas/ks.yaml
   - ./rustical/ks.yaml
   - ./searxng/ks.yaml
-  - ./sftpgo/ks.yaml
+  # - ./sftpgo/ks.yaml
   - ./tika/ks.yaml
   - ./trek/ks.yaml
   - ./vaultwarden/ks.yaml
