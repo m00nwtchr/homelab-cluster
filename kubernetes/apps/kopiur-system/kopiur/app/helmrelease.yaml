@@ -10,8 +10,13 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 0.5.2
+    tag: 0.7.0
   url: oci://ghcr.io/home-operations/charts/kopiur
+  verify:
+    provider: cosign
+    matchOIDCIdentity:
+      - issuer: "^https://token.actions.githubusercontent.com$"
+        subject: "^https://github.com/home-operations/kopiur.*$"
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -24,27 +29,32 @@ spec:
     name: *app
   interval: 1h
   values:
-    controller:
-      replicaCount: 2
-      resources:
-        requests:
-          cpu: 100m
-        limits:
-          memory: 2Gi
-      streamingLists: true
-      listenAddr: "[::]:8081"
-    grafanaDashboard:
-      enabled: true
-      grafanaOperator:
-        enabled: true
-        matchLabels:
-          grafana.internal/instance: grafana
+    replicaCount: 2
+    resources:
+      requests:
+        cpu: 100m
+      limits:
+        memory: 2Gi
+    streamingLists: true
+
     installScope: cluster
-    metrics:
+
+    monitoring:
+      dashboards:
+        enabled: true
+        grafanaOperator:
+          enabled: true
+          matchLabels:
+            grafana.internal/instance: grafana
       serviceMonitor:
         enabled: false
       prometheusRule:
         enabled: true
+    observability:
+      otlp:
+        enabled: true
+        endpoint: "http://otel-collector.observability.svc.cluster.local.:4317"
+
     podSecurityContext:
       runAsNonRoot: true
       runAsUser: 65532
@@ -53,10 +63,5 @@ spec:
       fsGroupChangePolicy: OnRootMismatch
     webhook:
       replicaCount: 2
-      listenAddr: "[::]:8443"
       certManager:
         enabled: true
-    observability:
-      otlp:
-        enabled: true
-        endpoint: "http://otel-collector.observability.svc.cluster.local.:4317"
