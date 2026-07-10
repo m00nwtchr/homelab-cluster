@@ -9,3 +9,4 @@ resources:
   - ./pvc.yaml
   - ./rbac.yaml
   - ./secret.sops.yaml
+  - ./gnupg-configmap.yaml

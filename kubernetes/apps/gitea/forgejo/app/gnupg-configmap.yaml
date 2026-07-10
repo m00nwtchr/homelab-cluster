@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gnupg-forgejo-config
+  namespace: gitea
+data:
+  gpg-agent.conf: |
+    # Static Rust shim (mounted from the scdaemon-shim image volume)
+    # proxies the assuan protocol to the gnupg-pkcs11-scd sidecar
+    # over a Unix socket in a shared emptyDir volume.
+    scdaemon-program /opt/scdaemon-shim/scdaemon-shim
+    # Allow gpg to drive the passphrase prompt over assuan (non-tty).
+    allow-loopback-pinentry
+    # Standard cache TTLs.
+    default-cache-ttl 600
+    max-cache-ttl 7200

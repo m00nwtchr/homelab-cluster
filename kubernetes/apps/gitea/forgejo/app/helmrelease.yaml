@@ -93,8 +93,8 @@ spec:
         repository:
           ROOT: /data/git/repositories
         repository.signing:
-          FORMAT: ssh
-          SIGNING_KEY: /data/ssh/id_ecdsa.pub
+          FORMAT: gpg
+          SIGNING_KEY: default
           SIGNING_NAME: "Forgejo"
           SIGNING_EMAIL: "forgejo@${SECRET_DOMAIN}"
 
@@ -201,18 +201,12 @@ spec:
           secretName: forgejo-ssh
 
     extraInitVolumeMounts:
-      - name: pkcs
-        mountPath: "/usr/local/lib"
-
       - name: postgres-forgejo
         mountPath: "/var/run/secrets/postgresql"
       - name: root-ca
         mountPath: "/var/run/secrets/root-ca"
 
     extraContainerVolumeMounts:
-      - name: pkcs
-        mountPath: "/usr/local/lib"
-
       - name: git
         mountPath: "/data/git/"
 
@@ -238,6 +232,69 @@ spec:
                 value:
                   - secretRef:
                       name: forgejo-secret
+          - target:
+              version: v1
+              kind: Deployment
+              name: *app
+            patch: |
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: ignored
+              spec:
+                template:
+                  spec:
+                    containers:
+                      - name: forgejo
+                        env:
+                          - name: SCD_SOCKET_DIR
+                            value: /var/run/gnupg-pkcs11-scd
+                          - name: SCD_SOCKET_NAME
+                            value: agent.S
+                        volumeMounts:
+                          - name: scd
+                            mountPath: /var/run/gnupg-pkcs11-scd
+                          - name: scdaemon-shim
+                            mountPath: /opt/scdaemon-shim/
+                          - name: gnupg-config
+                            mountPath: /data/gitea/git/.gnupg/gpg-agent.conf
+                            subPath: gpg-agent.conf
+                            readOnly: true
+                    initContainers:
+                      - name: gnupg-pkcs11-scd
+                        restartPolicy: Always
+                        image: ghcr.io/m00nwtchr/gnupg-pkcs11-scd:rolling
+                        imagePullPolicy: IfNotPresent
+                        envFrom:
+                          - secretRef:
+                              name: forgejo-secret
+                        volumeMounts:
+                          - name: scd
+                            mountPath: /var/run/gnupg-pkcs11-scd
+                          - name: infisical-pkcs11
+                            mountPath: /providers/infisical
+                        resources:
+                          requests:
+                            cpu: 50m
+                            memory: 64Mi
+                          limits:
+                            cpu: 200m
+                            memory: 128Mi
+                    volumes:
+                      - name: scd
+                        emptyDir: {}
+                      - name: scdaemon-shim
+                        image:
+                          reference: ghcr.io/m00nwtchr/scdaemon-shim:rolling
+                          pullPolicy: IfNotPresent
+                      - name: infisical-pkcs11
+                        image:
+                          reference: ghcr.io/m00nwtchr/infisical-pkcs11-provider:0.0.3
+                          pullPolicy: IfNotPresent
+                      - name: gnupg-config
+                        configMap:
+                          name: gnupg-forgejo-config
+                          defaultMode: 384
           - target:
               version: v1
               kind: Deployment
