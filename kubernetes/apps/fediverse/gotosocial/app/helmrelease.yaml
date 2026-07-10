@@ -30,7 +30,7 @@ spec:
           main:
             image:
               repository: docker.io/superseriousbusiness/gotosocial
-              tag: 0.21.2@sha256:53106462f352c23c25a32d4bd5c03eb3c2198f2d2549ff1e7d5ef6deb7f44961
+              tag: 0.22.0@sha256:2a59e8d70c70ec51322a5be0bc5090a67eb55ea93f1fe556012192661ebe905f
             env:
               TZ: ${TZ}
               GTS_HOST: gts.${MAIN_DOMAIN}
