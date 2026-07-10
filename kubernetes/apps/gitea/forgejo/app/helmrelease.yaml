@@ -107,9 +107,9 @@ spec:
           REPO_INDEXER_ENABLED: true
         service:
           ALLOW_ONLY_EXTERNAL_REGISTRATION: true
-          ENABLE_INTERNAL_SIGNIN: false
+          ENABLE_INTERNAL_SIGNIN: true
           SHOW_REGISTRATION_BUTTON: false
-          ENABLE_PASSWORD_SIGNIN_FORM: false
+          ENABLE_PASSWORD_SIGNIN_FORM: true
           ENABLE_NOTIFY_MAIL: true
         openid:
           ENABLE_OPENID_SIGNIN: false
