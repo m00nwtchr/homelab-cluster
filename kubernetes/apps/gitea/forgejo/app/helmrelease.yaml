@@ -96,7 +96,7 @@ spec:
           # FORMAT: gpg
           SIGNING_KEY: 229FDC3E12F74498B8197FEF84708C69967C22BF
           SIGNING_NAME: "Forgejo"
-          SIGNING_EMAIL: "forgejo@${SECRET_DOMAIN}"
+          SIGNING_EMAIL: "forgejo@${MAIN_DOMAIN}"
 
           INITIAL_COMMIT: pubkey
           CRUD_ACTIONS: pubkey, parentsigned
