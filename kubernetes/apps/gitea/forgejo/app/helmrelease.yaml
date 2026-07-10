@@ -93,8 +93,8 @@ spec:
         repository:
           ROOT: /data/git/repositories
         repository.signing:
-          FORMAT: gpg
-          SIGNING_KEY: default
+          # FORMAT: gpg
+          SIGNING_KEY: 229FDC3E12F74498B8197FEF84708C69967C22BF
           SIGNING_NAME: "Forgejo"
           SIGNING_EMAIL: "forgejo@${SECRET_DOMAIN}"
 
@@ -147,6 +147,8 @@ spec:
 
     deployment:
       env:
+        - name: GNUPGHOME
+          value: /data/gitea/git/.gnupg
         - name: PGSSLROOTCERT
           value: /var/run/secrets/root-ca/ca.crt
         - name: PGSSLCERT
