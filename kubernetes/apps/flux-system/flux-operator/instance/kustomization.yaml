@@ -14,5 +14,6 @@ secretGenerator:
     files:
       - ./resources/m00n.asc
       - ./resources/renovate.asc
+      - ./resources/forgejo.asc
 generatorOptions:
   disableNameSuffixHash: true
