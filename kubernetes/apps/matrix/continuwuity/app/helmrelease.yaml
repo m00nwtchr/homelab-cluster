@@ -34,10 +34,19 @@ spec:
           app:
             image:
               repository: forgejo.ellis.link/continuwuation/continuwuity
-              tag: main@sha256:618acf8d07b7122a74309b8c9d2f2182ca6f011daad2480202a2887b9d75e6bd
+              tag: v26.6.0@sha256:9333a23442953b1cfe6a9ebe98c7fedddaaeae3b614bccd259cb04f6dfaeb7f5
             env:
               CONDUWUIT_CONFIG: "/config/conduit.toml"
               CONDUWUIT_PORT: &port 8008
+
+              CONTINUWUITY_OAUTH__OIDC__DISCOVERY_URL: "https://idm.${SECRET_DOMAIN}/oauth2/openid/{{ .Release.Name }}"
+              CONTINUWUITY_OAUTH__OIDC__CLIENT_ID: *app
+              CONTINUWUITY_OAUTH__OIDC__CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: "kanidm-{{ .Release.Name }}-oidc"
+                    key: client-secret
+
               # CONDUWUIT_REGISTRATION_TOKEN:
               #   valueFrom:
               #     secretKeyRef:

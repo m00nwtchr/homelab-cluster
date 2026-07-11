@@ -13,6 +13,7 @@ spec:
     - ../../../../components/volsync/local
     - ../../../../components/kopiur/local
     - ../../../../components/gatus/external
+    - ../../../../components/oidc
   dependsOn:
     - name: volsync
       namespace: volsync-system
@@ -23,10 +24,14 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
       SUBDOMAIN: matrix
+
+      OIDC_DISPLAY_NAME: "Matrix"
+      OIDC_CALLBACK: /_continuwuity/oidc/complete
+
       VOLSYNC_CAPACITY: 8Gi
       KOPIUR_CAPACITY: 8Gi
-    #      VOLSYNC_LOCAL_BUCKET: *app
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
