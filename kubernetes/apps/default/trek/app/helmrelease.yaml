@@ -32,7 +32,10 @@ spec:
             image:
               repository: mirror.gcr.io/mauriceboe/trek
               tag: 3.3.0@sha256:1abd6fc1fcb336aeb2be38552fb5f0a4fd9c3ef629b609a2dd99c8cc9954942b
-            args: ["node", "--require", "tsconfig-paths/register", "dist/index.js"]
+            args:
+             - /bin/sh
+             - -c
+             - cd /app/server && exec node --require tsconfig-paths/register dist/index.js
             env:
               APP_URL: https://{{ .Release.Name }}.${MAIN_DOMAIN}
               ALLOWED_ORIGINS: https://{{ .Release.Name }}.${MAIN_DOMAIN}
