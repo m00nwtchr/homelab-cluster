@@ -28,7 +28,7 @@ database:
   max_conn_lifetime: null
 
 homeserver:
-  address: http://continuwuity.matrix.svc
+  address: https://matrix.m00nlit.dev
   domain: "${SECRET_DOMAIN}"
   status_endpoint:
   message_send_checkpoint_endpoint:

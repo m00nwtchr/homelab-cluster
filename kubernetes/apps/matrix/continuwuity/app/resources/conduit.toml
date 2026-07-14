@@ -43,9 +43,6 @@ foci = [
     { type = "livekit", livekit_service_url = "https://livekit.${MAIN_DOMAIN}" },
 ]
 
-[global.oauth]
-compatibility_mode = "hybrid"
-
 #support_page =
 #support_role =
 #support_email =

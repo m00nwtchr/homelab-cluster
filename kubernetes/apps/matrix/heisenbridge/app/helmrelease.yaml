@@ -23,7 +23,7 @@ spec:
               - "-c=/etc/config.yaml"
               - "-l=::"
               - "-p=9898"
-              - "http://continuwuity.matrix.svc"
+              - "https://matrix.${SECRET_DOMAIN}"
             resources:
               requests:
                 cpu: 10m
