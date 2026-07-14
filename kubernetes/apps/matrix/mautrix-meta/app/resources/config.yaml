@@ -89,9 +89,11 @@ double_puppet:
   # See https://docs.mau.fi/bridges/general/double-puppeting.html for instructions.
   secrets:
     "${SECRET_DOMAIN}": "as_token:{{ .double_puppet_token }}"
+
 # See https://docs.mau.fi/bridges/general/end-to-bridge-encryption.html for more info.
 encryption:
   allow: true
+  msc4190: true
   default: true
   require: true
   allow_key_sharing: true
@@ -109,6 +111,7 @@ encryption:
     receive: cross-signed-tofu
     send: cross-signed-tofu
     share: cross-signed-tofu
+
 logging:
   min_level: info
   writers:
