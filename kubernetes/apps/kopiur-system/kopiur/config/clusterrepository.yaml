@@ -35,7 +35,7 @@ spec:
       storageClassName: zfs-spark
     securityContext:
       allowPrivilegeEscalation: false
-      readOnlyRootFilesystem: true
+      # readOnlyRootFilesystem: true # issue with verify jobs?
       capabilities: { drop: [ALL] }
       seccompProfile: { type: RuntimeDefault }
     ttlSecondsAfterFinished: 300
