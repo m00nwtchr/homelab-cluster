@@ -25,5 +25,16 @@ spec:
         cron: H 3 * * *
   volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=csi-zfs}
   mover:
-    inheritSecurityContextFrom:
-      pvcConsumer: {}
+    securityContext:
+      capabilities: { drop: [ALL] }
+      seccompProfile: { type: RuntimeDefault }
+      readOnlyRootFilesystem: true
+      allowPrivilegeEscalation: false
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: ${KOPIUR_PUID:=${PUID:=65532}}
+      runAsGroup: ${KOPIUR_PGID:=${PGID:=65532}}
+      fsGroup: ${KOPIUR_PGID:=${PGID:=65532}}
+      fsGroupChangePolicy: OnRootMismatch
+    # inheritSecurityContextFrom:
+    #   pvcConsumer: {}
