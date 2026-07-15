@@ -29,6 +29,9 @@ spec:
     deployment:
       priorityClassName: envoy-gateway-priority
 
+    crds:
+      enabled: false
+
     config:
       envoyGateway:
         provider:
