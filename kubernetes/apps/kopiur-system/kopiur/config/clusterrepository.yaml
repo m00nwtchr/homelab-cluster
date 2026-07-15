@@ -34,8 +34,10 @@ spec:
       capacity: 1Gi
       storageClassName: zfs-spark
     securityContext:
-      runAsUser: 65532
-      runAsGroup: 65532
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities: { drop: [ALL] }
+      seccompProfile: { type: RuntimeDefault }
     ttlSecondsAfterFinished: 300
   scheduleDefaults:
     timezone: Europe/Warsaw
