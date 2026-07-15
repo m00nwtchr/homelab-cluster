@@ -25,6 +25,8 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      KOPIUR_PUID: "2000"
+      KOPIUR_PGID: "2000"
       OIDC_DISPLAY_NAME: Shelfmark
       OIDC_GROUP: admins
       OIDC_SCOPES: '["openid", "profile"]'
