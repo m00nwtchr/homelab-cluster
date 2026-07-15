@@ -18,6 +18,7 @@ spec:
         name: ${APP}
   verification:
     deep:
+      capacity: ${KOPIUR_CAPACITY:=5Gi}
       schedule:
         cron: H 5 1 * *
     quick:
