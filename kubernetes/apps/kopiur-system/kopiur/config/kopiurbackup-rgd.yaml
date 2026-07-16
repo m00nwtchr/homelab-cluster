@@ -122,6 +122,8 @@ spec:
             quick:
               schedule: { cron: "H 3 * * *" }
           volumeSnapshotClassName: ${schema.spec.snapshotClass}
+          identity:
+            username: ${schema.metadata.name}
           mover:
             securityContext:
               runAsNonRoot: true
