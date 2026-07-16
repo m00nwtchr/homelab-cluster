@@ -6,3 +6,4 @@ resources:
   - ./clusterrepository.yaml
   - ./externalsecret.yaml
   - ./httproute.yaml
+  - ./kopiurbackup-rgd.yaml

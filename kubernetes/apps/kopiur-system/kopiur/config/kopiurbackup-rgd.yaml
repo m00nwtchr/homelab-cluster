@@ -1,0 +1,142 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kro.run/resourcegraphdefinition_v1alpha1.json
+apiVersion: kro.run/v1alpha1
+kind: ResourceGraphDefinition
+metadata:
+  name: kopiurbackup
+spec:
+  schema:
+    apiVersion: v1alpha1
+    kind: KopiurBackup
+    scope: Namespaced
+    spec:
+      scope: string | enum="local,remote,both" default="both"
+      pvcName: "string | default=${schema.metadata.name}"
+      capacity: string | default="5Gi"
+      storageClass: string | default="zfs-spark"
+      accessModes: '[]string | default=["ReadWriteOnce"]'
+      snapshotClass: string | default="csi-zfs"
+      puid: string | default="1000"
+      pgid: string | default="1000"
+      # Schema gotcha (Task 1 finding A): kro SimpleSchema's `enum{...}` is
+      # rejected at admission; use `string | enum="a,b,c" default="x"`.
+      # Schema gotcha (Task 1 finding B): `puid`/`pgid` are `string` (not
+      # `integer`) so Flux substitutes work whether quoted or unquoted;
+      # the existing `${int(...)}` CEL at every destination does the
+      # string→int64 coercion.
+  resources:
+    - id: pvc
+      template:
+        apiVersion: v1
+        kind: PersistentVolumeClaim
+        metadata:
+          name: ${schema.spec.pvcName}
+          annotations:
+            kustomize.toolkit.fluxcd.io/prune: disabled
+        spec:
+          accessModes: ${schema.spec.accessModes}
+          dataSourceRef:
+            apiVersion: kopiur.home-operations.com/v1alpha1
+            kind: Restore
+            name: ${schema.metadata.name}
+          resources:
+            requests:
+              storage: ${schema.spec.capacity}
+          storageClassName: ${schema.spec.storageClass}
+    - id: restore
+      template:
+        apiVersion: kopiur.home-operations.com/v1alpha1
+        kind: Restore
+        metadata:
+          name: ${schema.metadata.name}
+        spec:
+          policy: { onMissingSnapshot: Continue }
+          source:
+            fromPolicy:
+              name: '${schema.spec.scope == "remote" ? schema.metadata.name + "-b2" : schema.metadata.name}'
+              offset: 0
+          target: { populator: {} }
+          mover:
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: ${int(schema.spec.puid)}
+              runAsGroup: ${int(schema.spec.pgid)}
+            podSecurityContext:
+              fsGroup: ${int(schema.spec.pgid)}
+              fsGroupChangePolicy: OnRootMismatch
+    - id: localPolicy
+      includeWhen:
+        - ${schema.spec.scope == "local" || schema.spec.scope == "both"}
+      template:
+        apiVersion: kopiur.home-operations.com/v1alpha1
+        kind: SnapshotPolicy
+        metadata: { name: "${schema.metadata.name}" }
+        spec:
+          repository: { kind: ClusterRepository, name: garage }
+          retention: { keepDaily: 7, keepHourly: 24 }
+          compression: { compressor: zstd }
+          sources:
+            - pvc: { name: "${schema.spec.pvcName}" }
+          verification:
+            deep:
+              capacity: ${schema.spec.capacity}
+              schedule: { cron: "H 5 1 * *" }
+            quick:
+              schedule: { cron: "H 3 * * *" }
+          volumeSnapshotClassName: ${schema.spec.snapshotClass}
+          mover:
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: ${int(schema.spec.puid)}
+              runAsGroup: ${int(schema.spec.pgid)}
+            podSecurityContext:
+              fsGroup: ${int(schema.spec.pgid)}
+              fsGroupChangePolicy: OnRootMismatch
+    - id: localSchedule
+      includeWhen:
+        - ${schema.spec.scope == "local" || schema.spec.scope == "both"}
+      template:
+        apiVersion: kopiur.home-operations.com/v1alpha1
+        kind: SnapshotSchedule
+        metadata: { name: "${schema.metadata.name}" }
+        spec:
+          policyRef: { name: "${schema.metadata.name}" }
+          schedule: { cron: "H * * * *" }
+    - id: remotePolicy
+      includeWhen:
+        - ${schema.spec.scope == "remote" || schema.spec.scope == "both"}
+      template:
+        apiVersion: kopiur.home-operations.com/v1alpha1
+        kind: SnapshotPolicy
+        metadata: { name: '${schema.metadata.name + "-b2"}' }
+        spec:
+          repository: { kind: ClusterRepository, name: b2 }
+          retention: { keepDaily: 7 }
+          compression: { compressor: zstd }
+          sources:
+            - pvc: { name: "${schema.spec.pvcName}" }
+          verification:
+            deep:
+              capacity: ${schema.spec.capacity}
+              schedule: { cron: "H 5 1 * *" }
+            quick:
+              schedule: { cron: "H 3 * * *" }
+          volumeSnapshotClassName: ${schema.spec.snapshotClass}
+          mover:
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: ${int(schema.spec.puid)}
+              runAsGroup: ${int(schema.spec.pgid)}
+            podSecurityContext:
+              fsGroup: ${int(schema.spec.pgid)}
+              fsGroupChangePolicy: OnRootMismatch
+    - id: remoteSchedule
+      includeWhen:
+        - ${schema.spec.scope == "remote" || schema.spec.scope == "both"}
+      template:
+        apiVersion: kopiur.home-operations.com/v1alpha1
+        kind: SnapshotSchedule
+        metadata: { name: '${schema.metadata.name + "-b2"}' }
+        spec:
+          policyRef: { name: '${schema.metadata.name + "-b2"}' }
+          schedule: { cron: "H 0 * * *" }
