@@ -14,7 +14,7 @@
 - Kopiur CRDs: `kopiur.home-operations.com/v1alpha1` — `Restore`, `SnapshotPolicy`, `SnapshotSchedule`, `ClusterRepository`.
 - Flux `Kustomization` namespaces: per-app via `spec.targetNamespace`; kustomize auto-applies to resources without `metadata.namespace`.
 - 29 consumer apps — none of their `ks.yaml` files are modified.
-- `puid`/`pgid` declared `integer` in RGD schema; instance templates coerce via `${int(...)}`.
+- `puid`/`pgid` declared `string` in RGD schema; instance templates coerce via `${int(...)}`. (Verified in Task 1: `string` accepts both quoted and unquoted Flux substitutes; `integer` rejects the quoted form.)
 - `scope: enum{local, remote, both}` default `"both"`.
 - All file paths below are relative to repo root `/home/m00n/Documents/Projects/homelab-cluster`.
 
@@ -71,7 +71,7 @@
 
 **Files:**
 
-- Create: `kubernetes/apps/kopiur-system/kopiur/config/kopiurbackup-rgd.yaml`
+- Create: `kubernetes/apps/kopiur-system/kopiur/config/kopiurbackup-rgd.yaml` — the RGD definition (full body in this task's Step 1, validated against kro v0.9.2; see "Adjustments from Task 1" below the body).
 - Modify: `kubernetes/apps/kopiur-system/kopiur/config/kustomization.yaml`
 
 **Interfaces:**
@@ -95,14 +95,20 @@
         kind: KopiurBackup
         scope: Namespaced
         spec:
-          scope:         enum{local, remote, both} | default="both"
-          pvcName:       string                     | default=${schema.metadata.name}
-          capacity:      string                     | default="5Gi"
-          storageClass:  string                     | default="zfs-spark"
-          accessModes:   []string                   | default=["ReadWriteOnce"]
-          snapshotClass: string                     | default="csi-zfs"
-          puid:          integer                    | default=1000
-          pgid:          integer                    | default=1000
+      scope:         string  | enum="local,remote,both" default="both"
+      pvcName:       string  | default=${schema.metadata.name}
+      capacity:      string  | default="5Gi"
+      storageClass:  string  | default="zfs-spark"
+      accessModes:   []string | default=["ReadWriteOnce"]
+      snapshotClass: string  | default="csi-zfs"
+      puid:          string  | default="1000"
+      pgid:          string  | default="1000"
+      # Schema gotcha (Task 1 finding A): kro SimpleSchema's `enum{...}` is
+      # rejected at admission; use `string | enum="a,b,c" default="x"`.
+      # Schema gotcha (Task 1 finding B): `puid`/`pgid` are `string` (not
+      # `integer`) so Flux substitutes work whether quoted or unquoted;
+      # the existing `${int(...)}` CEL at every destination does the
+      # string→int64 coercion.
       resources:
         - id: pvc
           template:

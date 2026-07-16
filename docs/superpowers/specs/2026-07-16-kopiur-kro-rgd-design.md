@@ -79,14 +79,14 @@ spec:
     kind: KopiurBackup
     scope: Namespaced
     spec:
-      scope:         enum{local, remote, both} | default="both"
-      pvcName:       string      | default=${schema.metadata.name}
-      capacity:      string      | default="5Gi"
-      storageClass:  string      | default="zfs-spark"
-      accessModes:   []string    | default=["ReadWriteOnce"]
-      snapshotClass: string      | default="csi-zfs"
-      puid:          integer     | default=1000
-      pgid:          integer     | default=1000
+      scope:         string  | enum="local,remote,both" default="both"
+      pvcName:       string  | default=${schema.metadata.name}
+      capacity:      string  | default="5Gi"
+      storageClass:  string  | default="zfs-spark"
+      accessModes:   []string | default=["ReadWriteOnce"]
+      snapshotClass: string  | default="csi-zfs"
+      puid:          string  | default="1000"
+      pgid:          string  | default="1000"
   resources:
     - id: pvc
       template:
@@ -231,9 +231,12 @@ mechanism the original `base/pvc.yaml` relied upon.
 ### Edge cases handled inline
 
 - **`puid`/`pgid` type drift.** Flux `postBuild.substitute` produces
-  strings. The RGD schema declares `integer`. The instance template
-  uses `${int(schema.spec.puid)}` / `${int(schema.spec.pgid)}` so a
-  string `"10000"` is coerced before reaching the kopiur CR.
+  strings (quoted or unquoted depending on source). The RGD schema
+  declares `string | default="1000"`; the instance template uses
+  `${int(schema.spec.puid)}` / `${int(schema.spec.pgid)}` at every
+  destination to coerce before reaching the kopiur CR. This accepts
+  both quoted (`"10000"`) and unquoted (`10000`) substitutes (verified
+  in Task 1 against kro v0.9.2).
 - **Single `Restore` across scopes.** Today's kustomize layout has
   local and remote Restores mutually exclusive at the include level
   (root component does _not_ include `remote/restore.yaml`). The
@@ -323,7 +326,10 @@ The change set is fully reversible:
       files = §6 behaviour preserved.
 - [x] Scope is single-plan-sized (one RGD + three Component edits +
       file moves).
-- [x] Two-way ambiguous requirements resolved: - `scope` defaults to `both` (matches today's root component). - `puid`/`pgid` declared `integer` in schema, coerced via
-      `${int(...)}` because Flux substitutes strings. - `Restore` is _always_ one (today has exactly one in each
+- [x] Two-way ambiguous requirements resolved: - `scope` defaults to `both` (matches today's root component). - `puid`/`pgid` declared `string` in schema, coerced via
+      `${int(...)}` because Flux substitutes strings (Task 1
+      finding B; corrected in this revision). - enum syntax is `string | enum="local,remote,both"`, not
+      `enum{local, remote, both}` (Task 1 finding A). - `Restore` is _always_ one (today has exactly one in each
       mode); only its `fromPolicy.name` differs by mode. - `metadata.namespace` not set in the instance template
+      (kustomize auto-applies from the parent `targetNamespace`).
       (kustomize auto-applies from the parent `targetNamespace`).
