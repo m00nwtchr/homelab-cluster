@@ -36,7 +36,7 @@ spec:
         spec:
           accessModes: ${schema.spec.accessModes}
           dataSourceRef:
-            apiVersion: kopiur.home-operations.com/v1alpha1
+            apiGroup: kopiur.home-operations.com
             kind: Restore
             name: ${schema.metadata.name}
           resources:
