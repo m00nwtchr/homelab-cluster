@@ -9,6 +9,7 @@ spec:
   scope: remote
   create: false
   copyMethod: Direct
+  remoteDeepVerify: false
   pvcName: photos
   capacity: 60Gi
   puid: "1000"
