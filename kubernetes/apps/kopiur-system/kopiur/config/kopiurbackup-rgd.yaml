@@ -45,7 +45,7 @@ spec:
           dataSourceRef:
             apiGroup: kopiur.home-operations.com
             kind: Restore
-            name: ${schema.metadata.name}
+            name: ${restore.metadata.name}
           resources:
             requests:
               storage: ${schema.spec.capacity}
@@ -107,7 +107,7 @@ spec:
         kind: SnapshotSchedule
         metadata: { name: "${schema.metadata.name}" }
         spec:
-          policyRef: { name: "${schema.metadata.name}" }
+          policyRef: { name: "${localPolicy.metadata.name}" }
           schedule: { cron: "H * * * *" }
     - id: remotePolicy
       includeWhen:
@@ -147,5 +147,5 @@ spec:
         kind: SnapshotSchedule
         metadata: { name: '${schema.metadata.name + "-b2"}' }
         spec:
-          policyRef: { name: '${schema.metadata.name + "-b2"}' }
+          policyRef: { name: "${remotePolicy.metadata.name}" }
           schedule: { cron: "H 0 * * *" }
