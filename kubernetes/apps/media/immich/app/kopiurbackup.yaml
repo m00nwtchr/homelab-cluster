@@ -8,6 +8,7 @@ metadata:
 spec:
   scope: remote
   create: false
+  copyMethod: Direct
   pvcName: photos
   capacity: 60Gi
   puid: "1000"

@@ -12,6 +12,7 @@ spec:
     spec:
       scope: string | enum="local,remote,both" default="both"
       create: boolean | default=true
+      copyMethod: string | enum="Snapshot,Direct" default="Snapshot"
       pvcName: "string | default=${schema.metadata.name}"
       capacity: string | default="5Gi"
       storageClass: string | default="zfs-spark"
@@ -29,6 +30,11 @@ spec:
       # When false, consumers own the PVC themselves (the Restore and
       # snapshot policy/schedule still run; the externally-managed PVC
       # must carry dataSourceRef pointing at the Restore).
+      # `copyMethod` (default "Snapshot") chooses between CSI-snapshot
+      # and Direct (live mount) staging. Set to "Direct" for PVCs that
+      # lack a StorageClass/CSI provisioner annotation (e.g. pre-bound
+      # PVs created with `volumeName:`); kopiur's default `Snapshot`
+      # otherwise requires the source PVC to advertise a CSI provisioner.
   resources:
     - id: pvc
       includeWhen:
@@ -81,6 +87,7 @@ spec:
         kind: SnapshotPolicy
         metadata: { name: "${schema.metadata.name}" }
         spec:
+          copyMethod: ${schema.spec.copyMethod}
           repository: { kind: ClusterRepository, name: garage }
           retention: { keepDaily: 7, keepHourly: 24 }
           compression: { compressor: zstd }
@@ -119,6 +126,7 @@ spec:
         kind: SnapshotPolicy
         metadata: { name: '${schema.metadata.name + "-b2"}' }
         spec:
+          copyMethod: ${schema.spec.copyMethod}
           repository: { kind: ClusterRepository, name: b2 }
           retention: { keepDaily: 7 }
           compression: { compressor: zstd }
