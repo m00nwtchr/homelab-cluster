@@ -13,6 +13,7 @@ spec:
       scope: string | enum="local,remote,both" default="both"
       create: boolean | default=true
       copyMethod: string | enum="Snapshot,Direct" default="Snapshot"
+      remoteDeepVerify: boolean | default=true
       pvcName: "string | default=${schema.metadata.name}"
       capacity: string | default="5Gi"
       storageClass: string | default="zfs-spark"
@@ -35,6 +36,10 @@ spec:
       # lack a StorageClass/CSI provisioner annotation (e.g. pre-bound
       # PVs created with `volumeName:`); kopiur's default `Snapshot`
       # otherwise requires the source PVC to advertise a CSI provisioner.
+      # `remoteDeepVerify` (default true) toggles the daily deep-verify
+      # job on the remote (b2) SnapshotPolicy. Local snapshot policy is
+      # unaffected. Useful for big/expensive-to-read PVCs where the
+      # nightly full-content checksum pass would saturate the network.
   resources:
     - id: pvc
       includeWhen:
@@ -133,9 +138,7 @@ spec:
           sources:
             - pvc: { name: "${schema.spec.pvcName}" }
           verification:
-            deep:
-              capacity: ${schema.spec.capacity}
-              schedule: { cron: "H 5 1 * *" }
+            deep: '${schema.spec.remoteDeepVerify ? {"capacity": schema.spec.capacity, "schedule": {"cron": "H 5 1 * *"}} : {}}'
             quick:
               schedule: { cron: "H 3 * * *" }
           volumeSnapshotClassName: ${schema.spec.snapshotClass}
