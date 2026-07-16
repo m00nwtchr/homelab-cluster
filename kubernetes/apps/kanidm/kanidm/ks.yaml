@@ -37,15 +37,12 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/volsync
     - ../../../../components/kopiur
     - ../../../../components/gatus/external
     - ../../../../components/tls
   dependsOn:
     # - name: kaniop
     #   namespace: kanidm
-    - name: volsync
-      namespace: volsync-system
     - name: kopiur
       namespace: kopiur-system
   #  healthChecks:
@@ -60,8 +57,6 @@ spec:
       APP: *app
       SUBDOMAIN: idm
       TLS_KEY_SIZE: "256"
-      VOLSYNC_PUID: "999"
-      VOLSYNC_PGID: "999"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

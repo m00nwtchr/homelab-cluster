@@ -11,12 +11,9 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/oidc
-    - ../../../../components/volsync
     - ../../../../components/kopiur
     - ../../../../components/database
   dependsOn:
-    - name: volsync
-      namespace: volsync-system
     - name: kopiur
       namespace: kopiur-system
   interval: 1h
@@ -27,7 +24,6 @@ spec:
       NAMESPACE: *namespace
       SUBDOMAIN: gts
       DOMAIN: ${MAIN_DOMAIN}
-      VOLSYNC_CAPACITY: 10Gi
       KOPIUR_CAPACITY: 10Gi
       OIDC_DISPLAY_NAME: GoToSocial
       OIDC_CALLBACK: /auth/callback

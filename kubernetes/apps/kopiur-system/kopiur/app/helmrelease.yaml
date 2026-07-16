@@ -37,6 +37,10 @@ spec:
         memory: 2Gi
     streamingLists: true
 
+    features:
+      kopiaUi:
+        enabled: true
+
     installScope: cluster
 
     monitoring:

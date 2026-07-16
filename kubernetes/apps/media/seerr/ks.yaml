@@ -10,14 +10,11 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/volsync
     - ../../../../components/kopiur
     - ../../../../components/database
     - ../../../../components/oidc
     - ../../../../components/gatus/guarded
   dependsOn:
-    - name: volsync
-      namespace: volsync-system
     - name: kopiur
       namespace: kopiur-system
   interval: 1h
@@ -27,7 +24,6 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       SUBDOMAIN: requests
-      VOLSYNC_CAPACITY: 1Gi
       KOPIUR_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: Seerr
       OIDC_CALLBACK: /login?provider=kanidm&callback=true

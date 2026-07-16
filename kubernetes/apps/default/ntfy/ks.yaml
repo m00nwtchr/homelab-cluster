@@ -12,9 +12,6 @@ spec:
   components:
     - ../../../../components/database
     - ../../../../components/gatus/external
-  dependsOn:
-    - name: volsync
-      namespace: volsync-system
   interval: 1h
   path: ./kubernetes/apps/default/ntfy/app
   postBuild:

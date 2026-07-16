@@ -11,13 +11,10 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/oidc
-    - ../../../../components/volsync
     - ../../../../components/kopiur
     - ../../../../components/database
     # - ../../../../components/gatus/guarded
   dependsOn:
-    - name: volsync
-      namespace: volsync-system
     - name: kopiur
       namespace: kopiur-system
   interval: 1h
@@ -26,7 +23,6 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
-      VOLSYNC_CAPACITY: 1Gi
       KOPIUR_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: "SFTPGo"
       OIDC_CALLBACK: /web/oidc/redirect

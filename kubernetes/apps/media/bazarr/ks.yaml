@@ -11,15 +11,12 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/oidc/envoy
-    - ../../../../components/volsync
     - ../../../../components/kopiur
     - ../../../../components/database
     - ../../../../components/gatus/guarded
   dependsOn:
     - name: envoy-gateway
       namespace: network
-    - name: volsync
-      namespace: volsync-system
     - name: kopiur
       namespace: kopiur-system
   interval: 1h
@@ -28,7 +25,6 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
-      VOLSYNC_CAPACITY: 1Gi
       KOPIUR_CAPACITY: 1Gi
       OIDC_DISPLAY_NAME: Bazarr
       OIDC_GROUP: admins

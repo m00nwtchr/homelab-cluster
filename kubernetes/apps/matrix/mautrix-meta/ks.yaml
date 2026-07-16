@@ -10,11 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    #    - ../../../../components/volsync
     - ../../../../components/database
-  #  dependsOn:
-  #    - name: volsync
-  #      namespace: volsync-system
   interval: 1h
   path: ./kubernetes/apps/matrix/mautrix-meta/app
   postBuild:

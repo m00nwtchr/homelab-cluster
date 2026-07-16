@@ -12,11 +12,8 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/database
-    - ../../../../components/volsync
     - ../../../../components/kopiur
   dependsOn:
-    - name: volsync
-      namespace: volsync-system
     - name: kopiur
       namespace: kopiur-system
   interval: 30m

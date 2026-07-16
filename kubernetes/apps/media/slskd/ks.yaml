@@ -21,7 +21,6 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
-      VOLSYNC_CAPACITY: 1Gi
       OIDC_GROUP: admins
       OIDC_SCOPES: '["openid", "profile"]'
     substituteFrom:

@@ -11,12 +11,9 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/oidc
-    - ../../../../components/volsync
     - ../../../../components/kopiur
     - ../../../../components/gatus/external
   dependsOn:
-    - name: volsync
-      namespace: volsync-system
     - name: kopiur
       namespace: kopiur-system
   interval: 1h

@@ -12,7 +12,6 @@ spec:
   components:
     - ../../../../components/oidc
     # - ../../../../components/database
-    - ../../../../components/volsync
     - ../../../../components/kopiur
     - ../../../../components/secret
   interval: 1h

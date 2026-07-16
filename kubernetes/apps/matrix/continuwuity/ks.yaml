@@ -10,13 +10,10 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/volsync/local
     - ../../../../components/kopiur/local
     - ../../../../components/gatus/external
     - ../../../../components/oidc
   dependsOn:
-    - name: volsync
-      namespace: volsync-system
     - name: kopiur
       namespace: kopiur-system
   interval: 1h
@@ -30,7 +27,6 @@ spec:
       OIDC_DISPLAY_NAME: "Matrix"
       OIDC_CALLBACK: /_continuwuity/oidc/complete
 
-      VOLSYNC_CAPACITY: 8Gi
       KOPIUR_CAPACITY: 8Gi
     substituteFrom:
       - name: cluster-secrets

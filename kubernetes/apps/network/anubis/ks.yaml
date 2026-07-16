@@ -11,9 +11,6 @@ spec:
       app.kubernetes.io/name: *app
   components: []
     # - ../../../../components/gatus/guarded
-  dependsOn:
-    - name: volsync
-      namespace: volsync-system
   interval: 1h
   path: ./kubernetes/apps/network/anubis/app
   postBuild:
