@@ -15,7 +15,7 @@ spec:
     compressor: "zstd"
   sources:
     - pvc:
-        name: ${APP}
+        name: ${KOPIUR_PVC:=${APP}}
   verification:
     deep:
       capacity: ${KOPIUR_CAPACITY:=5Gi}

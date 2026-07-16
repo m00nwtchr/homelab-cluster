@@ -15,6 +15,7 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/database
+    - ../../../../components/kopiur
     - ../../../../components/dragonfly/noproxy
     - ../../../../components/gatus/guarded
     - ../../../../components/keda-http
@@ -25,6 +26,8 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       CONTROLLER: StatefulSet
+      KOPIUR_PVC: paperless-media
+      KOPIUR_CAPACITY: 10Gi
       OIDC_DISPLAY_NAME: "Paperless"
       OIDC_CALLBACK: /accounts/oidc/kanidm/login/callback/
       OIDC_IMAGE_NAME: paperless-ngx
