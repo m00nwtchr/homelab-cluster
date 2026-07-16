@@ -13,3 +13,11 @@ spec:
       offset: 0
   target:
     populator: {}
+  mover:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: ${KOPIUR_PUID:=${PUID:=1000}}
+      runAsGroup: ${KOPIUR_PGID:=${PGID:=1000}}
+    podSecurityContext:
+      fsGroup: ${KOPIUR_PGID:=${PGID:=1000}}
+      fsGroupChangePolicy: OnRootMismatch
