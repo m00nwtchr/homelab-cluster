@@ -56,11 +56,13 @@ spec:
   allowedNamespaces:
     all: true
   backend:
-    b2:
+    s3:
       auth:
         secretRef:
           name: kopiur-b2-secret
-      bucket: kopia
+      endpoint: s3.eu-central-003.backblazeb2.com
+      region: eu-central-003
+      bucket: kopia-7dc5
   encryption:
     passwordSecretRef:
       name: kopiur-b2-secret
