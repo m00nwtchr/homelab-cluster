@@ -11,6 +11,7 @@ spec:
     scope: Namespaced
     spec:
       scope: string | enum="local,remote,both" default="both"
+      create: boolean | default=true
       pvcName: "string | default=${schema.metadata.name}"
       capacity: string | default="5Gi"
       storageClass: string | default="zfs-spark"
@@ -24,8 +25,14 @@ spec:
       # `integer`) so Flux substitutes work whether quoted or unquoted;
       # the existing `${int(...)}` CEL at every destination does the
       # string→int64 coercion.
+      # `create` (default true) opts in/out of the RGD managing the PVC.
+      # When false, consumers own the PVC themselves (the Restore and
+      # snapshot policy/schedule still run; the externally-managed PVC
+      # must carry dataSourceRef pointing at the Restore).
   resources:
     - id: pvc
+      includeWhen:
+        - ${schema.spec.create}
       template:
         apiVersion: v1
         kind: PersistentVolumeClaim
