@@ -1,0 +1,23 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kopiur.home-operations.com/restore_v1alpha1.json
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: Restore
+metadata:
+  name: ${APP}
+spec:
+  policy:
+    onMissingSnapshot: Continue
+  source:
+    fromPolicy:
+      name: ${APP}-b2
+      offset: 0
+  target:
+    populator: {}
+  mover:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: ${KOPIUR_PUID:=${PUID:=1000}}
+      runAsGroup: ${KOPIUR_PGID:=${PGID:=1000}}
+    podSecurityContext:
+      fsGroup: ${KOPIUR_PGID:=${PGID:=1000}}
+      fsGroupChangePolicy: OnRootMismatch

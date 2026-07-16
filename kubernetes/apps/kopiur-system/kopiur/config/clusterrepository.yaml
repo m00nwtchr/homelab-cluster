@@ -40,7 +40,7 @@ spec:
       seccompProfile: { type: RuntimeDefault }
     ttlSecondsAfterFinished: 300
   scheduleDefaults:
-    timezone: Europe/Warsaw
+    timezone: "${TZ}"
   server:
     auth:
       insecure:
@@ -68,7 +68,7 @@ spec:
       key: KOPIA_PASSWORD
   moverDefaults:
     cache:
-      capacity: 1Gi
+      capacity: 2Gi
       mode: Ephemeral
       storageClassName: zfs-spark
     podSecurityContext:
@@ -78,8 +78,15 @@ spec:
       capacity: 1Gi
       storageClassName: zfs-spark
     securityContext:
-      runAsUser: 65532
-      runAsGroup: 65532
+      allowPrivilegeEscalation: false
+      # readOnlyRootFilesystem: true # issue with verify jobs?
+      capabilities: { drop: [ALL] }
+      seccompProfile: { type: RuntimeDefault }
     ttlSecondsAfterFinished: 300
   scheduleDefaults:
-    timezone: Europe/Warsaw
+    timezone: "${TZ}"
+  server:
+    auth:
+      insecure:
+        acknowledgeInsecure: true
+    namespace: kopiur-system

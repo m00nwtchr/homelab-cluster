@@ -5,4 +5,4 @@ kind: Component
 resources:
   - ../base
   - ../base/remote
-  - ./replicationdestination.yaml
+  - ./restore.yaml
