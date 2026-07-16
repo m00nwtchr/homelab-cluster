@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/fluxcd.controlplane.io/resourceset_v1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/controlplaneio-fluxcd/flux-operator/refs/heads/main/docs/schemas/resourceset_v1.json
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
 metadata:
@@ -36,6 +36,7 @@ spec:
     - namespace: keda
     - namespace: kguardian
     - namespace: kopiur-system
+    - namespace: kro-system
     - namespace: kube-system
     - namespace: kubevirt
     - namespace: kubewarden
