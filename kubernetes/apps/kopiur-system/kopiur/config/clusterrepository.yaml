@@ -24,7 +24,7 @@ spec:
       key: KOPIA_PASSWORD
   moverDefaults:
     cache:
-      capacity: 1Gi
+      capacity: 2Gi
       mode: Ephemeral
       storageClassName: zfs-spark
     podSecurityContext:
