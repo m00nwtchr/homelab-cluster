@@ -51,6 +51,8 @@ spec:
               storage: ${schema.spec.capacity}
           storageClassName: ${schema.spec.storageClass}
     - id: restore
+      includeWhen:
+        - ${schema.spec.create}
       template:
         apiVersion: kopiur.home-operations.com/v1alpha1
         kind: Restore

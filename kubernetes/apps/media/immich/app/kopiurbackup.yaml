@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kro.run/kopiurbackup_v1alpha1.json
+apiVersion: kro.run/v1alpha1
+kind: KopiurBackup
+metadata:
+  name: photos
+  namespace: media
+spec:
+  scope: remote
+  create: false
+  pvcName: photos
+  capacity: 60Gi
+  puid: "1000"
+  pgid: "1000"
