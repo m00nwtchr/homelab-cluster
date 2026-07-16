@@ -28,6 +28,7 @@ spec:
       CONTROLLER: StatefulSet
       KOPIUR_PVC: paperless-media
       KOPIUR_CAPACITY: 10Gi
+      KOPIUR_STORAGECLASS: zfs-vault
       OIDC_DISPLAY_NAME: "Paperless"
       OIDC_CALLBACK: /accounts/oidc/kanidm/login/callback/
       OIDC_IMAGE_NAME: paperless-ngx
