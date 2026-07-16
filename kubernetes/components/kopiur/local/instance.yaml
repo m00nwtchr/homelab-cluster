@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kro.run/kopiurbackup_v1alpha1.json
+apiVersion: kro.run/v1alpha1
+kind: KopiurBackup
+metadata:
+  name: ${APP}
+spec:
+  scope: local
+  pvcName: ${KOPIUR_PVC:=${APP}}
+  capacity: ${KOPIUR_CAPACITY:=5Gi}
+  storageClass: ${KOPIUR_STORAGECLASS:=zfs-spark}
+  accessModes:
+    - ${KOPIUR_ACCESSMODES:=ReadWriteOnce}
+  snapshotClass: ${KOPIUR_SNAPSHOTCLASS:=csi-zfs}
+  puid: ${KOPIUR_PUID:=${PUID:=1000}}
+  pgid: ${KOPIUR_PGID:=${PGID:=1000}}
