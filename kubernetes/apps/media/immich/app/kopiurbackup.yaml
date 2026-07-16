@@ -5,6 +5,8 @@ kind: KopiurBackup
 metadata:
   name: photos
   namespace: media
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   scope: remote
   create: false

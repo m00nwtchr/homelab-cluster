@@ -4,6 +4,8 @@ apiVersion: kro.run/v1alpha1
 kind: KopiurBackup
 metadata:
   name: ${APP}
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   pvcName: ${KOPIUR_PVC:=${APP}}
   capacity: ${KOPIUR_CAPACITY:=5Gi}
