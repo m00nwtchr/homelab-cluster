@@ -4,6 +4,8 @@ apiVersion: kro.run/v1alpha1
 kind: ResourceGraphDefinition
 metadata:
   name: kopiurbackup
+  annotations:
+    kro.run/allow-breaking-changes: "true"
 spec:
   schema:
     apiVersion: v1alpha1
@@ -19,14 +21,10 @@ spec:
       storageClass: string | default="zfs-spark"
       accessModes: '[]string | default=["ReadWriteOnce"]'
       snapshotClass: string | default="csi-zfs"
-      puid: string | default="1000"
-      pgid: string | default="1000"
+      puid: integer | default=1000
+      pgid: integer | default=1000
       # Schema gotcha (Task 1 finding A): kro SimpleSchema's `enum{...}` is
       # rejected at admission; use `string | enum="a,b,c" default="x"`.
-      # Schema gotcha (Task 1 finding B): `puid`/`pgid` are `string` (not
-      # `integer`) so Flux substitutes work whether quoted or unquoted;
-      # the existing `${int(...)}` CEL at every destination does the
-      # string→int64 coercion.
       # `create` (default true) opts in/out of the RGD managing the PVC.
       # When false, consumers own the PVC themselves (the Restore and
       # snapshot policy/schedule still run; the externally-managed PVC
@@ -79,10 +77,10 @@ spec:
           mover:
             securityContext:
               runAsNonRoot: true
-              runAsUser: ${int(schema.spec.puid)}
-              runAsGroup: ${int(schema.spec.pgid)}
+              runAsUser: ${schema.spec.puid}
+              runAsGroup: ${schema.spec.pgid}
             podSecurityContext:
-              fsGroup: ${int(schema.spec.pgid)}
+              fsGroup: ${schema.spec.pgid}
               fsGroupChangePolicy: OnRootMismatch
     - id: localPolicy
       includeWhen:
@@ -108,10 +106,10 @@ spec:
           mover:
             securityContext:
               runAsNonRoot: true
-              runAsUser: ${int(schema.spec.puid)}
-              runAsGroup: ${int(schema.spec.pgid)}
+              runAsUser: ${schema.spec.puid}
+              runAsGroup: ${schema.spec.pgid}
             podSecurityContext:
-              fsGroup: ${int(schema.spec.pgid)}
+              fsGroup: ${schema.spec.pgid}
               fsGroupChangePolicy: OnRootMismatch
     - id: localSchedule
       includeWhen:
@@ -147,10 +145,10 @@ spec:
           mover:
             securityContext:
               runAsNonRoot: true
-              runAsUser: ${int(schema.spec.puid)}
-              runAsGroup: ${int(schema.spec.pgid)}
+              runAsUser: ${schema.spec.puid}
+              runAsGroup: ${schema.spec.pgid}
             podSecurityContext:
-              fsGroup: ${int(schema.spec.pgid)}
+              fsGroup: ${schema.spec.pgid}
               fsGroupChangePolicy: OnRootMismatch
     - id: remoteSchedule
       includeWhen:
