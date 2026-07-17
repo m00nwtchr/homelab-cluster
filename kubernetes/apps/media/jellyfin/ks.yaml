@@ -22,6 +22,8 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      KOPIUR_PUID: "2000"
+      KOPIUR_PGID: "2000"
       OIDC_DISPLAY_NAME: "Jellyfin"
       OIDC_CALLBACK: /sso/OID/redirect/kanidm
       OIDC_EXTRA_CALLBACKS: '["https://jellyfin.m00nlit.dev/sso/OID/r/kanidm"]'
