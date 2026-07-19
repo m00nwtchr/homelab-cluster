@@ -67,12 +67,15 @@ spec:
                     key: url
             resources:
               requests:
-                cpu: 10m
+                cpu: 77m
               # limits:
               #   memory: 512Mi
+                memory: 422Mi
+              limits:
+                memory: 422Mi
             securityContext:
               allowPrivilegeEscalation: false
-              capabilities: { drop: [ALL] }
+              capabilities: {drop: [ALL]}
 
     persistence:
       storage:

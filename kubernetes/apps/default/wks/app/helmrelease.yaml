@@ -36,6 +36,12 @@ spec:
             ports:
               - containerPort: 3434
 
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 100Mi
     service:
       app:
         controller: *app

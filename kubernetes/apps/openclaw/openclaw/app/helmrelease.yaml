@@ -63,11 +63,11 @@ spec:
                   name: openclaw
             resources:
               requests:
-                cpu: 1
-                memory: 2Gi
+                cpu: 329m
+                memory: 1561Mi
               limits:
                 cpu: 10
-                memory: 16Gi
+                memory: 1561Mi
 
           codeserver:
             image:
@@ -75,23 +75,13 @@ spec:
               tag: 4.117.0@sha256:e6702766518b961c7e3c41095c129c7c9a82b041578c53326c52fa363a057727
             env:
               TZ: *tz
-            args:
-              [
-                "--auth",
-                "none",
-                "--user-data-dir",
-                "/home/node/.vscode",
-                "--extensions-dir",
-                "/home/node/.vscode",
-                "--port",
-                "12321",
-                "/config",
-              ]
+            args: ["--auth", "none", "--user-data-dir", "/home/node/.vscode", "--extensions-dir", "/home/node/.vscode", "--port", "12321", "/config"]
             resources:
               requests:
                 cpu: 10m
+                memory: 104Mi
               limits:
-                memory: 1Gi
+                memory: 104Mi
 
     persistence:
       data:
@@ -120,32 +110,10 @@ spec:
           rules:
             # Broad read-only access across cluster resources. Secrets intentionally excluded.
             - apiGroups: [""]
-              resources:
-                [
-                  "pods",
-                  "pods/log",
-                  "nodes",
-                  "services",
-                  "namespaces",
-                  "configmaps",
-                  "persistentvolumes",
-                  "persistentvolumeclaims",
-                  "endpoints",
-                  "resourcequotas",
-                  "limitranges",
-                  "serviceaccounts",
-                  "events",
-                ]
+              resources: ["pods", "pods/log", "nodes", "services", "namespaces", "configmaps", "persistentvolumes", "persistentvolumeclaims", "endpoints", "resourcequotas", "limitranges", "serviceaccounts", "events"]
               verbs: ["get", "list", "watch"]
             - apiGroups: ["apps"]
-              resources:
-                [
-                  "deployments",
-                  "daemonsets",
-                  "statefulsets",
-                  "replicasets",
-                  "controllerrevisions",
-                ]
+              resources: ["deployments", "daemonsets", "statefulsets", "replicasets", "controllerrevisions"]
               verbs: ["get", "list", "watch"]
             - apiGroups: ["batch"]
               resources: ["jobs", "cronjobs"]
@@ -154,13 +122,7 @@ spec:
               resources: ["ingresses", "ingressclasses", "networkpolicies"]
               verbs: ["get", "list", "watch"]
             - apiGroups: ["storage.k8s.io"]
-              resources:
-                [
-                  "storageclasses",
-                  "csinodes",
-                  "csidrivers",
-                  "volumeattachments",
-                ]
+              resources: ["storageclasses", "csinodes", "csidrivers", "volumeattachments"]
               verbs: ["get", "list", "watch"]
             - apiGroups: ["autoscaling"]
               resources: ["horizontalpodautoscalers"]
@@ -172,8 +134,7 @@ spec:
               resources: ["leases"]
               verbs: ["get", "list", "watch"]
             - apiGroups: ["rbac.authorization.k8s.io"]
-              resources:
-                ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
+              resources: ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
               verbs: ["get", "list", "watch"]
             - apiGroups: ["apiextensions.k8s.io"]
               resources: ["customresourcedefinitions"]
@@ -191,38 +152,16 @@ spec:
               resources: ["kustomizations"]
               verbs: ["get", "list", "watch"]
             - apiGroups: ["source.toolkit.fluxcd.io"]
-              resources:
-                [
-                  "gitrepositories",
-                  "helmrepositories",
-                  "ocirepositories",
-                  "buckets",
-                  "helmcharts",
-                ]
+              resources: ["gitrepositories", "helmrepositories", "ocirepositories", "buckets", "helmcharts"]
               verbs: ["get", "list", "watch"]
             - apiGroups: ["external-secrets.io"]
-              resources:
-                ["externalsecrets", "secretstores", "clustersecretstores"]
+              resources: ["externalsecrets", "secretstores", "clustersecretstores"]
               verbs: ["get", "list", "watch"]
             - apiGroups: ["monitoring.coreos.com"]
-              resources:
-                [
-                  "prometheuses",
-                  "alertmanagers",
-                  "servicemonitors",
-                  "podmonitors",
-                  "prometheusrules",
-                  "thanosrulers",
-                  "probes",
-                ]
+              resources: ["prometheuses", "alertmanagers", "servicemonitors", "podmonitors", "prometheusrules", "thanosrulers", "probes"]
               verbs: ["get", "list", "watch"]
             - apiGroups: ["snapshot.storage.k8s.io"]
-              resources:
-                [
-                  "volumesnapshots",
-                  "volumesnapshotcontents",
-                  "volumesnapshotclasses",
-                ]
+              resources: ["volumesnapshots", "volumesnapshotcontents", "volumesnapshotclasses"]
               verbs: ["get", "list", "watch"]
         # Cluster-wide pod delete — restart any pod in any namespace
         openclaw-pod-delete-cluster-wide:

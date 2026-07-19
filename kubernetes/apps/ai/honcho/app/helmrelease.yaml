@@ -37,7 +37,7 @@ spec:
               - secretRef:
                   name: *app
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
                 custom: true
                 spec:
@@ -62,17 +62,19 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
-                cpu: 25m
-                memory: 64Mi
+                cpu: 223m
+                memory: 381Mi
               # limits:
               # memory: 256Mi
+              limits:
+                memory: 381Mi
         pod:
           securityContext:
             runAsNonRoot: true
-            seccompProfile: { type: RuntimeDefault }
+            seccompProfile: {type: RuntimeDefault}
             runAsUser: 65532
             runAsGroup: 65532
             fsGroup: 65532
@@ -87,11 +89,13 @@ spec:
             probes: {}
             resources:
               requests:
-                cpu: 25m
-                memory: 64Mi
+                cpu: 17m
+                memory: 344Mi
               # limits:
               # memory: 256Mi
 
+              limits:
+                memory: 344Mi
     service:
       app:
         controller: *app

@@ -81,13 +81,13 @@ spec:
             env:
               TZ: ${TZ}
               QBT_WEBUI_PORT: &port 8080
-            securityContext: &ctx
+            securityContext:
               runAsNonRoot: true
               runAsUser: &uid 2000
               runAsGroup: *uid
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             probes:
               liveness:
                 enabled: true
@@ -100,12 +100,13 @@ spec:
                   periodSeconds: 5
             resources:
               requests:
-                memory: 703Mi
+                memory: 100Mi
               # limits:
               #   memory: 286Mi
 
+                cpu: 10m
               limits:
-                memory: 703Mi
+                memory: 100Mi
           # port-forward:
           #   image:
           #     repository: ghcr.io/bjw-s-labs/gluetun-qb-port-sync

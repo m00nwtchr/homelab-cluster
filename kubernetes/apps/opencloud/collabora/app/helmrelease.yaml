@@ -18,8 +18,7 @@ spec:
               repository: collabora/code
               tag: 26.04.2.1.1@sha256:fece3a479b4ca57e7186d0c715155526170e337deef55bbbbbc79ee93b0e72e1
             command: [/bin/bash, -c]
-            args:
-              ["coolconfig generate-proof-key && /start-collabora-online.sh"]
+            args: ["coolconfig generate-proof-key && /start-collabora-online.sh"]
             env:
               # aliasgroup1: "http://opencloud-wopi:9300"
               aliasgroup1: "https://wopi.${MAIN_DOMAIN}"
@@ -55,6 +54,12 @@ spec:
             #   timeoutSeconds: 10
             #   failureThreshold: 5
 
+            resources:
+              requests:
+                cpu: 10m
+                memory: 615Mi
+              limits:
+                memory: 615Mi
     service:
       app:
         ports:
