@@ -1,0 +1,153 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/toolhive.stacklok.dev/mcpserver_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: &name grafana
+spec:
+  image: docker.io/grafana/mcp-grafana:0.17.2-alpine@sha256:50f92a0d3413f4420ae73ee9a670bfc9e425d4db433d3242886b16139f186d0b
+  args: ["-t", "stdio"]
+  transport: stdio
+  groupRef:
+    name: mcp-tools
+  env:
+    - name: GRAFANA_URL
+      value: http://grafana-service.observability.svc.cluster.local:3000
+  secrets:
+    - name: grafana-mcp
+      key: token
+      targetEnvName: GRAFANA_SERVICE_ACCOUNT_TOKEN
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          # krr: controller=grafana container=mcp
+          resources:
+            limits:
+              cpu: "500m"
+            requests:
+              cpu: "10m"
+  # krr: controller=grafana container=toolhive
+  resources:
+    limits:
+      cpu: 200m
+      memory: 100Mi
+    requests:
+      cpu: 10m
+      memory: 100Mi
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/toolhive.stacklok.dev/mcpserver_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: &name karakeep
+spec:
+  image: ghcr.io/karakeep-app/karakeep-mcp:latest@sha256:5bd2925b67ceab1fe82fba00e07b00f912fd44b50d49417f9644946e63f31026
+  transport: stdio
+  groupRef:
+    name: mcp-tools
+  env:
+    - name: KARAKEEP_API_ADDR
+      value: http://karakeep.default.svc.cluster.local
+  secrets:
+    - name: *name
+      key: KARAKEEP_API_KEY
+  toolConfigRef:
+    name: *name
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          # krr: controller=karakeep container=mcp
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "100Mi"
+            requests:
+              cpu: "10m"
+              memory: "100Mi"
+  # krr: controller=karakeep container=toolhive
+  resources:
+    limits:
+      cpu: 200m
+      memory: 100Mi
+    requests:
+      cpu: 10m
+      memory: 100Mi
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/toolhive.stacklok.dev/mcptoolconfig_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPToolConfig
+metadata:
+  name: karakeep
+  namespace: toolhive-system
+spec:
+  toolsOverride:
+    add-bookmark-to-list:
+      name: add_bookmark_to_list
+    attach-tag-to-bookmark:
+      name: attach_tag_to_bookmark
+    create-bookmark:
+      name: create_bookmark
+    create-list:
+      name: create_list
+    detach-tag-from-bookmark:
+      name: detach_tag_from_bookmark
+    get-bookmark:
+      name: get_bookmark
+    get-bookmark-content:
+      name: get_bookmark_content
+    get-lists:
+      name: get_lists
+    remove-bookmark-from-list:
+      name: remove_bookmark_from_list
+    search-bookmarks:
+      name: search_bookmarks
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/toolhive.stacklok.dev/mcpserver_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: &name searxng
+spec:
+  # Temporary local image until dockyard PR merges:
+  # https://github.com/stacklok/dockyard/pull/362
+  image: ghcr.io/rcdailey/mcp-searxng:0.8.0@sha256:5f4359be5f43b3bb77daabc60884dcd8c1d05a3c0b761ad78730da8453a660a2
+  transport: stdio
+  groupRef:
+    name: mcp-tools
+  env:
+    - name: SEARXNG_URL
+      value: http://searxng.default.svc.cluster.local
+  toolConfigRef:
+    name: *name
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          # krr: controller=searxng container=mcp
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "110Mi"
+            requests:
+              cpu: "10m"
+              memory: "110Mi"
+  # krr: controller=searxng container=toolhive
+  resources:
+    limits:
+      cpu: 200m
+      memory: 100Mi
+    requests:
+      cpu: 10m
+      memory: 100Mi
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/toolhive.stacklok.dev/mcptoolconfig_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPToolConfig
+metadata:
+  name: searxng
+spec:
+  toolsOverride:
+    searxng_web_search:
+      name: web_search
