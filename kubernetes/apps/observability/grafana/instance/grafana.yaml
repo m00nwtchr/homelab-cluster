@@ -63,7 +63,7 @@ spec:
                       key: client-secret
               securityContext:
                 allowPrivilegeEscalation: false
-                # readOnlyRootFilesystem: true
+                readOnlyRootFilesystem: true
                 capabilities: { drop: ["ALL"] }
               # krr: controller=grafana-deployment container=grafana
               resources:
@@ -104,6 +104,12 @@ spec:
               configMap:
                 defaultMode: 0440
                 name: root-ca
+  httpRoute:
+    spec:
+      hostnames: ["grafana.${SECRET_DOMAIN}"]
+      parentRefs:
+        - name: internal
+          namespace: network
   persistentVolumeClaim:
     spec:
       accessModes:

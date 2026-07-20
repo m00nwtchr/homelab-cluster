@@ -5,6 +5,4 @@ kind: Kustomization
 resources:
   - ./grafanaserviceaccount.yaml
   - ./grafana.yaml
-  - ./httproute.yaml
   - ./servicemonitor.yaml
-  - ./sidecar-provider.yaml
