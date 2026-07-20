@@ -10,8 +10,8 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: v2.2.3
-  url: oci://ghcr.io/kgateway-dev/charts/agentgateway
+    tag: v1.3.1
+  url: oci://cr.agentgateway.dev/charts/agentgateway
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -27,8 +27,8 @@ spec:
     controller:
       priorityClassName: envoy-gateway-priority
 
-      extraEnv:
-        KGW_ENABLE_GATEWAY_API_EXPERIMENTAL_FEATURES: true
+    #   extraEnv:
+    #     KGW_ENABLE_GATEWAY_API_EXPERIMENTAL_FEATURES: true
 
-    inferenceExtension:
-      enabled: true
+    # inferenceExtension:
+    #   enabled: true
