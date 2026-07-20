@@ -62,3 +62,9 @@ spec:
 
     ipv6:
       enabled: true
+
+    providers:
+      default: openAI
+      openAI:
+        baseUrl: http://agentgateway-proxy.ai.svc.cluster.local./v1
+        apiKey: dummy

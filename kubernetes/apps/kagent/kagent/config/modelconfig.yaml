@@ -1,11 +1,13 @@
 ---
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kagent.dev/modelconfig_v1alpha2.json
 apiVersion: kagent.dev/v1alpha2
 kind: ModelConfig
 metadata:
   name: minimax-m3
 spec:
   model: MiniMax-M3
-  provider: Anthropic
-  anthropic:
-    host: agentgateway-proxy.ai.svc.cluster.local
+  provider: OpenAI
+  apiKeySecret: kagent-openai
+  apiKeySecretKey: OPENAI_API_KEY
+  openAI:
+    baseUrl: http://agentgateway-proxy.ai.svc.cluster.local./v1
