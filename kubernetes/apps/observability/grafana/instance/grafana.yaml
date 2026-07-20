@@ -65,13 +65,13 @@ spec:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
                 capabilities: { drop: ["ALL"] }
-              # krr: controller=grafana-deployment container=grafana
-              resources:
-                limits:
-                  memory: 261Mi
-                requests:
-                  cpu: 41m
-                  memory: 261Mi
+              # # krr: controller=grafana-deployment container=grafana
+              # resources:
+              #   limits:
+              #     memory: 261Mi
+              #   requests:
+              #     cpu: 41m
+              #     memory: 261Mi
               volumeMounts:
                 - name: postgres-certs
                   mountPath: /var/run/secrets/postgresql
