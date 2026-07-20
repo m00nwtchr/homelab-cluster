@@ -14,5 +14,5 @@ spec:
   remoteDeepVerify: false
   pvcName: photos
   capacity: 60Gi
-  puid: "1000"
-  pgid: "1000"
+  puid: 1000
+  pgid: 1000

@@ -138,7 +138,7 @@ spec:
           sources:
             - pvc: { name: "${schema.spec.pvcName}" }
           verification:
-            deep: '${schema.spec.remoteDeepVerify ? {"capacity": schema.spec.capacity, "schedule": {"cron": "H 5 1 * *"}} : {}}'
+            # deep: '${schema.spec.remoteDeepVerify ? {"capacity": schema.spec.capacity, "schedule": {"cron": "H 5 1 * *"}} : {}}'
             quick:
               schedule: { cron: "H 3 * * *" }
           volumeSnapshotClassName: ${schema.spec.snapshotClass}
