@@ -1,0 +1,76 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app kagent
+  namespace: &namespace kagent
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: kagent-crds
+  components: []
+  interval: 1h
+  path: ./kubernetes/apps/kagent/kagent/app
+  prune: true
+  retryInterval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kagent-crds
+  namespace: &namespace kagent
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &app kagent
+  components: []
+  interval: 1h
+  path: ./kubernetes/apps/kagent/kagent/crds
+  prune: false
+  retryInterval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kagent-config
+  namespace: &namespace kagent
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &app kagent
+  dependsOn:
+    - name: *app
+  components: []
+  interval: 1h
+  path: ./kubernetes/apps/kagent/kagent/config
+  postBuild:
+    substitute:
+      APP: *app
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  prune: true
+  retryInterval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
