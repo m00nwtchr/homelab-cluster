@@ -3,7 +3,7 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: agentgateway
+  name: agentgateway-proxy
 spec:
   gatewayClassName: agentgateway
   listeners:
