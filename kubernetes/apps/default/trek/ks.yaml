@@ -21,6 +21,8 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       DOMAIN: ${MAIN_DOMAIN}
+      KOPIUR_PUID: "65532"
+      KOPIUR_PGID: "65532"
       OIDC_DISPLAY_NAME: trek
       OIDC_CALLBACK: /api/auth/oidc/callback
       OIDC_DISABLE_PKCE: "true"

@@ -57,6 +57,8 @@ spec:
       APP: *app
       SUBDOMAIN: idm
       TLS_KEY_SIZE: "256"
+      KOPIUR_PUID: "999"
+      KOPIUR_PGID: "999"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
