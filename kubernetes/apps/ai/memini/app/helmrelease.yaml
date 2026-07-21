@@ -46,14 +46,12 @@ spec:
                   secretKeyRef:
                     name: memini
                     key: MEMINI_API_KEY
-              MEMINI_LLM_BASE_URL: https://api.minimax.io/anthropic
-              MEMINI_LLM_API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    key: MINIMAX_API_KEY
-                    name: memini-minimax
+
+              MEMINI_LLM_BASE_URL: http://agentgateway-proxy.ai.svc.cluster.local./anthropic
+              MEMINI_LLM_API_KEY: dummy
               MEMINI_LLM_API: anthropic
               MEMINI_LLM_MODEL: MiniMax-M2.7
+
               # MEMINI_RERANK: http://rerank-proxy.ai.svc.cluster.local:8080/v1
               # MEMINI_RERANK_MODEL: qwen3-reranker
               # MEMINI_RERANK_TOP_N: 10
