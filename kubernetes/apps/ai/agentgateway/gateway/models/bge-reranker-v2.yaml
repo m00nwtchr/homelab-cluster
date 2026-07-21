@@ -45,7 +45,7 @@ metadata:
 spec:
   modelRef: *model
   image: ghcr.io/ggml-org/llama.cpp:server@sha256:295dc9897fa8a643e4a513fbcaada51d3b8db4b0afa4fda7aeae2386757de58b
-  replicas: 0
+  replicas: 1
 
   priority: batch
   contextSize: &ctx 8192

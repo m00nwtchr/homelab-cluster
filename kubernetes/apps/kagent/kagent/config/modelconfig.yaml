@@ -6,8 +6,8 @@ metadata:
   name: minimax-m3
 spec:
   model: MiniMax-M3
-  provider: OpenAI
-  apiKeySecret: kagent-openai
-  apiKeySecretKey: OPENAI_API_KEY
-  openAI:
-    baseUrl: http://agentgateway-proxy.ai.svc.cluster.local./v1
+  provider: Anthropic
+  apiKeySecret: kagent-anthropic
+  apiKeySecretKey: ANTHROPIC_API_KEY
+  anthropic:
+    baseUrl: http://agentgateway-proxy.ai.svc.cluster.local./anthropic

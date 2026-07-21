@@ -64,7 +64,8 @@ spec:
       enabled: true
 
     providers:
-      default: openAI
-      openAI:
-        baseUrl: http://agentgateway-proxy.ai.svc.cluster.local./v1
+      default: anthropic
+      anthropic:
+        baseUrl: http://agentgateway-proxy.ai.svc.cluster.local./anthropic
         apiKey: dummy
+        model: MiniMax-M3

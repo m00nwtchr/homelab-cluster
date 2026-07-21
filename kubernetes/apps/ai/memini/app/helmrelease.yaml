@@ -38,9 +38,9 @@ spec:
               # MEMINI_EMBED_QUERY_PREFIX: "Instruct: Given a user message, retrieve relevant past memories\nQuery: "
               # MEMINI_RECALL_MIN_SEMANTIC_SCORE: "0.46"
 
-              MEMINI_LLM_BASE_URL: http://agentgateway-proxy.ai.svc.cluster.local./v1
+              MEMINI_LLM_BASE_URL: http://agentgateway-proxy.ai.svc.cluster.local./anthropic
               MEMINI_LLM_API_KEY: dummy
-              MEMINI_LLM_API: openai
+              MEMINI_LLM_API: anthropic
               MEMINI_LLM_MODEL: MiniMax-M2.7
 
               MEMINI_DEFAULT_NAMESPACE: default
