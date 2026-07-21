@@ -137,7 +137,12 @@ spec:
           port: 8080
         model: *model
         formats:
-          - type: Embeddings
+          - type: Rerank
+  policies:
+    ai:
+      routes:
+        "/v1/rerank": Rerank
+        "*": Passthrough
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1

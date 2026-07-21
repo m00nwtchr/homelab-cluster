@@ -26,12 +26,22 @@ spec:
               MEMINI_HTTP_ADDR: ":8080"
               MEMINI_LOG_FORMAT: json
               MEMINI_BACKEND: postgres
-              MEMINI_EMBED_BASE_URL: http://embed-proxy.ai.svc.cluster.local:8080/v1
-              MEMINI_EMBED_MODEL: jina-embeddings-v5-text-nano-retrieval
-              MEMINI_EMBED_DIMS: "768"
+              MEMINI_EMBED_BASE_URL: http://agentgateway-proxy.ai.svc.cluster.local./v1
+              MEMINI_EMBED_MODEL: bge-m3
+              MEMINI_EMBED_DIMS: 1024
+
+              MEMINI_RERANK: http://agentgateway-proxy.ai.svc.cluster.local./v1
+              MEMINI_RERANK_MODEL: bge-reranker-v2
+              MEMINI_RERANK_TOP_N: 10
+              MEMINI_RERANK_TIMEOUT: 3s
 
               # MEMINI_EMBED_QUERY_PREFIX: "Instruct: Given a user message, retrieve relevant past memories\nQuery: "
               # MEMINI_RECALL_MIN_SEMANTIC_SCORE: "0.46"
+
+              MEMINI_LLM_BASE_URL: http://agentgateway-proxy.ai.svc.cluster.local./v1
+              MEMINI_LLM_API_KEY: dummy
+              MEMINI_LLM_API: openai
+              MEMINI_LLM_MODEL: MiniMax-M2.7
 
               MEMINI_DEFAULT_NAMESPACE: default
               MEMINI_WRITE_DEDUP_MIN_SCORE: 0.9
@@ -46,16 +56,6 @@ spec:
                   secretKeyRef:
                     name: memini
                     key: MEMINI_API_KEY
-
-              MEMINI_LLM_BASE_URL: http://agentgateway-proxy.ai.svc.cluster.local./anthropic
-              MEMINI_LLM_API_KEY: dummy
-              MEMINI_LLM_API: anthropic
-              MEMINI_LLM_MODEL: MiniMax-M2.7
-
-              # MEMINI_RERANK: http://rerank-proxy.ai.svc.cluster.local:8080/v1
-              # MEMINI_RERANK_MODEL: qwen3-reranker
-              # MEMINI_RERANK_TOP_N: 10
-              # MEMINI_RERANK_TIMEOUT: 3s
             probes:
               liveness: &probes
                 enabled: true

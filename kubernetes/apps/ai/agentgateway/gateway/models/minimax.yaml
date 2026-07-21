@@ -16,6 +16,12 @@ spec:
       host: api.minimax.io
       port: 443
   policies:
+    ai:
+      routes:
+        "/anthropic/v1/messages": Messages
+        "/v1/chat/completions": Completions
+        "/v1/responses": Responses
+        "*": Passthrough
     auth:
       secretRef:
         name: agentgateway-minimax
