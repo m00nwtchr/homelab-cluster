@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kagent.dev/mcpserver_v1alpha1.json
+apiVersion: kagent.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: airbnb
+spec:
+  deployment:
+    args:
+      - -y
+      - "@openbnb/mcp-server-airbnb@latest"
+      - --ignore-robots-txt
+    cmd: npx
+    image: node:24-alpine3.21
+    port: 3000
+    replicas: 1
+  timeout: 30s
+  transportType: stdio
