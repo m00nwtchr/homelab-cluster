@@ -21,6 +21,7 @@ spec:
         name: agentgateway-minimax
     tls: {}
 ---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -31,16 +32,13 @@ spec:
   rules:
     - matches:
         - headers:
-            - type: Exact
+            - type: RegularExpression
               name: X-Gateway-Base-Model-Name
-              value: MiniMax-M3
-            - type: Exact
-              name: X-Gateway-Base-Model-Name
-              value: MiniMax-M2.7
-          backendRefs:
-            - name: minimax
-              group: agentgateway.dev
-              kind: AgentgatewayBackend
+              value: MiniMax-.*
+      backendRefs:
+        - name: minimax
+          group: agentgateway.dev
+          kind: AgentgatewayBackend
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/external-secrets.io/externalsecret_v1.json
 apiVersion: external-secrets.io/v1
