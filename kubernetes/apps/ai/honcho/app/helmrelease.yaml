@@ -33,6 +33,7 @@ spec:
               DB_CONNECTION_URI: postgresql+psycopg://honcho@pooler-rw.postgres.svc:5432/honcho?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
               CACHE_URL: redis://localhost:6379/0?suppress=true
               CACHE_ENABLED: "true"
+              AG_API_KEY: dummy
             envFrom:
               - secretRef:
                   name: *app
