@@ -36,7 +36,7 @@ url_preview_domain_explicit_denylist = ["matrix.org"]
 # Additional config
 [global.well_known]
 client = "https://matrix.${SECRET_DOMAIN}"
-server = "matrix-fed.${SECRET_DOMAIN}:443"
+server = "matrix.${SECRET_DOMAIN}:443"
 
 [global.matrix_rtc]
 foci = [
