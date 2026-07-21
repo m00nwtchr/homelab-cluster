@@ -7,7 +7,7 @@ spec:
   ai:
     provider:
       custom:
-        model: MiniMax-M3
+        # model: MiniMax-M3 # Setting this overrides the model on all requests
         formats:
           - type: Messages
             path: /anthropic/v1/messages
