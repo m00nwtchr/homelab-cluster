@@ -363,7 +363,8 @@
       },
       "openclaw-honcho": {
         "config": {
-          "baseUrl": "http://honcho.ai.svc.cluster.local"
+          "baseUrl": "http://honcho.ai.svc.cluster.local",
+          "workspaceId": "openclaw"
         }
       }
     },
