@@ -200,60 +200,60 @@ spec:
       - For RTW + Pacific Circle + regional distance-award products (Star Alliance RTW, oneworld Explorer, Lufthansa M&M, Qantas, JAL multi-carrier, Aeroplan distance-based, Iberia Plus intra-Europe), load the `round-the-world` skill.
       - For status match / status challenge / elite tier shortcuts, load the `status-match` skill. See the proactive workflow above for the canonical 4-step approach.
     tools:
-    - mcpServer:
-        apiGroup: kagent.dev
-        kind: MCPServer
-        name: airbnb
-        namespace: kagent
-        toolNames:
-        - airbnb_listing_details
-        - airbnb_search
-      type: McpServer
-    - mcpServer:
-        apiGroup: kagent.dev
-        kind: RemoteMCPServer
-        name: ferryhopper
-        namespace: kagent
-        toolNames:
-        - get_direct_connections_for_ports
-        - get_disruptions
-        - get_ports
-        - search_trips
-      type: McpServer
-    - mcpServer:
-        apiGroup: kagent.dev
-        kind: RemoteMCPServer
-        name: kiwi
-        namespace: kagent
-        toolNames:
-        - search-flight
-      type: McpServer
-    - mcpServer:
-        apiGroup: kagent.dev
-        kind: RemoteMCPServer
-        name: skiplagged
-        namespace: kagent
-        toolNames:
-        - sk_cars_search
-        - sk_destinations_anywhere
-        - sk_faq_search
-        - sk_flex_departure_calendar
-        - sk_flex_return_calendar
-        - sk_flights_search
-        - sk_hotel_details
-        - sk_hotels_search
-        - sk_resolve_iata
-        - sk_resolve_location
-      type: McpServer
-    - mcpServer:
-        apiGroup: kagent.dev
-        kind: RemoteMCPServer
-        name: trivago
-        namespace: kagent
-        toolNames:
-        - trivago-accommodation-radius-search
-        - trivago-accommodation-search
-      type: McpServer
+      - mcpServer:
+          apiGroup: kagent.dev
+          kind: MCPServer
+          name: airbnb
+          namespace: kagent
+          toolNames:
+            - airbnb_listing_details
+            - airbnb_search
+        type: McpServer
+      - mcpServer:
+          apiGroup: kagent.dev
+          kind: RemoteMCPServer
+          name: ferryhopper
+          namespace: kagent
+          toolNames:
+            - get_direct_connections_for_ports
+            - get_disruptions
+            - get_ports
+            - search_trips
+        type: McpServer
+      - mcpServer:
+          apiGroup: kagent.dev
+          kind: RemoteMCPServer
+          name: kiwi
+          namespace: kagent
+          toolNames:
+            - search-flight
+        type: McpServer
+      - mcpServer:
+          apiGroup: kagent.dev
+          kind: RemoteMCPServer
+          name: skiplagged
+          namespace: kagent
+          toolNames:
+            - sk_cars_search
+            - sk_destinations_anywhere
+            - sk_faq_search
+            - sk_flex_departure_calendar
+            - sk_flex_return_calendar
+            - sk_flights_search
+            - sk_hotel_details
+            - sk_hotels_search
+            - sk_resolve_iata
+            - sk_resolve_location
+        type: McpServer
+      - mcpServer:
+          apiGroup: kagent.dev
+          kind: RemoteMCPServer
+          name: trivago
+          namespace: kagent
+          toolNames:
+            - trivago-accommodation-radius-search
+            - trivago-accommodation-search
+        type: McpServer
   description: Travel planning agent.
   skills:
     gitRefs:

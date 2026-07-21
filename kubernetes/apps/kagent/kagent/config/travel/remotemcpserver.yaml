@@ -38,3 +38,19 @@ spec:
   description: "Flight search with hidden city fares"
   protocol: STREAMABLE_HTTP
   url: https://mcp.skiplagged.com/mcp
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kagent.dev/remotemcpserver_v1alpha2.json
+apiVersion: kagent.dev/v1alpha2
+kind: RemoteMCPServer
+metadata:
+  name: trek
+spec:
+  description: "Travel planning"
+  protocol: STREAMABLE_HTTP
+  url: https://trek.${MAIN_DOMAIN}/mcp
+  headersFrom:
+    - name: Authorization
+      valueFrom:
+        type: Secret
+        name: kagent
+        key: TREK_API_KEY
