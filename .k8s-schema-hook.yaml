@@ -11,11 +11,3 @@ overrides:
       jmespath: "spec.chartRef.name"
       equals: "app-template"
     schema: https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
-  - name: resourceset
-    match:
-      kind: ResourceSet
-    schema: https://raw.githubusercontent.com/controlplaneio-fluxcd/flux-operator/refs/heads/main/docs/schemas/resourceset_v1.json
-  - name: resourcesetinputprovider
-    match:
-      kind: ResourceSetInputProvider
-    schema: https://raw.githubusercontent.com/controlplaneio-fluxcd/flux-operator/refs/heads/main/docs/schemas/resourcesetinputprovider_v1.json
