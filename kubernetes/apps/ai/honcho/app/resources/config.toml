@@ -60,24 +60,24 @@ MAX_MESSAGE_CONTENT_CHARS = 2000  # Max chars per message in tool results
 # Base URLs are set per-module via model_config.overrides.base_url
 # Built-in text-generation defaults use openai / gpt-5.4-mini.
 # Embeddings default to openai / text-embedding-3-small.
-OPENAI_API_KEY = "your-api-key-here"
+# OPENAI_API_KEY = "your-api-key-here"
 # ANTHROPIC_API_KEY = "your-api-key"
 # GEMINI_API_KEY = "your-api-key"
 
 # Embedding settings
 [embedding]
-VECTOR_DIMENSIONS = 768
+VECTOR_DIMENSIONS = 1024
 MAX_INPUT_TOKENS = 8192
 MAX_TOKENS_PER_REQUEST = 300000
 
 [embedding.model_config]
 transport = "openai"
-model = "jina-embeddings-v5-text-nano-retrieval"
+model = "bge-m3"
 
 # Optional module-level endpoint overrides
 [embedding.model_config.overrides]
-base_url = "http://embed-proxy.ai.svc.cluster.local:8080/v1"
-# api_key_env = "EMBEDDING_CUSTOM_API_KEY"
+base_url = "http://agentgateway-proxy.ai.svc.cluster.local./v1"
+api_key_env = "AG_API_KEY"
 
 # Deriver settings
 [deriver]
@@ -122,8 +122,8 @@ model = "MiniMax-M2.7"
 
 # Optional module-level endpoint overrides
 [deriver.model_config.overrides]
-base_url = "https://api.minimax.io/anthropic"
-api_key_env = "MINIMAX_API_KEY"
+base_url = "http://agentgateway-proxy.ai.svc.cluster.local./anthropic"
+api_key_env = "AG_API_KEY"
 
 # Optional fallback model
 # [deriver.model_config.fallback]
@@ -158,8 +158,8 @@ transport = "anthropic"
 model = "MiniMax-M2.7"
 
 [dialectic.levels.minimal.model_config.overrides]
-base_url = "https://api.minimax.io/anthropic"
-api_key_env = "MINIMAX_API_KEY"
+base_url = "http://agentgateway-proxy.ai.svc.cluster.local./anthropic"
+api_key_env = "AG_API_KEY"
 
 [dialectic.levels.low]
 MAX_TOOL_ITERATIONS = 5
@@ -170,8 +170,8 @@ transport = "anthropic"
 model = "MiniMax-M2.7"
 
 [dialectic.levels.low.model_config.overrides]
-base_url = "https://api.minimax.io/anthropic"
-api_key_env = "MINIMAX_API_KEY"
+base_url = "http://agentgateway-proxy.ai.svc.cluster.local./anthropic"
+api_key_env = "AG_API_KEY"
 
 [dialectic.levels.medium]
 MAX_TOOL_ITERATIONS = 2
@@ -181,8 +181,8 @@ transport = "anthropic"
 model = "MiniMax-M2.7"
 
 [dialectic.levels.medium.model_config.overrides]
-base_url = "https://api.minimax.io/anthropic"
-api_key_env = "MINIMAX_API_KEY"
+base_url = "http://agentgateway-proxy.ai.svc.cluster.local./anthropic"
+api_key_env = "AG_API_KEY"
 
 [dialectic.levels.high]
 MAX_TOOL_ITERATIONS = 4
@@ -192,8 +192,9 @@ transport = "anthropic"
 model = "MiniMax-M2.7"
 
 [dialectic.levels.high.model_config.overrides]
-base_url = "https://api.minimax.io/anthropic"
-api_key_env = "MINIMAX_API_KEY"
+base_url = "http://agentgateway-proxy.ai.svc.cluster.local./anthropic"
+api_key_env = "AG_API_KEY"
+
 
 [dialectic.levels.max]
 MAX_TOOL_ITERATIONS = 10
@@ -203,8 +204,8 @@ transport = "anthropic"
 model = "MiniMax-M2.7"
 
 [dialectic.levels.max.model_config.overrides]
-base_url = "https://api.minimax.io/anthropic"
-api_key_env = "MINIMAX_API_KEY"
+base_url = "http://agentgateway-proxy.ai.svc.cluster.local./anthropic"
+api_key_env = "AG_API_KEY"
 
 # [dialectic.levels.max.model_config.fallback]
 # transport = "gemini"
@@ -225,8 +226,8 @@ model = "MiniMax-M2.7"
 # thinking_budget_tokens = 1024
 
 [summary.model_config.overrides]
-base_url = "https://api.minimax.io/anthropic"
-api_key_env = "MINIMAX_API_KEY"
+base_url = "http://agentgateway-proxy.ai.svc.cluster.local./anthropic"
+api_key_env = "AG_API_KEY"
 
 # [summary.model_config.fallback]
 # transport = "anthropic"
@@ -247,16 +248,16 @@ transport = "anthropic"
 model = "MiniMax-M2.7"
 
 [dream.deduction_model_config.overrides]
-base_url = "https://api.minimax.io/anthropic"
-api_key_env = "MINIMAX_API_KEY"
+base_url = "http://agentgateway-proxy.ai.svc.cluster.local./anthropic"
+api_key_env = "AG_API_KEY"
 
 [dream.induction_model_config]
 transport = "anthropic"
 model = "MiniMax-M2.7"
 
 [dream.induction_model_config.overrides]
-base_url = "https://api.minimax.io/anthropic"
-api_key_env = "MINIMAX_API_KEY"
+base_url = "http://agentgateway-proxy.ai.svc.cluster.local./anthropic"
+api_key_env = "AG_API_KEY"
 
 # Surprisal-based sampling subsystem
 [dream.surprisal]
@@ -311,4 +312,3 @@ NAMESPACE = "honcho"
 # TURBOPUFFER_REGION = "us-east-1"
 LANCEDB_PATH = "./lancedb_data"
 RECONCILIATION_INTERVAL_SECONDS = 300
-

@@ -10,14 +10,3 @@ configMapGenerator:
       - ./resources/config.toml
 configurations:
   - ./resources/kustomizeconfig.yaml
-patches:
-  - target:
-      group: external-secrets.io
-      version: v1
-      kind: ExternalSecret
-    patch: |-
-      - op: add
-        path: /spec/dataFrom/-
-        value:
-          find:
-            path: "/minimax"
