@@ -1,0 +1,40 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kagent.dev/remotemcpserver_v1alpha2.json
+apiVersion: kagent.dev/v1alpha2
+kind: RemoteMCPServer
+metadata:
+  name: ferryhopper
+spec:
+  description: "Ferry routes across 33 countries, 190+ operators"
+  protocol: STREAMABLE_HTTP
+  url: https://mcp.ferryhopper.com/mcp
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kagent.dev/remotemcpserver_v1alpha2.json
+apiVersion: kagent.dev/v1alpha2
+kind: RemoteMCPServer
+metadata:
+  name: trivago
+spec:
+  description: "Hotel metasearch across booking sites"
+  protocol: STREAMABLE_HTTP
+  url: https://mcp.trivago.com/mcp
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kagent.dev/remotemcpserver_v1alpha2.json
+apiVersion: kagent.dev/v1alpha2
+kind: RemoteMCPServer
+metadata:
+  name: kiwi
+spec:
+  description: "Flights with virtual interlining (creative cross-airline routing)"
+  protocol: STREAMABLE_HTTP
+  url: https://mcp.kiwi.com
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/kagent.dev/remotemcpserver_v1alpha2.json
+apiVersion: kagent.dev/v1alpha2
+kind: RemoteMCPServer
+metadata:
+  name: skiplagged
+spec:
+  description: "Flight search with hidden city fares"
+  protocol: STREAMABLE_HTTP
+  url: https://mcp.skiplagged.com/mcp
