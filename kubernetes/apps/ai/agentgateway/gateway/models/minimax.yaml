@@ -29,10 +29,18 @@ spec:
   parentRefs:
     - name: agentgateway-proxy
   rules:
-    - backendRefs:
-        - name: minimax
-          group: agentgateway.dev
-          kind: AgentgatewayBackend
+    - matches:
+        - headers:
+            - type: Exact
+              name: X-Gateway-Base-Model-Name
+              value: MiniMax-M3
+            - type: Exact
+              name: X-Gateway-Base-Model-Name
+              value: MiniMax-M2.7
+          backendRefs:
+            - name: minimax
+              group: agentgateway.dev
+              kind: AgentgatewayBackend
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/external-secrets.io/externalsecret_v1.json
 apiVersion: external-secrets.io/v1

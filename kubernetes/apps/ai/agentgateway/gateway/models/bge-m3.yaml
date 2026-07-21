@@ -1,0 +1,159 @@
+# ---
+# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/model_v1alpha1.json
+# apiVersion: inference.llmkube.dev/v1alpha1
+# kind: Model
+# metadata:
+#   name: octen-embedding
+# spec:
+#   # source: https://huggingface.co/mradermacher/Octen-Embedding-0.6B-GGUF/resolve/main/Octen-Embedding-0.6B.Q8_0.gguf
+#   source: https://huggingface.co/mradermacher/Octen-Embedding-0.6B-i1-GGUF/resolve/main/Octen-Embedding-0.6B.i1-Q4_K_M.gguf
+#   format: gguf
+#   # quantization: Q8_0
+#   quantization: i1-Q4_K_M
+#   hardware:
+#     accelerator: cpu
+# ---
+# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/model_v1alpha1.json
+# apiVersion: inference.llmkube.dev/v1alpha1
+# kind: Model
+# metadata:
+#   name: jina-embeddings-v5-text-nano-retrieval
+# spec:
+#   source: https://huggingface.co/jinaai/jina-embeddings-v5-text-nano-retrieval/resolve/main/v5-nano-retrieval-Q8_0.gguf
+#   format: gguf
+#   quantization: Q8_0
+#   hardware:
+#     accelerator: cpu
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/model_v1alpha1.json
+apiVersion: inference.llmkube.dev/v1alpha1
+kind: Model
+metadata:
+  name: bge-m3
+spec:
+  source: https://huggingface.co/ggml-org/bge-m3-Q8_0-GGUF/resolve/main/bge-m3-q8_0.gguf
+  format: gguf
+  quantization: Q8_0
+  hardware:
+    accelerator: cpu
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/inferenceservice_v1alpha1.json
+apiVersion: inference.llmkube.dev/v1alpha1
+kind: InferenceService
+metadata:
+  name: &model bge-m3
+spec:
+  modelRef: *model
+  image: ghcr.io/ggml-org/llama.cpp:server@sha256:295dc9897fa8a643e4a513fbcaada51d3b8db4b0afa4fda7aeae2386757de58b
+  replicas: 0
+
+  priority: batch
+  contextSize: &ctx 8192
+  batchSize: 8192
+  uBatchSize: 8192
+  parallelSlots: 1
+
+  flashAttention: true
+  cacheTypeK: q8_0
+  cacheTypeV: q8_0
+
+  extraArgs:
+    - --alias
+    - *model
+    - --embeddings
+    - --pooling
+    - last
+    - --cont-batching
+    - --threads
+    - "6"
+    - --threads-batch
+    - "6"
+    - --host
+    - "::"
+
+  # resources:
+  #   cpu: 500m
+  #   memory: 1Gi
+
+  endpoint:
+    port: 8080
+    type: ClusterIP
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: embed-proxy
+# spec:
+#   type: ExternalName
+#   externalName: keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local
+#   ports:
+#     - port: 8080
+# ---
+# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/keda.sh/scaledobject_v1alpha1.json
+# apiVersion: keda.sh/v1alpha1
+# kind: ScaledObject
+# metadata:
+#   name: &app embed
+# spec:
+#   scaleTargetRef:
+#     apiVersion: inference.llmkube.dev/v1alpha1
+#     kind: InferenceService
+#     name: *app
+#   minReplicaCount: 0
+#   maxReplicaCount: 1
+#   cooldownPeriod: 600
+#   triggers:
+#     - type: external-push
+#       metadata:
+#         scalerAddress: keda-add-ons-http-external-scaler.keda.svc.cluster.local.:9090
+#         interceptorRoute: *app
+# ---
+# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/http.keda.sh/interceptorroute_v1beta1.json
+# apiVersion: http.keda.sh/v1beta1
+# kind: InterceptorRoute
+# metadata:
+#   name: &app embed
+# spec:
+#   target:
+#     service: *app
+#     port: 8080
+#   rules:
+#     - hosts: ["embed-proxy.ai.svc.cluster.local"]
+#   scalingMetric:
+#     concurrency:
+#       targetValue: 100
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/agentgateway.dev/agentgatewaybackend_v1alpha1.json
+apiVersion: agentgateway.dev/v1alpha1
+kind: AgentgatewayBackend
+metadata:
+  name: &model bge-m3
+spec:
+  ai:
+    provider:
+      custom:
+        backendRef:
+          name: *model
+          port: 8080
+        model: *model
+        formats:
+          - type: Embeddings
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: &model bge-m3
+spec:
+  parentRefs:
+    - name: agentgateway-proxy
+  rules:
+    - matches:
+        - headers:
+            - type: Exact
+              name: X-Gateway-Base-Model-Name
+              value: *model
+      backendRefs:
+        - name: *model
+          group: agentgateway.dev
+          kind: AgentgatewayBackend
