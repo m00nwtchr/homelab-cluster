@@ -45,13 +45,12 @@ metadata:
 spec:
   modelRef: *model
   image: ghcr.io/ggml-org/llama.cpp:server@sha256:295dc9897fa8a643e4a513fbcaada51d3b8db4b0afa4fda7aeae2386757de58b
-  replicas: 1
 
-  priority: batch
-  contextSize: &ctx 8192
+  priority: normal
+  contextSize: &ctx 16384
   batchSize: 8192
   uBatchSize: 8192
-  parallelSlots: 1
+  parallelSlots: 2
 
   flashAttention: true
   cacheTypeK: q8_0
@@ -68,12 +67,18 @@ spec:
     - "6"
     - --threads-batch
     - "6"
+    - --mmap
     - --host
     - "::"
 
-  # resources:
-  #   cpu: 500m
-  #   memory: 1Gi
+  replicas: 1
+  rolloutPolicy:
+    waitForIdle: true
+    idleTimeoutSeconds: 86400
+
+  resources:
+    cpu: 250m
+    memory: 1Gi
 
   endpoint:
     port: 8080
