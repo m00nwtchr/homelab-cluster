@@ -16,4 +16,4 @@ resources:
   - ./reloader/ks.yaml
   - ./reflector/ks.yaml
   - ./snapshot-controller/ks.yaml
-  - ./tetragon/ks.yaml
+  # - ./tetragon/ks.yaml
