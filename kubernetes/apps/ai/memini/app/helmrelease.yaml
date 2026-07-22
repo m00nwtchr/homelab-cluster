@@ -27,8 +27,9 @@ spec:
               MEMINI_LOG_FORMAT: json
               MEMINI_BACKEND: postgres
               MEMINI_EMBED_BASE_URL: http://agentgateway-proxy.ai.svc.cluster.local./v1
-              MEMINI_EMBED_MODEL: bge-m3
-              MEMINI_EMBED_DIMS: 1024
+              MEMINI_EMBED_MODEL: jina-embeddings-v5-text-nano-retrieval
+              MEMINI_EMBED_DIMS: 768
+              # REEMBED_ON_MODEL_CHANGE: true
 
               MEMINI_RERANK: http://agentgateway-proxy.ai.svc.cluster.local./v1
               MEMINI_RERANK_MODEL: bge-reranker-v2
@@ -44,7 +45,8 @@ spec:
               MEMINI_LLM_MODEL: MiniMax-M2.7
 
               MEMINI_DEFAULT_NAMESPACE: default
-              MEMINI_WRITE_DEDUP_MIN_SCORE: 0.9
+              MEMINI_WRITE_DEDUP_SCORE: 0.9
+              MEMINI_WRITE_DEDUP_ACTION: coalesce
 
               MEMINI_POSTGRES_DSN:
                 valueFrom:
