@@ -68,6 +68,13 @@ spec:
       name: kopiur-b2-secret
       namespace: kopiur-system
       key: KOPIA_PASSWORD
+  maintenance:
+    enabled: true
+    schedule:
+      full:
+        cron: 0 3 */7 * *
+      quick:
+        cron: 0 */12 * * *
   moverDefaults:
     cache:
       capacity: 2Gi
