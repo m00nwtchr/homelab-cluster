@@ -28,6 +28,10 @@ spec:
       KOPIUR_CAPACITY: 1Gi
       OIDC_CALLBACK: /auth/openid/kanidm
       OIDC_DISABLE_PKCE: "true"
+      DATABASE_EXTENSIONS: |
+        [
+          { name: pg_search }
+        ]
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
