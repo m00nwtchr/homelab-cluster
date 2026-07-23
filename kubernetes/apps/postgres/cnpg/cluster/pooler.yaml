@@ -41,6 +41,16 @@ spec:
       query_wait_timeout: "30" # drop queued client if no server in 30s
 
       application_name_add_host: "1" # helps tracing through the pool
+
+      # vikunja 2.4.0 (go-vikunja/vikunja#3156) pins search_path via the
+      # lib/pq connection string. Pgbouncer 1.25.1 does NOT ignore
+      # search_path by default and rejects it as "unsupported startup
+      # parameter", which crashes every vikunja pod at startup. Drop
+      # it silently so the search_path-via-options path is no-op
+      # through the pool (the real fix would be to set the schema via
+      # the user role, but vikunja is currently the only client that
+      # sends this and we'd rather pool than reject).
+      ignore_startup_parameters: search_path
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/postgresql.cnpg.io/pooler_v1.json
 apiVersion: postgresql.cnpg.io/v1
@@ -85,6 +95,10 @@ spec:
       query_wait_timeout: "30" # drop queued client if no server in 30s
 
       application_name_add_host: "1" # helps tracing through the pool
+
+      # Mirror pooler-rw: see comment there about vikunja 2.4.0
+      # and search_path.
+      ignore_startup_parameters: search_path
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/monitoring.coreos.com/podmonitor_v1.json
 apiVersion: monitoring.coreos.com/v1
