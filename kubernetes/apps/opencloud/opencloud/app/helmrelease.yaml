@@ -41,6 +41,11 @@ spec:
               PROXY_TLS: false
               OC_INSECURE: false
 
+              STORAGE_USERS_DRIVER: decomposeds3
+              STORAGE_USERS_DECOMPOSEDS3_ENDPOINT: http://garage.garage.svc.cluster.local.:3900
+              STORAGE_USERS_DECOMPOSEDS3_REGION: garage
+              STORAGE_USERS_DECOMPOSEDS3_BUCKET: *app
+
               # email server (if configured)
               # NOTIFICATIONS_SMTP_HOST: "${SMTP_HOST}"
               # NOTIFICATIONS_SMTP_PORT: "${SMTP_PORT}"
@@ -96,9 +101,9 @@ spec:
               SETTINGS_SETUP_DEFAULT_ASSIGNMENTS: "false"
               GRAPH_ASSIGN_DEFAULT_USER_ROLE: "false"
               GRAPH_USERNAME_MATCH: "none"
-            #            envFrom:
-            #              - secretRef:
-            #                  name: opencloud-secret
+            envFrom:
+              - secretRef:
+                  name: *app
             probes:
               liveness:
                 enabled: true

@@ -13,6 +13,7 @@ spec:
     - ../../../../components/oidc
     - ../../../../components/kopiur
     - ../../../../components/gatus/external
+    - ../../../../components/secret
   dependsOn:
     - name: kopiur
       namespace: kopiur-system
