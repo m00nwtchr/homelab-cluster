@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/rclone/rclone
-              tag: 1.73.3@sha256:66af24d7c8809af336dc16068149257cf447c80f8c60aa9f5679153f42017b85
+              tag: 1.74.4@sha256:c61954aaa32328a5486715dd063a81c7879f5195ad3505cd362deddd509dc4a1
             args:
               - serve
               - restic
