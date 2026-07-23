@@ -22,6 +22,18 @@ spec:
       name: kopiur-garage-secret
       namespace: kopiur-system
       key: KOPIA_PASSWORD
+  # Workaround for the scan-request-token livelock in kopiur 0.8.0
+  # (home-operations/kopiur#278 fixed the *timed-refresh* arm of
+  # bootstrap_recycle_due; the *scan-request* arm still recycles a finished
+  # bootstrap Job on any token/honored mismatch). Adoption-stamp churn from 29
+  # SnapshotPolicies wins the race against the ClusterRepository's honored
+  # write, so the garage-bootstrap Job gets recreated every ~15-20s and
+  # scanRequestHonored never catches up. Disabling auto-adoption at the repo
+  # level is the middle link in `effective_adoption(policy, repo)` — policies
+  # don't need to be touched. Revert once kopiur 0.8.1+ ships a fix for the
+  # scan-request arm (currently unfixed on main).
+  catalog:
+    adoption: Ignore
   moverDefaults:
     cache:
       capacity: 2Gi
@@ -68,6 +80,10 @@ spec:
       name: kopiur-b2-secret
       namespace: kopiur-system
       key: KOPIA_PASSWORD
+  # Same scan-request-token livelock workaround as `garage`. Disabling
+  # auto-adoption at the repo level until the upstream fix lands.
+  catalog:
+    adoption: Ignore
   maintenance:
     enabled: true
     schedule:
