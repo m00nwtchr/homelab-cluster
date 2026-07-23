@@ -19,7 +19,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 0.162.2
+    tag: 0.162.12
   url: oci://ghcr.io/home-operations/charts-mirror/infisical-standalone-postgres
   verify:
     provider: cosign
@@ -50,7 +50,7 @@ spec:
 
       image:
         repository: infisical/infisical
-        tag: "v0.162.2@sha256:5ca5206f7c645d83f5438c909c2f01e347d3d15f106974f79c36c7e79bc807e7"
+        tag: "v0.162.12@sha256:ddaa5ef10fd465d597a7d0069d991db9269312a9d0965f4befa8ec4217603a30"
         pullPolicy: IfNotPresent
       replicaCount: 2
 
