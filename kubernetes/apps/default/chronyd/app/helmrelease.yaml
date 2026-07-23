@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/dockur/chrony
-              tag: 4.8@sha256:4ed7c27131c5b4a8e1ad8925ebdc6218f0b9849bce46e6b90fa3ae1c41cb5922
+              tag: 4.8@sha256:9ee7c0c9ba91d65c4fe9b9b45577a3c1470a887656cafec0b605b96c7b433d0a
             env:
               ENABLE_NTS: "true"
               NTP_SERVERS: "0.ke.experimental.ntspooltest.org,1.ke.experimental.ntspooltest.org,2.ke.experimental.ntspooltest.org,3.ke.experimental.ntspooltest.org"
