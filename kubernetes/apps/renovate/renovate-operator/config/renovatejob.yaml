@@ -8,7 +8,7 @@ spec:
   schedule: "@hourly"
   discoveryFilters:
     - m00n/*
-  image: ghcr.io/renovatebot/renovate:43.257@sha256:71f9c23d9bdb689cb5dc57180bf37cefca786ea42203002068802fbd17e39769
+  image: ghcr.io/renovatebot/renovate:43.279@sha256:12ff9ccbded485ab4187f0b56713ca3514fd5802e347441236a9153efa033aeb
   secretRef: renovate-secret
   provider:
     name: forgejo
