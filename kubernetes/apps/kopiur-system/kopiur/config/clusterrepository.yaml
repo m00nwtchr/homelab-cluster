@@ -72,9 +72,9 @@ spec:
     enabled: true
     schedule:
       full:
-        cron: 0 3 */7 * *
+        cron: 0 3 * * 1
       quick:
-        cron: 0 */12 * * *
+        cron: 0 6 * * *
   moverDefaults:
     cache:
       capacity: 2Gi
