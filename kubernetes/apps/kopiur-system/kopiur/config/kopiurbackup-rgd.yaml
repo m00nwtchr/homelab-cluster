@@ -94,7 +94,7 @@ spec:
           repository: { kind: ClusterRepository, name: garage }
           retention: { keepDaily: 7, keepHourly: 24 }
           compression: { compressor: zstd }
-          defaultDeletionPolicy: Retain
+          defaultDeletionPolicy: Delete
           sources:
             - pvc: { name: "${schema.spec.pvcName}" }
           verification:
@@ -134,7 +134,7 @@ spec:
           repository: { kind: ClusterRepository, name: b2 }
           retention: { keepDaily: 7 }
           compression: { compressor: zstd }
-          defaultDeletionPolicy: Retain
+          defaultDeletionPolicy: Delete
           sources:
             - pvc: { name: "${schema.spec.pvcName}" }
           verification:
