@@ -1,75 +1,35 @@
-_config_version: 27
 model:
   default: MiniMax-M3
-  provider: minimax
-# fallback_providers:
-#   - provider: litellm
-#     model: dsv4f
-#   - provider: litellm
-#     model: self-hosted
-#   - provider: litellm
-#     model: go-kimi-k2.6
-# providers:
-#   minimax:
-#     base_url: https://api.minimax.io/anthropic
-#     api_mode: anthropic_messages
-#     api_key: $${MINIMAX_API_KEY}
+  provider: custom
+  base_url: http://agentgateway-proxy.ai.svc.cluster.local/anthropic
+  api_mode: anthropic_messages
 toolsets:
   - hermes-cli
+agent:
+  max_turns: 150
+  gateway_timeout: 1800
+  restart_drain_timeout: 60
+  api_max_retries: 2
+  verify_on_stop: false
+  reasoning_effort: medium
 terminal:
   backend: local
   cwd: /opt/data/workspace
   timeout: 180
   persistent_shell: true
-memory:
-  provider: memini
-  auto_migrate: true
+web:
+  backend: brave-free
+  use_gateway: false
+browser:
+  cloud_provider: local
+  use_gateway: false
 compression:
   enabled: true
-  threshold: 0.50
-  target_ratio: 0.20
+  threshold: 0.5
+  target_ratio: 0.2
   protect_last_n: 20
-agent:
-  max_turns: 90
-  gateway_timeout: 1800
-  restart_drain_timeout: 60
-  api_max_retries: 2
-  reasoning_effort: medium
-streaming:
-  enabled: false
-security:
-  redact_secrets: true
-privacy:
-  redact_pii: true
-platform_toolsets:
-  cli:
-    - hermes-cli
-  matrix:
-    - hermes-matrix
-# mcp_servers:
-#   toolhive:
-#     url: http://vmcp-mcp-gateway-internal.llm:4483/mcp
-# auxiliary:
-#   vision:
-#     provider: minimax
-#     model: MiniMax-M3
-#   compression:
-#     provider: minimax
-#     model: MiniMax-M2.7
-#     timeout: 180
-#   web_extract:
-#     provider: minimax
-#     model: MiniMax-M2.7
-#     timeout: 120
-#   approval:
-#     provider: minimax
-#     model: MiniMax-M2.7
-#     timeout: 60
-#   session_search:
-#     provider: minimax
-#     model: MiniMax-M2.7
-#     timeout: 120
-
+display:
+  tool_progress: all
 dashboard:
   public_url: "https://${APP}.${MAIN_DOMAIN}"
   oauth:
@@ -77,3 +37,64 @@ dashboard:
     self_hosted:
       issuer: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
       client_id: hermes
+privacy:
+  redact_pii: true
+memory:
+  provider: honcho
+  auto_migrate: true
+security:
+  redact_secrets: true
+streaming:
+  enabled: false
+_config_version: 33
+platform_toolsets:
+  cli:
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - cronjob
+    - delegation
+    - file
+    - image_gen
+    - memory
+    - session_search
+    - skills
+    - terminal
+    - todo
+    - tts
+    - vision
+    - web
+  matrix:
+    - hermes-matrix
+custom_providers:
+  - name: agentgateway
+    base_url: http://agentgateway-proxy.ai.svc.cluster.local/anthropic
+    model: MiniMax-M3
+    api_mode: anthropic_messages
+session_reset:
+  mode: none
+known_plugin_toolsets:
+  cli:
+    - spotify
+# ── Fallback Model ────────────────────────────────────────────────────
+# Automatic provider failover when primary is unavailable.
+# Uncomment and configure to enable. Triggers on rate limits (429),
+# overload (529), service errors (503), or connection failures.
+#
+# Supported providers:
+#   openrouter   (OPENROUTER_API_KEY)  — routes to any model
+#   openai-codex (OAuth — hermes auth) — OpenAI Codex
+#   nous         (OAuth — hermes auth) — Nous Portal
+#   zai          (ZAI_API_KEY)         — Z.AI / GLM
+#   kimi-coding  (KIMI_API_KEY)        — Kimi / Moonshot
+#   kimi-coding-cn (KIMI_CN_API_KEY)   — Kimi / Moonshot (China)
+#   minimax      (MINIMAX_API_KEY)     — MiniMax
+#   minimax-cn   (MINIMAX_CN_API_KEY)  — MiniMax (China)
+#   bedrock      (AWS IAM / boto3)     — AWS Bedrock (Converse API)
+#
+# For custom OpenAI-compatible endpoints, add base_url and key_env.
+#
+# fallback_model:
+#   provider: openrouter
+#   model: anthropic/claude-sonnet-4
