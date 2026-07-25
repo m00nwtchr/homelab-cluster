@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/listenerset_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: ListenerSet
+metadata:
+  name: palworld
+spec:
+  parentRef:
+    name: internal
+    namespace: network
+  listeners:
+    - name: palworld
+      port: 8211
+      protocol: UDP

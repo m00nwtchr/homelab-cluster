@@ -48,7 +48,8 @@ spec:
                 ]
               TOWONEL_AGENT_UDP_SERVICES: |
                 [
-                  {"name":"turn-udp","origin":"stunner.network.svc.cluster.local.:3478","listen_port":3478}
+                  {"name":"turn-udp","origin":"stunner.network.svc.cluster.local.:3478","listen_port":3478},
+                  {"name":"palworld","origin":"palworld.games.svc.cluster.local.:8211","listen_port":8211}
                 ]
               TOWONEL_INVITE_TOKEN:
                 valueFrom:

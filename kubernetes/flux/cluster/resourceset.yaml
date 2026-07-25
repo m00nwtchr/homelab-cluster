@@ -28,6 +28,7 @@ spec:
     - namespace: external-secrets
     - namespace: fediverse
     - namespace: flux-system
+    - namespace: games
     - namespace: garage
     - namespace: gitea
     - namespace: hermes
