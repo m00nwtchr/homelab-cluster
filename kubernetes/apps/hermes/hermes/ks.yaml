@@ -11,12 +11,18 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/kopiur
+    - ../../../../components/oidc
   # dependsOn:
   #   - name: kubevirt
   #     namespace: kubevirt
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
+      DOMAIN: ${MAIN_DOMAIN}
+      NAME: Hermes
+      OIDC_PUBLIC_CLIENT: "true"
+      OIDC_CALLBACK: /auth/callback
       KOPIUR_PUID: "10000"
       KOPIUR_PGID: "10000"
       KOPIUR_CAPACITY: 10Gi

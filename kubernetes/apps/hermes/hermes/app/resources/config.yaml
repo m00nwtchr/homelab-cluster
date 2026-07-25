@@ -69,3 +69,11 @@ platform_toolsets:
 #     provider: minimax
 #     model: MiniMax-M2.7
 #     timeout: 120
+
+dashboard:
+  public_url: "https://${APP}.${MAIN_DOMAIN}"
+  oauth:
+    provider: self-hosted
+    self_hosted:
+      issuer: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
+      client_id: hermes
