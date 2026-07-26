@@ -34,6 +34,10 @@ spec:
               - -useperfthreads
               - -NoAsyncLoadingThread
               - -UseMultithreadForDS
+            ports:
+              - containerPort: &port 8211
+                name: palworld
+                protocol: UDP
             securityContext:
               readOnlyRootFilesystem: false
               capabilities: { drop: [ALL] }
@@ -49,7 +53,7 @@ spec:
         ipFamilies: [IPv4]
         ports:
           palworld:
-            port: 8211
+            port: *port
             protocol: UDP
 
     route:
@@ -69,8 +73,3 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /pal/Package/Pal/Saved
-
-      # tmp:
-      #   type: emptyDir
-      #   globalMounts:
-      #     - path: /pal/Package/Pal/Binaries/Linux
