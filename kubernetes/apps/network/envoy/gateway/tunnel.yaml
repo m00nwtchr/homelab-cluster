@@ -26,10 +26,10 @@ spec:
       allowedRoutes:
         namespaces:
           from: Same
-    - name: https-${MAIN_DOMAIN/./-}-wildcard
+    - name: https
       protocol: HTTPS
       port: 443
-      hostname: "*.${MAIN_DOMAIN}"
+      # hostname: "*.${SECRET_DOMAIN}"
       allowedRoutes:
         namespaces:
           from: All
@@ -38,40 +38,6 @@ spec:
         certificateRefs:
           - kind: Secret
             name: wildcard-${MAIN_DOMAIN/./-}-tls
-    - name: https-${MAIN_DOMAIN/./-}
-      protocol: HTTPS
-      port: 443
-      hostname: "${MAIN_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - kind: Secret
-            name: wildcard-${MAIN_DOMAIN/./-}-tls
-    - name: https-${SECRET_DOMAIN/./-}-wildcard
-      protocol: HTTPS
-      port: 443
-      hostname: "*.${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - kind: Secret
-            name: wildcard-${SECRET_DOMAIN/./-}-tls
-    - name: https-${SECRET_DOMAIN/./-}
-      protocol: HTTPS
-      port: 443
-      hostname: "${SECRET_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        mode: Terminate
-        certificateRefs:
           - kind: Secret
             name: wildcard-${SECRET_DOMAIN/./-}-tls
 ---
