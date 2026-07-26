@@ -81,6 +81,9 @@ spec:
               - op: replace
                 path: /spec/template/spec/containers/0/env/3/value
                 value: "[::]:9090"
+              - op: replace
+                path: /spec/template/spec/containers/0/image
+                value: "codeberg.org/towonel/towonel-agent:latest@sha256:3965896d6dfdf7485fa6113116c642ace42c0080e913ed1e2f040103697b7f96"
             target:
               kind: Deployment
               name: towonel-agent
