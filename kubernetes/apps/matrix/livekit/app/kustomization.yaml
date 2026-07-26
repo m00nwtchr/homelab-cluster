@@ -10,9 +10,5 @@ configMapGenerator:
   - name: livekit-configmap
     files:
       - resources/config.yaml
-secretGenerator:
-  - name: livekit-keys
-    files:
-      - keys.yaml=./resources/keys.sops.yaml
 configurations:
   - resources/kustomizeconfig.yaml

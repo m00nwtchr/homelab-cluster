@@ -27,7 +27,9 @@ spec:
                   secretKeyRef:
                     name: livekit-config
                     key: config.yaml
-
+            envFrom:
+              - secretRef:
+                  name: *app
             probes:
               liveness:
                 enabled: true
@@ -55,8 +57,10 @@ spec:
               tag: 0.5.0@sha256:29918567e6b7cd920e2853b4cd6848ce01b79947c3d19a9f1ed5b74f0a2a88bf
             env:
               LIVEKIT_URL: wss://livekit.${MAIN_DOMAIN}
-              LIVEKIT_KEY_FILE: /config/keys.yaml
               LIVEKIT_FULL_ACCESS_HOMESERVERS: "${SECRET_DOMAIN}"
+            envFrom:
+              - secretRef:
+                  name: *app
             probes:
               liveness:
                 enabled: true
@@ -101,8 +105,7 @@ spec:
       app:
         forceRename: *app
         controller: *app
-        ipFamilies:
-          - IPv4
+        ipFamilies: [IPv4]
         ports:
           http:
             port: 80
@@ -158,12 +161,3 @@ spec:
             backendRefs:
               - name: livekit-jwt
                 port: 80
-
-    persistence:
-      keys:
-        type: secret
-        name: livekit-keys
-        defaultMode: 0600
-        globalMounts:
-          - path: /config/keys.yaml
-            subPath: keys.yaml
