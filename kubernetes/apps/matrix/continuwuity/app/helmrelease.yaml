@@ -87,7 +87,7 @@ spec:
 
     route:
       app:
-        hostnames: ["matrix.${SECRET_DOMAIN}", "matrix-fed.${SECRET_DOMAIN}"]
+        hostnames: ["matrix.${SECRET_DOMAIN}"]
         forceRename: *app
         parentRefs:
           - name: tunnel
