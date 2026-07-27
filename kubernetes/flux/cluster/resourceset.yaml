@@ -15,6 +15,7 @@ spec:
       app.kubernetes.io/created-by: flux-operator
   inputs:
     - namespace: agentgateway-system
+    - namespace: agones-system
     - namespace: ai
     - namespace: automation
     - namespace: cert-manager
