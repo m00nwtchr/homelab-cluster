@@ -69,6 +69,13 @@ spec:
               - identifier: app
 
     persistence:
+      config:
+        type: configMap
+        name: palworld-config
+        globalMounts:
+          - path: /pal/Package/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
+            subPath: PalWorldSettings.ini
+
       data:
         existingClaim: *app
         globalMounts:
