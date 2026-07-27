@@ -64,7 +64,7 @@ spec:
     serviceMonitor:
       main:
         enabled: true
-        serviceName: main
+        serviceName: towonel-agent-main
     monitoring:
       prometheusRule:
         enabled: true
