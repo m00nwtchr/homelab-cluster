@@ -60,9 +60,9 @@ spec:
       app:
         kind: UDPRoute
         parentRefs:
-          - name: palworld
+          - kind: ListenerSet
+            name: palworld
             namespace: games
-            kind: ListenerSet
             sectionName: palworld
         rules:
           - backendRefs:
