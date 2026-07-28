@@ -108,7 +108,9 @@ while IFS=$'\t' read -r key orig_val; do
   # Indirect expansion: only override if var is set AND non-empty.
   if [[ -n "${!env_name+x}" && -n "${!env_name}" ]]; then
     new_val=$(format_value "$orig_val" "${!env_name}")
-    log "override ${key} (env ${env_name}=${!env_name})"
+    # Never echo the env value — PALWORLD_* may carry secrets (passwords,
+    # tokens, RCON keys). Operators verify the patched file directly.
+    log "override ${key} (env ${env_name}=<redacted>)"
   fi
   if (( first )); then
     new_line+="${key}=${new_val}"
