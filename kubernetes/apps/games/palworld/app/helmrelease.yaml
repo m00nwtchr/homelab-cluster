@@ -29,6 +29,9 @@ spec:
             image:
               repository: ghcr.io/pocketpairjp/palserver
               tag: v1.0.1.100619@sha256:0d293cafd503a91a6d11d71f7bf770ee0c3c5ecf37db988349b2c1758f4e9358
+            command:
+              - /bin/bash
+              - /scripts/patch-palworld-settings.sh
             args:
               - -port=8211
               - -useperfthreads
@@ -73,8 +76,8 @@ spec:
         type: configMap
         name: palworld-config
         globalMounts:
-          - path: /pal/Package/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
-            subPath: PalWorldSettings.ini
+          - path: /scripts/patch-palworld-settings.sh
+            subPath: patch-palworld-settings.sh
 
       data:
         existingClaim: *app

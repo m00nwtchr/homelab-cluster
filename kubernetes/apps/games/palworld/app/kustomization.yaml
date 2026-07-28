@@ -8,6 +8,6 @@ resources:
 configMapGenerator:
   - name: palworld-config
     files:
-      - resources/PalWorldSettings.ini
+      - resources/patch-palworld-settings.sh
 configurations:
   - ./resources/kustomizeconfig.yaml
