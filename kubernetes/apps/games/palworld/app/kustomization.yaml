@@ -7,6 +7,9 @@ resources:
   - ./listenerset.yaml
 configMapGenerator:
   - name: palworld-config
+    options:
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
     files:
       - resources/patch-palworld-settings.sh
 configurations:

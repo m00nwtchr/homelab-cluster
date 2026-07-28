@@ -137,4 +137,4 @@ fi
 
 log "wrote $OUT_INI"
 
-exec /pal/Package/PalServer.sh "$@"
+exec /bin/bash /pal/Package/PalServer.sh "$@"
