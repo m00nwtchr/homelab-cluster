@@ -37,6 +37,9 @@ spec:
               - -useperfthreads
               - -NoAsyncLoadingThread
               - -UseMultithreadForDS
+            envFrom:
+              - secretRef:
+                  name: *app
             ports:
               - containerPort: &port 8211
                 name: palworld
