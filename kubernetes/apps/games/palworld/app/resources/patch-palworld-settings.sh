@@ -121,14 +121,19 @@ new_line+=")"
 
 mkdir -p "$(dirname "$OUT_INI")"
 
-# Preserve the [Section] header line from the base INI (always line 1).
-header=$(head -n 1 "$BASE_INI")
-
-{
-  printf '%s\n' "$header"
-  printf '%s\n' "$new_line"
-  printf '\n'
-} > "$OUT_INI"
+# Pass the base file through awk, swapping only the OptionSettings=(…) line
+# for our patched version. Preserves leading comments (e.g. "; This file…"),
+# the [/Script/…] section header, and any trailing blank lines — only the
+# OptionSettings line changes. CRLF in the base is normalised to LF for
+# consistency with the patched line.
+awk -v patched="$new_line" '
+  /^OptionSettings=\(/ {
+    gsub(/\r/, "", patched)
+    print patched
+    next
+  }
+  { gsub(/\r/, "", $0); print }
+' "$BASE_INI" > "$OUT_INI"
 
 # Match the pod's runAsUser/runAsGroup so the server can read the file.
 if command -v chown >/dev/null 2>&1; then
