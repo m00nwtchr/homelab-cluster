@@ -1,5 +1,23 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd/helm-controller/main/artifacts/schemas/helmrelease-helm-v2.json
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: palworld
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 0.1.0
+  url: oci://ghcr.io/m00nwtchr/charts/palworld
+  # verify:
+  #   matchOIDCIdentity:
+  #     - issuer: ^https://token.actions.githubusercontent.com$
+  #       subject: ^https://github.com/m00nwtchr/agones-palworld.*$
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -8,15 +26,12 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: agones-palworld
-    namespace: flux-system
+    name: *app
   interval: 15m
   values:
     palworld:
       image:
         repository: ghcr.io/pocketpairjp/palserver
-        # The full image ref, including @sha256 digest. Pin the digest so the
-        # Fleet is reproducible. Override this in Renovate to roll.
         tag: v1.0.2.100933@sha256:0ccb952bc8e4d0bee31ee36cb5170804f65c8158f778b7ee43f93e499ed0e7e6
         pullPolicy: IfNotPresent
       env:
@@ -25,30 +40,10 @@ spec:
       envFrom:
         - secretRef:
             name: *app
-      restPort: 8211
-      gamePort: 8211
-
-    sidecar:
-      # The CI workflow overwrites this tag with a digest-pinned form
-      # (e.g. "0.1.0@sha256:...") at chart-package time. Leave empty here.
-      image:
-        repository: ghcr.io/m00nwtchr/agones-palworld
-        tag: ""
-        pullPolicy: IfNotPresent
 
     pvc:
-      # Reuse the existing 5Gi PVC created by the prior StatefulSet. Without
-      # this, the chart would try to provision a new 50Gi PVC and conflict.
-      enabled: true
       existingClaim: *app
-      size: 50Gi
 
     service:
-      # Headless service (ClusterIP + clusterIP=None) so the GW UDP listener
-      # resolves the headless service via DNS and reaches the GameServer pod.
       type: ClusterIP
       clusterIP: None
-      port: 8211
-      protocol: UDP
-      ipFamilyPolicy: SingleStack
-      ipFamilies: [IPv4]
