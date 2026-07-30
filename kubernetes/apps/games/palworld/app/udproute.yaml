@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/udproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: UDPRoute
+metadata:
+  name: palworld
+  namespace: games
+  labels:
+    app.kubernetes.io/name: palworld
+spec:
+  parentRefs:
+    - group: gateway.networking.x-k8s.io
+      kind: ListenerSet
+      name: palworld
+      namespace: games
+      sectionName: palworld
+  rules:
+    - backendRefs:
+        - kind: Service
+          name: palworld
+          port: 8211

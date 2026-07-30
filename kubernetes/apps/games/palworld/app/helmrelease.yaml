@@ -1,91 +1,54 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd/helm-controller/main/artifacts/schemas/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app palworld
+  namespace: &namespace games
 spec:
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: agones-palworld
     namespace: flux-system
   interval: 15m
   values:
-    controllers:
-      *app :
-        type: statefulset
+    palworld:
+      image:
+        repository: ghcr.io/pocketpairjp/palserver
+        # The full image ref, including @sha256 digest. Pin the digest so the
+        # Fleet is reproducible. Override this in Renovate to roll.
+        tag: v1.0.2.100933@sha256:0ccb952bc8e4d0bee31ee36cb5170804f65c8158f778b7ee43f93e499ed0e7e6
+        pullPolicy: IfNotPresent
+      env:
+        PALWORLD_SERVER_NAME: "m00n's Palworld Server"
+        PALWORLD_ALLOW_GLOBAL_PALBOX_IMPORT: "True"
+      envFrom:
+        - secretRef:
+            name: *app
+      restPort: 8211
+      gamePort: 8211
 
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 999
-            runAsGroup: 999
-            fsGroup: 999
-            fsGroupChangePolicy: OnRootMismatch
-            seccompProfile: { type: RuntimeDefault }
+    sidecar:
+      # The CI workflow overwrites this tag with a digest-pinned form
+      # (e.g. "0.1.0@sha256:...") at chart-package time. Leave empty here.
+      image:
+        repository: ghcr.io/m00nwtchr/agones-palworld
+        tag: ""
+        pullPolicy: IfNotPresent
 
-        containers:
-          app:
-            image:
-              repository: ghcr.io/pocketpairjp/palserver
-              tag: v1.0.2.100933@sha256:0ccb952bc8e4d0bee31ee36cb5170804f65c8158f778b7ee43f93e499ed0e7e6
-            command:
-              - /bin/bash
-              - /scripts/patch-palworld-settings.sh
-            args:
-              - -port=8211
-              - -useperfthreads
-              - -NoAsyncLoadingThread
-              - -UseMultithreadForDS
-            env:
-              PALWORLD_SERVER_NAME: "m00n's Palworld Server"
-              PALWORLD_ALLOW_GLOBAL_PALBOX_IMPORT: "True"
-            envFrom:
-              - secretRef:
-                  name: *app
-            ports:
-              - containerPort: &port 8211
-                name: palworld
-                protocol: UDP
-            securityContext:
-              readOnlyRootFilesystem: false
-              capabilities: { drop: [ALL] }
-            # resources:
-            # requests:
-            #   cpu: 500m
-            #   memory: 1Gi
-            # limits:
-            #   memory: 1Gi
+    pvc:
+      # Reuse the existing 5Gi PVC created by the prior StatefulSet. Without
+      # this, the chart would try to provision a new 50Gi PVC and conflict.
+      enabled: true
+      existingClaim: *app
+      size: 50Gi
 
     service:
-      app:
-        ipFamilies: [IPv4]
-        ports:
-          palworld:
-            port: *port
-            protocol: UDP
-
-    route:
-      app:
-        kind: UDPRoute
-        parentRefs:
-          - kind: ListenerSet
-            name: palworld
-            namespace: games
-            sectionName: palworld
-        rules:
-          - backendRefs:
-              - identifier: app
-
-    persistence:
-      config:
-        type: configMap
-        name: palworld-config
-        globalMounts:
-          - path: /scripts/patch-palworld-settings.sh
-            subPath: patch-palworld-settings.sh
-
-      data:
-        existingClaim: *app
-        globalMounts:
-          - path: /pal/Package/Pal/Saved
+      # Headless service (ClusterIP + clusterIP=None) so the GW UDP listener
+      # resolves the headless service via DNS and reaches the GameServer pod.
+      type: ClusterIP
+      clusterIP: None
+      port: 8211
+      protocol: UDP
+      ipFamilyPolicy: SingleStack
+      ipFamilies: [IPv4]
