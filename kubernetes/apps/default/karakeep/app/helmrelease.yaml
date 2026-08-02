@@ -21,7 +21,7 @@ spec:
         runAsNonRoot: true
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-        seccompProfile: { type: RuntimeDefault }
+        seccompProfile: {type: RuntimeDefault}
 
     controllers:
       *app :
@@ -110,10 +110,10 @@ spec:
                 enabled: true
             resources:
               requests:
-                cpu: 10m
-                memory: 128Mi
+                cpu: 114m
+                memory: 911Mi
               limits:
-                memory: 951Mi
+                memory: 911Mi
 
       chrome:
         annotations:
@@ -180,9 +180,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 128Mi
+                memory: 115Mi
               limits:
-                memory: 4Gi
+                memory: 115Mi
 
     service:
       app:
