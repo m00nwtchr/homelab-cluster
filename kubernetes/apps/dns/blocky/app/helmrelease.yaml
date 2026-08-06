@@ -25,7 +25,7 @@ spec:
             image:
               # repository: ghcr.io/0xerr0r/blocky # https://github.com/0xERR0R/blocky/issues/1461
               repository: ghcr.io/m00nwtchr/blocky # custom built image to allow running without caps
-              tag: 0.33.0@sha256:d264410a702d55e75869128d2a19a796de34ad6cbad7c8e0bbf940712489eb40
+              tag: 0.34.0@sha256:fd0cadb36cb2bee4fd183e938f7bea2a5f27230d64be470232d239e46a17c7bc
             probes:
               liveness: &probe
                 enabled: true
