@@ -291,7 +291,7 @@ spec:
                           pullPolicy: IfNotPresent
                       - name: infisical-pkcs11
                         image:
-                          reference: ghcr.io/m00nwtchr/infisical-pkcs11-provider:0.0.3
+                          reference: ghcr.io/m00nwtchr/infisical-pkcs11-provider:0.0.4
                           pullPolicy: IfNotPresent
                       - name: gnupg-config
                         configMap:
