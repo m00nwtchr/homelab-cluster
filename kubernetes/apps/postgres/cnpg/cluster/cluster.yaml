@@ -75,7 +75,7 @@ spec:
 
       - name: timescaledb
         image:
-          reference: ghcr.io/m00nwtchr/timescaledb:2.27.0@sha256:fde617cd1b90993118728ef4561e4ebf98d5e6ef6111cb9f80e6ebbf4b5f0ca1
+          reference: ghcr.io/m00nwtchr/timescaledb:2.29.1@sha256:6519fe914d543f12080f9667d9a7d2b16733bad3de92dc49c5791730fd211cb7
 
       - name: paradedb
         image:
