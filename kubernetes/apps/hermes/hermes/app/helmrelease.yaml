@@ -106,7 +106,7 @@ spec:
           codeserver:
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.124.2@sha256:726c75e330d99c9e6545ff1208042ccc3d97465cf24cdb48b304d111a43cd441
+              tag: 4.131.0@sha256:3623e6362abdec6258472882b06fdeec9d6ce2ad3fda316b3c5d7ed092b89add
             env:
               TZ: *tz
             args:
