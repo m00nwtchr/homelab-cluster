@@ -79,7 +79,7 @@ spec:
 
       - name: paradedb
         image:
-          reference: paradedb/paradedb-extension:0.0.0-18-trixie@sha256:6811e9495041cb50b2907fc53eac300aa8ff303affb0e1fd3e3ef0fdc6874d63
+          reference: paradedb/paradedb-extension:0.25.1-18-trixie@sha256:2ef3d07b91ce40bdcc21f6733960a45d93a2ba2703ec057f7aa5a94b66a57ab8
 
       # - name: pgcron
       #   image:
