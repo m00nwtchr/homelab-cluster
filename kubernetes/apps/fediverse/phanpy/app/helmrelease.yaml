@@ -17,7 +17,7 @@ spec:
           main:
             image:
               repository: ghcr.io/jjgadgets/phanpy
-              tag: 2026.01.31.8b98d5a@sha256:dc40489af8056ff6aa3c390913f06346504a1f2a91297d503f4310a3b4bd43ee
+              tag: 2026.06.23.05dcc55@sha256:178a857ba5f3d12664e5bee15a617958b8799d81dbda36662276362268c5e42f
             env:
               PHANPY_WEBSITE: "{{ .Release.Name }}.${MAIN_DOMAIN}"
               PHANPY_DEFAULT_INSTANCE: "${MAIN_DOMAIN}"
