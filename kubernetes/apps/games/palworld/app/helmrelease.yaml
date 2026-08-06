@@ -37,6 +37,7 @@ spec:
       env:
         PALWORLD_SERVER_NAME: "m00n's Palworld Server"
         PALWORLD_ALLOW_GLOBAL_PALBOX_IMPORT: "True"
+        PALWORLD_BASE_CAMP_WORKER_MAX_NUM: "30"
       envFrom:
         - secretRef:
             name: *app
