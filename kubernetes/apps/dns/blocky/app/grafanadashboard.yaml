@@ -15,7 +15,7 @@ spec:
   envs:
     - name: VAR_BLOCKY_URL
       value: "http:\\/\\/blocky.dns.svc.cluster.local"
-  url: https://grafana.com/api/dashboards/13768/revisions/6/download
+  url: https://grafana.com/api/dashboards/13768/revisions/8/download
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
