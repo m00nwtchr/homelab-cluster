@@ -53,7 +53,7 @@ spec:
     shared_preload_libraries:
       - vchord.so
       - timescaledb
-      - pg_search # ParadeDB
+      - pg_search
     parameters:
       timescaledb.telemetry_level: "off"
       max_locks_per_transaction: "128"
@@ -77,7 +77,9 @@ spec:
         image:
           reference: ghcr.io/m00nwtchr/timescaledb:2.27.0@sha256:fde617cd1b90993118728ef4561e4ebf98d5e6ef6111cb9f80e6ebbf4b5f0ca1
 
-      - name: paradedb
+      - name: pg_search
+        ld_library_path:
+          - system
         image:
           reference: paradedb/paradedb-extension:0.25.1-18-trixie@sha256:2ef3d07b91ce40bdcc21f6733960a45d93a2ba2703ec057f7aa5a94b66a57ab8
 
