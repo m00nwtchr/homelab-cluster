@@ -165,12 +165,10 @@ spec:
             image:
               repository: mirror.gcr.io/getmeili/meilisearch
               tag: v1.52.0@sha256:d36e713e8f89483af1ab0d72011bbd503f5ab100b68ccbfad51c39e3f0a0567d
-            args:
-              - /bin/meilisearch
-              - --experimental-dumpless-upgrade
             env:
               MEILI_HTTP_ADDR: "[::]:7700"
               MEILI_NO_ANALYTICS: true
+              MEILI_UPGRADE_DB: true
               MEILI_MASTER_KEY:
                 valueFrom:
                   secretKeyRef:
