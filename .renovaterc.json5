@@ -85,6 +85,35 @@
 		},
 		// Grouping rules
 		{
+			description: "Agentgateway Group",
+			groupName: "agentgateway",
+			matchDatasources: ["docker"],
+			matchPackageNames: ["/agentgateway"],
+			group: {
+				commitMessageTopic: "{{{groupName}}} group",
+			},
+			minimumGroupSize: 2,
+		},
+		{
+			description: "Toolhive Group",
+			groupName: "toolhive",
+			matchDatasources: ["docker"],
+			matchPackageNames: ["/toolhive/"],
+			group: {
+				commitMessageTopic: "{{{groupName}}} group",
+			},
+			minimumGroupSize: 2,
+		},
+		{
+			description: "Memini Group",
+			groupName: "memini",
+			matchPackageNames: ["/memini"],
+			group: {
+				commitMessageTopic: "{{{groupName}}} group",
+			},
+			minimumGroupSize: 2,
+		},
+		{
 			description: "Actions Runner Controller Group",
 			groupName: "actions-runner-controller",
 			matchDatasources: ["docker"],
