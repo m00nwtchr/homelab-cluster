@@ -52,10 +52,10 @@ spec:
     # https://codeberg.org/forgejo/-/packages/container/forgejo/14.0.2
     image:
       rootless: true
-      registry: code.forgejo.org
-      repository: forgejo/forgejo
-      tag: 14.0.2-rootless
-      digest: sha256:5552c9e25f353760420b8ac7a7f0f0a788ff571bbfd8e2c1e93503d3e2e1b87a
+      # registry: code.forgejo.org
+      # repository: forgejo/forgejo
+      # tag: 14.0.2-rootless
+      # digest: sha256:5552c9e25f353760420b8ac7a7f0f0a788ff571bbfd8e2c1e93503d3e2e1b87a
 
     # initPreScript: |
     #   curl -L -o libinfisical-pkcs11.tar.gz \
