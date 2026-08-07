@@ -17,6 +17,7 @@ spec:
         type: daemonset
 
         pod:
+          automountServiceAccountToken: true
           hostNetwork: true
 
         initContainers:
