@@ -22,6 +22,7 @@ spec:
           # successfulJobsHistory: 0
         pod:
           restartPolicy: OnFailure
+          automountServiceAccountToken: true
           securityContext:
             runAsGroup: 65532
             runAsNonRoot: true
