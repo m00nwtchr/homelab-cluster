@@ -23,6 +23,8 @@ spec:
       NAMESPACE: *namespace
       OIDC_GROUP: admins
       OIDC_SCOPES: '["openid", "profile"]'
+      KOPIUR_PUID: "2000"
+      KOPIUR_PGID: "2000"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
