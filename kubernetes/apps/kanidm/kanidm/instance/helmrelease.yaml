@@ -86,6 +86,7 @@ spec:
 
       provision:
         pod:
+          automountServiceAccountToken: true
           securityContext:
             runAsUser: 999
             runAsGroup: 999
