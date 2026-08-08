@@ -29,9 +29,9 @@ new_user_displayname_suffix = ""
 
 query_trusted_key_servers_first = false
 query_trusted_key_servers_first_on_join = false
-forbidden_remote_server_names = ["matrix.org"]
-forbidden_remote_room_directory_server_names = ["matrix.org"]
-url_preview_domain_explicit_denylist = ["matrix.org"]
+# forbidden_remote_server_names = ["matrix.org"]
+# forbidden_remote_room_directory_server_names = ["matrix.org"]
+# url_preview_domain_explicit_denylist = ["matrix.org"]
 
 # Additional config
 [global.well_known]
