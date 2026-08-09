@@ -61,7 +61,6 @@ spec:
     - namespace: toolhive
     - namespace: tor
     - namespace: trivy-system
-    - namespace: volsync-system
   resources:
     - apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
