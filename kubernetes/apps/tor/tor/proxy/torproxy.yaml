@@ -6,7 +6,7 @@ metadata:
   name: proxy
 spec:
   deployment:
-    replicas: 2
+    replicas: 1
   service:
     ports:
       - name: socks

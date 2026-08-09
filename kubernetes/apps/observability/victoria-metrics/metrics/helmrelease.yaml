@@ -145,6 +145,23 @@ spec:
       vmScrapes:
         kubelet:
           enabled: true
+        cadvisor:
+          enabled: true
+          spec:
+            path: /metrics/cadvisor
+            metricRelabelConfigs:
+              # Drop cgroup-hierarchy series: image="" AND name="" AND namespace="" AND pod=""
+              # cAdvisor emits metrics for every cgroup in /sys/fs/cgroup hierarchy
+              # (slice, scope, container siblings). Those cgroup-hierarchy series carry
+              # empty image/name/namespace/pod and account for ~84% of the scrape payload
+              # (~15.6 MiB out of ~18.5 MiB on this single-node cluster). Real per-container
+              # series already carry populated labels, so the duplicate-cgroup series are
+              # noise. After this drop vmagent accepts only ~3 MiB per scrape, well under
+              # the 16 MiB default promscrape.maxScrapeSize.
+              - action: drop
+                source_labels: [image, name, namespace, pod]
+                regex: ";+;+;+"
+                separator: ";"
       vmScrape:
         spec:
           relabelConfigs:

@@ -28,3 +28,6 @@ spec:
     kind: OCIRepository
     name: *app
   interval: 1h
+  values:
+    scaler:
+      replicas: 1

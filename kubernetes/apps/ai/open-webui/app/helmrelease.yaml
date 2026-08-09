@@ -91,7 +91,7 @@ spec:
                 memory: 2Gi
               limits:
                 #                memory: 2Gi
-                memory: 5Gi
+                memory: 3Gi
     service:
       app:
         ports:
