@@ -11,7 +11,7 @@ spec:
       name: *app
   oidc:
     provider:
-      issuer: "https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}"
+      issuer: "https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}"
     clientID: *app
     clientSecret:
       name: "kanidm-${APP}-oidc"

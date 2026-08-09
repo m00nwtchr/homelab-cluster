@@ -64,7 +64,7 @@ spec:
               CRAWLER_STORE_SCREENSHOT: true
               DATA_DIR: /data
               DISABLE_PASSWORD_AUTH: true
-              OAUTH_WELLKNOWN_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
+              OAUTH_WELLKNOWN_URL: https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
               OAUTH_CLIENT_ID: *app
               OAUTH_CLIENT_SECRET:
                 valueFrom:

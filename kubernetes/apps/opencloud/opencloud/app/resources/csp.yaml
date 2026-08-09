@@ -7,7 +7,7 @@ directives:
     - "https://wopi.${MAIN_DOMAIN}/"
     - "wss://wopi.${MAIN_DOMAIN}/"
     - "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
-    - "https://idm.${SECRET_DOMAIN}/"
+    - "https://idm.${MAIN_DOMAIN}/"
   default-src:
     - "'none'"
   font-src:

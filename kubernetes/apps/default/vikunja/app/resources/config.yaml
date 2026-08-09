@@ -7,7 +7,7 @@ auth:
     providers:
       kanidm:
         name: Kanidm
-        authurl: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
+        authurl: https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}
         clientid: "${APP}"
         clientsecret: "{{ .client_secret }}"
         scope: openid profile email

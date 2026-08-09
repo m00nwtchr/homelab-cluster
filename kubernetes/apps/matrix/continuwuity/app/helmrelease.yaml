@@ -39,7 +39,7 @@ spec:
               CONDUWUIT_CONFIG: "/config/conduit.toml"
               CONDUWUIT_PORT: &port 8008
 
-              CONTINUWUITY_OAUTH__OIDC__DISCOVERY_URL: "https://idm.${SECRET_DOMAIN}/oauth2/openid/{{ .Release.Name }}"
+              CONTINUWUITY_OAUTH__OIDC__DISCOVERY_URL: "https://idm.${MAIN_DOMAIN}/oauth2/openid/{{ .Release.Name }}"
               CONTINUWUITY_OAUTH__OIDC__CLIENT_ID: *app
               CONTINUWUITY_OAUTH__OIDC__CLIENT_SECRET:
                 valueFrom:

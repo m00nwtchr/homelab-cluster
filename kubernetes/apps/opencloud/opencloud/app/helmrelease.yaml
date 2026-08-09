@@ -69,7 +69,7 @@ spec:
               OC_PASSWORD_POLICY_MIN_DIGITS: 1
               OC_PASSWORD_POLICY_MIN_SPECIAL_CHARACTERS: 1
 
-              # OC_LDAP_URI: ldaps://idm.${SECRET_DOMAIN}
+              # OC_LDAP_URI: ldaps://idm.${MAIN_DOMAIN}
               # OC_LDAP_SERVER_WRITE_ENABLED: "false"
               # OC_LDAP_BIND_DN: cn=anonymous,dc=idm,dc=m00nlit,dc=dev
               # OC_LDAP_BIND_PASSWORD: admin-password
@@ -88,8 +88,8 @@ spec:
               PROXY_AUTOPROVISION_ACCOUNTS: "true"
               PROXY_ROLE_ASSIGNMENT_DRIVER: "oidc"
 
-              OC_OIDC_ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/opencloudandroid
-              WEB_OPTION_ACCOUNT_EDIT_LINK_HREF: "https://idm.${SECRET_DOMAIN}/ui/profile"
+              OC_OIDC_ISSUER: https://idm.${MAIN_DOMAIN}/oauth2/openid/opencloudandroid
+              WEB_OPTION_ACCOUNT_EDIT_LINK_HREF: "https://idm.${MAIN_DOMAIN}/ui/profile"
               WEB_OIDC_CLIENT_ID: opencloudandroid
               PROXY_OIDC_REWRITE_WELLKNOWN: "true"
               PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none # Needed because Kanidm uses different JWKS keys for different client IDs
@@ -135,7 +135,7 @@ spec:
             env:
               PORT: "9201"
               UPSTREAM_URL: https://cloud.${SECRET_DOMAIN}
-              HREF_PATTERN: &href https://idm.${SECRET_DOMAIN}/oauth2/openid/
+              HREF_PATTERN: &href https://idm.${MAIN_DOMAIN}/oauth2/openid/
               HREF_REPLACEMENT: *href
               DEFAULT_SUFFIX: opencloud
 

@@ -34,8 +34,8 @@ spec:
           "roles": {
             "joinType": "array",
             "valuesByGroup": {
-              "users@idm.m00nlit.dev": ["user"],
-              "admins@idm.m00nlit.dev": ["admin"]
+              "users@idm.${MAIN_DOMAIN}": ["user"],
+              "admins@idm.${MAIN_DOMAIN}": ["admin"]
             }
           }
         }

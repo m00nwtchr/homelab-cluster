@@ -31,7 +31,7 @@ spec:
 
               RUSTICAL_FRONTEND__ALLOW_PASSWORD_LOGIN: "false"
               RUSTICAL_OIDC__NAME: "Kanidm"
-              RUSTICAL_OIDC__ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
+              RUSTICAL_OIDC__ISSUER: https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}
               RUSTICAL_OIDC__CLIENT_ID: *app
               RUSTICAL_OIDC__CLIENT_SECRET:
                 valueFrom:

@@ -29,13 +29,13 @@ prometheus:
 auth_oidc:
   client_id: ${APP}
   client_secret: !env_var HASS_OPENID_CLIENT_SECRET
-  discovery_url: "https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration"
+  discovery_url: "https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration"
   features:
     automatic_person_creation: true
   id_token_signing_alg: "ES256"
   roles:
-    admin: "admins@idm.${SECRET_DOMAIN}"
-    user: "users@idm.${SECRET_DOMAIN}"
+    admin: "admins@idm.${MAIN_DOMAIN}"
+    user: "users@idm.${MAIN_DOMAIN}"
 
 wake_on_lan:
 

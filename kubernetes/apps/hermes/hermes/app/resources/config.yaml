@@ -35,7 +35,7 @@ dashboard:
   oauth:
     provider: self-hosted
     self_hosted:
-      issuer: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
+      issuer: https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}
       client_id: hermes
 privacy:
   redact_pii: true

@@ -39,15 +39,15 @@ spec:
 
               ALLOW_PASSWORD_LOGIN: "false"
               OIDC_AUTH_ENABLED: "true"
-              OIDC_CONFIGURATION_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
+              OIDC_CONFIGURATION_URL: https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
               OIDC_CLIENT_ID: *app
               OIDC_CLIENT_SECRET:
                 valueFrom:
                   secretKeyRef:
                     name: kanidm-${APP}-oidc
                     key: client-secret
-              OIDC_USER_GROUP: "users@idm.${SECRET_DOMAIN}"
-              OIDC_ADMIN_GROUP: "admins@idm.${SECRET_DOMAIN}"
+              OIDC_USER_GROUP: "users@idm.${MAIN_DOMAIN}"
+              OIDC_ADMIN_GROUP: "admins@idm.${MAIN_DOMAIN}"
               OIDC_AUTO_REDIRECT: "true"
               OIDC_SCOPES_OVERRIDE: "openid profile email groups"
 

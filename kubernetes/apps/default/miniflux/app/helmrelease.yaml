@@ -58,7 +58,7 @@ spec:
                     name: "kanidm-{{ .Release.Name }}-oidc"
                     key: client-secret
               OAUTH2_REDIRECT_URL: https://{{ .Release.Name }}.${MAIN_DOMAIN}/oauth2/oidc/callback
-              OAUTH2_OIDC_DISCOVERY_ENDPOINT: https://idm.${SECRET_DOMAIN}/oauth2/openid/{{ .Release.Name }}
+              OAUTH2_OIDC_DISCOVERY_ENDPOINT: https://idm.${MAIN_DOMAIN}/oauth2/openid/{{ .Release.Name }}
               OAUTH2_OIDC_PROVIDER_NAME: "Kanidm"
 
               OAUTH2_USER_CREATION: "1"

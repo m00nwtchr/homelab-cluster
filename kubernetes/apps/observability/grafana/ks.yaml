@@ -43,7 +43,7 @@ spec:
           "grafana_role": {
             "joinType": "array",
             "valuesByGroup": {
-              "admins@idm.m00nlit.dev": ["GrafanaAdmin"]
+              "admins@idm.${MAIN_DOMAIN}": ["GrafanaAdmin"]
             }
           }
         }

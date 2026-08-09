@@ -56,7 +56,7 @@ spec:
                   secretKeyRef:
                     name: kanidm-${APP}-oidc
                     key: client-secret
-              OPENID_PROVIDER_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
+              OPENID_PROVIDER_URL: https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration
               OAUTH_CODE_CHALLENGE_METHOD: "S256"
               ENABLE_OAUTH_ROLE_MANAGEMENT: True
 

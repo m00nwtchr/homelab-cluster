@@ -45,10 +45,10 @@ spec:
               GTS_ACCOUNTS_ALLOW_CUSTOM_CSS: "true"
               GTS_OIDC_ENABLED: "true"
               GTS_OIDC_IDP_NAME: "Kanidm"
-              GTS_OIDC_ISSUER: "https://idm.${SECRET_DOMAIN}/oauth2/openid/{{ .Release.Name }}"
+              GTS_OIDC_ISSUER: "https://idm.${MAIN_DOMAIN}/oauth2/openid/{{ .Release.Name }}"
               GTS_OIDC_SCOPES: "openid,email,profile,groups"
               GTS_OIDC_LINK_EXISTING: "true"
-              GTS_OIDC_ADMIN_GROUPS: "admins@idm.${SECRET_DOMAIN}"
+              GTS_OIDC_ADMIN_GROUPS: "admins@idm.${MAIN_DOMAIN}"
               GTS_OIDC_CLIENT_ID:
                 valueFrom:
                   secretKeyRef:

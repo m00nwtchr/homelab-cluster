@@ -47,7 +47,7 @@ spec:
                   secretKeyRef:
                     name: "kanidm-{{ .Release.Name }}-oidc"
                     key: client-secret
-              OIDC_ISSUER: "https://idm.${SECRET_DOMAIN}/oauth2/openid/{{ .Release.Name }}"
+              OIDC_ISSUER: "https://idm.${MAIN_DOMAIN}/oauth2/openid/{{ .Release.Name }}"
               OIDC_REDIRECT_URI: https://{{ .Release.Name }}.${SECRET_DOMAIN}/users/auth/openid_connect/callback
               OIDC_PROVIDER_NAME: Kanidm
 

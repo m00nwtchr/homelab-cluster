@@ -23,7 +23,7 @@ spec:
         #     command: ["/bin/sh", "-c"]
         #     args:
         #       - |
-        #         until curl -sf https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration; do
+        #         until curl -sf https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}/.well-known/openid-configuration; do
         #           echo "Waiting for OIDC provider..."
         #           sleep 5
         #         done
@@ -47,7 +47,7 @@ spec:
               SFTPGO_SFTPD__BINDINGS__0__PORT: 2022
               SFTPGO_HTTPD__BINDINGS__0__ADDRESS: "[::]"
               SFTPGO_HTTPD__BINDINGS__0__PORT: 8080
-              SFTPGO_HTTPD__BINDINGS__0__OIDC__CONFIG_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
+              SFTPGO_HTTPD__BINDINGS__0__OIDC__CONFIG_URL: https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}
               SFTPGO_HTTPD__BINDINGS__0__OIDC__REDIRECT_BASE_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}
               SFTPGO_HTTPD__BINDINGS__0__OIDC__SCOPES: openid,profile,email
               SFTPGO_HTTPD__BINDINGS__0__OIDC__USERNAME_FIELD: preferred_username
