@@ -56,6 +56,7 @@ spec:
             image:
               repository: docker.io/kanidm/server
               tag: 1.11.0@sha256:381fc49d0779e43f39dd9111e0b430d13c5bc27912138dbc5ed516f3923354d7
+            args: ["domain", "rename", "-c", "/data/server.toml"]
             env:
               KANIDM_ADMIN_BIND_PATH: "/var/run/kanidmd.sock"
             probes:
@@ -105,7 +106,7 @@ spec:
               limits:
                 memory: 100Mi
             env:
-              KANIDM_INSTANCE: "https://idm.${SECRET_DOMAIN}"
+              KANIDM_INSTANCE: "https://idm.${MAIN_DOMAIN}"
               KANIDM_TOKEN:
                 valueFrom:
                   secretKeyRef:
@@ -130,8 +131,7 @@ spec:
 
     route:
       app:
-        #        kind: TLSRoute
-        hostnames: ["idm.${SECRET_DOMAIN}"]
+        hostnames: ["idm.${MAIN_DOMAIN}"]
         parentRefs:
           - name: tunnel
             namespace: network
