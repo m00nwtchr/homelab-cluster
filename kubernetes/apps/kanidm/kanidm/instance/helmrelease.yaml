@@ -56,7 +56,6 @@ spec:
             image:
               repository: docker.io/kanidm/server
               tag: 1.11.0@sha256:381fc49d0779e43f39dd9111e0b430d13c5bc27912138dbc5ed516f3923354d7
-            args: ["domain", "rename", "-c", "/data/server.toml"]
             env:
               KANIDM_ADMIN_BIND_PATH: "/var/run/kanidmd.sock"
             probes:
