@@ -35,6 +35,20 @@ spec:
       - --kubelet-use-node-status-port
       - --metric-resolution=10s
       - --kubelet-request-timeout=2s
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 200Mi
+      limits:
+        cpu: 100m
+        memory: 200Mi
+
+    apiService:
+      insecureSkipTLSVerify: false
+    tls:
+      type: "cert-manager"
+
     metrics:
       enabled: true
     serviceMonitor:
