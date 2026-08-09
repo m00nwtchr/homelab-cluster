@@ -42,6 +42,12 @@ spec:
     podSecurityContext:
       fsGroup: 65532
       fsGroupChangePolicy: OnRootMismatch
+    resources:
+      limits:
+        memory: 768Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
     scratch:
       capacity: 1Gi
       storageClassName: zfs-spark
@@ -99,6 +105,12 @@ spec:
     podSecurityContext:
       fsGroup: 65532
       fsGroupChangePolicy: OnRootMismatch
+    resources:
+      limits:
+        memory: 768Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
     scratch:
       capacity: 1Gi
       storageClassName: zfs-spark

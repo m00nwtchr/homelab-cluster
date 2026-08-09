@@ -6,7 +6,7 @@ metadata:
   name: ingress-proxy
 spec:
   type: ingress
-  replicas: 2
+  replicas: 1
   proxyClass: ts-proxy
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/tailscale.com/proxyclass_v1alpha1.json

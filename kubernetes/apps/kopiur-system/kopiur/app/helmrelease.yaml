@@ -66,6 +66,6 @@ spec:
       fsGroup: 65532
       fsGroupChangePolicy: OnRootMismatch
     webhook:
-      replicaCount: 2
+      replicaCount: 1
       certManager:
         enabled: true
