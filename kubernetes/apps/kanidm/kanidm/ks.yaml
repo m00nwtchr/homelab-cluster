@@ -56,6 +56,7 @@ spec:
     substitute:
       APP: *app
       SUBDOMAIN: idm
+      DOMAIN: ${MAIN_DOMAIN}
       TLS_KEY_SIZE: "256"
       KOPIUR_PUID: "999"
       KOPIUR_PGID: "999"
