@@ -149,15 +149,22 @@ spec:
           enabled: true
           spec:
             path: /metrics/cadvisor
+            # vmagent's promscrape.maxScrapeSize is a pre-relabel check on the raw
+            # response body. The kubelet /metrics/cadvisor response is ~18.5 MiB
+            # on this single-node cluster, which exceeds the 16 MiB default ceiling
+            # even after the cgroup-empty drop below removes ~84% of series (the
+            # drop applies after the size check). Raise the ceiling to 64 MiB so
+            # the scrape succeeds; the cgroup-empty drop still drops ~56k series
+            # (~15.6 MiB) from being ingested into vmsingle.
+            maxScrapeSize: 64MiB
             metricRelabelConfigs:
               # Drop cgroup-hierarchy series: image="" AND name="" AND namespace="" AND pod=""
               # cAdvisor emits metrics for every cgroup in /sys/fs/cgroup hierarchy
               # (slice, scope, container siblings). Those cgroup-hierarchy series carry
-              # empty image/name/namespace/pod and account for ~84% of the scrape payload
-              # (~15.6 MiB out of ~18.5 MiB on this single-node cluster). Real per-container
+              # empty image/name/namespace/pod and account for ~84% of the series count
+              # (~56k of ~67k series on this single-node cluster). Real per-container
               # series already carry populated labels, so the duplicate-cgroup series are
-              # noise. After this drop vmagent accepts only ~3 MiB per scrape, well under
-              # the 16 MiB default promscrape.maxScrapeSize.
+              # noise.
               - action: drop
                 source_labels: [image, name, namespace, pod]
                 regex: ";+;+;+"
