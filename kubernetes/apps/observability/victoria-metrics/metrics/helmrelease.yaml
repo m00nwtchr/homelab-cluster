@@ -123,6 +123,14 @@ spec:
         inlineRelabelConfig: *relabel-config
         extraArgs:
           enableTCP6: "true"
+          # The kubelet /metrics/cadvisor response is ~18.5 MiB on this single-node
+          # cluster, exceeding the default 16 MiB pre-relabel size ceiling. vmagent
+          # only honors -promscrape.maxScrapeSize as a global process flag (the
+          # VMNodeScrape.spec.maxScrapeSize field is not propagated into the rendered
+          # scrape config). Raise the global ceiling so the cadvisor scrape is
+          # accepted; the per-VMNodeScrape metricRelabelConfigs still drop ~84% of
+          # series after the raw response is ingested.
+          promscrape.maxScrapeSize: 64MiB
         configReloaderExtraArgs:
           enableTCP6: "true"
         resources:
