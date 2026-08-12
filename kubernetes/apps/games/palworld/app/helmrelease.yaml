@@ -32,7 +32,7 @@ spec:
     palworld:
       image:
         repository: ghcr.io/pocketpairjp/palserver
-        tag: v1.0.2.101103@sha256:09343cac3d92b997634f034ade4ce702388e156ec726668c85ad3bc47faa33f4
+        tag: v1.0.3.101283@sha256:ffb778dd63a04cf0d901b95e934e547e1fee67234e33102d5b5bf7da36e2b264
         pullPolicy: IfNotPresent
       env:
         PALWORLD_SERVER_NAME: "m00n's Palworld Server"
