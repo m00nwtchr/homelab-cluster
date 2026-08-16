@@ -59,9 +59,15 @@ spec:
                     name: kanidm-${APP}-oidc
                     key: client-secret
               DASHBRR__OIDC_REDIRECT_URL: https://${APP}.${MAIN_DOMAIN}/api/auth/oidc/callback
-            # envFrom:
-            #   - secretRef:
-            #       name: autobrr-secret
+            envFrom:
+              - secretRef:
+                  name: radarr
+              - secretRef:
+                  name: sonarr
+              - secretRef:
+                  name: lidarr
+              - secretRef:
+                  name: prowlarr
             probes:
               liveness:
                 enabled: true

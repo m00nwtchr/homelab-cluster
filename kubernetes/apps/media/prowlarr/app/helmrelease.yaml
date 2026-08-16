@@ -34,11 +34,6 @@ spec:
               PROWLARR__APP__INSTANCENAME: Prowlarr
               PROWLARR__LOG__LEVEL: info
 
-              PROWLARR__AUTH__APIKEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-secret
-                    key: api_key
               PROWLARR__AUTH__METHOD: External
               PROWLARR__LOG__ANALYTICSENABLED: "False"
               PROWLARR__LOG__DBENABLED: "False"
@@ -53,6 +48,9 @@ spec:
 
               PROWLARR__SERVER__PORT: &port 9696
               PROWLARR__UPDATE__BRANCH: develop
+            envFrom:
+              - secretRef:
+                  name: *app
             probes:
               liveness: &probes
                 enabled: true

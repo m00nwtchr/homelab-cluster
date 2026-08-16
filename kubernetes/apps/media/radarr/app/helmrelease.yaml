@@ -31,11 +31,6 @@ spec:
               RADARR__APP__INSTANCENAME: Radarr
               RADARR__LOG__LEVEL: info
 
-              RADARR__AUTH__APIKEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-secret
-                    key: api_key
               RADARR__AUTH__METHOD: External
               RADARR__LOG__ANALYTICSENABLED: "False"
               RADARR__LOG__DBENABLED: "False"
@@ -51,6 +46,9 @@ spec:
 
               RADARR__SERVER__PORT: &port 7878
               RADARR__UPDATE__BRANCH: develop
+            envFrom:
+              - secretRef:
+                  name: *app
             probes:
               liveness: &probes
                 enabled: true

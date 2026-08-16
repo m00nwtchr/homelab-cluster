@@ -34,11 +34,6 @@ spec:
               SONARR__APP__INSTANCENAME: Sonarr
               SONARR__LOG__LEVEL: info
 
-              SONARR__AUTH__APIKEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-secret
-                    key: api_key
               SONARR__AUTH__METHOD: External
               SONARR__LOG__ANALYTICSENABLED: "False"
               SONARR__LOG__DBENABLED: "False"
@@ -54,6 +49,9 @@ spec:
 
               SONARR__SERVER__PORT: &port 8989
               SONARR__UPDATE__BRANCH: develop
+            envFrom:
+              - secretRef:
+                  name: *app
             probes:
               liveness: &probes
                 enabled: true
