@@ -28,21 +28,48 @@ spec:
             fsGroup: 2000
             fsGroupChangePolicy: OnRootMismatch
 
-        containers:
-          app:
-            image:
+        initContainers:
+          discover:
+            image: &image
               repository: ghcr.io/autobrr/dashbrr
               tag: v0.5.1@sha256:7d138a4977c29b0b28692a4826a5ce3b41fb0b4c17454d146a900f8b05d48522
-            workingDir: /config
+            workingDir: /tmp
+            args: ["config", "discover", "-k", "-y"]
+            env:
+              DASHBRR__DB_TYPE: "sqlite"
+              DASHBRR__DB_PATH: "/tmp/data/dashbrr.db"
+            envFrom:
+              - secretRef:
+                  name: radarr
+              - secretRef:
+                  name: sonarr
+              - secretRef:
+                  name: lidarr
+              - secretRef:
+                  name: prowlarr
+            resources: &rs
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+            securityContext: &ctx
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+        containers:
+          app:
+            image: *image
+            workingDir: /tmp
             env:
               TZ: ${TZ}
               DASHBRR__LISTEN_ADDR: "[::]:8080"
               DASHBRR__LOG_LEVEL: DEBUG
 
-              DASHBRR__CONFIG_PATH: /config/config.toml
-
               DASHBRR__DB_TYPE: "sqlite"
-              DASHBRR__DB_PATH: "/config/dashbrr.db"
+              DASHBRR__DB_PATH: "/tmp/data/dashbrr.db"
 
               # DASHBRR__DB_TYPE: "postgres"
               DASHBRR__DB_HOST: "pooler-rw-se.postgres.svc"
@@ -59,15 +86,6 @@ spec:
                     name: kanidm-${APP}-oidc
                     key: client-secret
               DASHBRR__OIDC_REDIRECT_URL: https://${APP}.${MAIN_DOMAIN}/api/auth/oidc/callback
-            envFrom:
-              - secretRef:
-                  name: radarr
-              - secretRef:
-                  name: sonarr
-              - secretRef:
-                  name: lidarr
-              - secretRef:
-                  name: prowlarr
             probes:
               liveness:
                 enabled: true
@@ -78,18 +96,8 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
-            resources:
-              requests:
-                cpu: 10m
-                memory: 128Mi
-              limits:
-                memory: 256Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
+            resources: *rs
+            securityContext: *ctx
 
     service:
       app:
@@ -115,7 +123,7 @@ spec:
             - identifier: *app
 
     persistence:
-      config:
+      tmp:
         type: emptyDir
 
     route:
