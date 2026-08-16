@@ -56,10 +56,10 @@ spec:
     resources:
       limits:
         cpu: 200m
-        memory: 2048Mi
+        memory: 234Mi
       requests:
-        cpu: 200m
-        memory: 2048Mi
+        cpu: 186m
+        memory: 234Mi
 
     monitoring:
       metrics:

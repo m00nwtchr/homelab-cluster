@@ -28,8 +28,7 @@ spec:
             image: &image
               repository: opencloudeu/opencloud-rolling
               tag: 7.4.0@sha256:e9df43040866c3587daae47af68bc3c412026bc99614686bf6869bdc72c52526
-            command:
-              ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
+            command: ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
             env:
               OC_EXCLUDE_RUN_SERVICES: idp
 
@@ -111,10 +110,12 @@ spec:
                 enabled: true
             resources:
               requests:
-                cpu: 10m
-                memory: 100Mi
+                cpu: 47m
+                memory: 154Mi
               # limits:
               #   memory: 512Mi
+              limits:
+                memory: 154Mi
             securityContext: &ctx
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -171,9 +172,11 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 100Mi
+                memory: 106Mi
               # limits:
               #   memory: 512Mi
+              limits:
+                memory: 106Mi
             securityContext: *ctx
 
     service:

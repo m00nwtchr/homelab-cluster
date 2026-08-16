@@ -16,7 +16,7 @@ spec:
       securityContext:
         fsGroup: 10000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
+        seccompProfile: {type: RuntimeDefault}
 
     controllers:
       *app :
@@ -75,10 +75,10 @@ spec:
                   name: hermes
             resources:
               requests:
-                cpu: 500m
-                memory: 1Gi
+                cpu: 40m
+                memory: 261Mi
               limits:
-                memory: 2Gi
+                memory: 261Mi
             ports:
               - containerPort: &port 8642
                 name: http
@@ -95,10 +95,10 @@ spec:
               - --insecure
             resources:
               requests:
-                cpu: 500m
-                memory: 512Mi
+                cpu: 10m
+                memory: 129Mi
               limits:
-                memory: 1Gi
+                memory: 129Mi
             ports:
               - containerPort: &dashboardPort 9119
                 name: http
@@ -126,9 +126,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 512Mi
+                memory: 100Mi
               limits:
-                memory: 1Gi
+                memory: 100Mi
     service:
       app:
         ports:
