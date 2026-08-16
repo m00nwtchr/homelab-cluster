@@ -40,6 +40,8 @@ spec:
               DASHBRR__DB_PATH: "/tmp/data/dashbrr.db"
             envFrom:
               - secretRef:
+                  name: *app
+              - secretRef:
                   name: radarr
               - secretRef:
                   name: sonarr

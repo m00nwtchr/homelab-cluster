@@ -14,6 +14,7 @@ spec:
     - ../../../../components/oidc
     # - ../../../../components/database
     - ../../../../components/kopiur
+    - ../../../../components/secret
   interval: 30m
   timeout: 5m
   path: "./kubernetes/apps/media/dashbrr/app"
