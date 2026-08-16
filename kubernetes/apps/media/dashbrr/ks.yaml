@@ -26,6 +26,7 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      DOMAIN: ${MAIN_DOMAIN}
       OIDC_CALLBACK: /api/auth/oidc/callback
       OIDC_GROUP: admins
       OIDC_SHORT_USERNAME: "true"
