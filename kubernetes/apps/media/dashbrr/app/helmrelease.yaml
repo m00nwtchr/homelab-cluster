@@ -49,6 +49,8 @@ spec:
                   name: lidarr
               - secretRef:
                   name: prowlarr
+              - secretRef:
+                  name: bazarr
             resources: &rs
               requests:
                 cpu: 10m

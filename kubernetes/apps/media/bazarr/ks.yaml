@@ -13,7 +13,8 @@ spec:
     - ../../../../components/oidc/envoy
     - ../../../../components/kopiur
     - ../../../../components/database
-    - ../../../../components/gatus/guarded
+    - ../../../../components/secret
+    - ../../../../components/dashbrr
   dependsOn:
     - name: envoy-gateway
       namespace: network
