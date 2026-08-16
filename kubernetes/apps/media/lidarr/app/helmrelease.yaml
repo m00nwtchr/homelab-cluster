@@ -92,12 +92,6 @@ spec:
     service:
       app:
         ipFamilyPolicy: PreferDualStack
-        annotations:
-          com.dashbrr.service.type: "${APP}"
-          com.dashbrr.service.url: "http://${APP}.media.svc.cluster.local"
-          com.dashbrr.service.access_url: "https://${APP}.${SECRET_DOMAIN}"
-          com.dashbrr.service.apikey: "$${LIDARR__AUTH__APIKEY}"
-          com.dashbrr.service.enabled: "true"
         ports:
           http:
             port: 80

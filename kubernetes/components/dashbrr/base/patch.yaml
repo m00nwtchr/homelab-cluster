@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: not-used
+spec:
+  values:
+    service:
+      app:
+        annotations:
+          com.dashbrr.service.type: "${APP}"
+          com.dashbrr.service.url: "http://${APP}.${NAMESPACE}.svc.cluster.local"
+          com.dashbrr.service.access_url: "https://${APP}.${SECRET_DOMAIN}"
+          com.dashbrr.service.apikey: "$${${APP^^}_${DASHBRR_API_KEY:=API_KEY}}"
+          com.dashbrr.service.enabled: "true"
