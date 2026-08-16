@@ -13,7 +13,7 @@ spec:
   components:
     - ../../../../components/oidc
     - ../../../../components/database
-    - ../../../../components/gatus/guarded
+    - ../../../../components/dashbrr
   interval: 30m
   timeout: 5m
   path: "./kubernetes/apps/media/autobrr/app"

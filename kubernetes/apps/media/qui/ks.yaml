@@ -13,7 +13,7 @@ spec:
   components:
     - ../../../../components/kopiur
     - ../../../../components/oidc
-    - ../../../../components/gatus/guarded
+    - ../../../../components/dashbrr
   dependsOn:
     - name: kopiur
       namespace: kopiur-system

@@ -70,11 +70,6 @@ spec:
         ipFamilyPolicy: PreferDualStack
         annotations:
           lbipam.cilium.io/ips: "fd42:78a5:2c09::250,192.168.0.250"
-          com.dashbrr.service.type: "${APP}"
-          com.dashbrr.service.url: "http://${APP}.media.svc.cluster.local"
-          com.dashbrr.service.access_url: "https://${APP}.${SECRET_DOMAIN}"
-          com.dashbrr.service.apikey: "$${JELLYFIN_API_KEY}"
-          com.dashbrr.service.enabled: "true"
         ports:
           http:
             port: 80

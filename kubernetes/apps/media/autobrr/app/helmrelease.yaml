@@ -80,12 +80,6 @@ spec:
 
     service:
       app:
-        annotations:
-          com.dashbrr.service.type: "${APP}"
-          com.dashbrr.service.url: "http://${APP}.media.svc.cluster.local"
-          com.dashbrr.service.access_url: "https://${APP}.${SECRET_DOMAIN}"
-          com.dashbrr.service.apikey: "$${AUTOBRR_API_KEY}"
-          com.dashbrr.service.enabled: "true"
         ports:
           http:
             port: 80
