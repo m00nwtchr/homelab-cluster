@@ -8,7 +8,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 12Ti
+      storage: 10Ti
   storageClassName: ""
   volumeMode: Filesystem
   volumeName: storage-zfs-media

@@ -7,12 +7,10 @@ metadata:
   finalizers:
     - cluster.local/data-protection
 spec:
-  capacity: "13194139533312"
-  compression: "lz4"
-  dedup: "off"
+  capacity: "10995116277760"
   fsType: zfs
   ownerNodeID: m00nsrv
-  poolName: vault
+  poolName: attic
   recordsize: 1M
   shared: "yes"
   thinProvision: "yes"
@@ -26,13 +24,13 @@ spec:
   accessModes:
     - ReadWriteMany
   capacity:
-    storage: 12Ti
+    storage: 10Ti
   csi:
     driver: zfs.csi.openebs.io
     fsType: zfs
     volumeAttributes:
       openebs.io/cas-type: localpv-zfs
-      openebs.io/poolname: vault
+      openebs.io/poolname: attic
     volumeHandle: media
   nodeAffinity:
     required:
