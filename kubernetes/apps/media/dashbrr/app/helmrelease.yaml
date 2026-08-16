@@ -125,6 +125,10 @@ spec:
     persistence:
       tmp:
         type: emptyDir
+      data:
+        existingClaim: *app
+        globalMounts:
+          - path: /tmp/data
 
     route:
       app:

@@ -12,7 +12,8 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/oidc
-    - ../../../../components/database
+    # - ../../../../components/database
+    - ../../../../components/kopiur
   interval: 30m
   timeout: 5m
   path: "./kubernetes/apps/media/dashbrr/app"
@@ -32,6 +33,9 @@ spec:
       OIDC_SHORT_USERNAME: "true"
       OIDC_LEGACY_CRYPTO: "true"
       OIDC_DISABLE_PKCE: "true"
+      KOPIUR_CAPACITY: "1Gi"
+      KOPIUR_PUID: "2000"
+      KOPIUR_PGID: "2000"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
