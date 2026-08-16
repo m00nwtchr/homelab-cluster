@@ -41,7 +41,6 @@ spec:
     - namespace: kopiur-system
     - namespace: kro-system
     - namespace: kube-system
-    - namespace: kubevirt
     - namespace: kubewarden
     - namespace: llmkube-system
     - namespace: matrix
