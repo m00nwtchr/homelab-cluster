@@ -85,16 +85,6 @@
 		},
 		// Grouping rules
 		{
-			description: "Agentgateway Group",
-			groupName: "agentgateway",
-			matchDatasources: ["docker"],
-			matchPackageNames: ["/agentgateway"],
-			group: {
-				commitMessageTopic: "{{{groupName}}} group",
-			},
-			minimumGroupSize: 2,
-		},
-		{
 			description: "Toolhive Group",
 			groupName: "toolhive",
 			matchDatasources: ["docker"],
@@ -172,6 +162,16 @@
 				commitMessageTopic: "{{{groupName}}} group",
 			},
 			minimumGroupSize: 2,
+		},
+		{
+			description: "Agentgateway Group",
+			groupName: "agentgateway",
+			matchPackageNames: ["agentgateway", "agentgateway-crds"],
+			group: {
+				commitMessageTopic: "{{{groupName}}} group",
+			},
+			minimumGroupSize: 2,
+			allowedVersions: "<2.0.0",
 		},
 		// Labeling rules
 		{
