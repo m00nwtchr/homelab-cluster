@@ -38,7 +38,7 @@ spec:
               PAPERLESS_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}
               PAPERLESS_ENABLE_HTTP_REMOTE_USER: "true"
 
-              PAPERLESS_OCR_LANGUAGE: pol
+              PAPERLESS_OCR_LANGUAGE: pol+eng
               PAPERLESS_OCR_LANGUAGES: pol
 
               PAPERLESS_TIKA_ENABLED: 1
@@ -69,7 +69,7 @@ spec:
                 type: HTTP
             resources:
               limits:
-                memory: 1Gi
+                memory: 2Gi
               requests:
                 cpu: 40m
                 memory: 1Gi
