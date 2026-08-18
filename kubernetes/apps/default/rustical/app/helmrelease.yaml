@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/lennart-k/rustical
-              tag: 0.14.1@sha256:91f3158bbad8a9ad16dc1771a5fa0ae557d305301260d47516a5e1931dd4534a
+              tag: 0.15.0@sha256:f9a2c13fd09f452a62399b4ac07a6b4e2dffce6c03d45ddac8791d3e198562cb
             env:
               RUSTICAL_HTTP__HOST: "::"
 
