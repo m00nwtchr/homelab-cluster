@@ -139,7 +139,7 @@ spec:
                 cpu: 10m
                 memory: 248Mi
               limits:
-                memory: 248Mi
+                memory: 1Gi
 
       meilisearch:
         annotations:
