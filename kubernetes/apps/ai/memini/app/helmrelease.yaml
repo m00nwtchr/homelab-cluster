@@ -21,7 +21,7 @@ spec:
           app:
             image:
               repository: git.erwanleboucher.dev/eleboucher/memini
-              tag: 0.7.12@sha256:94ed8dce426dd619c1eb0fac4ad2265a6388633373010f6629ef90b2b659309b
+              tag: 0.7.19@sha256:c2eb8198f9be785129a0da2a9e37adae38859ffdce5396f3fa541f1401603d66
             env:
               MEMINI_HTTP_ADDR: ":8080"
               MEMINI_LOG_FORMAT: json
