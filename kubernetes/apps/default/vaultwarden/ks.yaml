@@ -15,6 +15,7 @@ spec:
     - ../../../../components/database
     - ../../../../components/gatus/external
     - ../../../../components/mail
+    - ../../../../components/secret
   dependsOn:
     - name: kopiur
       namespace: kopiur-system
