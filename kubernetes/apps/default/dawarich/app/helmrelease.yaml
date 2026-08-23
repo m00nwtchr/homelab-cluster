@@ -114,8 +114,8 @@ spec:
     persistence:
       tmp:
         type: emptyDir
-
-      assets:
-        type: emptyDir
         globalMounts:
           - path: /var/app/public/
+            subPath: public
+          - path: /var/app/tmp
+            subPath: tmp
