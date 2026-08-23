@@ -8,6 +8,7 @@ resources:
   - ./bazarr/ks.yaml
   - ./cross-seed/ks.yaml
   #  - ./dispatcharr/ks.yaml
+  - ./flaresolverr/ks.yaml
   - ./immich/ks.yaml
   - ./jellyfin/ks.yaml
   - ./kavita/ks.yaml
