@@ -50,6 +50,7 @@ spec:
               OIDC_ISSUER: "https://idm.${MAIN_DOMAIN}/oauth2/openid/{{ .Release.Name }}"
               OIDC_REDIRECT_URI: https://{{ .Release.Name }}.${SECRET_DOMAIN}/users/auth/openid_connect/callback
               OIDC_PROVIDER_NAME: Kanidm
+              OIDC_PKCE_ENABLED: true
 
               DATABASE_HOST: pooler-rw-se.postgres.svc.cluster.local
               DATABASE_NAME: *app

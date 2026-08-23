@@ -32,7 +32,6 @@ spec:
         ]
       OIDC_DISPLAY_NAME: "Dawarich"
       OIDC_CALLBACK: /users/auth/openid_connect/callback
-      OIDC_DISABLE_PKCE: "true"
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
