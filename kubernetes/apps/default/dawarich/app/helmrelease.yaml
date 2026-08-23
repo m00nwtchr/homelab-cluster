@@ -70,9 +70,10 @@ spec:
               - "web-entrypoint.sh"
             args:
               - "bin/rails server -p 3000 -b ::"
-            securityContext:
+            securityContext: &ctx
               capabilities:
                 drop: ["ALL"]
+              readOnlyRootFilesystem: true
           sidekick:
             <<: *bapp
             command:
@@ -83,9 +84,7 @@ spec:
               requests:
                 memory: "327Mi"
                 cpu: "10m"
-            securityContext:
-              capabilities:
-                drop: ["ALL"]
+            securityContext: *ctx
 
     service:
       app:
@@ -114,3 +113,8 @@ spec:
     persistence:
       tmp:
         type: emptyDir
+
+      assets:
+        type: emptyDir
+        globalMounts:
+          - path: /var/app/public/
