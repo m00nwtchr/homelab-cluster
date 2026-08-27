@@ -40,7 +40,7 @@ spec:
               APP_URL: https://{{ .Release.Name }}.${MAIN_DOMAIN}
               ALLOWED_ORIGINS: https://{{ .Release.Name }}.${MAIN_DOMAIN}
               ALLOW_INTERNAL_NETWORK: true
-              TRUST_PROXY: true
+              TRUST_PROXY: "1"
               FORCE_HTTPS: true
               TZ: "${TZ}"
 
