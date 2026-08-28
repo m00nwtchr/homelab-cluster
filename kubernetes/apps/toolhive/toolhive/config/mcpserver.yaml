@@ -5,7 +5,7 @@ kind: MCPServer
 metadata:
   name: &name grafana
 spec:
-  image: docker.io/grafana/mcp-grafana:1.0.0-alpine@sha256:b04c198d78ef3ae9bf22147802df510460b71ea573ef3932a4ab8ad87e595198
+  image: docker.io/grafana/mcp-grafana:1.3.0-alpine@sha256:4900f808accbb06b9c5d09e224a153966c2d2a04015ddf20f8050ade9d906635
   args: ["-t", "stdio"]
   transport: stdio
   groupRef:
