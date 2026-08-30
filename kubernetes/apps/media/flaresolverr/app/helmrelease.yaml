@@ -25,11 +25,11 @@ spec:
               HOST: "::"
             resources:
               requests:
-                cpu: 10m
-                memory: 150Mi
+                cpu: 53m
+                memory: 550Mi
               limits:
                 cpu: 2
-                memory: 2Gi
+                memory: 550Mi
 
             probes:
               liveness: &probes

@@ -65,8 +65,10 @@ spec:
                   name: *app
             resources:
               requests:
-                memory: "368Mi"
-                cpu: "10m"
+                memory: "650Mi"
+                cpu: "460m"
+              limits:
+                memory: 650Mi
             command:
               - "web-entrypoint.sh"
             args:
@@ -83,8 +85,10 @@ spec:
               - "bundle exec sidekiq"
             resources:
               requests:
-                memory: "327Mi"
-                cpu: "10m"
+                memory: "1125Mi"
+                cpu: "351m"
+              limits:
+                memory: 1125Mi
             securityContext: *ctx
 
     service:
