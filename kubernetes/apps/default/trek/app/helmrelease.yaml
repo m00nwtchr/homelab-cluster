@@ -37,12 +37,12 @@ spec:
               - -c
               - cd /app/server && exec node --require tsconfig-paths/register dist/index.js
             env:
+              TZ: "${TZ}"
+              NODE_ENV: production
               APP_URL: https://{{ .Release.Name }}.${MAIN_DOMAIN}
               ALLOWED_ORIGINS: https://{{ .Release.Name }}.${MAIN_DOMAIN}
-              ALLOW_INTERNAL_NETWORK: true
-              TRUST_PROXY: "1"
               FORCE_HTTPS: true
-              TZ: "${TZ}"
+              ALLOW_INTERNAL_NETWORK: true
 
               ENCRYPTION_KEY:
                 secretKeyRef:
