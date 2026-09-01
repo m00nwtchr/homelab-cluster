@@ -42,6 +42,7 @@ spec:
         - kubevirt
         - observability-privileged
         - openclaw
+        - kguardian
   postRenderers:
     - kustomize:
         patches:
