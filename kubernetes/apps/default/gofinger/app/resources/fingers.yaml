@@ -1,0 +1,2 @@
+m00n@${MAIN_DOMAIN}:
+  openid: "https://idm.${MAIN_DOMAIN}/oauth2/openid/tailscale"

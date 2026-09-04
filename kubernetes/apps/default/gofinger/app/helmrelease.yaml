@@ -1,0 +1,73 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app gofinger
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    controllers:
+      ntfy:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/maronato/go-finger
+              tag: 1.3.0@sha256:57f4126e1354a574fb4a990453f2a8754a4cd73fd9253ad15676c80b329ce6f0
+            env:
+              WF_HOST: "::"
+            # probes:
+            #   liveness: &probes
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       httpGet:
+            #         path: /v1/health
+            #         port: &port 8080
+            #       initialDelaySeconds: 0
+            #       periodSeconds: 10
+            #       timeoutSeconds: 1
+            #       failureThreshold: 3
+            #   readiness: *probes
+            # resources:
+            #   requests:
+            #     cpu: 10m
+            #     memory: 100Mi
+            #   limits:
+            #     memory: 100Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              readOnlyRootFilesystem: true
+
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 65532
+        runAsGroup: 65532
+        runAsNonRoot: true
+        runAsUser: 65532
+        seccompProfile:
+          type: RuntimeDefault
+
+    service:
+      app:
+        annotations:
+          fingerjoin.naktis.eu/webfinger: "true"
+        ports:
+          http:
+            port: 80
+            targetPort: 8080
+
+    persistence:
+      config:
+        name: gofinger-configmap # overriden by kustomizeconfig
+        type: configMap
+        globalMounts:
+          - path: /app/fingers.yml
+            subPath: fingers.yaml
