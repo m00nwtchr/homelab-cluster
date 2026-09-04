@@ -32,6 +32,8 @@ spec:
     route:
       main:
         parentRefs:
+          - name: internal
+            namespace: network
           - name: tunnel
             namespace: network
         hostnames:
