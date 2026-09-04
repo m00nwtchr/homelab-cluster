@@ -53,8 +53,11 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+
     service:
       app:
+        annotations:
+          fingerjoin.naktis.eu/webfinger: "true"
         ports:
           http:
             port: 80
@@ -69,29 +72,29 @@ spec:
             namespace: network
           - name: internal
             namespace: network
-      webfinger:
-        hostnames: ["${MAIN_DOMAIN}"]
-        rules:
-          - matches:
-              - path:
-                  type: Exact
-                  value: /.well-known/webfinger
-                queryParams:
-                  - name: resource
-                    type: RegularExpression
-                    value: ".*registry@.*"
-            filters:
-              - type: URLRewrite
-                urlRewrite:
-                  hostname: registry.${MAIN_DOMAIN}
-            backendRefs:
-              - identifier: app
-                port: 80
-        parentRefs:
-          - name: internal
-            namespace: network
-          - name: tunnel
-            namespace: network
+      # webfinger:
+      #   hostnames: ["${MAIN_DOMAIN}"]
+      #   rules:
+      #     - matches:
+      #         - path:
+      #             type: Exact
+      #             value: /.well-known/webfinger
+      #           queryParams:
+      #             - name: resource
+      #               type: RegularExpression
+      #               value: ".*registry@.*"
+      #       filters:
+      #         - type: URLRewrite
+      #           urlRewrite:
+      #             hostname: registry.${MAIN_DOMAIN}
+      #       backendRefs:
+      #         - identifier: app
+      #           port: 80
+      #   parentRefs:
+      #     - name: internal
+      #       namespace: network
+      #     - name: tunnel
+      #       namespace: network
 
     persistence:
       data:
