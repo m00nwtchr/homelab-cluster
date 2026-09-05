@@ -18,7 +18,7 @@ metadata:
   name: &model bge-m3
 spec:
   modelRef: *model
-  image: ghcr.io/ggml-org/llama.cpp:server@sha256:295dc9897fa8a643e4a513fbcaada51d3b8db4b0afa4fda7aeae2386757de58b
+  image: ghcr.io/ggml-org/llama.cpp:server@sha256:1394ab6c8e418859b282ff5a38a218ab318b2b4de8848c611b92e92017d6d8e4
 
   priority: normal
   contextSize: &ctx 16384
