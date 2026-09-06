@@ -31,18 +31,18 @@ spec:
           app:
             image:
               repository: mirror.gcr.io/mauriceboe/trek
-              tag: 4.0.0@sha256:ae64a5ce6cf510e4e3757667b4a8dc8b3951ded8a18204a819243eee8461835a
+              tag: 4.2.0@sha256:281a44079910053089a77be73ca2148a0e131c80ca728ca1f71a28133b2eaef4
             args:
               - /bin/sh
               - -c
               - cd /app/server && exec node --require tsconfig-paths/register dist/index.js
             env:
+              TZ: "${TZ}"
+              NODE_ENV: production
               APP_URL: https://{{ .Release.Name }}.${MAIN_DOMAIN}
               ALLOWED_ORIGINS: https://{{ .Release.Name }}.${MAIN_DOMAIN}
-              ALLOW_INTERNAL_NETWORK: true
-              TRUST_PROXY: "1"
               FORCE_HTTPS: true
-              TZ: "${TZ}"
+              ALLOW_INTERNAL_NETWORK: true
 
               ENCRYPTION_KEY:
                 secretKeyRef:

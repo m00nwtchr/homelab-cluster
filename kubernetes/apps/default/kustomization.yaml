@@ -12,6 +12,7 @@ resources:
   - ./dawarich/ks.yaml
   #  - ./firefly/ks.yaml
   # - ./freshrss/ks.yaml
+  - ./gofinger/ks.yaml
   - ./karakeep/ks.yaml
   - ./krr/ks.yaml
   - ./kube/ks.yaml
