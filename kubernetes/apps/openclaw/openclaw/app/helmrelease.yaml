@@ -63,11 +63,11 @@ spec:
                   name: openclaw
             resources:
               requests:
-                cpu: 75m
-                memory: 2306Mi
+                cpu: 102m
+                memory: 3140Mi
               limits:
                 cpu: 10
-                memory: 2306Mi
+                memory: 3140Mi
 
           codeserver:
             image:
@@ -79,9 +79,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 100Mi
+                memory: 122Mi
               limits:
-                memory: 100Mi
+                memory: 122Mi
 
     persistence:
       data:

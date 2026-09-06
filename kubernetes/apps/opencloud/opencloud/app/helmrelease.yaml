@@ -172,11 +172,11 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 106Mi
+                memory: 105Mi
               # limits:
               #   memory: 512Mi
               limits:
-                memory: 106Mi
+                memory: 105Mi
             securityContext: *ctx
 
     service:

@@ -104,7 +104,7 @@ spec:
               # limits:
               #   memory: 286Mi
 
-                cpu: 72m
+                cpu: 31m
               limits:
                 memory: 578Mi
           # port-forward:

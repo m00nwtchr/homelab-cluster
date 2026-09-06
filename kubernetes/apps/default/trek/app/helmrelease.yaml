@@ -80,10 +80,10 @@ spec:
               liveness: *probes
             resources:
               requests:
-                cpu: 10m
-                memory: 436Mi
+                cpu: 247m
+                memory: 912Mi
               limits:
-                memory: 436Mi
+                memory: 912Mi
             securityContext:
               runAsNonRoot: true
               allowPrivilegeEscalation: false

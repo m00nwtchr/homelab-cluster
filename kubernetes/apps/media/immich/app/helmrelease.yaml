@@ -60,7 +60,7 @@ spec:
               # krr: controller=server container=main
               resources:
                 requests:
-                  cpu: 39m
+                  cpu: 40m
                   memory: 2012Mi
                 limits:
                   memory: 2012Mi
