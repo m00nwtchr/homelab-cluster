@@ -66,9 +66,27 @@ spec:
                     name: "kanidm-{{ .Release.Name }}-oidc"
                     key: client-secret
 
-              # SMTP_HOST: smtp-relay.cluster-infra
-              # SMTP_PORT: 25
-              # SMTP_FROM: TREK <trek@${MAIN_DOMAIN}>
+              SMTP_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-migadu
+                    key: host
+              SMTP_PORT: 465
+              SMTP_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-migadu
+                    key: address
+              SMTP_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-migadu
+                    key: password
+              SMTP_FROM:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-migadu
+                    key: from
             probes:
               readiness: &probes
                 enabled: true

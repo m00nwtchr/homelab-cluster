@@ -14,12 +14,14 @@ spec:
     # - ../../../../components/database
     - ../../../../components/kopiur
     - ../../../../components/secret
+    - ../../../../components/mail
   interval: 1h
   path: ./kubernetes/apps/default/trek/app
   postBuild:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      NAME: TREK
       DOMAIN: ${MAIN_DOMAIN}
       KOPIUR_PUID: "65532"
       KOPIUR_PGID: "65532"
