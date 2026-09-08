@@ -2,7 +2,7 @@ terraform {
   required_providers {
     migadu = {
       source  = "metio/migadu"
-      version = "2026.8.6"
+      version = "2026.9.3"
     }
   }
 }
