@@ -14,10 +14,12 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: ${NAMESPACE}
-      MAILBOX_NAME: ${MAILBOX_NAME:=${NAME:=${APP}}}
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
+      DOMAIN: ${EMAIL_DOMAIN:=${DOMAIN:=${MAIN_DOMAIN}}}
+      EMAIL_NAME: ${EMAIL_NAME:=${NAME:=${APP}}}
+      EMAIL_IDENTITY: ${EMAIL_IDENTITY:=${APP}}
+    # substituteFrom:
+    #   - name: cluster-secrets
+    #     kind: Secret
   prune: true
   retryInterval: 2m
   sourceRef:

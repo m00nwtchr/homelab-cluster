@@ -8,15 +8,17 @@ spec:
   interval: 12h
   approvePlan: auto
   vars:
-    - name: app
-      value: ${APP}
+    - name: identity
+      value: ${EMAIL_IDENTITY}
     - name: name
-      value: ${MAILBOX_NAME}
-  varsFrom:
-    - kind: Secret
-      name: cluster-secrets
-      varsKeys:
-        - SECRET_DOMAIN:domain
+      value: ${EMAIL_NAME}
+    - name: domain
+      value: ${DOMAIN}
+  # varsFrom:
+  #   - kind: Secret
+  #     name: cluster-secrets
+  #     varsKeys:
+  #       - MAIN_DOMAIN:domain
   path: ./terraform/migadu
   sourceRef:
     kind: GitRepository

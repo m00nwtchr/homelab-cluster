@@ -11,7 +11,7 @@ variable "domain" {
   type = string
 }
 
-variable "app" {
+variable "identity" {
   type = string
 }
 
@@ -26,16 +26,29 @@ resource "random_password" "password" {
 resource "migadu_mailbox" "mailbox" {
   name        = var.name
   domain_name = var.domain
-  local_part  = var.app
+  local_part  = var.identity
   password    = random_password.password.result
   may_send    = true
+}
+
+locals {
+	address = "${var.identity}@${var.domain}"
+}
+
+output "host" {
+  value = "smtp.migadu.com"
+}
+
+output "address" {
+  value = local.address
+}
+
+output "from" {
+  sensitive = true
+  value = "${var.name} <${local.address}>"
 }
 
 output "password" {
   sensitive = true
   value = random_password.password.result
-}
-
-output "host" {
-  value = "smtp.migadu.com"
 }
