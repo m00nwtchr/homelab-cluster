@@ -128,17 +128,25 @@ spec:
           ENABLED: true
         mailer:
           ENABLED: true
-          FROM: Forgejo <forgejo@${SECRET_DOMAIN}>
           PROTOCOL: smtps
           SMTP_ADDR: smtp.migadu.com
           SMTP_PORT: 465
-          USER: forgejo@${SECRET_DOMAIN}
 
       # additionalConfigSources:
       #   - secret:
       #       secretName: forgejo-secret
 
       additionalConfigFromEnvs:
+        - name: FORGEJO__MAILER__FROM
+          valueFrom:
+            secretKeyRef:
+              name: forgejo-migadu
+              key: from
+        - name: FORGEJO__MAILER__USER
+          valueFrom:
+            secretKeyRef:
+              name: forgejo-migadu
+              key: address
         - name: FORGEJO__MAILER__PASSWD
           valueFrom:
             secretKeyRef:
