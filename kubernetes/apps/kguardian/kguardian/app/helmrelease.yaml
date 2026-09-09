@@ -34,6 +34,15 @@ spec:
     controller:
       excludedNamespaces:
         - kguardian
+
+    ai:
+      enabled: true
+      mcp:
+        enabled: true
+        auth:
+          existingSecret: *app
+          secretKey: token
+
     # database:
     #   resources:
     #     limits:

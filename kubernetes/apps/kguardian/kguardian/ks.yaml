@@ -9,7 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components: []
+  components:
+    - ../../../../components/secret
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
@@ -18,6 +19,8 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/kguardian/kguardian/app
   postBuild:
+    substitute:
+      APP: *app
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
