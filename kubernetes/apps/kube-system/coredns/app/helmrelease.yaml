@@ -100,12 +100,12 @@ spec:
           - name: rewrite
             parameters: stop
             configBlock: |-
-              name exact k8s.${SECRET_DOMAIN}. internal.network.svc.cluster.local.
+              name exact k8s.${MAIN_DOMAIN}. internal.network.svc.cluster.local.
 
           - name: rewrite
             parameters: stop
             configBlock: |-
-              name regex ^k8s\.${SECRET_DOMAIN//./\\.}\..*\.cluster\.local\.$ internal.network.svc.cluster.local.
+              name regex ^k8s\.${MAIN_DOMAIN//./\\.}\..*\.cluster\.local\.$ internal.network.svc.cluster.local.
               answer auto
 
           - name: rewrite
