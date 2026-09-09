@@ -8,11 +8,10 @@ spec:
   parentRefs:
     - name: internal
       namespace: network
-  hostnames: ["k8s.${SECRET_DOMAIN}"]
+  hostnames: ["k8s.${MAIN_DOMAIN}"]
   rules:
     - backendRefs:
         - name: kubernetes
-          namespace: default
           port: 443
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/httproute_v1.json
@@ -24,7 +23,7 @@ spec:
   parentRefs:
     - name: tunnel
       namespace: network
-  hostnames: ["k8s.${SECRET_DOMAIN}"]
+  hostnames: ["k8s.${MAIN_DOMAIN}"]
   rules:
     - matches:
         - path:
@@ -35,7 +34,6 @@ spec:
             value: /openid/v1/jwks
       backendRefs:
         - name: kubernetes
-          namespace: default
           port: 443
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/backendtlspolicy_v1alpha3.json
