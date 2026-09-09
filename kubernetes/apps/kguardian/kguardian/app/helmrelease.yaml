@@ -41,7 +41,7 @@ spec:
         enabled: true
         auth:
           existingSecret: *app
-          secretKey: token
+          secretKey: MCP_TOKEN
 
     # database:
     #   resources:
