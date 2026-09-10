@@ -9,5 +9,8 @@ configMapGenerator:
   - name: conduit-configmap
     files:
       - resources/conduit.toml
+  - name: unbound-configmap
+    files:
+      - resources/unbound.conf
 configurations:
   - ./resources/kustomizeconfig.yaml

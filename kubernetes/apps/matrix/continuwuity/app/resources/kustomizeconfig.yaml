@@ -5,3 +5,5 @@ nameReference:
     fieldSpecs:
       - path: spec/values/persistence/config/name
         kind: HelmRelease
+      - path: spec/values/persistence/unbound-config/name
+        kind: HelmRelease
