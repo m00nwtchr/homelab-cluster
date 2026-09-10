@@ -25,12 +25,6 @@ spec:
     name: *app
   interval: 30m
   values:
-    # broker:
-    #   resources:
-    #     limits:
-    #       memory: 1Gi
-    #     requests:
-    #       memory: 256Mi
     controller:
       excludedNamespaces:
         - kguardian
@@ -43,7 +37,5 @@ spec:
           existingSecret: *app
           secretKey: MCP_TOKEN
 
-    # database:
-    #   resources:
-    #     limits:
-    #       cpu: 6
+    seccomp:
+      distribute: true
