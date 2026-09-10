@@ -17,7 +17,8 @@ rocksdb_bottommost_compression = true
 max_request_size = 20971520
 
 # DNS Optimisation
-dns_cache_entries = 1_000_000
+# dns_cache_entries = 1_000_000
+dns_cache_entries = 0 # Unbound does dns caching
 dns_timeout = 60
 query_over_tcp_only = true
 ip_lookup_strategy = 3
@@ -32,6 +33,8 @@ query_trusted_key_servers_first_on_join = false
 # forbidden_remote_server_names = ["matrix.org"]
 # forbidden_remote_room_directory_server_names = ["matrix.org"]
 # url_preview_domain_explicit_denylist = ["matrix.org"]
+
+forget_forced_upon_leave = true
 
 # Additional config
 [global.well_known]
