@@ -13,5 +13,5 @@ inputs:
         follows: nixpkgs
 secretspec:
   enable: true
-  provider: keyring # keyring, dotenv, env, 1password, lastpass
-  profile: default # profile from secretspec.toml
+  provider: dotenv
+  profile: default

@@ -5,7 +5,7 @@
   inputs,
   ...
 }: {
-  env.KGUARDIAN_TOKEN = config.secretspec.secrets.KGUARDIAN_MCP_TOKEN;
+  env.KGUARDIAN_TOKEN = config.secretspec.secrets.KGUARDIAN_MCP_TOKEN or "";
 
   # https://devenv.sh/packages/
   packages = with pkgs; [
