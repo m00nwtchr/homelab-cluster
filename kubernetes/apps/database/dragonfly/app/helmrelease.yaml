@@ -52,11 +52,11 @@ spec:
                 port: *metricsPort
             resources:
               requests:
-                cpu: 50m
-                memory: 64Mi
+                cpu: 10m
+                memory: 100Mi
               limits:
                 cpu: 200m
-                memory: 128Mi
+                memory: 100Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
