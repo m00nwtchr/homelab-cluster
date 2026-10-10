@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/techarohq/anubis
-              tag: v1.26.2@sha256:f7af22049b33ce1cdefa903f0920f8306aaf61c10e85c03dda708f264e163d51
+              tag: v1.28.1@sha256:1744c03a918160a28b0d2e8c1656de6585f4071b30b4c3b0d51d02282c9b7c25
             env:
               BIND: ":8080"
               DIFFICULTY: '${ANUBIS_DIFFICULTY:="4"}'
