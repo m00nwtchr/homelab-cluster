@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: vaultwarden/server
-              tag: 1.37.2@sha256:094b5689ed81549bd293418395c7cf495ae9d960fc2d4928cef2083ef913d912
+              tag: 1.37.4@sha256:efb3cde962015fcc036b2ea625242248611943b27212ebf4392841fb30fad055
             env:
               DOMAIN: https://${APP}.${SECRET_DOMAIN}
               TZ: ${TZ}
