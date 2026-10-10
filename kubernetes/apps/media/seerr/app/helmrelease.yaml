@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/seerr-team/seerr
-              tag: preview-new-oidc@sha256:e6771f5500bca29dba17b82fd7c5cc39cea650cd5f57b80e557b5ca80c541ee3
+              tag: preview-new-oidc@sha256:28744b1ced522beb7af8e5c966b73c6e46b1dc2c4c8cb497ad2f12d3139699a3
             env:
               LOG_LEVEL: info
               PORT: &port 8080
