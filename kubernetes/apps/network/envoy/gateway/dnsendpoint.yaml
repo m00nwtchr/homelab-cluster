@@ -7,8 +7,10 @@ metadata:
 spec:
   endpoints:
     - dnsName: external.${MAIN_DOMAIN}
-      recordType: AAAA
-      targets: ["2a02:a313:43e4:7080::7dc5"]
+      # recordType: AAAA
+      # targets: ["2a02:a313:43e4:7080::7dc5"]
+      recordType: A
+      targets: ["213.76.49.89"]
 
     - dnsName: ${MAIN_DOMAIN}
       recordType: CNAME
