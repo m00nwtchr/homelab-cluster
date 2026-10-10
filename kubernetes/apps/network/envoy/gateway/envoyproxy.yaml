@@ -42,7 +42,7 @@ kind: EnvoyProxy
 metadata:
   name: external
 spec:
-  ipFamily: IPv4
+  ipFamily: DualStack
   backendTLS:
     ecdhCurves:
       - X25519
