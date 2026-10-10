@@ -62,7 +62,7 @@ spec:
           app:
             image: &image
               repository: nousresearch/hermes-agent
-              tag: v2026.8.3@sha256:16788311e2fa3035456bdc1bafb8ec2b1777db64ebf020af9bb7eb73c3712c9e
+              tag: v2026.9.24@sha256:fca358f12efd65bfaaca05884166f15c0e2788375ca30d77061ac1ebc96452b7
             args: ["gateway", "run", "--no-supervise", "--force"]
             env:
               MEMINI_URL: http://memini.ai.svc.cluster.local:8080
