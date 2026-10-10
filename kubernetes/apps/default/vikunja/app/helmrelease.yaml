@@ -20,7 +20,7 @@ spec:
           main:
             image:
               repository: mirror.gcr.io/vikunja/vikunja
-              tag: 2.5.0@sha256:22df4c1bc8843c28d383bc5f52b59e7b601bf5f6560b36b29c0a500833c77fa3
+              tag: 2.7.0@sha256:e2204a1c1c6a81e833c2b3a5442be182ca2335b54c2e7e37578cc3fe12a27cfc
             env:
               # Proper shell path for cli
               PATH: /app/vikunja:$${PATH}
