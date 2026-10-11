@@ -10,6 +10,9 @@ metadata:
     gateway: external
 spec:
   gatewayClassName: envoy
+  addresses:
+    - type: IPAddress
+      value: 213.76.49.89
   allowedListeners:
     namespaces:
       from: All
