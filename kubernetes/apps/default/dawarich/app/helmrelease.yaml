@@ -31,7 +31,7 @@ spec:
               # RAILS_ENV: development
               TIME_ZONE: "${TZ}"
               REDIS_URL: redis://localhost:6379
-              APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+              APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}, {{ .Release.Name }}.default.svc.cluster.local"
               APPLICATION_PROTOCOL: http
               MIN_MINUTES_SPENT_IN_CITY: 60
               DISTANCE_UNIT: km
