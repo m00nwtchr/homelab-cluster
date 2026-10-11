@@ -56,7 +56,7 @@ spec:
                 enabled: false
             resources:
               requests:
-                cpu: 996m
+                cpu: 995m
                 memory: 2113Mi
               limits:
                 # nvidia.com/gpu: 1

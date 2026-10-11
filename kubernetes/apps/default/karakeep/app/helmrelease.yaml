@@ -110,10 +110,10 @@ spec:
                 enabled: true
             resources:
               requests:
-                cpu: 14m
-                memory: 1189Mi
+                cpu: 19m
+                memory: 694Mi
               limits:
-                memory: 1189Mi
+                memory: 694Mi
 
       chrome:
         annotations:
@@ -137,9 +137,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 133Mi
+                memory: 139Mi
               limits:
-                memory: 133Mi
+                memory: 139Mi
 
       meilisearch:
         annotations:
@@ -178,9 +178,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 516Mi
+                memory: 100Mi
               limits:
-                memory: 516Mi
+                memory: 100Mi
 
     service:
       app:

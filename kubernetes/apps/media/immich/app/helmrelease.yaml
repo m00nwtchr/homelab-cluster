@@ -60,10 +60,10 @@ spec:
               # krr: controller=server container=main
               resources:
                 requests:
-                  cpu: 35m
-                  memory: 1370Mi
+                  cpu: 142m
+                  memory: 1826Mi
                 limits:
-                  memory: 1370Mi
+                  memory: 1826Mi
       persistence:
         metadata:
           forceRename: immich-metadata
@@ -90,10 +90,10 @@ spec:
               # krr: controller=machine-learning container=main
               resources:
                 requests:
-                  cpu: 10m
-                  memory: 1460Mi
+                  cpu: 1945m
+                  memory: 2136Mi
                 limits:
-                  memory: 1460Mi
+                  memory: 2136Mi
       persistence:
         cache:
           type: persistentVolumeClaim

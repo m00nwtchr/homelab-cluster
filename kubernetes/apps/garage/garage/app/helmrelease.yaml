@@ -58,7 +58,7 @@ spec:
         cpu: 200m
         memory: 100Mi
       requests:
-        cpu: 138m
+        cpu: 199m
         memory: 100Mi
 
     monitoring:
