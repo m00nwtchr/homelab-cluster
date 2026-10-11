@@ -25,13 +25,13 @@ spec:
           app: &bapp
             image:
               repository: mirror.gcr.io/freikin/dawarich
-              tag: 1.13.0@sha256:751afca44dcd312419cd1d385a4f6607a21ed281d95f88ceb8d7374a794c0d3f
+              tag: 1.15.3@sha256:589e3606b11b61c3fa2d9661832cb73645a9b93a9cc7d807a071e2bc6c584498
             env:
               RAILS_ENV: production
               # RAILS_ENV: development
               TIME_ZONE: "${TZ}"
               REDIS_URL: redis://localhost:6379
-              APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}, {{ .Release.Name }}.default.svc.cluster.local"
+              APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN},{{ .Release.Name }}.default.svc.cluster.local"
               APPLICATION_PROTOCOL: http
               MIN_MINUTES_SPENT_IN_CITY: 60
               DISTANCE_UNIT: km
