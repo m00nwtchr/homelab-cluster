@@ -82,6 +82,8 @@ spec:
 
           containers:
             main:
+              env:
+                MACHINE_LEARNING_MODEL_REVISION: v2
               # krr: controller=machine-learning container=main
               resources:
                 requests:
