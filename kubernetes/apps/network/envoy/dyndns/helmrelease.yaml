@@ -1,0 +1,99 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: public-ip-updater
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    controllers:
+      main:
+        pod:
+          automountServiceAccountToken: true
+
+        type: cronjob
+        cronjob:
+          schedule: "*/5 * * * *"
+          concurrencyPolicy: Forbid
+          backoffLimit: 2
+
+        serviceAccount:
+          identifier: main
+
+        containers:
+          main:
+            image:
+              repository: python
+              tag: "3.13-alpine"
+
+            command:
+              - python
+              - /app/update.py
+
+            env:
+              GATEWAY_NAME: external
+              GATEWAY_NAMESPACE: network
+              IP_URL: https://api4.ipify.org
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 64Mi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+
+    serviceAccount:
+      main: {}
+
+    rbac:
+      roles:
+        main:
+          type: Role
+          rules:
+            - apiGroups:
+                - gateway.networking.k8s.io
+              resources:
+                - gateways
+              resourceNames:
+                - external
+              verbs:
+                - get
+                - patch
+
+      bindings:
+        main:
+          type: RoleBinding
+          roleRef:
+            identifier: main
+          subjects:
+            - kind: ServiceAccount
+              name: public-ip-updater
+              namespace: network
+
+    persistence:
+      script:
+        type: configMap
+        name: dyndns-script
+        globalMounts:
+          - path: /app
+            readOnly: true
