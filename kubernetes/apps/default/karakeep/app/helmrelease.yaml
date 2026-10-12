@@ -164,7 +164,7 @@ spec:
           app:
             image:
               repository: mirror.gcr.io/getmeili/meilisearch
-              tag: v1.52.0@sha256:d36e713e8f89483af1ab0d72011bbd503f5ab100b68ccbfad51c39e3f0a0567d
+              tag: v1.55.0@sha256:ff546679970126f8822e15d1b6a06bfbff1f2ce2e43f810cfb5258012f92de5c
             env:
               MEILI_HTTP_ADDR: "[::]:7700"
               MEILI_NO_ANALYTICS: true
