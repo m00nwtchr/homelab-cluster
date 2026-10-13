@@ -67,7 +67,7 @@ spec:
 
   resources:
     cpu: 250m
-    memory: 384Mi
+    memory: 1Gi
 
   endpoint:
     port: 8080

@@ -75,7 +75,8 @@ spec:
               MEMINI_LLM_API: anthropic
               MEMINI_LLM_API_KEY: dummy
               MEMINI_LLM_MODEL: MiniMax-M2.7
-              MEMINI_LLM_MAX_TOKENS: "24576"
+              # MEMINI_LLM_MAX_TOKENS: "24576"
+              MEMINI_LLM_MAX_TOKEN: "16384"
 
               # Consolidation
               MEMINI_CONSOLIDATE_MODE: async
