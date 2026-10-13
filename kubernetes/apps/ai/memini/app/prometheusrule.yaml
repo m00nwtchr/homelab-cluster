@@ -1,0 +1,81 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: memini
+spec:
+  groups:
+    - name: memini.rules
+      rules:
+        - alert: MeminiRecallDegraded
+          expr: |-
+            sum(increase(memini_recall_degraded_total[30m])) > 0
+          annotations:
+            summary: >-
+              Memini recall degraded — rerank or embed unavailable, results are falling back
+              to unranked order
+          labels:
+            severity: warning
+        - alert: MeminiEmbedErrors
+          expr: |-
+            sum by (backend) (increase(memini_embed_errors_total[30m])) > 0
+          for: 10m
+          annotations:
+            summary: >-
+              Memini embed backend {{ $labels.backend }} returning errors
+          labels:
+            severity: warning
+        - alert: MeminiRerankSaturated
+          expr: |-
+            min_over_time(memini_rerank_in_flight[15m]) >= 2
+          for: 15m
+          annotations:
+            summary: >-
+              Memini rerank has been at its concurrency limit for 15m — CPU inference is
+              not keeping up with recall volume
+          labels:
+            severity: warning
+        - alert: MeminiFactMintingHigh
+          expr: |-
+            sum(increase(memini_store_upserts_total{op="insert",tier="semantic"}[1d])) > 30
+          for: 2h
+          annotations:
+            summary: >-
+              Memini minted {{ $value | printf "%.0f" }} durable facts in 24h — the distiller is
+              over-extracting (healthy baseline is 6-13/day)
+          labels:
+            severity: warning
+        - alert: MeminiLifecycleStalled
+          expr: |-
+            sum(increase(memini_store_upserts_total{op="insert",tier=~"semantic|procedural"}[7d])) > 100
+            and
+            sum(increase(memini_demoted_total[7d]) + increase(memini_dedup_tombstoned_total[7d])) < 5
+          for: 6h
+          annotations:
+            summary: >-
+              Memini is accumulating durable facts with almost no demotion or dedup — debris is
+              piling up in recall
+          labels:
+            severity: warning
+        - alert: MeminiDistillStalled
+          expr: |-
+            sum(increase(memini_store_upserts_total{op="insert",tier="episodic"}[6h])) > 10
+            and
+            sum(increase(memini_store_upserts_total{op="insert",tier="semantic"}[6h])) == 0
+          for: 1h
+          annotations:
+            summary: >-
+              Memini is capturing turns but distilling no facts — the distill LLM is likely
+              returning empty or unparseable output
+          labels:
+            severity: warning
+        - alert: MeminiConsolidateErrors
+          expr: |-
+            sum(increase(memini_consolidate_results_total{result="error"}[1h])) > 3
+          for: 30m
+          annotations:
+            summary: >-
+              Memini consolidation LLM calls are failing ({{ $value | printf "%.0f" }} errors/h)
+          labels:
+            severity: warning

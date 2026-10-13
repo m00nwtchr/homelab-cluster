@@ -1,5 +1,19 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: memini
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: v0.7.32
+  url: oci://registry.erwanleboucher.dev/eleboucher/charts/memini
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -7,58 +21,86 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: app-template
-    namespace: flux-system
+    name: *app
   interval: 30m
   values:
+    fullnameOverride: *app
     controllers:
-      *app :
-        strategy: RollingUpdate
+      main:
+        type: deployment
+        replicas: 1
+
         annotations:
           reloader.stakater.com/auto: "true"
 
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65532
+            runAsGroup: 65532
+            seccompProfile:
+              type: RuntimeDefault
+
         containers:
-          app:
-            image:
-              repository: git.erwanleboucher.dev/eleboucher/memini
-              tag: 0.7.12@sha256:94ed8dce426dd619c1eb0fac4ad2265a6388633373010f6629ef90b2b659309b
+          main:
             env:
               MEMINI_HTTP_ADDR: ":8080"
+              MEMINI_METRICS_ADDR: ":9090"
+              MEMINI_UI_ADDR: ""
+              MEMINI_LOG_LEVEL: info
               MEMINI_LOG_FORMAT: json
+
               MEMINI_BACKEND: postgres
-              MEMINI_EMBED_BASE_URL: http://agentgateway-proxy.ai.svc.cluster.local./v1
-              MEMINI_EMBED_MODEL: bge-m3
-              MEMINI_EMBED_DIMS: 1024
-
-              # MEMINI_RERANK: http://agentgateway-proxy.ai.svc.cluster.local./v1
-              # MEMINI_RERANK_MODEL: bge-reranker-v2
-              # MEMINI_RERANK_TOP_N: 10
-              # MEMINI_RERANK_TIMEOUT: 3s
-
-              # MEMINI_EMBED_QUERY_PREFIX: "Instruct: Given a user message, retrieve relevant past memories\nQuery: "
-              # MEMINI_RECALL_MIN_SEMANTIC_SCORE: "0.46"
-
-              MEMINI_LLM_BASE_URL: http://agentgateway-proxy.ai.svc.cluster.local./anthropic
-              MEMINI_LLM_API_KEY: dummy
-              MEMINI_LLM_API: anthropic
-              MEMINI_LLM_MODEL: MiniMax-M2.7
-
-              MEMINI_DEFAULT_NAMESPACE: default
-              MEMINI_WRITE_DEDUP_SCORE: 0.9
-              MEMINI_WRITE_DEDUP_ACTION: coalesce
-
               MEMINI_POSTGRES_DSN:
                 valueFrom:
                   secretKeyRef:
                     name: "{{ .Release.Name }}-postgres"
                     key: url
+
+              MEMINI_REEMBED_ON_MODEL_CHANGE: "true"
+              MEMINI_EMBED_BASE_URL: http://agentgateway-proxy.ai.svc.cluster.local./v1
+              MEMINI_EMBED_MODEL: embeddinggemma-2
+              MEMINI_EMBED_DIMS: "768"
+              MEMINI_EMBED_MAX_CONCURRENCY: "1"
+              MEMINI_EMBED_MAX_BATCH: "20"
+
+              # Embedding timeouts
+              MEMINI_RECALL_EMBED_TIMEOUT: 15s
+              MEMINI_WRITE_EMBED_TIMEOUT: 30s
+              MEMINI_BACKGROUND_EMBED_TIMEOUT: 60s
+
+              # LLM
+              MEMINI_LLM_BASE_URL: http://agentgateway-proxy.ai.svc.cluster.local./anthropic
+              MEMINI_LLM_API: anthropic
+              MEMINI_LLM_API_KEY: dummy
+              MEMINI_LLM_MODEL: MiniMax-M2.7
+              MEMINI_LLM_MAX_TOKENS: "24576"
+
+              # Consolidation
+              MEMINI_CONSOLIDATE_MODE: async
+              MEMINI_DISTILL_ON_WRITE: "true"
+              MEMINI_DISTILL_TIMEOUT: 600s
+
+              # Memory
+              MEMINI_DEFAULT_NAMESPACE: default
+              MEMINI_WRITE_DEDUP_SCORE: "0.9"
+              MEMINI_WRITE_DEDUP_ACTION: coalesce
+              MEMINI_DEDUP_TIERS: episodic,semantic,procedural
+              MEMINI_DEDUP_SIMILARITY: "0.85"
+              MEMINI_SHORT_TERM_CAP: "300"
+
+              # Importance assessment
+              MEMINI_ASSESS_BATCH: "5"
+              MEMINI_ASSESSED_SALIENCE_WEIGHT: "0.6"
+
+              # Authentication
               MEMINI_API_KEY:
                 valueFrom:
                   secretKeyRef:
                     name: memini
                     key: MEMINI_API_KEY
             probes:
-              liveness: &probes
+              startup:
                 enabled: true
                 custom: true
                 spec:
@@ -66,9 +108,21 @@ spec:
                     path: /healthz
                     port: &port 8080
                   initialDelaySeconds: 5
-                  periodSeconds: 10
+                  periodSeconds: 5
+                  timeoutSeconds: 3
+                  failureThreshold: 30
+
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: *port
+                  periodSeconds: 15
                   timeoutSeconds: 3
                   failureThreshold: 3
+
               readiness:
                 enabled: true
                 custom: true
@@ -76,39 +130,50 @@ spec:
                   httpGet:
                     path: /readyz
                     port: *port
-                  initialDelaySeconds: 5
                   periodSeconds: 10
                   timeoutSeconds: 3
                   failureThreshold: 3
+
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop: ["ALL"]
+
             resources:
               requests:
                 cpu: 25m
-                memory: 64Mi
+                memory: 128Mi
               limits:
-                memory: 256Mi
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            seccompProfile: { type: RuntimeDefault }
-            runAsUser: 65532
-            runAsGroup: 65532
-            fsGroup: 65532
-            fsGroupChangePolicy: OnRootMismatch
+                memory: 512Mi
+
+    # PostgreSQL is external, no local database PVC.
+    persistence:
+      data:
+        enabled: false
 
     service:
-      app:
+      main:
         ports:
           http:
-            port: 80
-            targetPort: *port
+            port: *port
+            primary: true
+          metrics:
+            port: 9090
 
     route:
-      app:
-        hostnames: ["{{ .Release.Name }}.${MAIN_DOMAIN}"]
+      main:
+        enabled: true
+        hostnames:
+          - "{{ .Release.Name }}.${MAIN_DOMAIN}"
         parentRefs:
           - name: internal
             namespace: network
+
+    serviceMonitor:
+      main:
+        enabled: true
+
+    grafanaDashboards:
+      enabled: true
+      folder: llm
