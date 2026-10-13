@@ -1,0 +1,145 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/model_v1alpha1.json
+apiVersion: inference.llmkube.dev/v1alpha1
+kind: Model
+metadata:
+  name: embeddinggemma-2
+spec:
+  source: https://huggingface.co/unsloth/embeddinggemma-2-GGUF/resolve/main/embeddinggemma-2-Q8_0.gguf
+  format: gguf
+  quantization: Q8_0
+  hardware:
+    accelerator: cpu
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/inferenceservice_v1alpha1.json
+apiVersion: inference.llmkube.dev/v1alpha1
+kind: InferenceService
+metadata:
+  name: &model embeddinggemma-2
+spec:
+  modelRef: *model
+  image: ghcr.io/ggml-org/llama.cpp:server@sha256:295dc9897fa8a643e4a513fbcaada51d3b8db4b0afa4fda7aeae2386757de58b
+
+  priority: normal
+  contextSize: &ctx 8192
+  batchSize: *ctx
+  uBatchSize: *ctx
+  parallelSlots: 1
+
+  flashAttention: true
+  cacheTypeK: q8_0
+  cacheTypeV: q8_0
+
+  extraArgs:
+    - --alias
+    - *model
+    - --embeddings
+    - --pooling
+    - mean
+    - --cont-batching
+    - --threads
+    - "6"
+    - --threads-batch
+    - "6"
+    - --mmap
+    - --host
+    - "::"
+
+  replicas: 0
+  rolloutPolicy:
+    waitForIdle: true
+    idleTimeoutSeconds: 86400
+
+  resources:
+    cpu: 250m
+    memory: 1Gi
+
+  endpoint:
+    port: 8080
+    type: ClusterIP
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/keda.sh/scaledobject_v1alpha1.json
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: &app embeddinggemma-2
+spec:
+  scaleTargetRef:
+    apiVersion: inference.llmkube.dev/v1alpha1
+    kind: InferenceService
+    name: *app
+  minReplicaCount: 0
+  maxReplicaCount: 1
+  cooldownPeriod: 600
+  triggers:
+    - type: external-push
+      metadata:
+        scalerAddress: keda-add-ons-http-external-scaler.keda.svc.cluster.local.:9090
+        interceptorRoute: *app
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/http.keda.sh/interceptorroute_v1beta1.json
+apiVersion: http.keda.sh/v1beta1
+kind: InterceptorRoute
+metadata:
+  name: &app embeddinggemma-2
+spec:
+  target:
+    service: *app
+    port: 8080
+  rules:
+    - hosts: ["embeddinggemma-2-proxy.ai.svc.cluster.local"]
+  scalingMetric:
+    concurrency:
+      targetValue: 100
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: embeddinggemma-2-proxy
+spec:
+  type: ExternalName
+  externalName: keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local
+  ports:
+    - port: 8080
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/agentgateway.dev/agentgatewaybackend_v1alpha1.json
+apiVersion: agentgateway.dev/v1alpha1
+kind: AgentgatewayBackend
+metadata:
+  name: &model embeddinggemma-2
+spec:
+  ai:
+    provider:
+      custom:
+        # backendRef:
+        #   name: *model
+        #   port: 8080
+        model: *model
+        formats:
+          - type: Embeddings
+      host: embeddinggemma-2-proxy.ai.svc.cluster.local
+      port: 8080
+  policies:
+    ai:
+      routes:
+        "/v1/embeddings": Embeddings
+        "*": Passthrough
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: &model embeddinggemma-2
+spec:
+  parentRefs:
+    - name: agentgateway-proxy
+  rules:
+    - matches:
+        - headers:
+            - type: Exact
+              name: X-Gateway-Base-Model-Name
+              value: *model
+      backendRefs:
+        - name: *model
+          group: agentgateway.dev
+          kind: AgentgatewayBackend
