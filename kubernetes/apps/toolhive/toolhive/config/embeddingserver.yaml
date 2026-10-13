@@ -6,7 +6,7 @@ metadata:
   name: embedding
 spec:
   model: sentence-transformers/all-MiniLM-L6-v2
-  image: ghcr.io/huggingface/text-embeddings-inference:cpu-latest@sha256:a0d4915c7eefdb566da9ca4d5cb5b27799a6e656773dd87a06196a474c2bbd87
+  image: ghcr.io/huggingface/text-embeddings-inference:cpu-latest@sha256:a5435d2ee87d356511722f885a3919c388745a4fc6c3d5296373d40449de9964
   env:
     - name: HOSTNAME
       value: "::"
