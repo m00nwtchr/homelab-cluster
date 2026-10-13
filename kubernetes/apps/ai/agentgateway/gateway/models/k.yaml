@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/batch/job_v1.json
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: embeddinggemma-2-stage
+  namespace: ai
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      securityContext:
+        runAsUser: 65532
+        runAsGroup: 102
+        runAsNonRoot: true
+        fsGroup: 102
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: downloader
+          image: curlimages/curl:8.18.0
+          command:
+            - sh
+            - -ec
+            - |
+              FILE=/models/2a53ea6e3829ef38/Embeddinggemma-2.gguf
+              URL=https://huggingface.co/unsloth/embeddinggemma-2-GGUF/resolve/main/embeddinggemma-2-Q8_0.gguf
+
+              if [ -f "$FILE" ]; then
+                echo "Model already exists"
+                exit 0
+              fi
+
+              mkdir -p "$(dirname "$FILE")"
+              curl -fL --retry 5 -o "$FILE.part" "$URL"
+              mv "$FILE.part" "$FILE"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: models
+              mountPath: /models
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: llmkube-model-cache
