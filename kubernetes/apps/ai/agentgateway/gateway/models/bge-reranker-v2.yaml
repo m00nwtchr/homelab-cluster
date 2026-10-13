@@ -44,7 +44,7 @@ spec:
     - --load-mode
     - mmap
 
-  replicas: 1
+  replicas: 0
   rolloutPolicy:
     waitForIdle: true
     idleTimeoutSeconds: 86400
