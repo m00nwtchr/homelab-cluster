@@ -5,9 +5,9 @@ kind: Model
 metadata:
   name: bge-reranker-v2
 spec:
-  source: https://huggingface.co/Felladrin/gguf-Q8_0-bge-reranker-v2-m3/resolve/main/bge-reranker-v2-m3-q8_0.gguf
+  source: https://huggingface.co/gpustack/bge-reranker-v2-m3-GGUF/resolve/main/bge-reranker-v2-m3-Q4_K_M.gguf
   format: gguf
-  quantization: Q8_0
+  quantization: Q4_K_M
   hardware:
     accelerator: cpu
 ---
@@ -18,37 +18,46 @@ metadata:
   name: &model bge-reranker-v2
 spec:
   modelRef: *model
-  image: ghcr.io/ggml-org/llama.cpp:server@sha256:295dc9897fa8a643e4a513fbcaada51d3b8db4b0afa4fda7aeae2386757de58b
+  image: ghcr.io/ggml-org/llama.cpp:server@sha256:c789283572ba78c2699b8945a96e654c850f938a717883f2e6187a14adac698f
 
   priority: normal
-  contextSize: &ctx 16384
-  batchSize: 8192
-  uBatchSize: 8192
-  parallelSlots: 2
+  contextSize: 4096
+  batchSize: 4096
+  uBatchSize: 1024
+  parallelSlots: 4
 
   flashAttention: true
-  cacheTypeK: q8_0
-  cacheTypeV: q8_0
 
+  mode: rerank
   extraArgs:
+    - --host
+    - "::"
     - --alias
     - *model
-    - --rerank
-    - --pooling
-    - rank
     - --cont-batching
+    - --kv-unified
     - --threads
     - "6"
     - --threads-batch
-    - "6"
-    - --mmap
-    - --host
-    - "::"
+    - "12"
+    - --load-mode
+    - mmap
 
-  replicas: 0
+  replicas: 1
   rolloutPolicy:
     waitForIdle: true
     idleTimeoutSeconds: 86400
+
+  podSecurityContext:
+    runAsNonRoot: true
+    seccompProfile: { type: RuntimeDefault }
+    runAsUser: 65532
+    runAsGroup: 65532
+    fsGroup: 65532
+    fsGroupChangePolicy: OnRootMismatch
+
+  securityContext:
+    readOnlyRootFilesystem: true
 
   resources:
     cpu: 250m
@@ -57,50 +66,50 @@ spec:
   endpoint:
     port: 8080
     type: ClusterIP
----
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/keda.sh/scaledobject_v1alpha1.json
-apiVersion: keda.sh/v1alpha1
-kind: ScaledObject
-metadata:
-  name: &app bge-reranker-v2
-spec:
-  scaleTargetRef:
-    apiVersion: inference.llmkube.dev/v1alpha1
-    kind: InferenceService
-    name: *app
-  minReplicaCount: 0
-  maxReplicaCount: 1
-  cooldownPeriod: 600
-  triggers:
-    - type: external-push
-      metadata:
-        scalerAddress: keda-add-ons-http-external-scaler.keda.svc.cluster.local.:9090
-        interceptorRoute: *app
----
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/http.keda.sh/interceptorroute_v1beta1.json
-apiVersion: http.keda.sh/v1beta1
-kind: InterceptorRoute
-metadata:
-  name: &app bge-reranker-v2
-spec:
-  target:
-    service: *app
-    port: 8080
-  rules:
-    - hosts: ["bge-reranker-v2-proxy.ai.svc.cluster.local"]
-  scalingMetric:
-    concurrency:
-      targetValue: 100
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: bge-reranker-v2-proxy
-spec:
-  type: ExternalName
-  externalName: keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local
-  ports:
-    - port: 8080
+# ---
+# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/keda.sh/scaledobject_v1alpha1.json
+# apiVersion: keda.sh/v1alpha1
+# kind: ScaledObject
+# metadata:
+#   name: &app bge-reranker-v2
+# spec:
+#   scaleTargetRef:
+#     apiVersion: inference.llmkube.dev/v1alpha1
+#     kind: InferenceService
+#     name: *app
+#   minReplicaCount: 0
+#   maxReplicaCount: 1
+#   cooldownPeriod: 600
+#   triggers:
+#     - type: external-push
+#       metadata:
+#         scalerAddress: keda-add-ons-http-external-scaler.keda.svc.cluster.local.:9090
+#         interceptorRoute: *app
+# ---
+# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/http.keda.sh/interceptorroute_v1beta1.json
+# apiVersion: http.keda.sh/v1beta1
+# kind: InterceptorRoute
+# metadata:
+#   name: &app bge-reranker-v2
+# spec:
+#   target:
+#     service: *app
+#     port: 8080
+#   rules:
+#     - hosts: ["bge-reranker-v2-proxy.ai.svc.cluster.local"]
+#   scalingMetric:
+#     concurrency:
+#       targetValue: 100
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: bge-reranker-v2-proxy
+# spec:
+#   type: ExternalName
+#   externalName: keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local
+#   ports:
+#     - port: 8080
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/agentgateway.dev/agentgatewaybackend_v1alpha1.json
 apiVersion: agentgateway.dev/v1alpha1
@@ -111,13 +120,10 @@ spec:
   ai:
     provider:
       custom:
-        # backendRef:
-        #   name: *model
-        #   port: 8080
         model: *model
         formats:
           - type: Rerank
-      host: bge-reranker-v2-proxy.ai.svc.cluster.local
+      host: bge-reranker-v2.ai.svc.cluster.local
       port: 8080
   policies:
     ai:

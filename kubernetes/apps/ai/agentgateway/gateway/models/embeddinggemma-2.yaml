@@ -22,37 +22,32 @@ spec:
   image: ghcr.io/ggml-org/llama.cpp:server@sha256:c789283572ba78c2699b8945a96e654c850f938a717883f2e6187a14adac698f
 
   priority: normal
-  contextSize: &ctx 8192
-  batchSize: *ctx
-  uBatchSize: *ctx
-  parallelSlots: 1
+  contextSize: 32768
+  batchSize: 4096
+  uBatchSize: 4096
+  parallelSlots: 8
 
   flashAttention: true
-  cacheTypeK: q8_0
-  cacheTypeV: q8_0
 
+  mode: embedding
   extraArgs:
+    - --host
+    - "::"
     - --alias
     - *model
-    - --embeddings
-    - --pooling
-    - mean
     - --cont-batching
+    - --kv-unified
     - --threads
     - "6"
     - --threads-batch
-    - "6"
+    - "12"
     - --load-mode
     - mmap
-    - --host
-    - "::"
 
   replicas: 1
   rolloutPolicy:
     waitForIdle: true
     idleTimeoutSeconds: 86400
-
-  # modelCache:
 
   podSecurityContext:
     runAsNonRoot: true
