@@ -63,6 +63,7 @@ spec:
               MEMINI_EMBED_DIMS: "768"
               MEMINI_EMBED_MAX_CONCURRENCY: "1"
               MEMINI_EMBED_MAX_BATCH: "20"
+              MEMINI_EMBED_QUERY_PREFIX: "task: search result | query: "
 
               # Embedding timeouts
               MEMINI_RECALL_EMBED_TIMEOUT: 15s
