@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: livekit/livekit-server
-              tag: v1.13.5@sha256:3497163e15c48fef6e7830c78716f9e9d5edc28abf7aa90b61c86e93bbc306b1
+              tag: v1.13.10@sha256:89ca9ce0791e18d6e03bf6e2c49ceb27e1c754eae8bd50c989386c1a5963791a
             env:
               LIVEKIT_CONFIG:
                 valueFrom:
@@ -54,7 +54,7 @@ spec:
           app:
             image:
               repository: ghcr.io/element-hq/lk-jwt-service
-              tag: 0.5.0@sha256:29918567e6b7cd920e2853b4cd6848ce01b79947c3d19a9f1ed5b74f0a2a88bf
+              tag: 0.9.0@sha256:d210fd778ba38b7e42e6fc64e8a24a7d66ccc3b938fb20d73bd713224af2dfea
             env:
               LIVEKIT_URL: wss://livekit.${MAIN_DOMAIN}
               LIVEKIT_FULL_ACCESS_HOMESERVERS: "${MAIN_DOMAIN}"
