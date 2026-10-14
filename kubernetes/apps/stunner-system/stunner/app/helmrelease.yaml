@@ -47,6 +47,9 @@ spec:
       dataplane:
         spec:
           enableMetricsEndpoint: true
+          containerSecurityContext:
+            runAsUser: 10001
+            runAsNonRoot: true
 
     resources:
       limits:
