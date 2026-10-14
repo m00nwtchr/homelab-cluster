@@ -50,7 +50,7 @@ spec:
         parentRefs:
           - name: internal
             namespace: network
-          - name: tunnel
+          - name: external
             namespace: network
         rules:
           - matches:

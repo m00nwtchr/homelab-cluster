@@ -33,7 +33,7 @@ spec:
   parentRefs:
     - name: internal
       namespace: network
-    - name: tunnel
+    - name: external
       namespace: network
   hostnames: ["${MAIN_DOMAIN}", "${SECRET_DOMAIN}"]
   rules:
@@ -54,7 +54,7 @@ metadata:
   name: robots-txt
 spec:
   parentRefs:
-    - name: tunnel
+    - name: external
       namespace: network
   hostnames: ["${MAIN_DOMAIN}", "${SECRET_DOMAIN}"]
   rules:
