@@ -144,7 +144,7 @@ spec:
         hostnames: ["matrix.${MAIN_DOMAIN}"]
         forceRename: *app
         parentRefs:
-          - name: tunnel
+          - name: external
             namespace: network
           - name: internal
             namespace: network
@@ -162,7 +162,7 @@ spec:
       well-known:
         hostnames: ["${MAIN_DOMAIN}"]
         parentRefs:
-          - name: tunnel
+          - name: external
             namespace: network
           - name: internal
             namespace: network
