@@ -1,5 +1,5 @@
 [global]
-server_name = "${SECRET_DOMAIN}"
+server_name = "${MAIN_DOMAIN}"
 address = ["::"]
 port = 8008
 
@@ -38,8 +38,8 @@ forget_forced_upon_leave = true
 
 # Additional config
 [global.well_known]
-client = "https://matrix.${SECRET_DOMAIN}"
-server = "matrix.${SECRET_DOMAIN}:443"
+client = "https://matrix.${MAIN_DOMAIN}"
+server = "matrix.${MAIN_DOMAIN}:443"
 
 [global.matrix_rtc]
 foci = [

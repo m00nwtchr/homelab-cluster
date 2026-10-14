@@ -23,6 +23,7 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       SUBDOMAIN: matrix
+      DOMAIN: ${MAIN_DOMAIN}
 
       OIDC_DISPLAY_NAME: "Matrix"
       OIDC_CALLBACK: /_continuwuity/oidc/complete
