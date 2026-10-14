@@ -39,6 +39,7 @@ spec:
               DFGUARD_PROXY_UPSTREAM_KEY: /tls/dragonfly/tls.key
               DFGUARD_PROXY_UPSTREAM_CA: /tls/ca/ca.crt
               DFGUARD_PROXY_METRICS_LISTEN: "[::]:9464"
+              DFGUARD_PROXY_ACL: /config/acl.conf
             probes:
               liveness:
                 enabled: true
