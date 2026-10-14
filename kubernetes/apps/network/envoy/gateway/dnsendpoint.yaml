@@ -8,7 +8,7 @@ spec:
   endpoints:
     - dnsName: ${MAIN_DOMAIN}
       recordType: CNAME
-      targets: ["tunnel.${MAIN_DOMAIN}"]
+      targets: ["external.${MAIN_DOMAIN}"]
     - dnsName: ${SECRET_DOMAIN}
       recordType: CNAME
-      targets: ["tunnel.${MAIN_DOMAIN}"]
+      targets: ["external.${MAIN_DOMAIN}"]
