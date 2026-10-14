@@ -5,7 +5,8 @@ metadata:
   annotations:
     stunner.l7mp.io/enable-mixed-protocol-lb: "true"
     stunner.l7mp.io/related-gateway-name: network/stunner
-    stunner.l7mp.io/service-type: ClusterIP
+    external-dns.alpha.kubernetes.io/hostname: "turn.${MAIN_DOMAIN}"
+    external-dns.alpha.kubernetes.io/target: "external.${MAIN_DOMAIN}"
   labels:
     stunner.l7mp.io/owned-by: stunner
     stunner.l7mp.io/related-gateway-name: stunner
@@ -38,4 +39,5 @@ spec:
   sessionAffinityConfig:
     clientIP:
       timeoutSeconds: 10800
-  type: ClusterIP
+  type: LoadBalancer
+  loadBalancerClass: io.cilium/node
