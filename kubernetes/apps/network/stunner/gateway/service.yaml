@@ -11,6 +11,7 @@ metadata:
     stunner.l7mp.io/owned-by: stunner
     stunner.l7mp.io/related-gateway-name: stunner
     stunner.l7mp.io/related-gateway-namespace: network
+    k8s-gateway.dns/ignore: "true"
   name: stunner
   namespace: network
   ownerReferences:
