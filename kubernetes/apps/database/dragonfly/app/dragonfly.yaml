@@ -58,4 +58,4 @@ spec:
     fsGroup: 65532
     fsGroupChangePolicy: OnRootMismatch
 
-  networkPolicyEnabled: false # see ciliumnetworkpolicy
+  # networkPolicyEnabled: false # see ciliumnetworkpolicy
