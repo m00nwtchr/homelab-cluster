@@ -29,6 +29,11 @@ rtc:
 room:
   auto_create: false
 
+webhook:
+  api_key: "{{ .user }}"
+  urls:
+    - https://livekit.${MAIN_DOMAIN}/sfu_webhook
+
 turn:
   enabled: false
 
