@@ -34,7 +34,7 @@ spec:
         parentRefs:
           - name: internal
             namespace: network
-          - name: tunnel
+          - name: external
             namespace: network
         hostnames:
           - ${SECRET_DOMAIN}
