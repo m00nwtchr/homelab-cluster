@@ -160,7 +160,7 @@ spec:
               request: "0s"
 
       well-known:
-        hostnames: ["${SECRET_DOMAIN}"]
+        hostnames: ["${MAIN_DOMAIN}"]
         parentRefs:
           - name: tunnel
             namespace: network
