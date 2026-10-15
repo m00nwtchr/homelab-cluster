@@ -50,6 +50,9 @@ spec:
         labels:
           m00nlit.dev/no-dragonfly-stunnel: "true"
 
+        annotations:
+          reloader.stakater.com/auto: "true"
+
         containers:
           app:
             image:
