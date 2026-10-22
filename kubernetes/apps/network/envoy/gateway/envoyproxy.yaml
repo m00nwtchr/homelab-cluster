@@ -20,7 +20,7 @@ spec:
       envoyDeployment:
         replicas: 1
         container:
-          image: mirror.gcr.io/envoyproxy/envoy:v1.39.0@sha256:d59f7f5fa10cff6d5892b6c5e7df5c9297ddfb2c3683e33fbfb82da24de4fa66
+          image: mirror.gcr.io/envoyproxy/envoy:v1.40.0@sha256:459f2a6404c340fe6afccd69d85527012d47f3c036765493e6f8f3113fa384de
           resources:
             requests:
               cpu: 100m
@@ -62,7 +62,7 @@ spec:
               persistentVolumeClaim:
                 claimName: geoip-db
         container:
-          image: mirror.gcr.io/envoyproxy/envoy:v1.39.0@sha256:d59f7f5fa10cff6d5892b6c5e7df5c9297ddfb2c3683e33fbfb82da24de4fa66
+          image: mirror.gcr.io/envoyproxy/envoy:v1.40.0@sha256:459f2a6404c340fe6afccd69d85527012d47f3c036765493e6f8f3113fa384de
           volumeMounts:
             - name: geoip-db
               mountPath: /etc/envoy/geoip
@@ -110,7 +110,7 @@ spec:
       envoyDeployment:
         replicas: 1
         container:
-          image: mirror.gcr.io/envoyproxy/envoy:v1.39.0@sha256:d59f7f5fa10cff6d5892b6c5e7df5c9297ddfb2c3683e33fbfb82da24de4fa66
+          image: mirror.gcr.io/envoyproxy/envoy:v1.40.0@sha256:459f2a6404c340fe6afccd69d85527012d47f3c036765493e6f8f3113fa384de
           resources:
             requests:
               cpu: 100m
