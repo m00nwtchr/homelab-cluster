@@ -132,7 +132,7 @@ spec:
       app:
         hostnames: ["idm.${MAIN_DOMAIN}"]
         parentRefs:
-          - name: tunnel
+          - name: external
             namespace: network
           - name: internal
             namespace: network
