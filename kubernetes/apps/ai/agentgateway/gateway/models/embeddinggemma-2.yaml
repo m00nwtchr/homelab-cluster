@@ -19,7 +19,7 @@ metadata:
   name: &model embeddinggemma-2
 spec:
   modelRef: *model
-  image: ghcr.io/ggml-org/llama.cpp:server@sha256:c789283572ba78c2699b8945a96e654c850f938a717883f2e6187a14adac698f
+  image: ghcr.io/ggml-org/llama.cpp:server@sha256:20c4196fc08b459a34ef78aaa05b101333b2fac687e30ec99f37b3c9dc071b44
 
   priority: normal
   contextSize: 32768
