@@ -26,10 +26,10 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 150Mi
+                memory: 168Mi
               limits:
                 cpu: 2
-                memory: 2Gi
+                memory: 168Mi
 
             probes:
               liveness: &probes
