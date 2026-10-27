@@ -3,10 +3,11 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
+    external-dns.alpha.kubernetes.io/hostname: turn.naktis.eu
+    external-dns.alpha.kubernetes.io/target: external.naktis.eu
     stunner.l7mp.io/enable-mixed-protocol-lb: "true"
+    stunner.l7mp.io/managed-annotations: external-dns.alpha.kubernetes.io/hostname,external-dns.alpha.kubernetes.io/target
     stunner.l7mp.io/related-gateway-name: network/stunner
-    external-dns.alpha.kubernetes.io/hostname: "turn.${MAIN_DOMAIN}"
-    external-dns.alpha.kubernetes.io/target: "external.${MAIN_DOMAIN}"
   labels:
     stunner.l7mp.io/owned-by: stunner
     stunner.l7mp.io/related-gateway-name: stunner
@@ -20,6 +21,8 @@ metadata:
       name: stunner
       uid: d5d9b44b-19f7-4838-b408-468d05280e40
 spec:
+  type: LoadBalancer
+  loadBalancerClass: io.cilium/node
   internalTrafficPolicy: Cluster
   ipFamilies: [IPv4]
   ipFamilyPolicy: SingleStack
@@ -44,5 +47,3 @@ spec:
   sessionAffinityConfig:
     clientIP:
       timeoutSeconds: 10800
-  type: LoadBalancer
-  loadBalancerClass: io.cilium/node
