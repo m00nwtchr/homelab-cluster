@@ -6,6 +6,6 @@ resources:
   - externalsecret.yaml
   - gatewayclass.yaml
   - gateway.yaml
-  - mutatingadmissionpolicy.yaml
+  # - mutatingadmissionpolicy.yaml
   - podmonitor.yaml
   - service.yaml
