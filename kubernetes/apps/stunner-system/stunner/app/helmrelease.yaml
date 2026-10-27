@@ -58,15 +58,3 @@ spec:
       requests:
         cpu: 500m
         memory: 128Mi
-  # postRenderers:
-  #   - kustomize:
-  #       patches:
-  #         - target:
-  #             kind: Deployment
-  #             name: stunner-gateway-operator-controller-manager
-  #           patch: |-
-  #             - op: replace
-  #               path: /spec/template/spec/containers/0/env/0
-  #               value:
-  #                 name: STUNNER_GATEWAY_OPERATOR_ADDRESS
-  #                 value: stunner-config-discovery.stunner-system.svc.cluster.local.
