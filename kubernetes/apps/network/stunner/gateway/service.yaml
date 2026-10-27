@@ -24,14 +24,18 @@ spec:
   ipFamilies: [IPv4]
   ipFamilyPolicy: SingleStack
   ports:
-    - name: tls
-      port: 5349
-      protocol: TCP
-      targetPort: 5349
     - name: udp
       port: 3478
       protocol: UDP
       targetPort: 3478
+    - name: tcp
+      port: 3478
+      protocol: TCP
+      targetPort: 3478
+    - name: tls
+      port: 5349
+      protocol: TCP
+      targetPort: 5349
   selector:
     app: stunner
     stunner.l7mp.io/related-gateway-name: stunner
