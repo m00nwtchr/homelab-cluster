@@ -17,7 +17,7 @@ spec:
           app: &ctA
             image:
               repository: ghcr.io/plastic-labs/honcho
-              tag: v3.0.12@sha256:1e9dbc40136d3f9213ce7482b0eecac914b630ee3e714ea961bd763945f94be5
+              tag: v3.5.0@sha256:23ff96bf62ab2ca14928e6766db1a30a7729f5b7c9e2285af0cd4a179c0d393d
             command:
               - /bin/sh
               - -c
