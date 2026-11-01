@@ -110,7 +110,7 @@ spec:
                 enabled: true
             resources:
               requests:
-                cpu: 60m
+                cpu: 16m
                 memory: 635Mi
               limits:
                 memory: 635Mi
@@ -178,9 +178,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 142Mi
+                memory: 109Mi
               limits:
-                memory: 142Mi
+                memory: 109Mi
 
     service:
       app:

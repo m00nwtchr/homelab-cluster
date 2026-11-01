@@ -47,8 +47,8 @@ spec:
           namespace: network
     resources:
       requests:
-        cpu: 83m
-        memory: 1321Mi
+        cpu: 76m
+        memory: 1305Mi
       limits:
         cpu: 2000m
-        memory: 1321Mi
+        memory: 1305Mi

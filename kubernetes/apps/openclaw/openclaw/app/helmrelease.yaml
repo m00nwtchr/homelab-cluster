@@ -63,7 +63,7 @@ spec:
                   name: openclaw
             resources:
               requests:
-                cpu: 164m
+                cpu: 160m
                 memory: 4876Mi
               limits:
                 cpu: 10

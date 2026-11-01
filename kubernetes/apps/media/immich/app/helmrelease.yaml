@@ -61,9 +61,9 @@ spec:
               resources:
                 requests:
                   cpu: 27m
-                  memory: 2789Mi
+                  memory: 2940Mi
                 limits:
-                  memory: 2789Mi
+                  memory: 2940Mi
       persistence:
         metadata:
           forceRename: immich-metadata
