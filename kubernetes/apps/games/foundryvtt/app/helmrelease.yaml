@@ -21,6 +21,9 @@ spec:
 
     controllers:
       *app :
+        pod:
+          hostname: "{{ .Release.Name }}"
+
         containers:
           app:
             image:
