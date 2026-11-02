@@ -18,7 +18,7 @@ spec:
   chart:
     spec:
       chart: *app
-      version: 1.0.18
+      version: 1.0.19
       sourceRef:
         kind: HelmRepository
         name: *app
