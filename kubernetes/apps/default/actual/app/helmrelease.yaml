@@ -44,7 +44,7 @@ spec:
           app:
             image:
               repository: ghcr.io/actualbudget/actual
-              tag: 26.3.0@sha256:eb8bc26f53025e07e464594c12d77c52c4b95840c8dadd9b95c4f0c4660f8ad2
+              tag: 26.11.0@sha256:06cf186569cf58d93e12659ff1a517b65b5b0ebee7050a3991d4bd8a1d398da6
             env:
               ACTUAL_PORT: &httpPort 5006
               # ACTUAL_OPENID_DISCOVERY_URL: "https://idm.${MAIN_DOMAIN}/oauth2/openid/{{ .Release.Name }}/.well-known/openid-configuration"
