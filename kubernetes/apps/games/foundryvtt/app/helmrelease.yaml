@@ -42,6 +42,7 @@ spec:
               FOUNDRY_PROXY_SSL: "true"
               FOUNDRY_TELEMETRY: "false"
               FOUNDRY_UPNP: "false"
+              FOUNDRY_AWS_CONFIG: "/config/s3.json"
               TZ: "${TZ}"
             envFrom:
               - secretRef:
@@ -86,9 +87,38 @@ spec:
           - name: internal
             namespace: network
 
+    externalSecrets:
+      s3:
+        suffix: s3
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: infisical
+        target:
+          template:
+            data:
+              s3.json: |
+                {
+                  "region": "{{ .S3_REGION }}",
+                  "endpoint": "{{ .S3_ENDPOINT }}",
+                  "credentials": {
+                    "accessKeyId": "{{ .S3_KEY_ID }}",
+                    "secretAccessKey": "{{ .S3_KEY }}"
+                  }
+                }
+        dataFrom:
+          - find:
+              path: /foundryvtt
+
     persistence:
       data:
         existingClaim: *app
+
+      s3:
+        type: secret
+        name: "{{ .Release.Name }}-s3"
+        globalMounts:
+          - path: /config/s3.json
+            subPath: s3.json
 
       npm-cache:
         type: emptyDir
