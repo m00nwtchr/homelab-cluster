@@ -35,7 +35,6 @@ spec:
               FOUNDRY_IP_DISCOVERY: "false"
               FOUNDRY_LOCAL_HOSTNAME: "{{ .Release.Name }}.${MAIN_DOMAIN}"
               FOUNDRY_MINIFY_STATIC_FILES: "true"
-              FOUNDRY_PROTOCOL: "4"
               FOUNDRY_PROXY_PORT: "443"
               FOUNDRY_PROXY_SSL: "true"
               FOUNDRY_TELEMETRY: "false"
