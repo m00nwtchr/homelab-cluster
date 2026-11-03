@@ -53,7 +53,7 @@ spec:
                   name: *app
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 3.3.3@sha256:dba0242c1df1843643df4eb50ce5639f3a7900f414879088fd5bed8eaf2d456d
+              tag: 3.4.2@sha256:d704e84f88300eb6ab001ab15720a2330ff99169cf9f94d6b8fcc44b63a84c84
             probes:
               liveness:
                 enabled: true
