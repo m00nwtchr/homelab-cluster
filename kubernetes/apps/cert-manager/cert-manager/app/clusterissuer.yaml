@@ -14,7 +14,16 @@ spec:
       - dns01:
           cloudflare:
             apiTokenSecretRef:
-              name: cloudflare-secret
-              key: api-token
+              name: cloudflare-dns
+              key: CF_API_TOKEN
         selector:
-          dnsZones: ["${SECRET_DOMAIN}", "${MAIN_DOMAIN}", "voltkonekt.pl"]
+          dnsZones: ["${SECRET_DOMAIN}", voltkonekt.pl"]
+      - dns01:
+          webhook:
+            groupName: bunny.aardbol.dev
+            solverName: bunny
+            config:
+              secretRef: bunny-dns
+              secretNamespace: cert-manager
+        selector:
+          dnsZones: ["${MAIN_DOMAIN}"]

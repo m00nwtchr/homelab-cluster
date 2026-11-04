@@ -4,9 +4,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./clusterissuer.yaml
+  - ./externalsecret.yaml
   - ./dfguard.yaml
   - ./grafanadashboard.yaml
   - ./helmrelease.yaml
   - ./postgres.yaml
-  - ./secret.sops.yaml
   - ./selfsigned.yaml
