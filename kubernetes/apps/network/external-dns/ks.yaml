@@ -9,8 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../components/secret
+  components: []
   interval: 1h
   path: ./kubernetes/apps/network/external-dns/app
   postBuild:
@@ -38,7 +37,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../components/secret
+    - ../../../../components/secret
   dependsOn:
     - name: external-dns
   healthChecks:
@@ -52,6 +51,8 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/network/external-dns/bunny
   postBuild:
+    substitute:
+      APP: *app
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
@@ -75,7 +76,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components: []
+  components:
+    - ../../../../components/secret
   dependsOn:
     - name: external-dns
   healthChecks:
@@ -89,6 +91,8 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/network/external-dns/cloudflare
   postBuild:
+    substitute:
+      APP: *app
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

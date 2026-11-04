@@ -17,12 +17,13 @@ spec:
         valueFrom:
           secretKeyRef:
             name: *app
-            key: api-token
+            key: CF_API_TOKEN
     extraArgs:
       - --cloudflare-dns-records-per-page=1000
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
       - --gateway-label-filter=gateway==external
+      - --enable-legacy-annotation-prefix
     triggerLoopOnEvent: true
     policy: sync
     sources: ["crd", "gateway-httproute", "gateway-tlsroute", "service"]

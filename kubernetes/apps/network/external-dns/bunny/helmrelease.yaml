@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app cloudflare-dns
+  name: &app bunny-dns
 spec:
   interval: 1h
   chartRef:
@@ -11,24 +11,55 @@ spec:
     name: external-dns
   values:
     fullnameOverride: *app
-    provider: cloudflare
-    env:
-      - name: CF_API_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: *app
-            key: api-token
+
+    podSecurityContext:
+      runAsUser: 65532
+      runAsGroup: 65532
+
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+      privileged: false
+      readOnlyRootFilesystem: true
+      runAsGroup: 65532
+      runAsNonRoot: true
+      runAsUser: 65532
+
+    provider:
+      name: webhook
+      webhook:
+        image:
+          repository: insanity54/external-dns-bunny-webhook
+          tag: v0.0.11@sha256:24d2da4322f74f84c2a1bd34ad06d4e8d3ce7f0a8e78f57711d26533402e4f36
+        env:
+          - name: BUNNY_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: *app
+                key: BUNNY_API_KEY
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+          privileged: false
+          readOnlyRootFilesystem: true
+          runAsGroup: 65532
+          runAsNonRoot: true
+          runAsUser: 65532
     extraArgs:
-      - --cloudflare-dns-records-per-page=1000
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
       - --gateway-label-filter=gateway==external
+      - --enable-legacy-annotation-prefix
     triggerLoopOnEvent: true
     policy: sync
     sources: ["crd", "gateway-httproute", "gateway-tlsroute", "service"]
     txtPrefix: k8s.
     txtOwnerId: default
-    domainFilters: ["${SECRET_DOMAIN}", "${MAIN_DOMAIN}", "voltkonekt.pl"]
+    domainFilters: ["${MAIN_DOMAIN}"]
     serviceMonitor:
       enabled: true
     podAnnotations:
