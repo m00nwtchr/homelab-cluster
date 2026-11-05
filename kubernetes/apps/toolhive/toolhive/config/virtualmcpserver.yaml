@@ -5,8 +5,9 @@ kind: VirtualMCPServer
 metadata:
   name: tools-gateway
 spec:
+  groupRef:
+    name: mcp-tools
   config:
-    groupRef: mcp-tools
     aggregation:
       conflictResolution: prefix
       conflictResolutionConfig:

@@ -5,5 +5,5 @@ kind: Kustomization
 resources:
   - ./httproute.yaml
   - ./mcpgroup.yaml
-  # - ./mcpserver.yaml
+  - ./mcpserver.yaml
   - ./virtualmcpserver.yaml

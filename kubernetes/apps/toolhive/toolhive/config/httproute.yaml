@@ -6,7 +6,7 @@ metadata:
   name: mcp
 spec:
   hostnames:
-    - mcp.${SECRET_DOMAIN}
+    - mcp.${MAIN_DOMAIN}
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
