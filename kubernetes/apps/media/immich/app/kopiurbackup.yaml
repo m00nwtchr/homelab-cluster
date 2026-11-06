@@ -10,7 +10,8 @@ metadata:
 spec:
   scope: remote
   create: false
-  copyMethod: Direct
+  # copyMethod: Direct
+  storageClass: zfs-vault
   remoteDeepVerify: false
   pvcName: photos
   capacity: 60Gi
