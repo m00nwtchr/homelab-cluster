@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app browsertrix
+  name: browsertrix
 spec:
   interval: 1h
 
@@ -12,17 +12,67 @@ spec:
     name: app-template
     namespace: flux-system
 
-  # Don't wait weeks for the Job to complete during Helm installation.
-  # Set in kustomize
-  # install:
-  #   disableWaitForJobs: true
-  # upgrade:
-  #   disableWaitForJobs: true
+  # disableWaitForJobs set by Kustomize component
 
   values:
     controllers:
-      *app :
+      profile:
+        type: deployment
+        forceRename: browsertrix-profile
+        replicas: 1
+        strategy: Recreate
+
+        containers:
+          app:
+            image:
+              repository: docker.io/webrecorder/browsertrix-crawler
+              tag: 1.15.3@sha256:f4f9cc3c4dd169203fe9577bb10148a7bb709e71e73bf5388465e452c70a3d6f
+
+            ports:
+              - name: profile-ui
+                containerPort: 9223
+                protocol: TCP
+              - name: novnc
+                containerPort: 6080
+                protocol: TCP
+
+            command:
+              - /bin/sh
+              - -ec
+
+            args:
+              - |
+                PROFILE=/crawls/profiles/profile.tar.gz
+                NEW_PROFILE=/crawls/profiles/profile-new.tar.gz
+
+                mkdir -p /crawls/profiles
+                rm -f "$NEW_PROFILE"
+
+                if [ -s "$PROFILE" ]; then
+                  echo "Refreshing existing browser profile..."
+
+                  /docker-entrypoint.sh create-login-profile \
+                    --url https://forum.theonyxpath.com/ \
+                    --profile "$PROFILE" \
+                    --filename "$NEW_PROFILE"
+                else
+                  echo "Creating new browser profile..."
+
+                  /docker-entrypoint.sh create-login-profile \
+                    --url https://forum.theonyxpath.com/ \
+                    --filename "$NEW_PROFILE"
+                fi
+
+                test -s "$NEW_PROFILE"
+
+                mv -f "$NEW_PROFILE" "$PROFILE"
+                echo "Browser profile saved."
+
+                exec sleep infinity
+
+      browsertrix:
         type: job
+        forceRename: browsertrix
 
         job:
           backoffLimit: 4
@@ -50,24 +100,13 @@ spec:
                 COLLECTION_DIR="/crawls/collections/$COLLECTION"
                 STATE_DIR="$COLLECTION_DIR/crawls"
 
-                # Create the browser profile if missing.
-                if [ ! -s "$PROFILE" ]; then
-                  echo "Browser profile missing. Starting profile creator..."
-                  mkdir -p /crawls/profiles
-
-                  /docker-entrypoint.sh create-login-profile \
-                    --url https://forum.theonyxpath.com/ \
-                    --filename "$PROFILE"
-
-                  if [ ! -s "$PROFILE" ]; then
-                    echo "Profile creation failed."
-                    exit 1
-                  fi
-                fi
+                while [ ! -s "$PROFILE" ]; do
+                  echo "Waiting for browser profile..."
+                  sleep 10
+                done
 
                 echo "Browser profile ready."
 
-                # Prepare crawl arguments.
                 set -- \
                   --url https://forum.theonyxpath.com/ \
                   --scopeType host \
@@ -82,7 +121,6 @@ spec:
                   --saveStateHistory 10 \
                   --logExcludeContext links
 
-                # Resume only if the previous crawl made real progress.
                 STATE=""
                 if [ -d "$STATE_DIR" ]; then
                   STATE="$(find "$STATE_DIR" -maxdepth 1 -type f -name '*.yaml' |
@@ -102,8 +140,6 @@ spec:
 
                     BACKUP="${COLLECTION_DIR}.failed-$(date -u +%Y%m%dT%H%M%SZ)"
                     mv "$COLLECTION_DIR" "$BACKUP"
-
-                    echo "Failed collection preserved at: $BACKUP"
                   fi
                 else
                   echo "No checkpoint found. Starting fresh."
@@ -112,12 +148,17 @@ spec:
                 echo "Starting Browsertrix..."
                 exec /docker-entrypoint.sh crawl "$@"
 
-            # resources:
-            #   requests:
-            #     cpu: "2"
-            #     memory: 512Mi
-            #   limits:
-            #     memory: 12Gi
+    service:
+      profile:
+        controller: profile
+        forceRename: browsertrix-profile
+        ports:
+          ui:
+            port: 9223
+            protocol: TCP
+          novnc:
+            port: 6080
+            protocol: TCP
 
     persistence:
       crawls:
@@ -126,6 +167,7 @@ spec:
         storageClass: zfs-vault
         accessMode: ReadWriteOnce
         size: 1Ti
+        retain: true
         annotations:
           helm.sh/resource-policy: keep
         globalMounts:
