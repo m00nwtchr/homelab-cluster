@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: collabora/code
-              tag: 26.04.2.4.1@sha256:1f864ce3f0c49e867787b6dd303bd6ba989542d3023f6809df558eafd04c1b97
+              tag: 26.04.6.1.1@sha256:95f29f1c0a1778999125f53f058d968fe0afb37c95e32ebfb9f3444140faebd2
             command: [/bin/bash, -c]
             args:
               ["coolconfig generate-proof-key && /start-collabora-online.sh"]
