@@ -126,6 +126,7 @@ spec:
       data:
         size: 32Gi
         accessMode: ReadWriteOnce
+        forceRename: paseo-data
         globalMounts:
           - path: /home/paseo
             subPath: home
