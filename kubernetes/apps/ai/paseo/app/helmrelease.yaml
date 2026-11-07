@@ -51,6 +51,7 @@ spec:
 
             env:
               HERMES_HOME: /home/paseo/.hermes
+              PASEO_LISTEN: "[::]:6767"
               PASEO_RELAY_ENABLED: "false"
               PASEO_HOSTNAMES: &hostname "{{ .Release.Name }}.${MAIN_DOMAIN}"
               PASEO_PASSWORD:
