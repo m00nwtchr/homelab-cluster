@@ -10,4 +10,6 @@ resources:
   # - ./moltis/ks.yaml
   # - ./ollama/ks.yaml
   # - ./open-webui/ks.yaml
+
+  - ./paseo/ks.yaml
   # - ./qdrant/ks.yaml
