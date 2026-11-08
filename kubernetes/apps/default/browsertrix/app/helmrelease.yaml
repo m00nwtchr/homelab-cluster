@@ -148,6 +148,12 @@ spec:
                 echo "Starting Browsertrix..."
                 exec /docker-entrypoint.sh crawl "$@"
 
+            resources:
+              requests:
+                cpu: 3410m
+                memory: 2136Mi
+              limits:
+                memory: 2136Mi
     service:
       profile:
         controller: profile
