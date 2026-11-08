@@ -10,7 +10,6 @@ metadata:
 spec:
   scope: remote
   create: false
-  # copyMethod: Direct
   storageClass: zfs-vault
   remoteDeepVerify: false
   pvcName: photos

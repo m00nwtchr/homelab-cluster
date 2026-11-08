@@ -91,7 +91,7 @@ spec:
         metadata: { name: "${schema.metadata.name}" }
         spec:
           copyMethod: ${schema.spec.copyMethod}
-          staging: '${schema.spec.storageClass != "" ? {"storageClassName": schema.spec.storageClass} : {}}'
+          staging: '${schema.spec.copyMethod == "Snapshot" && schema.spec.storageClass != "" ? {"storageClassName": schema.spec.storageClass} : {}}'
           repository: { kind: ClusterRepository, name: garage }
           retention: { keepDaily: 7, keepHourly: 24 }
           compression: { compressor: zstd }
@@ -132,7 +132,7 @@ spec:
         metadata: { name: '${schema.metadata.name + "-b2"}' }
         spec:
           copyMethod: ${schema.spec.copyMethod}
-          staging: '${schema.spec.storageClass != "" ? {"storageClassName": schema.spec.storageClass} : {}}'
+          staging: '${schema.spec.copyMethod == "Snapshot" && schema.spec.storageClass != "" ? {"storageClassName": schema.spec.storageClass} : {}}'
           repository: { kind: ClusterRepository, name: b2 }
           retention: { keepDaily: 7 }
           compression: { compressor: zstd }
