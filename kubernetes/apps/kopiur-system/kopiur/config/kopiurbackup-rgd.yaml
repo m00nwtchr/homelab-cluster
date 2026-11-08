@@ -18,7 +18,7 @@ spec:
       remoteDeepVerify: boolean | default=true
       pvcName: "string | default=${schema.metadata.name}"
       capacity: string | default="5Gi"
-      storageClass: string | default="zfs-spark"
+      storageClass: string | default=""
       accessModes: '[]string | default=["ReadWriteOnce"]'
       snapshotClass: string | default="csi-zfs"
       puid: integer | default=1000
@@ -58,7 +58,7 @@ spec:
           resources:
             requests:
               storage: ${schema.spec.capacity}
-          storageClassName: ${schema.spec.storageClass}
+          storageClassName: '${schema.spec.storageClass != "" ? schema.spec.storageClass : "zfs-spark"}'
     - id: restore
       includeWhen:
         - ${schema.spec.create}
@@ -91,6 +91,7 @@ spec:
         metadata: { name: "${schema.metadata.name}" }
         spec:
           copyMethod: ${schema.spec.copyMethod}
+          staging: '${schema.spec.storageClass != "" ? {"storageClassName": schema.spec.storageClass} : {}}'
           repository: { kind: ClusterRepository, name: garage }
           retention: { keepDaily: 7, keepHourly: 24 }
           compression: { compressor: zstd }
@@ -131,6 +132,7 @@ spec:
         metadata: { name: '${schema.metadata.name + "-b2"}' }
         spec:
           copyMethod: ${schema.spec.copyMethod}
+          staging: '${schema.spec.storageClass != "" ? {"storageClassName": schema.spec.storageClass} : {}}'
           repository: { kind: ClusterRepository, name: b2 }
           retention: { keepDaily: 7 }
           compression: { compressor: zstd }
