@@ -32,6 +32,7 @@ spec:
             env:
               CONTAINER_CACHE: /data/container_cache
               CONTAINER_VERBOSE: "true"
+              CONTAINER_PATCHES: "/config/patches"
               FOUNDRY_COMPRESS_WEBSOCKET: "true"
               # FOUNDRY_CSS_THEME: scifi
               FOUNDRY_HOSTNAME: "{{ .Release.Name }}.${MAIN_DOMAIN}"
@@ -112,6 +113,12 @@ spec:
     persistence:
       data:
         existingClaim: *app
+
+      patches:
+        type: configMap
+        name: foundry-patches
+        globalMounts:
+          - path: /config/patches
 
       s3:
         type: secret
