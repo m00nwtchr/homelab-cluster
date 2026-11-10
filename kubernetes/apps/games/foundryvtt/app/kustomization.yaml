@@ -10,6 +10,7 @@ configMapGenerator:
       annotations:
         kustomize.toolkit.fluxcd.io/substitute: disabled
     files:
+      - ./resources/foundry-hide-users.sh
       - ./resources/tokenizer-2-s3-webm.sh
 configurations:
   - ./resources/kustomizeconfig.yaml
