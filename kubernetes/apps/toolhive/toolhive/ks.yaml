@@ -67,6 +67,7 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       DOMAIN: "${MAIN_DOMAIN}"
+      SUBDOMAIN: mcp
       OIDC_DISPLAY_NAME: "Toolhive MCP"
       OIDC_CALLBACK: /oauth/callback
     substituteFrom:
