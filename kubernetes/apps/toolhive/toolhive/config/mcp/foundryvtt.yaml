@@ -1,0 +1,66 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/toolhive.stacklok.dev/mcpserver_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: &name foundryvtt
+spec:
+  image: ghcr.io/m00nwtchr/foundry-vtt-mcp:rolling@sha256:e18589251b70d48b05fdab1816c18263b682a61ad84771cb16f6842ec5e0d568
+  transport: stdio
+  groupRef:
+    name: mcp-tools
+  env:
+    - name: FOUNDRY_CHRONICLE_HOSTNAME
+      value: foundryvtt.naktis.eu
+    - name: FOUNDRY_CHRONICLE_USERNAME
+      value: MCP
+  secrets:
+    - name: foundryvtt-mcp
+      key: password
+      targetEnvName: FOUNDRY_CHRONICLE_PASSWORD
+  podTemplateSpec:
+    spec:
+      volumes:
+        - name: tmp
+          emptyDir: {}
+      containers:
+        - name: mcp
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+  # podTemplateSpec:
+  #   spec:
+  #     containers:
+  #       - name: mcp
+  # krr: controller=grafana container=mcp
+  # resources:
+  #   limits:
+  #     cpu: "500m"
+  #   requests:
+  #     cpu: "10m"
+  # krr: controller=grafana container=toolhive
+  # resources:
+  #   limits:
+  #     cpu: 200m
+  #     memory: 100Mi
+  #   requests:
+  #     cpu: 10m
+  #     memory: 100Mi
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: &name foundryvtt-mcp
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: infisical
+  target:
+    name: *name
+    template:
+      data:
+        password: "{{ .FOUNDRY_MCP_PASSWORD }}"
+  dataFrom:
+    - find:
+        path: /foundryvtt
