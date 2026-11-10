@@ -57,12 +57,18 @@ spec:
       app.kubernetes.io/name: &app toolhive
   dependsOn:
     - name: toolhive-operator
-  components: []
+  components:
+    - ../../../../components/secret
+    - ../../../../components/oidc
   interval: 1h
   path: ./kubernetes/apps/toolhive/toolhive/config
   postBuild:
     substitute:
       APP: *app
+      NAMESPACE: *namespace
+      DOMAIN: "${MAIN_DOMAIN}"
+      OIDC_DISPLAY_NAME: "Toolhive MCP"
+      OIDC_CALLBACK: /oauth/callback
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

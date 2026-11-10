@@ -7,3 +7,9 @@ resources:
   - ./mcpgroup.yaml
   - ./mcpserver.yaml
   - ./virtualmcpserver.yaml
+# patches:
+#   - path: ./resources/oauth-patch.yaml
+#     target:
+#       group: toolhive.stacklok.dev
+#       version: v1beta1
+#       kind: VirtualMCPServer

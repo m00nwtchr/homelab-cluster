@@ -14,7 +14,54 @@ spec:
         prefixFormat: "{workload}_"
     # optimizer:
     #   embeddingService: embedding
+
+  authServerConfig:
+    issuer: https://mcp.${MAIN_DOMAIN}
+
+    disableUpstreamTokenInjection: true
+
+    # signingKeySecretRefs:
+    #   - name: toolhive
+    #     key: signing-key
+
+    # hmacSecretRefs:
+    #   - name: toolhive
+    #     key: hmac-key
+
+    # ChatGPT supports CIMD.
+    # DCR remains available as a fallback.
+    cimd:
+      enabled: true
+
+    upstreamProviders:
+      - name: kanidm
+        type: oidc
+        oidcConfig:
+          issuerUrl: https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}
+          clientId: "${APP}"
+          clientSecretRef:
+            name: kanidm-${APP}-oidc
+            key: client-secret
+          redirectUri: https://mcp.${MAIN_DOMAIN}/oauth/callback
+          scopes:
+            - openid
+            - profile
+            - email
+
   incomingAuth:
-    type: anonymous
+    type: oidc
+    oidcConfigRef:
+      audience: https://mcp.${MAIN_DOMAIN}/mcp
+      name: toolhive-oidc
   outgoingAuth:
     source: discovered
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/toolhive.stacklok.dev/mcpoidcconfig_v1beta1.json
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPOIDCConfig
+metadata:
+  name: toolhive-oidc
+spec:
+  type: inline
+  inline:
+    issuer: https://mcp.${MAIN_DOMAIN}

@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/toolhive.stacklok.dev/virtualmcpserver_v1beta1.json
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: VirtualMCPServer
+metadata:
+  name: _
+spec:
+  authServerConfig:
+    issuer: https://mcp.${MAIN_DOMAIN}
+
+    disableUpstreamTokenInjection: true
+
+    # signingKeySecretRefs:
+    #   - name: toolhive
+    #     key: signing-key
+
+    # hmacSecretRefs:
+    #   - name: toolhive
+    #     key: hmac-key
+
+    # ChatGPT supports CIMD.
+    # DCR remains available as a fallback.
+    cimd:
+      enabled: true
+
+    upstreamProviders:
+      - name: kanidm
+        type: oidc
+        oidcConfig:
+          issuerUrl: https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}
+          clientId: "${APP}"
+          clientSecretRef:
+            name: kanidm-${APP}-oidc
+            key: client-secret
+          redirectUri: https://mcp.${MAIN_DOMAIN}/oauth/callback
+          scopes:
+            - openid
+            - profile
+            - email
