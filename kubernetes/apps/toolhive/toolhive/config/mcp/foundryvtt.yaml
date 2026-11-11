@@ -5,7 +5,7 @@ kind: MCPServer
 metadata:
   name: &name foundryvtt
 spec:
-  image: ghcr.io/m00nwtchr/foundry-vtt-mcp:rolling@sha256:42f4d6b3938868ea51d6cbe4294bf664ff5962ee02ec9ed0fd38fb27bb82047b
+  image: ghcr.io/m00nwtchr/foundry-vtt-mcp:rolling@sha256:9126d20d6059eb9b79d77192a8c99c17d34501a9596761a02010b5b24add080a
   transport: stdio
   groupRef:
     name: mcp-tools
