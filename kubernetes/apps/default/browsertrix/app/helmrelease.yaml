@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: docker.io/webrecorder/browsertrix-crawler
-              tag: 1.15.3@sha256:f4f9cc3c4dd169203fe9577bb10148a7bb709e71e73bf5388465e452c70a3d6f
+              tag: 1.15.4@sha256:261da066ea1a581558ca99b77e7a70a7183e73865f77b832c1823d816a6c75f0
 
             ports:
               - name: profile-ui
@@ -87,7 +87,7 @@ spec:
           app:
             image:
               repository: docker.io/webrecorder/browsertrix-crawler
-              tag: 1.15.3@sha256:f4f9cc3c4dd169203fe9577bb10148a7bb709e71e73bf5388465e452c70a3d6f
+              tag: 1.15.4@sha256:261da066ea1a581558ca99b77e7a70a7183e73865f77b832c1823d816a6c75f0
 
             command:
               - /bin/sh
