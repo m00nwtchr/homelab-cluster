@@ -65,6 +65,13 @@ spec:
             configBlock: |-
               lameduck 5s
           - name: ready
+          - name: template
+            parameters: IN AAAA chatgpt.com
+            configBlock: |-
+              match ^chatgpt[.]com[.]$
+              rcode NOERROR
+              fallthrough
+
           - name: rewrite
             parameters: stop
             configBlock: |-
