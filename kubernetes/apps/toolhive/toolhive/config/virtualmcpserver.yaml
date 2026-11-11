@@ -52,6 +52,7 @@ spec:
     type: oidc
     oidcConfigRef:
       audience: https://mcp.${MAIN_DOMAIN}/mcp
+      resourceUrl: https://mcp.naktis.eu/mcp
       name: toolhive-oidc
   outgoingAuth:
     source: discovered
