@@ -23,5 +23,8 @@
 				"command": ["/home/paseo/.local/bin/hermes", "acp"]
 			}
 		}
+	},
+	"worktrees": {
+		"root": "/workspace/.worktrees"
 	}
 }
