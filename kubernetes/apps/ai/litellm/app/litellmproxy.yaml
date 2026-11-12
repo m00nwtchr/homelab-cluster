@@ -1,0 +1,137 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmproxy_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMProxy
+metadata:
+  name: litellm
+spec:
+  applyMode: file
+  image: ghcr.io/berriai/litellm-database:v1.109.1@sha256:932c54440654f8f8466a85887612d95dcfb04ae2fc01257844332f4bf3b96986
+  replicas: 1
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+    seccompProfile: { type: RuntimeDefault }
+  securityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+    capabilities:
+      drop: [ALL]
+  service:
+    port: 80
+    type: ClusterIP
+  env:
+    - name: TZ
+      value: "${TZ}"
+    - name: CHATGPT_TOKEN_DIR
+      value: /app/chatgpt_tokens
+    - name: DATABASE_URL
+      valueFrom:
+        secretKeyRef:
+          name: litellm-postgres
+          key: url
+    - name: REDIS_HOST
+      value: dragonfly.database.svc.cluster.local
+    - name: REDIS_PORT
+      value: "6379"
+    - name: STORE_MODEL_IN_DB
+      value: "true"
+    - name: USE_PRISMA_MIGRATE
+      value: "true"
+    - name: LITELLM_MODE
+      value: PRODUCTION
+    - name: LITELLM_DONT_SHOW_FEEDBACK_BOX
+      value: "true"
+  envFrom:
+    - secretRef:
+        name: litellm
+  resources:
+    requests:
+      cpu: 100m
+      memory: 1Gi
+    limits:
+      memory: 1Gi
+  livenessProbe:
+    httpGet:
+      path: /health/liveliness
+      port: 4000
+    initialDelaySeconds: 30
+    periodSeconds: 60
+    timeoutSeconds: 10
+    failureThreshold: 3
+  readinessProbe:
+    httpGet:
+      path: /health/readiness
+      port: 4000
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 10
+    failureThreshold: 3
+  volumes:
+    - name: runtime-cache
+      emptyDir: {}
+    - name: prisma-client
+      emptyDir: {}
+    - name: chatgpt-tokens
+      persistentVolumeClaim:
+        claimName: litellm
+    - name: postgres-certs
+      csi:
+        driver: csi.cert-manager.io
+        readOnly: true
+        volumeAttributes:
+          csi.cert-manager.io/issuer-name: postgres-client-ca
+          csi.cert-manager.io/issuer-kind: ClusterIssuer
+          csi.cert-manager.io/key-algorithm: ECDSA
+          csi.cert-manager.io/key-size: "384"
+          csi.cert-manager.io/key-encoding: PKCS8
+          csi.cert-manager.io/key-usages: client auth
+          csi.cert-manager.io/common-name: litellm
+          csi.cert-manager.io/dns-names: $${POD_NAME}.$${POD_NAMESPACE}.svc.cluster.local
+    - name: root-ca
+      configMap:
+        name: root-ca
+        defaultMode: 0440
+  volumeMounts:
+    - name: runtime-cache
+      mountPath: /app/cache
+    - name: runtime-cache
+      mountPath: /.cache
+    - name: runtime-cache
+      mountPath: /.npm
+    - name: runtime-cache
+      mountPath: /tmp
+    - name: chatgpt-tokens
+      mountPath: /app/chatgpt_tokens
+    - name: postgres-certs
+      mountPath: /var/run/secrets/postgresql
+    - name: root-ca
+      mountPath: /var/run/secrets/root-ca
+    - name: prisma-client
+      mountPath: /usr/local/lib/python3.13/site-packages/prisma
+  routerSettings:
+    routing_strategy: usage-based-routing-v2
+    redis_host: os.environ/REDIS_HOST
+  litellmSettings:
+    set_verbose: false
+    json_logs: true
+    cache: true
+    cache_params:
+      type: redis
+      host: os.environ/REDIS_HOST
+      port: os.environ/REDIS_PORT
+  generalSettings:
+    proxy_batch_write_at: 60
+    database_connection_pool_limit: 10
+    use_redis_transaction_buffer: true
+    disable_error_logs: true
+    allow_requests_on_db_unavailable: true
+  extraConfig:
+    environment:
+      - GROQ_API_KEY
+      - REDIS_HOST
+      - REDIS_PORT
+  apiAccess:
+    masterKeyRef:
+      name: litellm
+      key: LITELLM_MASTER_KEY

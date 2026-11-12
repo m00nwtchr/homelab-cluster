@@ -11,12 +11,19 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/database
-    - ../../../../components/gatus/guarded
+    - ../../../../components/kopiur
+  dependsOn:
+    - name: litellm-operator
+      namespace: litellm-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 1h
   path: ./kubernetes/apps/ai/litellm/app
   postBuild:
     substitute:
       APP: *app
+      KOPIUR_ACCESSMODES: ReadWriteOnce
+      KOPIUR_CAPACITY: 1Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
