@@ -13,6 +13,9 @@ spec:
     - ../../../../components/database
     - ../../../../components/dragonfly
     - ../../../../components/secret
+  dependsOn:
+    - name: litellm
+      namespace: ai
   interval: 1h
   path: ./kubernetes/apps/ai/honcho/app
   postBuild:
