@@ -17,6 +17,15 @@ spec:
       namespace: litellm-system
     - name: kopiur
       namespace: kopiur-system
+  healthChecks:
+    - apiVersion: litellm.home-operations.com/v1alpha1
+      kind: LiteLLMProxy
+      name: litellm
+      namespace: ai
+    - apiVersion: litellm.home-operations.com/v1alpha1
+      kind: LiteLLMVirtualKey
+      name: honcho
+      namespace: ai
   interval: 1h
   path: ./kubernetes/apps/ai/litellm/app
   postBuild:
@@ -35,3 +44,4 @@ spec:
     namespace: flux-system
   targetNamespace: *namespace
   timeout: 5m
+  wait: true
