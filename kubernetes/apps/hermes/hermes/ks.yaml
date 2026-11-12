@@ -12,9 +12,9 @@ spec:
   components:
     - ../../../../components/kopiur
     - ../../../../components/oidc
-  # dependsOn:
-  #   - name: kubevirt
-  #     namespace: kubevirt
+  dependsOn:
+    - name: honcho
+      namespace: ai
   postBuild:
     substitute:
       APP: *app

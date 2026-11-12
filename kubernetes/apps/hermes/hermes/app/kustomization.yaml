@@ -9,5 +9,6 @@ configMapGenerator:
   - name: hermes-config
     files:
       - ./resources/config.yaml
+      - ./resources/honcho.json
 configurations:
   - ./resources/kustomizeconfig.yaml
