@@ -31,35 +31,10 @@ spec:
                 exec /app/.venv/bin/fastapi run --host "::" --workers "$${API_WORKERS:-1}" src/main.py
             env:
               HONCHO_CONFIG_TOML_DISABLED: "true"
-              LOG_LEVEL: INFO
-              PERFORMANCE_LOG_FORMAT: compact
-              SESSION_OBSERVERS_LIMIT: "10"
-              GET_CONTEXT_MAX_TOKENS: "100000"
-              MAX_FILE_SIZE: "5242880"
-              MAX_MESSAGE_SIZE: "25000"
-              EMBED_MESSAGES: "true"
-              NAMESPACE: honcho
               DB_CONNECTION_URI: postgresql+psycopg://honcho@pooler-rw.postgres.svc:5432/honcho?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
-              DB_SCHEMA: public
-              DB_POOL_CLASS: default
-              DB_POOL_PRE_PING: "true"
               DB_POOL_SIZE: "4"
               DB_MAX_OVERFLOW: "2"
-              DB_POOL_TIMEOUT: "5"
-              DB_POOL_RECYCLE: "300"
-              DB_POOL_USE_LIFO: "true"
-              DB_SQL_DEBUG: "false"
-              DB_TRACING: "false"
-              DB_CONNECT_TIMEOUT_SECONDS: "2"
-              AUTH_USE_AUTH: "false"
-              SENTRY_ENABLED: "false"
-              LLM_DEFAULT_MAX_TOKENS: "2500"
-              LLM_MAX_TOOL_OUTPUT_CHARS: "10000"
-              LLM_MAX_MESSAGE_CONTENT_CHARS: "2000"
               EMBEDDING_VECTOR_DIMENSIONS: "1024"
-              EMBEDDING_MAX_INPUT_TOKENS: "8192"
-              EMBEDDING_MAX_TOKENS_PER_REQUEST: "300000"
-              EMBEDDING_MODEL_CONFIG__TRANSPORT: openai
               EMBEDDING_MODEL_CONFIG__MODEL: bge-m3
               EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL: http://agentgateway-proxy.ai.svc.cluster.local./v1
               EMBEDDING_MODEL_CONFIG__OVERRIDES__API_KEY_ENV: AG_API_KEY
@@ -68,105 +43,37 @@ spec:
                   secretKeyRef:
                     name: litellm-key-honcho
                     key: api-key
-              API_WORKERS: "1"
-              CACHE_URL: redis://localhost:6379/0?suppress=true
               CACHE_ENABLED: "true"
-              CACHE_DEFAULT_TTL_SECONDS: "300"
-              CACHE_DEFAULT_LOCK_TTL_SECONDS: "5"
               AG_API_KEY: dummy
-              VECTOR_STORE_TYPE: pgvector
-              VECTOR_STORE_MIGRATED: "false"
-              VECTOR_STORE_NAMESPACE: honcho
-              EMBEDDING_MAX_CONCURRENT_EMBEDDINGS: "10"
-              EMBEDDING_MAX_PENDING_EMBED_TASKS: "50"
-              DERIVER_ENABLED: "true"
               DERIVER_WORKERS: "2"
-              DERIVER_POLLING_SLEEP_INTERVAL_SECONDS: "1.0"
-              DERIVER_POLLING_BACKOFF_ENABLED: "true"
-              DERIVER_POLLING_SLEEP_MAX_INTERVAL_SECONDS: "30.0"
-              DERIVER_POLLING_BACKOFF_MULTIPLIER: "2.0"
-              DERIVER_POLLING_STARTUP_JITTER_SECONDS: "30.0"
-              DERIVER_POLLING_JITTER_RATIO: "0.5"
-              DERIVER_STALE_SESSION_TIMEOUT_MINUTES: "5"
-              DERIVER_STALE_WORK_UNIT_CLEANUP_INTERVAL_SECONDS: "60.0"
-              DERIVER_DEDUPLICATE: "true"
-              DERIVER_LOG_OBSERVATIONS: "false"
-              DERIVER_MAX_INPUT_TOKENS: "25000"
-              DERIVER_MAX_CUSTOM_INSTRUCTIONS_TOKENS: "2000"
-              DERIVER_WORKING_REPRESENTATION_MAX_OBSERVATIONS: "100"
-              DERIVER_REPRESENTATION_BATCH_WORK_UNIT_TARGET_TOKENS: "512"
-              DERIVER_REPRESENTATION_BATCH_TARGET_INPUT_TOKENS: "1024"
               DERIVER_REPRESENTATION_BATCH_MAX_AGE_SECONDS: "300"
-              DERIVER_FLUSH_ENABLED: "false"
-              DERIVER_MODEL_CONFIG__TRANSPORT: openai
               DERIVER_MODEL_CONFIG__MODEL: honcho-fast
               DERIVER_MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DERIVER_MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
-              PEER_CARD_ENABLED: "true"
-              DIALECTIC_MAX_OUTPUT_TOKENS: "8192"
-              DIALECTIC_MAX_INPUT_TOKENS: "100000"
-              DIALECTIC_HISTORY_TOKEN_LIMIT: "8192"
-              DIALECTIC_SESSION_HISTORY_MAX_TOKENS: "4096"
-              DIALECTIC_LEVELS__minimal__MAX_TOOL_ITERATIONS: "1"
-              DIALECTIC_LEVELS__minimal__MAX_OUTPUT_TOKENS: "250"
-              DIALECTIC_LEVELS__minimal__TOOL_CHOICE: auto
-              DIALECTIC_LEVELS__minimal__MODEL_CONFIG__TRANSPORT: openai
               DIALECTIC_LEVELS__minimal__MODEL_CONFIG__MODEL: honcho-fast
               DIALECTIC_LEVELS__minimal__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DIALECTIC_LEVELS__minimal__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
-              DIALECTIC_LEVELS__low__MAX_TOOL_ITERATIONS: "5"
-              DIALECTIC_LEVELS__low__TOOL_CHOICE: auto
-              DIALECTIC_LEVELS__low__MODEL_CONFIG__TRANSPORT: openai
               DIALECTIC_LEVELS__low__MODEL_CONFIG__MODEL: honcho-fast
               DIALECTIC_LEVELS__low__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DIALECTIC_LEVELS__low__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
-              DIALECTIC_LEVELS__medium__MAX_TOOL_ITERATIONS: "2"
-              DIALECTIC_LEVELS__medium__MODEL_CONFIG__TRANSPORT: openai
               DIALECTIC_LEVELS__medium__MODEL_CONFIG__MODEL: honcho-fast
               DIALECTIC_LEVELS__medium__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DIALECTIC_LEVELS__medium__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
-              DIALECTIC_LEVELS__high__MAX_TOOL_ITERATIONS: "4"
-              DIALECTIC_LEVELS__high__MODEL_CONFIG__TRANSPORT: openai
               DIALECTIC_LEVELS__high__MODEL_CONFIG__MODEL: honcho-fast
               DIALECTIC_LEVELS__high__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DIALECTIC_LEVELS__high__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
-              DIALECTIC_LEVELS__max__MAX_TOOL_ITERATIONS: "10"
-              DIALECTIC_LEVELS__max__MODEL_CONFIG__TRANSPORT: openai
               DIALECTIC_LEVELS__max__MODEL_CONFIG__MODEL: honcho-fast
               DIALECTIC_LEVELS__max__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DIALECTIC_LEVELS__max__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
-              SUMMARY_ENABLED: "true"
-              SUMMARY_MESSAGES_PER_SHORT_SUMMARY: "20"
-              SUMMARY_MESSAGES_PER_LONG_SUMMARY: "60"
-              SUMMARY_MAX_TOKENS_SHORT: "1000"
-              SUMMARY_MAX_TOKENS_LONG: "4000"
-              SUMMARY_MODEL_CONFIG__TRANSPORT: openai
               SUMMARY_MODEL_CONFIG__MODEL: honcho-quality
               SUMMARY_MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               SUMMARY_MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
-              DREAM_ENABLED: "true"
-              DREAM_DOCUMENT_THRESHOLD: "50"
-              DREAM_IDLE_TIMEOUT_MINUTES: "60"
-              DREAM_MIN_HOURS_BETWEEN_DREAMS: "8"
-              DREAM_ENABLED_TYPES: '["omni"]'
-              DREAM_MAX_TOOL_ITERATIONS: "20"
-              DREAM_HISTORY_TOKEN_LIMIT: "16384"
-              DREAM_DEDUCTION_MODEL_CONFIG__TRANSPORT: openai
               DREAM_DEDUCTION_MODEL_CONFIG__MODEL: honcho-quality
               DREAM_DEDUCTION_MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DREAM_DEDUCTION_MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
-              DREAM_INDUCTION_MODEL_CONFIG__TRANSPORT: openai
               DREAM_INDUCTION_MODEL_CONFIG__MODEL: honcho-quality
               DREAM_INDUCTION_MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DREAM_INDUCTION_MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
-              DREAM_SURPRISAL__ENABLED: "false"
-              METRICS_ENABLED: "false"
-              TELEMETRY_ENABLED: "false"
-              TELEMETRY_BATCH_SIZE: "100"
-              TELEMETRY_FLUSH_INTERVAL_SECONDS: "1.0"
-              TELEMETRY_FLUSH_THRESHOLD: "50"
-              TELEMETRY_MAX_RETRIES: "3"
-              TELEMETRY_MAX_BUFFER_SIZE: "10000"
             envFrom:
               - secretRef:
                   name: *app
