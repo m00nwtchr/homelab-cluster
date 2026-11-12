@@ -1,0 +1,189 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: nomic-embed-text
+spec:
+  modelName: nomic-embed-text
+  proxyRef: litellm
+  params:
+    model: ollama/nomic-embed-text:latest
+    apiBase: http://ollama.ai.svc.cluster.local
+  info:
+    mode: embedding
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: all-minilm-22m
+spec:
+  modelName: all-minilm:22m
+  proxyRef: litellm
+  params:
+    model: ollama/all-minilm:22m
+    apiBase: http://ollama.ai.svc.cluster.local
+  info:
+    mode: embedding
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: mxbai-embed-large
+spec:
+  modelName: mxbai-embed-large
+  proxyRef: litellm
+  params:
+    model: ollama/mxbai-embed-large:latest
+    apiBase: http://ollama.ai.svc.cluster.local
+  info:
+    mode: embedding
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: gemma3-4b
+spec:
+  modelName: gemma3:4b
+  proxyRef: litellm
+  params:
+    model: ollama_chat/gemma3:4b
+    apiBase: http://ollama.ai.svc.cluster.local
+  info:
+    mode: completion
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: llava-llama3-8b-ollama
+spec:
+  modelName: llava-llama3:8b
+  proxyRef: litellm
+  params:
+    model: ollama/llava-llama3:8b
+    apiBase: http://ollama.ai.svc.cluster.local
+  info:
+    mode: completion
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: llava-llama3-8b-tailscale
+spec:
+  modelName: llava-llama3:8b
+  proxyRef: litellm
+  params:
+    model: ollama/llava-llama3:8b
+    apiBase: http://ts-ollama.tailscale.svc:11434
+  info:
+    mode: completion
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: gpt-oss-20b
+spec:
+  modelName: gpt-oss:20b
+  proxyRef: litellm
+  params:
+    model: groq/openai/gpt-oss-20b
+    apiKey: os.environ/GROQ_API_KEY
+  info:
+    mode: completion
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: gpt-oss-120b
+spec:
+  modelName: gpt-oss:120b
+  proxyRef: litellm
+  params:
+    model: groq/openai/gpt-oss-120b
+    apiKey: os.environ/GROQ_API_KEY
+  info:
+    mode: completion
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: llama4-scout-17b-16e
+spec:
+  modelName: llama4-scout:17b-16e
+  proxyRef: litellm
+  params:
+    model: groq/meta-llama/llama-4-scout-17b-16e-instruct
+    apiKey: os.environ/GROQ_API_KEY
+  info:
+    mode: completion
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: llama4-maverick-17b-128e
+spec:
+  modelName: llama4-maverick:17b-128e
+  proxyRef: litellm
+  params:
+    model: groq/meta-llama/llama-4-maverick-17b-128e-instruct
+    apiKey: os.environ/GROQ_API_KEY
+  info:
+    mode: completion
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: llama3-3-70b
+spec:
+  modelName: llama3.3:70b
+  proxyRef: litellm
+  params:
+    model: groq/llama-3.3-70b-versatile
+    apiKey: os.environ/GROQ_API_KEY
+  info:
+    mode: completion
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: llama3-1-8b
+spec:
+  modelName: llama3.1:8b
+  proxyRef: litellm
+  params:
+    model: groq/llama-3.1-8b-instant
+    apiKey: os.environ/GROQ_API_KEY
+  info:
+    mode: completion
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: honcho-fast
+spec:
+  modelName: honcho-fast
+  proxyRef: litellm
+  params:
+    model: chatgpt/gpt-5.4-mini
+  info:
+    mode: responses
+    maxInputTokens: 272000
+    maxOutputTokens: 128000
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: honcho-quality
+spec:
+  modelName: honcho-quality
+  proxyRef: litellm
+  params:
+    model: chatgpt/gpt-5.4
+  info:
+    mode: responses
+    maxInputTokens: 272000
+    maxOutputTokens: 128000
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
