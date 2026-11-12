@@ -1,0 +1,73 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/monitoring.coreos.com/alertmanagerconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: &name vmks
+spec:
+  route:
+    receiver: ntfy
+
+    groupBy:
+      - alertname
+      - cluster
+      - job
+
+    groupWait: 1m
+    groupInterval: 5m
+    repeatInterval: 12h
+
+    routes:
+      # Suppress informational inhibition alerts.
+      - receiver: blackhole
+        matchers:
+          - name: alertname
+            value: InfoInhibitor
+            matchType: "="
+
+      # Critical alerts receive high-priority notifications.
+      - receiver: ntfy-critical
+        groupWait: 15s
+        repeatInterval: 4h
+        matchers:
+          - name: severity
+            value: critical
+            matchType: "="
+
+  inhibitRules:
+    - equal:
+        - alertname
+        - namespace
+      sourceMatch:
+        - name: severity
+          value: critical
+          matchType: "="
+      targetMatch:
+        - name: severity
+          value: warning
+          matchType: "="
+
+  receivers:
+    - name: blackhole
+
+    - name: ntfy
+      webhookConfigs:
+        - sendResolved: true
+          urlSecret:
+            name: *name
+            key: NTFY_URL
+          httpConfig:
+            bearerTokenSecret:
+              name: *name
+              key: NTFY_TOKEN
+
+    - name: ntfy-critical
+      webhookConfigs:
+        - sendResolved: true
+          urlSecret:
+            name: *name
+            key: NTFY_CRITICAL_URL
+          httpConfig:
+            bearerTokenSecret:
+              name: *name
+              key: NTFY_TOKEN

@@ -84,10 +84,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components: []
+  components:
+    - ../../../../components/secret
   interval: 1h
   path: ./kubernetes/apps/observability/victoria-metrics/metrics
   postBuild:
+    substitute:
+      APP: *app
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

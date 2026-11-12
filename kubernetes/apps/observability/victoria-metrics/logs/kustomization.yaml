@@ -6,3 +6,4 @@ resources:
   - grafanadashboard.yaml
   - grafanadatasource.yaml
   - vlsingle.yaml
+  - vmalert.yaml

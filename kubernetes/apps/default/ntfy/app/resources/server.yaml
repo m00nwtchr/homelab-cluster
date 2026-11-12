@@ -1,4 +1,4 @@
-base-url: https://${APP}.${SECRET_DOMAIN}
+base-url: https://${APP}.${MAIN_DOMAIN}
 behind-proxy: true
 
 auth-default-access: deny-all

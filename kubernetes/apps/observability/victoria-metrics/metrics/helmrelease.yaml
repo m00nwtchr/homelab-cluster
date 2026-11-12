@@ -83,10 +83,17 @@ spec:
     vmalert:
       enabled: true
       spec:
+        selectAllByDefault: false
         extraArgs:
           enableTCP6: "true"
         configReloaderExtraArgs:
           enableTCP6: "true"
+        ruleSelector:
+          matchExpressions:
+            - key: alert-source
+              operator: NotIn
+              values:
+                - victorialogs
 
     grafana:
       enabled: false
