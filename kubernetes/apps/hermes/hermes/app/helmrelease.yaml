@@ -35,7 +35,15 @@ spec:
                 cp /tmp/config.yaml /opt/data/config.yaml
                 cp /tmp/honcho.json /opt/data/honcho.json
                 chown 10000:10000 /opt/data/config.yaml /opt/data/honcho.json
-                rm -rf /opt/data/plugins/memini
+                MEMINI_PLUGIN_DIR=/opt/data/plugins/memini
+                if [ -e "$MEMINI_PLUGIN_DIR" ]; then
+                  mkdir -p /opt/data/.disabled-plugins
+                  DISABLED_PLUGIN_DIR=/opt/data/.disabled-plugins/memini
+                  if [ -e "$DISABLED_PLUGIN_DIR" ]; then
+                    DISABLED_PLUGIN_DIR="/opt/data/.disabled-plugins/memini-$(date +%s)"
+                  fi
+                  mv "$MEMINI_PLUGIN_DIR" "$DISABLED_PLUGIN_DIR"
+                fi
         containers:
           app:
             image: &image
