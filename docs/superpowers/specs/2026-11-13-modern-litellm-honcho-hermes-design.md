@@ -30,8 +30,10 @@ LiteLLM proxy for every model request, including Honcho embeddings.
 
 - Allowed text providers/models are the supplied modern families:
   `chatgpt/gpt-6.1-*`, `minimax/MiniMax-M3*`, and
-  `neuralwatt/glm-5.3`/`neuralwatt/glm-5.3-flash`.
-- Embeddings use `neuralwatt/qwen3-embedding-8b`.
+  Neuralwatt's `glm-5.3`/`glm-5.3-flash` models through its
+  OpenAI-compatible API.
+- Embeddings use Neuralwatt's `qwen3-embedding-8b` through its
+  OpenAI-compatible API.
 - Qwen3 Embedding 8B defaults to 4096 dimensions but supports requested
   dimensions. LiteLLM will request 1024 dimensions so Honcho's existing
   PostgreSQL vector schema remains compatible; the rendered model config and
@@ -45,9 +47,9 @@ LiteLLM proxy for every model request, including Honcho embeddings.
 | --- | --- | --- | --- |
 | `honcho-fast` | `minimax/MiniMax-M3.1-Flash` | Honcho | Deriver and all dialectical levels |
 | `honcho-quality` | `chatgpt/gpt-6.1-sol` | Honcho | Summary, dream deduction, and dream induction |
-| `honcho-embedding` | `neuralwatt/qwen3-embedding-8b` | Honcho | Memory embeddings, requested at 1024 dimensions |
+| `honcho-embedding` | Neuralwatt `qwen3-embedding-8b` via LiteLLM's `openai` adapter | Honcho | Memory embeddings, requested at 1024 dimensions |
 | `hermes` | `minimax/MiniMax-M3` | Hermes | Primary agent generation through LiteLLM `/v1` |
-| `mealie` | `neuralwatt/glm-5.3-flash` | Mealie | Existing OpenAI-compatible Mealie integration |
+| `mealie` | Neuralwatt `glm-5.3-flash` via LiteLLM's `openai` adapter | Mealie | Existing OpenAI-compatible Mealie integration |
 
 The old Ollama, Groq, and ChatGPT 5.4 LiteLLM aliases are removed. Direct
 Ollama consumers remain unchanged because they do not route through LiteLLM.
@@ -72,8 +74,9 @@ than applying one global value:
 
 MiniMax M3.1-Flash explicitly supports `low`, `medium`, `high`, `xhigh`, and
 `max` reasoning effort. The GPT quality route uses Honcho's OpenAI-compatible
-`medium`/`high` values. Hermes remains on MiniMax M3, for which no effort
-override is configured.
+`medium`/`high` values. Hermes remains on MiniMax M3; its existing Hermes
+agent-level reasoning setting is retained, but no Honcho-style LiteLLM model
+effort override is configured.
 
 ## Approaches
 

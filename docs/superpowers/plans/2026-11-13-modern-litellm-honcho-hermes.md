@@ -12,8 +12,8 @@
 
 ## Global Constraints
 
-- Use only `chatgpt/gpt-6.1-*`, `minimax/MiniMax-M3*`, and `neuralwatt/glm-5.3`/`neuralwatt/glm-5.3-flash` for text routes.
-- Use `neuralwatt/qwen3-embedding-8b` for Honcho embeddings, requesting 1024 dimensions.
+- Use only `chatgpt/gpt-6.1-*`, `minimax/MiniMax-M3*`, and Neuralwatt's `glm-5.3`/`glm-5.3-flash` through its OpenAI-compatible API for text routes.
+- Use Neuralwatt's `qwen3-embedding-8b` through its OpenAI-compatible API for Honcho embeddings, requesting 1024 dimensions.
 - Route every Honcho generation and embedding request through `http://litellm.ai.svc.cluster.local/v1`.
 - Route Hermes generation through LiteLLM `/v1` using `api_mode: chat_completions`.
 - Keep raw Kubernetes resources out of `resources/` directories; leave only generator inputs and Kustomize configuration there.
@@ -52,9 +52,9 @@
   Define exactly these upstreams:
   - `honcho-fast` → `minimax/MiniMax-M3.1-Flash`, API key `os.environ/MINIMAX_API_KEY`, response-capable/function-calling metadata.
   - `honcho-quality` → `chatgpt/gpt-6.1-sol`, response-capable/function-calling metadata.
-  - `honcho-embedding` → `neuralwatt/qwen3-embedding-8b`, API key `os.environ/NEURALWATT_API_KEY`, embedding mode, `dimensions: 1024`.
+  - `honcho-embedding` → Neuralwatt `qwen3-embedding-8b` through LiteLLM's `openai` adapter with `apiBase: https://api.neuralwatt.com/v1`, API key `os.environ/NEURALWATT_API_KEY`, embedding mode, and `params.additional.dimensions: 1024`.
   - `hermes` → `minimax/MiniMax-M3`, API key `os.environ/MINIMAX_API_KEY`, chat-completion/function-calling metadata.
-  - `mealie` → `neuralwatt/glm-5.3-flash`, API key `os.environ/NEURALWATT_API_KEY`, chat-completion metadata.
+  - `mealie` → Neuralwatt `glm-5.3-flash` through LiteLLM's `openai` adapter with `apiBase: https://api.neuralwatt.com/v1`, API key `os.environ/NEURALWATT_API_KEY`, chat-completion metadata.
 
 - [ ] **Step 2: Add provider credentials without embedding values in Git**
 
@@ -149,7 +149,7 @@
 
   Run:
   ```bash
-  kustomize build kubernetes/apps/hermes/hermes > /tmp/hermes-app.yaml
+  kustomize build kubernetes/apps/hermes/hermes/app > /tmp/hermes-app.yaml
   grep -E 'model: hermes|litellm.ai.svc.cluster.local/v1|chat_completions|HERMES_LITELLM_API_KEY|litellm-key-hermes' /tmp/hermes-app.yaml
   ! grep -E 'agentgateway-proxy|MiniMax-M3|MINIMAX_API_KEY|anthropic_messages' /tmp/hermes-app.yaml
   ```
@@ -180,7 +180,7 @@
 
   Run:
   ```bash
-  kustomize build kubernetes/apps/default/mealie > /tmp/mealie-app.yaml
+  kustomize build kubernetes/apps/default/mealie/app > /tmp/mealie-app.yaml
   grep -E 'OPENAI_MODEL: mealie|litellm.ai.svc.cluster.local|mealie-litellm-key|kind: LiteLLMVirtualKey' /tmp/mealie-app.yaml
   ! grep -E 'llama3.1:8b|llama3.3|gpt-oss' /tmp/mealie-app.yaml
   ```

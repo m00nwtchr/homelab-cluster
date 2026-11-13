@@ -45,7 +45,6 @@ spec:
                     name: litellm-key-honcho
                     key: api-key
               CACHE_ENABLED: "true"
-              AG_API_KEY: dummy
               DERIVER_WORKERS: "2"
               DERIVER_REPRESENTATION_BATCH_MAX_AGE_SECONDS: "300"
               DERIVER_MODEL_CONFIG__TRANSPORT: openai

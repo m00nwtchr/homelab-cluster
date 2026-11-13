@@ -41,9 +41,11 @@ spec:
   modelName: honcho-embedding
   proxyRef: litellm
   params:
-    model: neuralwatt/qwen3-embedding-8b
+    model: openai/qwen3-embedding-8b
+    apiBase: https://api.neuralwatt.com/v1
     apiKey: os.environ/NEURALWATT_API_KEY
-    dimensions: 1024
+    additional:
+      dimensions: 1024
   info:
     mode: embedding
     maxInputTokens: 32768
@@ -73,7 +75,8 @@ spec:
   modelName: mealie
   proxyRef: litellm
   params:
-    model: neuralwatt/glm-5.3-flash
+    model: openai/glm-5.3-flash
+    apiBase: https://api.neuralwatt.com/v1
     apiKey: os.environ/NEURALWATT_API_KEY
   info:
     mode: completion
