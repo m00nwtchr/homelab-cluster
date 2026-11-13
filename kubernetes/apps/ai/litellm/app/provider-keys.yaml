@@ -3,22 +3,20 @@
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: &name hermes
+  name: litellm-provider-keys
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: infisical
   target:
-    name: *name
+    name: litellm-provider-keys
     template:
       engineVersion: v2
       data:
         MINIMAX_API_KEY: "{{ .MINIMAX_API_KEY }}"
-        MEMINI_API_KEY: "{{ .MEMINI_API_KEY }}"
+        NEURALWATT_API_KEY: "{{ .NEURALWATT_API_KEY }}"
   dataFrom:
-    - find:
-        path: /hermes
     - find:
         path: /minimax
     - find:
-        path: /memini
+        path: /neuralwatt

@@ -13,6 +13,14 @@ spec:
     - ../../../../components/database
     - ../../../../components/dragonfly
     - ../../../../components/secret
+  dependsOn:
+    - name: litellm
+      namespace: ai
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: honcho
+      namespace: ai
   interval: 1h
   path: ./kubernetes/apps/ai/honcho/app
   postBuild:
@@ -30,3 +38,4 @@ spec:
     namespace: flux-system
   targetNamespace: *namespace
   timeout: 5m
+  wait: true

@@ -1,8 +1,9 @@
 model:
-  default: MiniMax-M3
+  default: hermes
   provider: custom
-  base_url: http://agentgateway-proxy.ai.svc.cluster.local/anthropic
-  api_mode: anthropic_messages
+  base_url: http://litellm.ai.svc.cluster.local/v1
+  api_mode: chat_completions
+  key_env: HERMES_LITELLM_API_KEY
 toolsets:
   - hermes-cli
 agent:
@@ -41,7 +42,11 @@ privacy:
   redact_pii: true
 memory:
   provider: honcho
-  auto_migrate: true
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 2200
+  user_char_limit: 1375
+  write_approval: false
 security:
   redact_secrets: true
 streaming:
@@ -67,34 +72,8 @@ platform_toolsets:
     - web
   matrix:
     - hermes-matrix
-custom_providers:
-  - name: agentgateway
-    base_url: http://agentgateway-proxy.ai.svc.cluster.local/anthropic
-    model: MiniMax-M3
-    api_mode: anthropic_messages
 session_reset:
   mode: none
 known_plugin_toolsets:
   cli:
     - spotify
-# ── Fallback Model ────────────────────────────────────────────────────
-# Automatic provider failover when primary is unavailable.
-# Uncomment and configure to enable. Triggers on rate limits (429),
-# overload (529), service errors (503), or connection failures.
-#
-# Supported providers:
-#   openrouter   (OPENROUTER_API_KEY)  — routes to any model
-#   openai-codex (OAuth — hermes auth) — OpenAI Codex
-#   nous         (OAuth — hermes auth) — Nous Portal
-#   zai          (ZAI_API_KEY)         — Z.AI / GLM
-#   kimi-coding  (KIMI_API_KEY)        — Kimi / Moonshot
-#   kimi-coding-cn (KIMI_CN_API_KEY)   — Kimi / Moonshot (China)
-#   minimax      (MINIMAX_API_KEY)     — MiniMax
-#   minimax-cn   (MINIMAX_CN_API_KEY)  — MiniMax (China)
-#   bedrock      (AWS IAM / boto3)     — AWS Bedrock (Converse API)
-#
-# For custom OpenAI-compatible endpoints, add base_url and key_env.
-#
-# fallback_model:
-#   provider: openrouter
-#   model: anthropic/claude-sonnet-4

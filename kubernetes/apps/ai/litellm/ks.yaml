@@ -11,12 +11,32 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/database
-    - ../../../../components/gatus/guarded
+    - ../../../../components/kopiur
+  dependsOn:
+    - name: litellm-operator
+      namespace: litellm-system
+    - name: kopiur
+      namespace: kopiur-system
+  healthChecks:
+    - apiVersion: litellm.home-operations.com/v1alpha1
+      kind: LiteLLMProxy
+      name: litellm
+      namespace: ai
+    - apiVersion: litellm.home-operations.com/v1alpha1
+      kind: LiteLLMVirtualKey
+      name: honcho
+      namespace: ai
+    - apiVersion: litellm.home-operations.com/v1alpha1
+      kind: LiteLLMVirtualKey
+      name: hermes
+      namespace: ai
   interval: 1h
   path: ./kubernetes/apps/ai/litellm/app
   postBuild:
     substitute:
       APP: *app
+      KOPIUR_ACCESSMODES: ReadWriteOnce
+      KOPIUR_CAPACITY: 1Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
@@ -28,3 +48,4 @@ spec:
     namespace: flux-system
   targetNamespace: *namespace
   timeout: 5m
+  wait: true

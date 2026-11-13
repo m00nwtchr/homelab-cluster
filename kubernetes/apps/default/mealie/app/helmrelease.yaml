@@ -52,13 +52,15 @@ spec:
               OIDC_SCOPES_OVERRIDE: "openid profile email groups"
 
               OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
-              OPENAI_MODEL: llama3.1:8b
+              OPENAI_MODEL: mealie
+              OPENAI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie-litellm-key
+                    key: api-key
               OPENAI_ENABLE_IMAGE_SERVICES: false
 
               LOG_CONFIG_OVERRIDE: /config/logconf.json
-            envFrom:
-              - secretRef:
-                  name: *app
             image:
               repository: ghcr.io/mealie-recipes/mealie
               tag: v3.23.1@sha256:5fc5cebedddb3952c1ee78f20faf42ab7e49986813fd314745aa97978a4a13eb

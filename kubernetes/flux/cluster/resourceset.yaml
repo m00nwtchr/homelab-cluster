@@ -43,6 +43,7 @@ spec:
     - namespace: kube-system
     - namespace: kubewarden
     - namespace: llmkube-system
+    - namespace: litellm-system
     - namespace: matrix
     - namespace: media
     - namespace: network

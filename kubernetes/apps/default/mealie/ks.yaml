@@ -16,6 +16,8 @@ spec:
     - ../../../../components/gatus/guarded
     - ../../../../components/keda-http
   dependsOn:
+    - name: litellm
+      namespace: ai
     - name: kopiur
       namespace: kopiur-system
   interval: 1h

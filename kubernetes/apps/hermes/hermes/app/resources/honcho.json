@@ -1,0 +1,21 @@
+{
+  "hosts": {
+    "hermes": {
+      "enabled": true,
+      "aiPeer": "hermes",
+      "peerName": "m00n",
+      "workspace": "hermes"
+    }
+  },
+  "recallMode": "hybrid",
+  "contextTokens": 1600,
+  "contextCadence": 1,
+  "dialecticCadence": 3,
+  "dialecticDepth": 2,
+  "dialecticReasoningLevel": "medium",
+  "dialecticMaxChars": 800,
+  "writeFrequency": "async",
+  "saveMessages": true,
+  "observationMode": "directional",
+  "sessionStrategy": "per-repo"
+}
