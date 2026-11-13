@@ -42,7 +42,11 @@ privacy:
   redact_pii: true
 memory:
   provider: honcho
-  auto_migrate: true
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 2200
+  user_char_limit: 1375
+  write_approval: false
 security:
   redact_secrets: true
 streaming:
