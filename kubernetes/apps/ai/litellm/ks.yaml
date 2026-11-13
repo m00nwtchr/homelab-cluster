@@ -26,6 +26,10 @@ spec:
       kind: LiteLLMVirtualKey
       name: honcho
       namespace: ai
+    - apiVersion: litellm.home-operations.com/v1alpha1
+      kind: LiteLLMVirtualKey
+      name: hermes
+      namespace: ai
   interval: 1h
   path: ./kubernetes/apps/ai/litellm/app
   postBuild:

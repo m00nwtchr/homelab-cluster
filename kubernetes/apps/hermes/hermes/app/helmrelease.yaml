@@ -52,12 +52,14 @@ spec:
             args: ["gateway", "run", "--no-supervise", "--force"]
             env:
               HONCHO_BASE_URL: http://honcho.ai.svc.cluster.local
+              HERMES_LITELLM_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: litellm-key-hermes
+                    key: api-key
               HERMES_HOME: /opt/data
               HOME: /opt/data
               TZ: &tz ${TZ}
-            envFrom:
-              - secretRef:
-                  name: hermes
             resources:
               requests:
                 cpu: 500m

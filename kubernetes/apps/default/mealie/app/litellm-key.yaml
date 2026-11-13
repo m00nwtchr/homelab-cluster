@@ -3,12 +3,12 @@
 apiVersion: litellm.home-operations.com/v1alpha1
 kind: LiteLLMVirtualKey
 metadata:
-  name: honcho
+  name: mealie
 spec:
   proxyRef: litellm
-  keyAlias: Honcho
-  secretName: litellm-key-honcho
+  proxyNamespace: ai
+  keyAlias: Mealie
+  secretName: mealie-litellm-key
   secretKey: api-key
   models:
-    - honcho-fast
-    - honcho-quality
+    - mealie

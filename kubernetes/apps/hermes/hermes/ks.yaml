@@ -13,6 +13,8 @@ spec:
     - ../../../../components/kopiur
     - ../../../../components/oidc
   dependsOn:
+    - name: litellm
+      namespace: ai
     - name: honcho
       namespace: ai
   postBuild:

@@ -35,9 +35,10 @@ spec:
               DB_POOL_SIZE: "4"
               DB_MAX_OVERFLOW: "2"
               EMBEDDING_VECTOR_DIMENSIONS: "1024"
-              EMBEDDING_MODEL_CONFIG__MODEL: bge-m3
-              EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL: http://agentgateway-proxy.ai.svc.cluster.local./v1
-              EMBEDDING_MODEL_CONFIG__OVERRIDES__API_KEY_ENV: AG_API_KEY
+              EMBEDDING_MODEL_CONFIG__TRANSPORT: openai
+              EMBEDDING_MODEL_CONFIG__MODEL: honcho-embedding
+              EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
+              EMBEDDING_MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
               HONCHO_LITELLM_API_KEY:
                 valueFrom:
                   secretKeyRef:
@@ -47,33 +48,51 @@ spec:
               AG_API_KEY: dummy
               DERIVER_WORKERS: "2"
               DERIVER_REPRESENTATION_BATCH_MAX_AGE_SECONDS: "300"
+              DERIVER_MODEL_CONFIG__TRANSPORT: openai
               DERIVER_MODEL_CONFIG__MODEL: honcho-fast
               DERIVER_MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DERIVER_MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
+              DERIVER_MODEL_CONFIG__THINKING_EFFORT: low
+              DIALECTIC_LEVELS__minimal__MODEL_CONFIG__TRANSPORT: openai
               DIALECTIC_LEVELS__minimal__MODEL_CONFIG__MODEL: honcho-fast
               DIALECTIC_LEVELS__minimal__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DIALECTIC_LEVELS__minimal__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
+              DIALECTIC_LEVELS__minimal__MODEL_CONFIG__THINKING_EFFORT: low
+              DIALECTIC_LEVELS__low__MODEL_CONFIG__TRANSPORT: openai
               DIALECTIC_LEVELS__low__MODEL_CONFIG__MODEL: honcho-fast
               DIALECTIC_LEVELS__low__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DIALECTIC_LEVELS__low__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
+              DIALECTIC_LEVELS__low__MODEL_CONFIG__THINKING_EFFORT: low
+              DIALECTIC_LEVELS__medium__MODEL_CONFIG__TRANSPORT: openai
               DIALECTIC_LEVELS__medium__MODEL_CONFIG__MODEL: honcho-fast
               DIALECTIC_LEVELS__medium__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DIALECTIC_LEVELS__medium__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
+              DIALECTIC_LEVELS__medium__MODEL_CONFIG__THINKING_EFFORT: medium
+              DIALECTIC_LEVELS__high__MODEL_CONFIG__TRANSPORT: openai
               DIALECTIC_LEVELS__high__MODEL_CONFIG__MODEL: honcho-fast
               DIALECTIC_LEVELS__high__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DIALECTIC_LEVELS__high__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
+              DIALECTIC_LEVELS__high__MODEL_CONFIG__THINKING_EFFORT: high
+              DIALECTIC_LEVELS__max__MODEL_CONFIG__TRANSPORT: openai
               DIALECTIC_LEVELS__max__MODEL_CONFIG__MODEL: honcho-fast
               DIALECTIC_LEVELS__max__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DIALECTIC_LEVELS__max__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
+              DIALECTIC_LEVELS__max__MODEL_CONFIG__THINKING_EFFORT: max
+              SUMMARY_MODEL_CONFIG__TRANSPORT: openai
               SUMMARY_MODEL_CONFIG__MODEL: honcho-quality
               SUMMARY_MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               SUMMARY_MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
+              SUMMARY_MODEL_CONFIG__THINKING_EFFORT: medium
+              DREAM_DEDUCTION_MODEL_CONFIG__TRANSPORT: openai
               DREAM_DEDUCTION_MODEL_CONFIG__MODEL: honcho-quality
               DREAM_DEDUCTION_MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DREAM_DEDUCTION_MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
+              DREAM_DEDUCTION_MODEL_CONFIG__THINKING_EFFORT: high
+              DREAM_INDUCTION_MODEL_CONFIG__TRANSPORT: openai
               DREAM_INDUCTION_MODEL_CONFIG__MODEL: honcho-quality
               DREAM_INDUCTION_MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
               DREAM_INDUCTION_MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
+              DREAM_INDUCTION_MODEL_CONFIG__THINKING_EFFORT: high
             envFrom:
               - secretRef:
                   name: *app
