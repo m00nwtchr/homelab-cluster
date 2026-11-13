@@ -35,6 +35,9 @@ spec:
               DB_POOL_SIZE: "4"
               DB_MAX_OVERFLOW: "2"
               EMBEDDING_VECTOR_DIMENSIONS: "1536"
+              EMBEDDING_MODEL_CONFIG__DIMENSIONS_MODE: auto
+              EMBEDDING_MAX_INPUT_TOKENS: "8192"
+              EMBEDDING_MODEL_CONFIG__MAX_BATCH_SIZE: "10"
               EMBEDDING_MODEL_CONFIG__TRANSPORT: openai
               EMBEDDING_MODEL_CONFIG__MODEL: honcho-embedding
               EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1

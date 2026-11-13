@@ -91,7 +91,7 @@
 
 - [ ] **Step 1: Change embedding configuration**
 
-  Set `EMBEDDING_MODEL_CONFIG__TRANSPORT=openai`, model `honcho-embedding`, base URL `http://litellm.ai.svc.cluster.local/v1`, API key env `HONCHO_LITELLM_API_KEY`, and set `EMBEDDING_VECTOR_DIMENSIONS=1536`.
+  Set `EMBEDDING_MODEL_CONFIG__TRANSPORT=openai`, model `honcho-embedding`, base URL `http://litellm.ai.svc.cluster.local/v1`, API key env `HONCHO_LITELLM_API_KEY`, `EMBEDDING_VECTOR_DIMENSIONS=1536`, `EMBEDDING_MODEL_CONFIG__DIMENSIONS_MODE=auto`, `EMBEDDING_MAX_INPUT_TOKENS=8192`, and `EMBEDDING_MODEL_CONFIG__MAX_BATCH_SIZE=10`.
 
 - [ ] **Step 2: Set generation transport and aliases**
 

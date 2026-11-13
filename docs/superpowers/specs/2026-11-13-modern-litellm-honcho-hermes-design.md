@@ -99,7 +99,8 @@ effort override is configured.
   alias and annotated for reflector mirroring.
 - Update LiteLLM's health checks to include the Hermes virtual key.
 - Change Honcho's embedding model and endpoint to `honcho-embedding` through
-  LiteLLM, setting `EMBEDDING_VECTOR_DIMENSIONS=1536`.
+  LiteLLM, setting `EMBEDDING_VECTOR_DIMENSIONS=1536`, automatic dimension
+  handling, an 8192-token input limit, and a maximum batch size of 10.
 - Before rollout, query the live Honcho pgvector column typmods and confirm
   they are 1536; changing a populated vector schema is a separate re-embedding
   migration and is not performed by these manifests.
