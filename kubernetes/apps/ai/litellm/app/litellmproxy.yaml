@@ -3,7 +3,7 @@
 apiVersion: litellm.home-operations.com/v1alpha1
 kind: LiteLLMProxy
 metadata:
-  name: litellm
+  name: &name litellm
 spec:
   applyMode: file
   image: ghcr.io/berriai/litellm-database:v1.109.1@sha256:932c54440654f8f8466a85887612d95dcfb04ae2fc01257844332f4bf3b96986
@@ -44,9 +44,7 @@ spec:
       value: "true"
   envFrom:
     - secretRef:
-        name: litellm
-    - secretRef:
-        name: litellm-provider-keys
+        name: *name
   resources:
     requests:
       cpu: 100m
