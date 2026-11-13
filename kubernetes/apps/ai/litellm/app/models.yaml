@@ -45,7 +45,9 @@ spec:
     apiBase: https://api.neuralwatt.com/v1
     apiKey: os.environ/NEURALWATT_API_KEY
     additional:
-      dimensions: 1024
+      dimensions: 1536
+      allowed_openai_params:
+        - dimensions
   info:
     mode: embedding
     maxInputTokens: 32768

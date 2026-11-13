@@ -11,8 +11,8 @@ LiteLLM proxy for every model request, including Honcho embeddings.
 - Keep only current provider families in LiteLLM model definitions.
 - Route all Honcho generation and embedding requests through LiteLLM.
 - Route Hermes generation through LiteLLM's OpenAI-compatible `/v1` endpoint.
-- Preserve the existing Honcho vector dimension to avoid an unnecessary
-  database-wide re-embedding migration.
+- Use 1536-dimensional Honcho embeddings; the live pgvector columns must be
+  confirmed compatible before rollout.
 - Keep raw Kubernetes resources out of `resources/` directories. Those
   directories remain for Kustomize generator inputs and Kustomize config files.
 - Preserve the existing Mealie LiteLLM integration while replacing its legacy
@@ -35,9 +35,10 @@ LiteLLM proxy for every model request, including Honcho embeddings.
 - Embeddings use Neuralwatt's `qwen3-embedding-8b` through its
   OpenAI-compatible API.
 - Qwen3 Embedding 8B defaults to 4096 dimensions but supports requested
-  dimensions. LiteLLM will request 1024 dimensions so Honcho's existing
-  PostgreSQL vector schema remains compatible; the rendered model config and
-  an API smoke test must verify this parameter is preserved.
+  dimensions. LiteLLM will request 1536 dimensions for Honcho. The model
+  configuration must allow the `dimensions` parameter through the OpenAI
+  adapter, and a rendered-config plus API smoke test must verify it is
+  preserved.
 - Hermes receives a dedicated LiteLLM virtual key. The operator-generated
   Secret is mirrored from `ai` to `hermes` using reflector annotations.
 
@@ -47,7 +48,7 @@ LiteLLM proxy for every model request, including Honcho embeddings.
 | --- | --- | --- | --- |
 | `honcho-fast` | `minimax/MiniMax-M3.1-Flash` | Honcho | Deriver and all dialectical levels |
 | `honcho-quality` | `chatgpt/gpt-6.1-sol` | Honcho | Summary, dream deduction, and dream induction |
-| `honcho-embedding` | Neuralwatt `qwen3-embedding-8b` via LiteLLM's `openai` adapter | Honcho | Memory embeddings, requested at 1024 dimensions |
+| `honcho-embedding` | Neuralwatt `qwen3-embedding-8b` via LiteLLM's `openai` adapter | Honcho | Memory embeddings, requested at 1536 dimensions |
 | `hermes` | `minimax/MiniMax-M3` | Hermes | Primary agent generation through LiteLLM `/v1` |
 | `mealie` | Neuralwatt `glm-5.3-flash` via LiteLLM's `openai` adapter | Mealie | Existing OpenAI-compatible Mealie integration |
 
@@ -98,7 +99,10 @@ effort override is configured.
   alias and annotated for reflector mirroring.
 - Update LiteLLM's health checks to include the Hermes virtual key.
 - Change Honcho's embedding model and endpoint to `honcho-embedding` through
-  LiteLLM, retaining `EMBEDDING_VECTOR_DIMENSIONS=1024`.
+  LiteLLM, setting `EMBEDDING_VECTOR_DIMENSIONS=1536`.
+- Before rollout, query the live Honcho pgvector column typmods and confirm
+  they are 1536; changing a populated vector schema is a separate re-embedding
+  migration and is not performed by these manifests.
 - Keep Honcho's existing `honcho-fast`/`honcho-quality` role assignments but
   point their aliases at the new providers. Add the per-feature and
   per-dialect `THINKING_EFFORT` settings from the reasoning table above.
@@ -123,5 +127,5 @@ effort override is configured.
 - Rendered output contains no raw LiteLLM model/key manifests under a
   `resources/` directory.
 - Validate the LiteLLM `/v1/models` and embeddings/chat-completions smoke
-  paths after deployment; specifically confirm the embedding response has 1024
+  paths after deployment; specifically confirm the embedding response has 1536
   values and both scoped keys can access only their declared aliases.

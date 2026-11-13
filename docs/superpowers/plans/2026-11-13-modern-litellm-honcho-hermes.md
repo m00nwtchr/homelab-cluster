@@ -13,12 +13,14 @@
 ## Global Constraints
 
 - Use only `chatgpt/gpt-6.1-*`, `minimax/MiniMax-M3*`, and Neuralwatt's `glm-5.3`/`glm-5.3-flash` through its OpenAI-compatible API for text routes.
-- Use Neuralwatt's `qwen3-embedding-8b` through its OpenAI-compatible API for Honcho embeddings, requesting 1024 dimensions.
+- Use Neuralwatt's `qwen3-embedding-8b` through its OpenAI-compatible API for Honcho embeddings, requesting 1536 dimensions.
 - Route every Honcho generation and embedding request through `http://litellm.ai.svc.cluster.local/v1`.
 - Route Hermes generation through LiteLLM `/v1` using `api_mode: chat_completions`.
 - Keep raw Kubernetes resources out of `resources/` directories; leave only generator inputs and Kustomize configuration there.
 - Do not add provider fallback routes.
-- Preserve the existing Honcho vector dimension of 1024.
+- Configure Honcho and LiteLLM consistently at 1536 vector dimensions.
+- Confirm the live Honcho pgvector columns are already dimension 1536 before
+  rollout; this change does not perform populated-vector re-embedding.
 
 ## Review Focus
 
@@ -52,7 +54,7 @@
   Define exactly these upstreams:
   - `honcho-fast` → `minimax/MiniMax-M3.1-Flash`, API key `os.environ/MINIMAX_API_KEY`, response-capable/function-calling metadata.
   - `honcho-quality` → `chatgpt/gpt-6.1-sol`, response-capable/function-calling metadata.
-  - `honcho-embedding` → Neuralwatt `qwen3-embedding-8b` through LiteLLM's `openai` adapter with `apiBase: https://api.neuralwatt.com/v1`, API key `os.environ/NEURALWATT_API_KEY`, embedding mode, and `params.additional.dimensions: 1024`.
+  - `honcho-embedding` → Neuralwatt `qwen3-embedding-8b` through LiteLLM's `openai` adapter with `apiBase: https://api.neuralwatt.com/v1`, API key `os.environ/NEURALWATT_API_KEY`, embedding mode, `params.additional.dimensions: 1536`, and `params.additional.allowed_openai_params: [dimensions]`.
   - `hermes` → `minimax/MiniMax-M3`, API key `os.environ/MINIMAX_API_KEY`, chat-completion/function-calling metadata.
   - `mealie` → Neuralwatt `glm-5.3-flash` through LiteLLM's `openai` adapter with `apiBase: https://api.neuralwatt.com/v1`, API key `os.environ/NEURALWATT_API_KEY`, chat-completion metadata.
 
@@ -89,7 +91,7 @@
 
 - [ ] **Step 1: Change embedding configuration**
 
-  Set `EMBEDDING_MODEL_CONFIG__TRANSPORT=openai`, model `honcho-embedding`, base URL `http://litellm.ai.svc.cluster.local/v1`, API key env `HONCHO_LITELLM_API_KEY`, and retain `EMBEDDING_VECTOR_DIMENSIONS=1024`.
+  Set `EMBEDDING_MODEL_CONFIG__TRANSPORT=openai`, model `honcho-embedding`, base URL `http://litellm.ai.svc.cluster.local/v1`, API key env `HONCHO_LITELLM_API_KEY`, and set `EMBEDDING_VECTOR_DIMENSIONS=1536`.
 
 - [ ] **Step 2: Set generation transport and aliases**
 
@@ -210,7 +212,7 @@
 
 - [ ] **Step 3: Validate provider and API assumptions**
 
-  After deployment, query authenticated LiteLLM `/v1/models`, exercise chat completion for `honcho-fast`, `honcho-quality`, `hermes`, and `mealie`, and exercise embeddings for `honcho-embedding`. Confirm the embedding vector length is 1024, each scoped key rejects models outside its declared scope, and Honcho/Hermes logs show LiteLLM as their endpoint.
+  Before deployment, query the live Honcho pgvector column typmods and confirm dimension 1536. After deployment, query authenticated LiteLLM `/v1/models`, exercise chat completion for `honcho-fast`, `honcho-quality`, `hermes`, and `mealie`, and exercise embeddings for `honcho-embedding`. Confirm the embedding vector length is 1536, each scoped key rejects models outside its declared scope, and Honcho/Hermes logs show LiteLLM as their endpoint.
 
 - [ ] **Step 4: Commit the completed migration**
 

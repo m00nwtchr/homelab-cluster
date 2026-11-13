@@ -34,7 +34,7 @@ spec:
               DB_CONNECTION_URI: postgresql+psycopg://honcho@pooler-rw.postgres.svc:5432/honcho?sslmode=verify-full&sslcert=/var/run/secrets/postgresql/tls.crt&sslkey=/var/run/secrets/postgresql/tls.key&sslrootcert=/var/run/secrets/root-ca/ca.crt
               DB_POOL_SIZE: "4"
               DB_MAX_OVERFLOW: "2"
-              EMBEDDING_VECTOR_DIMENSIONS: "1024"
+              EMBEDDING_VECTOR_DIMENSIONS: "1536"
               EMBEDDING_MODEL_CONFIG__TRANSPORT: openai
               EMBEDDING_MODEL_CONFIG__MODEL: honcho-embedding
               EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
