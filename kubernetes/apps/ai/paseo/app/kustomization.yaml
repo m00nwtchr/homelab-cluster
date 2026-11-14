@@ -8,5 +8,6 @@ configMapGenerator:
   - name: paseo-configmap
     files:
       - resources/config.json
+      - resources/honcho.json
 configurations:
   - ./resources/kustomizeconfig.yaml
