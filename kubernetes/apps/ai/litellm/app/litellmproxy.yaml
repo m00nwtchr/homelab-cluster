@@ -29,6 +29,14 @@ spec:
       value: /app/chatgpt_tokens
     - name: DATABASE_URL
       value: postgresql://litellm@pooler-rw.postgres.svc:5432/litellm?sslmode=require&sslaccept=strict&sslcert=/var/run/secrets/root-ca/ca.crt&sslidentity=/var/run/secrets/postgresql/keystore.p12&sslpassword=2eMU7VNIpuN6W3U6GObu797EKV9PTsuG
+    - name: PGSSLCERT
+      value: /var/run/secrets/postgresql/tls.crt
+    - name: PGSSLKEY
+      value: /var/run/secrets/postgresql/tls.key
+    - name: PGSSLROOTCERT
+      value: /var/run/secrets/root-ca/ca.crt
+    - name: PGSSLMODE
+      value: verify-full
     - name: REDIS_HOST
       value: dragonfly.database.svc.cluster.local
     - name: REDIS_PORT
