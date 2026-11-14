@@ -123,6 +123,9 @@ spec:
   routerSettings:
     routing_strategy: usage-based-routing-v2
     redis_host: os.environ/REDIS_HOST
+    fallbacks:
+      - "MiniMax-M3.1-Flash":
+          - chatgpt/gpt-6-luna
     model_group_alias:
       honcho-fast: MiniMax-M3.1-Flash
       honcho-quality: chatgpt/gpt-6.1-sol
