@@ -22,6 +22,7 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       DOMAIN: ${MAIN_DOMAIN}
+      SUBDOMAIN: hermes-dash
       NAME: Hermes
       OIDC_PUBLIC_CLIENT: "true"
       OIDC_CALLBACK: /auth/callback

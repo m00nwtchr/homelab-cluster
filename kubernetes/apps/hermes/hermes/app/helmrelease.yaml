@@ -9,170 +9,464 @@ spec:
     kind: OCIRepository
     name: app-template
     namespace: flux-system
-  interval: 15m
-  dependsOn: []
+  interval: 30m
   values:
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 10000
-        runAsGroup: 10000
-        runAsNonRoot: true
-        fsGroup: 10000
-        fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
+    # networkpolicies:
+    #   hermes:
+    #     type: cilium
+    #     egress:
+    #       - # Agent Gateway (model provider)
+    #         toEndpoints:
+    #           - matchLabels:
+    #               k8s:io.kubernetes.pod.namespace: ai
+    #               app.kubernetes.io/name: agentgateway
+    #               app.kubernetes.io/instance: agentgateway
+    #         toPorts:
+    #           - ports:
+    #               - port: "8080"
+    #                 protocol: TCP
+    #               - port: "8081"
+    #                 protocol: TCP
+    #       - # In-cluster web search
+    #         toEndpoints:
+    #           - matchLabels:
+    #               k8s:io.kubernetes.pod.namespace: selfhosted
+    #               app.kubernetes.io/name: searxng
+    #         toPorts:
+    #           - ports:
+    #               - port: "8080"
+    #                 protocol: TCP
+    #       - # Forgejo over HTTPS hairpins to external
+    #         toEndpoints:
+    #           - matchLabels:
+    #               k8s:io.kubernetes.pod.namespace: network
+    #               gateway.networking.k8s.io/gateway-name: external
+    #         toPorts:
+    #           - ports:
+    #               - port: "10443"
+    #                 protocol: TCP
+    #             serverNames:
+    #               - git.${MAIN_DOMAIN}
+    #       - # Kanidm's public ingress address. Keep in sync with public-edge-dnsendpoint.yaml.
+    #         # Restrict TLS SNI to the issuer hostname.
+    #         toCIDR:
+    #           - 135.125.53.129/32
+    #         toPorts:
+    #           - ports:
+    #               - port: "443"
+    #                 protocol: TCP
+    #             serverNames:
+    #               - idm.${MAIN_DOMAIN}
+    #     ingress:
+    #       - fromEndpoints:
+    #           - matchLabels:
+    #               k8s:io.kubernetes.pod.namespace: network
+    #               gateway.networking.k8s.io/gateway-name: internal
+    #         toPorts:
+    #           - ports:
+    #               - port: "9120"
+    #                 protocol: TCP
+    #               - port: "9119"
+    #                 protocol: TCP
 
     controllers:
       *app :
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          # labels:
+          #   egress.policy.home.arpa/internet: "true"
+          securityContext:
+            fsGroup: 10000
+            fsGroupChangePolicy: OnRootMismatch
+            runAsGroup: 10000
+            runAsNonRoot: true
+            runAsUser: 10000
+            seccompProfile:
+              type: RuntimeDefault
+          terminationGracePeriodSeconds: 60
+        strategy: Recreate
         initContainers:
-          init:
-            image:
-              repository: docker.io/library/alpine
-              tag: "3.24"
+          # Run the image's config migration before s6 starts. Its own boot hook calls it through
+          # `s6-setuidgid hermes`, which needs CAP_SETGID and fails as non-root. Skipped on first
+          # boot only when no profile config exists yet.
+          config-migrate:
+            image: &image
+              repository: docker.io/nousresearch/hermes-agent
+              tag: v0.23.1@sha256:276d44685c65c0cb2a25f190b63c65c8906f9dc76486fb1c05ae71b5826bda08
             command:
-              - sh
+              - /bin/sh
               - -c
-              - |
-                set -euo pipefail
-                cp /tmp/config.yaml /opt/data/config.yaml
-                cp /tmp/honcho.json /opt/data/honcho.json
-                chown 10000:10000 /opt/data/config.yaml /opt/data/honcho.json
-                MEMINI_PLUGIN_DIR=/opt/data/plugins/memini
-                if [ -e "$MEMINI_PLUGIN_DIR" ]; then
-                  mkdir -p /opt/data/.disabled-plugins
-                  DISABLED_PLUGIN_DIR=/opt/data/.disabled-plugins/memini
-                  if [ -e "$DISABLED_PLUGIN_DIR" ]; then
-                    DISABLED_PLUGIN_DIR="/opt/data/.disabled-plugins/memini-$(date +%s)"
-                  fi
-                  mv "$MEMINI_PLUGIN_DIR" "$DISABLED_PLUGIN_DIR"
-                fi
+              - >-
+                [ ! -f /opt/data/config.yaml ] ||
+                exec /opt/hermes/.venv/bin/python /opt/hermes/scripts/docker_config_migrate.py
+            env:
+              HOME: /opt/data
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
         containers:
           app:
-            image: &image
-              repository: nousresearch/hermes-agent
-              tag: v2026.8.3@sha256:16788311e2fa3035456bdc1bafb8ec2b1777db64ebf020af9bb7eb73c3712c9e
-            args: ["gateway", "run", "--no-supervise", "--force"]
+            image: *image
+            # Explicitly start the gateway under s6; sleep alone only restores saved run intent.
+            args:
+              - gateway
+              - run
             env:
-              HONCHO_BASE_URL: http://honcho.ai.svc.cluster.local
+              S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: "1"
+              # Hermes settings
+              HERMES_DASHBOARD: "true"
+              HERMES_DASHBOARD_HOST: "::"
+              HERMES_DASHBOARD_OIDC_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: "kanidm-{{ .Release.Name }}-oidc"
+                    key: client-secret
+              HERMES_DASHBOARD_PORT: "9119"
+              HERMES_DISABLE_LAZY_INSTALLS: "true"
+              HERMES_HOME: /opt/data
+              HERMES_WRITE_SAFE_ROOT: /opt/data
+              HOME: /opt/data
+
+              # GIT_CONFIG_GLOBAL: /opt/data/shared/gitconfig
+              # PATH: /opt/data/shared/bin:/opt/data/.local/bin:/opt/data/.local/share/mise/shims:/opt/mise:/opt/hermes/.venv/bin:/opt/hermes/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+              # # Terminal HOME moves into each named profile; mise stays on the shared PVC.
+              # MISE_CACHE_DIR: /opt/data/.cache/mise
+              # MISE_CONFIG_DIR: /opt/data/.config/mise
+              # MISE_DATA_DIR: /opt/data/.local/share/mise
+              # MISE_STATE_DIR: /opt/data/.local/state/mise
+              # # The profile HOME changes in terminal sessions; use one shared
+              # # mise config and tool installation for every profile.
+              # MISE_CONFIG_FILE: /opt/data/shared/mise.toml
+              # FORGE_CREDENTIALS_DIR: /mnt/secrets/forges
+              # FORGE_HOSTS_FILE: /opt/data/shared/forge-hosts.json
+              # FORGE_IDENTITIES_FILE: /opt/data/shared/forge-identities.json
+              # FORGE_REPOS_ROOT: /opt/data/workspace/repos
+              # SEARXNG_URL: http://searxng.selfhosted.svc.cluster.local:8080
+
               HERMES_LITELLM_API_KEY:
                 valueFrom:
                   secretKeyRef:
                     name: litellm-key-hermes
                     key: api-key
-              HERMES_HOME: /opt/data
-              HOME: /opt/data
-              TZ: &tz ${TZ}
+            envFrom:
+              - secretRef:
+                  name: *app
+            probes:
+              # A fresh cron ticker heartbeat (written every 60s by the gateway) is required.
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command: &healthcheck
+                      - /bin/sh
+                      - -c
+                      - >-
+                        hb=$(cut -d. -f1 /opt/data/cron/ticker_heartbeat) &&
+                        [ $(( $(date +%s) - hb )) -lt 300 ]
+                  failureThreshold: 3
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  failureThreshold: 3
+                  exec:
+                    command: *healthcheck
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command: *healthcheck
+                  failureThreshold: 30
+                  periodSeconds: 10
+                  timeoutSeconds: 5
             resources:
               requests:
-                cpu: 500m
-                memory: 1Gi
+                memory: 1536Mi
+                cpu: 110m
               limits:
-                memory: 2Gi
-            ports:
-              - containerPort: &port 8642
-                name: http
-                protocol: TCP
-          dashboard:
-            image: *image
-            env:
-              TZ: *tz
-              GATEWAY_HEALTH_URL: http://localhost:8642
-            args:
-              - dashboard
-              - --host
-              - "::"
-              - --insecure
-            resources:
-              requests:
-                cpu: 500m
-                memory: 512Mi
-              limits:
-                memory: 1Gi
-            ports:
-              - containerPort: &dashboardPort 9119
-                name: http
-                protocol: TCP
-          codeserver:
-            image:
-              repository: ghcr.io/coder/code-server
-              tag: 4.131.0@sha256:3623e6362abdec6258472882b06fdeec9d6ce2ad3fda316b3c5d7ed092b89add
-            env:
-              TZ: *tz
-            args:
-              - "--auth"
-              - "none"
-              - "--user-data-dir"
-              - "/home/node/.vscode"
-              - "--extensions-dir"
-              - "/home/node/.vscode"
-              - "--port"
-              - "12321"
-              - "/opt/data"
-            ports:
-              - containerPort: &codeserverPort 12321
-                name: codeserver
-                protocol: TCP
-            resources:
-              requests:
-                cpu: 10m
-                memory: 512Mi
-              limits:
-                memory: 1Gi
-    service:
-      app:
-        ports:
-          http:
-            port: 80
-            targetPort: *port
-          codeserver:
-            port: *codeserverPort
-      dashboard:
-        ports:
-          http:
-            port: 80
-            targetPort: *dashboardPort
+                memory: 6Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
 
+    persistence:
+      data:
+        existingClaim: *app
+        advancedMounts:
+          hermes:
+            app:
+              - path: /opt/data
+            config-migrate:
+              - path: /opt/data
+
+      config:
+        type: configMap
+        name: hermes-config
+        advancedMounts:
+          hermes:
+            app:
+              - path: /etc/hermes
+                readOnly: true
+              - path: /opt/data/.honcho/config.json
+                readOnly: true
+                subPath: honcho.json
+
+      # forgejo-token:
+      #   type: secret
+      #   name: hermes-forgejo
+      #   advancedMounts:
+      #     hermes:
+      #       app:
+      #         - path: /mnt/secrets/forges/forgejo
+      #           readOnly: true
+      # agentgateway-token:
+      #   type: secret
+      #   name: agentgateway-hermes
+      #   advancedMounts:
+      #     hermes:
+      #       app:
+      #         - path: /mnt/secrets/agentgateway
+      #           readOnly: true
+      # mise:
+      #   type: image
+      #   image: ghcr.io/jdx/mise:2026.11.8
+      #   advancedMounts:
+      #     hermes:
+      #       app:
+      #         - path: /opt/mise
+      #           subPath: usr/local/bin
+      #           readOnly: true
+
+      run:
+        type: emptyDir
+      tmp:
+        type: emptyDir
     route:
-      app:
+      webapp:
         hostnames: ["{{ .Release.Name }}.${MAIN_DOMAIN}"]
         parentRefs:
           - name: internal
             namespace: network
         rules:
           - backendRefs:
-              - identifier: dashboard
-                port: http
+              - identifier: app
+                port: webapp
+            timeouts:
+              request: 0s
 
-      codeserver:
-        hostnames: ["{{ .Release.Name }}-code.${MAIN_DOMAIN}"]
+      dashboard:
+        hostnames: ["hermes-dash.${MAIN_DOMAIN}"]
         parentRefs:
           - name: internal
             namespace: network
         rules:
           - backendRefs:
               - identifier: app
-                port: codeserver
+                port: dashboard
 
-    persistence:
-      data:
-        existingClaim: *app
-        globalMounts:
-          - path: /opt/data
+    service:
+      app:
+        ports:
+          webapp:
+            appProtocol: kubernetes.io/wss
+            port: 9120
+          dashboard:
+            appProtocol: kubernetes.io/wss
+            port: 9119
+# ---
+# # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: &app hermes
+# spec:
+#   chartRef:
+#     kind: OCIRepository
+#     name: app-template
+#     namespace: flux-system
+#   interval: 15m
+#   dependsOn: []
+#   values:
+#     defaultPodOptions:
+#       securityContext:
+#         runAsUser: 10000
+#         runAsGroup: 10000
+#         runAsNonRoot: true
+#         fsGroup: 10000
+#         fsGroupChangePolicy: OnRootMismatch
+#         seccompProfile: { type: RuntimeDefault }
 
-      config:
-        type: configMap
-        name: "hermes-config"
-        defaultMode: 0755
-        globalMounts:
-          - path: /tmp/config.yaml
-            subPath: config.yaml
-          - path: /tmp/honcho.json
-            subPath: honcho.json
+#     controllers:
+#       *app :
+#         annotations:
+#           reloader.stakater.com/auto: "true"
+#         initContainers:
+#           init:
+#             image:
+#               repository: docker.io/library/alpine
+#               tag: "3.24"
+#             command:
+#               - sh
+#               - -c
+#               - |
+#                 set -euo pipefail
+#                 cp /tmp/config.yaml /opt/data/config.yaml
+#                 cp /tmp/honcho.json /opt/data/honcho.json
+#                 chown 10000:10000 /opt/data/config.yaml /opt/data/honcho.json
+#                 MEMINI_PLUGIN_DIR=/opt/data/plugins/memini
+#                 if [ -e "$MEMINI_PLUGIN_DIR" ]; then
+#                   mkdir -p /opt/data/.disabled-plugins
+#                   DISABLED_PLUGIN_DIR=/opt/data/.disabled-plugins/memini
+#                   if [ -e "$DISABLED_PLUGIN_DIR" ]; then
+#                     DISABLED_PLUGIN_DIR="/opt/data/.disabled-plugins/memini-$(date +%s)"
+#                   fi
+#                   mv "$MEMINI_PLUGIN_DIR" "$DISABLED_PLUGIN_DIR"
+#                 fi
+#         containers:
+#           app:
+#             image: &image
+#               repository: nousresearch/hermes-agent
+#               tag: v2026.8.3@sha256:16788311e2fa3035456bdc1bafb8ec2b1777db64ebf020af9bb7eb73c3712c9e
+#             args: ["gateway", "run", "--no-supervise", "--force"]
+#             env:
+#               HONCHO_BASE_URL: http://honcho.ai.svc.cluster.local
+#               HERMES_LITELLM_API_KEY:
+#                 valueFrom:
+#                   secretKeyRef:
+#                     name: litellm-key-hermes
+#                     key: api-key
+#               HERMES_HOME: /opt/data
+#               HOME: /opt/data
+#               TZ: &tz ${TZ}
+#             resources:
+#               requests:
+#                 cpu: 500m
+#                 memory: 1Gi
+#               limits:
+#                 memory: 2Gi
+#             ports:
+#               - containerPort: &port 8642
+#                 name: http
+#                 protocol: TCP
+#           dashboard:
+#             image: *image
+#             env:
+#               TZ: *tz
+#               GATEWAY_HEALTH_URL: http://localhost:8642
+#             args:
+#               - dashboard
+#               - --host
+#               - "::"
+#               - --insecure
+#             resources:
+#               requests:
+#                 cpu: 500m
+#                 memory: 512Mi
+#               limits:
+#                 memory: 1Gi
+#             ports:
+#               - containerPort: &dashboardPort 9119
+#                 name: http
+#                 protocol: TCP
+#           codeserver:
+#             image:
+#               repository: ghcr.io/coder/code-server
+#               tag: 4.131.0@sha256:3623e6362abdec6258472882b06fdeec9d6ce2ad3fda316b3c5d7ed092b89add
+#             env:
+#               TZ: *tz
+#             args:
+#               - "--auth"
+#               - "none"
+#               - "--user-data-dir"
+#               - "/home/node/.vscode"
+#               - "--extensions-dir"
+#               - "/home/node/.vscode"
+#               - "--port"
+#               - "12321"
+#               - "/opt/data"
+#             ports:
+#               - containerPort: &codeserverPort 12321
+#                 name: codeserver
+#                 protocol: TCP
+#             resources:
+#               requests:
+#                 cpu: 10m
+#                 memory: 512Mi
+#               limits:
+#                 memory: 1Gi
+#     service:
+#       app:
+#         ports:
+#           http:
+#             port: 80
+#             targetPort: *port
+#           codeserver:
+#             port: *codeserverPort
+#       dashboard:
+#         ports:
+#           http:
+#             port: 80
+#             targetPort: *dashboardPort
 
-      # gallery:
-      #   type: nfs
-      #   server: voyager.internal
-      #   path: /mnt/daena/comfyui/output
-      #   globalMounts:
-      #     - path: /mnt/gallery
+#     route:
+#       app:
+#         hostnames: ["{{ .Release.Name }}.${MAIN_DOMAIN}"]
+#         parentRefs:
+#           - name: internal
+#             namespace: network
+#         rules:
+#           - backendRefs:
+#               - identifier: dashboard
+#                 port: http
+
+#       codeserver:
+#         hostnames: ["{{ .Release.Name }}-code.${MAIN_DOMAIN}"]
+#         parentRefs:
+#           - name: internal
+#             namespace: network
+#         rules:
+#           - backendRefs:
+#               - identifier: app
+#                 port: codeserver
+
+#     persistence:
+#       data:
+#         existingClaim: *app
+#         globalMounts:
+#           - path: /opt/data
+
+#       config:
+#         type: configMap
+#         name: "hermes-config"
+#         defaultMode: 0755
+#         globalMounts:
+#           - path: /tmp/config.yaml
+#             subPath: config.yaml
+#           - path: /tmp/honcho.json
+#             subPath: honcho.json
+
+#       # gallery:
+#       #   type: nfs
+#       #   server: voyager.internal
+#       #   path: /mnt/daena/comfyui/output
+#       #   globalMounts:
+#       #     - path: /mnt/gallery
