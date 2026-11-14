@@ -14,6 +14,7 @@ spec:
     - honcho-quality
     - honcho-embedding
 ---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmvirtualkey_v1alpha1.json
 apiVersion: litellm.home-operations.com/v1alpha1
 kind: LiteLLMVirtualKey
 metadata:

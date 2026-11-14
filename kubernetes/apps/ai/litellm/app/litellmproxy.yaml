@@ -9,14 +9,16 @@ spec:
   image: ghcr.io/berriai/litellm-database:v1.109.1@sha256:932c54440654f8f8466a85887612d95dcfb04ae2fc01257844332f4bf3b96986
   replicas: 1
   podSecurityContext:
-    fsGroup: 1000
+    runAsUser: 65532
+    runAsGroup: 65532
+    runAsNonRoot: true
+    fsGroup: 65532
     fsGroupChangePolicy: OnRootMismatch
     seccompProfile: { type: RuntimeDefault }
   securityContext:
     allowPrivilegeEscalation: false
     readOnlyRootFilesystem: true
-    capabilities:
-      drop: [ALL]
+    capabilities: { drop: [ALL] }
   service:
     port: 80
     type: ClusterIP
