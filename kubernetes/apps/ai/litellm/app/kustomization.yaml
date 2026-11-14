@@ -6,4 +6,3 @@ resources:
   - ./certificate.yaml
   - ./litellmproxy.yaml
   - ./models.yaml
-  - ./virtualkeys.yaml

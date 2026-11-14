@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmvirtualkey_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMVirtualKey
+metadata:
+  name: honcho
+spec:
+  proxyRef: litellm
+  keyAlias: Honcho
+  secretName: litellm-key-honcho
+  secretKey: api-key
+  models:
+    - honcho-fast
+    - honcho-quality
+    - honcho-embedding
+
