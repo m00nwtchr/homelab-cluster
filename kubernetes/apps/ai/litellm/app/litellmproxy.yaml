@@ -28,10 +28,7 @@ spec:
     - name: CHATGPT_TOKEN_DIR
       value: /app/chatgpt_tokens
     - name: DATABASE_URL
-      valueFrom:
-        secretKeyRef:
-          name: litellm-postgres
-          key: url
+      value: postgresql://litellm@pooler-rw.postgres.svc:5432/litellm?sslmode=require&sslaccept=strict&sslcert=/var/run/secrets/root-ca/ca.crt&sslidentity=/var/run/secrets/postgresql/keystore.p12&sslpassword=2eMU7VNIpuN6W3U6GObu797EKV9PTsuG
     - name: REDIS_HOST
       value: dragonfly.database.svc.cluster.local
     - name: REDIS_PORT
@@ -90,6 +87,11 @@ spec:
           csi.cert-manager.io/key-usages: client auth
           csi.cert-manager.io/common-name: litellm
           csi.cert-manager.io/dns-names: $${POD_NAME}.$${POD_NAMESPACE}.svc.cluster.local
+
+          # Prisma client identity
+          csi.cert-manager.io/pkcs12-enable: "true"
+          csi.cert-manager.io/pkcs12-filename: keystore.p12
+          csi.cert-manager.io/pkcs12-password: "2eMU7VNIpuN6W3U6GObu797EKV9PTsuG"
     - name: root-ca
       configMap:
         name: root-ca
