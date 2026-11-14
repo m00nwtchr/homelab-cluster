@@ -137,6 +137,8 @@ spec:
               HERMES_WRITE_SAFE_ROOT: /opt/data
               HOME: /opt/data
 
+              HONCHO_BASE_URL: http://honcho.ai.svc.cluster.local
+
               # GIT_CONFIG_GLOBAL: /opt/data/shared/gitconfig
               # PATH: /opt/data/shared/bin:/opt/data/.local/bin:/opt/data/.local/share/mise/shims:/opt/mise:/opt/hermes/.venv/bin:/opt/hermes/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
               # # Terminal HOME moves into each named profile; mise stays on the shared PVC.
