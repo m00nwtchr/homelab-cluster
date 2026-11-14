@@ -25,6 +25,8 @@ spec:
   env:
     - name: TZ
       value: "${TZ}"
+    - name: HOST
+      value: "::"
     - name: CHATGPT_TOKEN_DIR
       value: /app/chatgpt_tokens
     - name: PGSSLCERT
@@ -83,6 +85,7 @@ spec:
     - name: postgres-certs
       secret:
         secretName: litellm-postgres-client
+        defaultMode: 0440
     - name: root-ca
       configMap:
         name: root-ca
