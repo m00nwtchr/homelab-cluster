@@ -15,6 +15,12 @@ spec:
         kind: Gateway
         name: internal
         namespace: network
+    filters:
+      - type: RequestHeaderModifier
+        requestHeaderModifier:
+          set:
+            - name: x-litellm-session-id
+              value: "%REQ(x-session-id)%"
   podSecurityContext:
     runAsUser: 65532
     runAsGroup: 65532
