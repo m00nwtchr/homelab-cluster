@@ -50,34 +50,34 @@ spec:
               CACHE_ENABLED: "true"
               DERIVER_WORKERS: "2"
               DERIVER_REPRESENTATION_BATCH_MAX_AGE_SECONDS: "300"
-              DERIVER_MODEL_CONFIG__TRANSPORT: openai
+              DERIVER_MODEL_CONFIG__TRANSPORT: anthropic
               DERIVER_MODEL_CONFIG__MODEL: honcho-fast
-              DERIVER_MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
+              DERIVER_MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local
               DERIVER_MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
               DERIVER_MODEL_CONFIG__THINKING_EFFORT: low
-              DIALECTIC_LEVELS__minimal__MODEL_CONFIG__TRANSPORT: openai
+              DIALECTIC_LEVELS__minimal__MODEL_CONFIG__TRANSPORT: anthropic
               DIALECTIC_LEVELS__minimal__MODEL_CONFIG__MODEL: honcho-fast
-              DIALECTIC_LEVELS__minimal__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
+              DIALECTIC_LEVELS__minimal__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local
               DIALECTIC_LEVELS__minimal__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
               DIALECTIC_LEVELS__minimal__MODEL_CONFIG__THINKING_EFFORT: low
-              DIALECTIC_LEVELS__low__MODEL_CONFIG__TRANSPORT: openai
+              DIALECTIC_LEVELS__low__MODEL_CONFIG__TRANSPORT: anthropic
               DIALECTIC_LEVELS__low__MODEL_CONFIG__MODEL: honcho-fast
-              DIALECTIC_LEVELS__low__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
+              DIALECTIC_LEVELS__low__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local
               DIALECTIC_LEVELS__low__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
               DIALECTIC_LEVELS__low__MODEL_CONFIG__THINKING_EFFORT: low
-              DIALECTIC_LEVELS__medium__MODEL_CONFIG__TRANSPORT: openai
+              DIALECTIC_LEVELS__medium__MODEL_CONFIG__TRANSPORT: anthropic
               DIALECTIC_LEVELS__medium__MODEL_CONFIG__MODEL: honcho-fast
-              DIALECTIC_LEVELS__medium__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
+              DIALECTIC_LEVELS__medium__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local
               DIALECTIC_LEVELS__medium__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
               DIALECTIC_LEVELS__medium__MODEL_CONFIG__THINKING_EFFORT: medium
-              DIALECTIC_LEVELS__high__MODEL_CONFIG__TRANSPORT: openai
+              DIALECTIC_LEVELS__high__MODEL_CONFIG__TRANSPORT: anthropic
               DIALECTIC_LEVELS__high__MODEL_CONFIG__MODEL: honcho-fast
-              DIALECTIC_LEVELS__high__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
+              DIALECTIC_LEVELS__high__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local
               DIALECTIC_LEVELS__high__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
               DIALECTIC_LEVELS__high__MODEL_CONFIG__THINKING_EFFORT: high
-              DIALECTIC_LEVELS__max__MODEL_CONFIG__TRANSPORT: openai
+              DIALECTIC_LEVELS__max__MODEL_CONFIG__TRANSPORT: anthropic
               DIALECTIC_LEVELS__max__MODEL_CONFIG__MODEL: honcho-fast
-              DIALECTIC_LEVELS__max__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local/v1
+              DIALECTIC_LEVELS__max__MODEL_CONFIG__OVERRIDES__BASE_URL: http://litellm.ai.svc.cluster.local
               DIALECTIC_LEVELS__max__MODEL_CONFIG__OVERRIDES__API_KEY_ENV: HONCHO_LITELLM_API_KEY
               DIALECTIC_LEVELS__max__MODEL_CONFIG__THINKING_EFFORT: max
               SUMMARY_MODEL_CONFIG__TRANSPORT: openai
