@@ -12,6 +12,7 @@ spec:
   components:
     - ../../../../components/kopiur
     - ../../../../components/oidc
+    - ../../../../components/secret
   dependsOn:
     - name: litellm
       namespace: ai
