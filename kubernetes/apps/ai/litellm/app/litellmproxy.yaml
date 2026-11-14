@@ -117,6 +117,11 @@ spec:
   routerSettings:
     routing_strategy: usage-based-routing-v2
     redis_host: os.environ/REDIS_HOST
+    model_group_alias:
+      honcho-fast: MiniMax-M3.1-Flash
+      honcho-quality: chatgpt/gpt-6.1-sol
+      honcho-embedding: neuralwatt/qwen3-embedding-8b
+      hermes: MiniMax-M3.1-Flash
   litellmSettings:
     set_verbose: false
     json_logs: true
@@ -125,6 +130,13 @@ spec:
       type: redis
       host: os.environ/REDIS_HOST
       port: os.environ/REDIS_PORT
+      ttl: 300
+      supported_call_types:
+        - embedding
+        - aembedding
+    request_timeout: 900
+    num_retries: 2
+    retry_after: 5
   generalSettings:
     proxy_batch_write_at: 60
     database_connection_pool_limit: 10

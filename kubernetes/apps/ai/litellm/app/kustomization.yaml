@@ -5,4 +5,7 @@ kind: Kustomization
 resources:
   - ./certificate.yaml
   - ./litellmproxy.yaml
-  - ./models.yaml
+  - ./models/minimax.yaml
+  - ./models/neuralwatt.yaml
+  - ./models/chatgpt.yaml
+  - ./models/auto.yaml
