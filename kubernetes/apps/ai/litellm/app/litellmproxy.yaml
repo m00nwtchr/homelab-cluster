@@ -27,8 +27,6 @@ spec:
       value: "${TZ}"
     - name: CHATGPT_TOKEN_DIR
       value: /app/chatgpt_tokens
-    - name: DATABASE_URL
-      value: postgresql://litellm@pooler-rw.postgres.svc:5432/litellm?sslmode=require&sslaccept=strict&sslcert=/var/run/secrets/root-ca/ca.crt&sslidentity=/var/run/secrets/postgresql/keystore.p12&sslpassword=2eMU7VNIpuN6W3U6GObu797EKV9PTsuG
     - name: PGSSLCERT
       value: /var/run/secrets/postgresql/tls.crt
     - name: PGSSLKEY
@@ -83,23 +81,8 @@ spec:
       persistentVolumeClaim:
         claimName: litellm
     - name: postgres-certs
-      csi:
-        driver: csi.cert-manager.io
-        readOnly: true
-        volumeAttributes:
-          csi.cert-manager.io/issuer-name: postgres-client-ca
-          csi.cert-manager.io/issuer-kind: ClusterIssuer
-          csi.cert-manager.io/key-algorithm: ECDSA
-          csi.cert-manager.io/key-size: "384"
-          csi.cert-manager.io/key-encoding: PKCS8
-          csi.cert-manager.io/key-usages: client auth
-          csi.cert-manager.io/common-name: litellm
-          csi.cert-manager.io/dns-names: $${POD_NAME}.$${POD_NAMESPACE}.svc.cluster.local
-
-          # Prisma client identity
-          csi.cert-manager.io/pkcs12-enable: "true"
-          csi.cert-manager.io/pkcs12-filename: keystore.p12
-          csi.cert-manager.io/pkcs12-password: "2eMU7VNIpuN6W3U6GObu797EKV9PTsuG"
+      secret:
+        secretName: litellm-postgres-client
     - name: root-ca
       configMap:
         name: root-ca
@@ -146,5 +129,5 @@ spec:
       - REDIS_PORT
   apiAccess:
     masterKeyRef:
-      name: litellm
+      name: *name
       key: LITELLM_MASTER_KEY
