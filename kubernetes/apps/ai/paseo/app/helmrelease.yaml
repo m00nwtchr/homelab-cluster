@@ -112,6 +112,9 @@ spec:
         globalMounts:
           - path: /etc/paseo-runtime
             readOnly: true
+          - path: /home/paseo/.honcho/config.json
+            subPath: honcho.json
+            readOnly: true
 
       config:
         existingClaim: *app

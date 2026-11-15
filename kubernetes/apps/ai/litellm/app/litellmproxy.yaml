@@ -8,6 +8,19 @@ spec:
   applyMode: file
   image: ghcr.io/berriai/litellm-database:v1.109.1@sha256:932c54440654f8f8466a85887612d95dcfb04ae2fc01257844332f4bf3b96986
   replicas: 1
+  route:
+    hostnames: ["litellm.${MAIN_DOMAIN}"]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: internal
+        namespace: network
+    filters:
+      - type: RequestHeaderModifier
+        requestHeaderModifier:
+          set:
+            - name: x-litellm-session-id
+              value: "%REQ(x-session-id)%"
   podSecurityContext:
     runAsUser: 65532
     runAsGroup: 65532
@@ -25,13 +38,18 @@ spec:
   env:
     - name: TZ
       value: "${TZ}"
+    - name: HOST
+      value: "::"
     - name: CHATGPT_TOKEN_DIR
       value: /app/chatgpt_tokens
-    - name: DATABASE_URL
-      valueFrom:
-        secretKeyRef:
-          name: litellm-postgres
-          key: url
+    - name: PGSSLCERT
+      value: /var/run/secrets/postgresql/tls.crt
+    - name: PGSSLKEY
+      value: /var/run/secrets/postgresql/tls.key
+    - name: PGSSLROOTCERT
+      value: /var/run/secrets/root-ca/ca.crt
+    - name: PGSSLMODE
+      value: verify-full
     - name: REDIS_HOST
       value: dragonfly.database.svc.cluster.local
     - name: REDIS_PORT
@@ -78,18 +96,9 @@ spec:
       persistentVolumeClaim:
         claimName: litellm
     - name: postgres-certs
-      csi:
-        driver: csi.cert-manager.io
-        readOnly: true
-        volumeAttributes:
-          csi.cert-manager.io/issuer-name: postgres-client-ca
-          csi.cert-manager.io/issuer-kind: ClusterIssuer
-          csi.cert-manager.io/key-algorithm: ECDSA
-          csi.cert-manager.io/key-size: "384"
-          csi.cert-manager.io/key-encoding: PKCS8
-          csi.cert-manager.io/key-usages: client auth
-          csi.cert-manager.io/common-name: litellm
-          csi.cert-manager.io/dns-names: $${POD_NAME}.$${POD_NAMESPACE}.svc.cluster.local
+      secret:
+        secretName: litellm-postgres-client
+        defaultMode: 0440
     - name: root-ca
       configMap:
         name: root-ca
@@ -114,6 +123,14 @@ spec:
   routerSettings:
     routing_strategy: usage-based-routing-v2
     redis_host: os.environ/REDIS_HOST
+    fallbacks:
+      - "MiniMax-M3.1-Flash":
+          - chatgpt/gpt-6-luna
+    model_group_alias:
+      honcho-fast: MiniMax-M3.1-Flash
+      honcho-quality: chatgpt/gpt-6.1-sol
+      honcho-embedding: neuralwatt/qwen3-embedding-8b
+      hermes: MiniMax-M3.1-Flash
   litellmSettings:
     set_verbose: false
     json_logs: true
@@ -122,6 +139,13 @@ spec:
       type: redis
       host: os.environ/REDIS_HOST
       port: os.environ/REDIS_PORT
+      ttl: 300
+      supported_call_types:
+        - embedding
+        - aembedding
+    request_timeout: 900
+    num_retries: 2
+    retry_after: 5
   generalSettings:
     proxy_batch_write_at: 60
     database_connection_pool_limit: 10
@@ -136,5 +160,5 @@ spec:
       - REDIS_PORT
   apiAccess:
     masterKeyRef:
-      name: litellm
+      name: *name
       key: LITELLM_MASTER_KEY

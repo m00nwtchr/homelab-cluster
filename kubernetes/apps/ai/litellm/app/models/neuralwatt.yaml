@@ -1,0 +1,77 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: glm-5.3-flash
+spec:
+  modelName: neuralwatt/glm-5.3-flash
+  proxyRef: litellm
+  params:
+    model: openai/glm-5.3-flash
+    apiBase: https://api.neuralwatt.com/v1
+    apiKey: os.environ/NEURALWATT_API_KEY
+    additional:
+      allowed_openai_params:
+        - reasoning_effort
+  info:
+    mode: chat
+    maxInputTokens: 1000000
+    maxOutputTokens: 131072
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
+    supportsVision: true
+    extra:
+      input_cost_per_token: 1.5e-07
+      cache_creation_input_token_cost: 1.5e-07
+      cache_read_input_token_cost: 3.0e-08
+      output_cost_per_token: 5.0e-07
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: glm-5.3
+spec:
+  modelName: neuralwatt/glm-5.3
+  proxyRef: litellm
+  params:
+    model: openai/glm-5.3
+    apiBase: https://api.neuralwatt.com/v1
+    apiKey: os.environ/NEURALWATT_API_KEY
+    additional:
+      allowed_openai_params:
+        - reasoning_effort
+  info:
+    mode: chat
+    maxInputTokens: 1000000
+    maxOutputTokens: 131072
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
+    extra:
+      input_cost_per_token: 1.45e-06
+      cache_creation_input_token_cost: 1.45e-06
+      cache_read_input_token_cost: 1.45e-07
+      output_cost_per_token: 4.5e-06
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: qwen3-embedding-8b
+spec:
+  modelName: neuralwatt/qwen3-embedding-8b
+  proxyRef: litellm
+  params:
+    model: openai/qwen3-embedding-8b
+    apiBase: https://api.neuralwatt.com/v1
+    apiKey: os.environ/NEURALWATT_API_KEY
+    additional:
+      dimensions: 1536
+      allowed_openai_params:
+        - dimensions
+  info:
+    mode: embedding
+    maxInputTokens: 32768
+    extra:
+      input_cost_per_token: 1.0e-08

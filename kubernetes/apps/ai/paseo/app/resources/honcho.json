@@ -1,0 +1,15 @@
+{
+	"peerName": "m00n",
+	"baseUrl": "http://honcho.ai.svc.cluster.local",
+	"hosts": {
+		"opencode": {
+			"workspace": "opencode",
+			"aiPeer": "opencode",
+			"recallMode": "hybrid",
+			"sessionStrategy": "per-repo",
+			"removeUserPrefix": true,
+			"observationMode": "unified"
+		}
+	},
+	"apiKey": ""
+}

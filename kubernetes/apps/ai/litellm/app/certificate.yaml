@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: litellm-postgres-client
+  namespace: ai
+spec:
+  secretName: litellm-postgres-client
+
+  issuerRef:
+    name: postgres-client-ca
+    kind: ClusterIssuer
+
+  commonName: litellm
+
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    encoding: PKCS8
+    rotationPolicy: Always
+
+  usages:
+    - digital signature
+    - client auth
+
+  keystores:
+    pkcs12:
+      create: true
+      profile: Modern2023
+      passwordSecretRef:
+        name: litellm
+        key: pkcs12-password
