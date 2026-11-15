@@ -4,7 +4,10 @@
 			"enabled": true,
 			"aiPeer": "hermes",
 			"peerName": "m00n",
-			"workspace": "hermes"
+			"workspace": "hermes",
+			"userPeerAliases": {
+				"302379230308859905": "m00n"
+			}
 		}
 	},
 	"recallMode": "hybrid",
