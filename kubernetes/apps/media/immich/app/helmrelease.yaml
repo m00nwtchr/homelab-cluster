@@ -60,9 +60,9 @@ spec:
               resources:
                 requests:
                   cpu: 148m
-                  memory: 2940Mi
+                  memory: 2746Mi
                 limits:
-                  memory: 2940Mi
+                  memory: 2746Mi
       persistence:
         metadata:
           forceRename: immich-metadata
@@ -90,9 +90,9 @@ spec:
               resources:
                 requests:
                   cpu: 10m
-                  memory: 452Mi
+                  memory: 1132Mi
                 limits:
-                  memory: 452Mi
+                  memory: 1132Mi
       persistence:
         cache:
           type: persistentVolumeClaim
