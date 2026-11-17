@@ -10,3 +10,4 @@ resources:
   - ./models/neuralwatt.yaml
   - ./models/chatgpt.yaml
   - ./models/auto.yaml
+  - ./models/reasoning-pool.yaml

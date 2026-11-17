@@ -31,3 +31,39 @@ webapp:
   host: "::"
   port: 9120
   public_url: https://${APP}.${MAIN_DOMAIN}
+
+model:
+  default: reasoning-pool
+  provider: litellm
+
+fallback_providers:
+  - provider: litellm
+    model: glm-5.3
+  - provider: litellm
+    model: deepseek-v4.1-flash
+
+providers:
+  litellm:
+    base_url: http://litellm.ai/v1
+    api_key: $${LITELLM_API_KEY}
+  litellm-anthropic:
+    base_url: http://litellm.ai/
+    api_mode: anthropic_messages
+    api_key: $${LITELLM_API_KEY}
+
+delegation:
+  roles:
+    explorer:
+      provider: litellm-anthropic
+      model: MiniMax-M3.1-Flash
+      max_concurrent_children: 4
+    implementer:
+      provider: litellm
+      model: implementation-pool
+    reviewer:
+      provider: litellm-anthropic
+      model: MiniMax-M3.1-Flash
+    oracle:
+      provider: litellm
+      model: glm-5.3-flash
+  max_iterations: 250

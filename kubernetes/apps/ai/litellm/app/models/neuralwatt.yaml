@@ -5,13 +5,14 @@ kind: LiteLLMModel
 metadata:
   name: glm-5.3-flash
 spec:
-  modelName: neuralwatt/glm-5.3-flash
+  modelName: glm-5.3-flash
   proxyRef: litellm
   params:
     model: openai/glm-5.3-flash
     apiBase: https://api.neuralwatt.com/v1
     apiKey: os.environ/NEURALWATT_API_KEY
     additional:
+      order: 2
       allowed_openai_params:
         - reasoning_effort
   info:
@@ -36,10 +37,11 @@ spec:
   modelName: neuralwatt/glm-5.3
   proxyRef: litellm
   params:
-    model: openai/glm-5.3
+    model: glm-5.3
     apiBase: https://api.neuralwatt.com/v1
     apiKey: os.environ/NEURALWATT_API_KEY
     additional:
+      order: 1
       allowed_openai_params:
         - reasoning_effort
   info:
@@ -53,6 +55,37 @@ spec:
       cache_creation_input_token_cost: 1.45e-06
       cache_read_input_token_cost: 1.45e-07
       output_cost_per_token: 4.5e-06
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: deepseek-v4.1-flash
+spec:
+  modelName: deepseek-v4.1-flash
+  proxyRef: litellm
+  params:
+    model: openai/deepseek-v4.1-flash
+    apiBase: https://api.neuralwatt.com/v1
+    apiKey: os.environ/NEURALWATT_API_KEY
+    additional:
+      order: 2
+      max_budget: 1.0
+      budget_duration: 1d
+      allowed_openai_params:
+        - reasoning_effort
+  info:
+    mode: chat
+    maxInputTokens: 1000000
+    maxOutputTokens: 393216
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
+    supportsVision: true
+    extra:
+      input_cost_per_token: 1.5e-07
+      cache_creation_input_token_cost: 0
+      cache_read_input_token_cost: 1.5e-08
+      output_cost_per_token: 6.0e-07
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
 apiVersion: litellm.home-operations.com/v1alpha1
