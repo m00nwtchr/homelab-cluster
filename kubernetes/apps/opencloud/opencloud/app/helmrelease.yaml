@@ -27,7 +27,7 @@ spec:
           app:
             image: &image
               repository: opencloudeu/opencloud-rolling
-              tag: 8.1.0@sha256:8fc64ca861739cc62095cd558814f2eba6a90acf5998d884e439b33a47875da8
+              tag: 9.2.0@sha256:99698aea6bd88cf28004c773941cf69e2d24da136a3a45f9819b90b60506d14d
             command:
               ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
             env:
