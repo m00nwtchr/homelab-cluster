@@ -51,7 +51,7 @@ spec:
     - name: PGSSLMODE
       value: verify-full
     - name: REDIS_HOST
-      value: dragonfly.database.svc.cluster.local
+      value: localhost
     - name: REDIS_PORT
       value: "6379"
     - name: STORE_MODEL_IN_DB
