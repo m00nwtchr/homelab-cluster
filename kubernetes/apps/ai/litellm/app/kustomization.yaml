@@ -9,5 +9,6 @@ resources:
   - ./models/minimax.yaml
   - ./models/neuralwatt.yaml
   - ./models/chatgpt.yaml
+  - ./models/implementation-pool.yaml
   - ./models/auto.yaml
   - ./models/reasoning-pool.yaml
