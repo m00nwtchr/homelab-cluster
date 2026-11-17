@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
 apiVersion: litellm.home-operations.com/v1alpha1
 kind: LiteLLMModel
 metadata:
@@ -10,7 +11,7 @@ spec:
     model: chatgpt/gpt-6-luna
     additional:
       additional_drop_params:
-      - temperature
+        - temperature
       order: 1
       extra_body:
         reasoning:

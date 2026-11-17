@@ -34,10 +34,10 @@ kind: LiteLLMModel
 metadata:
   name: glm-5.3
 spec:
-  modelName: neuralwatt/glm-5.3
+  modelName: glm-5.3
   proxyRef: litellm
   params:
-    model: glm-5.3
+    model: openai/glm-5.3
     apiBase: https://api.neuralwatt.com/v1
     apiKey: os.environ/NEURALWATT_API_KEY
     additional:
