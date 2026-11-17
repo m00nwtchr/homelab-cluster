@@ -45,11 +45,12 @@ fallback_providers:
 providers:
   litellm:
     base_url: http://litellm.ai/v1
-    api_key: $${LITELLM_API_KEY}
+    transport: openai_chat
+    key_env: HERMES_LITELLM_API_KEY
   litellm-anthropic:
     base_url: http://litellm.ai/
-    api_mode: anthropic_messages
-    api_key: $${LITELLM_API_KEY}
+    transport: anthropic_messages
+    key_env: HERMES_LITELLM_API_KEY
 
 delegation:
   roles:
