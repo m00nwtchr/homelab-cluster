@@ -160,6 +160,11 @@ spec:
                   secretKeyRef:
                     name: litellm-key-hermes
                     key: api-key
+              PASEO_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: paseo
+                    key: PASEO_PASSWORD
             envFrom:
               - secretRef:
                   name: *app

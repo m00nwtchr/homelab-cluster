@@ -68,3 +68,10 @@ delegation:
       provider: litellm
       model: glm-5.3-flash
   max_iterations: 250
+
+mcp_servers:
+  paseo:
+    url: "http://paseo.ai:6767/mcp/agents"
+    headers:
+      Host: "paseo.${MAIN_DOMAIN}"
+      Authorization: "Bearer $${PASEO_PASSWORD}"
