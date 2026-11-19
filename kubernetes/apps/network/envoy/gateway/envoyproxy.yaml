@@ -24,6 +24,7 @@ spec:
           resources:
             requests:
               cpu: 100m
+              memory: 256Mi
             limits:
               memory: 1Gi
       envoyService:
@@ -70,6 +71,7 @@ spec:
           resources:
             requests:
               cpu: 100m
+              memory: 256Mi
             limits:
               memory: 1Gi
       envoyService:
@@ -114,6 +116,7 @@ spec:
           resources:
             requests:
               cpu: 100m
+              memory: 256Mi
             limits:
               memory: 1Gi
       envoyService:
