@@ -70,7 +70,7 @@ spec:
       cpu: 100m
       memory: 1Gi
     limits:
-      memory: 1Gi
+      memory: 2Gi
   livenessProbe:
     httpGet:
       path: /health/liveliness
