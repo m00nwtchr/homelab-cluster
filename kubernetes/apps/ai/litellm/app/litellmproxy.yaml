@@ -124,8 +124,6 @@ spec:
     routing_strategy: usage-based-routing-v2
     redis_host: os.environ/REDIS_HOST
     model_group_alias:
-      honcho-fast: MiniMax-M3.1-Flash
-      honcho-quality: chatgpt/gpt-6.1-sol
       honcho-embedding: neuralwatt/qwen3-embedding-8b
   litellmSettings:
     set_verbose: false

@@ -1,0 +1,56 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: honcho-quality-chatgpt
+spec:
+  modelName: honcho-quality
+  proxyRef: litellm
+  params:
+    model: chatgpt/gpt-6.1-sol
+    additional:
+      order: 1
+      allowed_openai_params:
+        - reasoning_effort
+  info:
+    mode: responses
+    maxInputTokens: 272000
+    maxOutputTokens: 128000
+    supportsVision: true
+    supportsPromptCaching: true
+    extra:
+      input_cost_per_token: 2.0e-06
+      cache_creation_input_token_cost: 2.5e-06
+      cache_read_input_token_cost: 1.0e-07
+      output_cost_per_token: 1.0e-05
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: honcho-quality-minimax
+spec:
+  modelName: honcho-quality
+  proxyRef: litellm
+  params:
+    model: minimax/MiniMax-M3
+    apiBase: https://api.minimax.io/anthropic/v1/messages
+    apiKey: os.environ/MINIMAX_API_KEY
+    additional:
+      order: 2
+      allowed_openai_params:
+        - reasoning_effort
+  info:
+    mode: messages
+    maxInputTokens: 512000
+    maxOutputTokens: 131072
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
+    supportsVision: true
+    # https://platform.minimax.io/docs/pricing/overview — flat pricing.
+    extra:
+      input_cost_per_token: 3.0e-07
+      output_cost_per_token: 1.2e-06
+      cache_read_input_token_cost: 6.0e-08
+      supports_adaptive_thinking: true

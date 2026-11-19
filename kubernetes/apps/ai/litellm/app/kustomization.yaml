@@ -12,3 +12,5 @@ resources:
   - ./models/implementation-pool.yaml
   - ./models/auto.yaml
   - ./models/reasoning-pool.yaml
+  - ./models/honcho-fast.yaml
+  - ./models/honcho-quality.yaml

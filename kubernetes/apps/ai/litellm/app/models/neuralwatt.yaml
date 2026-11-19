@@ -83,8 +83,8 @@ spec:
     supportsVision: true
     extra:
       input_cost_per_token: 1.5e-07
-      cache_creation_input_token_cost: 0
-      cache_read_input_token_cost: 1.5e-08
+      cache_creation_input_token_cost: 1.5e-07
+      cache_read_input_token_cost: 2.0e-08
       output_cost_per_token: 6.0e-07
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
