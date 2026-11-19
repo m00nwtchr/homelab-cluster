@@ -19,8 +19,8 @@ spec:
               repository: ghcr.io/offendingcommit/openconcho-web
               tag: 0.17.1@sha256:62dc58ba22e533bb795021c80cfcc101c3a260c670accdb8e27bdc46a176fd2c
             env:
-              OPENCONCHO_DEFAULT_HONCHO_URL: https://honcho.${MAIN_DOMAIN}
-              OPENCONCHO_UPSTREAM_ALLOWLIST: honcho.${MAIN_DOMAIN}
+              OPENCONCHO_DEFAULT_HONCHO_URL: http://honcho.ai.svc.cluster.local
+              OPENCONCHO_UPSTREAM_ALLOWLIST: honcho.ai.svc.cluster.local
             # envFrom:
             #   - secretRef:
             #       name: *app
