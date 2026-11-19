@@ -18,15 +18,15 @@ spec:
           COMPLEX: reasoning-pool
           REASONING: reasoning-pool
 
-      classifier_type: jev
-      jev_classifier_config:
-        model: jev-latest
-        timeout_ms: 3000
-        circuit_breaker_enabled: true
+        classifier_type: jev
+        jev_classifier_config:
+          model: jev-latest
+          timeout_ms: 3000
+          circuit_breaker_enabled: true
 
-      classifier_fallback: default_model
-      classifier_context_window_size: 3
-      # classification_mode: user_turn
+        classifier_fallback: default_model
+        classifier_context_window_size: 3
+        # classification_mode: user_turn
 
-      session_affinity: true
-      session_affinity_ttl_seconds: 3600
+        session_affinity: true
+        session_affinity_ttl_seconds: 3600
