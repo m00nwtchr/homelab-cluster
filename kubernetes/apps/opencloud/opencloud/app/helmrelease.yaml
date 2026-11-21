@@ -88,11 +88,18 @@ spec:
               PROXY_AUTOPROVISION_ACCOUNTS: "true"
               PROXY_ROLE_ASSIGNMENT_DRIVER: "oidc"
 
-              OC_OIDC_ISSUER: https://idm.${MAIN_DOMAIN}/oauth2/openid/opencloudandroid
+              OC_OIDC_ISSUER: https://idm.${MAIN_DOMAIN}/oauth2/openid/opencloud
               WEB_OPTION_ACCOUNT_EDIT_LINK_HREF: "https://idm.${MAIN_DOMAIN}/ui/profile"
-              WEB_OIDC_CLIENT_ID: opencloudandroid
+              WEB_OIDC_CLIENT_ID: opencloud
+              WEBFINGER_OIDC_ISSUER: https://idm.${MAIN_DOMAIN}/oauth2/openid/opencloud
+              WEBFINGER_WEB_OIDC_CLIENT_ID: opencloud
+              WEBFINGER_DESKTOP_OIDC_CLIENT_ID: opencloud
+              WEBFINGER_ANDROID_OIDC_CLIENT_ID: opencloud
+              WEBFINGER_IOS_OIDC_CLIENT_ID: opencloud
               PROXY_OIDC_REWRITE_WELLKNOWN: "true"
-              PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none # Needed because Kanidm uses different JWKS keys for different client IDs
+              # Kanidm issues signed JWT access tokens for this per-client issuer.
+              PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: jwt
+              PROXY_OIDC_AUDIENCES: opencloud
               PROXY_USER_OIDC_CLAIM: "sub"
               PROXY_AUTOPROVISION_CLAIM_USERNAME: sub
               PROXY_USER_CS3_CLAIM: username
@@ -118,26 +125,7 @@ spec:
             securityContext: &ctx
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
-
-          webfinger-proxy:
-            image:
-              repository: ghcr.io/2bros-group/opencloud-oidc-webfinger-proxy
-              tag: v1.0.0@sha256:40dfe5aa1f716ca82870734d1e75d9727c5366ac5f97a1d1196cd5e4e38a457b
-            resources:
-              requests:
-                cpu: 10m
-                memory: 100Mi
-              limits:
-                memory: 100Mi
-            env:
-              PORT: "9201"
-              UPSTREAM_URL: https://cloud.${MAIN_DOMAIN}
-              HREF_PATTERN: &href https://idm.${MAIN_DOMAIN}/oauth2/openid/
-              HREF_REPLACEMENT: *href
-              DEFAULT_SUFFIX: opencloud
+              capabilities: { drop: [ALL] }
 
       wopi:
         annotations:
@@ -186,8 +174,6 @@ spec:
             targetPort: 9200
           nats:
             port: 9233
-          webfinger:
-            port: 9201
 
       wopi:
         controller: wopi
@@ -203,7 +189,7 @@ spec:
       collaboration:
         hostnames: ["wopi.${MAIN_DOMAIN}"]
         parentRefs:
-          - name: tunnel
+          - name: external
             namespace: network
           - name: internal
             namespace: network
@@ -215,7 +201,7 @@ spec:
       app:
         hostnames: ["cloud.${MAIN_DOMAIN}"]
         parentRefs:
-          - name: tunnel
+          - name: external
             namespace: network
           - name: internal
             namespace: network
@@ -229,60 +215,6 @@ spec:
                   value: /
             timeouts:
               request: "0s"
-          # desktop UA
-          - backendRefs:
-              - identifier: app
-                port: 9201
-            matches:
-              - path:
-                  type: Exact
-                  value: /.well-known/webfinger
-                headers:
-                  - type: RegularExpression
-                    name: User-Agent
-                    value: ".*mirall.*OpenCloud.*"
-            filters:
-              - type: RequestHeaderModifier
-                requestHeaderModifier:
-                  add:
-                    - name: X-Issuer-Suffix
-                      value: openclouddesktop
-          # Android UA
-          - backendRefs:
-              - identifier: app
-                port: 9201
-            matches:
-              - path:
-                  type: Exact
-                  value: /.well-known/webfinger
-                headers:
-                  - type: RegularExpression
-                    name: User-Agent
-                    value: ".*OpenCloud-android.*"
-            filters:
-              - type: RequestHeaderModifier
-                requestHeaderModifier:
-                  add:
-                    - name: X-Issuer-Suffix
-                      value: opencloudandroid
-          # iOS UA
-          - backendRefs:
-              - identifier: app
-                port: 9201
-            matches:
-              - path:
-                  type: Exact
-                  value: /.well-known/webfinger
-                headers:
-                  - type: RegularExpression
-                    name: User-Agent
-                    value: ".*OpenCloudApp"
-            filters:
-              - type: RequestHeaderModifier
-                requestHeaderModifier:
-                  add:
-                    - name: X-Issuer-Suffix
-                      value: opencloudios
 
     persistence:
       config:
@@ -305,25 +237,6 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /var/lib/opencloud
-
-      dex-config:
-        type: configMap
-        identifier: dex
-        advancedMounts:
-          dex:
-            app:
-              - path: /etc/dex/config.yaml
-                subPath: config.yaml
-                readOnly: true
-
-      dex:
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        retain: true
-        advancedMounts:
-          dex:
-            app:
-              - path: /var/dex
 
       tmpfs:
         type: emptyDir
