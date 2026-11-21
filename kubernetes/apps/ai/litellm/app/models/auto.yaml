@@ -12,21 +12,22 @@ spec:
     additional:
       complexity_router_default_model: MiniMax-M3.1-Flash
       complexity_router_config:
+        classifier_type: jev
+        classification_mode: user_turn
+
+        enable_context_window_escalation: true
+        classifier_context_include_assistant_turns: true
+
         tiers:
-          SIMPLE: deepseek-v4.1-flash
+          SIMPLE: lfm3-1.7b
           MEDIUM: MiniMax-M3.1-Flash
           COMPLEX: reasoning-pool
           REASONING: reasoning-pool
 
-        classifier_type: jev
         jev_classifier_config:
           model: jev-latest
           timeout_ms: 3000
           circuit_breaker_enabled: true
 
         classifier_fallback: default_model
-        classifier_context_window_size: 3
-        # classification_mode: user_turn
-
-        session_affinity: true
-        session_affinity_ttl_seconds: 3600
+        classifier_context_window_size: 6
