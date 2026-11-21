@@ -28,7 +28,7 @@ spec:
       OIDC_PUBLIC_CLIENT: "true"
       OIDC_DISPLAY_NAME: "OpenCloud"
       OIDC_CALLBACK: /oidc-callback.html
-      OIDC_EXTRA_CALLBACKS: '["https://cloud.m00nlit.dev/oidc-silent-redirect.html"]'
+      OIDC_EXTRA_CALLBACKS: '["https://cloud.${MAIN_DOMAIN}/oidc-silent-redirect.html"]'
       OIDC_SHORT_USERNAME: "true"
       OIDC_CLAIM_MAPS: |
         {
@@ -81,8 +81,8 @@ spec:
                 "displayName": "OpenCloud",
                 "originUrl": [
                   "oc://android.opencloud.eu",
-                  "https://cloud.m00nlit.dev/oidc-silent-redirect.html",
-                  "https://cloud.m00nlit.dev/oidc-callback.html"
+                  "https://cloud.${MAIN_DOMAIN}/oidc-silent-redirect.html",
+                  "https://cloud.${MAIN_DOMAIN}/oidc-callback.html"
                 ],
                 "originLanding": "oc://android.opencloud.eu",
                 "removeOrphanedClaimMaps": true,
