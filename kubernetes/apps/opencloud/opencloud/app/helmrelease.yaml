@@ -33,7 +33,7 @@ spec:
             env:
               OC_EXCLUDE_RUN_SERVICES: idp
 
-              OC_URL: &ocUrl https://cloud.${SECRET_DOMAIN}
+              OC_URL: &ocUrl https://cloud.${MAIN_DOMAIN}
               OC_LOG_LEVEL: info
               OC_LOG_COLOR: false
               OC_LOG_PRETTY: false
@@ -134,7 +134,7 @@ spec:
                 memory: 100Mi
             env:
               PORT: "9201"
-              UPSTREAM_URL: https://cloud.${SECRET_DOMAIN}
+              UPSTREAM_URL: https://cloud.${MAIN_DOMAIN}
               HREF_PATTERN: &href https://idm.${MAIN_DOMAIN}/oauth2/openid/
               HREF_REPLACEMENT: *href
               DEFAULT_SUFFIX: opencloud
@@ -213,7 +213,7 @@ spec:
                 port: 80
 
       app:
-        hostnames: ["cloud.${SECRET_DOMAIN}"]
+        hostnames: ["cloud.${MAIN_DOMAIN}"]
         parentRefs:
           - name: tunnel
             namespace: network

@@ -23,6 +23,7 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      DOMAIN: "${MAIN_DOMAIN}"
       SUBDOMAIN: cloud
       OIDC_PUBLIC_CLIENT: "true"
       OIDC_DISPLAY_NAME: "OpenCloud"
