@@ -27,13 +27,13 @@ spec:
           app:
             image: &image
               repository: opencloudeu/opencloud-rolling
-              tag: 8.1.0@sha256:8fc64ca861739cc62095cd558814f2eba6a90acf5998d884e439b33a47875da8
+              tag: 9.2.0@sha256:99698aea6bd88cf28004c773941cf69e2d24da136a3a45f9819b90b60506d14d
             command:
               ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
             env:
               OC_EXCLUDE_RUN_SERVICES: idp
 
-              OC_URL: &ocUrl https://cloud.${SECRET_DOMAIN}
+              OC_URL: &ocUrl https://cloud.${MAIN_DOMAIN}
               OC_LOG_LEVEL: info
               OC_LOG_COLOR: false
               OC_LOG_PRETTY: false
@@ -134,7 +134,7 @@ spec:
                 memory: 100Mi
             env:
               PORT: "9201"
-              UPSTREAM_URL: https://cloud.${SECRET_DOMAIN}
+              UPSTREAM_URL: https://cloud.${MAIN_DOMAIN}
               HREF_PATTERN: &href https://idm.${MAIN_DOMAIN}/oauth2/openid/
               HREF_REPLACEMENT: *href
               DEFAULT_SUFFIX: opencloud
@@ -213,7 +213,7 @@ spec:
                 port: 80
 
       app:
-        hostnames: ["cloud.${SECRET_DOMAIN}"]
+        hostnames: ["cloud.${MAIN_DOMAIN}"]
         parentRefs:
           - name: tunnel
             namespace: network
@@ -227,6 +227,8 @@ spec:
               - path:
                   type: PathPrefix
                   value: /
+            timeouts:
+              request: "0s"
           # desktop UA
           - backendRefs:
               - identifier: app
@@ -303,6 +305,25 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /var/lib/opencloud
+
+      dex-config:
+        type: configMap
+        identifier: dex
+        advancedMounts:
+          dex:
+            app:
+              - path: /etc/dex/config.yaml
+                subPath: config.yaml
+                readOnly: true
+
+      dex:
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        retain: true
+        advancedMounts:
+          dex:
+            app:
+              - path: /var/dex
 
       tmpfs:
         type: emptyDir

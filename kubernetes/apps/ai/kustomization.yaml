@@ -13,3 +13,4 @@ resources:
 
   - ./paseo/ks.yaml
   # - ./qdrant/ks.yaml
+  - ./sillytavern/ks.yaml

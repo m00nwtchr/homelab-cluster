@@ -30,8 +30,8 @@ spec:
                 --o:ssl.ssl_verification=true \
                 --o:ssl.termination=true \
                 --o:welcome.enable=false \
-                --o:net.frame_ancestors=cloud.${SECRET_DOMAIN} \
-                --o:net.lok_allow.host[14]=cloud.${SECRET_DOMAIN} \
+                --o:net.frame_ancestors=cloud.${MAIN_DOMAIN} \
+                --o:net.lok_allow.host[14]=cloud.${MAIN_DOMAIN} \
                 --o:home_mode.enable=false
             envFrom:
               - secretRef:

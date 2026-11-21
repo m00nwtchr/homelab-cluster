@@ -7,6 +7,18 @@ metadata:
 spec:
   groupRef:
     name: mcp-tools
+
+  # The pod has no IPv6 route, so ToolHive's CIMD document fetcher (which dials
+  # the first resolved IP, no fallback) fails on github.io's AAAA records with
+  # "network is unreachable" and reports the client as unknown. Pin the Hermes
+  # CIMD host to a GitHub Pages IPv4 address.
+  podTemplateSpec:
+    spec:
+      hostAliases:
+        - ip: 185.199.111.153
+          hostnames:
+            - nousresearch.github.io
+
   config:
     aggregation:
       conflictResolution: prefix

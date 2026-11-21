@@ -13,14 +13,20 @@ spec:
       complexity_router_default_model: MiniMax-M3.1-Flash
       complexity_router_config:
         tiers:
-          # SIMPLE: qwen3.8-flash-next
+          SIMPLE: deepseek-v4.1-flash
           MEDIUM: MiniMax-M3.1-Flash
-          COMPLEX: neuralwatt/glm-5.3-flash
-          REASONING: chatgpt/gpt-6.1-sol
-        classifier_type: llm
-        classifier_llm_config:
-          model: MiniMax-M3.1-Flash
-          timeout_ms: 20000
+          COMPLEX: reasoning-pool
+          REASONING: reasoning-pool
+
+        classifier_type: jev
+        jev_classifier_config:
+          model: jev-latest
+          timeout_ms: 3000
+          circuit_breaker_enabled: true
+
         classifier_fallback: default_model
+        classifier_context_window_size: 3
+        # classification_mode: user_turn
+
         session_affinity: true
         session_affinity_ttl_seconds: 3600

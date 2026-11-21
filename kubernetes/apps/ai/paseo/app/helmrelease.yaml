@@ -61,6 +61,12 @@ spec:
                     name: *app
                     key: PASEO_PASSWORD
 
+              LITELLM_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: "litellm-key-{{ .Release.Name }}"
+                    key: api-key
+
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:

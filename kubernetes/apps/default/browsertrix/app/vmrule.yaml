@@ -13,11 +13,11 @@ spec:
       interval: 1m
       rules:
         - alert: BrowsertrixRateLimited
-      expr: |
-        _time:5m
-        kubernetes.pod_namespace:="default"
-        kubernetes.container_name:="app"
-        context:="pageStatus"
-        message:="Page possibly rate limited, retrying"
-        | stats count() as hits
-        | filter hits:>3
+          expr: |
+            _time:5m
+            kubernetes.pod_namespace:="default"
+            kubernetes.container_name:="app"
+            context:="pageStatus"
+            message:="Page possibly rate limited, retrying"
+            | stats count() as hits
+            | filter hits:>3

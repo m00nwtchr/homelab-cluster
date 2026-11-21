@@ -160,6 +160,11 @@ spec:
                   secretKeyRef:
                     name: litellm-key-hermes
                     key: api-key
+              PASEO_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: paseo
+                    key: PASEO_PASSWORD
             envFrom:
               - secretRef:
                   name: *app
@@ -228,7 +233,7 @@ spec:
             app:
               - path: /etc/hermes
                 readOnly: true
-              - path: /opt/data/.honcho/config.json
+              - path: /opt/data/honcho.json
                 readOnly: true
                 subPath: honcho.json
 
@@ -295,6 +300,8 @@ spec:
           dashboard:
             appProtocol: kubernetes.io/wss
             port: 9119
+          webhook:
+            port: 8644
 # ---
 # # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 # apiVersion: helm.toolkit.fluxcd.io/v2

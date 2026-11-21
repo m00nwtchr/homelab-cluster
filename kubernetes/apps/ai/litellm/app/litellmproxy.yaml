@@ -51,7 +51,7 @@ spec:
     - name: PGSSLMODE
       value: verify-full
     - name: REDIS_HOST
-      value: dragonfly.database.svc.cluster.local
+      value: localhost
     - name: REDIS_PORT
       value: "6379"
     - name: STORE_MODEL_IN_DB
@@ -70,7 +70,7 @@ spec:
       cpu: 100m
       memory: 1Gi
     limits:
-      memory: 1Gi
+      memory: 2Gi
   livenessProbe:
     httpGet:
       path: /health/liveliness
@@ -123,14 +123,8 @@ spec:
   routerSettings:
     routing_strategy: usage-based-routing-v2
     redis_host: os.environ/REDIS_HOST
-    fallbacks:
-      - "MiniMax-M3.1-Flash":
-          - chatgpt/gpt-6-luna
     model_group_alias:
-      honcho-fast: MiniMax-M3.1-Flash
-      honcho-quality: chatgpt/gpt-6.1-sol
       honcho-embedding: neuralwatt/qwen3-embedding-8b
-      hermes: MiniMax-M3.1-Flash
   litellmSettings:
     set_verbose: false
     json_logs: true

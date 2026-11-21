@@ -26,6 +26,7 @@ spec:
       NAME: Hermes
       OIDC_PUBLIC_CLIENT: "true"
       OIDC_CALLBACK: /auth/callback
+      OIDC_EXTRA_CALLBACKS: '["https://hermes-dash.${MAIN_DOMAIN}/auth/callback"]'
       KOPIUR_PUID: "10000"
       KOPIUR_PGID: "10000"
       KOPIUR_CAPACITY: 10Gi

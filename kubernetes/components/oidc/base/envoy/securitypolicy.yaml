@@ -9,11 +9,33 @@ spec:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       name: *app
+
   oidc:
     provider:
       issuer: "https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}"
     clientID: *app
     clientSecret:
       name: "kanidm-${APP}-oidc"
-    redirectURL: "https://${SUBDOMAIN:=${APP}}.${SECRET_DOMAIN}/oauth2/callback"
-    logoutPath: "/logout"
+    redirectURL: "https://${SUBDOMAIN:=${APP}}.${DOMAIN:=${SECRET_DOMAIN}}/oauth2/callback"
+    logoutPath: "/oauth2/logout"
+    scopes:
+      - openid
+      - profile
+
+    # Feed the authenticated ID token to Envoy's JWT filter.
+    forwardIDToken:
+      header: X-OIDC-ID-Token
+
+  jwt:
+    providers:
+      - name: kanidm
+        issuer: https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}
+        audiences: [ *app ]
+        remoteJWKS:
+          uri: https://idm.${MAIN_DOMAIN}/oauth2/openid/${APP}/public_key.jwk
+        extractFrom:
+          headers:
+            - name: X-OIDC-ID-Token
+        claimToHeaders:
+          - claim: preferred_username
+            header: Remote-User

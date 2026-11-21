@@ -10,5 +10,3 @@ spec:
   keyAlias: Hermes
   secretName: litellm-key-hermes
   secretKey: api-key
-  models:
-    - hermes

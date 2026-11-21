@@ -1,0 +1,51 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app openconcho
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    controllers:
+      *app :
+        containers:
+          app:
+            image:
+              repository: ghcr.io/offendingcommit/openconcho-web
+              tag: 0.17.1@sha256:62dc58ba22e533bb795021c80cfcc101c3a260c670accdb8e27bdc46a176fd2c
+            env:
+              OPENCONCHO_DEFAULT_HONCHO_URL: http://honcho.ai.svc.cluster.local
+              OPENCONCHO_UPSTREAM_ALLOWLIST: honcho.ai.svc.cluster.local
+            # envFrom:
+            #   - secretRef:
+            #       name: *app
+            # resources:
+            #   requests:
+            #     cpu: 500m
+            #     memory: 2Gi
+            #   limits:
+            #     #                memory: 2Gi
+            #     memory: 3Gi
+
+    service:
+      app:
+        ports:
+          http:
+            port: 80
+            targetPort: 8080
+
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.${MAIN_DOMAIN}"]
+        parentRefs:
+          - name: internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80

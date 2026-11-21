@@ -1,0 +1,91 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: honcho-fast-minimax
+spec:
+  modelName: honcho-fast
+  proxyRef: litellm
+  params:
+    model: minimax/MiniMax-M3.1-Flash
+    apiBase: https://api.minimax.io/anthropic/v1/messages
+    apiKey: os.environ/MINIMAX_API_KEY
+    additional:
+      order: 1
+      allowed_openai_params:
+        - reasoning_effort
+  info:
+    mode: messages
+    maxInputTokens: 1000000
+    maxOutputTokens: 131072
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
+    supportsVision: true
+    # https://platform.minimax.io/docs/pricing/overview — flat Flash pricing.
+    extra:
+      input_cost_per_token: 1.5e-07
+      output_cost_per_token: 6.0e-07
+      cache_read_input_token_cost: 1.5e-08
+      cache_creation_input_token_cost: 1.5e-07
+      supports_adaptive_thinking: true
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: honcho-fast-chatgpt
+spec:
+  modelName: honcho-fast
+  proxyRef: litellm
+  params:
+    model: chatgpt/gpt-6-luna
+    additional:
+      additional_drop_params:
+        - temperature
+      order: 2
+      extra_body:
+        reasoning:
+          effort: high
+  info:
+    mode: responses
+    maxInputTokens: 272000
+    maxOutputTokens: 128000
+    supportsVision: true
+    supportsPromptCaching: true
+    extra:
+      input_cost_per_token: 1.0e-07
+      cache_creation_input_token_cost: 1.25e-07
+      cache_read_input_token_cost: 1.0e-08
+      output_cost_per_token: 5.0e-07
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: honcho-fast-neuralwatt
+spec:
+  modelName: honcho-fast
+  proxyRef: litellm
+  params:
+    model: openai/deepseek-v4.1-flash
+    apiBase: https://api.neuralwatt.com/v1
+    apiKey: os.environ/NEURALWATT_API_KEY
+    additional:
+      order: 4
+      max_budget: 1.0
+      budget_duration: 1d
+      allowed_openai_params:
+        - reasoning_effort
+  info:
+    mode: chat
+    maxInputTokens: 1000000
+    maxOutputTokens: 393216
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
+    supportsVision: true
+    extra:
+      input_cost_per_token: 1.5e-07
+      cache_creation_input_token_cost: 1.5e-07
+      cache_read_input_token_cost: 2.0e-08
+      output_cost_per_token: 6.0e-07
