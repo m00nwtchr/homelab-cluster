@@ -227,6 +227,8 @@ spec:
               - path:
                   type: PathPrefix
                   value: /
+            timeouts:
+              request: "0s"
           # desktop UA
           - backendRefs:
               - identifier: app
@@ -303,6 +305,25 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /var/lib/opencloud
+
+      dex-config:
+        type: configMap
+        identifier: dex
+        advancedMounts:
+          dex:
+            app:
+              - path: /etc/dex/config.yaml
+                subPath: config.yaml
+                readOnly: true
+
+      dex:
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        retain: true
+        advancedMounts:
+          dex:
+            app:
+              - path: /var/dex
 
       tmpfs:
         type: emptyDir
