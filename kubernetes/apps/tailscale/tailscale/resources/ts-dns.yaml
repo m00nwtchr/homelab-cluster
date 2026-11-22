@@ -17,7 +17,7 @@ kind: Service
 metadata:
   annotations:
     tailscale.com/tailnet-fqdn: "kepler.tail096cd8.ts.net"
-    tailscale.com/proxy-class: "ts-proxy"
+    tailscale.com/proxy-group: "egress-proxy"
   name: kepler
 spec:
   externalName: not-used

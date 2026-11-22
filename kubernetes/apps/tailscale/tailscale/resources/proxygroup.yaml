@@ -9,6 +9,16 @@ spec:
   replicas: 1
   proxyClass: ts-proxy
 ---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/tailscale.com/proxygroup_v1alpha1.json
+apiVersion: tailscale.com/v1alpha1
+kind: ProxyGroup
+metadata:
+  name: egress-proxy
+spec:
+  type: egress
+  replicas: 1
+  # proxyClass: ts-proxy
+---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/tailscale.com/proxyclass_v1alpha1.json
 apiVersion: tailscale.com/v1alpha1
 kind: ProxyClass
