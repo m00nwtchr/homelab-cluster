@@ -38,7 +38,7 @@ model:
 
 fallback_providers:
   - provider: litellm
-    model: glm-5.3
+    model: reasoning-pool
   - provider: litellm
     model: deepseek-v4.1-flash
 
