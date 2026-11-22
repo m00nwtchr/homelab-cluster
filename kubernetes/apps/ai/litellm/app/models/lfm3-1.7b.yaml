@@ -52,6 +52,14 @@ spec:
     memory: 2Gi
     memoryLimit: 4Gi
 
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 101
+    fsGroup: 102
+    fsGroupChangePolicy: OnRootMismatch
+    seccompProfile:
+      type: RuntimeDefault
+
   endpoint:
     port: 8080
     type: ClusterIP
