@@ -4,13 +4,14 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./certificate.yaml
-  - ./mutatingadmissionpolicy.yaml
   - ./litellmproxy.yaml
-  - ./models/minimax.yaml
-  - ./models/neuralwatt.yaml
-  - ./models/chatgpt.yaml
-  - ./models/implementation-pool.yaml
+  - ./mutatingadmissionpolicy.yaml
   - ./models/auto.yaml
-  - ./models/reasoning-pool.yaml
+  - ./models/chatgpt.yaml
   - ./models/honcho-fast.yaml
   - ./models/honcho-quality.yaml
+  - ./models/lfm3-1.7b.yaml
+  - ./models/implementation-pool.yaml
+  - ./models/minimax.yaml
+  - ./models/neuralwatt.yaml
+  - ./models/reasoning-pool.yaml
