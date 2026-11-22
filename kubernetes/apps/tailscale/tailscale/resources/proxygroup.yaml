@@ -17,7 +17,7 @@ metadata:
 spec:
   type: egress
   replicas: 1
-  # proxyClass: ts-proxy
+  proxyClass: ts-proxy
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/tailscale.com/proxyclass_v1alpha1.json
 apiVersion: tailscale.com/v1alpha1
@@ -25,15 +25,15 @@ kind: ProxyClass
 metadata:
   name: ts-proxy
 spec:
-  # metrics:
-  #   enable: true
-  #   serviceMonitor:
-  #     enable: true
-  staticEndpoints:
-    nodePort:
-      ports:
-        - port: 31667
-          endPort: 31680
+  metrics:
+    enable: true
+    serviceMonitor:
+      enable: true
+  # staticEndpoints:
+  #   nodePort:
+  #     ports:
+  #       - port: 31667
+  #         endPort: 31680
   # statefulSet:
   #   pod:
   #     securityContext:
