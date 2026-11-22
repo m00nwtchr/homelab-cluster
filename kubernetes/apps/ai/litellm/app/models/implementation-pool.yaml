@@ -3,6 +3,25 @@
 apiVersion: litellm.home-operations.com/v1alpha1
 kind: LiteLLMModel
 metadata:
+  name: implementation-pool-lfm3
+spec:
+  modelName: implementation-pool
+  proxyRef: litellm
+  params:
+    model: openai/lfm3:1.7b
+    additional:
+      additional_drop_params:
+        - temperature
+      order: 1
+  info:
+    mode: chat
+    maxInputTokens: 262144
+    supportsFunctionCalling: true
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
   name: implementation-pool-chatgpt
 spec:
   modelName: implementation-pool
@@ -12,7 +31,7 @@ spec:
     additional:
       additional_drop_params:
         - temperature
-      order: 1
+      order: 2
       extra_body:
         reasoning:
           effort: high
