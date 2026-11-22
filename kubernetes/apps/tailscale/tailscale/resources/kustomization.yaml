@@ -5,5 +5,4 @@ kind: Kustomization
 resources:
   - ./connector.yaml
   - ./proxygroup.yaml
-  - ./tide-egress.yaml
   - ./ts-dns.yaml
