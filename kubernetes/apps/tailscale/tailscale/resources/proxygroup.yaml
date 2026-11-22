@@ -29,6 +29,13 @@ spec:
     enable: true
     serviceMonitor:
       enable: true
+
+  statefulSet:
+    pod:
+      tailscaleContainer:
+        debug:
+          enable: false
+
   # staticEndpoints:
   #   nodePort:
   #     ports:
