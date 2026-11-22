@@ -1,68 +1,68 @@
----
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/model_v1alpha1.json
-apiVersion: inference.llmkube.dev/v1alpha1
-kind: Model
-metadata:
-  name: lfm3-1-7b
-spec:
-  source: https://huggingface.co/LiquidAI/LFM3-1.7B-GGUF/resolve/main/LFM3-1.7B-Q8_0.gguf
-  format: gguf
-  quantization: Q8_0
-  hardware:
-    accelerator: cpu
----
-# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/inferenceservice_v1alpha1.json
-apiVersion: inference.llmkube.dev/v1alpha1
-kind: InferenceService
-metadata:
-  name: &model lfm3-1-7b
-spec:
-  modelRef: *model
-  image: ghcr.io/ggml-org/llama.cpp:server@sha256:ae28f5c2046de51dfd00c9116a36fe44b5e8703ef730d0aea69082781eecb1f7
+# ---
+# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/model_v1alpha1.json
+# apiVersion: inference.llmkube.dev/v1alpha1
+# kind: Model
+# metadata:
+#   name: lfm3-1-7b
+# spec:
+#   source: https://huggingface.co/LiquidAI/LFM3-1.7B-GGUF/resolve/main/LFM3-1.7B-Q8_0.gguf
+#   format: gguf
+#   quantization: Q8_0
+#   hardware:
+#     accelerator: cpu
+# ---
+# # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/inference.llmkube.dev/inferenceservice_v1alpha1.json
+# apiVersion: inference.llmkube.dev/v1alpha1
+# kind: InferenceService
+# metadata:
+#   name: &model lfm3-1-7b
+# spec:
+#   modelRef: *model
+#   image: ghcr.io/ggml-org/llama.cpp:server@sha256:ae28f5c2046de51dfd00c9116a36fe44b5e8703ef730d0aea69082781eecb1f7
 
-  priority: normal
+#   priority: normal
 
-  contextSize: &ctx 16384
-  batchSize: 2048
-  uBatchSize: 512
-  parallelSlots: 1
+#   contextSize: &ctx 16384
+#   batchSize: 2048
+#   uBatchSize: 512
+#   parallelSlots: 1
 
-  jinja: true
-  flashAttention: true
-  cacheTypeK: q8_0
-  cacheTypeV: q8_0
+#   jinja: true
+#   flashAttention: true
+#   cacheTypeK: q8_0
+#   cacheTypeV: q8_0
 
-  extraArgs:
-    - --alias
-    - *model
-    - --threads
-    - "6"
-    - --threads-batch
-    - "6"
-    - --host
-    - "::"
+#   extraArgs:
+#     - --alias
+#     - *model
+#     - --threads
+#     - "6"
+#     - --threads-batch
+#     - "6"
+#     - --host
+#     - "::"
 
-  replicas: 1
-  rolloutPolicy:
-    waitForIdle: true
-    idleTimeoutSeconds: 86400
+#   replicas: 1
+#   rolloutPolicy:
+#     waitForIdle: true
+#     idleTimeoutSeconds: 86400
 
-  resources:
-    cpu: "2"
-    memory: 2Gi
-    memoryLimit: 4Gi
+#   resources:
+#     cpu: "2"
+#     memory: 2Gi
+#     memoryLimit: 4Gi
 
-  podSecurityContext:
-    runAsNonRoot: true
-    runAsUser: 101
-    fsGroup: 102
-    fsGroupChangePolicy: OnRootMismatch
-    seccompProfile:
-      type: RuntimeDefault
+#   podSecurityContext:
+#     runAsNonRoot: true
+#     runAsUser: 101
+#     fsGroup: 102
+#     fsGroupChangePolicy: OnRootMismatch
+#     seccompProfile:
+#       type: RuntimeDefault
 
-  endpoint:
-    port: 8080
-    type: ClusterIP
+#   endpoint:
+#     port: 8080
+#     type: ClusterIP
 ---
 # yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/litellm.home-operations.com/litellmmodel_v1alpha1.json
 apiVersion: litellm.home-operations.com/v1alpha1
@@ -70,13 +70,13 @@ kind: LiteLLMModel
 metadata:
   name: lfm3-1-7b
 spec:
-  modelName: lfm3-1.7b
+  modelName: lfm3:1.7b
   proxyRef: litellm
   params:
-    model: openai/lfm3-1-7b
-    apiBase: http://lfm3-1-7b.ai.svc.cluster.local:8080/v1
+    model: openai/lfm3:1.7b
+    apiBase: https://kepler.tail096cd8.ts.net:9931
     apiKey: none
   info:
     mode: chat
-    maxInputTokens: 16384
+    maxInputTokens: 262144
     supportsFunctionCalling: true
