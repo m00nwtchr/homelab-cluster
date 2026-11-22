@@ -28,7 +28,7 @@ spec:
                   matchExpressions:
                     - key: app.kubernetes.io/name
                       operator: In
-                      values: ["headroom"]
+                      values: [*app]
 
     controllers:
       *app :

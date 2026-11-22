@@ -9,6 +9,8 @@ spec:
   proxyRef: litellm
   params:
     model: openai/lfm3:1.7b
+    apiBase: https://kepler.tail096cd8.ts.net:9931/v1
+    apiKey: none
     additional:
       additional_drop_params:
         - temperature
