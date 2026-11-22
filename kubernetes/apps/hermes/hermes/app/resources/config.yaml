@@ -33,24 +33,26 @@ webapp:
   public_url: https://${APP}.${MAIN_DOMAIN}
 
 model:
-  default: reasoning-pool
+  default: auto
   provider: litellm
 
 fallback_providers:
   - provider: litellm
-    model: glm-5.3
+    model: reasoning-pool
   - provider: litellm
     model: deepseek-v4.1-flash
 
 providers:
   litellm:
-    base_url: http://litellm.ai/v1
-    transport: openai_chat
+    api: http://litellm.ai/v1
+    transport: chat_completions
     key_env: HERMES_LITELLM_API_KEY
+    session_affinity_header: x-litellm-session-id
   litellm-anthropic:
-    base_url: http://litellm.ai/
+    api: http://litellm.ai/
     transport: anthropic_messages
     key_env: HERMES_LITELLM_API_KEY
+    session_affinity_header: x-litellm-session-id
 
 delegation:
   roles:

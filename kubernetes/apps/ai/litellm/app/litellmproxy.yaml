@@ -150,6 +150,7 @@ spec:
     environment:
       - MINIMAX_API_KEY
       - NEURALWATT_API_KEY
+      - TYPESAFE_API_KEY
       - REDIS_HOST
       - REDIS_PORT
   apiAccess:
