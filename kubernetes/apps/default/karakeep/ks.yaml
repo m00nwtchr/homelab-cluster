@@ -30,6 +30,7 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      DOMAIN: ${MAIN_DOMAIN}
       OIDC_CALLBACK: /api/auth/callback/custom
       OIDC_LEGACY_CRYPTO: "true"
     substituteFrom:
