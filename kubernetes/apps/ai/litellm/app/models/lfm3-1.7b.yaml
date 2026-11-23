@@ -70,7 +70,7 @@ kind: LiteLLMModel
 metadata:
   name: lfm3-1-7b
 spec:
-  modelName: lfm3:1.7b
+  modelName: lfm3-1.7b
   proxyRef: litellm
   params:
     model: openai/lfm3:1.7b

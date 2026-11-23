@@ -19,7 +19,7 @@ spec:
         classifier_context_include_assistant_turns: true
 
         tiers:
-          SIMPLE: lfm3:1.7b
+          SIMPLE: lfm3-1.7b
           MEDIUM: MiniMax-M3.1-Flash
           COMPLEX: reasoning-pool
           REASONING: reasoning-pool
