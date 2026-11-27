@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ollama/ollama
-              tag: 0.32.3@sha256:ec24bcaa2a810eb74171ce7c517813ef4821ed678988845e8d76cf62467036d4
+              tag: 0.40.19@sha256:7e8c7ba387b11b09dcce1eff1118b1ab433564ed263434a7730c209f2ee346f4
             env:
               TZ: "${TZ}"
               OLLAMA_HOST: "::"
