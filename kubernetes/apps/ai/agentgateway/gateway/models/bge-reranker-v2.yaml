@@ -19,7 +19,7 @@ metadata:
   name: &model bge-reranker-v2
 spec:
   modelRef: *model
-  image: ghcr.io/ggml-org/llama.cpp:server@sha256:c789283572ba78c2699b8945a96e654c850f938a717883f2e6187a14adac698f
+  image: ghcr.io/ggml-org/llama.cpp:server@sha256:472fde764c6c0d48d76f6563aeef68fedb7bb3514b2e2b5b71997cae26412ccb
 
   priority: normal
   contextSize: 4096
