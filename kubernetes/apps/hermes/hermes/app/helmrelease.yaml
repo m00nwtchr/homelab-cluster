@@ -93,7 +93,7 @@ spec:
           config-migrate:
             image: &image
               repository: docker.io/nousresearch/hermes-agent
-              tag: v0.23.1@sha256:276d44685c65c0cb2a25f190b63c65c8906f9dc76486fb1c05ae71b5826bda08
+              tag: v0.23.5@sha256:bc79a80fc9cb97521f4380c5d5b2ad88e2469e50fc1d5027339bbb42cc206854
             command:
               - /bin/sh
               - -c
